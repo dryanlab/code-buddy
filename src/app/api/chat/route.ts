@@ -54,7 +54,7 @@ export async function POST(req: Request) {
       );
     }
 
-    const stream = provider.streamChat(SYSTEM_PROMPT, messages);
+    const stream = provider.streamChat(finalPrompt, messages);
 
     const encoder = new TextEncoder();
     const readable = new ReadableStream({
