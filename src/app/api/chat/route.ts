@@ -68,16 +68,43 @@ function getSkillPrompt(skillLevel: string): string {
   }
 }
 
-function buildSystemPrompt(userName: string, skillLevel: string): string {
-  return BASE_SYSTEM_PROMPT.replace("{{USER_NAME}}", userName) + getSkillPrompt(skillLevel);
+function getProgressContext(completedLessons: string[]): string {
+  const lessonNames: Record<string, string> = {
+    "1-1": "Hacker Invasion (print)", "1-2": "Mad Libs (variables+input)", "1-3": "Pizza Calculator (math)",
+    "1-4": "Turtle Art (turtle graphics)", "1-5": "Rollercoaster Inspector (if-else)", "1-6": "Text Adventure Game (project)",
+    "2-1": "Polygon Master (for loops)", "2-2": "RPG Backpack (lists)", "2-3": "Guessing Game (while loops)",
+    "2-4": "String Explorer (string methods)", "2-5": "Function Factory (functions)", "2-6": "Mini Project (combining skills)",
+    "3-1": "Advanced Functions", "3-2": "File I/O", "3-3": "Error Handling", "3-4": "OOP Intro",
+    "3-5": "Modules", "3-6": "APIs", "3-7": "Builder Capstone",
+    "4-1": "Algorithms", "4-2": "Data Structures", "4-3": "Recursion",
+    "4-4": "Sorting", "4-5": "Problem Solving", "4-6": "Optimization",
+    "5-1": "AI Concepts", "5-2": "Prompt Engineering", "5-3": "AI Code Review",
+    "5-4": "AI Ethics", "5-5": "AI Capstone",
+  };
+  if (!completedLessons || completedLessons.length === 0) {
+    return "\n\n## Student Progress\nThis student hasn't completed any lessons yet. They're just starting!";
+  }
+  const names = completedLessons
+    .map((id) => lessonNames[id] || id)
+    .slice(-8); // Show last 8 for context
+  return `\n\n## Student Progress
+This student has completed ${completedLessons.length}/30 lessons.
+Recent completions: ${names.join(", ")}
+Adapt your explanations to concepts they've already learned. You can reference topics from completed lessons. Don't assume knowledge from lessons they haven't taken yet.`;
+}
+
+function buildSystemPrompt(userName: string, skillLevel: string, completedLessons: string[]): string {
+  return BASE_SYSTEM_PROMPT.replace("{{USER_NAME}}", userName)
+    + getSkillPrompt(skillLevel)
+    + getProgressContext(completedLessons);
 }
 
 export async function POST(req: Request) {
   try {
-    const { messages, userName, skillLevel } = await req.json();
+    const { messages, userName, skillLevel, completedLessons } = await req.json();
     const provider = getProvider();
     const userSkill = (skillLevel === "beginner" || skillLevel === "intermediate" || skillLevel === "advanced") ? skillLevel : "beginner";
-    const finalPrompt = buildSystemPrompt(userName || "friend", userSkill);
+    const finalPrompt = buildSystemPrompt(userName || "friend", userSkill, completedLessons || []);
 
     if (!provider) {
       return new Response(

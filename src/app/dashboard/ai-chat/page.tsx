@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { useState, useRef, useEffect } from "react";
-import { incrementChatCount } from "@/lib/progress-store";
+import { incrementChatCount, getProgress } from "@/lib/progress-store";
 import { useUserProfile } from "@/lib/useUserProfile";
 
 interface Message {
@@ -53,6 +53,7 @@ export default function AIChatPage() {
           messages: [...messages, userMsg].map((m) => ({ role: m.role, content: m.content })),
           userName: userProfile?.name || undefined,
           skillLevel: userProfile?.skillLevel || "beginner",
+          completedLessons: getProgress().completedLessons,
         }),
       });
 

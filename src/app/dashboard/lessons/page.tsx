@@ -6,14 +6,14 @@ import { useEffect, useState } from "react";
 import { getProgress } from "@/lib/progress-store";
 import { MODULES, LESSONS } from "@/data/lessons";
 import { useUserProfile } from "@/lib/useUserProfile";
-import { SKILL_LABELS } from "@/lib/skill-store";
+import { getStartingIndex, getLessonIndex, CURRICULUM_PATH, SKILL_LABELS, type SkillLevel } from "@/lib/skill-store";
 
 export default function LessonsPage() {
   const [completedLessons, setCompletedLessons] = useState<string[]>([]);
   const { profile } = useUserProfile();
-  const skillLevel = profile?.skillLevel || "beginner";
-  const SKILL_ORDER = ["beginner", "intermediate", "advanced"];
-  const userSkillIdx = SKILL_ORDER.indexOf(skillLevel);
+  const skillLevel: SkillLevel = profile?.skillLevel || "beginner";
+  const startIdx = getStartingIndex(skillLevel);
+  const skillLabel = SKILL_LABELS[skillLevel];
 
   useEffect(() => {
     setCompletedLessons(getProgress().completedLessons);
@@ -24,14 +24,22 @@ export default function LessonsPage() {
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
         <h1 className="text-3xl font-bold mb-1">📚 Lessons</h1>
         <p className="text-sm mb-1" style={{ color: "var(--theme-text-muted)" }}>课程</p>
-        <p className="mb-2" style={{ color: "var(--theme-text-secondary)" }}>Choose a module and start your coding adventure!</p>
-        <p className="text-sm mb-8" style={{ color: "var(--theme-text-muted)" }}>选择一个模块，开始你的编程冒险！</p>
+        <p className="mb-2" style={{ color: "var(--theme-text-secondary)" }}>
+          Your journey as {skillLabel.emoji} {skillLabel.en} starts at lesson {startIdx + 1} of {CURRICULUM_PATH.length}
+        </p>
+        <p className="text-sm mb-8" style={{ color: "var(--theme-text-muted)" }}>
+          {skillLabel.cn}的旅程从第 {startIdx + 1} 课开始 · 选择一个模块开始冒险！
+        </p>
       </motion.div>
 
       <div className="space-y-10">
         {MODULES.map((mod, mi) => {
           const moduleLessons = LESSONS.filter((l) => l.moduleId === mod.id).sort((a, b) => a.order - b.order);
           const completed = moduleLessons.filter((l) => completedLessons.includes(l.id)).length;
+
+          // Check if entire module is "review" territory
+          const moduleIndices = moduleLessons.map((l) => getLessonIndex(l.id));
+          const allBeforeStart = moduleIndices.every((idx) => idx < startIdx);
 
           return (
             <motion.div
@@ -43,7 +51,14 @@ export default function LessonsPage() {
               <div className="flex items-center gap-4 mb-4">
                 <span className="text-4xl">{mod.icon}</span>
                 <div>
-                  <h2 className="text-xl font-bold">{mod.title}</h2>
+                  <h2 className="text-xl font-bold">
+                    {mod.title}
+                    {allBeforeStart && (
+                      <span className="ml-2 text-sm font-normal" style={{ color: "var(--theme-text-muted)" }}>
+                        (Review · 复习)
+                      </span>
+                    )}
+                  </h2>
                   <p className="text-sm" style={{ color: "var(--theme-text-secondary)" }}>{mod.subtitle}</p>
                 </div>
                 <div className="ml-auto text-sm" style={{ color: "var(--theme-text-secondary)" }}>
@@ -62,11 +77,22 @@ export default function LessonsPage() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 {moduleLessons.map((lesson, li) => {
                   const isDone = completedLessons.includes(lesson.id);
-                  const isLocked = li > 0 && !completedLessons.includes(moduleLessons[li - 1].id) && !isDone;
-                  const lessonSkillIdx = SKILL_ORDER.indexOf(lesson.skillLevel);
-                  const isRecommended = lessonSkillIdx <= userSkillIdx;
-                  const isReview = lessonSkillIdx < userSkillIdx && !isDone;
-                  const skillBadge = SKILL_LABELS[lesson.skillLevel as keyof typeof SKILL_LABELS];
+                  const prevLesson = li > 0 ? moduleLessons[li - 1] : null;
+                  const globalIdx = getLessonIndex(lesson.id);
+                  const isBeforeStart = globalIdx < startIdx;
+                  const isAtOrAfterStart = globalIdx >= startIdx;
+
+                  // Unlock logic: lessons before starting point are always unlocked (review).
+                  // Lessons at/after starting point follow normal sequential unlock.
+                  const isLocked = isAtOrAfterStart
+                    && !isDone
+                    && li > 0
+                    && !completedLessons.includes(prevLesson!.id)
+                    // But the very first lesson at or after start should be unlocked
+                    && globalIdx !== startIdx;
+
+                  // Difficulty badge based on curriculum position
+                  const diffBadge = globalIdx < 6 ? "🟢" : globalIdx < 12 ? "🟡" : "🔴";
 
                   return (
                     <Link
@@ -83,20 +109,20 @@ export default function LessonsPage() {
                             : "var(--theme-card-bg)",
                           borderColor: isDone
                             ? `color-mix(in srgb, var(--color-success) 30%, transparent)`
-                            : isRecommended
-                            ? `color-mix(in srgb, var(--color-primary) 25%, transparent)`
+                            : globalIdx === startIdx && !isDone
+                            ? `color-mix(in srgb, var(--color-primary) 40%, transparent)`
                             : "var(--theme-border)",
-                          opacity: isLocked ? 0.5 : !isRecommended && !isDone ? 0.7 : 1,
+                          opacity: isLocked ? 0.5 : isBeforeStart && !isDone ? 0.6 : 1,
                         }}
                       >
-                        {isReview && (
+                        {isBeforeStart && !isDone && (
                           <div className="absolute -top-2 -right-2 text-[10px] px-2 py-0.5 rounded-full" style={{ backgroundColor: "var(--theme-border)", color: "var(--theme-text-muted)" }}>
-                            📖 Review
+                            📖 Review · 复习
                           </div>
                         )}
-                        {!isRecommended && !isDone && !isLocked && (
-                          <div className="absolute -top-2 -right-2 text-[10px] px-2 py-0.5 rounded-full" style={{ backgroundColor: "var(--theme-border)", color: "var(--theme-text-muted)" }}>
-                            🔮 Advanced
+                        {globalIdx === startIdx && !isDone && (
+                          <div className="absolute -top-2 -right-2 text-[10px] px-2 py-0.5 rounded-full font-bold" style={{ backgroundColor: "var(--color-primary)", color: "var(--theme-bg)" }}>
+                            ▶️ Start Here · 从这里开始
                           </div>
                         )}
                         <div className="flex items-center gap-3">
@@ -105,7 +131,7 @@ export default function LessonsPage() {
                           </span>
                           <div className="flex-1 min-w-0">
                             <div className="font-semibold text-sm truncate">
-                              {skillBadge.emoji} {lesson.title}
+                              {diffBadge} {lesson.title}
                             </div>
                             <div className="text-xs truncate" style={{ color: "var(--theme-text-secondary)" }}>{lesson.subtitle}</div>
                           </div>

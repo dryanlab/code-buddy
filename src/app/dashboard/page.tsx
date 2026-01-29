@@ -9,7 +9,9 @@ import { MODULES, LESSONS } from "@/data/lessons";
 import { getUser, getSessionUser, type UserProfile } from "@/lib/auth-store";
 import { isSupabaseConfigured } from "@/lib/supabase";
 import { useUserProfile, getSkillGreeting } from "@/lib/useUserProfile";
-import { SKILL_LABELS, type SkillLevel } from "@/lib/skill-store";
+import { SKILL_LABELS, type SkillLevel, getNextLessonId, getStartingIndex, CURRICULUM_PATH } from "@/lib/skill-store";
+import SkillQuiz from "@/components/SkillQuiz";
+
 function XPBar({ xp, level }: { xp: number; level: number }) {
   const info = getLevelInfo(xp);
   const currentLevel = LEVELS.find((l) => l.level === level) || LEVELS[0];
@@ -88,9 +90,7 @@ function SkillTree({ progress }: { progress: UserProgress }) {
   );
 }
 
-function QuickActions() {
-  const lastLesson = getLastLessonId();
-  const continueHref = lastLesson ? `/dashboard/lessons/${lastLesson}` : "/dashboard/lessons";
+function QuickActions({ continueHref }: { continueHref: string }) {
   return (
     <div className="space-y-4">
       <div>
@@ -170,12 +170,20 @@ export default function DashboardPage() {
   const greeting = getSkillGreeting(skillLevel);
   const skillLabel = skillLevel ? SKILL_LABELS[skillLevel] : null;
 
-  // Recommended lessons based on skill level
-  const SKILL_ORDER: SkillLevel[] = ["beginner", "intermediate", "advanced"];
-  const userSkillIdx = skillLevel ? SKILL_ORDER.indexOf(skillLevel) : 0;
-  const recommendedLessons = LESSONS
-    .filter((l) => SKILL_ORDER.indexOf(l.skillLevel) <= userSkillIdx)
-    .filter((l) => !progress.completedLessons.includes(l.id))
+  // One path, different starting points
+  const effectiveSkill: SkillLevel = skillLevel || "beginner";
+  const startIdx = getStartingIndex(effectiveSkill);
+  const nextLessonId = getNextLessonId(effectiveSkill, progress.completedLessons);
+  const lastLesson = getLastLessonId();
+  const continueHref = lastLesson
+    ? `/dashboard/lessons/${lastLesson}`
+    : `/dashboard/lessons/${nextLessonId}`;
+
+  // Recommended: next incomplete lessons from starting point onward
+  const recommendedLessons = CURRICULUM_PATH
+    .slice(startIdx)
+    .map((id) => LESSONS.find((l) => l.id === id)!)
+    .filter((l) => l && !progress.completedLessons.includes(l.id))
     .slice(0, 4);
 
   return (
@@ -201,15 +209,15 @@ export default function DashboardPage() {
       </motion.div>
 
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}>
-        <QuickActions />
+        <QuickActions continueHref={continueHref} />
       </motion.div>
 
       {recommendedLessons.length > 0 && (
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.35 }}>
           <div className="space-y-4">
             <div>
-              <h2 className="text-xl font-bold">🎯 Recommended for You {skillLabel ? skillLabel.emoji : ""}</h2>
-              <p className="text-sm" style={{ color: "var(--theme-text-muted)" }}>为你推荐的课程</p>
+              <h2 className="text-xl font-bold">🎯 Your Next Lessons {skillLabel ? skillLabel.emoji : ""}</h2>
+              <p className="text-sm" style={{ color: "var(--theme-text-muted)" }}>接下来的课程</p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               {recommendedLessons.map((lesson) => (

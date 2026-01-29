@@ -25,7 +25,7 @@ function ExerciseCard({ exercise, isSelected, onClick, isRecommended }: { exerci
     >
       {!isRecommended && (
         <div className="absolute -top-1.5 -right-1.5 text-[9px] px-1.5 py-0.5 rounded-full" style={{ backgroundColor: "var(--theme-border)", color: "var(--theme-text-muted)" }}>
-          🔒 Advanced
+          🔮 Challenge
         </div>
       )}
       <div className="flex items-center justify-between mb-1">
