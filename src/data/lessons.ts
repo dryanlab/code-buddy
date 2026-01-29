@@ -49,6 +49,16 @@ export interface BugChallenge {
   explanation: string;
 }
 
+export interface InlineExercise {
+  prompt: string;
+  promptZh: string;
+  starterCode: string;
+  expectedOutput: string;
+  hint: string;
+  hintZh: string;
+  solution: string;
+}
+
 export interface LessonSection {
   type: "text" | "interactive" | "code" | "quiz" | "animation" | "challenge" | "parsons" | "fill-blank" | "output-choice" | "bug-hunt";
   content: string;
@@ -61,6 +71,7 @@ export interface LessonSection {
   fillBlank?: FillBlank;
   outputChoice?: OutputChoice;
   bugChallenge?: BugChallenge;
+  exercise?: InlineExercise;
 }
 
 export interface Lesson {
@@ -196,6 +207,15 @@ Create your own hacker-style message! Try changing the text above to make it you
 - Use emojis like 🟢🔴⚡💻🔓🎯
 - Make it dramatic: "INITIATING...", "BYPASSING SECURITY..."
 - Add your name: "Welcome, Agent [YourName]!"`,
+        exercise: {
+          prompt: "Write a print statement that displays: Hello, World!",
+          promptZh: "写一个 print 语句，显示：Hello, World!",
+          starterCode: "# Type your code here\n",
+          expectedOutput: "Hello, World!",
+          hint: "Use print() with the text in quotes: print(\"...\")",
+          hintZh: "使用 print()，文字要放在引号里：print(\"...\")",
+          solution: 'print("Hello, World!")',
+        },
       },
       {
         type: "quiz",
@@ -274,6 +294,15 @@ print("Then they flew to Mars at " + adjective + " speed!")
 \`\`\`
 
 **Your turn!** What story ingredients would you choose?`,
+        exercise: {
+          prompt: "Create a variable called 'name' with your name, then print: Hello, [name]! (Use + to join strings)",
+          promptZh: "创建一个叫 'name' 的变量存你的名字，然后打印：Hello, [名字]!（用 + 拼接字符串）",
+          starterCode: '# Store your name in a variable\nname = "Coder"\n# Print a greeting\n',
+          expectedOutput: "Hello, Coder!",
+          hint: "Use + to join strings: print(\"Hello, \" + name + \"!\")",
+          hintZh: "用 + 拼接字符串：print(\"Hello, \" + name + \"!\")",
+          solution: 'name = "Coder"\nprint("Hello, " + name + "!")',
+        },
       },
       {
         type: "code",
@@ -375,6 +404,15 @@ You ordered 17 slices of pizza 🍕 for 5 friends. How many slices does each per
 This is where **division** and **remainder** become pizza superheroes! 
 
 Try figuring it out before looking at the code below! 🧮`,
+        exercise: {
+          prompt: "Calculate: 17 slices ÷ 5 friends. Print the whole slices per person (use //) and the leftover (use %), each on a new line.",
+          promptZh: "计算：17片披萨÷5个朋友。分别打印每人整数份数（用//）和剩余片数（用%），各占一行。",
+          starterCode: "slices = 17\nfriends = 5\n# Print slices per person (whole number)\n# Print leftover slices\n",
+          expectedOutput: "3\n2",
+          hint: "Use // for whole division and % for remainder: print(slices // friends)",
+          hintZh: "用 // 整除，用 % 取余：print(slices // friends)",
+          solution: "slices = 17\nfriends = 5\nprint(slices // friends)\nprint(slices % friends)",
+        },
       },
       {
         type: "code",
@@ -606,6 +644,15 @@ Plan your turtle masterpiece:
 **Pro tip:** Total turn degrees = 360° ÷ number of sides
 
 🐢 When you get Python installed, bring your design to life!`,
+        exercise: {
+          prompt: "Calculate the turn angle for a pentagon (5 sides). Print the result of 360 divided by 5.",
+          promptZh: "计算五边形（5条边）的转弯角度。打印 360 除以 5 的结果。",
+          starterCode: "# Calculate the angle for a pentagon\nsides = 5\n",
+          expectedOutput: "72.0",
+          hint: "Use regular division: print(360 / sides)",
+          hintZh: "用普通除法：print(360 / sides)",
+          solution: "sides = 5\nprint(360 / sides)",
+        },
       },
       {
         type: "quiz",
@@ -687,6 +734,15 @@ Think through the logic:
 **Result:** All clear! 🎢
 
 This step-by-step checking is exactly what if-else statements do!`,
+        exercise: {
+          prompt: "Write an if-else: if height is 50 and minimum is 48, print \"Safe to ride!\" if tall enough, otherwise \"Too short!\"",
+          promptZh: "写一个 if-else：如果 height 是 50，最低要求 48，够高就打印 \"Safe to ride!\"，否则打印 \"Too short!\"",
+          starterCode: "height = 50\nminimum = 48\n# Write your if-else here\n",
+          expectedOutput: "Safe to ride!",
+          hint: "Use: if height >= minimum: then print one thing, else print the other",
+          hintZh: "用 if height >= minimum: 然后打印一个结果，else 打印另一个",
+          solution: "height = 50\nminimum = 48\nif height >= minimum:\n    print(\"Safe to ride!\")\nelse:\n    print(\"Too short!\")",
+        },
       },
       {
         type: "code",
@@ -861,6 +917,31 @@ print("🎒 Inventory: [empty]")
 print()`,
       },
       {
+        type: "code",
+        emoji: "🎮",
+        content: `## 🎮 Mini Challenge: Combine Everything!`,
+        code: `# Use variables, math, and if-else together!
+player = "Hero"
+hp = 100
+damage = 35
+hp = hp - damage
+print(player + " took " + str(damage) + " damage!")
+print("HP remaining: " + str(hp))
+if hp > 50:
+    print("Still going strong!")
+else:
+    print("Getting dangerous!")`,
+        exercise: {
+          prompt: "Create a mini battle: set hp=100, damage=65. Subtract damage from hp. Print the remaining HP. If hp > 50 print \"Strong!\", else print \"Danger!\"",
+          promptZh: "创建一个迷你战斗：hp=100, damage=65。用hp减去damage。打印剩余HP。如果hp>50打印 \"Strong!\"，否则打印 \"Danger!\"",
+          starterCode: "hp = 100\ndamage = 65\n# Subtract damage\n# Print remaining HP\n# if-else check\n",
+          expectedOutput: "35\nDanger!",
+          hint: "hp = hp - damage, then print(hp), then if hp > 50: ...",
+          hintZh: "hp = hp - damage，然后 print(hp)，再用 if hp > 50: ...",
+          solution: "hp = 100\ndamage = 65\nhp = hp - damage\nprint(hp)\nif hp > 50:\n    print(\"Strong!\")\nelse:\n    print(\"Danger!\")",
+        },
+      },
+      {
         type: "quiz",
         content: "🏆 Graduation Quiz: Starter Island Mastery!",
         quiz: [
@@ -1024,6 +1105,15 @@ turtle.done()`,
 - Spiral: Small forward + small turn = infinite beauty!
 
 🐢 When you install Python locally, try creating these patterns!`,
+        exercise: {
+          prompt: "Use a for loop to print the numbers 1 through 5, one per line.",
+          promptZh: "用 for 循环打印数字 1 到 5，每个数字一行。",
+          starterCode: "# Use a for loop with range()\n",
+          expectedOutput: "1\n2\n3\n4\n5",
+          hint: "for i in range(1, 6): then print(i)",
+          hintZh: "for i in range(1, 6): 然后 print(i)",
+          solution: "for i in range(1, 6):\n    print(i)",
+        },
       },
       {
         type: "code",
@@ -1147,6 +1237,15 @@ Starting inventory: ["Rusty Sword", "Health Potion", "Torch"]
 - Add items? → \`.append()\`
 - Remove items? → \`.remove()\`  
 - Check if you have something? → \`in\``,
+        exercise: {
+          prompt: "Create a backpack list with [\"Sword\", \"Potion\"]. Append \"Shield\". Remove \"Potion\". Print the backpack.",
+          promptZh: "创建一个背包列表 [\"Sword\", \"Potion\"]。添加 \"Shield\"。移除 \"Potion\"。打印背包。",
+          starterCode: "backpack = [\"Sword\", \"Potion\"]\n# Add Shield\n# Remove Potion\n# Print backpack\n",
+          expectedOutput: "['Sword', 'Shield']",
+          hint: "Use .append() to add and .remove() to remove, then print(backpack)",
+          hintZh: "用 .append() 添加，.remove() 移除，然后 print(backpack)",
+          solution: "backpack = [\"Sword\", \"Potion\"]\nbackpack.append(\"Shield\")\nbackpack.remove(\"Potion\")\nprint(backpack)",
+        },
       },
       {
         type: "code",
@@ -4105,4 +4204,30 @@ export function getModuleById(id: string): Module | undefined {
 
 export function getLessonsByModule(moduleId: string): Lesson[] {
   return LESSONS.filter((l) => l.moduleId === moduleId).sort((a, b) => a.order - b.order);
+}
+
+/** Get all lessons in module order (flattened) */
+export function getAllLessonsOrdered(): Lesson[] {
+  const ordered: Lesson[] = [];
+  for (const mod of MODULES) {
+    const modLessons = LESSONS.filter((l) => l.moduleId === mod.id).sort((a, b) => a.order - b.order);
+    ordered.push(...modLessons);
+  }
+  return ordered;
+}
+
+/** Get the previous and next lesson relative to the given lesson ID */
+export function getAdjacentLessons(lessonId: string): { prev: Lesson | null; next: Lesson | null; isLastInModule: boolean; isVeryLast: boolean; nextModuleTitle?: string } {
+  const all = getAllLessonsOrdered();
+  const idx = all.findIndex((l) => l.id === lessonId);
+  if (idx === -1) return { prev: null, next: null, isLastInModule: false, isVeryLast: false };
+
+  const current = all[idx];
+  const prev = idx > 0 ? all[idx - 1] : null;
+  const next = idx < all.length - 1 ? all[idx + 1] : null;
+  const isVeryLast = idx === all.length - 1;
+  const isLastInModule = next ? next.moduleId !== current.moduleId : true;
+  const nextModuleTitle = next && isLastInModule ? MODULES.find((m) => m.id === next.moduleId)?.title : undefined;
+
+  return { prev, next, isLastInModule, isVeryLast, nextModuleTitle };
 }
