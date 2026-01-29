@@ -46,7 +46,7 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#0a0e14] flex items-center justify-center p-4">
+    <div className="min-h-screen flex items-center justify-center p-4" style={{ backgroundColor: "var(--theme-bg)" }}>
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
@@ -55,17 +55,17 @@ export default function LoginPage() {
         {/* Logo */}
         <div className="text-center mb-8">
           <div className="text-6xl mb-4">🐍</div>
-          <h1 className="text-3xl font-bold bg-gradient-to-r from-green-400 to-cyan-400 bg-clip-text text-transparent">
+          <h1 className="text-3xl font-bold" style={{ color: "var(--color-primary)" }}>
             Code Buddy
           </h1>
-          <p className="text-slate-400 mt-2">Welcome back, pilot!</p>
-          <p className="text-sm text-gray-500">欢迎回来，飞行员！</p>
+          <p className="mt-2" style={{ color: "var(--theme-text-secondary)" }}>Welcome back, pilot!</p>
+          <p className="text-sm" style={{ color: "var(--theme-text-muted)" }}>欢迎回来，飞行员！</p>
         </div>
 
         {/* Login Card */}
-        <div className="bg-slate-800/50 border border-slate-700/50 rounded-2xl p-8 backdrop-blur">
+        <div className="rounded-2xl p-8 backdrop-blur" style={{ backgroundColor: "var(--theme-card-bg)", border: "1px solid var(--theme-border)" }}>
           <h2 className="text-xl font-bold mb-1">Sign In</h2>
-          <p className="text-sm text-gray-400 mb-6">登录你的飞行员档案</p>
+          <p className="text-sm mb-6" style={{ color: "var(--theme-text-muted)" }}>登录你的飞行员档案</p>
 
           {useSupabase && (
             <div className="mb-6 space-y-4">

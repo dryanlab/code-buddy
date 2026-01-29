@@ -14,23 +14,17 @@ import { getCoinState, REWARD_CATALOG, type CoinState } from "@/lib/coin-store";
 import { MODULES, LESSONS } from "@/data/lessons";
 import { isSupabaseConfigured } from "@/lib/supabase";
 
-function ProgressRing({ percent, size = 80, stroke = 6, color = "green" }: { percent: number; size?: number; stroke?: number; color?: string }) {
+function ProgressRing({ percent, size = 80, stroke = 6 }: { percent: number; size?: number; stroke?: number }) {
   const radius = (size - stroke) / 2;
   const circ = 2 * Math.PI * radius;
   const offset = circ - (percent / 100) * circ;
-  const colors: Record<string, string> = {
-    green: "#22c55e",
-    cyan: "#06b6d4",
-    purple: "#a855f7",
-    yellow: "#eab308",
-  };
 
   return (
     <svg width={size} height={size} className="transform -rotate-90">
-      <circle cx={size / 2} cy={size / 2} r={radius} stroke="#1e293b" strokeWidth={stroke} fill="none" />
+      <circle cx={size / 2} cy={size / 2} r={radius} stroke="var(--theme-border)" strokeWidth={stroke} fill="none" />
       <circle
         cx={size / 2} cy={size / 2} r={radius}
-        stroke={colors[color] || colors.green}
+        stroke="var(--color-primary)"
         strokeWidth={stroke}
         fill="none"
         strokeDasharray={circ}
@@ -50,22 +44,23 @@ function OverviewStats({ progress, coins }: { progress: UserProgress; coins: Coi
   return (
     <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
       {[
-        { label: "Level", labelCn: "等级", value: levelInfo.name, sub: `${progress.xp} XP`, color: "green" },
-        { label: "Completed", labelCn: "已完成", value: `${progress.completedLessons.length}/${totalLessons}`, sub: `${completionPct}%`, color: "cyan" },
-        { label: "Streak", labelCn: "连续天数", value: `${progress.streakDays} days`, sub: progress.lastActiveDate || "No activity", color: "purple" },
-        { label: "Coins", labelCn: "金币", value: `🪙 ${coins.coins}`, sub: `Total earned: ${coins.totalEarned}`, color: "yellow" },
+        { label: "Level", labelCn: "等级", value: levelInfo.name, sub: `${progress.xp} XP` },
+        { label: "Completed", labelCn: "已完成", value: `${progress.completedLessons.length}/${totalLessons}`, sub: `${completionPct}%` },
+        { label: "Streak", labelCn: "连续天数", value: `${progress.streakDays} days`, sub: progress.lastActiveDate || "No activity" },
+        { label: "Coins", labelCn: "金币", value: `🪙 ${coins.coins}`, sub: `Total earned: ${coins.totalEarned}` },
       ].map((stat, i) => (
         <motion.div
           key={stat.label}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: i * 0.1 }}
-          className="bg-slate-800/50 border border-slate-700/50 rounded-xl p-5 text-center"
+          className="rounded-xl p-5 text-center"
+          style={{ backgroundColor: "var(--theme-card-bg)", border: "1px solid var(--theme-border)" }}
         >
           <div className="text-2xl font-bold">{stat.value}</div>
-          <div className="text-xs text-slate-400 mt-1">{stat.label}</div>
-          <div className="text-[10px] text-gray-500">{stat.labelCn}</div>
-          <div className="text-[10px] text-slate-500 mt-1">{stat.sub}</div>
+          <div className="text-xs mt-1" style={{ color: "var(--theme-text-secondary)" }}>{stat.label}</div>
+          <div className="text-[10px]" style={{ color: "var(--theme-text-muted)" }}>{stat.labelCn}</div>
+          <div className="text-[10px] mt-1" style={{ color: "var(--theme-text-muted)" }}>{stat.sub}</div>
         </motion.div>
       ))}
     </div>
@@ -77,7 +72,7 @@ function ModuleProgress({ progress }: { progress: UserProgress }) {
     <div className="space-y-4">
       <div>
         <h2 className="text-xl font-bold">📚 Module Progress</h2>
-        <p className="text-sm text-gray-500">模块进度</p>
+        <p className="text-sm" style={{ color: "var(--theme-text-muted)" }}>模块进度</p>
       </div>
       <div className="space-y-3">
         {MODULES.map((mod) => {
@@ -90,7 +85,8 @@ function ModuleProgress({ progress }: { progress: UserProgress }) {
               key={mod.id}
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
-              className="bg-slate-800/30 border border-slate-700/30 rounded-xl p-4"
+              className="rounded-xl p-4"
+              style={{ backgroundColor: "var(--theme-card-bg)", border: "1px solid var(--theme-border)" }}
             >
               <div className="flex items-center gap-4">
                 <div className="relative">
@@ -101,15 +97,15 @@ function ModuleProgress({ progress }: { progress: UserProgress }) {
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="font-bold text-sm">{mod.title}</div>
-                  <div className="text-[10px] text-gray-500">{mod.subtitle}</div>
+                  <div className="text-[10px]" style={{ color: "var(--theme-text-muted)" }}>{mod.subtitle}</div>
                   <div className="flex items-center gap-2 mt-2">
-                    <div className="flex-1 h-2 bg-slate-700 rounded-full overflow-hidden">
+                    <div className="flex-1 h-2 rounded-full overflow-hidden" style={{ backgroundColor: "var(--theme-border)" }}>
                       <div
-                        className="h-full bg-gradient-to-r from-green-500 to-cyan-500 rounded-full transition-all duration-500"
-                        style={{ width: `${pct}%` }}
+                        className="h-full rounded-full transition-all duration-500"
+                        style={{ width: `${pct}%`, background: "linear-gradient(to right, var(--color-primary), var(--color-primary-light))" }}
                       />
                     </div>
-                    <span className="text-xs text-slate-400">{completed}/{modLessons.length}</span>
+                    <span className="text-xs" style={{ color: "var(--theme-text-secondary)" }}>{completed}/{modLessons.length}</span>
                   </div>
                 </div>
               </div>
@@ -128,7 +124,7 @@ function BadgeWall({ progress }: { progress: UserProgress }) {
     <div className="space-y-4">
       <div>
         <h2 className="text-xl font-bold">🏅 Badge Collection</h2>
-        <p className="text-sm text-gray-500">徽章收藏 — {earned.size}/{ALL_BADGES.length} unlocked</p>
+        <p className="text-sm" style={{ color: "var(--theme-text-muted)" }}>徽章收藏 — {earned.size}/{ALL_BADGES.length} unlocked</p>
       </div>
       <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-3">
         {ALL_BADGES.map((badge) => {
@@ -137,15 +133,21 @@ function BadgeWall({ progress }: { progress: UserProgress }) {
             <motion.div
               key={badge.id}
               whileHover={{ scale: 1.05 }}
-              className={`rounded-xl p-3 text-center border transition-all ${
-                isEarned
-                  ? "bg-yellow-500/10 border-yellow-500/30"
-                  : "bg-slate-800/20 border-slate-700/20 opacity-40 grayscale"
-              }`}
+              className="rounded-xl p-3 text-center border transition-all"
+              style={{
+                backgroundColor: isEarned
+                  ? "color-mix(in srgb, var(--color-warning) 10%, var(--theme-card-bg))"
+                  : "var(--theme-card-bg)",
+                borderColor: isEarned
+                  ? "color-mix(in srgb, var(--color-warning) 30%, transparent)"
+                  : "var(--theme-border)",
+                opacity: isEarned ? 1 : 0.4,
+                filter: isEarned ? "none" : "grayscale(1)",
+              }}
             >
               <div className="text-3xl mb-1">{badge.icon}</div>
               <div className="text-[10px] font-medium truncate">{badge.name}</div>
-              <div className="text-[8px] text-gray-500 truncate">{badge.description}</div>
+              <div className="text-[8px] truncate" style={{ color: "var(--theme-text-muted)" }}>{badge.description}</div>
             </motion.div>
           );
         })}
@@ -159,7 +161,7 @@ function ActivityStats({ progress }: { progress: UserProgress }) {
     <div className="space-y-4">
       <div>
         <h2 className="text-xl font-bold">📊 Activity Stats</h2>
-        <p className="text-sm text-gray-500">活动统计</p>
+        <p className="text-sm" style={{ color: "var(--theme-text-muted)" }}>活动统计</p>
       </div>
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
         {[
@@ -172,11 +174,11 @@ function ActivityStats({ progress }: { progress: UserProgress }) {
             return Math.round(scores.reduce((a, b) => a + b, 0) / scores.length) + "%";
           })() },
         ].map((stat) => (
-          <div key={stat.label} className="bg-slate-800/30 border border-slate-700/30 rounded-lg p-4 text-center">
+          <div key={stat.label} className="rounded-lg p-4 text-center" style={{ backgroundColor: "var(--theme-card-bg)", border: "1px solid var(--theme-border)" }}>
             <div className="text-2xl mb-1">{stat.icon}</div>
             <div className="text-xl font-bold">{stat.value}</div>
-            <div className="text-xs text-slate-400">{stat.label}</div>
-            <div className="text-[10px] text-gray-500">{stat.labelCn}</div>
+            <div className="text-xs" style={{ color: "var(--theme-text-secondary)" }}>{stat.label}</div>
+            <div className="text-[10px]" style={{ color: "var(--theme-text-muted)" }}>{stat.labelCn}</div>
           </div>
         ))}
       </div>
@@ -195,13 +197,13 @@ function LessonScores({ progress }: { progress: UserProgress }) {
     <div className="space-y-4">
       <div>
         <h2 className="text-xl font-bold">📝 Quiz Scores</h2>
-        <p className="text-sm text-gray-500">测验成绩</p>
+        <p className="text-sm" style={{ color: "var(--theme-text-muted)" }}>测验成绩</p>
       </div>
       <div className="space-y-2">
         {completedWithScores.map((lesson) => {
           const score = progress.lessonScores[lesson.id] || 0;
           return (
-            <div key={lesson.id} className="flex items-center gap-3 bg-slate-800/20 rounded-lg px-4 py-2">
+            <div key={lesson.id} className="flex items-center gap-3 rounded-lg px-4 py-2" style={{ backgroundColor: "var(--theme-card-bg)" }}>
               <span className="text-lg">{lesson.icon}</span>
               <div className="flex-1 min-w-0">
                 <div className="text-sm font-medium truncate">{lesson.title}</div>
@@ -241,7 +243,7 @@ export default function ProgressPage() {
     <div className="p-6 md:p-8 max-w-5xl mx-auto space-y-8">
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
         <h1 className="text-3xl font-bold">📊 My Progress</h1>
-        <p className="text-sm text-gray-500">我的学习进度</p>
+        <p className="text-sm" style={{ color: "var(--theme-text-muted)" }}>我的学习进度</p>
       </motion.div>
 
       <OverviewStats progress={progress} coins={coins} />

@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { getUser, logout, type UserProfile } from "@/lib/auth-store";
+import { useTheme } from "@/lib/theme-context";
 
 const NAV_ITEMS = [
   { href: "/dashboard", icon: "🏠", label: "Dashboard", labelCn: "主页" },
@@ -15,34 +16,59 @@ const NAV_ITEMS = [
   { href: "/dashboard/debug", icon: "🐛", label: "Debug Detective", labelCn: "Debug 侦探" },
   { href: "/dashboard/shop", icon: "🏪", label: "Reward Shop", labelCn: "奖励商店" },
   { href: "/dashboard/progress", icon: "📊", label: "My Progress", labelCn: "我的进度" },
+  { href: "/dashboard/settings", icon: "⚙️", label: "Settings", labelCn: "设置" },
 ];
 
 export default function Sidebar() {
   const pathname = usePathname();
   const [user, setUser] = useState<UserProfile | null>(null);
   const [open, setOpen] = useState(false);
+  const { theme, themes: allThemes, setThemeId, themeId } = useTheme();
 
   useEffect(() => {
     setUser(getUser());
   }, []);
 
-  // Close sidebar when navigating on mobile
   useEffect(() => {
     setOpen(false);
   }, [pathname]);
 
+  // Cycle through themes
+  const cycleTheme = () => {
+    const idx = allThemes.findIndex(t => t.id === themeId);
+    const next = allThemes[(idx + 1) % allThemes.length];
+    setThemeId(next.id);
+  };
+
   return (
     <>
-      {/* Hamburger button — visible on ALL screen sizes */}
-      <button
-        onClick={() => setOpen(!open)}
-        className="fixed top-3 left-3 z-[60] bg-[#0d1117]/90 backdrop-blur border border-slate-700 rounded-lg p-2.5 text-xl shadow-lg"
-        aria-label={open ? "Close menu" : "Open menu"}
-      >
-        {open ? "✕" : "☰"}
-      </button>
+      {/* Hamburger + Theme toggle */}
+      <div className="fixed top-3 left-3 z-[60] flex gap-2">
+        <button
+          onClick={() => setOpen(!open)}
+          className="backdrop-blur border rounded-lg p-2.5 text-xl shadow-lg"
+          style={{
+            backgroundColor: `${theme.colors.sidebarBg}e6`,
+            borderColor: theme.colors.sidebarBorder,
+          }}
+          aria-label={open ? "Close menu" : "Open menu"}
+        >
+          {open ? "✕" : "☰"}
+        </button>
+        <button
+          onClick={cycleTheme}
+          className="backdrop-blur border rounded-lg p-2.5 text-xl shadow-lg"
+          style={{
+            backgroundColor: `${theme.colors.sidebarBg}e6`,
+            borderColor: theme.colors.sidebarBorder,
+          }}
+          title="Change theme · 切换主题"
+        >
+          {theme.emoji}
+        </button>
+      </div>
 
-      {/* Overlay — all screens */}
+      {/* Overlay */}
       <AnimatePresence>
         {open && (
           <motion.div
@@ -55,16 +81,22 @@ export default function Sidebar() {
         )}
       </AnimatePresence>
 
-      {/* Sidebar — always starts hidden, toggles with hamburger */}
-      <aside className={`
-        w-[75vw] max-w-64 bg-[#0d1117] border-r border-slate-800 h-[100dvh] flex flex-col
-        fixed top-0 left-0 z-50 transition-transform duration-200 ease-in-out
-        ${open ? "translate-x-0" : "-translate-x-full"}
-      `}>
-        {/* Logo — left padding for hamburger button */}
-        <Link href="/" className="flex items-center gap-3 pl-14 pr-6 py-5 border-b border-slate-800">
+      {/* Sidebar */}
+      <aside
+        className={`
+          w-[75vw] max-w-64 h-[100dvh] flex flex-col
+          fixed top-0 left-0 z-50 transition-transform duration-200 ease-in-out
+          ${open ? "translate-x-0" : "-translate-x-full"}
+        `}
+        style={{
+          backgroundColor: theme.colors.sidebarBg,
+          borderRight: `1px solid ${theme.colors.sidebarBorder}`,
+        }}
+      >
+        {/* Logo */}
+        <Link href="/" className="flex items-center gap-3 pl-14 pr-6 py-5" style={{ borderBottom: `1px solid ${theme.colors.sidebarBorder}` }}>
           <span className="text-3xl">🐍</span>
-          <span className="text-xl font-bold bg-gradient-to-r from-green-400 to-cyan-400 bg-clip-text text-transparent">
+          <span className="text-xl font-bold" style={{ color: theme.colors.primary }}>
             Code Buddy
           </span>
         </Link>
@@ -78,16 +110,17 @@ export default function Sidebar() {
               <Link key={item.href} href={item.href}>
                 <motion.div
                   whileHover={{ x: 4 }}
-                  className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${
-                    isActive
-                      ? "bg-green-500/10 text-green-400 border border-green-500/20"
-                      : "text-slate-400 hover:text-slate-200 hover:bg-slate-800/50"
-                  }`}
+                  className="flex items-center gap-3 px-4 py-3 rounded-lg transition-colors"
+                  style={{
+                    backgroundColor: isActive ? `${theme.colors.primary}18` : "transparent",
+                    color: isActive ? theme.colors.primary : theme.colors.textSecondary,
+                    border: isActive ? `1px solid ${theme.colors.primary}30` : "1px solid transparent",
+                  }}
                 >
                   <span className="text-xl">{item.icon}</span>
                   <div className="flex flex-col">
                     <span className="text-sm font-medium">{item.label}</span>
-                    <span className="text-[10px] text-gray-500">{item.labelCn}</span>
+                    <span className="text-[10px]" style={{ color: theme.colors.textMuted }}>{item.labelCn}</span>
                   </div>
                 </motion.div>
               </Link>
@@ -96,24 +129,25 @@ export default function Sidebar() {
         </nav>
 
         {/* User & Footer */}
-        <div className="px-4 py-4 border-t border-slate-800 space-y-3">
+        <div className="px-4 py-4 space-y-3" style={{ borderTop: `1px solid ${theme.colors.sidebarBorder}` }}>
           {user && (
             <div className="flex items-center gap-2">
               <span className="text-2xl">{user.avatar}</span>
               <div className="flex-1 min-w-0">
                 <div className="text-sm font-medium truncate">{user.name}</div>
-                <div className="text-[10px] text-slate-500">Grade {user.grade} Pilot</div>
+                <div className="text-[10px]" style={{ color: theme.colors.textMuted }}>Grade {user.grade} Pilot</div>
               </div>
               <button
                 onClick={async () => { await logout(); window.location.href = "/login"; }}
-                className="text-[10px] text-slate-500 hover:text-red-400 transition-colors"
+                className="text-[10px] hover:text-red-400 transition-colors"
+                style={{ color: theme.colors.textMuted }}
                 title="Sign out"
               >
                 ↩
               </button>
             </div>
           )}
-          <div className="text-xs text-slate-500 terminal-text">
+          <div className="text-xs terminal-text" style={{ color: theme.colors.textMuted }}>
             v2.0 Phase 2
           </div>
         </div>

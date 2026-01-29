@@ -19,7 +19,8 @@ function TextSection({ section }: { section: LessonSection }) {
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="bg-slate-800/50 border border-slate-700/50 rounded-xl p-6"
+      className="rounded-xl p-6"
+      style={{ backgroundColor: "var(--theme-card-bg)", border: "1px solid var(--theme-border)" }}
     >
       {section.emoji && <div className="text-4xl mb-4">{section.emoji}</div>}
       <div

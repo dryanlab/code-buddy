@@ -117,17 +117,17 @@ function EarnInfo() {
   ];
 
   return (
-    <div className="bg-slate-800/30 border border-slate-700/30 rounded-xl p-5">
+    <div className="rounded-xl p-5" style={{ backgroundColor: "var(--theme-card-bg)", border: "1px solid var(--theme-border)" }}>
       <h3 className="text-lg font-bold mb-1">💰 How to Earn Coins</h3>
-      <p className="text-xs text-gray-500 mb-4">如何赚取金币</p>
+      <p className="text-xs mb-4" style={{ color: "var(--theme-text-muted)" }}>如何赚取金币</p>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
         {rates.map((r) => (
-          <div key={r.action} className="flex items-center justify-between bg-slate-900/30 rounded-lg px-3 py-2">
+          <div key={r.action} className="flex items-center justify-between rounded-lg px-3 py-2" style={{ backgroundColor: "var(--theme-bg)" }}>
             <div className="flex items-center gap-2">
               <span>{r.icon}</span>
               <div>
                 <div className="text-xs font-medium">{r.action}</div>
-                <div className="text-[10px] text-gray-500">{r.actionCn}</div>
+                <div className="text-[10px]" style={{ color: "var(--theme-text-muted)" }}>{r.actionCn}</div>
               </div>
             </div>
             <span className="text-yellow-400 text-sm font-bold">+{r.coins} 🪙</span>
@@ -201,7 +201,7 @@ export default function ShopPage() {
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
             <h1 className="text-3xl font-bold">🏪 Reward Shop</h1>
-            <p className="text-sm text-gray-500">奖励商店 — 用金币兑换酷炫奖品！</p>
+            <p className="text-sm" style={{ color: "var(--theme-text-muted)" }}>奖励商店 — 用金币兑换酷炫奖品！</p>
           </div>
           <CoinDisplay coins={coinState.coins} />
         </div>
@@ -231,34 +231,35 @@ export default function ShopPage() {
           <button
             key={c.key}
             onClick={() => setCategory(c.key)}
-            className={`flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-              category === c.key
-                ? "bg-yellow-500/20 text-yellow-400 border border-yellow-500/30"
-                : "bg-slate-800/30 text-slate-400 border border-slate-700/30 hover:text-slate-200"
-            }`}
+            className="flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+            style={{
+              backgroundColor: category === c.key ? "color-mix(in srgb, var(--color-warning) 20%, transparent)" : "var(--theme-card-bg)",
+              color: category === c.key ? "var(--color-warning)" : "var(--theme-text-secondary)",
+              border: `1px solid ${category === c.key ? "color-mix(in srgb, var(--color-warning) 30%, transparent)" : "var(--theme-border)"}`,
+            }}
           >
             <span>{c.icon}</span>
             <span>{c.label}</span>
-            <span className="text-[10px] text-gray-500">{c.labelCn}</span>
+            <span className="text-[10px]" style={{ color: "var(--theme-text-muted)" }}>{c.labelCn}</span>
           </button>
         ))}
       </div>
 
       {/* Stats */}
       <div className="grid grid-cols-3 gap-3">
-        <div className="bg-slate-800/30 border border-slate-700/30 rounded-lg p-3 text-center">
+        <div className="rounded-lg p-3 text-center" style={{ backgroundColor: "var(--theme-card-bg)", border: "1px solid var(--theme-border)" }}>
           <div className="text-2xl font-bold text-yellow-400">{coinState.totalEarned}</div>
-          <div className="text-xs text-slate-400">Total Earned · 累计获得</div>
+          <div className="text-xs" style={{ color: "var(--theme-text-secondary)" }}>Total Earned · 累计获得</div>
         </div>
-        <div className="bg-slate-800/30 border border-slate-700/30 rounded-lg p-3 text-center">
-          <div className="text-2xl font-bold text-green-400">
+        <div className="rounded-lg p-3 text-center" style={{ backgroundColor: "var(--theme-card-bg)", border: "1px solid var(--theme-border)" }}>
+          <div className="text-2xl font-bold" style={{ color: "var(--color-primary)" }}>
             {coinState.unlockedAvatars.length + coinState.unlockedTitles.length + coinState.unlockedThemes.length}
           </div>
-          <div className="text-xs text-slate-400">Unlocked · 已解锁</div>
+          <div className="text-xs" style={{ color: "var(--theme-text-secondary)" }}>Unlocked · 已解锁</div>
         </div>
-        <div className="bg-slate-800/30 border border-slate-700/30 rounded-lg p-3 text-center">
+        <div className="rounded-lg p-3 text-center" style={{ backgroundColor: "var(--theme-card-bg)", border: "1px solid var(--theme-border)" }}>
           <div className="text-2xl font-bold text-purple-400">{REWARD_CATALOG.length}</div>
-          <div className="text-xs text-slate-400">Total Items · 总商品</div>
+          <div className="text-xs" style={{ color: "var(--theme-text-secondary)" }}>Total Items · 总商品</div>
         </div>
       </div>
 

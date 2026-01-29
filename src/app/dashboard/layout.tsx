@@ -13,13 +13,10 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   useEffect(() => {
     async function check() {
       if (isSupabaseConfigured) {
-        // Wait a moment for Supabase to process OAuth callback hash
         const supabase = (await import("@/lib/supabase")).getSupabase();
         if (supabase) {
-          // This picks up the OAuth tokens from URL hash
           const { data: { session } } = await supabase.auth.getSession();
           if (!session) {
-            // Wait briefly in case OAuth is still processing
             await new Promise(r => setTimeout(r, 500));
             const { data: { session: retrySession } } = await supabase.auth.getSession();
             if (!retrySession) { router.replace("/login"); return; }
@@ -42,14 +39,14 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 
   if (!ready) {
     return (
-      <div className="min-h-screen bg-[#0a0e14] flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center" style={{ backgroundColor: "var(--theme-bg)" }}>
         <div className="text-4xl animate-pulse">🐍</div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-[100dvh]">
+    <div className="min-h-[100dvh]" style={{ backgroundColor: "var(--theme-bg)", color: "var(--theme-text-primary)" }}>
       <Sidebar />
       <main className="overflow-y-auto pt-14">{children}</main>
     </div>

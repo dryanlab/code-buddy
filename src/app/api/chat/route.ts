@@ -2,7 +2,7 @@ import { getProvider } from "@/lib/ai-provider";
 
 export const runtime = "edge";
 
-const SYSTEM_PROMPT = `You are **Code Buddy**, an AI teaching assistant for a 12-year-old boy named William who is learning programming.
+const SYSTEM_PROMPT = `You are **Code Buddy**, an AI teaching assistant for a student named {{USER_NAME}} who is learning programming.
 
 ## Your Teaching Style
 - **Socratic method**: Ask guiding questions instead of giving direct answers
@@ -43,8 +43,9 @@ Code Buddy has 5 modules:
 
 export async function POST(req: Request) {
   try {
-    const { messages } = await req.json();
+    const { messages, userName } = await req.json();
     const provider = getProvider();
+    const finalPrompt = SYSTEM_PROMPT.replace("{{USER_NAME}}", userName || "friend");
 
     if (!provider) {
       return new Response(

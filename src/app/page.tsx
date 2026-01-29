@@ -108,7 +108,7 @@ function TypewriterCode() {
 
 export default function LandingPage() {
   return (
-    <main className="relative min-h-screen flex flex-col items-center justify-center bg-grid overflow-hidden">
+    <main className="relative min-h-screen flex flex-col items-center justify-center bg-grid overflow-hidden" style={{ backgroundColor: "var(--theme-bg)", color: "var(--theme-text-primary)" }}>
       <MatrixRain />
 
       {/* Hero Section */}
@@ -128,7 +128,7 @@ export default function LandingPage() {
           transition={{ delay: 0.3 }}
           className="text-5xl md:text-7xl font-bold mb-4"
         >
-          <span className="bg-gradient-to-r from-green-400 via-cyan-400 to-purple-500 bg-clip-text text-transparent">
+          <span style={{ background: `linear-gradient(to right, var(--color-primary), var(--color-primary-light), var(--color-secondary))`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
             Code Buddy
           </span>
         </motion.h1>
@@ -137,7 +137,8 @@ export default function LandingPage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5 }}
-          className="text-xl md:text-2xl text-slate-300 mb-2 max-w-2xl"
+          className="text-xl md:text-2xl mb-2 max-w-2xl"
+          style={{ color: "var(--theme-text-secondary)" }}
         >
           Learn to Code · Understand Computers · Use AI
         </motion.p>
@@ -145,7 +146,8 @@ export default function LandingPage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.55 }}
-          className="text-sm text-slate-500 mb-8"
+          className="text-sm mb-8"
+          style={{ color: "var(--theme-text-muted)" }}
         >
           学编程 · 懂计算机 · 用 AI — 从零开始，成为真正的 Programmer 🚀
         </motion.p>
@@ -167,14 +169,16 @@ export default function LandingPage() {
         >
           <Link
             href="/dashboard"
-            className="px-8 py-4 bg-gradient-to-r from-green-500 to-cyan-500 text-black font-bold text-lg rounded-xl hover:scale-105 transition-transform glow-green"
+            className="px-8 py-4 font-bold text-lg rounded-xl hover:scale-105 transition-transform glow-green"
+            style={{ background: `linear-gradient(to right, var(--color-primary), var(--color-primary-light))`, color: "var(--theme-bg)" }}
           >
             🚀 Start Adventure
             <span className="block text-xs font-normal opacity-80">开始冒险</span>
           </Link>
           <Link
             href="/dashboard/code-lab"
-            className="px-8 py-4 border border-purple-500/50 text-purple-400 font-bold text-lg rounded-xl hover:bg-purple-500/10 transition-colors"
+            className="px-8 py-4 font-bold text-lg rounded-xl transition-colors"
+            style={{ border: "1px solid var(--color-secondary)", color: "var(--color-secondary)" }}
           >
             💻 Code Lab
             <span className="block text-xs font-normal opacity-70">代码实验室</span>
@@ -195,13 +199,14 @@ export default function LandingPage() {
           ].map((feature) => (
             <div
               key={feature.title}
-              className="bg-slate-800/50 border border-slate-700/50 rounded-xl p-6 hover:border-green-500/30 transition-colors"
+              className="rounded-xl p-6 transition-colors"
+              style={{ backgroundColor: "var(--theme-card-bg)", border: "1px solid var(--theme-border)" }}
             >
               <div className="text-4xl mb-3">{feature.icon}</div>
               <h3 className="text-lg font-bold mb-1">{feature.title}</h3>
-              <p className="text-sm text-gray-400 mb-2">{feature.titleCn}</p>
-              <p className="text-slate-400 text-sm">{feature.desc}</p>
-              <p className="text-xs text-gray-500">{feature.descCn}</p>
+              <p className="text-sm mb-2" style={{ color: "var(--theme-text-muted)" }}>{feature.titleCn}</p>
+              <p className="text-sm" style={{ color: "var(--theme-text-secondary)" }}>{feature.desc}</p>
+              <p className="text-xs" style={{ color: "var(--theme-text-muted)" }}>{feature.descCn}</p>
             </div>
           ))}
         </motion.div>
