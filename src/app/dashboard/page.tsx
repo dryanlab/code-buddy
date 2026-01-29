@@ -8,6 +8,7 @@ import { getCoinState } from "@/lib/coin-store";
 import { MODULES, LESSONS } from "@/data/lessons";
 import { getUser, getSessionUser, type UserProfile } from "@/lib/auth-store";
 import { isSupabaseConfigured } from "@/lib/supabase";
+import { useUserProfile, getGradeGreeting } from "@/lib/useUserProfile";
 
 function XPBar({ xp, level }: { xp: number; level: number }) {
   const info = getLevelInfo(xp);
@@ -145,6 +146,7 @@ function StatsBar({ progress }: { progress: UserProgress }) {
 export default function DashboardPage() {
   const [progress, setProgress] = useState<UserProgress | null>(null);
   const [user, setUser] = useState<UserProfile | null>(null);
+  const profile = useUserProfile();
 
   useEffect(() => {
     async function load() {
@@ -162,16 +164,25 @@ export default function DashboardPage() {
 
   if (!progress) return null;
 
-  const displayName = user?.name || "Coder";
+  const displayName = profile?.name || user?.name || "Coder";
+  const userGrade = profile?.grade || 6;
+  const userAvatar = profile?.avatar || user?.avatar || "👋";
+  const greeting = getGradeGreeting(userGrade, displayName, userAvatar);
+
+  // Get recommended lessons for this grade
+  const recommendedLessons = LESSONS
+    .filter((l) => userGrade >= l.gradeRange[0] && userGrade <= l.gradeRange[1])
+    .filter((l) => !progress.completedLessons.includes(l.id))
+    .slice(0, 4);
 
   return (
     <div className="p-6 md:p-8 max-w-5xl mx-auto space-y-8">
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
         <h1 className="text-3xl font-bold mb-1">
-          Hi, {displayName}! {user?.avatar || "👋"}
+          {greeting.en.replace(userAvatar, '')}{displayName}! {userAvatar}
         </h1>
-        <p style={{ color: "var(--theme-text-secondary)" }}>Ready to level up today?</p>
-        <p className="text-sm" style={{ color: "var(--theme-text-muted)" }}>准备好升级了吗？</p>
+        <p style={{ color: "var(--theme-text-secondary)" }}>{greeting.cn}</p>
+        <p className="text-sm" style={{ color: "var(--theme-text-muted)" }}>Grade {userGrade} · 准备好升级了吗？</p>
       </motion.div>
 
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
@@ -185,6 +196,39 @@ export default function DashboardPage() {
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}>
         <QuickActions />
       </motion.div>
+
+      {recommendedLessons.length > 0 && (
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.35 }}>
+          <div className="space-y-4">
+            <div>
+              <h2 className="text-xl font-bold">🎯 Recommended for Grade {userGrade}</h2>
+              <p className="text-sm" style={{ color: "var(--theme-text-muted)" }}>为你推荐的课程</p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+              {recommendedLessons.map((lesson) => (
+                <Link key={lesson.id} href={`/dashboard/lessons/${lesson.id}`}>
+                  <motion.div
+                    whileHover={{ scale: 1.02 }}
+                    className="p-4 rounded-xl border transition-colors"
+                    style={{ backgroundColor: "var(--theme-card-bg)", border: "1px solid var(--theme-border)" }}
+                  >
+                    <div className="flex items-center gap-3">
+                      <span className="text-2xl">{lesson.icon}</span>
+                      <div className="flex-1 min-w-0">
+                        <div className="font-semibold text-sm truncate">{lesson.title}</div>
+                        <div className="text-xs truncate" style={{ color: "var(--theme-text-secondary)" }}>{lesson.subtitle}</div>
+                      </div>
+                      <div className="text-xs px-2 py-1 rounded-full" style={{ backgroundColor: "color-mix(in srgb, var(--color-primary) 15%, transparent)", color: "var(--color-primary)" }}>
+                        {lesson.difficulty === "beginner" ? "🟢" : lesson.difficulty === "intermediate" ? "🟡" : "🔴"} +{lesson.xp} XP
+                      </div>
+                    </div>
+                  </motion.div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </motion.div>
+      )}
 
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }}>
         <SkillTree progress={progress} />

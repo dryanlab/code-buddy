@@ -1,16 +1,18 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import CodeEditor from "@/components/CodeEditor";
 import { CODE_EXERCISES, type CodeExercise } from "@/data/code-challenges";
+import { useUserProfile } from "@/lib/useUserProfile";
 
-function ExerciseCard({ exercise, isSelected, onClick }: { exercise: CodeExercise; isSelected: boolean; onClick: () => void }) {
+function ExerciseCard({ exercise, isSelected, onClick, isRecommended }: { exercise: CodeExercise; isSelected: boolean; onClick: () => void; isRecommended: boolean }) {
+  const diffBadge = exercise.difficulty === 1 ? "🟢" : exercise.difficulty === 2 ? "🟡" : "🔴";
   return (
     <motion.button
       whileHover={{ scale: 1.02 }}
       onClick={onClick}
-      className="w-full text-left p-4 rounded-xl border transition-colors"
+      className="w-full text-left p-4 rounded-xl border transition-colors relative"
       style={{
         backgroundColor: isSelected
           ? `color-mix(in srgb, var(--color-primary) 10%, var(--theme-card-bg))`
@@ -18,10 +20,16 @@ function ExerciseCard({ exercise, isSelected, onClick }: { exercise: CodeExercis
         borderColor: isSelected
           ? `color-mix(in srgb, var(--color-primary) 30%, transparent)`
           : "var(--theme-border)",
+        opacity: isRecommended ? 1 : 0.7,
       }}
     >
+      {!isRecommended && (
+        <div className="absolute -top-1.5 -right-1.5 text-[9px] px-1.5 py-0.5 rounded-full" style={{ backgroundColor: "var(--theme-border)", color: "var(--theme-text-muted)" }}>
+          🔒 Advanced
+        </div>
+      )}
       <div className="flex items-center justify-between mb-1">
-        <span className="font-bold text-sm">{exercise.title}</span>
+        <span className="font-bold text-sm">{diffBadge} {exercise.title}</span>
         <div className="flex gap-1">
           {Array.from({ length: exercise.difficulty }, (_, i) => (
             <span key={i} className="text-yellow-400 text-xs">⭐</span>
@@ -29,7 +37,12 @@ function ExerciseCard({ exercise, isSelected, onClick }: { exercise: CodeExercis
         </div>
       </div>
       <p className="text-xs line-clamp-2" style={{ color: "var(--theme-text-secondary)" }}>{exercise.description}</p>
-      <div className="flex gap-1 mt-2">
+      <div className="flex gap-1 mt-2 flex-wrap">
+        {isRecommended && (
+          <span className="px-2 py-0.5 text-[10px] rounded-full font-bold" style={{ backgroundColor: "color-mix(in srgb, var(--color-primary) 20%, transparent)", color: "var(--color-primary)" }}>
+            ⭐ For you
+          </span>
+        )}
         {exercise.tags.map((tag) => (
           <span key={tag} className="px-2 py-0.5 text-[10px] rounded-full" style={{ backgroundColor: "var(--theme-border)", color: "var(--theme-text-secondary)" }}>
             {tag}
@@ -45,6 +58,14 @@ export default function CodeLabPage() {
   const [showHint, setShowHint] = useState(false);
   const [showSolution, setShowSolution] = useState(false);
   const [freeMode, setFreeMode] = useState(false);
+  const profile = useUserProfile();
+  const userGrade = profile?.grade || 6;
+
+  const sortedExercises = useMemo(() => {
+    const recommended = CODE_EXERCISES.filter((ex) => userGrade >= ex.gradeRange[0] && userGrade <= ex.gradeRange[1]);
+    const advanced = CODE_EXERCISES.filter((ex) => userGrade < ex.gradeRange[0] || userGrade > ex.gradeRange[1]);
+    return [...recommended, ...advanced];
+  }, [userGrade]);
 
   return (
     <div className="p-6 md:p-8 h-screen flex flex-col">
@@ -76,14 +97,18 @@ export default function CodeLabPage() {
           </button>
 
           <div className="text-xs px-2 pt-2" style={{ color: "var(--theme-text-muted)" }}>EXERCISES · 练习</div>
-          {CODE_EXERCISES.map((ex) => (
-            <ExerciseCard
-              key={ex.id}
-              exercise={ex}
-              isSelected={selectedExercise?.id === ex.id}
-              onClick={() => { setSelectedExercise(ex); setFreeMode(false); setShowHint(false); setShowSolution(false); }}
-            />
-          ))}
+          {sortedExercises.map((ex) => {
+            const isRecommended = userGrade >= ex.gradeRange[0] && userGrade <= ex.gradeRange[1];
+            return (
+              <ExerciseCard
+                key={ex.id}
+                exercise={ex}
+                isSelected={selectedExercise?.id === ex.id}
+                isRecommended={isRecommended}
+                onClick={() => { setSelectedExercise(ex); setFreeMode(false); setShowHint(false); setShowSolution(false); }}
+              />
+            );
+          })}
         </div>
 
         <div className="flex-1 flex flex-col min-h-0">

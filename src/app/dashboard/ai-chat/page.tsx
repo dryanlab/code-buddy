@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { useState, useRef, useEffect } from "react";
 import { incrementChatCount } from "@/lib/progress-store";
-import { getSupabase } from "@/lib/supabase";
+import { useUserProfile } from "@/lib/useUserProfile";
 
 interface Message {
   role: "user" | "assistant";
@@ -28,20 +28,8 @@ export default function AIChatPage() {
   ]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [userName, setUserName] = useState("");
+  const userProfile = useUserProfile();
   const messagesEndRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const supabase = getSupabase();
-    if (!supabase) return;
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      const name = session?.user?.user_metadata?.full_name
-        || session?.user?.user_metadata?.name
-        || session?.user?.email?.split("@")[0]
-        || "";
-      setUserName(name);
-    });
-  }, []);
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -63,7 +51,8 @@ export default function AIChatPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           messages: [...messages, userMsg].map((m) => ({ role: m.role, content: m.content })),
-          userName: userName || undefined,
+          userName: userProfile?.name || undefined,
+          grade: userProfile?.grade || 6,
         }),
       });
 

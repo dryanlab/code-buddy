@@ -73,6 +73,8 @@ export interface Lesson {
   duration: string;
   sections: LessonSection[];
   order: number;
+  gradeRange: [number, number];
+  difficulty: "beginner" | "intermediate" | "advanced";
 }
 
 export interface Module {
@@ -145,6 +147,8 @@ export const LESSONS: Lesson[] = [
     xp: 25,
     duration: "15 min",
     order: 1,
+    gradeRange: [4, 10],
+    difficulty: "beginner",
     sections: [
       {
         type: "text",
@@ -221,6 +225,8 @@ Create your own hacker-style message! Try changing the text above to make it you
     xp: 30,
     duration: "18 min",
     order: 2,
+    gradeRange: [4, 10],
+    difficulty: "beginner",
     sections: [
       {
         type: "text", 
@@ -332,6 +338,8 @@ print("🎉 THE END! Hope you laughed! 🎉")
     xp: 30,
     duration: "20 min",
     order: 3,
+    gradeRange: [4, 10],
+    difficulty: "beginner",
     sections: [
       {
         type: "text",
@@ -464,6 +472,8 @@ print("Suggested tip: $" + str(round(tip_amount, 2)))
     xp: 30,
     duration: "20 min",
     order: 4,
+    gradeRange: [4, 10],
+    difficulty: "beginner",
     sections: [
       {
         type: "text",
@@ -628,6 +638,8 @@ Plan your turtle masterpiece:
     xp: 35,
     duration: "22 min", 
     order: 5,
+    gradeRange: [4, 10],
+    difficulty: "beginner",
     sections: [
       {
         type: "text",
@@ -788,6 +800,8 @@ print("\n🎯 Safety is our #1 priority!")
     xp: 50,
     duration: "30 min",
     order: 6,
+    gradeRange: [4, 10],
+    difficulty: "beginner",
     sections: [
       {
         type: "text",
@@ -867,6 +881,8 @@ print()`,
     xp: 35,
     duration: "22 min",
     order: 1,
+    gradeRange: [4, 10],
+    difficulty: "beginner",
     sections: [
       {
         type: "text",
@@ -1079,6 +1095,8 @@ print("\n🎉 Loop Circus Complete!")
     xp: 35,
     duration: "20 min",
     order: 2,
+    gradeRange: [4, 10],
+    difficulty: "beginner",
     sections: [
       {
         type: "text",
@@ -1275,6 +1293,8 @@ print("✨ Total items:", len(weapons) + len(potions) + len(treasures))
     xp: 35,
     duration: "25 min", 
     order: 3,
+    gradeRange: [4, 10],
+    difficulty: "beginner",
     sections: [
       {
         type: "text",
@@ -1487,6 +1507,8 @@ else:
     xp: 40,
     duration: "25 min",
     order: 4,
+    gradeRange: [6, 10],
+    difficulty: "intermediate",
     sections: [
       {
         type: "text",
@@ -1753,6 +1775,8 @@ print("🔧 You just used nested loops like a pro programmer!")
     xp: 35,
     duration: "22 min",
     order: 5,
+    gradeRange: [6, 10],
+    difficulty: "intermediate",
     sections: [
       {
         type: "text",
@@ -2015,6 +2039,8 @@ print(f"\n🎉 String art complete for '{text}'!")
     xp: 50,
     duration: "30 min",
     order: 6,
+    gradeRange: [6, 10],
+    difficulty: "intermediate",
     sections: [
       {
         type: "text",
@@ -2335,6 +2361,8 @@ print("\n🎪 Thanks for playing Advanced Championship!")
     xp: 35,
     duration: "25 min",
     order: 1,
+    gradeRange: [6, 10],
+    difficulty: "intermediate",
     sections: [
       {
         type: "text",
@@ -2720,6 +2748,8 @@ print(f"\n🎉 Calculator complete! Total area processed: {total:.2f}")
     xp: 35,
     duration: "22 min",
     order: 2,
+    gradeRange: [6, 10],
+    difficulty: "intermediate",
     sections: [
       {
         type: "text",
@@ -3076,6 +3106,8 @@ print("\n🔒 Mission assignment complete!")
     xp: 35,
     duration: "20 min",
     order: 3,
+    gradeRange: [6, 10],
+    difficulty: "intermediate",
     sections: [
       {
         type: "text",
@@ -3463,6 +3495,8 @@ while True:
     xp: 35,
     duration: "25 min",
     order: 4,
+    gradeRange: [7, 10],
+    difficulty: "intermediate",
     sections: [
       {
         type: "text",
@@ -3495,6 +3529,8 @@ while True:
     xp: 35,
     duration: "20 min",
     order: 5,
+    gradeRange: [7, 10],
+    difficulty: "intermediate",
     sections: [
       {
         type: "text",
@@ -3527,6 +3563,8 @@ while True:
     xp: 35,
     duration: "22 min",
     order: 6,
+    gradeRange: [7, 10],
+    difficulty: "intermediate",
     sections: [
       {
         type: "text",
@@ -3559,6 +3597,8 @@ while True:
     xp: 50,
     duration: "30 min",
     order: 7,
+    gradeRange: [7, 10],
+    difficulty: "advanced",
     sections: [
       {
         type: "text",
@@ -3596,6 +3636,8 @@ while True:
     xp: 35,
     duration: "25 min",
     order: 1,
+    gradeRange: [7, 10],
+    difficulty: "intermediate",
     sections: [
       {
         type: "text",
@@ -3628,6 +3670,8 @@ while True:
     xp: 35,
     duration: "22 min",
     order: 2,
+    gradeRange: [7, 10],
+    difficulty: "intermediate",
     sections: [
       {
         type: "text",
@@ -3660,6 +3704,8 @@ while True:
     xp: 35,
     duration: "25 min",
     order: 3,
+    gradeRange: [7, 10],
+    difficulty: "advanced",
     sections: [
       {
         type: "text",
@@ -3692,6 +3738,8 @@ while True:
     xp: 35,
     duration: "22 min",
     order: 4,
+    gradeRange: [7, 10],
+    difficulty: "advanced",
     sections: [
       {
         type: "text",
@@ -3724,6 +3772,8 @@ while True:
     xp: 35,
     duration: "25 min",
     order: 5,
+    gradeRange: [8, 10],
+    difficulty: "advanced",
     sections: [
       {
         type: "text",
@@ -3756,6 +3806,8 @@ while True:
     xp: 50,
     duration: "30 min",
     order: 6,
+    gradeRange: [8, 10],
+    difficulty: "advanced",
     sections: [
       {
         type: "text",
@@ -3793,6 +3845,8 @@ while True:
     xp: 35,
     duration: "20 min",
     order: 1,
+    gradeRange: [8, 10],
+    difficulty: "advanced",
     sections: [
       {
         type: "text",
@@ -3833,6 +3887,8 @@ The difference? **Scale and complexity!**`,
     xp: 35,
     duration: "25 min",
     order: 2,
+    gradeRange: [8, 10],
+    difficulty: "advanced",
     sections: [
       {
         type: "text",
@@ -3871,6 +3927,8 @@ AI can help with:
     xp: 35,
     duration: "22 min",
     order: 3,
+    gradeRange: [8, 10],
+    difficulty: "advanced",
     sections: [
       {
         type: "text",
@@ -3911,6 +3969,8 @@ Common AI coding mistakes:
     xp: 40,
     duration: "25 min",
     order: 4,
+    gradeRange: [8, 10],
+    difficulty: "advanced",
     sections: [
       {
         type: "text",
@@ -3950,6 +4010,8 @@ This is the foundation of machine learning!`,
     xp: 60,
     duration: "35 min",
     order: 5,
+    gradeRange: [8, 10],
+    difficulty: "advanced",
     sections: [
       {
         type: "text",
