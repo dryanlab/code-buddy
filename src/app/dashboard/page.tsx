@@ -10,8 +10,6 @@ import { getUser, getSessionUser, type UserProfile } from "@/lib/auth-store";
 import { isSupabaseConfigured } from "@/lib/supabase";
 import { useUserProfile, getSkillGreeting } from "@/lib/useUserProfile";
 import { SKILL_LABELS, type SkillLevel } from "@/lib/skill-store";
-import SkillQuiz from "@/components/SkillQuiz";
-
 function XPBar({ xp, level }: { xp: number; level: number }) {
   const info = getLevelInfo(xp);
   const currentLevel = LEVELS.find((l) => l.level === level) || LEVELS[0];
@@ -148,8 +146,7 @@ function StatsBar({ progress }: { progress: UserProgress }) {
 export default function DashboardPage() {
   const [progress, setProgress] = useState<UserProgress | null>(null);
   const [user, setUser] = useState<UserProfile | null>(null);
-  const { profile, refreshSkill } = useUserProfile();
-  const [showQuiz, setShowQuiz] = useState(false);
+  const { profile } = useUserProfile();
 
   useEffect(() => {
     async function load() {
@@ -164,13 +161,6 @@ export default function DashboardPage() {
     }
     load();
   }, []);
-
-  // Show skill quiz on first visit if not set
-  useEffect(() => {
-    if (profile && !profile.skillLevel) {
-      setShowQuiz(true);
-    }
-  }, [profile]);
 
   if (!progress) return null;
 
