@@ -73,8 +73,9 @@ export interface Lesson {
   duration: string;
   sections: LessonSection[];
   order: number;
-  gradeRange: [number, number];
+  gradeRange: [number, number]; // kept for reference, not used for adaptation
   difficulty: "beginner" | "intermediate" | "advanced";
+  skillLevel: "beginner" | "intermediate" | "advanced";
 }
 
 export interface Module {
@@ -149,6 +150,7 @@ export const LESSONS: Lesson[] = [
     order: 1,
     gradeRange: [4, 10],
     difficulty: "beginner",
+    skillLevel: "beginner",
     sections: [
       {
         type: "text",
@@ -227,6 +229,7 @@ Create your own hacker-style message! Try changing the text above to make it you
     order: 2,
     gradeRange: [4, 10],
     difficulty: "beginner",
+    skillLevel: "beginner",
     sections: [
       {
         type: "text", 
@@ -340,6 +343,7 @@ print("🎉 THE END! Hope you laughed! 🎉")
     order: 3,
     gradeRange: [4, 10],
     difficulty: "beginner",
+    skillLevel: "beginner",
     sections: [
       {
         type: "text",
@@ -474,6 +478,7 @@ print("Suggested tip: $" + str(round(tip_amount, 2)))
     order: 4,
     gradeRange: [4, 10],
     difficulty: "beginner",
+    skillLevel: "beginner",
     sections: [
       {
         type: "text",
@@ -640,6 +645,7 @@ Plan your turtle masterpiece:
     order: 5,
     gradeRange: [4, 10],
     difficulty: "beginner",
+    skillLevel: "beginner",
     sections: [
       {
         type: "text",
@@ -802,6 +808,7 @@ print("\n🎯 Safety is our #1 priority!")
     order: 6,
     gradeRange: [4, 10],
     difficulty: "beginner",
+    skillLevel: "beginner",
     sections: [
       {
         type: "text",
@@ -883,6 +890,7 @@ print()`,
     order: 1,
     gradeRange: [4, 10],
     difficulty: "beginner",
+    skillLevel: "beginner",
     sections: [
       {
         type: "text",
@@ -1097,6 +1105,7 @@ print("\n🎉 Loop Circus Complete!")
     order: 2,
     gradeRange: [4, 10],
     difficulty: "beginner",
+    skillLevel: "beginner",
     sections: [
       {
         type: "text",
@@ -1295,6 +1304,7 @@ print("✨ Total items:", len(weapons) + len(potions) + len(treasures))
     order: 3,
     gradeRange: [4, 10],
     difficulty: "beginner",
+    skillLevel: "beginner",
     sections: [
       {
         type: "text",
@@ -1509,6 +1519,7 @@ else:
     order: 4,
     gradeRange: [6, 10],
     difficulty: "intermediate",
+    skillLevel: "intermediate",
     sections: [
       {
         type: "text",
@@ -1777,6 +1788,7 @@ print("🔧 You just used nested loops like a pro programmer!")
     order: 5,
     gradeRange: [6, 10],
     difficulty: "intermediate",
+    skillLevel: "intermediate",
     sections: [
       {
         type: "text",
@@ -2041,6 +2053,7 @@ print(f"\n🎉 String art complete for '{text}'!")
     order: 6,
     gradeRange: [6, 10],
     difficulty: "intermediate",
+    skillLevel: "intermediate",
     sections: [
       {
         type: "text",
@@ -2363,6 +2376,7 @@ print("\n🎪 Thanks for playing Advanced Championship!")
     order: 1,
     gradeRange: [6, 10],
     difficulty: "intermediate",
+    skillLevel: "intermediate",
     sections: [
       {
         type: "text",
@@ -2750,6 +2764,7 @@ print(f"\n🎉 Calculator complete! Total area processed: {total:.2f}")
     order: 2,
     gradeRange: [6, 10],
     difficulty: "intermediate",
+    skillLevel: "intermediate",
     sections: [
       {
         type: "text",
@@ -3108,6 +3123,7 @@ print("\n🔒 Mission assignment complete!")
     order: 3,
     gradeRange: [6, 10],
     difficulty: "intermediate",
+    skillLevel: "intermediate",
     sections: [
       {
         type: "text",
@@ -3497,6 +3513,7 @@ while True:
     order: 4,
     gradeRange: [7, 10],
     difficulty: "intermediate",
+    skillLevel: "intermediate",
     sections: [
       {
         type: "text",
@@ -3531,6 +3548,7 @@ while True:
     order: 5,
     gradeRange: [7, 10],
     difficulty: "intermediate",
+    skillLevel: "intermediate",
     sections: [
       {
         type: "text",
@@ -3565,6 +3583,7 @@ while True:
     order: 6,
     gradeRange: [7, 10],
     difficulty: "intermediate",
+    skillLevel: "intermediate",
     sections: [
       {
         type: "text",
@@ -3599,6 +3618,7 @@ while True:
     order: 7,
     gradeRange: [7, 10],
     difficulty: "advanced",
+    skillLevel: "advanced",
     sections: [
       {
         type: "text",
@@ -3638,6 +3658,7 @@ while True:
     order: 1,
     gradeRange: [7, 10],
     difficulty: "intermediate",
+    skillLevel: "intermediate",
     sections: [
       {
         type: "text",
@@ -3672,6 +3693,7 @@ while True:
     order: 2,
     gradeRange: [7, 10],
     difficulty: "intermediate",
+    skillLevel: "intermediate",
     sections: [
       {
         type: "text",
@@ -3706,6 +3728,7 @@ while True:
     order: 3,
     gradeRange: [7, 10],
     difficulty: "advanced",
+    skillLevel: "advanced",
     sections: [
       {
         type: "text",
@@ -3740,6 +3763,7 @@ while True:
     order: 4,
     gradeRange: [7, 10],
     difficulty: "advanced",
+    skillLevel: "advanced",
     sections: [
       {
         type: "text",
@@ -3774,6 +3798,7 @@ while True:
     order: 5,
     gradeRange: [8, 10],
     difficulty: "advanced",
+    skillLevel: "advanced",
     sections: [
       {
         type: "text",
@@ -3808,6 +3833,7 @@ while True:
     order: 6,
     gradeRange: [8, 10],
     difficulty: "advanced",
+    skillLevel: "advanced",
     sections: [
       {
         type: "text",
@@ -3847,6 +3873,7 @@ while True:
     order: 1,
     gradeRange: [8, 10],
     difficulty: "advanced",
+    skillLevel: "advanced",
     sections: [
       {
         type: "text",
@@ -3889,6 +3916,7 @@ The difference? **Scale and complexity!**`,
     order: 2,
     gradeRange: [8, 10],
     difficulty: "advanced",
+    skillLevel: "advanced",
     sections: [
       {
         type: "text",
@@ -3929,6 +3957,7 @@ AI can help with:
     order: 3,
     gradeRange: [8, 10],
     difficulty: "advanced",
+    skillLevel: "advanced",
     sections: [
       {
         type: "text",
@@ -3971,6 +4000,7 @@ Common AI coding mistakes:
     order: 4,
     gradeRange: [8, 10],
     difficulty: "advanced",
+    skillLevel: "advanced",
     sections: [
       {
         type: "text",
@@ -4012,6 +4042,7 @@ This is the foundation of machine learning!`,
     order: 5,
     gradeRange: [8, 10],
     difficulty: "advanced",
+    skillLevel: "advanced",
     sections: [
       {
         type: "text",

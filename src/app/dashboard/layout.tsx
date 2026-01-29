@@ -3,11 +3,14 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Sidebar from "@/components/Sidebar";
+import { usePathname } from "next/navigation";
 import { getUser, getSessionUser, ensureProfile } from "@/lib/auth-store";
 import { isSupabaseConfigured } from "@/lib/supabase";
+import { loadSkillLevelFromProfile } from "@/lib/skill-store";
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   const router = useRouter();
+  const pathname = usePathname();
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
@@ -32,10 +35,18 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         const user = getUser();
         if (!user) { router.replace("/register"); return; }
       }
+      // Check if skill level is set; if not, redirect to quiz (unless already on quiz page)
+      if (pathname !== "/dashboard/skill-quiz") {
+        const skill = await loadSkillLevelFromProfile();
+        if (!skill) {
+          router.replace("/dashboard/skill-quiz");
+          return;
+        }
+      }
       setReady(true);
     }
     check();
-  }, [router]);
+  }, [router, pathname]);
 
   if (!ready) {
     return (

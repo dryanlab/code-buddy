@@ -8,7 +8,9 @@ import { getCoinState } from "@/lib/coin-store";
 import { MODULES, LESSONS } from "@/data/lessons";
 import { getUser, getSessionUser, type UserProfile } from "@/lib/auth-store";
 import { isSupabaseConfigured } from "@/lib/supabase";
-import { useUserProfile, getGradeGreeting } from "@/lib/useUserProfile";
+import { useUserProfile, getSkillGreeting } from "@/lib/useUserProfile";
+import { SKILL_LABELS, type SkillLevel } from "@/lib/skill-store";
+import SkillQuiz from "@/components/SkillQuiz";
 
 function XPBar({ xp, level }: { xp: number; level: number }) {
   const info = getLevelInfo(xp);
@@ -146,7 +148,8 @@ function StatsBar({ progress }: { progress: UserProgress }) {
 export default function DashboardPage() {
   const [progress, setProgress] = useState<UserProgress | null>(null);
   const [user, setUser] = useState<UserProfile | null>(null);
-  const profile = useUserProfile();
+  const { profile, refreshSkill } = useUserProfile();
+  const [showQuiz, setShowQuiz] = useState(false);
 
   useEffect(() => {
     async function load() {
@@ -162,16 +165,26 @@ export default function DashboardPage() {
     load();
   }, []);
 
+  // Show skill quiz on first visit if not set
+  useEffect(() => {
+    if (profile && !profile.skillLevel) {
+      setShowQuiz(true);
+    }
+  }, [profile]);
+
   if (!progress) return null;
 
   const displayName = profile?.name || user?.name || "Coder";
-  const userGrade = profile?.grade || 6;
   const userAvatar = profile?.avatar || user?.avatar || "👋";
-  const greeting = getGradeGreeting(userGrade, displayName, userAvatar);
+  const skillLevel = profile?.skillLevel || null;
+  const greeting = getSkillGreeting(skillLevel);
+  const skillLabel = skillLevel ? SKILL_LABELS[skillLevel] : null;
 
-  // Get recommended lessons for this grade
+  // Recommended lessons based on skill level
+  const SKILL_ORDER: SkillLevel[] = ["beginner", "intermediate", "advanced"];
+  const userSkillIdx = skillLevel ? SKILL_ORDER.indexOf(skillLevel) : 0;
   const recommendedLessons = LESSONS
-    .filter((l) => userGrade >= l.gradeRange[0] && userGrade <= l.gradeRange[1])
+    .filter((l) => SKILL_ORDER.indexOf(l.skillLevel) <= userSkillIdx)
     .filter((l) => !progress.completedLessons.includes(l.id))
     .slice(0, 4);
 
@@ -179,10 +192,14 @@ export default function DashboardPage() {
     <div className="p-6 md:p-8 max-w-5xl mx-auto space-y-8">
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
         <h1 className="text-3xl font-bold mb-1">
-          {greeting.en.replace(userAvatar, '')}{displayName}! {userAvatar}
+          {greeting.en} {displayName}! {userAvatar}
         </h1>
         <p style={{ color: "var(--theme-text-secondary)" }}>{greeting.cn}</p>
-        <p className="text-sm" style={{ color: "var(--theme-text-muted)" }}>Grade {userGrade} · 准备好升级了吗？</p>
+        {skillLabel && (
+          <p className="text-sm" style={{ color: "var(--theme-text-muted)" }}>
+            {skillLabel.emoji} {skillLabel.en} · {skillLabel.cn} · 准备好升级了吗？
+          </p>
+        )}
       </motion.div>
 
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
@@ -201,7 +218,7 @@ export default function DashboardPage() {
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.35 }}>
           <div className="space-y-4">
             <div>
-              <h2 className="text-xl font-bold">🎯 Recommended for Grade {userGrade}</h2>
+              <h2 className="text-xl font-bold">🎯 Recommended for You {skillLabel ? skillLabel.emoji : ""}</h2>
               <p className="text-sm" style={{ color: "var(--theme-text-muted)" }}>为你推荐的课程</p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">

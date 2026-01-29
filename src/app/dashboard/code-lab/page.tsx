@@ -58,14 +58,17 @@ export default function CodeLabPage() {
   const [showHint, setShowHint] = useState(false);
   const [showSolution, setShowSolution] = useState(false);
   const [freeMode, setFreeMode] = useState(false);
-  const profile = useUserProfile();
-  const userGrade = profile?.grade || 6;
+  const { profile } = useUserProfile();
+  const skillLevel = profile?.skillLevel || "beginner";
+  const SKILL_ORDER = ["beginner", "intermediate", "advanced"];
+  const userSkillIdx = SKILL_ORDER.indexOf(skillLevel);
 
   const sortedExercises = useMemo(() => {
-    const recommended = CODE_EXERCISES.filter((ex) => userGrade >= ex.gradeRange[0] && userGrade <= ex.gradeRange[1]);
-    const advanced = CODE_EXERCISES.filter((ex) => userGrade < ex.gradeRange[0] || userGrade > ex.gradeRange[1]);
+    const recommended = CODE_EXERCISES.filter((ex) => SKILL_ORDER.indexOf(ex.skillLevel) <= userSkillIdx);
+    const advanced = CODE_EXERCISES.filter((ex) => SKILL_ORDER.indexOf(ex.skillLevel) > userSkillIdx);
     return [...recommended, ...advanced];
-  }, [userGrade]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [userSkillIdx]);
 
   return (
     <div className="p-6 md:p-8 h-screen flex flex-col">
@@ -98,7 +101,7 @@ export default function CodeLabPage() {
 
           <div className="text-xs px-2 pt-2" style={{ color: "var(--theme-text-muted)" }}>EXERCISES · 练习</div>
           {sortedExercises.map((ex) => {
-            const isRecommended = userGrade >= ex.gradeRange[0] && userGrade <= ex.gradeRange[1];
+            const isRecommended = SKILL_ORDER.indexOf(ex.skillLevel) <= userSkillIdx;
             return (
               <ExerciseCard
                 key={ex.id}

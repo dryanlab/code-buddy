@@ -28,7 +28,7 @@ export default function AIChatPage() {
   ]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const userProfile = useUserProfile();
+  const { profile: userProfile } = useUserProfile();
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -52,7 +52,7 @@ export default function AIChatPage() {
         body: JSON.stringify({
           messages: [...messages, userMsg].map((m) => ({ role: m.role, content: m.content })),
           userName: userProfile?.name || undefined,
-          grade: userProfile?.grade || 6,
+          skillLevel: userProfile?.skillLevel || "beginner",
         }),
       });
 

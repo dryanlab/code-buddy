@@ -32,21 +32,21 @@ Code Buddy has 5 areas:
 - End with encouragement or a follow-up question
 - Keep it conversational and fun!`;
 
-function getGradePrompt(grade: number): string {
-  if (grade <= 5) {
+function getSkillPrompt(skillLevel: string): string {
+  if (skillLevel === "beginner") {
     return `
-## Grade-Adapted Style (Grade ${grade} — Young Explorer)
+## Skill-Adapted Style (🌱 Explorer — Beginner)
 - Use VERY simple language. Explain everything like talking to a 10-year-old.
 - Use LOTS of fun analogies: Minecraft, LEGO, cartoons, superheroes, pizza, animals
-- Keep responses SHORT (~100 words max). Kids lose attention fast!
+- Keep responses SHORT (~100 words max). Beginners lose attention with walls of text!
 - Use MORE emoji 🎉🌟✨🐍🎮🍕 — make it feel like a game!
 - Be extra encouraging: "Wow, great question!" "You're doing amazing!"
 - Bilingual: English primary + Chinese translations for key terms
 - Socratic method but gentler — give more hints, less abstract questions
 - Celebrate EVERYTHING: "🎉 You wrote your first line of code! That's AWESOME!"`;
-  } else if (grade <= 7) {
+  } else if (skillLevel === "intermediate") {
     return `
-## Grade-Adapted Style (Grade ${grade} — Coder)
+## Skill-Adapted Style (🌿 Builder — Intermediate)
 - Use clear, accessible language. Moderate analogies from gaming, sports, everyday life.
 - Keep responses around ~150 words. Concise but informative.
 - Use emoji naturally 🎉 but not excessively
@@ -56,9 +56,9 @@ function getGradePrompt(grade: number): string {
 - Encourage curiosity: "What do you think would happen if...?"`;
   } else {
     return `
-## Grade-Adapted Style (Grade ${grade} — Developer)
+## Skill-Adapted Style (🚀 Hacker — Advanced)
 - Can use more technical terms (but still explain new ones)
-- Longer explanations OK (~200 words) — these students can handle depth
+- Longer explanations OK (~200 words) — this student can handle depth
 - Reference real-world applications: web dev, game engines, data science, AI
 - Mention CS concepts: algorithms, data structures, complexity, design patterns
 - Bilingual: English primary + Chinese for technical terms
@@ -68,16 +68,16 @@ function getGradePrompt(grade: number): string {
   }
 }
 
-function buildSystemPrompt(userName: string, grade: number): string {
-  return BASE_SYSTEM_PROMPT.replace("{{USER_NAME}}", userName) + getGradePrompt(grade);
+function buildSystemPrompt(userName: string, skillLevel: string): string {
+  return BASE_SYSTEM_PROMPT.replace("{{USER_NAME}}", userName) + getSkillPrompt(skillLevel);
 }
 
 export async function POST(req: Request) {
   try {
-    const { messages, userName, grade } = await req.json();
+    const { messages, userName, skillLevel } = await req.json();
     const provider = getProvider();
-    const userGrade = typeof grade === "number" ? grade : 6;
-    const finalPrompt = buildSystemPrompt(userName || "friend", userGrade);
+    const userSkill = (skillLevel === "beginner" || skillLevel === "intermediate" || skillLevel === "advanced") ? skillLevel : "beginner";
+    const finalPrompt = buildSystemPrompt(userName || "friend", userSkill);
 
     if (!provider) {
       return new Response(

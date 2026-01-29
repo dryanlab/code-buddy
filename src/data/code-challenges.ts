@@ -5,7 +5,8 @@ export interface CodeExercise {
   title: string;
   description: string;
   difficulty: 1 | 2 | 3;
-  gradeRange: [number, number];
+  gradeRange: [number, number]; // kept for reference
+  skillLevel: "beginner" | "intermediate" | "advanced";
   starterCode: string;
   hint: string;
   solution: string;
@@ -21,6 +22,7 @@ export const CODE_EXERCISES: CodeExercise[] = [
     description: "Use print() to create your own ASCII art! Make a smiley face, a house, or anything you want.",
     difficulty: 1,
     gradeRange: [4, 10],
+    skillLevel: "beginner",
     starterCode: `# Create ASCII art with print()
 # Example:
 print("  ***  ")
@@ -42,6 +44,7 @@ print("  ***  ")`,
     description: "Create variables for the prices of 3 items and calculate the total. Apply a 10% discount!",
     difficulty: 1,
     gradeRange: [4, 10],
+    skillLevel: "beginner",
     starterCode: `# Shopping calculator
 item1 = 25.99  # Backpack
 item2 = 12.50  # Water bottle
@@ -73,6 +76,7 @@ print("Final: $" + str(final_price))`,
     description: "Use variables and string concatenation to create an automatic self-introduction!",
     difficulty: 1,
     gradeRange: [4, 10],
+    skillLevel: "beginner",
     starterCode: `# Personal Intro Generator
 name = "William"
 age = 12
@@ -100,6 +104,7 @@ print("I love " + hobby + " and my favorite game is " + favorite_game + "!")`,
     description: "Write a program that checks if a number is even or odd!",
     difficulty: 1,
     gradeRange: [4, 10],
+    skillLevel: "beginner",
     starterCode: `# Even or Odd?
 number = 17
 
@@ -123,6 +128,7 @@ else:
     description: "Build a Fahrenheit to Celsius converter! Formula: C = (F - 32) × 5/9",
     difficulty: 1,
     gradeRange: [4, 10],
+    skillLevel: "beginner",
     starterCode: `# Temperature Converter
 # Formula: Celsius = (Fahrenheit - 32) * 5/9
 
@@ -156,6 +162,7 @@ print(str(fahrenheit) + "°F = " + str(round(celsius, 1)) + "°C")`,
     description: "Create a number guessing game! The computer picks a secret number and you try to guess it.",
     difficulty: 2,
     gradeRange: [6, 10],
+    skillLevel: "intermediate",
     starterCode: `import random
 
 secret = random.randint(1, 20)
@@ -199,6 +206,7 @@ else:
     description: "Use loops to print cool patterns! Start with a triangle, then try a diamond.",
     difficulty: 2,
     gradeRange: [6, 10],
+    skillLevel: "intermediate",
     starterCode: `# Print a triangle pattern
 rows = 5
 for i in range(1, rows + 1):
@@ -227,6 +235,7 @@ for i in range(rows, 0, -1):
     description: "Build a random password generator! Mix letters, numbers, and symbols.",
     difficulty: 2,
     gradeRange: [6, 10],
+    skillLevel: "intermediate",
     starterCode: `import random
 
 # Characters to choose from
@@ -267,6 +276,7 @@ print("Length: " + str(len(password)))`,
     description: "Calculate Body Mass Index! BMI = weight(kg) / height(m)²",
     difficulty: 2,
     gradeRange: [6, 10],
+    skillLevel: "intermediate",
     starterCode: `# BMI Calculator
 # Formula: BMI = weight_kg / (height_m ** 2)
 
@@ -305,6 +315,7 @@ else:
     description: "Build a game inventory system using lists! Add, remove, and display items.",
     difficulty: 2,
     gradeRange: [6, 10],
+    skillLevel: "intermediate",
     starterCode: `# Game Inventory Manager
 inventory = ["sword", "shield", "potion"]
 
@@ -341,6 +352,7 @@ print("Total items: " + str(len(inventory)))`,
     description: "Build a Rock Paper Scissors game against the computer!",
     difficulty: 2,
     gradeRange: [6, 10],
+    skillLevel: "intermediate",
     starterCode: `import random
 
 choices = ["rock", "paper", "scissors"]
@@ -380,6 +392,7 @@ else:
     description: "This code has 3 bugs! Find and fix them all to get the correct output.",
     difficulty: 2,
     gradeRange: [6, 10],
+    skillLevel: "intermediate",
     starterCode: `# This code should print the sum of numbers 1 to 10
 # Expected output: "Sum of 1 to 10 = 55"
 # But it has 3 bugs! Fix them.
@@ -404,6 +417,7 @@ print("Sum of 1 to 10 = " + str(total))`,
     description: "Create a mini Pokédex using dictionaries! Store Pokémon data and look them up.",
     difficulty: 2,
     gradeRange: [6, 10],
+    skillLevel: "intermediate",
     starterCode: `# Mini Pokédex
 pokedex = {
     "Pikachu": {"type": "Electric", "hp": 35, "attack": 55},
@@ -441,6 +455,7 @@ for name in pokedex:
     description: "Write useful functions and combine them to solve a problem!",
     difficulty: 2,
     gradeRange: [6, 10],
+    skillLevel: "intermediate",
     starterCode: `# Function Factory!
 
 # TODO: Write these functions:
@@ -490,6 +505,7 @@ print("Is 13 prime?", is_prime(13))`,
     description: "Build a Caesar Cipher encoder! Shift each letter by a secret number to encrypt a message.",
     difficulty: 3,
     gradeRange: [8, 10],
+    skillLevel: "advanced",
     starterCode: `# Caesar Cipher — shift each letter by N positions
 # A with shift 3 → D, B → E, Z → C (wraps around!)
 
@@ -545,6 +561,7 @@ print("Decrypted: " + decrypted)`,
     description: "Analyze a class of students' grades: average, highest, lowest, and grade distribution!",
     difficulty: 3,
     gradeRange: [8, 10],
+    skillLevel: "advanced",
     starterCode: `# Student Grade Analyzer
 grades = [92, 85, 78, 95, 88, 72, 96, 81, 67, 90, 84, 73, 99, 56, 88]
 
@@ -606,6 +623,7 @@ print("Pass rate: " + str(round(pass_rate, 1)) + "%")`,
     description: "Build a mini text adventure game with rooms, items, and choices!",
     difficulty: 3,
     gradeRange: [8, 10],
+    skillLevel: "advanced",
     starterCode: `# Mini Text Adventure Game
 # Use dictionaries for rooms and if-else for choices
 
@@ -681,6 +699,7 @@ for move in moves:
     description: "This program calculates factorial but has 5 bugs! Find and fix ALL of them.",
     difficulty: 3,
     gradeRange: [8, 10],
+    skillLevel: "advanced",
     starterCode: `# Factorial Calculator (has 5 bugs!)
 # n! = n × (n-1) × ... × 1
 # Example: 5! = 5 × 4 × 3 × 2 × 1 = 120
@@ -717,6 +736,7 @@ print("3! = " + str(factorial(3)))`,
     description: "Simulate the memory hierarchy speed comparison! Show why cache matters.",
     difficulty: 3,
     gradeRange: [8, 10],
+    skillLevel: "advanced",
     starterCode: `# Memory Speed Simulator
 # Show relative speeds in human-understandable time
 
@@ -777,6 +797,7 @@ for name in speeds:
     description: "Review AI-generated code! Find bugs, suggest improvements, and add edge case handling.",
     difficulty: 3,
     gradeRange: [8, 10],
+    skillLevel: "advanced",
     starterCode: `# AI generated this code to find duplicates in a list.
 # It has issues! Review, fix, and improve it.
 

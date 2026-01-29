@@ -6,11 +6,14 @@ import { useEffect, useState } from "react";
 import { getProgress } from "@/lib/progress-store";
 import { MODULES, LESSONS } from "@/data/lessons";
 import { useUserProfile } from "@/lib/useUserProfile";
+import { SKILL_LABELS } from "@/lib/skill-store";
 
 export default function LessonsPage() {
   const [completedLessons, setCompletedLessons] = useState<string[]>([]);
-  const profile = useUserProfile();
-  const userGrade = profile?.grade || 6;
+  const { profile } = useUserProfile();
+  const skillLevel = profile?.skillLevel || "beginner";
+  const SKILL_ORDER = ["beginner", "intermediate", "advanced"];
+  const userSkillIdx = SKILL_ORDER.indexOf(skillLevel);
 
   useEffect(() => {
     setCompletedLessons(getProgress().completedLessons);
@@ -60,8 +63,10 @@ export default function LessonsPage() {
                 {moduleLessons.map((lesson, li) => {
                   const isDone = completedLessons.includes(lesson.id);
                   const isLocked = li > 0 && !completedLessons.includes(moduleLessons[li - 1].id) && !isDone;
-                  const isRecommended = userGrade >= lesson.gradeRange[0] && userGrade <= lesson.gradeRange[1];
-                  const diffBadge = lesson.difficulty === "beginner" ? "🟢" : lesson.difficulty === "intermediate" ? "🟡" : "🔴";
+                  const lessonSkillIdx = SKILL_ORDER.indexOf(lesson.skillLevel);
+                  const isRecommended = lessonSkillIdx <= userSkillIdx;
+                  const isReview = lessonSkillIdx < userSkillIdx && !isDone;
+                  const skillBadge = SKILL_LABELS[lesson.skillLevel as keyof typeof SKILL_LABELS];
 
                   return (
                     <Link
@@ -84,14 +89,14 @@ export default function LessonsPage() {
                           opacity: isLocked ? 0.5 : !isRecommended && !isDone ? 0.7 : 1,
                         }}
                       >
-                        {isRecommended && !isDone && (
-                          <div className="absolute -top-2 -right-2 text-[10px] px-2 py-0.5 rounded-full font-bold" style={{ backgroundColor: "var(--color-primary)", color: "var(--theme-bg)" }}>
-                            ⭐ Recommended
+                        {isReview && (
+                          <div className="absolute -top-2 -right-2 text-[10px] px-2 py-0.5 rounded-full" style={{ backgroundColor: "var(--theme-border)", color: "var(--theme-text-muted)" }}>
+                            📖 Review
                           </div>
                         )}
                         {!isRecommended && !isDone && !isLocked && (
                           <div className="absolute -top-2 -right-2 text-[10px] px-2 py-0.5 rounded-full" style={{ backgroundColor: "var(--theme-border)", color: "var(--theme-text-muted)" }}>
-                            Advanced
+                            🔮 Advanced
                           </div>
                         )}
                         <div className="flex items-center gap-3">
@@ -100,7 +105,7 @@ export default function LessonsPage() {
                           </span>
                           <div className="flex-1 min-w-0">
                             <div className="font-semibold text-sm truncate">
-                              {diffBadge} {lesson.title}
+                              {skillBadge.emoji} {lesson.title}
                             </div>
                             <div className="text-xs truncate" style={{ color: "var(--theme-text-secondary)" }}>{lesson.subtitle}</div>
                           </div>
