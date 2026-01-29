@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 const CODE_LINES = [
   'print("Hello, World! 🌍")',
@@ -72,6 +72,13 @@ function TypewriterCode() {
   }, [lineIndex, charIndex]);
 
   const currentLine = lineIndex < CODE_LINES.length ? CODE_LINES[lineIndex].slice(0, charIndex) : "";
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+    }
+  }, [displayed, charIndex]);
 
   return (
     <div className="bg-[#0d1117] border border-green-500/30 rounded-xl p-6 terminal-text text-sm max-w-md w-full">
@@ -80,7 +87,7 @@ function TypewriterCode() {
         <div className="w-3 h-3 rounded-full bg-yellow-500" />
         <div className="w-3 h-3 rounded-full bg-green-500" />
       </div>
-      <div className="space-y-1">
+      <div ref={scrollRef} className="h-32 overflow-y-auto space-y-1 scrollbar-thin scrollbar-thumb-slate-700">
         {displayed.map((line, i) => (
           <div key={i} className="text-green-400">
             <span className="text-gray-500">{">>> "}</span>

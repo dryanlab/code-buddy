@@ -55,7 +55,13 @@ export default function AIChatPage() {
       if (!res.ok) throw new Error("API error");
 
       const reader = res.body?.getReader();
-      if (!reader) throw new Error("No reader");
+      
+      if (!reader) {
+        // Fallback: read as plain text if streaming not supported
+        const text = await res.text();
+        setMessages((prev) => [...prev, { role: "assistant", content: text || "Hmm, I got nothing back. Try again! 🤔" }]);
+        return;
+      }
 
       const decoder = new TextDecoder();
       let assistantContent = "";
@@ -70,6 +76,15 @@ export default function AIChatPage() {
         setMessages((prev) => {
           const updated = [...prev];
           updated[updated.length - 1] = { role: "assistant", content: assistantContent };
+          return updated;
+        });
+      }
+
+      // If stream completed but got nothing, show error
+      if (!assistantContent.trim()) {
+        setMessages((prev) => {
+          const updated = [...prev];
+          updated[updated.length - 1] = { role: "assistant", content: "Hmm, something went wrong with my response. Try asking again! 🤔\n\n好像出了点问题，再问一次试试！" };
           return updated;
         });
       }

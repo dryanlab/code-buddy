@@ -64,7 +64,10 @@ export async function POST(req: Request) {
           }
           controller.close();
         } catch (err) {
-          controller.error(err);
+          const errMsg = err instanceof Error ? err.message : "Unknown error";
+          console.error("Stream error:", errMsg);
+          controller.enqueue(encoder.encode(`\n\nOops, stream error: ${errMsg}`));
+          controller.close();
         }
       },
     });
