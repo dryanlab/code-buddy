@@ -28,10 +28,14 @@ class GeminiProvider implements AIProvider {
       systemInstruction: systemPrompt,
     });
 
-    const history = messages.slice(0, -1).map((m) => ({
+    // Filter history: Gemini requires first message to be 'user' role
+    const rawHistory = messages.slice(0, -1).map((m) => ({
       role: m.role === "assistant" ? ("model" as const) : ("user" as const),
       parts: [{ text: m.content }],
     }));
+    // Drop leading 'model' messages so first entry is always 'user'
+    const firstUserIdx = rawHistory.findIndex((m) => m.role === "user");
+    const history = firstUserIdx > 0 ? rawHistory.slice(firstUserIdx) : firstUserIdx === 0 ? rawHistory : [];
 
     const lastMessage = messages[messages.length - 1];
     const chat = model.startChat({
