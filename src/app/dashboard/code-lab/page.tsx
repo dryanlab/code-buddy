@@ -8,8 +8,11 @@ import { loadPyodideEngine, runPython, isPyodideLoaded, traceExecution } from "@
 import type { VariableDetail, TraceStep } from "@/lib/pyodide-engine";
 import { runCpp } from "@/lib/cpp-engine";
 import { incrementCodeRun, addXP } from "@/lib/progress-store";
+import { earnCoins } from "@/lib/coin-store";
 import { CODE_EXERCISES, type CodeExercise } from "@/data/code-challenges";
 import { ALL_EXERCISES, type UnifiedExercise, type ExerciseLanguage } from "@/data/unified-exercises";
+import { runTestCases } from "@/lib/test-runner";
+import { type GradeResult, getXPReward } from "@/lib/exercise-grader";
 import { useUserProfile } from "@/lib/useUserProfile";
 import { isPreviewMode, PREVIEW_MAX_EXERCISES } from "@/lib/preview-mode";
 import SignUpModal from "@/components/SignUpModal";
@@ -498,6 +501,42 @@ function NewProjectDialog({ onClose, onCreate }: { onClose: () => void; onCreate
   );
 }
 
+// ─── Explanation Generator ───────────────────────────────────
+
+function generateExplanation(exercise: UnifiedExercise): string[] {
+  const steps: string[] = [];
+  const lines = exercise.solution.split('\n').filter(l => l.trim());
+
+  // Extract comments as explanation steps
+  for (const line of lines) {
+    const commentMatch = line.match(/(?:\/\/|#)\s*(.+)/);
+    if (commentMatch && commentMatch[1].length > 3) {
+      steps.push(commentMatch[1].trim());
+    }
+  }
+
+  // If no comments found, generate basic explanation
+  if (steps.length === 0) {
+    if (exercise.language === 'python') {
+      if (exercise.solution.includes('input(')) steps.push('Read input from the user · 从用户读取输入');
+      if (exercise.solution.includes('for ')) steps.push('Use a loop to iterate · 使用循环遍历');
+      if (exercise.solution.includes('if ')) steps.push('Use conditional logic · 使用条件判断');
+      if (exercise.solution.includes('def ')) steps.push('Define a function · 定义函数');
+      if (exercise.solution.includes('print(')) steps.push('Print the result · 输出结果');
+    } else {
+      if (exercise.solution.includes('cin')) steps.push('Read input with cin · 使用cin读取输入');
+      if (exercise.solution.includes('for (') || exercise.solution.includes('for(')) steps.push('Use a loop to iterate · 使用循环遍历');
+      if (exercise.solution.includes('if (') || exercise.solution.includes('if(')) steps.push('Use conditional logic · 使用条件判断');
+      if (exercise.solution.includes('cout')) steps.push('Output with cout · 使用cout输出');
+    }
+    if (steps.length === 0) {
+      steps.push(`Study the solution code above and compare with your approach · 研究上面的解答代码，与你的方法对比`);
+    }
+  }
+
+  return steps;
+}
+
 // ─── Main Page ──────────────────────────────────────────────
 
 export default function CodeLabPage() {
@@ -558,6 +597,14 @@ export default function CodeLabPage() {
   const [showSuccess, setShowSuccess] = useState(false);
   const [hasError, setHasError] = useState(false);
   const [outputCollapsed, setOutputCollapsed] = useState(false);
+
+  // Grading
+  const [gradeResult, setGradeResult] = useState<GradeResult | null>(null);
+  const [isGrading, setIsGrading] = useState(false);
+  const [gradingProgress, setGradingProgress] = useState("");
+  const [showCelebration, setShowCelebration] = useState(false);
+  const [exercisesPassed, setExercisesPassed] = useState<Set<string>>(new Set());
+  const [showExplanation, setShowExplanation] = useState(false);
 
   // Step/Debug
   const [stepMode, setStepMode] = useState(false);
@@ -724,8 +771,40 @@ export default function CodeLabPage() {
   const runCode = useCallback(async () => {
     setStepMode(false);
     setHighlightLines(null);
+    setGradeResult(null);
     await executeCode();
-  }, [executeCode]);
+
+    // Auto-grade if exercise with test cases
+    if (selectedExercise && selectedExercise.testCases.length > 0) {
+      setIsGrading(true);
+      setGradingProgress("Running tests... · 正在测试...");
+      try {
+        const result = await runTestCases(
+          code,
+          selectedExercise.language,
+          selectedExercise.testCases,
+          (done, total) => setGradingProgress(`Test ${done}/${total}...`),
+        );
+        setGradeResult(result);
+
+        if (result.passed) {
+          // Award XP/coins on first pass
+          if (!exercisesPassed.has(selectedExercise.id)) {
+            const xp = getXPReward(selectedExercise.difficulty);
+            addXP(xp);
+            earnCoins(xp, `exercise:${selectedExercise.id}`);
+            setExercisesPassed(prev => new Set(prev).add(selectedExercise.id));
+          }
+          setShowCelebration(true);
+          setTimeout(() => setShowCelebration(false), 3000);
+        }
+      } catch {
+        setGradingProgress("Grading failed · 评分失败");
+      } finally {
+        setIsGrading(false);
+      }
+    }
+  }, [executeCode, selectedExercise, code, exercisesPassed]);
 
   const startStepMode = useCallback(async () => {
     const ready = await ensurePyodide();
@@ -906,6 +985,8 @@ export default function CodeLabPage() {
       setOutput("");
       setShowHint(false);
       setShowSolution(false);
+      setGradeResult(null);
+      setShowExplanation(false);
     },
     [openTabs, projects]
   );
@@ -1307,16 +1388,94 @@ export default function CodeLabPage() {
             />
             {showSolution && selectedExercise && (
               <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                className="absolute bottom-2 right-2 z-10 rounded-lg border p-3 max-w-sm max-h-48 overflow-auto text-xs"
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                className="absolute bottom-2 right-2 z-10 rounded-xl border p-4 max-w-md max-h-[70%] overflow-auto text-xs shadow-2xl"
                 style={{ backgroundColor: "var(--theme-card-bg)", borderColor: "var(--theme-border)" }}
               >
-                <div className="flex justify-between items-center mb-1">
-                  <span className="font-bold text-[10px]" style={{ color: "var(--theme-text-muted)" }}>SOLUTION</span>
-                  <button onClick={() => setShowSolution(false)} className="text-red-400 text-xs">×</button>
+                <div className="flex justify-between items-center mb-2">
+                  <span className="font-bold text-sm">👀 Solution · 解答</span>
+                  <button onClick={() => setShowSolution(false)} className="text-red-400 text-xs hover:text-red-300">✕</button>
                 </div>
-                <pre className="text-green-400 terminal-text whitespace-pre-wrap">{selectedExercise.solution}</pre>
+
+                {/* Progressive hints */}
+                {selectedExercise.hints.length > 0 && !showExplanation && (
+                  <div className="mb-3 space-y-1">
+                    <div className="text-[10px] font-bold mb-1" style={{ color: "var(--color-warning)" }}>
+                      💡 Hints · 提示
+                    </div>
+                    {selectedExercise.hints.slice(0, hintIndex + 1).map((h, i) => (
+                      <motion.div
+                        key={i}
+                        initial={{ opacity: 0, y: 5 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="text-[11px] p-1.5 rounded"
+                        style={{ backgroundColor: "color-mix(in srgb, var(--color-warning) 8%, transparent)" }}
+                      >
+                        {i + 1}. {h}
+                      </motion.div>
+                    ))}
+                    {selectedExercise.hintsZh && selectedExercise.hintsZh.slice(0, hintIndex + 1).map((h, i) => (
+                      <div key={`zh-${i}`} className="text-[10px] pl-3" style={{ color: "var(--theme-text-muted)" }}>
+                        ↳ {h}
+                      </div>
+                    ))}
+                    {hintIndex < selectedExercise.hints.length - 1 && (
+                      <button
+                        onClick={() => setHintIndex(i => i + 1)}
+                        className="text-[10px] px-2 py-0.5 rounded mt-1"
+                        style={{ backgroundColor: "color-mix(in srgb, var(--color-warning) 15%, transparent)", color: "var(--color-warning)" }}
+                      >
+                        Show next hint · 下一个提示 ({hintIndex + 1}/{selectedExercise.hints.length})
+                      </button>
+                    )}
+                  </div>
+                )}
+
+                {/* Solution code */}
+                <div className="mb-2">
+                  <div className="text-[10px] font-bold mb-1" style={{ color: "var(--theme-text-muted)" }}>
+                    CODE · 代码
+                  </div>
+                  <pre className="text-green-400 terminal-text whitespace-pre-wrap text-[11px] p-2 rounded-lg" style={{ backgroundColor: "rgba(0,0,0,0.3)" }}>
+                    {selectedExercise.solution}
+                  </pre>
+                </div>
+
+                {/* Explain button & explanation */}
+                <button
+                  onClick={() => setShowExplanation(!showExplanation)}
+                  className="text-[10px] px-2.5 py-1 rounded-lg font-bold transition-colors"
+                  style={{
+                    backgroundColor: showExplanation
+                      ? "color-mix(in srgb, var(--color-primary) 20%, transparent)"
+                      : "color-mix(in srgb, var(--color-secondary) 15%, transparent)",
+                    color: showExplanation ? "var(--color-primary)" : "var(--color-secondary)",
+                  }}
+                >
+                  {showExplanation ? "Hide Explanation · 隐藏解析" : "📖 Explain · 解析"}
+                </button>
+
+                <AnimatePresence>
+                  {showExplanation && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      className="mt-2 p-2 rounded-lg text-[11px] space-y-1"
+                      style={{ backgroundColor: "color-mix(in srgb, var(--color-primary) 6%, transparent)" }}
+                    >
+                      <div className="font-bold text-[10px]" style={{ color: "var(--color-primary)" }}>
+                        Step-by-step · 逐步解析
+                      </div>
+                      {generateExplanation(selectedExercise).map((step, i) => (
+                        <div key={i} style={{ color: "var(--theme-text-secondary)" }}>
+                          <span className="font-bold">{i + 1}.</span> {step}
+                        </div>
+                      ))}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </motion.div>
             )}
           </div>
@@ -1372,6 +1531,65 @@ export default function CodeLabPage() {
                           <span className="text-[var(--theme-text-muted)]">Click Run to execute · 点击 Run 运行代码</span>
                         )}
                       </pre>
+
+                      {/* Grading Panel */}
+                      {isGrading && (
+                        <div className="mt-2 px-3 py-2 rounded-lg text-xs animate-pulse" style={{ backgroundColor: "color-mix(in srgb, var(--color-primary) 10%, transparent)" }}>
+                          ⏳ {gradingProgress}
+                        </div>
+                      )}
+                      {gradeResult && !isGrading && (
+                        <motion.div
+                          initial={{ opacity: 0, y: 10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          className="mt-2 rounded-lg border overflow-hidden"
+                          style={{ borderColor: gradeResult.passed ? "#22c55e" : "#ef4444" }}
+                        >
+                          <div
+                            className="px-3 py-2 text-xs font-bold"
+                            style={{
+                              backgroundColor: gradeResult.passed
+                                ? "rgba(34,197,94,0.15)"
+                                : "rgba(239,68,68,0.15)",
+                              color: gradeResult.passed ? "#22c55e" : "#ef4444",
+                            }}
+                          >
+                            {gradeResult.passed
+                              ? `✅ ${gradeResult.passedTests}/${gradeResult.totalTests} tests passed — Great job! 太棒了！`
+                              : `❌ ${gradeResult.passedTests}/${gradeResult.totalTests} tests passed · 测试未通过`}
+                            {gradeResult.passed && selectedExercise && !exercisesPassed.has(selectedExercise.id) && (
+                              <span className="ml-2 text-yellow-400">+{getXPReward(selectedExercise.difficulty)} XP 🎉</span>
+                            )}
+                          </div>
+                          {!gradeResult.passed && (
+                            <div className="px-3 py-2 space-y-1.5">
+                              {gradeResult.results.map((r, i) => (
+                                <div
+                                  key={i}
+                                  className="text-[10px] terminal-text p-1.5 rounded"
+                                  style={{
+                                    backgroundColor: r.passed ? "rgba(34,197,94,0.05)" : "rgba(239,68,68,0.05)",
+                                  }}
+                                >
+                                  <span className="mr-1">{r.passed ? "✅" : "❌"}</span>
+                                  <span style={{ color: "var(--theme-text-muted)" }}>Input:</span>{" "}
+                                  <span className="text-cyan-400">{r.input || "(none)"}</span>
+                                  <span className="mx-1">→</span>
+                                  <span style={{ color: "var(--theme-text-muted)" }}>Expected:</span>{" "}
+                                  <span className="text-green-400">{r.expectedOutput}</span>
+                                  {!r.passed && (
+                                    <>
+                                      <span className="mx-1">→</span>
+                                      <span style={{ color: "var(--theme-text-muted)" }}>Got:</span>{" "}
+                                      <span className="text-red-400">{r.actualOutput || "(empty)"}</span>
+                                    </>
+                                  )}
+                                </div>
+                              ))}
+                            </div>
+                          )}
+                        </motion.div>
+                      )}
                     </div>
 
                     {/* Variables (Python only) */}
@@ -1428,6 +1646,58 @@ export default function CodeLabPage() {
         {showNewProject && <NewProjectDialog onClose={() => setShowNewProject(false)} onCreate={handleNewProject} />}
       </AnimatePresence>
       <SignUpModal open={showSignUpModal} onClose={() => setShowSignUpModal(false)} />
+
+      {/* Celebration overlay */}
+      <AnimatePresence>
+        {showCelebration && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 pointer-events-none z-[100] flex items-center justify-center"
+          >
+            {/* Confetti particles */}
+            {Array.from({ length: 40 }).map((_, i) => (
+              <motion.div
+                key={i}
+                initial={{
+                  opacity: 1,
+                  x: 0,
+                  y: 0,
+                  scale: 1,
+                }}
+                animate={{
+                  opacity: 0,
+                  x: (Math.random() - 0.5) * 600,
+                  y: (Math.random() - 0.5) * 600,
+                  scale: Math.random() * 1.5,
+                  rotate: Math.random() * 720,
+                }}
+                transition={{ duration: 2, ease: "easeOut" }}
+                className="absolute w-3 h-3 rounded-sm"
+                style={{
+                  backgroundColor: ["#22c55e", "#3b82f6", "#f59e0b", "#ec4899", "#8b5cf6", "#ef4444"][i % 6],
+                }}
+              />
+            ))}
+            <motion.div
+              initial={{ scale: 0, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0, opacity: 0 }}
+              transition={{ type: "spring", damping: 10 }}
+              className="text-center"
+            >
+              <div className="text-6xl mb-2">🎉</div>
+              <div className="text-2xl font-bold text-white drop-shadow-lg">
+                All Tests Passed!
+              </div>
+              <div className="text-lg text-white/80 drop-shadow">
+                太棒了！全部通过！
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
