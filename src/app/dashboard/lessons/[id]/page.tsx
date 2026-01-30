@@ -411,16 +411,22 @@ function LessonNavigation({ lessonId, isCompleted }: { lessonId: string; isCompl
 
         {next && !isVeryLast ? (
           <motion.button
-            whileHover={{ scale: 1.03 }}
-            whileTap={{ scale: 0.97 }}
-            onClick={() => router.push(`/dashboard/lessons/${next.id}`)}
-            className="flex-1 px-5 py-4 rounded-xl text-right font-bold transition-all"
+            whileHover={isCompleted ? { scale: 1.03 } : {}}
+            whileTap={isCompleted ? { scale: 0.97 } : {}}
+            onClick={() => isCompleted && router.push(`/dashboard/lessons/${next.id}`)}
+            disabled={!isCompleted}
+            className={`flex-1 px-5 py-4 rounded-xl text-right font-bold transition-all ${!isCompleted ? "opacity-50 cursor-not-allowed" : ""}`}
             style={{
-              background: "linear-gradient(135deg, var(--theme-accent, #22c55e), #06b6d4)",
-              color: "#000",
+              background: isCompleted
+                ? "linear-gradient(135deg, var(--theme-accent, #22c55e), #06b6d4)"
+                : "var(--theme-card-bg)",
+              color: isCompleted ? "#000" : "var(--theme-text-muted)",
+              border: isCompleted ? "none" : "1px solid var(--theme-border)",
             }}
           >
-            <div className="text-xs opacity-80 mb-1">Next Lesson · 下一课 →</div>
+            <div className="text-xs opacity-80 mb-1">
+              {isCompleted ? "Next Lesson · 下一课 →" : "🔒 Complete quiz first · 先完成测验"}
+            </div>
             <div className="text-sm">{next.icon} {next.title}</div>
           </motion.button>
         ) : isVeryLast ? (
