@@ -69,6 +69,7 @@ export interface InlineExercise {
   hints?: string[];
   hintsZh?: string[];
   solution: string;
+  language?: "python" | "cpp";
 }
 
 export interface SyntaxCard {
@@ -9229,7 +9230,13 @@ export function getLessonById(id: string): Lesson | undefined {
   // Lazy-load C++ lessons to avoid circular deps
   try {
     const { CPP_LESSONS } = require("./cpp-lessons");
-    return (CPP_LESSONS as Lesson[]).find((l) => l.id === id);
+    const cpp = (CPP_LESSONS as Lesson[]).find((l) => l.id === id);
+    if (cpp) return cpp;
+  } catch { /* ignore */ }
+  // Lazy-load DS lessons
+  try {
+    const { DS_LESSONS } = require("./ds-lessons");
+    return (DS_LESSONS as Lesson[]).find((l) => l.id === id);
   } catch { return undefined; }
 }
 
@@ -9257,6 +9264,7 @@ export function getAllLessonsOrdered(trackModules?: Module[], trackLessons?: Les
 export function getAdjacentLessons(lessonId: string): { prev: Lesson | null; next: Lesson | null; isLastInModule: boolean; isVeryLast: boolean; nextModuleTitle?: string } {
   // Determine track
   const isCpp = lessonId.startsWith("cpp-");
+  const isDs = lessonId.startsWith("ds-");
   let trackModules = MODULES;
   let trackLessons = LESSONS;
   if (isCpp) {
@@ -9264,6 +9272,12 @@ export function getAdjacentLessons(lessonId: string): { prev: Lesson | null; nex
       const cpp = require("./cpp-lessons");
       trackModules = cpp.CPP_MODULES;
       trackLessons = cpp.CPP_LESSONS;
+    } catch { /* fall through */ }
+  } else if (isDs) {
+    try {
+      const ds = require("./ds-lessons");
+      trackModules = ds.DS_MODULES;
+      trackLessons = ds.DS_LESSONS;
     } catch { /* fall through */ }
   }
 

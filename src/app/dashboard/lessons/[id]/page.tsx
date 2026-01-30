@@ -314,7 +314,10 @@ export default function LessonPage() {
 
           {/* Inline Code Exercise */}
           {section.exercise && (
-            <InlineCodeExercise exercise={section.exercise} />
+            <InlineCodeExercise exercise={{
+              ...section.exercise,
+              language: lessonId.startsWith("cpp-") ? "cpp" : (section.exercise.language || "python"),
+            }} />
           )}
         </div>
       </AnimatePresence>

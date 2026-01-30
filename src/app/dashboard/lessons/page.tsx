@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { getProgress } from "@/lib/progress-store";
 import { MODULES, LESSONS } from "@/data/lessons";
 import { CPP_MODULES, CPP_LESSONS } from "@/data/cpp-lessons";
+import { DS_MODULES, DS_LESSONS } from "@/data/ds-lessons";
 import { useUserProfile } from "@/lib/useUserProfile";
 import { getStartingIndex, getLessonIndex, CURRICULUM_PATH, SKILL_LABELS, type SkillLevel } from "@/lib/skill-store";
 import { isPreviewMode, isLessonUnlocked } from "@/lib/preview-mode";
@@ -15,14 +16,14 @@ export default function LessonsPage() {
   const [completedLessons, setCompletedLessons] = useState<string[]>([]);
   const [preview, setPreview] = useState(false);
   const [showSignUpModal, setShowSignUpModal] = useState(false);
-  const [track, setTrack] = useState<"python" | "cpp">("python");
+  const [track, setTrack] = useState<"python" | "cpp" | "ds">("python");
   const { profile } = useUserProfile();
   const skillLevel: SkillLevel = profile?.skillLevel || "beginner";
   const startIdx = getStartingIndex(skillLevel);
   const skillLabel = SKILL_LABELS[skillLevel];
 
-  const activeModules = track === "python" ? MODULES : CPP_MODULES;
-  const activeLessons = track === "python" ? LESSONS : CPP_LESSONS;
+  const activeModules = track === "python" ? MODULES : track === "cpp" ? CPP_MODULES : DS_MODULES;
+  const activeLessons = track === "python" ? LESSONS : track === "cpp" ? CPP_LESSONS : DS_LESSONS;
 
   useEffect(() => {
     setCompletedLessons(getProgress().completedLessons);
@@ -43,13 +44,22 @@ export default function LessonsPage() {
               {skillLabel.cn}的旅程从第 {startIdx + 1} 课开始 · 选择一个模块开始冒险！
             </p>
           </>
-        ) : (
+        ) : track === "cpp" ? (
           <>
             <p className="mb-2" style={{ color: "var(--theme-text-secondary)" }}>
               Level up from Python to C++ · 6 modules, 24 lessons
             </p>
             <p className="text-sm mb-8" style={{ color: "var(--theme-text-muted)" }}>
               从Python进阶到C++ · 6个模块，24节课
+            </p>
+          </>
+        ) : (
+          <>
+            <p className="mb-2" style={{ color: "var(--theme-text-secondary)" }}>
+              Visualize how data is organized! · 4 modules, 18 lessons
+            </p>
+            <p className="text-sm mb-8" style={{ color: "var(--theme-text-muted)" }}>
+              可视化数据组织方式！数组、链表、树、图 · 4个模块，18节课
             </p>
           </>
         )}
@@ -60,6 +70,7 @@ export default function LessonsPage() {
         {([
           { key: "python" as const, label: "🐍 Python", sub: "Python" },
           { key: "cpp" as const, label: "⚡ C++", sub: "C++" },
+          { key: "ds" as const, label: "📦 Data Structures", sub: "DS" },
         ]).map((t) => (
           <motion.button
             key={t.key}
@@ -83,7 +94,7 @@ export default function LessonsPage() {
           const completed = moduleLessons.filter((l) => completedLessons.includes(l.id)).length;
 
           // Check if entire module is "review" territory (Python track only)
-          const isCppTrack = track === "cpp";
+          const isCppTrack = track === "cpp" || track === "ds";
           const moduleIndices = moduleLessons.map((l) => getLessonIndex(l.id));
           const allBeforeStart = !isCppTrack && moduleIndices.every((idx) => idx >= 0 && idx < startIdx);
 

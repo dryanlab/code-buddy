@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { loadPyodideEngine, runPython, isPyodideLoaded } from "@/lib/pyodide-engine";
+import { runCpp } from "@/lib/cpp-engine";
 
 export interface ExerciseData {
   prompt: string;
@@ -12,6 +13,7 @@ export interface ExerciseData {
   hint: string;
   hintZh: string;
   solution: string;
+  language?: "python" | "cpp";
 }
 
 interface Props {
@@ -40,34 +42,57 @@ export default function InlineCodeExercise({ exercise, onComplete }: Props) {
     }
   }, [code]);
 
+  const lang = exercise.language || (code.includes("#include") || code.includes("int main") ? "cpp" : "python");
+
   const handleRun = async () => {
     setAttempted(true);
     setIsRunning(true);
     setOutput("");
     setIsCorrect(false);
 
-    if (!isPyodideLoaded()) {
-      setIsLoading(true);
-      try {
-        await loadPyodideEngine((msg) => setLoadMsg(msg));
-      } catch {
-        setOutput("❌ Failed to load Python engine. Please refresh and try again.");
-        setIsRunning(false);
-        setIsLoading(false);
-        return;
-      }
-      setIsLoading(false);
-    }
-
     try {
-      const result = await runPython(code);
-      if (result.error) {
-        setOutput(result.error);
+      let outputText = "";
+      let errorText: string | null = null;
+
+      if (lang === "cpp") {
+        // Use Piston API for C++
+        setIsLoading(true);
+        setLoadMsg("Compiling C++...");
+        const result = await runCpp(code);
+        setIsLoading(false);
+        if (result.error) {
+          errorText = result.error;
+        } else {
+          outputText = result.output;
+        }
       } else {
-        setOutput(result.output);
-        // Check correctness - trim and compare
+        // Use Pyodide for Python
+        if (!isPyodideLoaded()) {
+          setIsLoading(true);
+          try {
+            await loadPyodideEngine((msg) => setLoadMsg(msg));
+          } catch {
+            setOutput("❌ Failed to load Python engine. Please refresh and try again.");
+            setIsRunning(false);
+            setIsLoading(false);
+            return;
+          }
+          setIsLoading(false);
+        }
+        const result = await runPython(code);
+        if (result.error) {
+          errorText = result.error;
+        } else {
+          outputText = result.output;
+        }
+      }
+
+      if (errorText) {
+        setOutput(errorText);
+      } else {
+        setOutput(outputText);
         const expected = exercise.expectedOutput.trim();
-        const actual = result.output.trim();
+        const actual = outputText.trim();
         if (actual === expected) {
           setIsCorrect(true);
           setShowConfetti(true);
@@ -76,7 +101,7 @@ export default function InlineCodeExercise({ exercise, onComplete }: Props) {
         }
       }
     } catch (e) {
-      setOutput("❌ Error running code");
+      setOutput(`❌ Error running ${lang === "cpp" ? "C++" : "Python"} code`);
     }
     setIsRunning(false);
   };

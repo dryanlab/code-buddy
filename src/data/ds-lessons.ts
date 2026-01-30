@@ -1,495 +1,255 @@
 // Code Buddy - Data Structures Track
-// 4 Modules, 16 Lessons
-// Difficulty: Intermediate (assumes Python basics completed)
-// Characters: 🐍Py, 🤖Botty, 🔧Chip
+// 4 Modules, 18 Lessons
+// Target: Students WITH Python basics
+// Characters: 📦Box (data container guide), 🔗Link (connection specialist), 🌳Root (tree expert)
 
-import type {
-  Lesson,
-  Module,
-  LessonSection,
-} from "./lessons";
+import type { Lesson, Module } from "./lessons";
 
 // ═══════════════════════════════════════════════════════════════
-// DATA STRUCTURES MODULES
+// DS MODULES
 // ═══════════════════════════════════════════════════════════════
 
 export const DS_MODULES: Module[] = [
   {
     id: "ds-1",
-    title: "📦 Lists & Stacks",
-    subtitle: "Arrays, linked lists, and stacks · 数组、链表和栈",
-    icon: "📦",
-    color: "from-blue-400 to-cyan-500",
-    lessons: ["ds-1-1", "ds-1-2", "ds-1-3", "ds-1-4"],
+    title: "📋 Lists & Stacks",
+    subtitle: "Linear data structures · 线性数据结构",
+    icon: "📋",
+    color: "from-blue-500 to-cyan-500",
+    lessons: ["ds-1-1", "ds-1-2", "ds-1-3", "ds-1-4", "ds-1-5"],
   },
   {
     id: "ds-2",
-    title: "🎢 Queues & Trees",
-    subtitle: "Queues, deques, and binary trees · 队列、双端队列和二叉树",
-    icon: "🎢",
-    color: "from-emerald-400 to-teal-500",
-    lessons: ["ds-2-1", "ds-2-2", "ds-2-3", "ds-2-4"],
+    title: "🌳 Queues & Trees",
+    subtitle: "FIFO processing and branching · 队列与树结构",
+    icon: "🌳",
+    color: "from-emerald-500 to-teal-600",
+    lessons: ["ds-2-1", "ds-2-2", "ds-2-3", "ds-2-4", "ds-2-5"],
   },
   {
     id: "ds-3",
-    title: "🗺️ Graphs & Maps",
-    subtitle: "HashMaps, graphs, and pathfinding · 哈希表、图和路径搜索",
+    title: "🗺️ Graphs & Hash Maps",
+    subtitle: "Networks and key-value storage · 图与哈希表",
     icon: "🗺️",
-    color: "from-violet-400 to-purple-500",
-    lessons: ["ds-3-1", "ds-3-2", "ds-3-3", "ds-3-4"],
+    color: "from-orange-500 to-amber-600",
+    lessons: ["ds-3-1", "ds-3-2", "ds-3-3", "ds-3-4", "ds-3-5"],
   },
   {
     id: "ds-4",
-    title: "🏗️ Projects",
-    subtitle: "Build real projects with data structures · 用数据结构做真实项目",
-    icon: "🏗️",
-    color: "from-orange-400 to-red-500",
-    lessons: ["ds-4-1", "ds-4-2", "ds-4-3", "ds-4-4"],
+    title: "🏆 Advanced & Projects",
+    subtitle: "Sorting, searching & capstone · 排序、搜索与综合项目",
+    icon: "🏆",
+    color: "from-purple-500 to-violet-600",
+    lessons: ["ds-4-1", "ds-4-2", "ds-4-3"],
   },
 ];
 
 // ═══════════════════════════════════════════════════════════════
-// LESSON DS-1-1: The Magic Array
+// MODULE DS-1: LISTS & STACKS
 // ═══════════════════════════════════════════════════════════════
 
 const ds_1_1: Lesson = {
   id: "ds-1-1",
   moduleId: "ds-1",
-  title: "The Magic Array",
-  subtitle: "Arrays as numbered lockers · 魔法数组：编号储物柜",
-  icon: "🗄️",
-  xp: 40,
-  duration: "20 min",
+  title: "Arrays — The Foundation",
+  subtitle: "Where it all begins · 数组——一切的起点",
+  icon: "📊",
+  xp: 15,
+  duration: "18 min",
   order: 1,
-  gradeRange: [5, 12],
+  gradeRange: [7, 12],
   difficulty: "intermediate",
   skillLevel: "intermediate",
   sections: [
     {
       type: "text",
-      emoji: "🐍",
-      content: `## 🐍 Py Says: Welcome to Data Structures!
+      emoji: "📦",
+      content: `## 📦 Box Says: Welcome to Data Structures!
 
-Hey champion! 🏆 You've learned Python basics — now let's learn how to **organize data like a PRO**!
+Hi there! I'm **Box** 📦, your data container guide! Think of me as a moving box — I help organize everything!
 
-Imagine a row of **numbered lockers** in a school hallway:
-- Locker #0 has "apple" 🍎
-- Locker #1 has "banana" 🍌
-- Locker #2 has "cherry" 🍒
+**What are Data Structures?** They're ways to organize data so we can use it efficiently.
 
-That's an **array** (in Python, we call it a **list**)! Each locker has:
-- A **number** (index) — starts from 0!
-- A **value** — whatever's inside
+数据结构就是组织数据的方式，让我们能高效地使用数据。
 
-🤖 Botty: "Arrays are the #1 most used data structure in ALL programming! Every app, game, and AI uses them!"
+Imagine your room is messy 🧹 — socks in the fridge, books under the bed. You CAN find things, but it takes forever! Data structures are like **organizer bins** — each one is designed for a different purpose.
 
-🔧 Chip: "My memory chips store data in arrays too — just billions of tiny numbered slots!"
+**Arrays** are the simplest and most fundamental: a row of numbered boxes, like lockers in a hallway! 🗄️
 
-Let's open those lockers! 🔓`,
-    },
-    {
-      type: "concept",
-      emoji: "📖",
-      content: "New Concepts: Arrays & Indexing",
-      concept: {
-        title: "🧰 Arrays & Indexing",
-        titleZh: "数组与索引",
-        syntaxCards: [
-          {
-            symbol: "[a, b, c]",
-            name: "List (Array)",
-            nameZh: "列表（数组）",
-            emoji: "📦",
-            description: "Square brackets create an ordered collection. Items are separated by commas. Like numbered lockers in a hallway!",
-            example: 'fruits = ["apple", "banana", "cherry"]',
-          },
-          {
-            symbol: "list[i]",
-            name: "Index Access",
-            nameZh: "索引访问",
-            emoji: "🔢",
-            description: "Use square brackets with a number to access an item. Index starts at 0, not 1! Like locker numbers.",
-            example: 'fruits[0]  # "apple"\nfruits[2]  # "cherry"',
-          },
-          {
-            symbol: "list[a:b]",
-            name: "Slice",
-            nameZh: "切片",
-            emoji: "✂️",
-            description: "Get a sub-array from index a to b-1. Like cutting a portion from a row of lockers.",
-            example: 'fruits[0:2]  # ["apple", "banana"]',
-          },
-          {
-            symbol: "len(list)",
-            name: "Length",
-            nameZh: "长度",
-            emoji: "📏",
-            description: "Returns how many items are in the list. Like counting how many lockers are in the row.",
-            example: 'len(fruits)  # 3',
-          },
-          {
-            symbol: "list.append(x)",
-            name: "Append",
-            nameZh: "追加",
-            emoji: "➕",
-            description: "Add an item to the END of the list. Like adding a new locker at the end of the hallway.",
-            example: 'fruits.append("date")',
-          },
-        ],
-        codeAnatomy: {
-          lines: [
-            { code: 'inventory = ["sword", "shield", "potion"]', explanation: "Create a list with 3 items — index 0, 1, 2", explanationZh: "创建含3个元素的列表 — 索引 0, 1, 2" },
-            { code: 'print(inventory[0])', explanation: "Access first item (index 0) → 'sword'", explanationZh: "访问第一个元素（索引0）→ 'sword'" },
-            { code: 'inventory.append("bow")', explanation: "Add 'bow' at the end → now 4 items", explanationZh: "在末尾添加 'bow' → 现在有4个元素" },
-            { code: 'print(inventory[1:3])', explanation: "Slice from index 1 to 2 → ['shield', 'potion']", explanationZh: "从索引1到2的切片 → ['shield', 'potion']" },
-            { code: 'print(len(inventory))', explanation: "Length = 4 items total", explanationZh: "长度 = 共4个元素" },
-          ],
-        },
-      },
+> 🏠 Real-world analogy: An array is like a row of mailboxes at an apartment building. Each has a number (index), and you can go directly to any mailbox!
+> 现实类比：数组就像公寓楼的一排信箱，每个都有编号（索引），你可以直接找到任何一个！
+
+🔗 **Try the visualizer!** Go to [Data Structures Playground](/dashboard/data-structures) to see arrays come alive!`,
     },
     {
       type: "code",
-      emoji: "🎮",
-      content: `## 🎮 Build a Game Inventory System!
+      emoji: "💻",
+      content: `## 💻 Array Basics in Python
 
-Let's create an RPG inventory using arrays:`,
-      code: `# 🐍 Py: "Every RPG hero needs an inventory!"
-inventory = ["wooden sword", "health potion", "map"]
-print("🎒 Your Inventory:")
-for i, item in enumerate(inventory):
-    print(f"  Slot {i}: {item}")
+Python uses **lists** as its array type. Let's explore!
+Python 用 **列表 (list)** 作为数组类型。`,
+      code: `# 📦 Box: "Let me show you how arrays work!"
+# Arrays in Python = Lists
 
-# Add new loot! 💰
-print("\\n⚔️ You found a DIAMOND SHIELD!")
-inventory.append("diamond shield")
+# Creating an array (list)
+fruits = ["apple", "banana", "cherry", "date", "elderberry"]
+numbers = [10, 20, 30, 40, 50]
 
-# Check a specific slot
-print(f"\\n🔍 Slot 0 contains: {inventory[0]}")
-print(f"📏 Total items: {len(inventory)}")
+# Indexing: access by position (starts at 0!)
+# 索引：通过位置访问（从0开始！）
+print("First fruit:", fruits[0])    # apple
+print("Third fruit:", fruits[2])    # cherry
+print("Last fruit:", fruits[-1])    # elderberry (negative = from end)
 
-# Slice: show first 2 items
-print(f"\\n✂️ First 2 items: {inventory[:2]}")
+# Length: how many items?
+print("Total fruits:", len(fruits))  # 5
 
-# Replace an item
-inventory[0] = "fire sword"
-print(f"🔥 Upgraded! Slot 0 is now: {inventory[0]}")`,
-    },
-    {
-      type: "interactive",
-      content: `## 🎮 Your Turn: Inventory Manager!
+# Modify an element
+fruits[1] = "blueberry"  # Replace banana
+print("Updated:", fruits)
 
-Create your own inventory and practice indexing.`,
-      exercise: {
-        prompt: "Create a list called 'backpack' with 3 items, then print the second item (index 1).",
-        promptZh: "创建一个叫 'backpack' 的列表，包含3个物品，然后打印第二个元素（索引1）。",
-        starterCode: '# Create your backpack list\nbackpack = ["water", "snack", "flashlight"]\n# Print the second item\n',
-        expectedOutput: "snack",
-        hint: "Use backpack[1] to access the second item (remember, index starts at 0!)",
-        hintZh: "用 backpack[1] 访问第二个元素（记住，索引从0开始！）",
-        solution: 'backpack = ["water", "snack", "flashlight"]\nprint(backpack[1])',
-      },
-    },
-    {
-      type: "code",
-      emoji: "🔥",
-      content: `## 🔥 Advanced: Array Operations
+# Common operations & their TIME COMPLEXITY:
+# Access by index:  O(1) — instant! Like going to locker #3
+# Search for value:  O(n) — must check each one
+# Append to end:    O(1) — just add to the end
+# Insert at start:  O(n) — must shift everything!
 
-Let's explore more powerful array operations:`,
-      code: `# 🤖 Botty: "Arrays can do SO much more!"
-
-# Negative indexing — count from the END!
-colors = ["red", "green", "blue", "yellow"]
-print(f"Last color: {colors[-1]}")      # yellow
-print(f"Second to last: {colors[-2]}")  # blue
-
-# Insert at specific position
-colors.insert(1, "orange")
-print(f"After insert: {colors}")
-
-# Remove by value
-colors.remove("green")
-print(f"After remove: {colors}")
-
-# Sort the array
-numbers = [42, 7, 13, 99, 1]
-numbers.sort()
-print(f"Sorted: {numbers}")
-
-# Reverse
-numbers.reverse()
-print(f"Reversed: {numbers}")
-
-# Check if item exists
-print(f"Is 42 in list? {'42' if 42 in numbers else 'nope'}")
-
-# 🔧 Chip: "Each operation has a speed (Big O)!"
-# append: O(1) — instant!
-# insert: O(n) — has to shift items
-# search: O(n) — checks one by one`,
-    },
-    {
-      type: "challenge",
-      content: "🏆 Coding Challenge · 编程挑战",
-      challenge: {
-        title: "🏪 Shop Inventory Manager · 商店库存管理器",
-        description: "Build a shop inventory! Create a list of 5 items with prices, find the most expensive item, and calculate the total price.\n创建一个包含5件商品及价格的商店，找出最贵的商品并计算总价。",
-        starterCode: `# Shop Inventory Manager
-# 商店库存管理器
-
-items = ["Sword", "Shield", "Potion", "Bow", "Armor"]
-prices = [100, 80, 25, 60, 150]
-
-# TODO: Print each item with its price
-# TODO: Find and print the most expensive item
-# TODO: Calculate and print the total price
-`,
-        hint: "Use zip(items, prices) to pair them. Use max() with a key, or find the index of max price with prices.index(max(prices)).\n用 zip(items, prices) 配对。用 max() 或 prices.index(max(prices)) 找最贵的。",
-        solution: `items = ["Sword", "Shield", "Potion", "Bow", "Armor"]
-prices = [100, 80, 25, 60, 150]
-
-print("🏪 Shop Inventory:")
-for item, price in zip(items, prices):
-    print(f"  {item}: {price} gold")
-
-max_price = max(prices)
-max_item = items[prices.index(max_price)]
-print(f"\\n💎 Most expensive: {max_item} ({max_price} gold)")
-print(f"💰 Total value: {sum(prices)} gold")`,
-        expectedOutput: "🏪 Shop Inventory:\n  Sword: 100 gold\n  Shield: 80 gold\n  Potion: 25 gold\n  Bow: 60 gold\n  Armor: 150 gold\n\n💎 Most expensive: Armor (150 gold)\n💰 Total value: 415 gold",
-      },
+print("\\n📦 Box: Arrays are FAST for access, slower for insertion!")`,
     },
     {
       type: "quiz",
-      content: "🎓 Array Knowledge Check!",
+      content: "🎓 Array Knowledge Check · 数组知识测验",
       quiz: [
         {
-          question: "What is the index of the FIRST element in a Python list?",
+          question: "What is the index of the FIRST element in a Python list?\n\nPython 列表第一个元素的索引是什么？",
           options: ["1", "0", "-1", "None"],
           correctIndex: 1,
-          explanation: "Python uses zero-based indexing! The first element is at index 0. 🐍 Remember: lockers start counting from 0!",
+          explanation: "Arrays/lists are zero-indexed! The first element is at index 0. 数组从0开始计数！",
         },
         {
-          question: 'If fruits = ["apple", "banana", "cherry"], what does fruits[-1] return?',
-          options: ['"apple"', '"banana"', '"cherry"', "Error"],
+          question: "What is the time complexity of accessing an element by index?\n\n通过索引访问元素的时间复杂度是什么？",
+          options: ["O(n)", "O(log n)", "O(1)", "O(n²)"],
           correctIndex: 2,
-          explanation: "Negative indexing counts from the end! -1 = last item = 'cherry'. 🍒",
-        },
-        {
-          question: 'What does fruits[0:2] return if fruits = ["a", "b", "c", "d"]?',
-          options: ['["a", "b"]', '["a", "b", "c"]', '["b", "c"]', '["a"]'],
-          correctIndex: 0,
-          explanation: "Slicing [0:2] gives indices 0 and 1 (not including 2). Think: start ≤ index < end. ✂️",
-        },
-        {
-          question: "Which operation is FASTEST on a Python list?",
-          options: ["insert(0, x) — insert at beginning", "append(x) — add to end", "remove(x) — find and remove", "sort() — sort everything"],
-          correctIndex: 1,
-          explanation: "append() is O(1) — it just adds to the end! Insert/remove/sort all need to move or compare items. ⚡",
+          explanation: "Direct index access is O(1) — constant time, like going directly to a locker! 直接索引访问是 O(1)——常数时间！",
         },
       ],
     },
     {
-      type: "output-choice",
-      content: "🔮 Predict the Output!",
-      outputChoice: {
-        code: 'nums = [10, 20, 30, 40]\nnums.append(50)\nprint(nums[2], len(nums))',
-        options: ["30 5", "20 5", "30 4", "50 5"],
-        correctIndex: 0,
-        explanation: "After append, nums = [10,20,30,40,50]. Index 2 is still 30, and len is now 5!",
+      type: "challenge",
+      content: "🏆 Array Challenge · 数组挑战",
+      challenge: {
+        title: "🔄 Reverse an Array · 反转数组",
+        description: "Reverse the given list WITHOUT using the built-in reverse() method!\n不使用内置 reverse() 方法来反转列表！",
+        starterCode: "arr = [1, 2, 3, 4, 5]\n\n# Reverse arr without using .reverse() or [::-1]\n# Hint: use a loop and swap elements\n# 提示：用循环和交换元素\n\nprint(arr)  # Should print: [5, 4, 3, 2, 1]",
+        hint: "Swap first↔last, second↔second-to-last, etc. Use two pointers! 交换首尾元素，用双指针！",
+        solution: "arr = [1, 2, 3, 4, 5]\nleft = 0\nright = len(arr) - 1\nwhile left < right:\n    arr[left], arr[right] = arr[right], arr[left]\n    left += 1\n    right -= 1\nprint(arr)",
+        expectedOutput: "[5, 4, 3, 2, 1]",
+      },
+    },
+    {
+      type: "interactive",
+      content: `## 🎮 Array Operations Practice · 数组操作练习
+
+Try adding and removing elements from an array!`,
+      exercise: {
+        prompt: "Create a list [10, 20, 30], append 40, then print the list.",
+        promptZh: "创建列表 [10, 20, 30]，追加 40，然后打印列表。",
+        starterCode: "# Create and modify a list\nnums = [10, 20, 30]\n# Append 40 to the list\n\n# Print the result\n",
+        expectedOutput: "[10, 20, 30, 40]",
+        hint: "Use nums.append(40) then print(nums)",
+        hintZh: "用 nums.append(40) 然后 print(nums)",
+        solution: "nums = [10, 20, 30]\nnums.append(40)\nprint(nums)",
       },
     },
   ],
 };
 
-// ═══════════════════════════════════════════════════════════════
-// LESSON DS-1-2: Linked Chain Adventure
-// ═══════════════════════════════════════════════════════════════
-
 const ds_1_2: Lesson = {
   id: "ds-1-2",
   moduleId: "ds-1",
-  title: "Linked Chain Adventure",
-  subtitle: "Nodes & pointers like train cars · 链式冒险：像火车车厢一样的节点",
+  title: "Linked Lists — Chain of Nodes",
+  subtitle: "Dynamic data, one node at a time · 链表——节点的链条",
   icon: "🔗",
-  xp: 45,
+  xp: 20,
   duration: "22 min",
   order: 2,
-  gradeRange: [5, 12],
+  gradeRange: [7, 12],
   difficulty: "intermediate",
   skillLevel: "intermediate",
   sections: [
     {
       type: "text",
-      emoji: "🚂",
-      content: `## 🐍 Py Says: All Aboard the Linked List Express! 🚂
+      emoji: "🔗",
+      content: `## 🔗 Link Says: Welcome to My World!
 
-Imagine a **train** 🚂 where each car:
-- Holds some **cargo** (data)
-- Has a **hook** connecting to the NEXT car (pointer)
+Hey! I'm **Link** 🔗, your connection specialist! Arrays are great, but they have a big weakness: inserting or removing elements in the middle is SLOW — everything has to shift!
 
-That's a **Linked List**! Unlike arrays (numbered lockers in a row), linked lists are **chained together** like train cars.
+**Linked Lists** solve this! Instead of numbered lockers in a row, imagine a **treasure hunt** 🗺️ — each clue tells you where the NEXT clue is!
 
-**Why use a linked list instead of an array?**
-- 🟢 Easy to INSERT or REMOVE cars in the middle — just unhook and rehook!
-- 🔴 But... you can't jump to car #5 directly. You must walk car-by-car from the front!
+> 🚂 Real-world analogy: A linked list is like a train! Each car (node) is connected to the next one. You can easily add or remove cars without rearranging the whole train!
+> 现实类比：链表像一列火车！每节车厢（节点）连接下一节。你可以轻松添加或删除车厢！
 
-🤖 Botty: "Web browsers use linked lists to store your browsing history — each page points to the previous one!"
+Each **node** has two parts:
+1. **Data** — the actual value stored
+2. **Next pointer** — the address of the next node
 
-🔧 Chip: "In my circuits, memory isn't always in a row. Linked lists let me scatter data anywhere and just follow the links!"
+\`\`\`
+[data|next] → [data|next] → [data|next] → None
+\`\`\`
 
-Let's build our own train! 🛤️`,
-    },
-    {
-      type: "concept",
-      emoji: "📖",
-      content: "New Concepts: Nodes & Linked Lists",
-      concept: {
-        title: "🧰 Nodes & Linked Lists",
-        titleZh: "节点与链表",
-        syntaxCards: [
-          {
-            symbol: "Node",
-            name: "Node (train car)",
-            nameZh: "节点（火车车厢）",
-            emoji: "🚃",
-            description: "A container that holds DATA + a POINTER to the next node. Like a train car with cargo and a hook.",
-            example: 'class Node:\n    def __init__(self, data):\n        self.data = data\n        self.next = None',
-          },
-          {
-            symbol: "self.next",
-            name: "Pointer (hook to next)",
-            nameZh: "指针（连接下一个的钩子）",
-            emoji: "🪝",
-            description: "Each node points to the next one. The last node points to None (end of train!).",
-            example: 'node1.next = node2  # hook car1 to car2',
-          },
-          {
-            symbol: "head",
-            name: "Head (first node)",
-            nameZh: "头节点（第一个节点）",
-            emoji: "🚂",
-            description: "The entry point — the locomotive! We always start traversal from the head.",
-            example: 'head = Node("Engine")',
-          },
-          {
-            symbol: "traversal",
-            name: "Traversal (walk the chain)",
-            nameZh: "遍历（沿链走）",
-            emoji: "🚶",
-            description: "Visit each node from head to end by following .next pointers. Like walking through train cars.",
-            example: 'current = head\nwhile current:\n    print(current.data)\n    current = current.next',
-          },
-        ],
-        codeAnatomy: {
-          lines: [
-            { code: 'class Node:', explanation: "Define a Node — our train car blueprint", explanationZh: "定义节点 — 火车车厢的蓝图" },
-            { code: '    def __init__(self, data):', explanation: "Constructor takes data (cargo)", explanationZh: "构造函数接收数据（货物）" },
-            { code: '        self.data = data', explanation: "Store the cargo in this car", explanationZh: "在车厢中存放货物" },
-            { code: '        self.next = None', explanation: "No hook connected yet (end of line)", explanationZh: "还没有连接钩子（终点）" },
-          ],
-        },
-      },
+🔗 **Visualize it!** Check the [Data Structures Playground](/dashboard/data-structures) to see linked list animations!`,
     },
     {
       type: "code",
-      emoji: "🚂",
-      content: `## 🚂 Build Your First Linked List!
-
-Let's construct a train car by car:`,
-      code: `# 🐍 Py: "Let's build a train!"
+      emoji: "💻",
+      content: `## 💻 Building a Linked List from Scratch`,
+      code: `# 🔗 Link: "Let's build a linked list step by step!"
 
 class Node:
+    """A single node in the linked list · 链表中的单个节点"""
     def __init__(self, data):
-        self.data = data
-        self.next = None
+        self.data = data    # The value stored 存储的值
+        self.next = None    # Pointer to next node 指向下一个节点
 
-# Create train cars 🚃
-engine = Node("🚂 Engine")
-cargo1 = Node("📦 Gold")
-cargo2 = Node("🎁 Gifts")
-caboose = Node("🔴 Caboose")
+class LinkedList:
+    """A singly linked list · 单向链表"""
+    def __init__(self):
+        self.head = None    # First node 第一个节点
 
-# Hook them together! 🪝
-engine.next = cargo1
-cargo1.next = cargo2
-cargo2.next = caboose
+    def append(self, data):
+        """Add to the end · 添加到末尾"""
+        new_node = Node(data)
+        if not self.head:
+            self.head = new_node
+            return
+        current = self.head
+        while current.next:     # Walk to the end 走到末尾
+            current = current.next
+        current.next = new_node
 
-# Traverse the train! 🚶
-print("🛤️ Train cars:")
-current = engine
-while current:
-    arrow = " → " if current.next else " → END"
-    print(f"  [{current.data}]{arrow}")
-    current = current.next
+    def display(self):
+        """Print the list · 打印链表"""
+        current = self.head
+        parts = []
+        while current:
+            parts.append(str(current.data))
+            current = current.next
+        print(" → ".join(parts) + " → None")
 
-# Count the cars
-current = engine
-count = 0
-while current:
-    count += 1
-    current = current.next
-print(f"\\n📏 Total cars: {count}")`,
-    },
-    {
-      type: "interactive",
-      content: `## 🎮 Your Turn: Add a Car!
+# Let's use it!
+my_list = LinkedList()
+my_list.append("A")
+my_list.append("B")
+my_list.append("C")
+my_list.display()  # A → B → C → None
 
-Insert a new car into the middle of the linked list.`,
-      exercise: {
-        prompt: "Create 3 nodes (A→B→C), then insert X between B and C. Print all nodes.",
-        promptZh: "创建3个节点（A→B→C），然后在B和C之间插入X。打印所有节点。",
-        starterCode: `class Node:
-    def __init__(self, data):
-        self.data = data
-        self.next = None
-
-a = Node("A")
-b = Node("B")
-c = Node("C")
-a.next = b
-b.next = c
-
-# Insert X between B and C
-x = Node("X")
-# TODO: connect x between b and c
-
-# Print the chain
-current = a
-while current:
-    print(current.data, end=" ")
-    current = current.next
-print()`,
-        expectedOutput: "A B X C",
-        hint: "Set b.next = x and x.next = c. This 'unhooks' C from B and hooks X in between!",
-        hintZh: "设置 b.next = x 然后 x.next = c。这会把C从B上解开，把X挂在中间！",
-        solution: `class Node:
-    def __init__(self, data):
-        self.data = data
-        self.next = None
-
-a = Node("A")
-b = Node("B")
-c = Node("C")
-a.next = b
-b.next = c
-
-x = Node("X")
-x.next = c
-b.next = x
-
-current = a
-while current:
-    print(current.data, end=" ")
-    current = current.next
-print()`,
-      },
+# 🔗 Link: "See? Each node points to the next one!"
+# 📦 Box: "Unlike arrays, no shifting needed for inserts!"`,
     },
     {
       type: "code",
-      emoji: "🔥",
-      content: `## 🔥 Full LinkedList Class
-
-Let's build a complete LinkedList with useful methods:`,
+      emoji: "🔧",
+      content: `## 🔧 Inserting & Traversing · 插入与遍历`,
       code: `class Node:
     def __init__(self, data):
         self.data = data
@@ -498,9 +258,14 @@ Let's build a complete LinkedList with useful methods:`,
 class LinkedList:
     def __init__(self):
         self.head = None
-    
+
+    def prepend(self, data):
+        """Insert at the beginning — O(1)! · 在开头插入——O(1)！"""
+        new_node = Node(data)
+        new_node.next = self.head
+        self.head = new_node
+
     def append(self, data):
-        """Add to the end — like adding a car at the tail"""
         new_node = Node(data)
         if not self.head:
             self.head = new_node
@@ -509,1507 +274,824 @@ class LinkedList:
         while current.next:
             current = current.next
         current.next = new_node
-    
-    def prepend(self, data):
-        """Add to the front — new locomotive!"""
-        new_node = Node(data)
-        new_node.next = self.head
-        self.head = new_node
-    
-    def display(self):
-        """Show the whole chain"""
-        items = []
+
+    def search(self, target):
+        """Find a value — O(n) · 查找值——O(n)"""
         current = self.head
+        position = 0
         while current:
-            items.append(str(current.data))
+            if current.data == target:
+                return position
             current = current.next
-        print(" → ".join(items) + " → END")
+            position += 1
+        return -1
 
-# 🚂 Build a train!
-train = LinkedList()
-train.append("🚂 Engine")
-train.append("📦 Cargo")
-train.append("🎁 Mail")
-train.prepend("⭐ VIP Car")  # Added to front!
+    def display(self):
+        current = self.head
+        parts = []
+        while current:
+            parts.append(str(current.data))
+            current = current.next
+        print(" → ".join(parts) + " → None")
 
-print("🛤️ Full train:")
-train.display()
-# ⭐ VIP Car → 🚂 Engine → 📦 Cargo → 🎁 Mail → END`,
-    },
-    {
-      type: "challenge",
-      content: "🏆 Coding Challenge · 编程挑战",
-      challenge: {
-        title: "🔄 Reverse the Train · 反转火车",
-        description: "Write a function to reverse a linked list! The caboose becomes the engine and vice versa.\n写一个函数反转链表！尾部变头部，头部变尾部。",
-        starterCode: `class Node:
-    def __init__(self, data):
-        self.data = data
-        self.next = None
+# Demo
+ll = LinkedList()
+ll.append(10)
+ll.append(20)
+ll.append(30)
+ll.prepend(5)   # Fast insert at start!
+ll.display()     # 5 → 10 → 20 → 30 → None
 
-def reverse_list(head):
-    # TODO: Reverse the linked list
-    # Return the new head
-    pass
-
-# Build: 1 → 2 → 3 → 4
-head = Node(1)
-head.next = Node(2)
-head.next.next = Node(3)
-head.next.next.next = Node(4)
-
-# Reverse it!
-new_head = reverse_list(head)
-
-# Print result
-current = new_head
-while current:
-    print(current.data, end=" ")
-    current = current.next
-print()`,
-        hint: "Use three pointers: prev, current, next_node. Walk through the list, reversing each arrow.\n用三个指针：prev、current、next_node。遍历链表，反转每个箭头。",
-        solution: `class Node:
-    def __init__(self, data):
-        self.data = data
-        self.next = None
-
-def reverse_list(head):
-    prev = None
-    current = head
-    while current:
-        next_node = current.next
-        current.next = prev
-        prev = current
-        current = next_node
-    return prev
-
-head = Node(1)
-head.next = Node(2)
-head.next.next = Node(3)
-head.next.next.next = Node(4)
-
-new_head = reverse_list(head)
-
-current = new_head
-while current:
-    print(current.data, end=" ")
-    current = current.next
-print()`,
-        expectedOutput: "4 3 2 1",
-      },
+pos = ll.search(20)
+print(f"Found 20 at position {pos}")  # 2`,
     },
     {
       type: "quiz",
-      content: "🎓 Linked List Knowledge Check!",
+      content: "🎓 Linked List Quiz · 链表测验",
       quiz: [
         {
-          question: "What does each node in a linked list contain?",
-          options: ["Just data", "Just a pointer", "Data + pointer to next node", "An index number + data"],
-          correctIndex: 2,
-          explanation: "Each node has DATA (cargo) and a NEXT pointer (hook to the next car). 🚃🪝",
-        },
-        {
-          question: "What advantage does a linked list have over an array?",
-          options: ["Faster to access item #5", "Easier to insert/remove in the middle", "Uses less memory", "Easier to sort"],
+          question: "What is the time complexity of inserting at the HEAD of a linked list?\n\n在链表头部插入的时间复杂度是？",
+          options: ["O(n)", "O(1)", "O(log n)", "O(n²)"],
           correctIndex: 1,
-          explanation: "Inserting into a linked list is O(1) once you're at the right spot — just rehook! Arrays must shift everything. 🔗",
+          explanation: "Inserting at the head is O(1) — just create a new node and point it to the old head! 头部插入是 O(1)！",
         },
         {
-          question: "What does the last node's .next point to?",
-          options: ["The first node", "Itself", "None", "0"],
-          correctIndex: 2,
-          explanation: "None means 'end of the line!' 🚂 No more cars after the caboose.",
+          question: "What does each node in a singly linked list contain?\n\n单向链表的每个节点包含什么？",
+          options: ["Only data", "Data and a pointer to the next node", "Data and pointers to both next and previous", "An index and data"],
+          correctIndex: 1,
+          explanation: "Each node has data + a next pointer. That's the 'chain' in chain of nodes! 每个节点有数据和下一个指针。",
         },
       ],
+    },
+    {
+      type: "challenge",
+      content: "🏆 Linked List Challenge · 链表挑战",
+      challenge: {
+        title: "📏 Count Nodes · 计算节点数",
+        description: "Write a function that counts the number of nodes in a linked list.\n编写函数计算链表中的节点数量。",
+        starterCode: "class Node:\n    def __init__(self, data):\n        self.data = data\n        self.next = None\n\ndef count_nodes(head):\n    # Count how many nodes are in the list\n    # 计算链表中有多少个节点\n    pass\n\n# Test\na = Node(1)\nb = Node(2)\nc = Node(3)\na.next = b\nb.next = c\nprint(count_nodes(a))  # Should print: 3",
+        hint: "Walk through the list with a while loop, incrementing a counter each step. 用 while 循环遍历，每步计数器加1。",
+        solution: "class Node:\n    def __init__(self, data):\n        self.data = data\n        self.next = None\n\ndef count_nodes(head):\n    count = 0\n    current = head\n    while current:\n        count += 1\n        current = current.next\n    return count\n\na = Node(1)\nb = Node(2)\nc = Node(3)\na.next = b\nb.next = c\nprint(count_nodes(a))",
+        expectedOutput: "3",
+      },
     },
   ],
 };
 
-// ═══════════════════════════════════════════════════════════════
-// LESSON DS-1-3: Stack the Pancakes
-// ═══════════════════════════════════════════════════════════════
-
 const ds_1_3: Lesson = {
   id: "ds-1-3",
   moduleId: "ds-1",
-  title: "Stack the Pancakes",
-  subtitle: "LIFO stacks — push, pop, peek · 叠煎饼：后进先出的栈",
-  icon: "🥞",
-  xp: 45,
+  title: "Doubly Linked Lists — Forward & Back",
+  subtitle: "Two-way navigation · 双向链表——前进与后退",
+  icon: "↔️",
+  xp: 20,
   duration: "20 min",
   order: 3,
-  gradeRange: [5, 12],
+  gradeRange: [7, 12],
   difficulty: "intermediate",
   skillLevel: "intermediate",
   sections: [
     {
       type: "text",
-      emoji: "🥞",
-      content: `## 🐍 Py Says: Let's Stack Some Pancakes! 🥞
+      emoji: "🔗",
+      content: `## 🔗 Link: Now We Go BOTH Ways!
 
-Imagine a stack of pancakes 🥞:
-- You put new pancakes **on TOP**
-- You eat the pancake **from the TOP**
-- You can't grab the one at the bottom without removing everything above!
+Remember our train analogy? A singly linked list is like a one-way train — you can only go forward! 🚂➡️
 
-This is a **Stack** — a **LIFO** structure:
-**L**ast **I**n, **F**irst **O**ut!
+A **doubly linked list** is like a train with **windows on both sides** — you can go forward AND backward! 🚂↔️
 
-Real-world stacks are EVERYWHERE:
-- 📚 A pile of books
-- ↩️ The UNDO button (Ctrl+Z)
-- 🌐 Browser back button
-- 📱 Your phone's back navigation
+> 🎵 Real-world analogy: Think of a music playlist! You can skip to the next song AND go back to the previous one. That's a doubly linked list!
+> 现实类比：想想音乐播放列表！你可以跳到下一首，也可以回到上一首。这就是双向链表！
 
-🤖 Botty: "When you press Ctrl+Z, your editor POPS the last action off a stack!"
+Each node now has THREE parts:
+1. **prev** — pointer to previous node
+2. **data** — the value
+3. **next** — pointer to next node
 
-🔧 Chip: "The CPU uses a call stack to track function calls. When a function returns, it pops!"
-
-Time to stack! ⬆️`,
-    },
-    {
-      type: "concept",
-      emoji: "📖",
-      content: "New Concepts: Stack Operations",
-      concept: {
-        title: "🧰 Stack Operations",
-        titleZh: "栈操作",
-        syntaxCards: [
-          {
-            symbol: "push(x)",
-            name: "Push (add to top)",
-            nameZh: "压栈（添加到顶部）",
-            emoji: "⬆️",
-            description: "Add an item to the TOP of the stack. Like placing a new pancake on the pile.",
-            example: 'stack.append("pancake")  # Python uses append',
-          },
-          {
-            symbol: "pop()",
-            name: "Pop (remove from top)",
-            nameZh: "出栈（从顶部移除）",
-            emoji: "⬇️",
-            description: "Remove and return the TOP item. Like eating the top pancake. Error if stack is empty!",
-            example: 'top = stack.pop()  # removes & returns top',
-          },
-          {
-            symbol: "peek()",
-            name: "Peek (look at top)",
-            nameZh: "查看栈顶",
-            emoji: "👀",
-            description: "Look at the top item WITHOUT removing it. Like checking which pancake is on top.",
-            example: 'top = stack[-1]  # peek in Python',
-          },
-          {
-            symbol: "LIFO",
-            name: "Last In, First Out",
-            nameZh: "后进先出",
-            emoji: "🔄",
-            description: "The LAST item you put in is the FIRST to come out. Think: stack of plates.",
-            example: 'push A, push B, push C\npop → C, pop → B, pop → A',
-          },
-        ],
-        codeAnatomy: {
-          lines: [
-            { code: 'stack = []', explanation: "Create empty stack (we use a Python list)", explanationZh: "创建空栈（用Python列表）" },
-            { code: 'stack.append("A")', explanation: "Push 'A' — stack is now ['A']", explanationZh: "压入 'A' — 栈现在是 ['A']" },
-            { code: 'stack.append("B")', explanation: "Push 'B' — stack is now ['A', 'B']", explanationZh: "压入 'B' — 栈现在是 ['A', 'B']" },
-            { code: 'top = stack.pop()', explanation: "Pop → returns 'B', stack is now ['A']", explanationZh: "弹出 → 返回 'B'，栈现在是 ['A']" },
-            { code: 'peek = stack[-1]', explanation: "Peek → 'A' (still in stack)", explanationZh: "查看栈顶 → 'A'（仍在栈中）" },
-          ],
-        },
-      },
+\`\`\`
+None ← [prev|data|next] ↔ [prev|data|next] ↔ [prev|data|next] → None
+\`\`\``,
     },
     {
       type: "code",
-      emoji: "🥞",
-      content: `## 🥞 The Pancake Stack!
+      emoji: "💻",
+      content: `## 💻 Building a Doubly Linked List`,
+      code: `# 🔗 Link: "Double the pointers, double the power!"
 
-Let's stack and eat pancakes:`,
-      code: `# 🐍 Py: "LIFO = Last pancake goes on top, first to be eaten!"
+class DNode:
+    """Doubly linked node · 双向链表节点"""
+    def __init__(self, data):
+        self.data = data
+        self.prev = None    # ← pointer to previous 前一个
+        self.next = None    # → pointer to next 后一个
 
-stack = []
+class DoublyLinkedList:
+    def __init__(self):
+        self.head = None
+        self.tail = None    # Track the end too! 也追踪尾部！
 
-# Push pancakes onto the stack ⬆️
-pancakes = ["🥞 Plain", "🥞 Blueberry", "🥞 Chocolate", "🥞 Banana"]
-for p in pancakes:
-    stack.append(p)
-    print(f"  ⬆️ Pushed: {p}")
+    def append(self, data):
+        new_node = DNode(data)
+        if not self.head:
+            self.head = self.tail = new_node
+            return
+        new_node.prev = self.tail
+        self.tail.next = new_node
+        self.tail = new_node
 
-print(f"\\n📚 Stack (top is rightmost): {stack}")
-print(f"👀 Top pancake: {stack[-1]}")
-print(f"📏 Height: {len(stack)}")
+    def prepend(self, data):
+        new_node = DNode(data)
+        if not self.head:
+            self.head = self.tail = new_node
+            return
+        new_node.next = self.head
+        self.head.prev = new_node
+        self.head = new_node
 
-# Pop and eat! ⬇️
-print("\\n🍽️ Time to eat!")
-while stack:
-    eaten = stack.pop()
-    print(f"  ⬇️ Ate: {eaten}")
+    def delete(self, data):
+        """Delete first occurrence of data · 删除第一次出现的值"""
+        current = self.head
+        while current:
+            if current.data == data:
+                if current.prev:
+                    current.prev.next = current.next
+                else:
+                    self.head = current.next
+                if current.next:
+                    current.next.prev = current.prev
+                else:
+                    self.tail = current.prev
+                return True
+            current = current.next
+        return False
 
-print(f"\\n📭 Stack empty? {len(stack) == 0}")`,
+    def display_forward(self):
+        parts = []
+        current = self.head
+        while current:
+            parts.append(str(current.data))
+            current = current.next
+        print("Forward:  " + " ↔ ".join(parts))
+
+    def display_backward(self):
+        parts = []
+        current = self.tail
+        while current:
+            parts.append(str(current.data))
+            current = current.prev
+        print("Backward: " + " ↔ ".join(parts))
+
+# Demo
+dll = DoublyLinkedList()
+dll.append("A")
+dll.append("B")
+dll.append("C")
+dll.prepend("Z")
+dll.display_forward()   # Z ↔ A ↔ B ↔ C
+dll.display_backward()  # C ↔ B ↔ A ↔ Z
+
+dll.delete("A")
+dll.display_forward()   # Z ↔ B ↔ C
+print("\\n🔗 Link: Both directions work perfectly!")`,
     },
     {
-      type: "interactive",
-      content: `## 🎮 Your Turn: Bracket Matcher!
-
-Use a stack to check if brackets are balanced!`,
-      exercise: {
-        prompt: 'Check if the string "(())" has balanced brackets using a stack. Print True or False.',
-        promptZh: '用栈检查字符串 "(())" 的括号是否匹配。打印 True 或 False。',
-        starterCode: `s = "(())"
-stack = []
-balanced = True
-
-for char in s:
-    if char == "(":
-        stack.append(char)
-    elif char == ")":
-        if stack:
-            stack.pop()
-        else:
-            balanced = False
-
-# Check result
-# TODO: also check if stack is empty at end!
-print(balanced)`,
-        expectedOutput: "True",
-        hint: "After the loop, also check if the stack is empty. If not, there are unmatched '(' brackets!",
-        hintZh: "循环结束后，还要检查栈是否为空。如果不空，说明有未匹配的 '(' 括号！",
-        solution: `s = "(())"
-stack = []
-balanced = True
-
-for char in s:
-    if char == "(":
-        stack.append(char)
-    elif char == ")":
-        if stack:
-            stack.pop()
-        else:
-            balanced = False
-
-if stack:
-    balanced = False
-print(balanced)`,
+      type: "quiz",
+      content: "🎓 Doubly Linked List Quiz · 双向链表测验",
+      quiz: [
+        {
+          question: "What extra pointer does a doubly linked list node have compared to a singly linked list?\n\n双向链表节点比单向链表多了什么指针？",
+          options: ["A random pointer", "A prev (previous) pointer", "An index pointer", "A head pointer"],
+          correctIndex: 1,
+          explanation: "A doubly linked list adds a 'prev' pointer so you can traverse backwards! 双向链表加了 prev 指针，可以反向遍历！",
+        },
+      ],
+    },
+    {
+      type: "challenge",
+      content: "🏆 Challenge · 挑战",
+      challenge: {
+        title: "🔄 Reverse Traversal · 反向遍历",
+        description: "Given a doubly linked list with nodes 1→2→3→4→5, print all values backwards using .prev pointers.\n给定双向链表 1→2→3→4→5，用 .prev 指针反向打印所有值。",
+        starterCode: "class DNode:\n    def __init__(self, data):\n        self.data = data\n        self.prev = None\n        self.next = None\n\n# Build: 1 ↔ 2 ↔ 3 ↔ 4 ↔ 5\nnodes = [DNode(i) for i in range(1, 6)]\nfor i in range(len(nodes)-1):\n    nodes[i].next = nodes[i+1]\n    nodes[i+1].prev = nodes[i]\n\ntail = nodes[-1]\n\n# Print backwards from tail\n# 从尾部反向打印\n",
+        hint: "Start at tail, follow .prev until None. 从 tail 开始，沿 .prev 走到 None。",
+        solution: "class DNode:\n    def __init__(self, data):\n        self.data = data\n        self.prev = None\n        self.next = None\n\nnodes = [DNode(i) for i in range(1, 6)]\nfor i in range(len(nodes)-1):\n    nodes[i].next = nodes[i+1]\n    nodes[i+1].prev = nodes[i]\n\ntail = nodes[-1]\ncurrent = tail\nwhile current:\n    print(current.data)\n    current = current.prev",
+        expectedOutput: "5\n4\n3\n2\n1",
       },
+    },
+    {
+      type: "text",
+      emoji: "📦",
+      content: `## 📦 Box's Comparison Table · 对比表
+
+| Feature 特性 | Array 数组 | Singly Linked 单向链表 | Doubly Linked 双向链表 |
+|---|---|---|---|
+| Access by index 索引访问 | O(1) ⚡ | O(n) 🐢 | O(n) 🐢 |
+| Insert at start 头部插入 | O(n) 🐢 | O(1) ⚡ | O(1) ⚡ |
+| Insert at end 尾部插入 | O(1)* ⚡ | O(n) 🐢 | O(1) ⚡ |
+| Delete node 删除节点 | O(n) 🐢 | O(n) 🐢 | O(1)** ⚡ |
+| Traverse backward 反向遍历 | ✅ | ❌ | ✅ |
+
+*amortized **if you have the node reference`,
+    },
+  ],
+};
+
+const ds_1_4: Lesson = {
+  id: "ds-1-4",
+  moduleId: "ds-1",
+  title: "Stacks — LIFO Magic",
+  subtitle: "Last in, first out · 栈——后进先出的魔法",
+  icon: "📚",
+  xp: 20,
+  duration: "20 min",
+  order: 4,
+  gradeRange: [7, 12],
+  difficulty: "intermediate",
+  skillLevel: "intermediate",
+  sections: [
+    {
+      type: "text",
+      emoji: "📦",
+      content: `## 📦 Box: Stacking Things Up!
+
+Imagine a **stack of plates** 🍽️ at a buffet. You can only:
+- **Push** — put a plate on TOP
+- **Pop** — take the plate from the TOP
+
+You can't reach the bottom plate without removing everything on top! This is **LIFO**: Last In, First Out.
+
+> 🍽️ Real-world analogy: Stack of plates, pile of books, browser back button, Ctrl+Z undo!
+> 现实类比：一摞盘子、一堆书、浏览器后退按钮、Ctrl+Z 撤销！
+
+**The Call Stack** — when your program calls functions, it uses a stack! Each function call is "pushed" onto the stack, and when it returns, it's "popped" off.
+
+📦 **Box says:** "Stacks are EVERYWHERE in computing! Your computer is literally using them right now!"`,
+    },
+    {
+      type: "code",
+      emoji: "💻",
+      content: `## 💻 Stack Implementation · 栈的实现`,
+      code: `# 📦 Box: "Let's build a stack!"
+
+class Stack:
+    """LIFO Stack · 后进先出栈"""
+    def __init__(self):
+        self.items = []
+
+    def push(self, item):
+        """Add to top · 压入栈顶"""
+        self.items.append(item)
+        print(f"  Pushed: {item} → Stack: {self.items}")
+
+    def pop(self):
+        """Remove from top · 从栈顶弹出"""
+        if self.is_empty():
+            print("  Stack is empty! 栈是空的！")
+            return None
+        item = self.items.pop()
+        print(f"  Popped: {item} → Stack: {self.items}")
+        return item
+
+    def peek(self):
+        """Look at top without removing · 查看栈顶但不移除"""
+        if self.is_empty():
+            return None
+        return self.items[-1]
+
+    def is_empty(self):
+        return len(self.items) == 0
+
+    def size(self):
+        return len(self.items)
+
+# Demo: Stack of plates! 🍽️
+print("🍽️ Stack of Plates Demo:")
+plates = Stack()
+plates.push("Red Plate")
+plates.push("Blue Plate")
+plates.push("Green Plate")
+
+print(f"\\nTop plate: {plates.peek()}")  # Green
+print(f"Stack size: {plates.size()}")     # 3
+
+print("\\nRemoving plates:")
+plates.pop()  # Green (last in, first out!)
+plates.pop()  # Blue
+plates.pop()  # Red
+plates.pop()  # Empty!`,
+    },
+    {
+      type: "code",
+      emoji: "🔙",
+      content: `## 🔙 Real Example: Browser Back Button · 浏览器后退按钮`,
+      code: `# Simulate a browser's back/forward with stacks!
+# 用栈模拟浏览器的前进/后退！
+
+class BrowserHistory:
+    def __init__(self):
+        self.back_stack = []
+        self.forward_stack = []
+        self.current = "Home"
+
+    def visit(self, url):
+        self.back_stack.append(self.current)
+        self.current = url
+        self.forward_stack.clear()  # Clear forward history
+        print(f"📄 Visiting: {self.current}")
+
+    def back(self):
+        if not self.back_stack:
+            print("❌ No pages to go back to!")
+            return
+        self.forward_stack.append(self.current)
+        self.current = self.back_stack.pop()
+        print(f"⬅️ Back to: {self.current}")
+
+    def forward(self):
+        if not self.forward_stack:
+            print("❌ No pages to go forward to!")
+            return
+        self.back_stack.append(self.current)
+        self.current = self.forward_stack.pop()
+        print(f"➡️ Forward to: {self.current}")
+
+# Demo
+browser = BrowserHistory()
+browser.visit("google.com")
+browser.visit("youtube.com")
+browser.visit("github.com")
+browser.back()       # youtube.com
+browser.back()       # google.com
+browser.forward()    # youtube.com`,
+    },
+    {
+      type: "quiz",
+      content: "🎓 Stack Quiz · 栈测验",
+      quiz: [
+        {
+          question: "In a stack, which element is removed first?\n\n在栈中，哪个元素最先被移除？",
+          options: ["The first one added (FIFO)", "The last one added (LIFO)", "A random element", "The middle element"],
+          correctIndex: 1,
+          explanation: "Stacks are LIFO — Last In, First Out! Like a stack of plates. 栈是后进先出！",
+        },
+        {
+          question: "What are the two main stack operations?\n\n栈的两个主要操作是什么？",
+          options: ["add and remove", "push and pop", "enqueue and dequeue", "insert and delete"],
+          correctIndex: 1,
+          explanation: "Push (add to top) and Pop (remove from top) are the core stack operations! Push 压入和 Pop 弹出是核心操作！",
+        },
+      ],
+    },
+    {
+      type: "challenge",
+      content: "🏆 Stack Challenge · 栈挑战",
+      challenge: {
+        title: "🔤 Reverse a String with a Stack · 用栈反转字符串",
+        description: "Push each character onto a stack, then pop them all off to reverse the string!\n把每个字符压入栈，然后全部弹出来反转字符串！",
+        starterCode: "def reverse_string(s):\n    stack = []\n    # Push each character\n    # 压入每个字符\n    \n    # Pop all characters to build reversed string\n    # 弹出所有字符构建反转字符串\n    result = \"\"\n    \n    return result\n\nprint(reverse_string(\"hello\"))  # Should print: olleh",
+        hint: "Loop through string to push, then while stack is not empty, pop and add to result. 循环字符串压入，然后循环弹出拼接结果。",
+        solution: "def reverse_string(s):\n    stack = []\n    for char in s:\n        stack.append(char)\n    result = \"\"\n    while stack:\n        result += stack.pop()\n    return result\n\nprint(reverse_string(\"hello\"))",
+        expectedOutput: "olleh",
+      },
+    },
+  ],
+};
+
+const ds_1_5: Lesson = {
+  id: "ds-1-5",
+  moduleId: "ds-1",
+  title: "Stack Projects — Balanced Parentheses & Undo",
+  subtitle: "Practical stack applications · 栈的实际应用——括号匹配与撤销",
+  icon: "⚖️",
+  xp: 25,
+  duration: "25 min",
+  order: 5,
+  gradeRange: [7, 12],
+  difficulty: "intermediate",
+  skillLevel: "intermediate",
+  sections: [
+    {
+      type: "text",
+      emoji: "📦",
+      content: `## 📦 Box: Stacks in the Real World!
+
+Stacks aren't just theory — they solve REAL problems every day!
+
+**Problem 1: Balanced Parentheses** ⚖️
+Every code editor checks if your brackets match: \`{[()]}\` ✅ vs \`{[(])}\` ❌
+How? With a stack! Push opening brackets, pop for closing ones.
+
+**Problem 2: Undo System** ↩️
+Every time you type, the action is pushed onto a stack. Ctrl+Z? Pop the last action!
+
+> 📝 Real-world: Code editors, calculators, compilers ALL use stacks for bracket matching!
+> 现实应用：代码编辑器、计算器、编译器都用栈来匹配括号！`,
+    },
+    {
+      type: "code",
+      emoji: "⚖️",
+      content: `## ⚖️ Balanced Parentheses Checker · 括号匹配检查器`,
+      code: `# 📦 Box: "This is a CLASSIC interview question!"
+
+def is_balanced(expression):
+    """Check if parentheses are balanced · 检查括号是否匹配"""
+    stack = []
+    pairs = {')': '(', ']': '[', '}': '{'}
+
+    for char in expression:
+        if char in '([{':
+            stack.append(char)   # Push opening brackets 压入左括号
+        elif char in ')]}':
+            if not stack:
+                return False     # No matching opener! 没有匹配的左括号！
+            if stack[-1] != pairs[char]:
+                return False     # Wrong type! 类型不匹配！
+            stack.pop()          # Match found, pop! 匹配成功，弹出！
+
+    return len(stack) == 0       # Stack should be empty 栈应该为空
+
+# Test cases
+tests = [
+    ("{[()]}", True),
+    ("((()))", True),
+    ("{[(])}", False),   # Mismatched! 不匹配！
+    ("(()", False),      # Missing closer 缺少右括号
+    ("", True),          # Empty is balanced 空字符串是平衡的
+]
+
+for expr, expected in tests:
+    result = is_balanced(expr)
+    status = "✅" if result == expected else "❌"
+    print(f'{status} "{expr}" → {result}')`,
     },
     {
       type: "code",
       emoji: "↩️",
-      content: `## ↩️ Build an Undo System!
-
-Stacks power every undo feature in every app:`,
-      code: `# 🤖 Botty: "Ctrl+Z is just popping from a stack!"
+      content: `## ↩️ Undo/Redo System · 撤销/重做系统`,
+      code: `# 📦 Box: "Build your own text editor undo!"
 
 class TextEditor:
     def __init__(self):
         self.text = ""
         self.undo_stack = []
-    
+        self.redo_stack = []
+
     def type_text(self, new_text):
         self.undo_stack.append(self.text)  # Save current state
         self.text += new_text
-        print(f'✏️ Typed: "{new_text}" → "{self.text}"')
-    
-    def undo(self):
-        if self.undo_stack:
-            self.text = self.undo_stack.pop()
-            print(f'↩️ Undo! Text is now: "{self.text}"')
-        else:
-            print("❌ Nothing to undo!")
+        self.redo_stack.clear()
+        print(f"✏️ Typed: '{new_text}' → Text: '{self.text}'")
 
-# Let's try it!
+    def undo(self):
+        if not self.undo_stack:
+            print("❌ Nothing to undo!")
+            return
+        self.redo_stack.append(self.text)
+        self.text = self.undo_stack.pop()
+        print(f"↩️ Undo → Text: '{self.text}'")
+
+    def redo(self):
+        if not self.redo_stack:
+            print("❌ Nothing to redo!")
+            return
+        self.undo_stack.append(self.text)
+        self.text = self.redo_stack.pop()
+        print(f"↪️ Redo → Text: '{self.text}'")
+
+# Demo
 editor = TextEditor()
 editor.type_text("Hello")
 editor.type_text(" World")
-editor.type_text("!!!")
-print(f'\\n📄 Current: "{editor.text}"')
-
-editor.undo()
-editor.undo()
-print(f'📄 After 2 undos: "{editor.text}"')`,
-    },
-    {
-      type: "challenge",
-      content: "🏆 Coding Challenge · 编程挑战",
-      challenge: {
-        title: "🔤 Reverse a String with a Stack · 用栈反转字符串",
-        description: "Push each character onto a stack, then pop them all off to reverse a string!\n把每个字符压入栈，然后全部弹出来反转字符串！",
-        starterCode: `word = "hello"
-stack = []
-
-# TODO: Push each character onto the stack
-
-# TODO: Pop all characters to build reversed string
-reversed_word = ""
-
-print(reversed_word)`,
-        hint: "Loop through each char, append to stack. Then loop while stack is not empty, pop and add to reversed_word.\n遍历每个字符，append到栈。然后当栈不空时，pop并拼接到reversed_word。",
-        solution: `word = "hello"
-stack = []
-
-for char in word:
-    stack.append(char)
-
-reversed_word = ""
-while stack:
-    reversed_word += stack.pop()
-
-print(reversed_word)`,
-        expectedOutput: "olleh",
-      },
+editor.type_text("!")
+editor.undo()        # Remove "!"
+editor.undo()        # Remove " World"
+editor.redo()        # Bring back " World"
+print(f"\\nFinal: '{editor.text}'")`,
     },
     {
       type: "quiz",
-      content: "🎓 Stack Knowledge Check!",
+      content: "🎓 Stack Applications Quiz · 栈应用测验",
       quiz: [
         {
-          question: "What does LIFO stand for?",
-          options: ["Last In, First Out", "Linked In, Found Out", "List In, File Out", "Last Item, First Operation"],
-          correctIndex: 0,
-          explanation: "LIFO = Last In, First Out! The most recent item added is the first to be removed. 🥞",
-        },
-        {
-          question: "If you push A, B, C and then pop twice, what's left?",
-          options: ["C", "A", "B, C", "A, B"],
+          question: "When checking balanced parentheses, what do you push onto the stack?\n\n检查括号匹配时，什么被压入栈？",
+          options: ["Closing brackets", "Opening brackets", "All brackets", "Numbers"],
           correctIndex: 1,
-          explanation: "Push: [A, B, C]. Pop → C. Pop → B. Left: [A]. The bottom stays! 📚",
-        },
-        {
-          question: "Which real-world feature uses a stack?",
-          options: ["Printer queue", "Undo button (Ctrl+Z)", "Playlist shuffle", "File sorting"],
-          correctIndex: 1,
-          explanation: "Undo is a perfect stack example! Each action is pushed, and Ctrl+Z pops the last one. ↩️",
+          explanation: "Push opening brackets, then pop when you find a matching closing bracket! 压入左括号，遇到匹配的右括号时弹出！",
         },
       ],
+    },
+    {
+      type: "challenge",
+      content: "🏆 Challenge · 挑战",
+      challenge: {
+        title: "🔢 Min Stack · 最小值栈",
+        description: "Design a stack that supports push, pop, and getMin (return minimum element) all in O(1) time!\n设计一个栈，push、pop、getMin（返回最小元素）都是 O(1) 时间！",
+        starterCode: "class MinStack:\n    def __init__(self):\n        self.stack = []\n        self.min_stack = []  # Track minimums!\n\n    def push(self, val):\n        # Push val, and update min_stack\n        pass\n\n    def pop(self):\n        # Pop from both stacks\n        pass\n\n    def get_min(self):\n        # Return current minimum\n        pass\n\ns = MinStack()\ns.push(5)\ns.push(3)\ns.push(7)\nprint(s.get_min())  # 3\ns.pop()\nprint(s.get_min())  # 3\ns.pop()\nprint(s.get_min())  # 5",
+        hint: "Keep a parallel stack that always has the current minimum on top. When pushing, push min(val, current_min). 维护一个平行栈，栈顶始终是当前最小值。",
+        solution: "class MinStack:\n    def __init__(self):\n        self.stack = []\n        self.min_stack = []\n\n    def push(self, val):\n        self.stack.append(val)\n        if not self.min_stack or val <= self.min_stack[-1]:\n            self.min_stack.append(val)\n        else:\n            self.min_stack.append(self.min_stack[-1])\n\n    def pop(self):\n        self.stack.pop()\n        self.min_stack.pop()\n\n    def get_min(self):\n        return self.min_stack[-1]\n\ns = MinStack()\ns.push(5)\ns.push(3)\ns.push(7)\nprint(s.get_min())\ns.pop()\nprint(s.get_min())\ns.pop()\nprint(s.get_min())",
+        expectedOutput: "3\n3\n5",
+      },
     },
   ],
 };
 
 // ═══════════════════════════════════════════════════════════════
-// LESSON DS-1-4: Module 1 Boss Battle
-// ═══════════════════════════════════════════════════════════════
-
-const ds_1_4: Lesson = {
-  id: "ds-1-4",
-  moduleId: "ds-1",
-  title: "Module 1 Boss Battle",
-  subtitle: "Combine arrays, lists, and stacks · 第一关大Boss：综合挑战",
-  icon: "🐉",
-  xp: 60,
-  duration: "25 min",
-  order: 4,
-  gradeRange: [5, 12],
-  difficulty: "intermediate",
-  skillLevel: "intermediate",
-  sections: [
-    {
-      type: "text",
-      emoji: "🐉",
-      content: `## 🐍 Py Says: Time for the BOSS BATTLE! 🐉
-
-You've mastered:
-- ✅ **Arrays** — numbered lockers, indexing, slicing
-- ✅ **Linked Lists** — chained nodes with pointers
-- ✅ **Stacks** — LIFO push/pop
-
-Now it's time to prove your skills against the **Module 1 Dragon**! 🐉
-
-This boss battle has 3 rounds:
-1. 🗡️ **Round 1**: Array Warrior — manipulate arrays under pressure
-2. 🔗 **Round 2**: Chain Master — linked list surgery
-3. 🥞 **Round 3**: Stack Sorcerer — stack-based spell casting
-
-🤖 Botty: "Don't worry — you've trained for this! Use everything you've learned!"
-
-🔧 Chip: "I've seen your code. You've got this! 💪"
-
-Ready? 🎮 START!`,
-    },
-    {
-      type: "code",
-      emoji: "🗡️",
-      content: `## 🗡️ Round 1: Array Warrior
-
-Defeat the dragon's minions by sorting the battle lineup!`,
-      code: `# 🗡️ ROUND 1: Array Battle!
-
-warriors = [
-    {"name": "🧙 Mage", "power": 85},
-    {"name": "🗡️ Knight", "power": 92},
-    {"name": "🏹 Archer", "power": 78},
-    {"name": "🛡️ Tank", "power": 95},
-    {"name": "🗡️ Rogue", "power": 88},
-]
-
-# Sort warriors by power (strongest first)
-warriors.sort(key=lambda w: w["power"], reverse=True)
-
-print("⚔️ Battle Formation (strongest first):")
-for i, w in enumerate(warriors):
-    role = "⭐ LEADER" if i == 0 else f"  Rank {i+1}"
-    print(f"  {role}: {w['name']} (Power: {w['power']})")
-
-# Split into front line and back line
-front = warriors[:2]
-back = warriors[2:]
-print(f"\\n🛡️ Front line: {[w['name'] for w in front]}")
-print(f"🏹 Back line: {[w['name'] for w in back]}")
-print(f"\\n💪 Total power: {sum(w['power'] for w in warriors)}")`,
-    },
-    {
-      type: "challenge",
-      content: "🏆 Round 2: Chain Master · 第二轮：链表大师",
-      challenge: {
-        title: "🔗 Delete a Node from Linked List · 从链表中删除节点",
-        description: "Write a function that removes a node with a given value from a linked list. Return the head of the modified list.\n写一个函数，从链表中删除指定值的节点。返回修改后的头节点。",
-        starterCode: `class Node:
-    def __init__(self, data):
-        self.data = data
-        self.next = None
-
-def delete_node(head, value):
-    # TODO: Delete the node with the given value
-    # Handle: deleting head, middle, or end node
-    pass
-
-# Build: 10 → 20 → 30 → 40
-head = Node(10)
-head.next = Node(20)
-head.next.next = Node(30)
-head.next.next.next = Node(40)
-
-# Delete 30
-head = delete_node(head, 30)
-
-# Print result
-current = head
-while current:
-    print(current.data, end=" ")
-    current = current.next
-print()`,
-        hint: "Handle special case: if head is the target, return head.next. Otherwise, walk until you find the node BEFORE the target and skip over it.\n特殊情况：如果头节点就是目标，返回 head.next。否则，找到目标前一个节点，跳过目标。",
-        solution: `class Node:
-    def __init__(self, data):
-        self.data = data
-        self.next = None
-
-def delete_node(head, value):
-    if head and head.data == value:
-        return head.next
-    current = head
-    while current and current.next:
-        if current.next.data == value:
-            current.next = current.next.next
-            return head
-        current = current.next
-    return head
-
-head = Node(10)
-head.next = Node(20)
-head.next.next = Node(30)
-head.next.next.next = Node(40)
-
-head = delete_node(head, 30)
-
-current = head
-while current:
-    print(current.data, end=" ")
-    current = current.next
-print()`,
-        expectedOutput: "10 20 40",
-      },
-    },
-    {
-      type: "challenge",
-      content: "🏆 Round 3: Stack Sorcerer · 第三轮：栈魔法师",
-      challenge: {
-        title: "🧙 Bracket Validator · 括号验证器",
-        description: "Check if a string has valid bracket pairs: (), [], {}. Each open bracket must close in the right order.\n检查字符串的括号是否匹配：()、[]、{}。每个开括号必须按正确顺序闭合。",
-        starterCode: `def is_valid(s):
-    stack = []
-    pairs = {')': '(', ']': '[', '}': '{'}
-    
-    # TODO: Loop through each character
-    # If it's an opening bracket, push it
-    # If it's a closing bracket, check the stack
-    pass
-
-# Test cases
-print(is_valid("({[]})"))  # True
-print(is_valid("([)]"))    # False
-print(is_valid(""))        # True`,
-        hint: "For each char: if opening bracket → push. If closing bracket → check if stack top matches (use the pairs dict). At end, stack should be empty.\n每个字符：如果是开括号→压栈。如果是闭括号→检查栈顶是否匹配（用pairs字典）。最后栈应为空。",
-        solution: `def is_valid(s):
-    stack = []
-    pairs = {')': '(', ']': '[', '}': '{'}
-    
-    for char in s:
-        if char in '([{':
-            stack.append(char)
-        elif char in ')]}':
-            if not stack or stack[-1] != pairs[char]:
-                return False
-            stack.pop()
-    
-    return len(stack) == 0
-
-print(is_valid("({[]})"))
-print(is_valid("([)]"))
-print(is_valid(""))`,
-        expectedOutput: "True\nFalse\nTrue",
-      },
-    },
-    {
-      type: "quiz",
-      content: "🎓 Boss Battle Final Quiz!",
-      quiz: [
-        {
-          question: "Which data structure lets you access ANY element instantly by index?",
-          options: ["Linked List", "Stack", "Array (Python list)", "None of the above"],
-          correctIndex: 2,
-          explanation: "Arrays give O(1) random access by index. Linked lists require traversal. Stacks only access the top. 🗄️",
-        },
-        {
-          question: "To insert at the MIDDLE of data, which is most efficient?",
-          options: ["Array", "Linked List", "Stack", "They're all the same"],
-          correctIndex: 1,
-          explanation: "Linked lists can insert in O(1) once you're at the right spot. Arrays must shift all later elements! 🔗",
-        },
-        {
-          question: "What pattern does a Stack follow?",
-          options: ["FIFO", "LIFO", "Random", "Sorted"],
-          correctIndex: 1,
-          explanation: "Stack = LIFO (Last In, First Out). Queue = FIFO. Don't mix them up! 🥞",
-        },
-      ],
-    },
-  ],
-};
-
-// ═══════════════════════════════════════════════════════════════
-// LESSON DS-2-1: Queue at the Amusement Park
+// MODULE DS-2: QUEUES & TREES
 // ═══════════════════════════════════════════════════════════════
 
 const ds_2_1: Lesson = {
   id: "ds-2-1",
   moduleId: "ds-2",
-  title: "Queue at the Amusement Park",
-  subtitle: "FIFO queues — first come, first served · 游乐园排队：先来先服务",
-  icon: "🎢",
-  xp: 45,
+  title: "Queues — FIFO Processing",
+  subtitle: "First in, first out · 队列——先进先出",
+  icon: "🚶",
+  xp: 20,
   duration: "20 min",
-  order: 5,
-  gradeRange: [5, 12],
+  order: 1,
+  gradeRange: [7, 12],
   difficulty: "intermediate",
   skillLevel: "intermediate",
   sections: [
     {
       type: "text",
-      emoji: "🎢",
-      content: `## 🐍 Py Says: Welcome to Py's Amusement Park! 🎢
+      emoji: "📦",
+      content: `## 📦 Box: Standing in Line!
 
-You're at an amusement park 🎡 and there's a HUGE line for the roller coaster!
+A **queue** is the opposite of a stack! It's **FIFO**: First In, First Out.
 
-In a **queue** (like a real line):
-- New people join at the **BACK** 🔚
-- The person at the **FRONT** gets to ride first 🎢
-- NO cutting in line! 😤
+> 🏪 Real-world analogy: A line at a store! The first person in line gets served first. No cutting!
+> 现实类比：商店排队！先排队的人先被服务。不许插队！
 
-This is **FIFO** — **F**irst **I**n, **F**irst **O**ut!
+**Queue Operations:**
+- **Enqueue** — add to the BACK of the line
+- **Dequeue** — remove from the FRONT of the line
+- **Peek/Front** — look at who's first without removing them
 
-Queues are everywhere:
-- 🖨️ Print jobs waiting to print
-- 🍔 Drive-through orders
-- 📱 App notifications
-- 🎮 Online game matchmaking
+Where queues are used:
+- 🖨️ Print jobs waiting in queue
+- 🎮 Matchmaking in online games
+- 📧 Email servers processing messages
+- 🚗 Traffic systems
 
-🤖 Botty: "When you send a message, it goes into a queue and gets delivered in order!"
-
-🔧 Chip: "My CPU processes tasks in a queue — first task submitted = first executed!"
-
-Let's manage the ride queue! 🎠`,
-    },
-    {
-      type: "concept",
-      emoji: "📖",
-      content: "New Concepts: Queue Operations",
-      concept: {
-        title: "🧰 Queue Operations",
-        titleZh: "队列操作",
-        syntaxCards: [
-          {
-            symbol: "enqueue(x)",
-            name: "Enqueue (join the back)",
-            nameZh: "入队（加入队尾）",
-            emoji: "🔚",
-            description: "Add an item to the BACK of the queue. Like a new person joining the line.",
-            example: 'from collections import deque\nq = deque()\nq.append("Alice")  # enqueue',
-          },
-          {
-            symbol: "dequeue()",
-            name: "Dequeue (leave from front)",
-            nameZh: "出队（从队首离开）",
-            emoji: "🚪",
-            description: "Remove and return the FRONT item. The first person in line gets served!",
-            example: 'first = q.popleft()  # dequeue',
-          },
-          {
-            symbol: "front()",
-            name: "Front / Peek",
-            nameZh: "查看队首",
-            emoji: "👀",
-            description: "Look at the front person without removing them. Who's next?",
-            example: 'next_person = q[0]  # peek at front',
-          },
-          {
-            symbol: "deque",
-            name: "Python's deque (fast queue)",
-            nameZh: "Python的deque（高效队列）",
-            emoji: "⚡",
-            description: "Use collections.deque for O(1) operations on both ends. Regular lists are slow for popleft!",
-            example: 'from collections import deque\nq = deque()',
-          },
-        ],
-        codeAnatomy: {
-          lines: [
-            { code: 'from collections import deque', explanation: "Import deque — a fast double-ended queue", explanationZh: "导入 deque — 快速双端队列" },
-            { code: 'queue = deque()', explanation: "Create an empty queue", explanationZh: "创建空队列" },
-            { code: 'queue.append("Alice")', explanation: "Enqueue Alice (joins the back)", explanationZh: "入队 Alice（加入队尾）" },
-            { code: 'queue.append("Bob")', explanation: "Enqueue Bob (behind Alice)", explanationZh: "入队 Bob（在 Alice 后面）" },
-            { code: 'served = queue.popleft()', explanation: "Dequeue → Alice (she was first!)", explanationZh: "出队 → Alice（她排在最前面！）" },
-          ],
-        },
-      },
+📦 **Box says:** "Stacks are for when you want the most RECENT thing. Queues are for when you want things in ORDER!"`,
     },
     {
       type: "code",
-      emoji: "🎢",
-      content: `## 🎢 Roller Coaster Queue Simulator!`,
-      code: `from collections import deque
+      emoji: "💻",
+      content: `## 💻 Queue Implementation · 队列实现`,
+      code: `# 📦 Box: "First come, first served!"
+from collections import deque
 
-# 🎢 Roller coaster queue!
-ride_queue = deque()
+class Queue:
+    """FIFO Queue · 先进先出队列"""
+    def __init__(self):
+        self.items = deque()  # deque is efficient for both ends! 双端队列两端都快！
 
-# People arrive at the park 🚶
-arrivals = ["🧒 Emma", "👦 Liam", "👧 Sophia", "🧑 Noah", "👩 Olivia"]
-for person in arrivals:
-    ride_queue.append(person)
-    print(f"  🔚 {person} joined the queue")
+    def enqueue(self, item):
+        """Add to back · 加入队尾"""
+        self.items.append(item)
+        print(f"  ➕ Enqueued: {item} → Queue: {list(self.items)}")
 
-print(f"\\n📋 Queue: {list(ride_queue)}")
-print(f"👀 Next up: {ride_queue[0]}")
-print(f"📏 Queue length: {len(ride_queue)}")
+    def dequeue(self):
+        """Remove from front · 从队首移除"""
+        if self.is_empty():
+            print("  Queue is empty! 队列为空！")
+            return None
+        item = self.items.popleft()
+        print(f"  ➖ Dequeued: {item} → Queue: {list(self.items)}")
+        return item
 
-# Ride time! 🎢 (seats 2 people per round)
-print("\\n🎢 RIDE STARTING!")
-round_num = 1
-while ride_queue:
-    riders = []
-    for _ in range(min(2, len(ride_queue))):
-        riders.append(ride_queue.popleft())
-    print(f"  Round {round_num}: {', '.join(riders)} → 🎢 WHOOSH!")
-    round_num += 1
+    def front(self):
+        return self.items[0] if self.items else None
 
-print("\\n✅ Everyone has ridden! Queue is empty!")`,
-    },
-    {
-      type: "interactive",
-      content: `## 🎮 Your Turn: Printer Queue!
+    def is_empty(self):
+        return len(self.items) == 0
 
-Simulate a printer queue that processes jobs in order.`,
-      exercise: {
-        prompt: "Create a queue with 3 print jobs, then process (dequeue) them one by one, printing each job.",
-        promptZh: "创建一个包含3个打印任务的队列，然后逐个处理（出队），打印每个任务。",
-        starterCode: `from collections import deque
+    def size(self):
+        return len(self.items)
 
-printer = deque()
-printer.append("Resume.pdf")
-printer.append("Photo.jpg")
-printer.append("Report.doc")
+# Demo: Coffee shop line! ☕
+print("☕ Coffee Shop Queue:")
+line = Queue()
+line.enqueue("Alice")
+line.enqueue("Bob")
+line.enqueue("Charlie")
 
-# TODO: Process all jobs (dequeue and print each one)
-`,
-        expectedOutput: "Printing: Resume.pdf\nPrinting: Photo.jpg\nPrinting: Report.doc",
-        hint: "Use a while loop: while printer is not empty, popleft() and print!",
-        hintZh: "用while循环：当printer不为空时，popleft()并打印！",
-        solution: `from collections import deque
+print(f"\\nNext customer: {line.front()}")  # Alice
+print(f"People waiting: {line.size()}")     # 3
 
-printer = deque()
-printer.append("Resume.pdf")
-printer.append("Photo.jpg")
-printer.append("Report.doc")
-
-while printer:
-    job = printer.popleft()
-    print(f"Printing: {job}")`,
-      },
-    },
-    {
-      type: "code",
-      emoji: "🍔",
-      content: `## 🍔 Drive-Through Queue with Timing!`,
-      code: `from collections import deque
-import random
-
-# 🍔 Fast food drive-through!
-drive_through = deque()
-
-orders = [
-    ("🍔 Burger Combo", 3),
-    ("🍟 Fries Only", 1),
-    ("🥤 Shake + 🍔 Deluxe", 5),
-    ("🌮 Taco Box", 2),
-    ("🍕 Pizza Slice", 2),
-]
-
-for name, time in orders:
-    drive_through.append((name, time))
-    print(f"  📝 Order placed: {name} ({time} min)")
-
-print(f"\\n🚗 Processing orders...")
-total_time = 0
-while drive_through:
-    order, prep_time = drive_through.popleft()
-    total_time += prep_time
-    print(f"  ✅ {order} ready! (took {prep_time} min, total: {total_time} min)")
-
-print(f"\\n⏱️ All orders done in {total_time} minutes!")`,
-    },
-    {
-      type: "challenge",
-      content: "🏆 Coding Challenge · 编程挑战",
-      challenge: {
-        title: "🎵 Hot Potato Game · 烫手山芋游戏",
-        description: "Simulate Hot Potato: players stand in a circle (queue). Pass the potato N times, then eliminate the person holding it. Last one standing wins!\n模拟烫手山芋：玩家围成一圈（队列）。传递N次后，拿着山芋的人被淘汰。最后站着的人赢！",
-        starterCode: `from collections import deque
-
-def hot_potato(names, num_passes):
-    queue = deque(names)
-    
-    while len(queue) > 1:
-        # TODO: Pass the potato num_passes times
-        # (move front person to back of queue)
-        # Then eliminate the person at front
-        pass
-    
-    return queue[0]
-
-players = ["Alice", "Bob", "Charlie", "David", "Eve"]
-winner = hot_potato(players, 3)
-print(f"🏆 Winner: {winner}")`,
-        hint: "To 'pass the potato', dequeue from front and enqueue to back. Do this num_passes times, then dequeue (eliminate) the front person.\n'传递山芋'就是从前面出队再从后面入队。这样做num_passes次，然后出队（淘汰）前面的人。",
-        solution: `from collections import deque
-
-def hot_potato(names, num_passes):
-    queue = deque(names)
-    
-    while len(queue) > 1:
-        for _ in range(num_passes):
-            queue.append(queue.popleft())
-        eliminated = queue.popleft()
-        print(f"  ❌ {eliminated} is out!")
-    
-    return queue[0]
-
-players = ["Alice", "Bob", "Charlie", "David", "Eve"]
-winner = hot_potato(players, 3)
-print(f"🏆 Winner: {winner}")`,
-        expectedOutput: "  ❌ David is out!\n  ❌ Charlie is out!\n  ❌ Eve is out!\n  ❌ Bob is out!\n🏆 Winner: Alice",
-      },
+print("\\nServing customers:")
+line.dequeue()  # Alice served first!
+line.dequeue()  # Then Bob
+line.enqueue("Diana")  # Diana joins
+line.dequeue()  # Charlie (was before Diana)
+line.dequeue()  # Diana`,
     },
     {
       type: "quiz",
-      content: "🎓 Queue Knowledge Check!",
+      content: "🎓 Queue Quiz · 队列测验",
       quiz: [
         {
-          question: "What does FIFO stand for?",
-          options: ["First In, First Out", "Fast In, Fast Out", "File In, File Out", "Find It, Fix One"],
+          question: "What does FIFO stand for?\n\nFIFO 代表什么？",
+          options: ["First In, First Out", "First In, Last Out", "Fast In, Fast Out", "Find In, Find Out"],
           correctIndex: 0,
-          explanation: "FIFO = First In, First Out! Like a real line — the first person to arrive is served first. 🎢",
-        },
-        {
-          question: "Why use collections.deque instead of a regular list for a queue?",
-          options: ["It looks cooler", "deque.popleft() is O(1), list.pop(0) is O(n)", "Lists can't be queues", "deque uses less memory"],
-          correctIndex: 1,
-          explanation: "list.pop(0) shifts ALL elements — O(n)! deque.popleft() is O(1) — instant! Speed matters! ⚡",
-        },
-        {
-          question: "Stack is LIFO, Queue is FIFO. If you enqueue A, B, C, what does dequeue return first?",
-          options: ["C", "B", "A", "None"],
-          correctIndex: 2,
-          explanation: "FIFO = First In, First Out. A was first in, so A comes out first! Unlike a stack which would give C. 🔄",
+          explanation: "FIFO = First In, First Out — like a line at a store! 先进先出——就像排队！",
         },
       ],
     },
+    {
+      type: "challenge",
+      content: "🏆 Queue Challenge · 队列挑战",
+      challenge: {
+        title: "🔥 Hot Potato Game · 烫手山芋游戏",
+        description: "Simulate the hot potato game: players in a circle pass a potato. Every N passes, the person holding it is out!\n模拟烫手山芋游戏：玩家围成圈传递山芋，每 N 次传递，持有者淘汰！",
+        starterCode: "from collections import deque\n\ndef hot_potato(names, num):\n    q = deque(names)\n    while len(q) > 1:\n        # Pass the potato 'num' times\n        # (rotate the queue)\n        # Then eliminate the holder\n        pass\n    return q[0]\n\nplayers = [\"Alice\", \"Bob\", \"Charlie\", \"Diana\", \"Eve\"]\nwinner = hot_potato(players, 3)\nprint(f\"Winner: {winner}\")",
+        hint: "To 'pass', dequeue from front and enqueue to back. After num passes, dequeue and don't re-add! 传递=从前取出放到后面。传完后取出不放回！",
+        solution: "from collections import deque\n\ndef hot_potato(names, num):\n    q = deque(names)\n    while len(q) > 1:\n        for _ in range(num):\n            q.append(q.popleft())\n        eliminated = q.popleft()\n        print(f\"Eliminated: {eliminated}\")\n    return q[0]\n\nplayers = [\"Alice\", \"Bob\", \"Charlie\", \"Diana\", \"Eve\"]\nwinner = hot_potato(players, 3)\nprint(f\"Winner: {winner}\")",
+      },
+    },
   ],
 };
-
-// ═══════════════════════════════════════════════════════════════
-// LESSON DS-2-2: Double-Ended Magic
-// ═══════════════════════════════════════════════════════════════
 
 const ds_2_2: Lesson = {
   id: "ds-2-2",
   moduleId: "ds-2",
-  title: "Double-Ended Magic",
-  subtitle: "Deques & priority queues · 双端魔法：双端队列和优先队列",
-  icon: "🔮",
-  xp: 50,
-  duration: "22 min",
-  order: 6,
-  gradeRange: [5, 12],
+  title: "Priority Queues & Heaps",
+  subtitle: "Not all items are equal · 优先队列与堆",
+  icon: "🏥",
+  xp: 25,
+  duration: "25 min",
+  order: 2,
+  gradeRange: [7, 12],
   difficulty: "intermediate",
   skillLevel: "intermediate",
   sections: [
     {
       type: "text",
-      emoji: "🔮",
-      content: `## 🐍 Py Says: Double-Ended & Priority Magic! 🔮
+      emoji: "📦",
+      content: `## 📦 Box: Emergency Room Queue!
 
-What if a queue could work from **BOTH ends**? That's a **Deque** (Double-Ended Queue)!
+In a regular queue, everyone waits in order. But what about an **emergency room**? 🏥
 
-And what if the most **IMPORTANT** person always goes first, regardless of arrival time? That's a **Priority Queue**!
+A patient with a broken arm 🦴 should be seen before someone with a cold 🤧, even if the cold patient arrived first!
 
-🏥 **Emergency Room example:**
-- Regular patient arrives → joins back of line
-- CRITICAL patient arrives → goes to FRONT immediately!
+That's a **Priority Queue** — items have priorities, and the highest priority is served first!
 
-Real-world priority queues:
-- 🏥 Hospital triage (most critical first)
-- ✈️ Airline boarding (first class, then economy)
-- 💻 OS task scheduling (high-priority tasks first)
-- 🎮 Game AI (evaluate best move first)
+> 🏥 Real-world analogy: Hospital ER — critical patients first, regardless of arrival time!
+> 现实类比：医院急诊室——危重病人优先，不管到达时间！
 
-🤖 Botty: "I use a priority queue to decide which response to generate first — the most relevant one wins!"
+**How is it implemented?** With a **Heap** — a special tree structure where the parent is always ≤ (min-heap) or ≥ (max-heap) its children.
 
-🔧 Chip: "My interrupt handler is a priority queue — hardware emergencies get processed before background tasks!"`,
-    },
-    {
-      type: "concept",
-      emoji: "📖",
-      content: "New Concepts: Deque & Priority Queue",
-      concept: {
-        title: "🧰 Deque & Priority Queue",
-        titleZh: "双端队列与优先队列",
-        syntaxCards: [
-          {
-            symbol: "deque.appendleft(x)",
-            name: "Add to front",
-            nameZh: "添加到队首",
-            emoji: "⬅️",
-            description: "Add an item to the FRONT of the deque. Like VIP cutting to the front of the line!",
-            example: 'from collections import deque\nd = deque([1,2,3])\nd.appendleft(0)  # [0,1,2,3]',
-          },
-          {
-            symbol: "deque.pop()",
-            name: "Remove from back",
-            nameZh: "从队尾移除",
-            emoji: "➡️",
-            description: "Remove from the BACK. Regular pop() works on the right side.",
-            example: 'd.pop()  # removes and returns 3',
-          },
-          {
-            symbol: "heapq",
-            name: "Priority Queue (heap)",
-            nameZh: "优先队列（堆）",
-            emoji: "🏥",
-            description: "A queue where the SMALLEST (highest priority) item always comes out first. Uses a binary heap internally.",
-            example: 'import heapq\nheapq.heappush(h, 5)\nheapq.heappop(h)  # smallest',
-          },
-          {
-            symbol: "(priority, data)",
-            name: "Priority Tuple",
-            nameZh: "优先级元组",
-            emoji: "🎫",
-            description: "Store items as (priority_number, data). Lower number = higher priority. Like hospital triage levels.",
-            example: 'heapq.heappush(h, (1, "Critical"))\nheapq.heappush(h, (3, "Low"))',
-          },
-        ],
-        codeAnatomy: {
-          lines: [
-            { code: 'import heapq', explanation: "Import the heap module for priority queues", explanationZh: "导入堆模块用于优先队列" },
-            { code: 'pq = []', explanation: "Create empty priority queue (it's just a list!)", explanationZh: "创建空优先队列（其实就是列表！）" },
-            { code: 'heapq.heappush(pq, (1, "Emergency"))', explanation: "Add with priority 1 (highest)", explanationZh: "以优先级1（最高）添加" },
-            { code: 'heapq.heappush(pq, (3, "Routine"))', explanation: "Add with priority 3 (lower)", explanationZh: "以优先级3（较低）添加" },
-            { code: 'item = heapq.heappop(pq)', explanation: "Pop → (1, 'Emergency') — lowest number first!", explanationZh: "弹出 → (1, 'Emergency') — 数字最小的先出！" },
-          ],
-        },
-      },
+Python's \`heapq\` module gives us a min-heap for free!`,
     },
     {
       type: "code",
-      emoji: "🏥",
-      content: `## 🏥 Emergency Room Triage System!`,
+      emoji: "💻",
+      content: `## 💻 Priority Queue with heapq · 用 heapq 实现优先队列`,
       code: `import heapq
 
-# 🏥 ER Priority Queue
-# Priority: 1=Critical 🔴, 2=Serious 🟠, 3=Moderate 🟡, 4=Minor 🟢
+# 🏥 Emergency Room Priority Queue
+# Lower number = higher priority (1 = critical!)
+# 数字越小优先级越高
 
 er_queue = []
 
-patients = [
-    (3, "🟡 Alex - Broken finger"),
-    (1, "🔴 Sam - Heart attack"),
-    (4, "🟢 Kim - Common cold"),
-    (2, "🟠 Pat - Deep cut"),
-    (1, "🔴 Lee - Stroke"),
-]
+# (priority, arrival_order, patient_name)
+heapq.heappush(er_queue, (3, 1, "Alice - Cold"))
+heapq.heappush(er_queue, (1, 2, "Bob - Heart Attack"))
+heapq.heappush(er_queue, (2, 3, "Charlie - Broken Arm"))
+heapq.heappush(er_queue, (1, 4, "Diana - Stroke"))
 
-print("🏥 Patients arriving:")
-for priority, patient in patients:
-    heapq.heappush(er_queue, (priority, patient))
-    print(f"  📋 Checked in: {patient}")
-
-print("\\n👨‍⚕️ Treatment order (most critical first):")
+print("🏥 ER Treatment Order:")
 order = 1
 while er_queue:
-    priority, patient = heapq.heappop(er_queue)
-    print(f"  {order}. {patient} [Priority {priority}]")
+    priority, _, patient = heapq.heappop(er_queue)
+    print(f"  {order}. [Priority {priority}] {patient}")
     order += 1
 
-print("\\n✅ All patients treated!")`,
-    },
-    {
-      type: "interactive",
-      content: `## 🎮 Your Turn: Deque Palindrome Checker!
-
-Use a deque to check if a word reads the same forwards and backwards.`,
-      exercise: {
-        prompt: 'Check if "racecar" is a palindrome using a deque. Compare front and back characters.',
-        promptZh: '用双端队列检查 "racecar" 是否是回文。比较首尾字符。',
-        starterCode: `from collections import deque
-
-word = "racecar"
-d = deque(word)
-is_palindrome = True
-
-# TODO: While deque has more than 1 element,
-# compare and remove front and back characters
-while len(d) > 1:
-    pass
-
-print(is_palindrome)`,
-        expectedOutput: "True",
-        hint: "Use d.popleft() and d.pop() to get front and back chars. If they don't match, set is_palindrome = False.",
-        hintZh: "用 d.popleft() 和 d.pop() 获取首尾字符。如果不匹配，设 is_palindrome = False。",
-        solution: `from collections import deque
-
-word = "racecar"
-d = deque(word)
-is_palindrome = True
-
-while len(d) > 1:
-    front = d.popleft()
-    back = d.pop()
-    if front != back:
-        is_palindrome = False
-        break
-
-print(is_palindrome)`,
-      },
+# Output order: Bob (heart attack), Diana (stroke), Charlie (arm), Alice (cold)
+# 📦 Box: "The heap always gives us the highest-priority item!"`,
     },
     {
       type: "code",
-      emoji: "✈️",
-      content: `## ✈️ Airline Boarding Priority Queue!`,
-      code: `import heapq
+      emoji: "🌳",
+      content: `## 🌳 Understanding Heap Structure · 理解堆结构`,
+      code: `# 🌳 Root: "A heap is a special complete binary tree!"
+# Min-heap property: parent ≤ children
+# 最小堆性质：父节点 ≤ 子节点
 
-# ✈️ Boarding groups with priority
-boarding_queue = []
+import heapq
 
-passengers = [
-    (4, "🪑 Economy - Seat 32A"),
-    (1, "👑 First Class - Seat 1A"),
-    (3, "💺 Economy Plus - Seat 15C"),
-    (2, "💎 Business - Seat 5B"),
-    (4, "🪑 Economy - Seat 28F"),
-    (1, "👑 First Class - Seat 2D"),
-]
+# Build a min-heap from a list
+data = [5, 3, 8, 1, 2, 7]
+print(f"Original: {data}")
 
-for priority, passenger in passengers:
-    heapq.heappush(boarding_queue, (priority, passenger))
+heapq.heapify(data)  # Transform list into a heap in O(n)!
+print(f"Heapified: {data}")  # [1, 2, 7, 5, 3, 8]
+# Notice: 1 is at the root (index 0) — always the minimum!
 
-print("✈️ BOARDING ANNOUNCEMENT:")
-print("=" * 40)
-group = 0
-while boarding_queue:
-    priority, passenger = heapq.heappop(boarding_queue)
-    if priority != group:
-        group = priority
-        labels = {1: "👑 FIRST CLASS", 2: "💎 BUSINESS", 3: "💺 ECONOMY PLUS", 4: "🪑 ECONOMY"}
-        print(f"\\n🎤 Now boarding: {labels[group]}")
-    print(f"  🎫 {passenger}")`,
-    },
-    {
-      type: "challenge",
-      content: "🏆 Coding Challenge · 编程挑战",
-      challenge: {
-        title: "📋 Task Scheduler · 任务调度器",
-        description: "Build a task scheduler using a priority queue. Add tasks with priorities, then execute them in priority order. Track the total time.\n用优先队列构建任务调度器。添加带优先级的任务，按优先级顺序执行。追踪总时间。",
-        starterCode: `import heapq
+# Visualize the heap as a tree:
+#        1
+#      /   \\
+#     2     7
+#    / \\   /
+#   5   3 8
 
-tasks = []
+# Pop elements (always gets minimum!)
+print("\\nPopping in order:")
+while data:
+    print(f"  {heapq.heappop(data)}", end="")
+print()  # 1, 2, 3, 5, 7, 8 — sorted!
 
-# Add tasks: (priority, name, duration_minutes)
-task_list = [
-    (2, "Write report", 30),
-    (1, "Fix critical bug", 15),
-    (3, "Check email", 10),
-    (1, "Server down!", 20),
-    (2, "Code review", 25),
-]
-
-# TODO: Push all tasks to priority queue
-# TODO: Process tasks in priority order
-# TODO: Print each task and running total time
-`,
-        hint: "heappush with (priority, name, duration). Then heappop in a loop, accumulating time.\nheappush用(priority, name, duration)。然后循环heappop，累加时间。",
-        solution: `import heapq
-
-tasks = []
-
-task_list = [
-    (2, "Write report", 30),
-    (1, "Fix critical bug", 15),
-    (3, "Check email", 10),
-    (1, "Server down!", 20),
-    (2, "Code review", 25),
-]
-
-for priority, name, duration in task_list:
-    heapq.heappush(tasks, (priority, name, duration))
-
-total_time = 0
-print("📋 Executing tasks:")
-while tasks:
-    priority, name, duration = heapq.heappop(tasks)
-    total_time += duration
-    print(f"  [P{priority}] {name} ({duration}min) — Total: {total_time}min")
-
-print(f"\\n✅ All done in {total_time} minutes!")`,
-        expectedOutput: "📋 Executing tasks:\n  [P1] Fix critical bug (15min) — Total: 15min\n  [P1] Server down! (20min) — Total: 35min\n  [P2] Code review (25min) — Total: 60min\n  [P2] Write report (30min) — Total: 90min\n  [P3] Check email (10min) — Total: 100min\n\n✅ All done in 100 minutes!",
-      },
+print("\\n🌳 Root: Heaps give us efficient sorting for free!")`,
     },
     {
       type: "quiz",
-      content: "🎓 Priority Queue Knowledge Check!",
+      content: "🎓 Heap Quiz · 堆测验",
       quiz: [
         {
-          question: "What is a deque?",
-          options: ["A bug in Python", "A double-ended queue", "A type of stack", "A sorting algorithm"],
+          question: "In a min-heap, where is the smallest element?\n\n在最小堆中，最小的元素在哪里？",
+          options: ["At the bottom", "At the root (top)", "In the middle", "Random position"],
           correctIndex: 1,
-          explanation: "Deque = Double-Ended Queue! You can add/remove from BOTH ends efficiently. 🔮",
-        },
-        {
-          question: "In a min-heap priority queue, which item comes out first?",
-          options: ["The largest number", "The smallest number", "The first added", "Random"],
-          correctIndex: 1,
-          explanation: "Min-heap = smallest number has highest priority and comes out first! Use lower numbers for more urgent tasks. 🏥",
-        },
-        {
-          question: "When should you use a priority queue instead of a regular queue?",
-          options: ["When order doesn't matter", "When some items are more important than others", "When you need LIFO order", "When you have a small dataset"],
-          correctIndex: 1,
-          explanation: "Priority queues are for when some items must be processed before others, regardless of arrival time! ✈️",
+          explanation: "In a min-heap, the root always holds the minimum value! 最小堆中，根节点始终是最小值！",
         },
       ],
     },
+    {
+      type: "challenge",
+      content: "🏆 Challenge · 挑战",
+      challenge: {
+        title: "🏆 Top K Elements · 前K个最大元素",
+        description: "Find the 3 largest numbers in a list using a heap!\n用堆找出列表中最大的3个数！",
+        starterCode: "import heapq\n\nnums = [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5]\n\n# Find the 3 largest numbers\n# 找出最大的3个数\n# Hint: heapq.nlargest(k, list)\n\nprint(result)  # Should print: [9, 6, 5]",
+        hint: "Use heapq.nlargest(3, nums) 用 heapq.nlargest(3, nums)",
+        solution: "import heapq\n\nnums = [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5]\nresult = heapq.nlargest(3, nums)\nprint(result)",
+        expectedOutput: "[9, 6, 5]",
+      },
+    },
   ],
 };
-
-// ═══════════════════════════════════════════════════════════════
-// LESSON DS-2-3: The Family Tree
-// ═══════════════════════════════════════════════════════════════
 
 const ds_2_3: Lesson = {
   id: "ds-2-3",
   moduleId: "ds-2",
-  title: "The Family Tree",
-  subtitle: "Binary trees & traversals · 家族树：二叉树和遍历",
+  title: "Binary Trees — Branching Out",
+  subtitle: "Nodes, children, and traversals · 二叉树——分枝生长",
   icon: "🌳",
-  xp: 55,
-  duration: "25 min",
-  order: 7,
-  gradeRange: [5, 12],
+  xp: 20,
+  duration: "22 min",
+  order: 3,
+  gradeRange: [7, 12],
   difficulty: "intermediate",
   skillLevel: "intermediate",
   sections: [
     {
       type: "text",
       emoji: "🌳",
-      content: `## 🐍 Py Says: Let's Grow a Tree! 🌳
+      content: `## 🌳 Root Says: Welcome to the Forest!
 
-You know family trees, right? Grandma at the top, her kids below, their kids below them...
+Hi! I'm **Root** 🌳, your tree expert! Trees are one of the most important data structures in computer science.
 
-A **Binary Tree** is like that, but each person (node) can have at most **2 children** — a **left** child and a **right** child!
+A **binary tree** is like a family tree where each person has at most **2 children** (left and right).
+
+> 🌳 Real-world analogy: A family tree! Each person (node) can have a left child and right child. The topmost person is the root!
+> 现实类比：家谱！每个人（节点）最多有左右两个孩子。最上面的人是根！
+
+**Tree vocabulary:**
+- **Root** — the topmost node (no parent)
+- **Leaf** — a node with no children
+- **Height** — longest path from root to leaf
+- **Depth** — distance from root to a node
 
 \`\`\`
-        🧓 Root (Grandma)
-       /          \\
-    👨 Left      👩 Right
-   /    \\        /    \\
-  👦    👧     👶    🧒
+        1       ← Root 根
+       / \\
+      2   3     ← Children 子节点
+     / \\   \\
+    4   5   6   ← Leaves 叶节点
 \`\`\`
 
-**Tree vocab:**
-- 🧓 **Root** — the top node (grandma!)
-- 🍃 **Leaf** — a node with NO children (the youngest generation)
-- 📏 **Depth** — how many levels from root
-- 👨‍👩‍👧‍👦 **Subtree** — a node and all its descendants
-
-🤖 Botty: "Your file system is a tree! Folders contain subfolders contain files!"
-
-🔧 Chip: "Game AI uses trees to explore every possible move — it's called a game tree!"`,
-    },
-    {
-      type: "concept",
-      emoji: "📖",
-      content: "New Concepts: Trees & Traversals",
-      concept: {
-        title: "🧰 Binary Trees & Traversals",
-        titleZh: "二叉树与遍历",
-        syntaxCards: [
-          {
-            symbol: "TreeNode",
-            name: "Tree Node",
-            nameZh: "树节点",
-            emoji: "🌿",
-            description: "Each node has DATA, a LEFT child, and a RIGHT child. Like a person in a family tree with up to 2 kids.",
-            example: 'class TreeNode:\n    def __init__(self, val):\n        self.val = val\n        self.left = None\n        self.right = None',
-          },
-          {
-            symbol: "inorder",
-            name: "Inorder: Left → Root → Right",
-            nameZh: "中序：左→根→右",
-            emoji: "↔️",
-            description: "Visit left subtree, then root, then right. For a BST, this gives sorted order!",
-            example: 'def inorder(node):\n    if node:\n        inorder(node.left)\n        print(node.val)\n        inorder(node.right)',
-          },
-          {
-            symbol: "preorder",
-            name: "Preorder: Root → Left → Right",
-            nameZh: "前序：根→左→右",
-            emoji: "⬇️",
-            description: "Visit root FIRST, then left subtree, then right. Good for copying a tree.",
-            example: 'def preorder(node):\n    if node:\n        print(node.val)\n        preorder(node.left)\n        preorder(node.right)',
-          },
-          {
-            symbol: "postorder",
-            name: "Postorder: Left → Right → Root",
-            nameZh: "后序：左→右→根",
-            emoji: "⬆️",
-            description: "Visit children first, root LAST. Good for deleting a tree (delete children before parent).",
-            example: 'def postorder(node):\n    if node:\n        postorder(node.left)\n        postorder(node.right)\n        print(node.val)',
-          },
-        ],
-        codeAnatomy: {
-          lines: [
-            { code: 'class TreeNode:', explanation: "Blueprint for a tree node", explanationZh: "树节点的蓝图" },
-            { code: '    def __init__(self, val):', explanation: "Constructor takes a value", explanationZh: "构造函数接收一个值" },
-            { code: '        self.val = val', explanation: "The data stored in this node", explanationZh: "存储在此节点中的数据" },
-            { code: '        self.left = None', explanation: "Left child (initially none)", explanationZh: "左子节点（初始为空）" },
-            { code: '        self.right = None', explanation: "Right child (initially none)", explanationZh: "右子节点（初始为空）" },
-          ],
-        },
-      },
+🌳 **Visualize it!** Go to [Data Structures Playground](/dashboard/data-structures) to see tree traversals animated!`,
     },
     {
       type: "code",
-      emoji: "🌳",
-      content: `## 🌳 Build and Traverse a Family Tree!`,
-      code: `class TreeNode:
-    def __init__(self, val):
-        self.val = val
-        self.left = None
-        self.right = None
-
-# 🌳 Build the family tree
-#         👵 Grandma
-#        /         \\
-#     👨 Dad     👩 Aunt
-#    /     \\       \\
-#  👦 You  👧 Sis  👶 Cousin
-
-root = TreeNode("👵 Grandma")
-root.left = TreeNode("👨 Dad")
-root.right = TreeNode("👩 Aunt")
-root.left.left = TreeNode("👦 You")
-root.left.right = TreeNode("👧 Sis")
-root.right.right = TreeNode("👶 Cousin")
-
-# Three ways to visit everyone!
-def inorder(node, result=None):
-    if result is None: result = []
-    if node:
-        inorder(node.left, result)
-        result.append(node.val)
-        inorder(node.right, result)
-    return result
-
-def preorder(node, result=None):
-    if result is None: result = []
-    if node:
-        result.append(node.val)
-        preorder(node.left, result)
-        preorder(node.right, result)
-    return result
-
-def postorder(node, result=None):
-    if result is None: result = []
-    if node:
-        postorder(node.left, result)
-        postorder(node.right, result)
-        result.append(node.val)
-    return result
-
-print("↔️ Inorder (Left→Root→Right):")
-print("  " + " → ".join(inorder(root)))
-
-print("\\n⬇️ Preorder (Root→Left→Right):")
-print("  " + " → ".join(preorder(root)))
-
-print("\\n⬆️ Postorder (Left→Right→Root):")
-print("  " + " → ".join(postorder(root)))`,
-    },
-    {
-      type: "interactive",
-      content: `## 🎮 Your Turn: Count the Tree!
-
-Write a function to count all nodes in a binary tree.`,
-      exercise: {
-        prompt: "Write a function count_nodes(node) that returns the total number of nodes in a tree. Test with a tree that has 5 nodes.",
-        promptZh: "写一个函数 count_nodes(node)，返回树中的节点总数。用5个节点的树测试。",
-        starterCode: `class TreeNode:
-    def __init__(self, val):
-        self.val = val
-        self.left = None
-        self.right = None
-
-def count_nodes(node):
-    # TODO: Return 0 if node is None
-    # Otherwise return 1 + count of left + count of right
-    pass
-
-root = TreeNode(1)
-root.left = TreeNode(2)
-root.right = TreeNode(3)
-root.left.left = TreeNode(4)
-root.left.right = TreeNode(5)
-
-print(count_nodes(root))`,
-        expectedOutput: "5",
-        hint: "Base case: if node is None, return 0. Recursive case: return 1 + count_nodes(node.left) + count_nodes(node.right).",
-        hintZh: "基本情况：如果node是None，返回0。递归情况：返回 1 + count_nodes(node.left) + count_nodes(node.right)。",
-        solution: `class TreeNode:
-    def __init__(self, val):
-        self.val = val
-        self.left = None
-        self.right = None
-
-def count_nodes(node):
-    if node is None:
-        return 0
-    return 1 + count_nodes(node.left) + count_nodes(node.right)
-
-root = TreeNode(1)
-root.left = TreeNode(2)
-root.right = TreeNode(3)
-root.left.left = TreeNode(4)
-root.left.right = TreeNode(5)
-
-print(count_nodes(root))`,
-      },
-    },
-    {
-      type: "code",
-      emoji: "📂",
-      content: `## 📂 File System as a Tree!`,
-      code: `class TreeNode:
-    def __init__(self, val):
-        self.val = val
-        self.left = None
-        self.right = None
-
-# 📂 File explorer tree
-#         📁 root
-#        /         \\
-#    📁 docs     📁 photos
-#    /    \\         \\
-# 📄 hw  📄 notes  📸 vacation
-
-root = TreeNode("📁 root")
-root.left = TreeNode("📁 docs")
-root.right = TreeNode("📁 photos")
-root.left.left = TreeNode("📄 homework.txt")
-root.left.right = TreeNode("📄 notes.txt")
-root.right.right = TreeNode("📸 vacation.jpg")
-
-# Print tree with indentation
-def print_tree(node, depth=0):
-    if node:
-        print("  " * depth + node.val)
-        print_tree(node.left, depth + 1)
-        print_tree(node.right, depth + 1)
-
-print("📂 File Explorer:")
-print_tree(root)
-
-# Find tree height
-def height(node):
-    if not node:
-        return 0
-    return 1 + max(height(node.left), height(node.right))
-
-print(f"\\n📏 Tree height: {height(root)} levels")`,
-    },
-    {
-      type: "challenge",
-      content: "🏆 Coding Challenge · 编程挑战",
-      challenge: {
-        title: "🔍 Find Max Value in Tree · 找树中最大值",
-        description: "Write a function that finds the maximum value in a binary tree of numbers.\n写一个函数，找出二叉树中的最大数值。",
-        starterCode: `class TreeNode:
-    def __init__(self, val):
-        self.val = val
-        self.left = None
-        self.right = None
-
-def find_max(node):
-    # TODO: Find the maximum value in the tree
-    pass
-
-root = TreeNode(10)
-root.left = TreeNode(25)
-root.right = TreeNode(15)
-root.left.left = TreeNode(8)
-root.left.right = TreeNode(30)
-
-print(find_max(root))`,
-        hint: "Base case: if node is None, return float('-inf'). Return max of node.val, find_max(left), find_max(right).\n基本情况：如果node是None，返回负无穷。返回 node.val、find_max(left)、find_max(right) 中的最大值。",
-        solution: `class TreeNode:
-    def __init__(self, val):
-        self.val = val
-        self.left = None
-        self.right = None
-
-def find_max(node):
-    if node is None:
-        return float('-inf')
-    return max(node.val, find_max(node.left), find_max(node.right))
-
-root = TreeNode(10)
-root.left = TreeNode(25)
-root.right = TreeNode(15)
-root.left.left = TreeNode(8)
-root.left.right = TreeNode(30)
-
-print(find_max(root))`,
-        expectedOutput: "30",
-      },
-    },
-    {
-      type: "quiz",
-      content: "🎓 Tree Knowledge Check!",
-      quiz: [
-        {
-          question: "In a binary tree, what is the maximum number of children per node?",
-          options: ["1", "2", "3", "Unlimited"],
-          correctIndex: 1,
-          explanation: "Binary = 2! Each node has at most a LEFT and RIGHT child. 🌳",
-        },
-        {
-          question: "Which traversal visits: Left subtree → Root → Right subtree?",
-          options: ["Preorder", "Inorder", "Postorder", "Level-order"],
-          correctIndex: 1,
-          explanation: "Inorder = Left → Root → Right. Think: the root is IN the middle! ↔️",
-        },
-        {
-          question: "What is a 'leaf' node?",
-          options: ["The root node", "A node with no children", "A node with 2 children", "A deleted node"],
-          correctIndex: 1,
-          explanation: "A leaf is at the tip of a branch — no children below it! Like actual leaves on a tree. 🍃",
-        },
-      ],
-    },
-  ],
-};
-
-// ═══════════════════════════════════════════════════════════════
-// LESSON DS-2-4: Module 2 Boss Battle
-// ═══════════════════════════════════════════════════════════════
-
-const ds_2_4: Lesson = {
-  id: "ds-2-4",
-  moduleId: "ds-2",
-  title: "Module 2 Boss Battle",
-  subtitle: "Queues + trees combined · 第二关大Boss：队列+树综合挑战",
-  icon: "🐲",
-  xp: 65,
-  duration: "25 min",
-  order: 8,
-  gradeRange: [5, 12],
-  difficulty: "intermediate",
-  skillLevel: "intermediate",
-  sections: [
-    {
-      type: "text",
-      emoji: "🐲",
-      content: `## 🐍 Py Says: Module 2 Boss Time! 🐲
-
-You've conquered:
-- ✅ **Queues** — FIFO, enqueue/dequeue
-- ✅ **Deques & Priority Queues** — double-ended, heap-based
-- ✅ **Binary Trees** — nodes, traversals, recursion
-
-Now face the **Module 2 Dragon** with 3 epic rounds! 🐲
-
-1. 🎪 **Round 1**: Level-Order Traversal — BFS on a tree using a queue!
-2. 🏥 **Round 2**: Merge priority queues
-3. 🌳 **Round 3**: Build a Binary Search Tree
-
-🤖 Botty: "This is where data structures connect — queues HELP you traverse trees!"
-
-Let's go! 💪`,
-    },
-    {
-      type: "code",
-      emoji: "🎪",
-      content: `## 🎪 Round 1: Level-Order Traversal (BFS with Queue!)
-
-Visit a tree level by level using a queue:`,
-      code: `from collections import deque
+      emoji: "💻",
+      content: `## 💻 Building a Binary Tree · 构建二叉树`,
+      code: `# 🌳 Root: "Let's grow a tree!"
 
 class TreeNode:
-    def __init__(self, val):
-        self.val = val
+    def __init__(self, value):
+        self.value = value
         self.left = None
         self.right = None
 
-def level_order(root):
-    """Visit tree level by level using a queue!"""
-    if not root:
-        return
-    queue = deque([root])
-    level = 0
-    while queue:
-        level_size = len(queue)
-        level_nodes = []
-        for _ in range(level_size):
-            node = queue.popleft()
-            level_nodes.append(str(node.val))
-            if node.left:
-                queue.append(node.left)
-            if node.right:
-                queue.append(node.right)
-        print(f"  Level {level}: {' '.join(level_nodes)}")
-        level += 1
+# Build this tree:
+#        1
+#       / \\
+#      2   3
+#     / \\   \\
+#    4   5   6
 
-# Build tree:
-#       1
-#      / \\
-#     2   3
-#    / \\   \\
-#   4   5   6
 root = TreeNode(1)
 root.left = TreeNode(2)
 root.right = TreeNode(3)
@@ -2017,2697 +1099,1592 @@ root.left.left = TreeNode(4)
 root.left.right = TreeNode(5)
 root.right.right = TreeNode(6)
 
-print("🌳 Level-Order Traversal (BFS):")
-level_order(root)`,
-    },
-    {
-      type: "challenge",
-      content: "🏆 Round 2: Binary Search Tree · 二叉搜索树",
-      challenge: {
-        title: "🌲 Build a BST · 构建二叉搜索树",
-        description: "Implement a Binary Search Tree with insert and search. In a BST: left child < parent < right child.\n实现一个二叉搜索树，支持插入和搜索。在BST中：左子 < 父节点 < 右子。",
-        starterCode: `class TreeNode:
-    def __init__(self, val):
-        self.val = val
-        self.left = None
-        self.right = None
-
-def insert(root, val):
-    # TODO: Insert val into BST
-    # If root is None, create new node
-    # If val < root.val, go left
-    # If val > root.val, go right
-    pass
-
-def search(root, val):
-    # TODO: Return True if val exists in BST
-    pass
-
-def inorder(node, result=None):
-    if result is None: result = []
+# Three types of traversal! 三种遍历方式！
+def inorder(node):
+    """Left → Root → Right · 左→根→右"""
     if node:
-        inorder(node.left, result)
-        result.append(node.val)
-        inorder(node.right, result)
-    return result
+        inorder(node.left)
+        print(node.value, end=" ")
+        inorder(node.right)
 
-# Build BST by inserting values
-root = None
-for val in [5, 3, 7, 1, 4, 6, 8]:
-    root = insert(root, val)
-
-print("Inorder:", inorder(root))
-print("Search 4:", search(root, 4))
-print("Search 9:", search(root, 9))`,
-        hint: "insert: if root is None, return TreeNode(val). Else recurse left or right. search: if None return False, if found return True, else recurse.\ninsert：如果root为None，返回TreeNode(val)。否则递归左或右。search：如果None返回False，找到返回True，否则递归。",
-        solution: `class TreeNode:
-    def __init__(self, val):
-        self.val = val
-        self.left = None
-        self.right = None
-
-def insert(root, val):
-    if root is None:
-        return TreeNode(val)
-    if val < root.val:
-        root.left = insert(root.left, val)
-    else:
-        root.right = insert(root.right, val)
-    return root
-
-def search(root, val):
-    if root is None:
-        return False
-    if root.val == val:
-        return True
-    if val < root.val:
-        return search(root.left, val)
-    return search(root.right, val)
-
-def inorder(node, result=None):
-    if result is None: result = []
+def preorder(node):
+    """Root → Left → Right · 根→左→右"""
     if node:
-        inorder(node.left, result)
-        result.append(node.val)
-        inorder(node.right, result)
-    return result
+        print(node.value, end=" ")
+        preorder(node.left)
+        preorder(node.right)
 
-root = None
-for val in [5, 3, 7, 1, 4, 6, 8]:
-    root = insert(root, val)
+def postorder(node):
+    """Left → Right → Root · 左→右→根"""
+    if node:
+        postorder(node.left)
+        postorder(node.right)
+        print(node.value, end=" ")
 
-print("Inorder:", inorder(root))
-print("Search 4:", search(root, 4))
-print("Search 9:", search(root, 9))`,
-        expectedOutput: "Inorder: [1, 3, 4, 5, 6, 7, 8]\nSearch 4: True\nSearch 9: False",
-      },
-    },
-    {
-      type: "challenge",
-      content: "🏆 Round 3: Combined Challenge · 综合挑战",
-      challenge: {
-        title: "🏥 Hospital + Tree Combined · 医院+树综合",
-        description: "Build a hospital system: use a priority queue for patients AND a tree to store patient records by ID.\n构建医院系统：用优先队列管理患者，用树存储按ID排列的患者记录。",
-        starterCode: `import heapq
-
-class TreeNode:
-    def __init__(self, patient_id, name):
-        self.patient_id = patient_id
-        self.name = name
-        self.left = None
-        self.right = None
-
-# TODO: Insert patient into BST by patient_id
-def insert_record(root, patient_id, name):
-    pass
-
-# TODO: Search BST for patient by id
-def find_patient(root, patient_id):
-    pass
-
-# Priority queue for treatment order
-treatment_queue = []
-patients = [
-    (3, 101, "Alice"),
-    (1, 205, "Bob"),
-    (2, 150, "Charlie"),
-    (1, 99, "Diana"),
-]
-
-records_root = None
-for priority, pid, name in patients:
-    heapq.heappush(treatment_queue, (priority, pid, name))
-    records_root = insert_record(records_root, pid, name)
-
-# Process in priority order
-print("🏥 Treatment Order:")
-while treatment_queue:
-    p, pid, name = heapq.heappop(treatment_queue)
-    print(f"  [P{p}] {name} (ID: {pid})")
-
-# Search records
-print(f"\\n🔍 Find ID 150: {find_patient(records_root, 150)}")
-print(f"🔍 Find ID 999: {find_patient(records_root, 999)}")`,
-        hint: "insert_record is like BST insert but compare patient_id. find_patient returns name if found, 'Not found' otherwise.\ninsert_record类似BST插入但比较patient_id。find_patient找到返回name，否则返回'Not found'。",
-        solution: `import heapq
-
-class TreeNode:
-    def __init__(self, patient_id, name):
-        self.patient_id = patient_id
-        self.name = name
-        self.left = None
-        self.right = None
-
-def insert_record(root, patient_id, name):
-    if root is None:
-        return TreeNode(patient_id, name)
-    if patient_id < root.patient_id:
-        root.left = insert_record(root.left, patient_id, name)
-    else:
-        root.right = insert_record(root.right, patient_id, name)
-    return root
-
-def find_patient(root, patient_id):
-    if root is None:
-        return "Not found"
-    if root.patient_id == patient_id:
-        return root.name
-    if patient_id < root.patient_id:
-        return find_patient(root.left, patient_id)
-    return find_patient(root.right, patient_id)
-
-treatment_queue = []
-patients = [
-    (3, 101, "Alice"),
-    (1, 205, "Bob"),
-    (2, 150, "Charlie"),
-    (1, 99, "Diana"),
-]
-
-records_root = None
-for priority, pid, name in patients:
-    heapq.heappush(treatment_queue, (priority, pid, name))
-    records_root = insert_record(records_root, pid, name)
-
-print("🏥 Treatment Order:")
-while treatment_queue:
-    p, pid, name = heapq.heappop(treatment_queue)
-    print(f"  [P{p}] {name} (ID: {pid})")
-
-print(f"\\n🔍 Find ID 150: {find_patient(records_root, 150)}")
-print(f"🔍 Find ID 999: {find_patient(records_root, 999)}")`,
-        expectedOutput: "🏥 Treatment Order:\n  [P1] Diana (ID: 99)\n  [P1] Bob (ID: 205)\n  [P2] Charlie (ID: 150)\n  [P3] Alice (ID: 101)\n\n🔍 Find ID 150: Charlie\n🔍 Find ID 999: Not found",
-      },
+print("In-order (Left→Root→Right):")
+inorder(root)    # 4 2 5 1 3 6
+print("\\n\\nPre-order (Root→Left→Right):")
+preorder(root)   # 1 2 4 5 3 6
+print("\\n\\nPost-order (Left→Right→Root):")
+postorder(root)  # 4 5 2 6 3 1
+print()`,
     },
     {
       type: "quiz",
-      content: "🎓 Module 2 Boss Quiz!",
+      content: "🎓 Tree Traversal Quiz · 树遍历测验",
       quiz: [
         {
-          question: "Level-order traversal of a tree uses which data structure?",
-          options: ["Stack", "Queue", "Array", "HashMap"],
+          question: "What is the in-order traversal of this tree?\n```\n    A\n   / \\\n  B   C\n```\n这棵树的中序遍历是什么？",
+          options: ["A B C", "B A C", "B C A", "C A B"],
           correctIndex: 1,
-          explanation: "Level-order (BFS) uses a queue! Process current level, add children to queue for next level. 🎪",
+          explanation: "In-order = Left → Root → Right: B (left), A (root), C (right). 中序 = 左→根→右！",
         },
         {
-          question: "In a Binary Search Tree, all nodes in the LEFT subtree are:",
-          options: ["Greater than root", "Less than root", "Equal to root", "Random"],
+          question: "What is a 'leaf' node?\n\n什么是'叶'节点？",
+          options: ["The root node", "A node with no children", "A node with two children", "Any node"],
           correctIndex: 1,
-          explanation: "BST rule: Left < Root < Right. This makes searching super fast — O(log n)! 🌲",
-        },
-        {
-          question: "What is the inorder traversal of a BST?",
-          options: ["Random order", "Sorted order", "Reverse order", "Level order"],
-          correctIndex: 1,
-          explanation: "Inorder on a BST gives sorted order! Left → Root → Right naturally sorts since Left < Root < Right. 📊",
+          explanation: "A leaf is a node with no children — it's at the 'end' of a branch! 叶节点没有子节点！",
         },
       ],
+    },
+    {
+      type: "challenge",
+      content: "🏆 Tree Challenge · 树挑战",
+      challenge: {
+        title: "📏 Tree Height · 树的高度",
+        description: "Write a function to find the height of a binary tree.\n编写函数计算二叉树的高度。",
+        starterCode: "class TreeNode:\n    def __init__(self, val):\n        self.value = val\n        self.left = None\n        self.right = None\n\ndef tree_height(node):\n    # Return the height of the tree\n    # 返回树的高度\n    # Height of empty tree = -1, single node = 0\n    pass\n\n# Build tree:  1 → (2, 3), 2 → (4, None)\nroot = TreeNode(1)\nroot.left = TreeNode(2)\nroot.right = TreeNode(3)\nroot.left.left = TreeNode(4)\n\nprint(tree_height(root))  # Should print: 2",
+        hint: "Height = 1 + max(height of left, height of right). Base case: None → -1. 高度 = 1 + max(左高度, 右高度)。",
+        solution: "class TreeNode:\n    def __init__(self, val):\n        self.value = val\n        self.left = None\n        self.right = None\n\ndef tree_height(node):\n    if not node:\n        return -1\n    return 1 + max(tree_height(node.left), tree_height(node.right))\n\nroot = TreeNode(1)\nroot.left = TreeNode(2)\nroot.right = TreeNode(3)\nroot.left.left = TreeNode(4)\nprint(tree_height(root))",
+        expectedOutput: "2",
+      },
+    },
+  ],
+};
+
+const ds_2_4: Lesson = {
+  id: "ds-2-4",
+  moduleId: "ds-2",
+  title: "Binary Search Trees — Sorted & Searchable",
+  subtitle: "Fast search with structure · BST——有序且可搜索",
+  icon: "🔍",
+  xp: 25,
+  duration: "25 min",
+  order: 4,
+  gradeRange: [7, 12],
+  difficulty: "intermediate",
+  skillLevel: "intermediate",
+  sections: [
+    {
+      type: "text",
+      emoji: "🌳",
+      content: `## 🌳 Root: The Organized Tree!
+
+A **Binary Search Tree (BST)** has a special rule:
+- Left child < Parent < Right child
+
+This means we can **search like binary search** — cut the problem in half each step! O(log n)!
+
+> 📖 Real-world analogy: A dictionary! Words are in alphabetical order. You open to the middle, then go left or right. A BST works the same way!
+> 现实类比：字典！单词按字母排序。打开中间，然后往左或右找。BST 同理！
+
+\`\`\`
+        8       ← Root
+       / \\
+      3   10    ← 3<8, 10>8 ✅
+     / \\    \\
+    1   6   14  ← 1<3, 6>3, 14>10 ✅
+\`\`\``,
+    },
+    {
+      type: "code",
+      emoji: "💻",
+      content: `## 💻 BST: Insert & Search · BST：插入与搜索`,
+      code: `# 🌳 Root: "Organized trees are FAST trees!"
+
+class BSTNode:
+    def __init__(self, value):
+        self.value = value
+        self.left = None
+        self.right = None
+
+class BST:
+    def __init__(self):
+        self.root = None
+
+    def insert(self, value):
+        """Insert maintaining BST property · 插入并保持BST性质"""
+        if not self.root:
+            self.root = BSTNode(value)
+            return
+        self._insert(self.root, value)
+
+    def _insert(self, node, value):
+        if value < node.value:
+            if node.left:
+                self._insert(node.left, value)
+            else:
+                node.left = BSTNode(value)
+        else:
+            if node.right:
+                self._insert(node.right, value)
+            else:
+                node.right = BSTNode(value)
+
+    def search(self, value):
+        """Search in O(log n) · O(log n) 搜索"""
+        return self._search(self.root, value)
+
+    def _search(self, node, value):
+        if not node:
+            return False
+        if value == node.value:
+            return True
+        elif value < node.value:
+            return self._search(node.left, value)    # Go left 往左
+        else:
+            return self._search(node.right, value)   # Go right 往右
+
+    def inorder(self):
+        """In-order gives sorted output! · 中序遍历给出排序结果！"""
+        result = []
+        self._inorder(self.root, result)
+        return result
+
+    def _inorder(self, node, result):
+        if node:
+            self._inorder(node.left, result)
+            result.append(node.value)
+            self._inorder(node.right, result)
+
+# Demo
+bst = BST()
+for val in [8, 3, 10, 1, 6, 14, 4, 7]:
+    bst.insert(val)
+
+print("In-order (sorted!):", bst.inorder())  # [1, 3, 4, 6, 7, 8, 10, 14]
+print("Search 6:", bst.search(6))    # True
+print("Search 5:", bst.search(5))    # False
+print("\\n🌳 Root: In-order traversal of a BST = sorted order!")`,
+    },
+    {
+      type: "quiz",
+      content: "🎓 BST Quiz · BST 测验",
+      quiz: [
+        {
+          question: "In a BST, where would you find the SMALLEST value?\n\n在BST中，最小值在哪里？",
+          options: ["At the root", "At the rightmost node", "At the leftmost node", "At any leaf"],
+          correctIndex: 2,
+          explanation: "Keep going left from the root — the leftmost node is the minimum! 一直往左走——最左节点就是最小值！",
+        },
+      ],
+    },
+    {
+      type: "challenge",
+      content: "🏆 BST Challenge · BST 挑战",
+      challenge: {
+        title: "🔎 Find Min & Max in BST · 在BST中找最小最大值",
+        description: "Write functions to find the minimum and maximum values in a BST.\n编写函数在BST中找最小和最大值。",
+        starterCode: "class BSTNode:\n    def __init__(self, value):\n        self.value = value\n        self.left = None\n        self.right = None\n\ndef find_min(node):\n    # Go left until you can't\n    pass\n\ndef find_max(node):\n    # Go right until you can't\n    pass\n\n# Build BST: 8, 3, 10, 1, 6, 14\nroot = BSTNode(8)\nroot.left = BSTNode(3)\nroot.right = BSTNode(10)\nroot.left.left = BSTNode(1)\nroot.left.right = BSTNode(6)\nroot.right.right = BSTNode(14)\n\nprint(find_min(root))  # 1\nprint(find_max(root))  # 14",
+        hint: "Min: keep going left. Max: keep going right. 最小值：一直往左。最大值：一直往右。",
+        solution: "class BSTNode:\n    def __init__(self, value):\n        self.value = value\n        self.left = None\n        self.right = None\n\ndef find_min(node):\n    while node.left:\n        node = node.left\n    return node.value\n\ndef find_max(node):\n    while node.right:\n        node = node.right\n    return node.value\n\nroot = BSTNode(8)\nroot.left = BSTNode(3)\nroot.right = BSTNode(10)\nroot.left.left = BSTNode(1)\nroot.left.right = BSTNode(6)\nroot.right.right = BSTNode(14)\nprint(find_min(root))\nprint(find_max(root))",
+        expectedOutput: "1\n14",
+      },
+    },
+  ],
+};
+
+const ds_2_5: Lesson = {
+  id: "ds-2-5",
+  moduleId: "ds-2",
+  title: "Tree Projects — Expression Parser & File System",
+  subtitle: "Trees in the real world · 树的实际应用——表达式解析与文件系统",
+  icon: "📁",
+  xp: 25,
+  duration: "25 min",
+  order: 5,
+  gradeRange: [7, 12],
+  difficulty: "intermediate",
+  skillLevel: "intermediate",
+  sections: [
+    {
+      type: "text",
+      emoji: "🌳",
+      content: `## 🌳 Root: Trees Are EVERYWHERE!
+
+Trees power many systems you use daily:
+
+1. **File Systems** 📁 — Your folders are a tree! Each folder can contain files and sub-folders.
+2. **Expression Trees** 🧮 — Calculators parse math like \`(3 + 5) * 2\` using trees.
+3. **HTML/DOM** 🌐 — Every web page is a tree of elements!
+4. **Decision Trees** 🤖 — AI uses trees to make choices!
+
+> 📁 Your computer's file system: C:\\ is the root, folders are internal nodes, files are leaves!
+> 你电脑的文件系统：C:\\ 是根，文件夹是内部节点，文件是叶节点！`,
+    },
+    {
+      type: "code",
+      emoji: "📁",
+      content: `## 📁 File System Tree · 文件系统树`,
+      code: `# 🌳 Root: "Your computer is literally a tree!"
+
+class FileNode:
+    def __init__(self, name, is_folder=False):
+        self.name = name
+        self.is_folder = is_folder
+        self.children = []  # Sub-folders and files 子文件夹和文件
+
+    def add(self, child):
+        self.children.append(child)
+        return child
+
+    def display(self, indent=0):
+        icon = "📁" if self.is_folder else "📄"
+        print("  " * indent + f"{icon} {self.name}")
+        for child in self.children:
+            child.display(indent + 1)
+
+# Build a file system!
+root = FileNode("/", is_folder=True)
+home = root.add(FileNode("home", is_folder=True))
+user = home.add(FileNode("student", is_folder=True))
+docs = user.add(FileNode("Documents", is_folder=True))
+docs.add(FileNode("homework.pdf"))
+docs.add(FileNode("notes.txt"))
+code = user.add(FileNode("Code", is_folder=True))
+code.add(FileNode("hello.py"))
+code.add(FileNode("game.py"))
+user.add(FileNode("photo.jpg"))
+
+print("🖥️ File System Tree:")
+root.display()
+
+# Count all files (not folders)
+def count_files(node):
+    count = 0 if node.is_folder else 1
+    for child in node.children:
+        count += count_files(child)
+    return count
+
+print(f"\\nTotal files: {count_files(root)}")`,
+    },
+    {
+      type: "code",
+      emoji: "🧮",
+      content: `## 🧮 Expression Tree · 表达式树`,
+      code: `# 🌳 Root: "Calculators use trees to parse math!"
+# Expression: (3 + 5) * 2
+#       *
+#      / \\
+#     +   2
+#    / \\
+#   3   5
+
+class ExprNode:
+    def __init__(self, value):
+        self.value = value
+        self.left = None
+        self.right = None
+
+def evaluate(node):
+    """Evaluate an expression tree · 计算表达式树"""
+    if not node.left and not node.right:
+        return int(node.value)  # Leaf = number 叶节点=数字
+
+    left_val = evaluate(node.left)
+    right_val = evaluate(node.right)
+
+    if node.value == '+': return left_val + right_val
+    if node.value == '-': return left_val - right_val
+    if node.value == '*': return left_val * right_val
+    if node.value == '/': return left_val // right_val
+
+# Build (3 + 5) * 2
+root = ExprNode('*')
+root.left = ExprNode('+')
+root.right = ExprNode('2')
+root.left.left = ExprNode('3')
+root.left.right = ExprNode('5')
+
+result = evaluate(root)
+print(f"(3 + 5) * 2 = {result}")  # 16
+
+# 🌳 Root: "Compilers build expression trees to evaluate your code!"`,
+    },
+    {
+      type: "quiz",
+      content: "🎓 Tree Applications Quiz · 树应用测验",
+      quiz: [
+        {
+          question: "In an expression tree for (3 + 5) * 2, what is at the root?\n\n表达式树 (3+5)*2 的根节点是什么？",
+          options: ["3", "+", "*", "2"],
+          correctIndex: 2,
+          explanation: "The last operation to be performed (* ) is at the root! 最后执行的运算（*）在根节点！",
+        },
+      ],
+    },
+    {
+      type: "challenge",
+      content: "🏆 Challenge · 挑战",
+      challenge: {
+        title: "🔢 Count Leaves · 计算叶节点数",
+        description: "Write a function to count the number of leaf nodes in a binary tree.\n编写函数计算二叉树中叶节点的数量。",
+        starterCode: "class TreeNode:\n    def __init__(self, val):\n        self.value = val\n        self.left = None\n        self.right = None\n\ndef count_leaves(node):\n    # A leaf has no children\n    pass\n\n# Tree:   1\n#        / \\\n#       2   3\n#      /     \\\n#     4       5\nroot = TreeNode(1)\nroot.left = TreeNode(2)\nroot.right = TreeNode(3)\nroot.left.left = TreeNode(4)\nroot.right.right = TreeNode(5)\n\nprint(count_leaves(root))  # Should print: 2",
+        hint: "Base case: None→0, leaf (no children)→1. Otherwise add left+right. 空→0，叶→1，否则左+右。",
+        solution: "class TreeNode:\n    def __init__(self, val):\n        self.value = val\n        self.left = None\n        self.right = None\n\ndef count_leaves(node):\n    if not node:\n        return 0\n    if not node.left and not node.right:\n        return 1\n    return count_leaves(node.left) + count_leaves(node.right)\n\nroot = TreeNode(1)\nroot.left = TreeNode(2)\nroot.right = TreeNode(3)\nroot.left.left = TreeNode(4)\nroot.right.right = TreeNode(5)\nprint(count_leaves(root))",
+        expectedOutput: "2",
+      },
     },
   ],
 };
 
 // ═══════════════════════════════════════════════════════════════
-// LESSON DS-3-1: The Treasure Map (HashMap)
+// MODULE DS-3: GRAPHS & HASH MAPS
 // ═══════════════════════════════════════════════════════════════
 
 const ds_3_1: Lesson = {
   id: "ds-3-1",
   moduleId: "ds-3",
-  title: "The Treasure Map",
-  subtitle: "HashMaps & dictionaries · 藏宝图：哈希表和字典",
-  icon: "🗺️",
-  xp: 50,
+  title: "Hash Maps — Key-Value Wizardry",
+  subtitle: "Instant lookups with hashing · 哈希表——键值对的魔法",
+  icon: "🗝️",
+  xp: 20,
   duration: "22 min",
-  order: 9,
-  gradeRange: [5, 12],
+  order: 1,
+  gradeRange: [7, 12],
   difficulty: "intermediate",
   skillLevel: "intermediate",
   sections: [
     {
       type: "text",
-      emoji: "🗺️",
-      content: `## 🐍 Py Says: X Marks the Spot! 🗺️
+      emoji: "📦",
+      content: `## 📦 Box: The Magic Dictionary!
 
-Imagine a **treasure map** where every landmark has a treasure:
-- "Old Oak Tree" → 💰 50 gold coins
-- "Pirate Cave" → 💎 Diamond necklace
-- "Skull Rock" → 🗡️ Magic sword
+Imagine a **magic filing cabinet** 🗄️ where you say a word, and the right drawer INSTANTLY opens!
 
-That's a **HashMap** (Python calls it a **dictionary / dict**)!
+That's a **hash map** (also called dictionary or hash table). Instead of searching through everything, a **hash function** converts your key directly into a location!
 
-Instead of numbered slots (like arrays), you use **keys** to find **values**:
-- **Key** = the landmark name (unique identifier)
-- **Value** = the treasure (any data)
+> 📞 Real-world analogy: A phone book where you say a name and INSTANTLY get the phone number. No flipping through pages!
+> 现实类比：一本电话簿，你说一个名字就能立刻得到电话号码，不用翻页！
 
-The magic: looking up a key is **instant** — O(1)! No matter if you have 10 items or 10 million!
+**Time Complexity:**
+- Get value by key: O(1) average ⚡
+- Set key-value: O(1) average ⚡
+- Delete by key: O(1) average ⚡
 
-🤖 Botty: "Every database in the world uses hash tables. Google's search index? Giant hash map!"
-
-🔧 Chip: "The secret is a hash function — it turns any key into a memory address, like a treasure map compass!"`,
-    },
-    {
-      type: "concept",
-      emoji: "📖",
-      content: "New Concepts: HashMap / Dictionary",
-      concept: {
-        title: "🧰 HashMap / Dictionary",
-        titleZh: "哈希表 / 字典",
-        syntaxCards: [
-          {
-            symbol: "{key: value}",
-            name: "Dictionary literal",
-            nameZh: "字典字面量",
-            emoji: "📖",
-            description: "Curly braces create a dictionary. Each entry is key: value. Keys must be unique!",
-            example: 'ages = {"Alice": 12, "Bob": 14}',
-          },
-          {
-            symbol: "dict[key]",
-            name: "Access by key",
-            nameZh: "通过键访问",
-            emoji: "🔑",
-            description: "Use a key to instantly get its value. Like using a landmark name to find treasure!",
-            example: 'ages["Alice"]  # 12',
-          },
-          {
-            symbol: "dict[key] = val",
-            name: "Set / Update",
-            nameZh: "设置/更新",
-            emoji: "✏️",
-            description: "Add a new key-value pair or update an existing one.",
-            example: 'ages["Charlie"] = 15  # add new\nages["Alice"] = 13  # update',
-          },
-          {
-            symbol: "key in dict",
-            name: "Check if key exists",
-            nameZh: "检查键是否存在",
-            emoji: "🔍",
-            description: "Returns True/False. Instant O(1) check! Way faster than searching a list.",
-            example: '"Alice" in ages  # True\n"Zara" in ages  # False',
-          },
-          {
-            symbol: "dict.get(key, default)",
-            name: "Safe access",
-            nameZh: "安全访问",
-            emoji: "🛡️",
-            description: "Returns default value if key doesn't exist (instead of crashing).",
-            example: 'ages.get("Zara", 0)  # 0 (not found)',
-          },
-        ],
-        codeAnatomy: {
-          lines: [
-            { code: 'treasure = {}', explanation: "Create an empty dictionary", explanationZh: "创建空字典" },
-            { code: 'treasure["cave"] = "💎 Diamond"', explanation: "Add key 'cave' with value '💎 Diamond'", explanationZh: "添加键'cave'，值为'💎 Diamond'" },
-            { code: 'print(treasure["cave"])', explanation: "Access → '💎 Diamond' (instant O(1)!)", explanationZh: "访问 → '💎 Diamond'（瞬间 O(1)！）" },
-            { code: 'print("cave" in treasure)', explanation: "Check key exists → True", explanationZh: "检查键是否存在 → True" },
-            { code: 'print(treasure.get("lake", "Nothing"))', explanation: "Safe access → 'Nothing' (key missing)", explanationZh: "安全访问 → 'Nothing'（键不存在）" },
-          ],
-        },
-      },
-    },
-    {
-      type: "code",
-      emoji: "🗺️",
-      content: `## 🗺️ Treasure Map Explorer!`,
-      code: `# 🗺️ The Pirate's Treasure Map!
-
-treasure_map = {
-    "🌳 Old Oak": "💰 50 gold coins",
-    "🏴‍☠️ Pirate Cave": "💎 Diamond necklace",
-    "💀 Skull Rock": "🗡️ Magic sword",
-    "🌊 Mermaid Lagoon": "🧜‍♀️ Pearl of wisdom",
-    "🌋 Volcano Peak": "🔥 Dragon egg",
-}
-
-# Explore the map!
-print("🗺️ Treasure Map Locations:")
-for location, treasure in treasure_map.items():
-    print(f"  {location} → {treasure}")
-
-# Find specific treasure
-print(f"\\n🔍 At Skull Rock: {treasure_map['💀 Skull Rock']}")
-
-# Safe search
-result = treasure_map.get("🏖️ Secret Beach", "❌ No treasure here!")
-print(f"🔍 At Secret Beach: {result}")
-
-# Add a new location!
-treasure_map["🏖️ Secret Beach"] = "🦜 Talking parrot"
-print(f"\\n📍 New discovery! Secret Beach: {treasure_map['🏖️ Secret Beach']}")
-print(f"📊 Total locations: {len(treasure_map)}")`,
-    },
-    {
-      type: "interactive",
-      content: `## 🎮 Your Turn: Phone Book!
-
-Build a phone book dictionary!`,
-      exercise: {
-        prompt: 'Create a phone book dict with 3 contacts, then look up "Alice" and print her number.',
-        promptZh: '创建一个包含3个联系人的电话簿字典，然后查找"Alice"并打印她的号码。',
-        starterCode: `# Create phone book
-phone_book = {
-    "Alice": "555-0001",
-    "Bob": "555-0002",
-    "Charlie": "555-0003",
-}
-
-# Look up Alice
-`,
-        expectedOutput: "555-0001",
-        hint: 'Use phone_book["Alice"] to look up her number!',
-        hintZh: '用 phone_book["Alice"] 查找她的号码！',
-        solution: `phone_book = {
-    "Alice": "555-0001",
-    "Bob": "555-0002",
-    "Charlie": "555-0003",
-}
-
-print(phone_book["Alice"])`,
-      },
-    },
-    {
-      type: "code",
-      emoji: "📊",
-      content: `## 📊 Word Counter — The Classic HashMap Problem!`,
-      code: `# 📊 Count word frequency — a CLASSIC interview question!
-
-text = "the cat sat on the mat the cat likes the mat"
-words = text.split()
-
-# Count with a dictionary
-word_count = {}
-for word in words:
-    word_count[word] = word_count.get(word, 0) + 1
-
-print("📊 Word Frequency:")
-for word, count in sorted(word_count.items(), key=lambda x: -x[1]):
-    bar = "█" * count
-    print(f"  {word:8s} {bar} ({count})")
-
-# Most common word
-most_common = max(word_count, key=word_count.get)
-print(f"\\n🏆 Most common: '{most_common}' ({word_count[most_common]} times)")
-
-# 🤖 Botty: "This is how search engines rank keywords!"
-# 🔧 Chip: "Hash lookups are O(1) — word_count.get() is instant!"`,
-    },
-    {
-      type: "challenge",
-      content: "🏆 Coding Challenge · 编程挑战",
-      challenge: {
-        title: "🔤 Two Sum Problem · 两数之和",
-        description: "Given a list of numbers and a target, find two numbers that add up to the target. Return their indices. Use a HashMap for O(n) solution!\n给定一个数字列表和目标值，找到两个加起来等于目标的数字，返回它们的索引。用哈希表实现O(n)解法！",
-        starterCode: `def two_sum(nums, target):
-    # TODO: Use a dict to store {number: index}
-    # For each number, check if (target - number) is in the dict
-    seen = {}
-    pass
-
-result = two_sum([2, 7, 11, 15], 9)
-print(result)`,
-        hint: "For each num at index i: check if (target - num) is already in 'seen'. If yes, return both indices. If no, add {num: i} to seen.\n对于索引i处的每个num：检查(target - num)是否已在'seen'中。如果是，返回两个索引。否则，将{num: i}加入seen。",
-        solution: `def two_sum(nums, target):
-    seen = {}
-    for i, num in enumerate(nums):
-        complement = target - num
-        if complement in seen:
-            return [seen[complement], i]
-        seen[num] = i
-    return []
-
-result = two_sum([2, 7, 11, 15], 9)
-print(result)`,
-        expectedOutput: "[0, 1]",
-      },
-    },
-    {
-      type: "quiz",
-      content: "🎓 HashMap Knowledge Check!",
-      quiz: [
-        {
-          question: "What is the time complexity of looking up a key in a dictionary?",
-          options: ["O(n)", "O(log n)", "O(1)", "O(n²)"],
-          correctIndex: 2,
-          explanation: "Dictionary lookup is O(1) — constant time! The hash function computes the address instantly. 🔑⚡",
-        },
-        {
-          question: "What happens if you try dict['missing_key']?",
-          options: ["Returns None", "Returns 0", "Raises KeyError", "Returns empty string"],
-          correctIndex: 2,
-          explanation: "KeyError! Use dict.get('key', default) for safe access that returns a default instead. 🛡️",
-        },
-        {
-          question: "In a dictionary, keys must be:",
-          options: ["Numbers only", "Strings only", "Unique and hashable", "Anything at all"],
-          correctIndex: 2,
-          explanation: "Keys must be unique (no duplicates) and hashable (strings, numbers, tuples — NOT lists or dicts). 🔑",
-        },
-      ],
-    },
-  ],
-};
-
-// ═══════════════════════════════════════════════════════════════
-// LESSON DS-3-2: Social Network (Graphs)
-// ═══════════════════════════════════════════════════════════════
-
-const ds_3_2: Lesson = {
-  id: "ds-3-2",
-  moduleId: "ds-3",
-  title: "Social Network",
-  subtitle: "Graph basics — nodes & edges · 社交网络：图的基础",
-  icon: "🌐",
-  xp: 55,
-  duration: "25 min",
-  order: 10,
-  gradeRange: [5, 12],
-  difficulty: "intermediate",
-  skillLevel: "intermediate",
-  sections: [
-    {
-      type: "text",
-      emoji: "🌐",
-      content: `## 🐍 Py Says: Let's Build a Social Network! 🌐
-
-Think about your friend group:
-- You 🧑 are friends with Alice 👩 and Bob 👦
-- Alice 👩 is friends with Charlie 🧒
-- Bob 👦 is friends with Charlie 🧒 and Diana 👧
-
-This is a **Graph**! A web of connections:
-- **Nodes** (vertices) = people 👤
-- **Edges** = friendships / connections 🤝
-
-Graphs model SO many things:
-- 🌐 Social networks (Facebook, Instagram)
-- 🗺️ Maps & roads (Google Maps)
-- 🌍 The internet (web pages & links)
-- 🧬 Molecules (atoms & bonds)
-
-🤖 Botty: "I analyze a graph of billions of documents to find the best answer for you!"
-
-🔧 Chip: "The internet itself is a graph — routers are nodes, cables are edges!"`,
-    },
-    {
-      type: "concept",
-      emoji: "📖",
-      content: "New Concepts: Graphs",
-      concept: {
-        title: "🧰 Graph Basics",
-        titleZh: "图基础",
-        syntaxCards: [
-          {
-            symbol: "node / vertex",
-            name: "Node (vertex)",
-            nameZh: "节点（顶点）",
-            emoji: "⚫",
-            description: "A point in the graph. Represents an entity — a person, city, web page, etc.",
-            example: '# Nodes: "Alice", "Bob", "Charlie"',
-          },
-          {
-            symbol: "edge",
-            name: "Edge (connection)",
-            nameZh: "边（连接）",
-            emoji: "➖",
-            description: "A line connecting two nodes. Represents a relationship — friendship, road, link, etc.",
-            example: '# Edge: Alice -- Bob (they are friends)',
-          },
-          {
-            symbol: "adjacency list",
-            name: "Adjacency List",
-            nameZh: "邻接表",
-            emoji: "📋",
-            description: "A dictionary where each node maps to its list of neighbors. The most common way to store a graph in code!",
-            example: 'graph = {\n  "Alice": ["Bob", "Charlie"],\n  "Bob": ["Alice"]\n}',
-          },
-          {
-            symbol: "directed / undirected",
-            name: "Directed vs Undirected",
-            nameZh: "有向 vs 无向",
-            emoji: "↔️",
-            description: "Undirected: friendship (mutual). Directed: Twitter follow (one-way). Matters for how you add edges!",
-            example: '# Undirected: add both ways\n# Directed: add one way only',
-          },
-        ],
-        codeAnatomy: {
-          lines: [
-            { code: 'graph = {}', explanation: "Empty graph (adjacency list)", explanationZh: "空图（邻接表）" },
-            { code: 'graph["Alice"] = ["Bob", "Charlie"]', explanation: "Alice is friends with Bob and Charlie", explanationZh: "Alice 和 Bob、Charlie 是朋友" },
-            { code: 'graph["Bob"] = ["Alice"]', explanation: "Bob is friends with Alice (undirected = add both ways!)", explanationZh: "Bob 和 Alice 是朋友（无向 = 双向添加！）" },
-            { code: 'print(graph["Alice"])', explanation: "Alice's friends → ['Bob', 'Charlie']", explanationZh: "Alice的朋友 → ['Bob', 'Charlie']" },
-          ],
-        },
-      },
-    },
-    {
-      type: "code",
-      emoji: "🌐",
-      content: `## 🌐 Build a Social Network!`,
-      code: `# 🌐 Social Network Graph!
-
-class SocialNetwork:
-    def __init__(self):
-        self.graph = {}
-    
-    def add_person(self, name):
-        if name not in self.graph:
-            self.graph[name] = []
-            print(f"  👤 {name} joined the network!")
-    
-    def add_friendship(self, person1, person2):
-        self.add_person(person1)
-        self.add_person(person2)
-        if person2 not in self.graph[person1]:
-            self.graph[person1].append(person2)
-            self.graph[person2].append(person1)
-            print(f"  🤝 {person1} ↔ {person2} are now friends!")
-    
-    def show_friends(self, person):
-        friends = self.graph.get(person, [])
-        print(f"  {person}'s friends: {friends} ({len(friends)} friends)")
-
-# Build the network!
-network = SocialNetwork()
-print("🌐 Building Social Network:")
-network.add_friendship("Alice", "Bob")
-network.add_friendship("Alice", "Charlie")
-network.add_friendship("Bob", "Charlie")
-network.add_friendship("Bob", "Diana")
-network.add_friendship("Charlie", "Eve")
-
-print("\\n👥 Friend Lists:")
-for person in network.graph:
-    network.show_friends(person)
-
-# Who has the most friends?
-popular = max(network.graph, key=lambda p: len(network.graph[p]))
-print(f"\\n🌟 Most popular: {popular} ({len(network.graph[popular])} friends)")`,
-    },
-    {
-      type: "interactive",
-      content: `## 🎮 Your Turn: Mutual Friends!`,
-      exercise: {
-        prompt: "Given a graph, find all mutual friends between Alice and Bob. Print each one.",
-        promptZh: "给定一个图，找出Alice和Bob之间的所有共同好友。打印每一个。",
-        starterCode: `graph = {
-    "Alice": ["Bob", "Charlie", "Eve"],
-    "Bob": ["Alice", "Charlie", "Diana"],
-    "Charlie": ["Alice", "Bob"],
-    "Diana": ["Bob"],
-    "Eve": ["Alice"],
-}
-
-# TODO: Find mutual friends of Alice and Bob
-alice_friends = set(graph["Alice"])
-bob_friends = set(graph["Bob"])
-# Hint: use set intersection!
-`,
-        expectedOutput: "Charlie",
-        hint: "Use set intersection: alice_friends & bob_friends. But remove Alice and Bob themselves from the result!",
-        hintZh: "用集合交集：alice_friends & bob_friends。但要从结果中移除Alice和Bob自己！",
-        solution: `graph = {
-    "Alice": ["Bob", "Charlie", "Eve"],
-    "Bob": ["Alice", "Charlie", "Diana"],
-    "Charlie": ["Alice", "Bob"],
-    "Diana": ["Bob"],
-    "Eve": ["Alice"],
-}
-
-alice_friends = set(graph["Alice"])
-bob_friends = set(graph["Bob"])
-mutual = alice_friends & bob_friends - {"Alice", "Bob"}
-for friend in mutual:
-    print(friend)`,
-      },
-    },
-    {
-      type: "code",
-      emoji: "🗺️",
-      content: `## 🗺️ Map Routing — Cities as a Graph!`,
-      code: `# 🗺️ Cities connected by roads (weighted graph!)
-
-city_map = {
-    "New York": [("Boston", 215), ("Philadelphia", 97)],
-    "Boston": [("New York", 215), ("Portland", 108)],
-    "Philadelphia": [("New York", 97), ("Washington", 140)],
-    "Washington": [("Philadelphia", 140)],
-    "Portland": [("Boston", 108)],
-}
-
-print("🗺️ City Map (with distances in miles):")
-for city, connections in city_map.items():
-    routes = [f"{dest} ({dist}mi)" for dest, dist in connections]
-    print(f"  📍 {city} → {', '.join(routes)}")
-
-# Find all cities reachable from New York
-def reachable_cities(graph, start):
-    visited = set()
-    stack = [start]
-    while stack:
-        city = stack.pop()
-        if city not in visited:
-            visited.add(city)
-            for neighbor, _ in graph[city]:
-                stack.append(neighbor)
-    return visited
-
-reachable = reachable_cities(city_map, "New York")
-print(f"\\n🚗 Cities reachable from New York: {reachable}")
-print(f"📊 Total: {len(reachable)} cities")`,
-    },
-    {
-      type: "challenge",
-      content: "🏆 Coding Challenge · 编程挑战",
-      challenge: {
-        title: "🔗 Friend Recommendation · 好友推荐",
-        description: "Recommend new friends! For a given person, find friends-of-friends who they don't already know.\n推荐新朋友！对于给定的人，找到他们还不认识的朋友的朋友。",
-        starterCode: `def recommend_friends(graph, person):
-    # TODO: Find friends-of-friends who aren't already friends
-    # Don't recommend the person themselves!
-    pass
-
-graph = {
-    "Alice": ["Bob", "Charlie"],
-    "Bob": ["Alice", "Charlie", "Diana"],
-    "Charlie": ["Alice", "Bob", "Eve"],
-    "Diana": ["Bob"],
-    "Eve": ["Charlie"],
-}
-
-recs = recommend_friends(graph, "Alice")
-print(f"Recommendations for Alice: {recs}")`,
-        hint: "Loop through Alice's friends, then through each friend's friends. Exclude Alice herself and existing friends.\n遍历Alice的朋友，再遍历每个朋友的朋友。排除Alice自己和已有的朋友。",
-        solution: `def recommend_friends(graph, person):
-    friends = set(graph[person])
-    recommendations = set()
-    for friend in friends:
-        for fof in graph[friend]:
-            if fof != person and fof not in friends:
-                recommendations.add(fof)
-    return sorted(recommendations)
-
-graph = {
-    "Alice": ["Bob", "Charlie"],
-    "Bob": ["Alice", "Charlie", "Diana"],
-    "Charlie": ["Alice", "Bob", "Eve"],
-    "Diana": ["Bob"],
-    "Eve": ["Charlie"],
-}
-
-recs = recommend_friends(graph, "Alice")
-print(f"Recommendations for Alice: {recs}")`,
-        expectedOutput: "Recommendations for Alice: ['Diana', 'Eve']",
-      },
-    },
-    {
-      type: "quiz",
-      content: "🎓 Graph Knowledge Check!",
-      quiz: [
-        {
-          question: "In a graph, what is an 'edge'?",
-          options: ["A node", "A connection between two nodes", "The first node", "A type of tree"],
-          correctIndex: 1,
-          explanation: "An edge connects two nodes — like a road between cities or a friendship between people! ➖",
-        },
-        {
-          question: "An adjacency list stores a graph as:",
-          options: ["A 2D array of True/False", "A dictionary mapping each node to its neighbors", "A single linked list", "A sorted array of edges"],
-          correctIndex: 1,
-          explanation: "Adjacency list = dictionary where each key is a node and value is a list of its neighbors. Most common in Python! 📋",
-        },
-        {
-          question: "If Alice follows Bob on Twitter but Bob doesn't follow Alice, this is a:",
-          options: ["Undirected graph", "Directed graph", "Weighted graph", "Binary graph"],
-          correctIndex: 1,
-          explanation: "Twitter follows are one-way (directed). Facebook friendships are two-way (undirected). 🐦",
-        },
-      ],
-    },
-  ],
-};
-
-// ═══════════════════════════════════════════════════════════════
-// LESSON DS-3-3: Finding the Path (BFS & DFS)
-// ═══════════════════════════════════════════════════════════════
-
-const ds_3_3: Lesson = {
-  id: "ds-3-3",
-  moduleId: "ds-3",
-  title: "Finding the Path",
-  subtitle: "BFS & DFS — exploring graphs · 寻找路径：广度优先和深度优先搜索",
-  icon: "🧭",
-  xp: 60,
-  duration: "25 min",
-  order: 11,
-  gradeRange: [6, 12],
-  difficulty: "intermediate",
-  skillLevel: "intermediate",
-  sections: [
-    {
-      type: "text",
-      emoji: "🧭",
-      content: `## 🐍 Py Says: Two Ways to Explore! 🧭
-
-You're in a maze 🏰 and need to find the exit. How do you explore?
-
-**Strategy 1: BFS (Breadth-First Search)** 🌊
-- Explore ALL neighbors first, then their neighbors, etc.
-- Like ripples in water — expanding outward ring by ring!
-- Uses a **QUEUE** (FIFO)
-- Finds the **SHORTEST** path!
-
-**Strategy 2: DFS (Depth-First Search)** 🔦
-- Go as DEEP as possible, then backtrack!
-- Like exploring a cave — go down one tunnel all the way before trying another
-- Uses a **STACK** (LIFO) or recursion
-- Good for "is there ANY path?"
-
-🤖 Botty: "Google Maps uses BFS (well, Dijkstra's) to find the shortest route!"
-
-🔧 Chip: "DFS is great for exploring all possibilities — like solving a Sudoku puzzle!"
-
-Both are essential! Let's learn both! 🏃‍♂️`,
-    },
-    {
-      type: "concept",
-      emoji: "📖",
-      content: "New Concepts: BFS & DFS",
-      concept: {
-        title: "🧰 BFS & DFS",
-        titleZh: "广度优先搜索与深度优先搜索",
-        syntaxCards: [
-          {
-            symbol: "BFS",
-            name: "Breadth-First Search",
-            nameZh: "广度优先搜索",
-            emoji: "🌊",
-            description: "Explore level by level, outward like ripples. Uses a QUEUE. Finds shortest path in unweighted graphs!",
-            example: 'queue = deque([start])\nwhile queue:\n    node = queue.popleft()\n    for neighbor in graph[node]:\n        queue.append(neighbor)',
-          },
-          {
-            symbol: "DFS",
-            name: "Depth-First Search",
-            nameZh: "深度优先搜索",
-            emoji: "🔦",
-            description: "Go as deep as possible, then backtrack. Uses a STACK or recursion. Good for finding ANY path.",
-            example: 'stack = [start]\nwhile stack:\n    node = stack.pop()\n    for neighbor in graph[node]:\n        stack.append(neighbor)',
-          },
-          {
-            symbol: "visited",
-            name: "Visited Set",
-            nameZh: "已访问集合",
-            emoji: "✅",
-            description: "Track which nodes you've already visited to avoid infinite loops! Essential for both BFS and DFS.",
-            example: 'visited = set()\nif node not in visited:\n    visited.add(node)',
-          },
-          {
-            symbol: "path",
-            name: "Path Tracking",
-            nameZh: "路径追踪",
-            emoji: "🗺️",
-            description: "Remember how you got to each node by storing the parent. Then backtrack from goal to start.",
-            example: 'parent = {start: None}\n# After BFS:\npath = []\nnode = goal\nwhile node:\n    path.append(node)\n    node = parent[node]',
-          },
-        ],
-        codeAnatomy: {
-          lines: [
-            { code: 'from collections import deque', explanation: "Import deque for BFS queue", explanationZh: "导入deque用于BFS队列" },
-            { code: 'queue = deque([start])', explanation: "Start BFS from the starting node", explanationZh: "从起始节点开始BFS" },
-            { code: 'visited = {start}', explanation: "Mark start as visited", explanationZh: "标记起点为已访问" },
-            { code: 'node = queue.popleft()', explanation: "Process the FRONT of queue (FIFO)", explanationZh: "处理队列前端（FIFO）" },
-            { code: 'queue.append(neighbor)', explanation: "Add unvisited neighbors to queue", explanationZh: "将未访问的邻居加入队列" },
-          ],
-        },
-      },
-    },
-    {
-      type: "code",
-      emoji: "🌊",
-      content: `## 🌊 BFS — Shortest Path Finder!`,
-      code: `from collections import deque
-
-# 🌊 BFS: Find shortest path in a maze!
-#    A --- B --- E
-#    |     |     |
-#    C --- D --- F (goal!)
-
-graph = {
-    "A": ["B", "C"],
-    "B": ["A", "D", "E"],
-    "C": ["A", "D"],
-    "D": ["B", "C", "F"],
-    "E": ["B", "F"],
-    "F": ["D", "E"],  # Goal!
-}
-
-def bfs_shortest_path(graph, start, goal):
-    queue = deque([(start, [start])])
-    visited = {start}
-    
-    while queue:
-        node, path = queue.popleft()
-        if node == goal:
-            return path
-        
-        for neighbor in graph[node]:
-            if neighbor not in visited:
-                visited.add(neighbor)
-                queue.append((neighbor, path + [neighbor]))
-    
-    return None  # No path found
-
-path = bfs_shortest_path(graph, "A", "F")
-print(f"🌊 BFS Shortest Path: {' → '.join(path)}")
-print(f"📏 Steps: {len(path) - 1}")`,
-    },
-    {
-      type: "code",
-      emoji: "🔦",
-      content: `## 🔦 DFS — Deep Exploration!`,
-      code: `# 🔦 DFS: Explore all paths!
-
-graph = {
-    "A": ["B", "C"],
-    "B": ["A", "D", "E"],
-    "C": ["A", "D"],
-    "D": ["B", "C", "F"],
-    "E": ["B", "F"],
-    "F": ["D", "E"],
-}
-
-def dfs_all_paths(graph, start, goal, path=None, all_paths=None):
-    if path is None: path = [start]
-    if all_paths is None: all_paths = []
-    
-    if start == goal:
-        all_paths.append(list(path))
-        return all_paths
-    
-    for neighbor in graph[start]:
-        if neighbor not in path:  # Avoid cycles
-            path.append(neighbor)
-            dfs_all_paths(graph, neighbor, goal, path, all_paths)
-            path.pop()  # Backtrack!
-    
-    return all_paths
-
-print("🔦 DFS: ALL paths from A to F:")
-all_paths = dfs_all_paths(graph, "A", "F")
-for i, p in enumerate(all_paths):
-    print(f"  Path {i+1}: {' → '.join(p)} (length: {len(p)-1})")
-
-print(f"\\n📊 Total paths found: {len(all_paths)}")
-shortest = min(all_paths, key=len)
-print(f"🏆 Shortest: {' → '.join(shortest)}")`,
-    },
-    {
-      type: "interactive",
-      content: `## 🎮 Your Turn: Maze Solver!`,
-      exercise: {
-        prompt: "Use BFS to find the shortest path from 'Start' to 'End' in the given graph. Print the path length.",
-        promptZh: "用BFS找到从'Start'到'End'的最短路径。打印路径长度。",
-        starterCode: `from collections import deque
-
-maze = {
-    "Start": ["A", "B"],
-    "A": ["Start", "C"],
-    "B": ["Start", "C", "D"],
-    "C": ["A", "B", "End"],
-    "D": ["B", "End"],
-    "End": ["C", "D"],
-}
-
-# TODO: BFS from "Start" to "End"
-# Print the path length (number of edges)
-`,
-        expectedOutput: "2",
-        hint: "Use a queue with deque(). Each item should store (node, distance).\nStart with deque([('Start', 0)]) and a visited set.\nWhen you reach 'End', print the distance!",
-        hintZh: "使用deque()创建队列。每个元素存储 (节点, 距离)。\n从 deque([('Start', 0)]) 和一个visited集合开始。\n当到达'End'时，打印距离！",
-        solution: `from collections import deque
-
-maze = {
-    "Start": ["A", "B"],
-    "A": ["Start", "C"],
-    "B": ["Start", "C", "D"],
-    "C": ["A", "B", "End"],
-    "D": ["B", "End"],
-    "End": ["C", "D"],
-}
-
-queue = deque([("Start", 0)])
-visited = {"Start"}
-
-while queue:
-    node, dist = queue.popleft()
-    if node == "End":
-        print(dist)
-        break
-    for neighbor in maze[node]:
-        if neighbor not in visited:
-            visited.add(neighbor)
-            queue.append((neighbor, dist + 1))`,
-      },
-    },
-    {
-      type: "code",
-      emoji: "🔬",
-      content: `## 🔬 Advanced: DFS with Cycle Detection
-
-\`\`\`python
-# DFS with proper cycle detection and path tracking
-def dfs_with_details(graph, start, goal):
-    """DFS that shows its work — every step! 🔍"""
-    stack = [(start, [start])]
-    visited = set()
-    steps = 0
-    
-    while stack:
-        node, path = stack.pop()
-        steps += 1
-        
-        if node == goal:
-            print(f"✅ Found {goal} in {steps} steps!")
-            print(f"📍 Path: {' → '.join(path)}")
-            return path
-        
-        if node in visited:
-            print(f"🔄 Already visited {node}, skipping...")
-            continue
-        visited.add(node)
-        print(f"👀 Step {steps}: Exploring {node}")
-        
-        for neighbor in reversed(graph[node]):
-            if neighbor not in visited:
-                stack.append((neighbor, path + [neighbor]))
-    
-    print(f"❌ No path to {goal} found!")
-    return None
-
-# Test it!
-graph = {
-    "A": ["B", "C"],
-    "B": ["A", "D", "E"],
-    "C": ["A", "F"],
-    "D": ["B"],
-    "E": ["B", "F"],
-    "F": ["C", "E"],
-}
-
-print("🔍 DFS Deep Dive:")
-dfs_with_details(graph, "A", "F")
-\`\`\`
-
-🐍 Py: "DFS goes DEEP first (like exploring one tunnel all the way), BFS goes WIDE first (like ripples in a pond)!"
-
-🤖 Botty: "GPS apps use BFS for shortest path, but DFS is great for solving mazes and puzzles!"`,
-    },
-    {
-      type: "challenge",
-      emoji: "🏆",
-      content: `## 🏆 Challenge: Connected Components
-
-Can you find ALL groups of connected nodes in a graph?
-
-Some graphs aren't fully connected — there might be **islands** of nodes that can't reach each other!
-
-\`\`\`python
-# Find all connected components
-graph = {
-    "A": ["B"], "B": ["A", "C"], "C": ["B"],    # Island 1
-    "D": ["E"], "E": ["D"],                       # Island 2
-    "F": [],                                        # Island 3 (lonely!)
-}
-
-def find_components(graph):
-    visited = set()
-    components = []
-    
-    for node in graph:
-        if node not in visited:
-            # BFS to find all nodes in this component
-            component = []
-            queue = [node]
-            while queue:
-                current = queue.pop(0)
-                if current not in visited:
-                    visited.add(current)
-                    component.append(current)
-                    queue.extend(n for n in graph[current] if n not in visited)
-            components.append(component)
-    
-    return components
-
-islands = find_components(graph)
-print(f"🏝️ Found {len(islands)} islands:")
-for i, island in enumerate(islands):
-    print(f"  Island {i+1}: {island}")
-\`\`\`
-
-🔧 Chip: "Social networks use this to find friend groups! Each island is a separate community."`,
-    },
-    {
-      type: "quiz",
-      emoji: "❓",
-      content: "Knowledge Check!",
-      quiz: [{
-        question: "What is the key difference between BFS and DFS?",
-        options: [
-          "BFS uses a queue (wide first), DFS uses a stack (deep first)",
-          "BFS is always faster than DFS",
-          "DFS can only work on trees, not graphs",
-          "BFS uses more memory than DFS always",
-        ],
-        
-        correctIndex: 0,
-        explanation:
-          "BFS explores neighbors first (queue → FIFO), DFS dives deep first (stack → LIFO). BFS finds shortest paths, DFS is great for exhaustive search!",
-        }],
-    },
-  ],
-};
-
-// ═══════════════════════════════════════════════════════════════
-// LESSON DS-3-4: Module 3 Boss Battle
-// ═══════════════════════════════════════════════════════════════
-
-const ds_3_4: Lesson = {
-  id: "ds-3-4",
-  moduleId: "ds-3",
-  title: "Module 3 Boss Battle",
-  subtitle: "Combine graphs & hashmaps to conquer! · 图+哈希表大决战",
-  icon: "⚔️",
-  xp: 60,
-  duration: "30 min",
-  order: 4,
-  gradeRange: [5, 12],
-  difficulty: "intermediate",
-  skillLevel: "intermediate",
-  sections: [
-    {
-      type: "text",
-      emoji: "⚔️",
-      content: `## ⚔️ Module 3 Boss Battle: The Data Dungeon!
-
-🐍 Py: "You've mastered hashmaps AND graphs! Time to face the **Boss** — a challenge that needs BOTH!"
-
-🤖 Botty: "The Boss has a **social network** of minions. You need to analyze their connections AND track their stats with hashmaps!"
-
-🔧 Chip: "Think of it like mapping a video game world — characters (hashmap) connected by paths (graph)!"
-
-**Your Mission:** Build a **Social Network Analyzer** that combines:
-- 📊 **HashMap** → Store user profiles (name, score, level)
-- 🕸️ **Graph** → Store friendships between users
-- 🔍 **BFS/DFS** → Find connections and influence
-
-Ready to combine your powers? ⚡`,
-    },
-    {
-      type: "concept",
-      emoji: "📖",
-      content: "Boss Strategy: Combining Data Structures",
-      concept: {
-        title: "🧰 Combining Data Structures",
-        titleZh: "组合数据结构",
-        syntaxCards: [
-          {
-            symbol: "dict + graph",
-            name: "HashMap + Graph",
-            nameZh: "哈希表 + 图",
-            emoji: "🔗",
-            description: "Use a dict for node data and an adjacency list for connections. Together they model rich networks!",
-            example: 'profiles = {"Alice": {"score": 95}}\nfriends = {"Alice": ["Bob", "Carol"]}',
-          },
-          {
-            symbol: "BFS + dict",
-            name: "Search + Lookup",
-            nameZh: "搜索 + 查找",
-            emoji: "🔍",
-            description: "BFS/DFS traverses the graph, dict provides O(1) data lookup at each node. Power combo!",
-            example: 'for friend in bfs(graph, "Alice"):\n    print(profiles[friend])',
-          },
-          {
-            symbol: "influence",
-            name: "Network Influence",
-            nameZh: "网络影响力",
-            emoji: "📡",
-            description: "A node's influence = its connections + their connections. Combine BFS depth with hashmap scores!",
-            example: '# Friends-of-friends = 2-hop BFS\n# Influence = sum of connected scores',
-          },
-        ],
-      },
+Python's \`dict\` IS a hash map!`,
     },
     {
       type: "code",
       emoji: "💻",
-      content: `## 💻 Building the Social Network
+      content: `## 💻 Hash Maps in Python · Python 中的哈希表`,
+      code: `# 📦 Box: "Python dicts are hash maps!"
 
-\`\`\`python
-# 🕸️ Social Network Analyzer — HashMap + Graph combo!
-
-# HashMap: User profiles
-profiles = {
-    "Alice":   {"level": 5, "score": 92, "role": "Leader"},
-    "Bob":     {"level": 3, "score": 78, "role": "Builder"},
-    "Carol":   {"level": 4, "score": 85, "role": "Explorer"},
-    "Dave":    {"level": 2, "score": 65, "role": "Builder"},
-    "Eve":     {"level": 6, "score": 97, "role": "Leader"},
-    "Frank":   {"level": 1, "score": 45, "role": "Newbie"},
+# Creating a hash map (dictionary)
+student = {
+    "name": "Alice",
+    "age": 15,
+    "grade": "A",
+    "hobbies": ["coding", "chess"]
 }
 
-# Graph: Friendships (undirected)
-friendships = {
-    "Alice": ["Bob", "Carol", "Eve"],
-    "Bob":   ["Alice", "Carol", "Dave"],
-    "Carol": ["Alice", "Bob", "Eve"],
-    "Dave":  ["Bob", "Frank"],
-    "Eve":   ["Alice", "Carol"],
-    "Frank": ["Dave"],
-}
+# O(1) access by key!
+print(f"Name: {student['name']}")
+print(f"Age: {student['age']}")
 
-# 1. Find most connected user
-most_friends = max(friendships, key=lambda u: len(friendships[u]))
-print(f"🏆 Most connected: {most_friends} ({len(friendships[most_friends])} friends)")
+# Add/update — also O(1)!
+student["school"] = "Tech Academy"
+student["age"] = 16  # Updated!
 
-# 2. Average score of each user's friend group
-for user in profiles:
-    friend_scores = [profiles[f]["score"] for f in friendships[user]]
-    avg = sum(friend_scores) / len(friend_scores) if friend_scores else 0
-    print(f"👥 {user}'s friend avg score: {avg:.1f}")
-\`\`\`
+# Check if key exists
+if "grade" in student:
+    print(f"Grade: {student['grade']}")
 
-🐍 Py: "See how the hashmap (profiles) gives us instant data, and the graph (friendships) gives us connections? Together = POWER!"`,
-    },
-    {
-      type: "interactive",
-      content: `## 🎮 Boss Fight: Influence Calculator!`,
-      exercise: {
-        prompt: "Calculate Alice's 'influence score': sum of scores of ALL users reachable within 2 hops (friends + friends-of-friends, excluding Alice herself). Print the total.",
-        promptZh: "计算Alice的'影响力分数'：2跳内所有可达用户的分数总和（朋友+朋友的朋友，不包括Alice自己）。打印总分。",
-        starterCode: `from collections import deque
+# Iterate over key-value pairs
+print("\\nAll info:")
+for key, value in student.items():
+    print(f"  {key}: {value}")
 
-profiles = {
-    "Alice": {"score": 92}, "Bob": {"score": 78},
-    "Carol": {"score": 85}, "Dave": {"score": 65},
-    "Eve": {"score": 97}, "Frank": {"score": 45},
-}
+# 📦 Box: "Hash maps are the MOST used data structure in real software!"
 
-friendships = {
-    "Alice": ["Bob", "Carol", "Eve"],
-    "Bob": ["Alice", "Carol", "Dave"],
-    "Carol": ["Alice", "Bob", "Eve"],
-    "Dave": ["Bob", "Frank"],
-    "Eve": ["Alice", "Carol"],
-    "Frank": ["Dave"],
-}
-
-# TODO: BFS from Alice, max 2 hops
-# Sum up scores of all reachable users (not Alice)
-`,
-        expectedOutput: "370",
-        hint: "Use BFS with a distance tracker. Start: ('Alice', 0).\nOnly explore neighbors if current distance < 2.\nCollect all visited users (except Alice) and sum their scores.",
-        hintZh: "用BFS加距离追踪。起点：('Alice', 0)。\n只在当前距离 < 2 时探索邻居。\n收集所有访问过的用户（除Alice外）并求和分数。",
-        solution: `from collections import deque
-
-profiles = {
-    "Alice": {"score": 92}, "Bob": {"score": 78},
-    "Carol": {"score": 85}, "Dave": {"score": 65},
-    "Eve": {"score": 97}, "Frank": {"score": 45},
-}
-
-friendships = {
-    "Alice": ["Bob", "Carol", "Eve"],
-    "Bob": ["Alice", "Carol", "Dave"],
-    "Carol": ["Alice", "Bob", "Eve"],
-    "Dave": ["Bob", "Frank"],
-    "Eve": ["Alice", "Carol"],
-    "Frank": ["Dave"],
-}
-
-queue = deque([("Alice", 0)])
-visited = {"Alice"}
-influence = 0
-
-while queue:
-    user, dist = queue.popleft()
-    if user != "Alice":
-        influence += profiles[user]["score"]
-    if dist < 2:
-        for friend in friendships[user]:
-            if friend not in visited:
-                visited.add(friend)
-                queue.append((friend, dist + 1))
-
-print(influence)`,
-      },
+# Practical: Count word frequency!
+text = "the cat sat on the mat the cat"
+word_count = {}
+for word in text.split():
+    word_count[word] = word_count.get(word, 0) + 1
+print(f"\\nWord counts: {word_count}")`,
     },
     {
       type: "code",
-      emoji: "🔬",
-      content: `## 🔬 Full Boss Battle: Network Analysis Suite
+      emoji: "🔧",
+      content: `## 🔧 Hash Collisions · 哈希冲突`,
+      code: `# 📦 Box: "What happens when two keys hash to the same spot?"
 
-\`\`\`python
-from collections import deque
+# Simple hash function demo
+def simple_hash(key, size):
+    """Sum of character codes mod table size · 字符编码和 mod 表大小"""
+    return sum(ord(c) for c in str(key)) % size
 
-profiles = {
-    "Alice": {"level": 5, "score": 92},
-    "Bob": {"level": 3, "score": 78},
-    "Carol": {"level": 4, "score": 85},
-    "Dave": {"level": 2, "score": 65},
-    "Eve": {"level": 6, "score": 97},
-    "Frank": {"level": 1, "score": 45},
+# With a small table (size 5), collisions are likely!
+table_size = 5
+words = ["cat", "dog", "act", "god", "bat"]
+
+print(f"Hash table size: {table_size}")
+print("Hashing words:")
+for word in words:
+    h = simple_hash(word, table_size)
+    print(f"  '{word}' → slot {h}")
+
+# Notice: "cat" and "act" have the same hash! (same letters!)
+# This is a COLLISION 碰撞！
+
+# Solution 1: Chaining (linked lists at each slot)
+# Solution 2: Open addressing (find next empty slot)
+
+print("\\n📦 Box: Python's dict handles collisions automatically!")
+print("🔗 Link: Collisions use chaining — each slot has a linked list!")`,
+    },
+    {
+      type: "quiz",
+      content: "🎓 Hash Map Quiz · 哈希表测验",
+      quiz: [
+        {
+          question: "What is the average time complexity of looking up a value by key in a hash map?\n\n哈希表中通过键查找值的平均时间复杂度是？",
+          options: ["O(n)", "O(log n)", "O(1)", "O(n²)"],
+          correctIndex: 2,
+          explanation: "Hash maps provide O(1) average lookup — that's why they're so popular! 哈希表提供 O(1) 平均查找！",
+        },
+      ],
+    },
+    {
+      type: "challenge",
+      content: "🏆 Challenge · 挑战",
+      challenge: {
+        title: "🔤 Two Sum · 两数之和",
+        description: "Given a list of numbers and a target, find two numbers that add up to the target. Return their indices. Use a hash map for O(n) solution!\n给定数字列表和目标值，找出相加等于目标值的两个数，返回索引。用哈希表实现 O(n)！",
+        starterCode: "def two_sum(nums, target):\n    # Use a dict to store {value: index}\n    seen = {}\n    for i, num in enumerate(nums):\n        complement = target - num\n        # Check if complement is in seen\n        pass\n    return None\n\nresult = two_sum([2, 7, 11, 15], 9)\nprint(result)  # Should print: (0, 1)",
+        hint: "For each number, check if (target - number) is already in the dict. If yes, return both indices! 对于每个数，检查 target-num 是否已在字典中。",
+        solution: "def two_sum(nums, target):\n    seen = {}\n    for i, num in enumerate(nums):\n        complement = target - num\n        if complement in seen:\n            return (seen[complement], i)\n        seen[num] = i\n    return None\n\nresult = two_sum([2, 7, 11, 15], 9)\nprint(result)",
+        expectedOutput: "(0, 1)",
+      },
+    },
+  ],
+};
+
+const ds_3_2: Lesson = {
+  id: "ds-3-2",
+  moduleId: "ds-3",
+  title: "Sets — Unique Collections",
+  subtitle: "No duplicates allowed · 集合——独一无二的收藏",
+  icon: "🎯",
+  xp: 15,
+  duration: "18 min",
+  order: 2,
+  gradeRange: [7, 12],
+  difficulty: "intermediate",
+  skillLevel: "intermediate",
+  sections: [
+    {
+      type: "text",
+      emoji: "📦",
+      content: `## 📦 Box: The No-Duplicates Club!
+
+A **Set** is like a bag where every item is UNIQUE — try adding a duplicate and it's ignored!
+
+> 🎟️ Real-world analogy: A guest list at a party! Each name appears only once, no matter how many times you add it.
+> 现实类比：派对宾客名单！每个名字只出现一次，不管你添加多少次。
+
+**Set Operations (like math class!):**
+- **Union** (A ∪ B) — everything in A or B
+- **Intersection** (A ∩ B) — only what's in BOTH
+- **Difference** (A - B) — in A but NOT in B
+
+All operations are O(1) for single elements thanks to hashing!`,
+    },
+    {
+      type: "code",
+      emoji: "💻",
+      content: `## 💻 Set Operations · 集合操作`,
+      code: `# 📦 Box: "Sets are hash maps without values!"
+
+# Creating sets
+fruits = {"apple", "banana", "cherry"}
+citrus = {"orange", "lemon", "banana", "cherry"}
+
+print("Fruits:", fruits)
+print("Citrus:", citrus)
+
+# Union: everything from both 并集
+print("\\n∪ Union:", fruits | citrus)
+# or: fruits.union(citrus)
+
+# Intersection: in both 交集
+print("∩ Intersection:", fruits & citrus)
+# banana, cherry
+
+# Difference: in fruits but NOT citrus 差集
+print("- Difference (fruits-citrus):", fruits - citrus)
+# apple
+
+# Symmetric difference: in one but NOT both 对称差集
+print("△ Symmetric diff:", fruits ^ citrus)
+
+# Membership test — O(1)! 成员测试
+print("\\n'apple' in fruits?", "apple" in fruits)  # True
+
+# Remove duplicates from a list!
+nums = [1, 2, 2, 3, 3, 3, 4, 4, 4, 4]
+unique = list(set(nums))
+print(f"\\nDeduplicated: {unique}")
+
+# 📦 Box: "Sets are perfect for removing duplicates and set math!"`,
+    },
+    {
+      type: "quiz",
+      content: "🎓 Sets Quiz · 集合测验",
+      quiz: [
+        {
+          question: "What does the intersection of {1,2,3} and {2,3,4} give?\n\n{1,2,3} 和 {2,3,4} 的交集是什么？",
+          options: ["{1,2,3,4}", "{2,3}", "{1,4}", "{}"],
+          correctIndex: 1,
+          explanation: "Intersection = elements in BOTH sets = {2, 3}. 交集 = 两个集合中都有的元素！",
+        },
+      ],
+    },
+    {
+      type: "challenge",
+      content: "🏆 Challenge · 挑战",
+      challenge: {
+        title: "👥 Common Friends · 共同好友",
+        description: "Given two people's friend lists, find their common friends using sets.\n给定两个人的朋友列表，用集合找出共同好友。",
+        starterCode: "alice_friends = [\"Bob\", \"Charlie\", \"Diana\", \"Eve\"]\nbob_friends = [\"Charlie\", \"Eve\", \"Frank\", \"Grace\"]\n\n# Find common friends using sets\n# 用集合找共同好友\n\nprint(common)  # Should print: {'Charlie', 'Eve'}",
+        hint: "Convert to sets and use & (intersection). 转成集合用 & 求交集。",
+        solution: "alice_friends = [\"Bob\", \"Charlie\", \"Diana\", \"Eve\"]\nbob_friends = [\"Charlie\", \"Eve\", \"Frank\", \"Grace\"]\ncommon = set(alice_friends) & set(bob_friends)\nprint(common)",
+        expectedOutput: "{'Charlie', 'Eve'}",
+      },
+    },
+  ],
+};
+
+const ds_3_3: Lesson = {
+  id: "ds-3-3",
+  moduleId: "ds-3",
+  title: "Graphs — Networks of Connections",
+  subtitle: "Vertices, edges, and representation · 图——连接的网络",
+  icon: "🕸️",
+  xp: 20,
+  duration: "22 min",
+  order: 3,
+  gradeRange: [7, 12],
+  difficulty: "intermediate",
+  skillLevel: "intermediate",
+  sections: [
+    {
+      type: "text",
+      emoji: "🔗",
+      content: `## 🔗 Link: The Ultimate Network!
+
+Graphs are the most flexible data structure! They model **connections** between things.
+
+> 🌐 Real-world: Social networks (friends), maps (roads between cities), the internet (web pages linking to each other)!
+> 现实例子：社交网络（好友）、地图（城市间的道路）、互联网（网页之间的链接）！
+
+**Graph vocabulary:**
+- **Vertex (Node)** — a point in the graph
+- **Edge** — a connection between two vertices
+- **Directed** — edges have direction (like one-way streets)
+- **Undirected** — edges go both ways (like friendships)
+- **Weighted** — edges have values (like distances)
+
+**Two ways to represent graphs:**
+1. **Adjacency List** — each vertex stores its neighbors (most common!)
+2. **Adjacency Matrix** — 2D grid showing connections`,
+    },
+    {
+      type: "code",
+      emoji: "💻",
+      content: `## 💻 Graph Implementation · 图的实现`,
+      code: `# 🔗 Link: "Let me show you how to build a graph!"
+
+class Graph:
+    """Undirected graph using adjacency list · 无向图（邻接表）"""
+    def __init__(self):
+        self.adj_list = {}  # {vertex: [neighbors]}
+
+    def add_vertex(self, vertex):
+        if vertex not in self.adj_list:
+            self.adj_list[vertex] = []
+
+    def add_edge(self, v1, v2):
+        """Add undirected edge · 添加无向边"""
+        self.add_vertex(v1)
+        self.add_vertex(v2)
+        self.adj_list[v1].append(v2)
+        self.adj_list[v2].append(v1)
+
+    def display(self):
+        for vertex, neighbors in self.adj_list.items():
+            print(f"  {vertex} → {neighbors}")
+
+    def has_edge(self, v1, v2):
+        return v2 in self.adj_list.get(v1, [])
+
+# Build a social network!
+social = Graph()
+social.add_edge("Alice", "Bob")
+social.add_edge("Alice", "Charlie")
+social.add_edge("Bob", "Diana")
+social.add_edge("Charlie", "Diana")
+social.add_edge("Diana", "Eve")
+
+print("🌐 Social Network Graph:")
+social.display()
+
+print(f"\\nAlice connected to Bob? {social.has_edge('Alice', 'Bob')}")
+print(f"Alice connected to Eve? {social.has_edge('Alice', 'Eve')}")
+
+# 🔗 Link: "Graphs model relationships — the web is a giant graph!"`,
+    },
+    {
+      type: "quiz",
+      content: "🎓 Graph Quiz · 图测验",
+      quiz: [
+        {
+          question: "In an undirected graph, if there's an edge between A and B, can you travel from B to A?\n\n在无向图中，如果A和B之间有边，你能从B到A吗？",
+          options: ["No, only A to B", "Yes, both directions", "Only if weighted", "Only with BFS"],
+          correctIndex: 1,
+          explanation: "Undirected edges go both ways — like a two-way street! 无向边是双向的！",
+        },
+      ],
+    },
+    {
+      type: "challenge",
+      content: "🏆 Challenge · 挑战",
+      challenge: {
+        title: "👥 Degree Count · 度数计算",
+        description: "The 'degree' of a vertex is how many edges connect to it. Find the degree of each vertex.\n顶点的'度'是连接到它的边数。计算每个顶点的度。",
+        starterCode: "graph = {\n    'A': ['B', 'C'],\n    'B': ['A', 'C', 'D'],\n    'C': ['A', 'B'],\n    'D': ['B']\n}\n\n# Print the degree of each vertex\n# 打印每个顶点的度\nfor vertex in sorted(graph.keys()):\n    # degree = number of neighbors\n    pass",
+        hint: "Degree = len(neighbors). 度 = len(邻居列表)。",
+        solution: "graph = {\n    'A': ['B', 'C'],\n    'B': ['A', 'C', 'D'],\n    'C': ['A', 'B'],\n    'D': ['B']\n}\n\nfor vertex in sorted(graph.keys()):\n    print(f\"{vertex}: degree {len(graph[vertex])}\")",
+        expectedOutput: "A: degree 2\nB: degree 3\nC: degree 2\nD: degree 1",
+      },
+    },
+  ],
+};
+
+const ds_3_4: Lesson = {
+  id: "ds-3-4",
+  moduleId: "ds-3",
+  title: "BFS & DFS — Exploring Graphs",
+  subtitle: "Two ways to traverse · BFS与DFS——两种图遍历方式",
+  icon: "🧭",
+  xp: 25,
+  duration: "25 min",
+  order: 4,
+  gradeRange: [7, 12],
+  difficulty: "intermediate",
+  skillLevel: "intermediate",
+  sections: [
+    {
+      type: "text",
+      emoji: "🔗",
+      content: `## 🔗 Link: Two Ways to Explore!
+
+Imagine you're exploring a maze 🏰. Two strategies:
+
+**BFS (Breadth-First Search)** 🌊 — Explore layer by layer, like ripples in a pond. Check ALL neighbors first, then their neighbors, etc.
+- Uses a **Queue** (FIFO)!
+- Finds the **shortest path** in unweighted graphs!
+
+**DFS (Depth-First Search)** 🏊 — Dive deep! Go as far as possible along one path, then backtrack.
+- Uses a **Stack** (LIFO) or recursion!
+- Good for maze solving, topological sort, finding connected components!
+
+> 🌊 BFS = Water spreading outward from a source (layer by layer)
+> 🏊 DFS = An adventurer going deep into a cave (one path at a time)`,
+    },
+    {
+      type: "code",
+      emoji: "🌊",
+      content: `## 🌊 BFS Implementation · 广度优先搜索实现`,
+      code: `from collections import deque
+
+def bfs(graph, start):
+    """Breadth-First Search · 广度优先搜索"""
+    visited = set()
+    queue = deque([start])
+    visited.add(start)
+    order = []
+
+    while queue:
+        vertex = queue.popleft()    # Dequeue from front 从前端取出
+        order.append(vertex)
+
+        for neighbor in graph[vertex]:
+            if neighbor not in visited:
+                visited.add(neighbor)
+                queue.append(neighbor)  # Enqueue to back 加入队尾
+
+    return order
+
+# Graph:  A—B—D
+#         |/  |
+#         C   E
+graph = {
+    'A': ['B', 'C'],
+    'B': ['A', 'C', 'D'],
+    'C': ['A', 'B'],
+    'D': ['B', 'E'],
+    'E': ['D']
 }
 
-friendships = {
-    "Alice": ["Bob", "Carol", "Eve"],
-    "Bob": ["Alice", "Carol", "Dave"],
-    "Carol": ["Alice", "Bob", "Eve"],
-    "Dave": ["Bob", "Frank"],
-    "Eve": ["Alice", "Carol"],
-    "Frank": ["Dave"],
-}
+print("🌊 BFS from A:", bfs(graph, 'A'))
+# A → B, C → D → E (layer by layer!)
 
-# 🏆 ANALYSIS 1: Shortest path between any two users
-def shortest_path(graph, start, end):
+# BFS finds shortest path!
+def bfs_shortest_path(graph, start, end):
     queue = deque([(start, [start])])
     visited = {start}
     while queue:
-        node, path = queue.popleft()
-        if node == end:
+        vertex, path = queue.popleft()
+        if vertex == end:
             return path
-        for neighbor in graph[node]:
+        for neighbor in graph[vertex]:
             if neighbor not in visited:
                 visited.add(neighbor)
                 queue.append((neighbor, path + [neighbor]))
     return None
 
-path = shortest_path(friendships, "Frank", "Eve")
-print(f"🛤️ Frank → Eve: {' → '.join(path)} ({len(path)-1} hops)")
-
-# 🏆 ANALYSIS 2: Find "bridges" — users who connect groups
-def is_bridge(graph, user):
-    """Remove user and check if graph splits"""
-    remaining = [u for u in graph if u != user]
-    if not remaining:
-        return False
-    visited = set()
-    queue = [remaining[0]]
-    while queue:
-        node = queue.pop(0)
-        if node not in visited:
-            visited.add(node)
-            queue.extend(n for n in graph[node] if n != user and n not in visited)
-    return len(visited) < len(remaining)
-
-for user in profiles:
-    if is_bridge(friendships, user):
-        print(f"🌉 {user} is a BRIDGE — removing them splits the network!")
-
-# 🏆 ANALYSIS 3: Recommend friends (friends-of-friends not yet friends)
-def recommend_friends(graph, user):
-    direct = set(graph[user])
-    recommendations = {}
-    for friend in graph[user]:
-        for fof in graph[friend]:
-            if fof != user and fof not in direct:
-                recommendations[fof] = recommendations.get(fof, 0) + 1
-    return sorted(recommendations.items(), key=lambda x: -x[1])
-
-for user in ["Alice", "Frank"]:
-    recs = recommend_friends(friendships, user)
-    print(f"💡 {user} should befriend: {recs}")
-\`\`\`
-
-🐍 Py: "INCREDIBLE! You just built what Facebook, LinkedIn, and Twitter use every day!"`,
+path = bfs_shortest_path(graph, 'A', 'E')
+print(f"Shortest A→E: {' → '.join(path)}")`,
     },
     {
-      type: "challenge",
-      emoji: "🏆",
-      content: `## 🏆 Final Boss Challenge: PageRank (Simplified!)
+      type: "code",
+      emoji: "🏊",
+      content: `## 🏊 DFS Implementation · 深度优先搜索实现`,
+      code: `def dfs(graph, start):
+    """Depth-First Search (iterative with stack) · 深度优先搜索"""
+    visited = set()
+    stack = [start]
+    order = []
 
-Google's original algorithm! A node is important if important nodes link to it.
+    while stack:
+        vertex = stack.pop()        # Pop from top (LIFO!) 从顶部弹出
+        if vertex not in visited:
+            visited.add(vertex)
+            order.append(vertex)
+            # Add neighbors in reverse for consistent order
+            for neighbor in reversed(graph[vertex]):
+                if neighbor not in visited:
+                    stack.append(neighbor)
 
-\`\`\`python
-# Simplified PageRank
-def simple_pagerank(graph, iterations=10):
-    """Every node starts with equal rank, then shares it with neighbors"""
-    nodes = list(graph.keys())
-    n = len(nodes)
-    rank = {node: 1.0 / n for node in nodes}
-    
-    for _ in range(iterations):
-        new_rank = {}
-        for node in nodes:
-            # Each node gets rank from nodes that point to it
-            incoming_rank = 0
-            for other in nodes:
-                if node in graph[other]:
-                    incoming_rank += rank[other] / len(graph[other])
-            new_rank[node] = 0.15 / n + 0.85 * incoming_rank
-        rank = new_rank
-    
-    return rank
+    return order
 
-ranks = simple_pagerank({
-    "A": ["B", "C"], "B": ["C"],
-    "C": ["A"], "D": ["C"],
-})
+def dfs_recursive(graph, vertex, visited=None):
+    """DFS using recursion · 递归DFS"""
+    if visited is None:
+        visited = set()
+    visited.add(vertex)
+    print(vertex, end=" ")
+    for neighbor in graph[vertex]:
+        if neighbor not in visited:
+            dfs_recursive(graph, neighbor, visited)
 
-print("📊 PageRank results:")
-for node, r in sorted(ranks.items(), key=lambda x: -x[1]):
-    print(f"  {node}: {r:.4f} {'👑' if r == max(ranks.values()) else ''}")
-\`\`\`
+graph = {
+    'A': ['B', 'C'],
+    'B': ['A', 'C', 'D'],
+    'C': ['A', 'B'],
+    'D': ['B', 'E'],
+    'E': ['D']
+}
 
-🤖 Botty: "THIS is how Google ranks web pages! You just implemented a billion-dollar algorithm!"
+print("🏊 DFS from A:", dfs(graph, 'A'))
+# Goes deep: A → B → C → D → E (or similar deep path)
 
-🔧 Chip: "Graph + HashMap + iteration = the foundation of modern search engines!"`,
+print("\\n🏊 DFS recursive from A:", end=" ")
+dfs_recursive(graph, 'A')
+print()`,
     },
     {
       type: "quiz",
-      emoji: "❓",
-      content: "Boss Battle Quiz!",
-      quiz: [{
-        question: "Why is combining a HashMap with a Graph so powerful?",
-        options: [
-          "HashMap stores node DATA (O(1) lookup), Graph stores CONNECTIONS (traversal) — best of both!",
-          "It makes the code shorter",
-          "Graphs can't work without hashmaps",
-          "It's only useful for social networks",
-        ],
+      content: "🎓 BFS vs DFS Quiz · BFS vs DFS 测验",
+      quiz: [
+        {
+          question: "Which traversal uses a QUEUE?\n\n哪种遍历使用队列？",
+          options: ["DFS", "BFS", "Both", "Neither"],
+          correctIndex: 1,
+          explanation: "BFS uses a queue (FIFO) to explore layer by layer! DFS uses a stack. BFS 使用队列逐层探索！",
+        },
+        {
+          question: "Which finds the shortest path in an unweighted graph?\n\n哪种能在无权图中找到最短路径？",
+          options: ["DFS", "BFS", "Both", "Neither"],
+          correctIndex: 1,
+          explanation: "BFS explores all nodes at distance 1, then 2, etc. — so the first time it reaches a node is the shortest path! BFS 逐层探索，首次到达就是最短路径！",
+        },
+      ],
+    },
+    {
+      type: "challenge",
+      content: "🏆 Challenge · 挑战",
+      challenge: {
+        title: "🏝️ Is Connected? · 图是否连通？",
+        description: "Write a function to check if all vertices in a graph are connected (you can reach any vertex from any other).\n编写函数检查图是否连通（任意顶点可达任意其他顶点）。",
+        starterCode: "def is_connected(graph):\n    if not graph:\n        return True\n    # Start BFS/DFS from any vertex\n    # If visited count == total vertices, it's connected!\n    pass\n\n# Connected graph\ng1 = {'A': ['B'], 'B': ['A', 'C'], 'C': ['B']}\nprint(is_connected(g1))  # True\n\n# Disconnected graph\ng2 = {'A': ['B'], 'B': ['A'], 'C': ['D'], 'D': ['C']}\nprint(is_connected(g2))  # False",
+        hint: "Do BFS from any vertex. If len(visited) == len(graph), all connected! 从任一顶点BFS，如果访问数==总顶点数，则连通！",
+        solution: "from collections import deque\n\ndef is_connected(graph):\n    if not graph:\n        return True\n    start = next(iter(graph))\n    visited = set()\n    queue = deque([start])\n    visited.add(start)\n    while queue:\n        v = queue.popleft()\n        for n in graph[v]:\n            if n not in visited:\n                visited.add(n)\n                queue.append(n)\n    return len(visited) == len(graph)\n\ng1 = {'A': ['B'], 'B': ['A', 'C'], 'C': ['B']}\nprint(is_connected(g1))\ng2 = {'A': ['B'], 'B': ['A'], 'C': ['D'], 'D': ['C']}\nprint(is_connected(g2))",
+        expectedOutput: "True\nFalse",
+      },
+    },
+  ],
+};
+
+const ds_3_5: Lesson = {
+  id: "ds-3-5",
+  moduleId: "ds-3",
+  title: "Graph Projects — Social Network & Maze Solver",
+  subtitle: "Graphs in action · 图的实战——社交网络与迷宫求解",
+  icon: "🧩",
+  xp: 25,
+  duration: "25 min",
+  order: 5,
+  gradeRange: [7, 12],
+  difficulty: "intermediate",
+  skillLevel: "intermediate",
+  sections: [
+    {
+      type: "text",
+      emoji: "🔗",
+      content: `## 🔗 Link: Graphs Power the World!
+
+Let's build two REAL projects with graphs:
+
+1. **Social Network** 👥 — Friend suggestions using "friends of friends"!
+2. **Maze Solver** 🏰 — Find a path through a maze using BFS!
+
+> 🌐 Facebook, Instagram, LinkedIn — all built on graph algorithms!
+> 🎮 Video game pathfinding (how NPCs navigate) uses BFS/DFS!`,
+    },
+    {
+      type: "code",
+      emoji: "👥",
+      content: `## 👥 Social Network: Friend Suggestions · 社交网络好友推荐`,
+      code: `# 🔗 Link: "Who should you be friends with?"
+
+from collections import deque
+
+class SocialNetwork:
+    def __init__(self):
+        self.friends = {}  # adjacency list
+
+    def add_user(self, name):
+        if name not in self.friends:
+            self.friends[name] = set()
+
+    def add_friendship(self, a, b):
+        self.add_user(a)
+        self.add_user(b)
+        self.friends[a].add(b)
+        self.friends[b].add(a)
+
+    def suggest_friends(self, user):
+        """Suggest friends-of-friends who aren't already friends · 推荐朋友的朋友"""
+        if user not in self.friends:
+            return []
         
-        correctIndex: 0,
-        explanation:
-          "HashMap gives O(1) data access per node, Graph gives relationship traversal. Together they model rich, connected data — used in social networks, maps, recommendation engines, and more!",
-        }],
+        suggestions = {}  # {person: mutual_count}
+        my_friends = self.friends[user]
+
+        for friend in my_friends:
+            for fof in self.friends[friend]:  # friend of friend
+                if fof != user and fof not in my_friends:
+                    suggestions[fof] = suggestions.get(fof, 0) + 1
+
+        # Sort by most mutual friends
+        return sorted(suggestions.items(), key=lambda x: -x[1])
+
+# Build network
+net = SocialNetwork()
+net.add_friendship("Alice", "Bob")
+net.add_friendship("Alice", "Charlie")
+net.add_friendship("Bob", "Diana")
+net.add_friendship("Bob", "Eve")
+net.add_friendship("Charlie", "Diana")
+net.add_friendship("Charlie", "Frank")
+
+print("👥 Friend suggestions for Alice:")
+for person, mutuals in net.suggest_friends("Alice"):
+    print(f"  {person} ({mutuals} mutual friends)")
+# Diana (2 mutual), Eve (1 mutual), Frank (1 mutual)`,
+    },
+    {
+      type: "code",
+      emoji: "🏰",
+      content: `## 🏰 Maze Solver with BFS · 用BFS解迷宫`,
+      code: `from collections import deque
+
+def solve_maze(maze, start, end):
+    """Find shortest path through maze using BFS · 用BFS找迷宫最短路径"""
+    rows, cols = len(maze), len(maze[0])
+    queue = deque([(start, [start])])
+    visited = {start}
+    directions = [(0,1), (0,-1), (1,0), (-1,0)]  # right, left, down, up
+
+    while queue:
+        (r, c), path = queue.popleft()
+        if (r, c) == end:
+            return path
+
+        for dr, dc in directions:
+            nr, nc = r + dr, c + dc
+            if (0 <= nr < rows and 0 <= nc < cols 
+                and maze[nr][nc] == 0 and (nr, nc) not in visited):
+                visited.add((nr, nc))
+                queue.append(((nr, nc), path + [(nr, nc)]))
+
+    return None  # No path!
+
+# 0 = open, 1 = wall
+maze = [
+    [0, 0, 1, 0, 0],
+    [1, 0, 1, 0, 1],
+    [0, 0, 0, 0, 0],
+    [0, 1, 1, 1, 0],
+    [0, 0, 0, 0, 0]
+]
+
+path = solve_maze(maze, (0,0), (4,4))
+
+# Display maze with path
+print("🏰 Maze Solution:")
+path_set = set(path) if path else set()
+for r in range(len(maze)):
+    row_str = ""
+    for c in range(len(maze[0])):
+        if (r,c) in path_set:
+            row_str += "⭐"
+        elif maze[r][c] == 1:
+            row_str += "🧱"
+        else:
+            row_str += "⬜"
+    print(row_str)
+
+print(f"\\nPath length: {len(path)} steps")`,
+    },
+    {
+      type: "quiz",
+      content: "🎓 Graph Applications Quiz · 图应用测验",
+      quiz: [
+        {
+          question: "Why is BFS better than DFS for solving a maze (finding shortest path)?\n\n为什么BFS比DFS更适合解迷宫（找最短路径）？",
+          options: ["BFS is faster", "BFS always finds the shortest path first", "DFS can't solve mazes", "BFS uses less memory"],
+          correctIndex: 1,
+          explanation: "BFS explores layer by layer, so the first path found IS the shortest! BFS 逐层探索，首次找到的就是最短路径！",
+        },
+      ],
+    },
+    {
+      type: "challenge",
+      content: "🏆 Challenge · 挑战",
+      challenge: {
+        title: "🔢 Degrees of Separation · 分离度",
+        description: "Find the shortest distance (number of edges) between two people in a social network.\n找出社交网络中两个人之间的最短距离（边数）。",
+        starterCode: "from collections import deque\n\ndef degrees_of_separation(graph, person1, person2):\n    # Use BFS to find shortest path length\n    pass\n\nnetwork = {\n    'Alice': ['Bob', 'Charlie'],\n    'Bob': ['Alice', 'Diana'],\n    'Charlie': ['Alice', 'Eve'],\n    'Diana': ['Bob', 'Frank'],\n    'Eve': ['Charlie'],\n    'Frank': ['Diana']\n}\n\nprint(degrees_of_separation(network, 'Alice', 'Frank'))  # 3",
+        hint: "BFS from person1, count levels until you reach person2. BFS 从 person1 开始，计数到 person2。",
+        solution: "from collections import deque\n\ndef degrees_of_separation(graph, person1, person2):\n    if person1 == person2:\n        return 0\n    queue = deque([(person1, 0)])\n    visited = {person1}\n    while queue:\n        person, dist = queue.popleft()\n        for friend in graph[person]:\n            if friend == person2:\n                return dist + 1\n            if friend not in visited:\n                visited.add(friend)\n                queue.append((friend, dist + 1))\n    return -1\n\nnetwork = {\n    'Alice': ['Bob', 'Charlie'],\n    'Bob': ['Alice', 'Diana'],\n    'Charlie': ['Alice', 'Eve'],\n    'Diana': ['Bob', 'Frank'],\n    'Eve': ['Charlie'],\n    'Frank': ['Diana']\n}\nprint(degrees_of_separation(network, 'Alice', 'Frank'))",
+        expectedOutput: "3",
+      },
     },
   ],
 };
 
 // ═══════════════════════════════════════════════════════════════
-// LESSON DS-4-1: Build an Undo System
+// MODULE DS-4: ADVANCED & PROJECTS
 // ═══════════════════════════════════════════════════════════════
 
 const ds_4_1: Lesson = {
   id: "ds-4-1",
   moduleId: "ds-4",
-  title: "Build an Undo System",
-  subtitle: "Stacks power Ctrl+Z! · 用栈实现撤销系统",
-  icon: "↩️",
-  xp: 55,
+  title: "Sorting Showdown — Visual Race",
+  subtitle: "Compare classic sorting algorithms · 排序大比拼——可视化竞赛",
+  icon: "🏎️",
+  xp: 25,
   duration: "25 min",
   order: 1,
-  gradeRange: [5, 12],
+  gradeRange: [7, 12],
   difficulty: "intermediate",
   skillLevel: "intermediate",
   sections: [
     {
       type: "text",
-      emoji: "↩️",
-      content: `## 🐍 Py Says: The Power of Ctrl+Z! ↩️
+      emoji: "📦",
+      content: `## 📦 Box: The Great Sorting Race!
 
-Ever pressed **Ctrl+Z** to undo a mistake? THANK A STACK! 🙏
+Sorting is one of the most fundamental operations in CS. Let's race the algorithms!
 
-Every text editor, drawing app, and even video games use **stacks** for undo/redo:
-- **Undo stack** → Remembers every action you did (push on each action)
-- **Redo stack** → Remembers actions you undid (push when you undo)
+🐢 **Slow sorts (O(n²)):**
+- **Bubble Sort** — swap adjacent if out of order (like bubbles rising)
+- **Selection Sort** — find minimum, put it first, repeat
+- **Insertion Sort** — insert each element into its correct position (like sorting cards)
 
-When you UNDO: pop from undo stack → push to redo stack
-When you REDO: pop from redo stack → push to undo stack
-When you DO something new: push to undo stack → CLEAR redo stack!
+🚀 **Fast sorts (O(n log n)):**
+- **Merge Sort** — divide in half, sort each half, merge (divide & conquer!)
+- **Quick Sort** — pick a pivot, partition around it, recurse
 
-🤖 Botty: "Every app you use has this! Google Docs, Photoshop, VS Code — all stacks under the hood!"
+> 🃏 Real-world: Insertion sort is how most people sort playing cards!
+> 📚 Merge sort is how libraries merge pre-sorted shelves!
 
-🔧 Chip: "LIFO (Last In, First Out) is perfect here — you always undo the MOST RECENT action first!"
-
-Let's build our own text editor with undo/redo! ✍️`,
-    },
-    {
-      type: "concept",
-      emoji: "📖",
-      content: "Undo/Redo Architecture",
-      concept: {
-        title: "🧰 Undo/Redo with Stacks",
-        titleZh: "用栈实现撤销/重做",
-        syntaxCards: [
-          {
-            symbol: "undo_stack",
-            name: "Undo Stack",
-            nameZh: "撤销栈",
-            emoji: "↩️",
-            description: "Stores every action. When you undo, pop the last action off this stack and push it to redo.",
-            example: 'undo_stack = []\nundo_stack.append(action)  # Do\naction = undo_stack.pop()  # Undo',
-          },
-          {
-            symbol: "redo_stack",
-            name: "Redo Stack",
-            nameZh: "重做栈",
-            emoji: "↪️",
-            description: "Stores undone actions. When you redo, pop from here and push back to undo. Cleared on new action!",
-            example: 'redo_stack = []\nredo_stack.append(undone)  # After undo\nredo_stack.clear()  # New action!',
-          },
-          {
-            symbol: "Command",
-            name: "Command Pattern",
-            nameZh: "命令模式",
-            emoji: "📝",
-            description: "Each action is an object with do() and undo() methods. This lets us reverse any action cleanly!",
-            example: '{"type": "insert", "pos": 5, "text": "hello"}',
-          },
-        ],
-      },
+🏎️ **Race them!** Visit [Data Structures Playground](/dashboard/data-structures) to see sorting visualizations!`,
     },
     {
       type: "code",
-      emoji: "💻",
-      content: `## 💻 Text Editor with Undo/Redo
+      emoji: "🫧",
+      content: `## 🫧 Bubble Sort & Selection Sort · 冒泡排序与选择排序`,
+      code: `# 📦 Box: "Start with the simple ones!"
 
-\`\`\`python
-class TextEditor:
-    """A simple text editor with undo/redo — powered by STACKS! 📚"""
-    
-    def __init__(self):
-        self.text = ""
-        self.undo_stack = []  # Stack of (action, data)
-        self.redo_stack = []  # Stack of undone actions
-    
-    def type_text(self, new_text):
-        """Type new text at the end"""
-        self.undo_stack.append(("insert", new_text, len(self.text)))
-        self.redo_stack.clear()  # New action kills redo!
-        self.text += new_text
-        print(f"✍️ Typed: '{new_text}' → '{self.text}'")
-    
-    def delete_last(self, count=1):
-        """Delete last N characters"""
-        deleted = self.text[-count:]
-        self.undo_stack.append(("delete", deleted, len(self.text) - count))
-        self.redo_stack.clear()
-        self.text = self.text[:-count]
-        print(f"🗑️ Deleted: '{deleted}' → '{self.text}'")
-    
-    def undo(self):
-        """Undo the last action"""
-        if not self.undo_stack:
-            print("❌ Nothing to undo!")
-            return
-        action, data, pos = self.undo_stack.pop()
-        self.redo_stack.append((action, data, pos))
-        if action == "insert":
-            self.text = self.text[:pos]
-        elif action == "delete":
-            self.text = self.text[:pos] + data + self.text[pos:]
-        print(f"↩️ Undo! → '{self.text}'")
-    
-    def redo(self):
-        """Redo the last undone action"""
-        if not self.redo_stack:
-            print("❌ Nothing to redo!")
-            return
-        action, data, pos = self.redo_stack.pop()
-        self.undo_stack.append((action, data, pos))
-        if action == "insert":
-            self.text = self.text[:pos] + data
-        elif action == "delete":
-            self.text = self.text[:pos]
-        print(f"↪️ Redo! → '{self.text}'")
+def bubble_sort(arr):
+    """Bubble Sort — O(n²) · 冒泡排序"""
+    n = len(arr)
+    comparisons = 0
+    for i in range(n):
+        for j in range(0, n-i-1):
+            comparisons += 1
+            if arr[j] > arr[j+1]:
+                arr[j], arr[j+1] = arr[j+1], arr[j]  # Swap! 交换！
+    return comparisons
 
-# Let's test it! 🧪
-editor = TextEditor()
-editor.type_text("Hello")
-editor.type_text(" World")
-editor.type_text("!")
-print(f"📄 Text: '{editor.text}'")
+def selection_sort(arr):
+    """Selection Sort — O(n²) · 选择排序"""
+    n = len(arr)
+    comparisons = 0
+    for i in range(n):
+        min_idx = i
+        for j in range(i+1, n):
+            comparisons += 1
+            if arr[j] < arr[min_idx]:
+                min_idx = j
+        arr[i], arr[min_idx] = arr[min_idx], arr[i]
+    return comparisons
 
-editor.undo()  # Remove "!"
-editor.undo()  # Remove " World"
-print(f"📄 After 2 undos: '{editor.text}'")
+# Race!
+import random
+data1 = random.sample(range(100), 20)
+data2 = data1.copy()
 
-editor.redo()  # Bring back " World"
-print(f"📄 After redo: '{editor.text}'")
+c1 = bubble_sort(data1)
+c2 = selection_sort(data2)
 
-editor.type_text("??")  # New action clears redo
-editor.redo()  # Nothing to redo!
-\`\`\`
-
-🐍 Py: "See how the stacks keep perfect track? LIFO means the most recent action is always on top — exactly what undo needs!"`,
-    },
-    {
-      type: "interactive",
-      content: `## 🎮 Your Turn: Undo Counter!`,
-      exercise: {
-        prompt: "Create a simple counter with undo. Start at 0, apply operations [+5, +3, -2, +7], then undo twice. Print the final value.",
-        promptZh: "创建一个支持撤销的简单计数器。从0开始，执行操作 [+5, +3, -2, +7]，然后撤销两次。打印最终值。",
-        starterCode: `counter = 0
-undo_stack = []
-
-operations = [5, 3, -2, 7]
-
-# TODO: Apply all operations (push old value to undo_stack each time)
-# Then undo twice (pop from undo_stack)
-# Print final counter value
-`,
-        expectedOutput: "6",
-        hint: "Before each operation, push the current counter value to undo_stack.\nTo undo, just pop the last saved value and set counter to it.\nAfter [+5, +3, -2, +7] counter = 13. Undo +7 → 6. Undo -2 → 8. Wait... think about what 'undo' means!",
-        hintZh: "每次操作前，把当前counter值压入undo_stack。\n撤销时，弹出上一个保存的值并设置counter。\n执行 [+5, +3, -2, +7] 后 counter = 13。撤销+7 → 6。撤销-2 → 8。想想'撤销'的意思！",
-        solution: `counter = 0
-undo_stack = []
-
-operations = [5, 3, -2, 7]
-
-for op in operations:
-    undo_stack.append(counter)
-    counter += op
-
-# Undo twice
-counter = undo_stack.pop()  # Undo +7: back to 6
-counter = undo_stack.pop()  # Undo -2: back to 8
-
-print(counter)`,
-      },
+print("🫧 Bubble Sort:")
+print(f"  Result: {data1}")
+print(f"  Comparisons: {c1}")
+print(f"\\n🎯 Selection Sort:")
+print(f"  Result: {data2}")
+print(f"  Comparisons: {c2}")`,
     },
     {
       type: "code",
-      emoji: "🔬",
-      content: `## 🔬 Advanced: Drawing App Undo
+      emoji: "🚀",
+      content: `## 🚀 Merge Sort — The Fast One · 归并排序——快速选手`,
+      code: `# 📦 Box: "Divide and conquer — split, sort, merge!"
 
-\`\`\`python
-class DrawingApp:
-    """A drawing app where you can undo/redo shapes! 🎨"""
-    
-    def __init__(self):
-        self.canvas = []
-        self.undo_stack = []
-        self.redo_stack = []
-    
-    def draw(self, shape):
-        self.undo_stack.append(("draw", shape))
-        self.redo_stack.clear()
-        self.canvas.append(shape)
-        self._show()
-    
-    def undo(self):
-        if not self.undo_stack:
-            print("Nothing to undo!")
-            return
-        action, shape = self.undo_stack.pop()
-        self.redo_stack.append((action, shape))
-        self.canvas.remove(shape)
-        self._show()
-    
-    def redo(self):
-        if not self.redo_stack:
-            print("Nothing to redo!")
-            return
-        action, shape = self.redo_stack.pop()
-        self.undo_stack.append((action, shape))
-        self.canvas.append(shape)
-        self._show()
-    
-    def _show(self):
-        print(f"🖼️ Canvas: {self.canvas}")
-        print(f"   Undo available: {len(self.undo_stack)} | Redo available: {len(self.redo_stack)}")
+def merge_sort(arr):
+    """Merge Sort — O(n log n) · 归并排序"""
+    if len(arr) <= 1:
+        return arr
 
-app = DrawingApp()
-app.draw("⭐ Star")
-app.draw("🔵 Circle")
-app.draw("🔺 Triangle")
-app.undo()
-app.undo()
-app.redo()
-print(f"\\nFinal canvas: {app.canvas}")
-\`\`\`
+    mid = len(arr) // 2
+    left = merge_sort(arr[:mid])    # Sort left half 排序左半
+    right = merge_sort(arr[mid:])   # Sort right half 排序右半
+    return merge(left, right)        # Merge them 合并
 
-🤖 Botty: "Photoshop allows 1000+ undos — that's a stack with 1000+ items!"`,
-    },
-    {
-      type: "challenge",
-      emoji: "🏆",
-      content: `## 🏆 Challenge: Browser History
+def merge(left, right):
+    """Merge two sorted arrays · 合并两个有序数组"""
+    result = []
+    i = j = 0
+    while i < len(left) and j < len(right):
+        if left[i] <= right[j]:
+            result.append(left[i])
+            i += 1
+        else:
+            result.append(right[j])
+            j += 1
+    result.extend(left[i:])
+    result.extend(right[j:])
+    return result
 
-\`\`\`python
-class Browser:
-    """Browser navigation with back/forward — DUAL STACKS! 🌐"""
-    
-    def __init__(self, homepage="google.com"):
-        self.current = homepage
-        self.back_stack = []
-        self.forward_stack = []
-        print(f"🏠 Homepage: {self.current}")
-    
-    def visit(self, url):
-        self.back_stack.append(self.current)
-        self.forward_stack.clear()
-        self.current = url
-        print(f"🌐 Visiting: {self.current}")
-    
-    def back(self):
-        if not self.back_stack:
-            print("❌ Can't go back!")
-            return
-        self.forward_stack.append(self.current)
-        self.current = self.back_stack.pop()
-        print(f"⬅️ Back to: {self.current}")
-    
-    def forward(self):
-        if not self.forward_stack:
-            print("❌ Can't go forward!")
-            return
-        self.back_stack.append(self.current)
-        self.current = self.forward_stack.pop()
-        print(f"➡️ Forward to: {self.current}")
+# Demo
+data = [38, 27, 43, 3, 9, 82, 10]
+print(f"Original: {data}")
+sorted_data = merge_sort(data)
+print(f"Sorted:   {sorted_data}")
 
-browser = Browser()
-browser.visit("python.org")
-browser.visit("github.com")
-browser.visit("stackoverflow.com")
-browser.back()
-browser.back()
-browser.forward()
-print(f"\\n📍 Current page: {browser.current}")
-\`\`\`
+# Compare speed
+import time
+big_data = list(range(1000, 0, -1))  # worst case: reversed!
 
-🔧 Chip: "Your REAL browser works exactly like this! Chrome, Firefox, Safari — all dual stacks!"`,
+start = time.time()
+bubble_sort(big_data.copy())
+bubble_time = time.time() - start
+
+start = time.time()
+merge_sort(big_data.copy())
+merge_time = time.time() - start
+
+print(f"\\n⏱️ 1000 elements (worst case):")
+print(f"  Bubble Sort: {bubble_time:.4f}s")
+print(f"  Merge Sort:  {merge_time:.4f}s")
+print(f"  Merge is {bubble_time/max(merge_time, 0.0001):.0f}x faster! 🚀")`,
     },
     {
       type: "quiz",
-      emoji: "❓",
-      content: "Undo System Quiz!",
-      quiz: [{
-        question: "When you perform a NEW action after undoing, what happens to the redo stack?",
-        options: [
-          "It gets cleared — the undone actions are lost forever!",
-          "It stays the same",
-          "The new action gets added to it",
-          "It merges with the undo stack",
-        ],
-        
-        correctIndex: 0,
-        explanation:
-          "When you do something new after undoing, the redo stack is CLEARED. You can't redo old actions after branching off in a new direction. This is how every editor works!",
-        }],
+      content: "🎓 Sorting Quiz · 排序测验",
+      quiz: [
+        {
+          question: "What is the time complexity of Merge Sort?\n\n归并排序的时间复杂度是什么？",
+          options: ["O(n)", "O(n²)", "O(n log n)", "O(log n)"],
+          correctIndex: 2,
+          explanation: "Merge sort divides (log n levels) and merges (n work per level) = O(n log n). 归并排序：分治 log n 层，每层 n 工作量！",
+        },
+        {
+          question: "Which sort is best for nearly-sorted data?\n\n哪种排序最适合几乎已排序的数据？",
+          options: ["Bubble Sort", "Selection Sort", "Insertion Sort", "Quick Sort"],
+          correctIndex: 2,
+          explanation: "Insertion sort on nearly-sorted data is almost O(n) — very efficient! 插入排序对几乎有序数据接近 O(n)！",
+        },
+      ],
+    },
+    {
+      type: "challenge",
+      content: "🏆 Challenge · 挑战",
+      challenge: {
+        title: "🃏 Insertion Sort · 插入排序",
+        description: "Implement insertion sort: for each element, insert it into its correct position in the sorted portion.\n实现插入排序：对每个元素，将其插入已排序部分的正确位置。",
+        starterCode: "def insertion_sort(arr):\n    # For each element starting from index 1,\n    # insert it into the correct position\n    pass\n\ndata = [5, 2, 8, 1, 9, 3]\ninsertion_sort(data)\nprint(data)  # [1, 2, 3, 5, 8, 9]",
+        hint: "For i from 1..n: save arr[i] as key, shift elements > key to the right, insert key. 保存当前元素，将大于它的元素右移，插入。",
+        solution: "def insertion_sort(arr):\n    for i in range(1, len(arr)):\n        key = arr[i]\n        j = i - 1\n        while j >= 0 and arr[j] > key:\n            arr[j + 1] = arr[j]\n            j -= 1\n        arr[j + 1] = key\n\ndata = [5, 2, 8, 1, 9, 3]\ninsertion_sort(data)\nprint(data)",
+        expectedOutput: "[1, 2, 3, 5, 8, 9]",
+      },
     },
   ],
 };
-
-// ═══════════════════════════════════════════════════════════════
-// LESSON DS-4-2: Expression Calculator
-// ═══════════════════════════════════════════════════════════════
 
 const ds_4_2: Lesson = {
   id: "ds-4-2",
   moduleId: "ds-4",
-  title: "Expression Calculator",
-  subtitle: "Parse math with stacks! · 用栈解析数学表达式",
-  icon: "🧮",
-  xp: 55,
-  duration: "25 min",
+  title: "Searching Strategies",
+  subtitle: "Linear, binary, and beyond · 搜索策略——线性、二分及更多",
+  icon: "🔎",
+  xp: 20,
+  duration: "20 min",
   order: 2,
-  gradeRange: [5, 12],
+  gradeRange: [7, 12],
   difficulty: "intermediate",
   skillLevel: "intermediate",
   sections: [
     {
       type: "text",
-      emoji: "🧮",
-      content: `## 🐍 Py Says: How Calculators REALLY Work! 🧮
+      emoji: "📦",
+      content: `## 📦 Box: Finding Things FAST!
 
-When you type \`3 + 5 * 2\`, your calculator doesn't just read left to right!
-It needs to know that \`*\` comes BEFORE \`+\`. How? **STACKS!** 📚
+How do you find something in a collection?
 
-Every calculator and programming language uses **two stacks** to evaluate expressions:
-- **Number stack** → Holds numbers waiting to be combined
-- **Operator stack** → Holds operators waiting to be applied
+**Linear Search** 🐢 — Check every element one by one. O(n). Works on ANY list.
+**Binary Search** 🚀 — Only works on SORTED lists. Cut in half each step! O(log n).
 
-This is called the **Shunting Yard Algorithm** (invented by Dijkstra!) 🚂
+> 📖 Real-world: Binary search is how you look up a word in a physical dictionary! Open to the middle, decide which half to search.
+> 现实类比：二分搜索就像查字典！打开中间，决定搜索哪半边。
 
-🤖 Botty: "Every time Python runs \`3 + 5 * 2\`, it uses this exact algorithm internally!"
-
-🔧 Chip: "CPUs have a hardware stack for calculations. It's stacks all the way down! 🐢"
-
-Let's build a real calculator! 🔢`,
-    },
-    {
-      type: "concept",
-      emoji: "📖",
-      content: "Expression Evaluation Concepts",
-      concept: {
-        title: "🧰 Stack-Based Expression Evaluation",
-        titleZh: "基于栈的表达式计算",
-        syntaxCards: [
-          {
-            symbol: "num_stack",
-            name: "Number Stack",
-            nameZh: "数字栈",
-            emoji: "🔢",
-            description: "Holds numbers waiting to be operated on. When we apply an operator, we pop two numbers.",
-            example: 'num_stack = []\nnum_stack.append(5)  # Push\na = num_stack.pop()  # Pop: 5',
-          },
-          {
-            symbol: "op_stack",
-            name: "Operator Stack",
-            nameZh: "运算符栈",
-            emoji: "➕",
-            description: "Holds operators. Higher precedence ops get applied first. * and / before + and -!",
-            example: 'precedence = {"+": 1, "-": 1, "*": 2, "/": 2}',
-          },
-          {
-            symbol: "()",
-            name: "Parentheses",
-            nameZh: "括号",
-            emoji: "🔄",
-            description: "( pushes to op stack. ) triggers evaluation until matching ( is found. Parentheses override precedence!",
-            example: '"(3 + 5) * 2" → evaluate 3+5 first!',
-          },
-        ],
-      },
+**How fast is O(log n)?**
+- 1,000 elements → ~10 steps
+- 1,000,000 elements → ~20 steps
+- 1,000,000,000 elements → ~30 steps! 🤯`,
     },
     {
       type: "code",
       emoji: "💻",
-      content: `## 💻 Building a Calculator
+      content: `## 💻 Linear vs Binary Search · 线性 vs 二分搜索`,
+      code: `# 📦 Box: "Feel the difference!"
 
-\`\`\`python
-def calculate(expression):
-    """Evaluate a math expression using TWO STACKS! 🧮"""
-    
-    def precedence(op):
-        if op in ('+', '-'): return 1
-        if op in ('*', '/'): return 2
-        return 0
-    
-    def apply_op(nums, op):
-        b, a = nums.pop(), nums.pop()
-        if op == '+': nums.append(a + b)
-        elif op == '-': nums.append(a - b)
-        elif op == '*': nums.append(a * b)
-        elif op == '/': nums.append(a // b)
-    
-    nums = []     # Number stack 🔢
-    ops = []      # Operator stack ➕
-    
-    i = 0
-    tokens = expression.replace(" ", "")
-    
-    while i < len(tokens):
-        if tokens[i].isdigit():
-            # Read full number
-            num = 0
-            while i < len(tokens) and tokens[i].isdigit():
-                num = num * 10 + int(tokens[i])
-                i += 1
-            nums.append(num)
-            print(f"  📥 Push number: {num} → nums={nums}")
-            continue
-        
-        elif tokens[i] == '(':
-            ops.append('(')
-            print(f"  📥 Push '(' → ops={ops}")
-        
-        elif tokens[i] == ')':
-            while ops and ops[-1] != '(':
-                apply_op(nums, ops.pop())
-            ops.pop()  # Remove '('
-            print(f"  🔄 Closed parens → nums={nums}")
-        
-        elif tokens[i] in '+-*/':
-            while (ops and ops[-1] != '(' and
-                   precedence(ops[-1]) >= precedence(tokens[i])):
-                apply_op(nums, ops.pop())
-            ops.append(tokens[i])
-            print(f"  📥 Push op: {tokens[i]} → ops={ops}")
-        
-        i += 1
-    
-    while ops:
-        apply_op(nums, ops.pop())
-    
-    return nums[0]
+def linear_search(arr, target):
+    """Linear Search — O(n) · 线性搜索"""
+    steps = 0
+    for i, val in enumerate(arr):
+        steps += 1
+        if val == target:
+            return i, steps
+    return -1, steps
 
-# Test it!
-expressions = ["3 + 5 * 2", "(3 + 5) * 2", "10 - 3 + 2 * 4", "(10 - 3) * (2 + 4)"]
-for expr in expressions:
-    print(f"\\n🧮 Evaluating: {expr}")
-    result = calculate(expr)
-    print(f"  ✅ Result: {result}")
-\`\`\`
+def binary_search(arr, target):
+    """Binary Search — O(log n) · 二分搜索 (arr must be sorted!)"""
+    steps = 0
+    left, right = 0, len(arr) - 1
+    while left <= right:
+        steps += 1
+        mid = (left + right) // 2
+        if arr[mid] == target:
+            return mid, steps
+        elif arr[mid] < target:
+            left = mid + 1    # Search right half 搜索右半
+        else:
+            right = mid - 1   # Search left half 搜索左半
+    return -1, steps
 
-🐍 Py: "The magic is in the **precedence check** — we apply higher-precedence operators first, just like math class!"`,
-    },
-    {
-      type: "interactive",
-      content: `## 🎮 Your Turn: Balanced Brackets!`,
-      exercise: {
-        prompt: "Write a function that checks if brackets are balanced. Test with '({[]})' (True) and '({[}])' (False). Print both results.",
-        promptZh: "写一个函数检查括号是否匹配。测试 '({[]})' (True) 和 '({[}])' (False)。打印两个结果。",
-        starterCode: `def is_balanced(s):
-    stack = []
-    matching = {')': '(', ']': '[', '}': '{'}
-    
-    for char in s:
-        # TODO: If opening bracket, push to stack
-        # TODO: If closing bracket, check if matches top of stack
-        pass
-    
-    return len(stack) == 0
+# Compare on a sorted list of 1000 elements
+data = list(range(1000))
+target = 777
 
-print(is_balanced("({[]})"))
-print(is_balanced("({[}])"))
-`,
-        expectedOutput: "True\nFalse",
-        hint: "Opening brackets: push to stack. Closing brackets: check if stack top matches.\nIf char is in '([{', append to stack.\nIf char is in ')]}, pop from stack and check if it matches using the 'matching' dict.",
-        hintZh: "左括号：压入栈。右括号：检查栈顶是否匹配。\n如果char在'([{'中，append到stack。\n如果char在')]}'中，pop并用matching字典检查是否匹配。",
-        solution: `def is_balanced(s):
-    stack = []
-    matching = {')': '(', ']': '[', '}': '{'}
-    
-    for char in s:
-        if char in '([{':
-            stack.append(char)
-        elif char in ')]}':
-            if not stack or stack[-1] != matching[char]:
-                return False
-            stack.pop()
-    
-    return len(stack) == 0
+idx1, steps1 = linear_search(data, target)
+idx2, steps2 = binary_search(data, target)
 
-print(is_balanced("({[]})"))
-print(is_balanced("({[}])"))`,
-      },
+print(f"Finding {target} in 1000 elements:")
+print(f"  🐢 Linear: found at index {idx1}, took {steps1} steps")
+print(f"  🚀 Binary: found at index {idx2}, took {steps2} steps")
+print(f"  Binary is {steps1/steps2:.0f}x fewer steps! 🏆")
+
+# Worst case comparison
+_, worst_linear = linear_search(data, 999)
+_, worst_binary = binary_search(data, 999)
+print(f"\\nWorst case: Linear={worst_linear}, Binary={worst_binary}")`,
     },
     {
       type: "code",
-      emoji: "🔬",
-      content: `## 🔬 Advanced: Postfix (RPN) Calculator
+      emoji: "🔍",
+      content: `## 🔍 Interpolation Search · 插值搜索`,
+      code: `# 📦 Box: "An even smarter search for uniform data!"
 
-\`\`\`python
-def rpn_calculate(expression):
-    """Reverse Polish Notation calculator 🇵🇱
-    
-    In RPN, operators come AFTER their operands:
-    Normal:  3 + 5  →  RPN: 3 5 +
-    Normal:  3 + 5 * 2  →  RPN: 3 5 2 * +
-    
-    NO parentheses needed! Just one stack! 🎉
-    """
-    stack = []
-    
-    for token in expression.split():
-        if token.lstrip('-').isdigit():
-            stack.append(int(token))
+def interpolation_search(arr, target):
+    """Interpolation Search — O(log log n) for uniform data · 插值搜索"""
+    low, high = 0, len(arr) - 1
+    steps = 0
+
+    while low <= high and arr[low] <= target <= arr[high]:
+        steps += 1
+        if low == high:
+            if arr[low] == target:
+                return low, steps
+            return -1, steps
+
+        # Estimate position based on value (like a phone book lookup)
+        # 基于值估计位置（像查电话簿一样）
+        pos = low + int(((target - arr[low]) * (high - low)) / (arr[high] - arr[low]))
+        
+        if arr[pos] == target:
+            return pos, steps
+        elif arr[pos] < target:
+            low = pos + 1
         else:
-            b, a = stack.pop(), stack.pop()
-            if token == '+': stack.append(a + b)
-            elif token == '-': stack.append(a - b)
-            elif token == '*': stack.append(a * b)
-            elif token == '/': stack.append(a // b)
-        print(f"  Token: {token:>3} → Stack: {stack}")
-    
-    return stack[0]
+            high = pos - 1
 
-tests = [
-    ("3 5 +", "3 + 5"),
-    ("3 5 2 * +", "3 + 5*2"),
-    ("3 5 + 2 *", "(3+5) * 2"),
-    ("10 3 - 2 4 + *", "(10-3) * (2+4)"),
-]
+    return -1, steps
 
-for rpn, normal in tests:
-    print(f"\\n🧮 RPN: {rpn}  (= {normal})")
-    result = rpn_calculate(rpn)
-    print(f"  ✅ = {result}")
-\`\`\`
+# Compare all three on uniform data
+data = list(range(0, 10000, 2))  # [0, 2, 4, ..., 9998]
+target = 7654
 
-🤖 Botty: "HP calculators used RPN for decades! No parentheses, no precedence rules — just pure stack power!"`,
-    },
-    {
-      type: "challenge",
-      emoji: "🏆",
-      content: `## 🏆 Challenge: Infix to Postfix Converter
+_, s1 = linear_search(data, target)
+_, s2 = binary_search(data, target)
+idx, s3 = interpolation_search(data, target)
 
-\`\`\`python
-def infix_to_postfix(expression):
-    """Convert normal math to RPN using the Shunting Yard algorithm! 🚂"""
-    precedence = {'+': 1, '-': 1, '*': 2, '/': 2}
-    output = []
-    ops = []
-    
-    for token in expression.split():
-        if token.isdigit():
-            output.append(token)
-        elif token == '(':
-            ops.append(token)
-        elif token == ')':
-            while ops and ops[-1] != '(':
-                output.append(ops.pop())
-            ops.pop()  # Remove '('
-        elif token in precedence:
-            while (ops and ops[-1] != '(' and 
-                   ops[-1] in precedence and 
-                   precedence[ops[-1]] >= precedence[token]):
-                output.append(ops.pop())
-            ops.append(token)
-    
-    while ops:
-        output.append(ops.pop())
-    
-    return ' '.join(output)
+print(f"Finding {target} in {len(data)} elements:")
+print(f"  🐢 Linear:        {s1} steps")
+print(f"  🚀 Binary:        {s2} steps")
+print(f"  ⚡ Interpolation: {s3} steps")
 
-tests = [
-    "3 + 5",
-    "3 + 5 * 2",
-    "( 3 + 5 ) * 2",
-    "( 10 - 3 ) * ( 2 + 4 )",
-]
-
-for expr in tests:
-    postfix = infix_to_postfix(expr)
-    print(f"📝 {expr:30} → RPN: {postfix}")
-\`\`\`
-
-🔧 Chip: "Dijkstra invented this in 1961! It's called 'Shunting Yard' because tokens get shunted between the output and operator stack like train cars in a rail yard! 🚂"`,
+# For uniformly distributed data, interpolation search is even faster!`,
     },
     {
       type: "quiz",
-      emoji: "❓",
-      content: "Calculator Quiz!",
-      quiz: [{
-        question: "In the expression '3 + 5 * 2', why do we evaluate * before +?",
-        options: [
-          "Because * has higher precedence — the operator stack ensures higher-precedence ops are applied first",
-          "Because * comes after + in the alphabet",
-          "We always evaluate left to right",
-          "The number stack decides the order",
-        ],
-        
-        correctIndex: 0,
-        explanation:
-          "The operator stack checks precedence before pushing. If the new operator has lower/equal precedence, we first apply what's already on the stack. This ensures * and / happen before + and -!",
-        }],
+      content: "🎓 Search Quiz · 搜索测验",
+      quiz: [
+        {
+          question: "Binary search requires the data to be:\n\n二分搜索要求数据必须是：",
+          options: ["Unsorted", "Sorted", "Unique", "Numeric"],
+          correctIndex: 1,
+          explanation: "Binary search ONLY works on sorted data! Otherwise it can't decide which half to search. 二分搜索只能用于有序数据！",
+        },
+      ],
+    },
+    {
+      type: "challenge",
+      content: "🏆 Challenge · 挑战",
+      challenge: {
+        title: "🔢 First & Last Position · 第一和最后位置",
+        description: "Given a sorted array with duplicates, find the first AND last position of a target value using binary search.\n在有重复值的有序数组中，用二分搜索找目标值的第一和最后位置。",
+        starterCode: "def find_range(arr, target):\n    # Find first and last index of target\n    # Return (first, last) or (-1, -1) if not found\n    pass\n\narr = [1, 2, 2, 2, 3, 4, 4, 5]\nprint(find_range(arr, 2))  # (1, 3)\nprint(find_range(arr, 4))  # (5, 6)\nprint(find_range(arr, 6))  # (-1, -1)",
+        hint: "Run binary search twice: once to find the leftmost occurrence, once for the rightmost. 运行两次二分搜索：找最左和最右。",
+        solution: "def find_range(arr, target):\n    def find_left():\n        lo, hi, result = 0, len(arr)-1, -1\n        while lo <= hi:\n            mid = (lo+hi)//2\n            if arr[mid] == target:\n                result = mid\n                hi = mid - 1\n            elif arr[mid] < target:\n                lo = mid + 1\n            else:\n                hi = mid - 1\n        return result\n    def find_right():\n        lo, hi, result = 0, len(arr)-1, -1\n        while lo <= hi:\n            mid = (lo+hi)//2\n            if arr[mid] == target:\n                result = mid\n                lo = mid + 1\n            elif arr[mid] < target:\n                lo = mid + 1\n            else:\n                hi = mid - 1\n        return result\n    return (find_left(), find_right())\n\narr = [1, 2, 2, 2, 3, 4, 4, 5]\nprint(find_range(arr, 2))\nprint(find_range(arr, 4))\nprint(find_range(arr, 6))",
+        expectedOutput: "(1, 3)\n(5, 6)\n(-1, -1)",
+      },
     },
   ],
 };
-
-// ═══════════════════════════════════════════════════════════════
-// LESSON DS-4-3: Social Media Feed
-// ═══════════════════════════════════════════════════════════════
 
 const ds_4_3: Lesson = {
   id: "ds-4-3",
   moduleId: "ds-4",
-  title: "Social Media Feed",
-  subtitle: "Priority queues + graphs for news feeds · 优先队列+图构建社交动态",
-  icon: "📱",
-  xp: 55,
-  duration: "25 min",
+  title: "Final Project — Build Your Own DS Library",
+  subtitle: "Create a reusable data structures toolkit · 综合项目——打造你自己的数据结构库",
+  icon: "🏗️",
+  xp: 25,
+  duration: "30 min",
   order: 3,
-  gradeRange: [5, 12],
+  gradeRange: [7, 12],
   difficulty: "intermediate",
   skillLevel: "intermediate",
   sections: [
     {
       type: "text",
-      emoji: "📱",
-      content: `## 🐍 Py Says: How Does Your Feed Work? 📱
+      emoji: "📦",
+      content: `## 📦 Box + 🔗 Link + 🌳 Root: The Grand Finale!
 
-Ever wonder how Instagram, TikTok, or YouTube decides what to show you? It's **data structures working together**!
+Congratulations! You've learned ALL the major data structures! 🎉
 
-Your social media feed combines:
-- 🕸️ **Graph** → Who you follow (social connections)
-- ⏰ **Priority Queue** → Rank posts by importance/time
-- 📊 **HashMap** → Store user profiles and post data
+Now it's time to build your own **Data Structures Library** — a reusable Python module with everything you've learned:
 
-The algorithm:
-1. Get all users you follow (graph traversal)
-2. Collect their recent posts (hashmap lookup)
-3. Rank by engagement + recency (priority queue)
-4. Show top posts first!
+✅ Stack — push, pop, peek, is_empty
+✅ Queue — enqueue, dequeue, front, is_empty  
+✅ Linked List — append, prepend, delete, search, display
+✅ BST — insert, search, inorder traversal
+✅ Graph — add_vertex, add_edge, BFS, DFS
 
-🤖 Botty: "TikTok's algorithm uses ALL of these — plus machine learning on top!"
+📦 **Box says:** "Real software engineers build libraries like this!"
+🔗 **Link says:** "You'll use these in EVERY coding interview!"
+🌳 **Root says:** "This is your CS toolkit — cherish it!"
 
-🔧 Chip: "A priority queue isn't FIFO like a normal queue — the HIGHEST PRIORITY item comes out first!"
-
-Let's build our own social feed! 🚀`,
-    },
-    {
-      type: "concept",
-      emoji: "📖",
-      content: "Priority Queue & Feed Concepts",
-      concept: {
-        title: "🧰 Priority Queues & Heaps",
-        titleZh: "优先队列与堆",
-        syntaxCards: [
-          {
-            symbol: "heapq",
-            name: "Priority Queue (Heap)",
-            nameZh: "优先队列（堆）",
-            emoji: "🏔️",
-            description: "A queue where the smallest (or highest priority) item always comes out first. Python's heapq is a min-heap!",
-            example: 'import heapq\nheapq.heappush(pq, (priority, item))\ntop = heapq.heappop(pq)',
-          },
-          {
-            symbol: "(-score, item)",
-            name: "Max-Heap Trick",
-            nameZh: "最大堆技巧",
-            emoji: "🔄",
-            description: "Python only has min-heap. For max-heap, negate the priority! -100 < -50, so score 100 comes out first.",
-            example: 'heapq.heappush(pq, (-score, post))\n# Highest score pops first!',
-          },
-          {
-            symbol: "feed algorithm",
-            name: "Feed Ranking",
-            nameZh: "动态排序",
-            emoji: "📊",
-            description: "Combine multiple signals: recency, likes, comments, relevance. Weight them and sort with a priority queue!",
-            example: 'score = likes*2 + comments*3 + recency\nheapq.heappush(feed, (-score, post))',
-          },
-        ],
-      },
+> 🏗️ This is YOUR portfolio piece. Customize it, add documentation, make it yours!
+> 这是你的作品集项目。定制它，添加文档，让它成为你自己的！`,
     },
     {
       type: "code",
-      emoji: "💻",
-      content: `## 💻 Building a Social Media Feed
+      emoji: "📚",
+      content: `## 📚 Your Data Structures Library · 你的数据结构库`,
+      code: `# ═══════════════════════════════════════════
+# 📚 MY DATA STRUCTURES LIBRARY
+# Author: [Your Name]
+# ═══════════════════════════════════════════
 
-\`\`\`python
-import heapq
-from datetime import datetime, timedelta
-
-# 📊 User profiles (HashMap)
-users = {
-    "alice": {"name": "Alice", "verified": True},
-    "bob": {"name": "Bob", "verified": False},
-    "carol": {"name": "Carol", "verified": True},
-    "dave": {"name": "Dave", "verified": False},
-}
-
-# 🕸️ Social graph: who follows whom
-following = {
-    "you": ["alice", "bob", "carol"],
-    "alice": ["bob", "carol"],
-    "bob": ["alice"],
-    "carol": ["alice", "dave"],
-    "dave": ["carol"],
-}
-
-# 📝 Posts (HashMap of lists)
-posts = {
-    "alice": [
-        {"text": "Just launched my new app! 🚀", "likes": 150, "comments": 42, "hours_ago": 2},
-        {"text": "Morning coffee ☕", "likes": 30, "comments": 5, "hours_ago": 8},
-    ],
-    "bob": [
-        {"text": "Check out this sunset 🌅", "likes": 85, "comments": 20, "hours_ago": 1},
-        {"text": "Debugging at 3am 😅", "likes": 200, "comments": 65, "hours_ago": 5},
-    ],
-    "carol": [
-        {"text": "New Python tutorial! 🐍", "likes": 300, "comments": 80, "hours_ago": 3},
-    ],
-    "dave": [
-        {"text": "Hello world!", "likes": 5, "comments": 1, "hours_ago": 1},
-    ],
-}
-
-def calculate_score(post, author):
-    """Calculate feed priority score"""
-    recency = max(0, 24 - post["hours_ago"])  # Newer = higher
-    engagement = post["likes"] * 1 + post["comments"] * 3
-    verified_boost = 50 if users[author]["verified"] else 0
-    return recency + engagement + verified_boost
-
-def build_feed(user):
-    """Build a ranked feed using priority queue! 📱"""
-    feed = []  # Min-heap (negate scores for max behavior)
-    
-    # 1. Get who this user follows (graph lookup)
-    followed = following.get(user, [])
-    print(f"👥 {user} follows: {followed}")
-    
-    # 2. Collect all their posts and score them
-    for author in followed:
-        for post in posts.get(author, []):
-            score = calculate_score(post, author)
-            # Negate score for max-heap behavior
-            heapq.heappush(feed, (-score, author, post["text"]))
-    
-    # 3. Pop in priority order (highest score first!)
-    print(f"\\n📱 Your Feed:")
-    rank = 1
-    while feed:
-        neg_score, author, text = heapq.heappop(feed)
-        score = -neg_score
-        print(f"  #{rank} [{score:>3} pts] @{author}: {text}")
-        rank += 1
-
-build_feed("you")
-\`\`\`
-
-🐍 Py: "The priority queue automatically sorts posts by score — highest engagement + most recent = top of your feed!"`,
-    },
-    {
-      type: "interactive",
-      content: `## 🎮 Your Turn: Top 3 Posts!`,
-      exercise: {
-        prompt: "Given posts with scores, use heapq to find the top 3 posts. Print their titles in order (highest score first).",
-        promptZh: "给定带分数的帖子，用heapq找到前3个帖子。按分数从高到低打印标题。",
-        starterCode: `import heapq
-
-posts = [
-    (42, "Hello World"),
-    (99, "Python Tips"),
-    (15, "My Lunch"),
-    (87, "Coding Hack"),
-    (63, "Book Review"),
-    (5, "Test Post"),
-]
-
-# TODO: Use heapq to get top 3 posts by score
-# Print titles from highest to lowest score
-`,
-        expectedOutput: "Python Tips\nCoding Hack\nBook Review",
-        hint: "heapq.nlargest(3, posts) returns the 3 largest items!\nEach item is (score, title), so nlargest compares by score first.\nThen just print the title (index [1]) of each result.",
-        hintZh: "heapq.nlargest(3, posts) 返回最大的3个元素！\n每个元素是 (score, title)，nlargest先按score比较。\n然后打印每个结果的title（索引[1]）。",
-        solution: `import heapq
-
-posts = [
-    (42, "Hello World"),
-    (99, "Python Tips"),
-    (15, "My Lunch"),
-    (87, "Coding Hack"),
-    (63, "Book Review"),
-    (5, "Test Post"),
-]
-
-top3 = heapq.nlargest(3, posts)
-for score, title in top3:
-    print(title)`,
-      },
-    },
-    {
-      type: "code",
-      emoji: "🔬",
-      content: `## 🔬 Advanced: Trending Topics
-
-\`\`\`python
-import heapq
-from collections import Counter
-
-# Simulated post data with hashtags
-all_posts = [
-    {"text": "Love #python!", "likes": 50},
-    {"text": "#python is amazing #coding", "likes": 80},
-    {"text": "New #javascript framework", "likes": 30},
-    {"text": "#python #ai is the future!", "likes": 200},
-    {"text": "#coding challenge today", "likes": 45},
-    {"text": "#ai #python machine learning", "likes": 150},
-    {"text": "#javascript for beginners", "likes": 25},
-    {"text": "#coding #python tips", "likes": 90},
-]
-
-def extract_hashtags(text):
-    return [word for word in text.split() if word.startswith("#")]
-
-# Count hashtag frequency AND total engagement
-tag_count = Counter()
-tag_engagement = Counter()
-
-for post in all_posts:
-    tags = extract_hashtags(post["text"])
-    for tag in tags:
-        tag_count[tag] += 1
-        tag_engagement[tag] += post["likes"]
-
-# Combine into trending score
-trending = []
-for tag in tag_count:
-    score = tag_count[tag] * 10 + tag_engagement[tag]
-    heapq.heappush(trending, (-score, tag))
-
-print("🔥 Trending Topics:")
-for i in range(min(5, len(trending))):
-    neg_score, tag = heapq.heappop(trending)
-    count = tag_count[tag]
-    eng = tag_engagement[tag]
-    print(f"  #{i+1} {tag} — {count} posts, {eng} total likes (score: {-neg_score})")
-\`\`\`
-
-🤖 Botty: "Twitter's trending algorithm works like this — frequency × engagement = trending score!"`,
-    },
-    {
-      type: "challenge",
-      emoji: "🏆",
-      content: `## 🏆 Challenge: Friend Recommendation Engine
-
-\`\`\`python
-import heapq
-
-# Social graph
-follows = {
-    "you": ["alice", "bob"],
-    "alice": ["you", "bob", "carol", "dave"],
-    "bob": ["you", "alice", "eve"],
-    "carol": ["alice", "dave"],
-    "dave": ["alice", "carol", "eve"],
-    "eve": ["bob", "dave"],
-}
-
-# User engagement scores
-engagement = {
-    "alice": 95, "bob": 80, "carol": 70,
-    "dave": 60, "eve": 85,
-}
-
-def recommend_friends(user, graph, scores, top_n=3):
-    """Recommend friends based on mutual connections + engagement"""
-    my_friends = set(graph.get(user, []))
-    candidates = {}
-    
-    # Find friends-of-friends
-    for friend in my_friends:
-        for fof in graph.get(friend, []):
-            if fof != user and fof not in my_friends:
-                if fof not in candidates:
-                    candidates[fof] = {"mutual": 0, "score": scores.get(fof, 0)}
-                candidates[fof]["mutual"] += 1
-    
-    # Rank: mutual_friends * 30 + engagement_score
-    heap = []
-    for person, data in candidates.items():
-        rank = data["mutual"] * 30 + data["score"]
-        heapq.heappush(heap, (-rank, person, data["mutual"]))
-    
-    print(f"💡 Friend recommendations for @{user}:")
-    for i in range(min(top_n, len(heap))):
-        neg_rank, person, mutual = heapq.heappop(heap)
-        print(f"  {i+1}. @{person} — {mutual} mutual friends, score: {scores[person]} (rank: {-neg_rank})")
-
-recommend_friends("you", follows, engagement)
-\`\`\`
-
-🔧 Chip: "LinkedIn's 'People You May Know' uses exactly this — mutual connections + profile relevance!"`,
-    },
-    {
-      type: "quiz",
-      emoji: "❓",
-      content: "Social Feed Quiz!",
-      quiz: [{
-        question: "Why use a priority queue (heap) instead of just sorting a list for a social media feed?",
-        options: [
-          "Heap gives us top-K items in O(n log k) — faster than full sort O(n log n) when we only need top posts!",
-          "Heaps are always faster than sorting",
-          "Lists can't hold posts",
-          "Priority queues use less memory than lists",
-        ],
-        
-        correctIndex: 0,
-        explanation:
-          "When you only need the TOP K items from millions of posts, a heap is much faster than sorting everything. Social media feeds typically show 20-50 posts from millions — perfect for heaps!",
-        }],
-    },
-  ],
-};
-
-// ═══════════════════════════════════════════════════════════════
-// LESSON DS-4-4: Graduation — Data Structure Olympics
-// ═══════════════════════════════════════════════════════════════
-
-const ds_4_4: Lesson = {
-  id: "ds-4-4",
-  moduleId: "ds-4",
-  title: "Data Structure Olympics",
-  subtitle: "The grand finale! Combine everything! · 终极毕业挑战",
-  icon: "🏅",
-  xp: 75,
-  duration: "35 min",
-  order: 4,
-  gradeRange: [5, 12],
-  difficulty: "intermediate",
-  skillLevel: "intermediate",
-  sections: [
-    {
-      type: "text",
-      emoji: "🏅",
-      content: `## 🐍 Py Says: Welcome to the Data Structure Olympics! 🏅
-
-You've made it to the **GRAND FINALE**! 🎆
-
-You've mastered:
-- 📦 **Arrays & Linked Lists** — ordered data, chains of nodes
-- 📚 **Stacks** — LIFO, undo/redo, expression parsing
-- 🎢 **Queues** — FIFO, BFS, scheduling
-- 🌳 **Trees** — hierarchical data, BST search
-- 🗺️ **HashMaps** — O(1) lookup, counting, caching
-- 🕸️ **Graphs** — connections, BFS, DFS, pathfinding
-- 🏔️ **Priority Queues** — heaps, top-K, ranking
-
-Now it's time for the **Olympics** — a series of challenges that combine EVERYTHING! 🏋️
-
-🤖 Botty: "In real software engineering, you NEVER use just one data structure. The art is knowing which to combine!"
-
-🔧 Chip: "This is what separates beginners from experts — seeing the connections between data structures!"
-
-Let the games BEGIN! 🏁`,
-    },
-    {
-      type: "concept",
-      emoji: "📖",
-      content: "Choosing the Right Data Structure",
-      concept: {
-        title: "🧰 Data Structure Selection Guide",
-        titleZh: "数据结构选择指南",
-        syntaxCards: [
-          {
-            symbol: "need order?",
-            name: "Ordered → Array/List",
-            nameZh: "需要顺序 → 数组/列表",
-            emoji: "📦",
-            description: "When position matters! Indexed access, slicing, iteration in order.",
-            example: 'scores = [95, 87, 92]  # Order matters!\nscores[0]  # First score',
-          },
-          {
-            symbol: "need lookup?",
-            name: "Fast Lookup → HashMap",
-            nameZh: "快速查找 → 哈希表",
-            emoji: "🗺️",
-            description: "When you need instant access by key. O(1) get/set. Counting, caching, profiles.",
-            example: 'users = {"alice": 95}\nusers["alice"]  # Instant!',
-          },
-          {
-            symbol: "need LIFO?",
-            name: "Last-In-First-Out → Stack",
-            nameZh: "后进先出 → 栈",
-            emoji: "📚",
-            description: "When the most recent item matters most. Undo, parsing, backtracking.",
-            example: 'stack = []\nstack.append(x)  # Push\nstack.pop()      # Most recent',
-          },
-          {
-            symbol: "need FIFO?",
-            name: "First-In-First-Out → Queue",
-            nameZh: "先进先出 → 队列",
-            emoji: "🎢",
-            description: "When fairness/order matters. BFS, scheduling, buffering.",
-            example: 'from collections import deque\nq = deque()\nq.append(x); q.popleft()',
-          },
-          {
-            symbol: "need hierarchy?",
-            name: "Parent-Child → Tree",
-            nameZh: "父子关系 → 树",
-            emoji: "🌳",
-            description: "When data has levels/categories. File systems, org charts, BST for sorted data.",
-            example: 'class Node:\n    def __init__(self, val):\n        self.left = self.right = None',
-          },
-          {
-            symbol: "need connections?",
-            name: "Relationships → Graph",
-            nameZh: "关系网络 → 图",
-            emoji: "🕸️",
-            description: "When things connect in complex ways. Social networks, maps, dependencies.",
-            example: 'graph = {"A": ["B","C"], "B": ["A"]}',
-          },
-        ],
-      },
-    },
-    {
-      type: "code",
-      emoji: "💻",
-      content: `## 💻 Event 1: Task Scheduler (Queue + HashMap + Heap)
-
-\`\`\`python
-import heapq
-from collections import deque
-
-# 🏗️ A task scheduler that combines MULTIPLE data structures!
-
-# HashMap: Task details
-tasks = {
-    "T1": {"name": "Fix login bug", "priority": 3, "deps": []},
-    "T2": {"name": "Design homepage", "priority": 2, "deps": ["T1"]},
-    "T3": {"name": "Write tests", "priority": 1, "deps": ["T1"]},
-    "T4": {"name": "Deploy to prod", "priority": 5, "deps": ["T2", "T3"]},
-    "T5": {"name": "Send newsletter", "priority": 4, "deps": []},
-}
-
-# Graph: Dependencies (what must be done first)
-dep_graph = {tid: info["deps"] for tid, info in tasks.items()}
-
-# Step 1: Topological sort using BFS (Kahn's algorithm!)
-def topo_sort(graph, all_nodes):
-    in_degree = {n: 0 for n in all_nodes}
-    for node in all_nodes:
-        for dep in graph[node]:
-            in_degree[node] += 0  # deps are prerequisites
-    # Count how many tasks depend on each task
-    reverse = {n: [] for n in all_nodes}
-    for node in all_nodes:
-        for dep in graph[node]:
-            reverse[dep].append(node)
-    
-    in_degree = {n: len(graph[n]) for n in all_nodes}
-    queue = deque([n for n in all_nodes if in_degree[n] == 0])
-    order = []
-    
-    while queue:
-        # Among ready tasks, pick highest priority first (heap!)
-        ready = []
-        while queue:
-            ready.append(queue.popleft())
-        ready.sort(key=lambda t: -tasks[t]["priority"])
-        
-        for node in ready:
-            order.append(node)
-            for dependent in reverse[node]:
-                in_degree[dependent] -= 1
-                if in_degree[dependent] == 0:
-                    queue.append(dependent)
-    
-    return order
-
-schedule = topo_sort(dep_graph, list(tasks.keys()))
-print("📋 Task Schedule (respects dependencies + priority):")
-for i, tid in enumerate(schedule):
-    t = tasks[tid]
-    deps = f" (after {t['deps']})" if t["deps"] else " (no deps)"
-    print(f"  {i+1}. [{tid}] {t['name']} ⭐{t['priority']}{deps}")
-\`\`\`
-
-🐍 Py: "We used a HashMap (task data), Graph (dependencies), Queue (BFS), and priority sorting — FOUR structures together!"`,
-    },
-    {
-      type: "interactive",
-      content: `## 🎮 Event 2: LRU Cache Challenge!`,
-      exercise: {
-        prompt: "Implement a simple LRU (Least Recently Used) cache with capacity 3. Process these operations and print the final cache contents as a list (most recent first): put(1,'a'), put(2,'b'), put(3,'c'), get(1), put(4,'d'). Print the keys in order.",
-        promptZh: "实现一个容量为3的简单LRU缓存。处理这些操作并打印最终缓存内容（最近使用的在前）：put(1,'a'), put(2,'b'), put(3,'c'), get(1), put(4,'d')。按顺序打印键。",
-        starterCode: `from collections import OrderedDict
-
-class LRUCache:
-    def __init__(self, capacity):
-        self.capacity = capacity
-        self.cache = OrderedDict()
-    
-    def get(self, key):
-        if key in self.cache:
-            self.cache.move_to_end(key)
-            return self.cache[key]
-        return -1
-    
-    def put(self, key, value):
-        # TODO: If key exists, update and move to end
-        # TODO: If at capacity, remove LEAST recently used (first item)
-        # TODO: Add new key-value pair
-        pass
-
-cache = LRUCache(3)
-cache.put(1, 'a')
-cache.put(2, 'b')
-cache.put(3, 'c')
-cache.get(1)       # This makes key 1 most recent!
-cache.put(4, 'd')  # Evicts least recent (key 2)
-
-print(list(cache.cache.keys()))
-`,
-        expectedOutput: "[3, 1, 4]",
-        hint: "If key exists: update value, move_to_end(key).\nIf at capacity: self.cache.popitem(last=False) removes the FIRST (oldest) item.\nThen just self.cache[key] = value to add.",
-        hintZh: "如果key存在：更新值，move_to_end(key)。\n如果达到容量：self.cache.popitem(last=False) 移除第一个（最旧的）。\n然后 self.cache[key] = value 添加。",
-        solution: `from collections import OrderedDict
-
-class LRUCache:
-    def __init__(self, capacity):
-        self.capacity = capacity
-        self.cache = OrderedDict()
-    
-    def get(self, key):
-        if key in self.cache:
-            self.cache.move_to_end(key)
-            return self.cache[key]
-        return -1
-    
-    def put(self, key, value):
-        if key in self.cache:
-            self.cache.move_to_end(key)
-        elif len(self.cache) >= self.capacity:
-            self.cache.popitem(last=False)
-        self.cache[key] = value
-
-cache = LRUCache(3)
-cache.put(1, 'a')
-cache.put(2, 'b')
-cache.put(3, 'c')
-cache.get(1)
-cache.put(4, 'd')
-
-print(list(cache.cache.keys()))`,
-      },
-    },
-    {
-      type: "code",
-      emoji: "🔬",
-      content: `## 🔬 Event 3: Mini Database Engine
-
-\`\`\`python
-# A tiny database using HashMap + BST-like indexing + Stack for transactions!
-
-class MiniDB:
+# ── Stack ──────────────────────────────────
+class Stack:
     def __init__(self):
-        self.data = {}          # HashMap: id → record
-        self.index = {}         # HashMap: field_value → [ids]  (index!)
-        self.tx_stack = []      # Stack: transaction log for rollback
-        self.auto_id = 0
-    
-    def insert(self, record):
-        self.auto_id += 1
-        rid = self.auto_id
-        self.data[rid] = record
-        # Update indexes
-        for key, val in record.items():
-            idx_key = f"{key}:{val}"
-            if idx_key not in self.index:
-                self.index[idx_key] = []
-            self.index[idx_key].append(rid)
-        # Log for rollback
-        self.tx_stack.append(("insert", rid))
-        return rid
-    
-    def find(self, field, value):
-        """O(1) lookup using index!"""
-        idx_key = f"{field}:{value}"
-        ids = self.index.get(idx_key, [])
-        return [self.data[i] for i in ids if i in self.data]
-    
-    def rollback(self):
-        """Undo last operation using stack!"""
-        if not self.tx_stack:
-            print("Nothing to rollback!")
+        self._items = []
+    def push(self, item):
+        self._items.append(item)
+    def pop(self):
+        return self._items.pop() if self._items else None
+    def peek(self):
+        return self._items[-1] if self._items else None
+    def is_empty(self):
+        return len(self._items) == 0
+    def __len__(self):
+        return len(self._items)
+    def __repr__(self):
+        return f"Stack({self._items})"
+
+# ── Queue ──────────────────────────────────
+from collections import deque
+class Queue:
+    def __init__(self):
+        self._items = deque()
+    def enqueue(self, item):
+        self._items.append(item)
+    def dequeue(self):
+        return self._items.popleft() if self._items else None
+    def front(self):
+        return self._items[0] if self._items else None
+    def is_empty(self):
+        return len(self._items) == 0
+    def __len__(self):
+        return len(self._items)
+
+# ── Linked List ────────────────────────────
+class ListNode:
+    def __init__(self, data):
+        self.data = data
+        self.next = None
+
+class LinkedList:
+    def __init__(self):
+        self.head = None
+    def append(self, data):
+        node = ListNode(data)
+        if not self.head:
+            self.head = node
             return
-        op, rid = self.tx_stack.pop()
-        if op == "insert":
-            record = self.data.pop(rid, None)
-            if record:
-                for key, val in record.items():
-                    idx_key = f"{key}:{val}"
-                    if idx_key in self.index:
-                        self.index[idx_key].remove(rid)
-            print(f"↩️ Rolled back insert #{rid}")
+        cur = self.head
+        while cur.next:
+            cur = cur.next
+        cur.next = node
+    def prepend(self, data):
+        node = ListNode(data)
+        node.next = self.head
+        self.head = node
+    def search(self, target):
+        cur = self.head
+        while cur:
+            if cur.data == target:
+                return True
+            cur = cur.next
+        return False
+    def __repr__(self):
+        parts, cur = [], self.head
+        while cur:
+            parts.append(str(cur.data))
+            cur = cur.next
+        return " → ".join(parts) + " → None"
 
-# Let's use it!
-db = MiniDB()
-db.insert({"name": "Alice", "role": "engineer", "level": 5})
-db.insert({"name": "Bob", "role": "designer", "level": 3})
-db.insert({"name": "Carol", "role": "engineer", "level": 4})
-db.insert({"name": "Dave", "role": "engineer", "level": 5})
+# ── BST ────────────────────────────────────
+class BSTNode:
+    def __init__(self, val):
+        self.val = val
+        self.left = self.right = None
 
-print("🔍 All engineers:", db.find("role", "engineer"))
-print("🔍 Level 5:", db.find("level", 5))
+class BST:
+    def __init__(self):
+        self.root = None
+    def insert(self, val):
+        self.root = self._insert(self.root, val)
+    def _insert(self, node, val):
+        if not node:
+            return BSTNode(val)
+        if val < node.val:
+            node.left = self._insert(node.left, val)
+        else:
+            node.right = self._insert(node.right, val)
+        return node
+    def search(self, val):
+        return self._search(self.root, val)
+    def _search(self, node, val):
+        if not node:
+            return False
+        if val == node.val:
+            return True
+        return self._search(node.left, val) if val < node.val else self._search(node.right, val)
+    def inorder(self):
+        result = []
+        self._inorder(self.root, result)
+        return result
+    def _inorder(self, node, result):
+        if node:
+            self._inorder(node.left, result)
+            result.append(node.val)
+            self._inorder(node.right, result)
 
-db.rollback()  # Undo Dave
-print("\\n🔍 Engineers after rollback:", db.find("role", "engineer"))
-print(f"📊 Total records: {len(db.data)}")
-\`\`\`
+# ── Graph ──────────────────────────────────
+class Graph:
+    def __init__(self):
+        self.adj = {}
+    def add_edge(self, u, v):
+        self.adj.setdefault(u, []).append(v)
+        self.adj.setdefault(v, []).append(u)
+    def bfs(self, start):
+        visited, queue, order = {start}, deque([start]), []
+        while queue:
+            v = queue.popleft()
+            order.append(v)
+            for n in self.adj.get(v, []):
+                if n not in visited:
+                    visited.add(n)
+                    queue.append(n)
+        return order
+    def dfs(self, start):
+        visited, stack, order = set(), [start], []
+        while stack:
+            v = stack.pop()
+            if v not in visited:
+                visited.add(v)
+                order.append(v)
+                for n in reversed(self.adj.get(v, [])):
+                    if n not in visited:
+                        stack.append(n)
+        return order
 
-🤖 Botty: "Real databases like PostgreSQL use hashmaps (hash indexes), B-trees, and transaction logs (stacks) — exactly like this!"`,
+# ═══════════════════════════════════════════
+# 🧪 TEST EVERYTHING!
+# ═══════════════════════════════════════════
+print("📚 === Data Structures Library Test ===\\n")
+
+# Stack
+s = Stack()
+s.push(1); s.push(2); s.push(3)
+print(f"Stack: {s}, peek={s.peek()}, pop={s.pop()}")
+
+# Queue
+q = Queue()
+q.enqueue("A"); q.enqueue("B"); q.enqueue("C")
+print(f"Queue front={q.front()}, dequeue={q.dequeue()}")
+
+# Linked List
+ll = LinkedList()
+ll.append(1); ll.append(2); ll.append(3)
+print(f"LinkedList: {ll}")
+
+# BST
+bst = BST()
+for v in [5, 3, 7, 1, 4]:
+    bst.insert(v)
+print(f"BST inorder: {bst.inorder()}")
+
+# Graph
+g = Graph()
+g.add_edge("A", "B"); g.add_edge("B", "C"); g.add_edge("A", "C")
+print(f"Graph BFS from A: {g.bfs('A')}")
+print(f"Graph DFS from A: {g.dfs('A')}")
+
+print("\\n🎉 All data structures working! Your library is ready!")`,
     },
     {
-      type: "challenge",
-      emoji: "🏆",
-      content: `## 🏆 Gold Medal Challenge: Route Planner
+      type: "text",
+      emoji: "🎉",
+      content: `## 🎉 Congratulations — You've Mastered Data Structures!
 
-\`\`\`python
-import heapq
-from collections import deque
+📦 **Box says:** "You now understand how data is organized and stored!"
+🔗 **Link says:** "You can build connections between any pieces of data!"
+🌳 **Root says:** "You can navigate complex hierarchies and networks!"
 
-# 🗺️ A complete route planner — Dijkstra's algorithm!
-# Combines: Graph + HashMap + Priority Queue
+**What you've learned:**
+- Arrays, Linked Lists (singly & doubly)
+- Stacks (LIFO) & Queues (FIFO)
+- Priority Queues & Heaps
+- Binary Trees & BSTs
+- Hash Maps & Sets
+- Graphs, BFS & DFS
+- Sorting & Searching algorithms
 
-city_map = {
-    "Home":    {"School": 3, "Mall": 7, "Park": 2},
-    "School":  {"Home": 3, "Library": 4, "Mall": 5},
-    "Mall":    {"Home": 7, "School": 5, "Cinema": 2, "Park": 4},
-    "Park":    {"Home": 2, "Mall": 4, "Cinema": 6},
-    "Library": {"School": 4, "Cinema": 3},
-    "Cinema":  {"Mall": 2, "Library": 3, "Park": 6},
-}
+**Next steps:**
+- 🏆 Practice on LeetCode / HackerRank
+- 📚 Take the Algorithms track
+- 🎮 Build projects that use these structures!
 
-def dijkstra(graph, start):
-    """Find shortest path from start to ALL other nodes! 🏆"""
-    # Priority queue: (distance, node)
-    pq = [(0, start)]
-    # HashMap: shortest known distance to each node
-    distances = {start: 0}
-    # HashMap: previous node in shortest path
-    previous = {start: None}
-    
-    while pq:
-        dist, node = heapq.heappop(pq)
-        
-        if dist > distances.get(node, float('inf')):
-            continue  # Skip outdated entries
-        
-        for neighbor, weight in graph[node].items():
-            new_dist = dist + weight
-            if new_dist < distances.get(neighbor, float('inf')):
-                distances[neighbor] = new_dist
-                previous[neighbor] = node
-                heapq.heappush(pq, (new_dist, neighbor))
-    
-    return distances, previous
-
-def get_path(previous, target):
-    """Reconstruct path using the previous HashMap"""
-    path = []
-    node = target
-    while node is not None:
-        path.append(node)
-        node = previous[node]
-    return list(reversed(path))
-
-# Find shortest paths from Home to everywhere!
-distances, previous = dijkstra(city_map, "Home")
-
-print("🗺️ Shortest distances from Home:")
-for dest in sorted(distances, key=distances.get):
-    path = get_path(previous, dest)
-    print(f"  🏠→{dest}: {distances[dest]} blocks via {' → '.join(path)}")
-\`\`\`
-
-🐍 Py: "Dijkstra's algorithm is THE most important graph algorithm! Google Maps, Waze, Uber — all use variants of this!"
-
-🔧 Chip: "Notice how we used Graph (city map), HashMap (distances), and Priority Queue (exploration order) — the holy trinity of pathfinding!"`,
+恭喜你掌握了数据结构！继续前进，挑战算法课程吧！ 🚀`,
     },
     {
       type: "quiz",
-      emoji: "❓",
-      content: "🏅 Final Graduation Quiz!",
-      quiz: [{
-        question: "You're building a spell-checker that needs to: (1) store a dictionary of words, (2) find closest matches, (3) track recently looked up words. Which data structures would you combine?",
-        options: [
-          "HashMap (dictionary) + Tree/Trie (closest match) + Queue/LRU Cache (recent lookups)",
-          "Just a single large array",
-          "Only a graph",
-          "Stack for everything",
-        ],
-        
-        correctIndex: 0,
-        explanation:
-          "HashMap gives O(1) lookup for exact matches, a Trie/Tree helps find similar words, and an LRU Cache (queue + hashmap) tracks recent lookups. Real spell-checkers combine all three! Congratulations, Data Structure Champion! 🏆🎓",
-        }],
+      content: "🎓 Final Comprehensive Quiz · 综合测验",
+      quiz: [
+        {
+          question: "Which data structure would you use for an 'Undo' feature?\n\n你会用哪种数据结构实现'撤销'功能？",
+          options: ["Queue", "Array", "Stack", "Graph"],
+          correctIndex: 2,
+          explanation: "Stack! LIFO — the last action is the first to be undone! 栈！后进先出——最后的操作最先被撤销！",
+        },
+        {
+          question: "What is the time complexity of searching in a hash map?\n\n哈希表中搜索的时间复杂度是？",
+          options: ["O(n)", "O(log n)", "O(n²)", "O(1) average"],
+          correctIndex: 3,
+          explanation: "Hash maps provide O(1) average time for lookups! 哈希表提供平均 O(1) 查找！",
+        },
+        {
+          question: "Which algorithm finds the shortest path in an unweighted graph?\n\n哪种算法在无权图中找最短路径？",
+          options: ["DFS", "BFS", "Binary Search", "Merge Sort"],
+          correctIndex: 1,
+          explanation: "BFS explores layer by layer — the first path it finds IS the shortest! BFS 逐层探索，找到的就是最短路径！",
+        },
+        {
+          question: "Match the time complexity: Merge Sort\n\n匹配时间复杂度：归并排序",
+          options: ["O(n)", "O(n²)", "O(n log n)", "O(1)"],
+          correctIndex: 2,
+          explanation: "Merge sort divides (log n) and merges (n) = O(n log n). 分治 log n 层，每层 n 工作量！",
+        },
+      ],
     },
   ],
 };
@@ -4717,8 +2694,8 @@ for dest in sorted(distances, key=distances.get):
 // ═══════════════════════════════════════════════════════════════
 
 export const DS_LESSONS: Lesson[] = [
-  ds_1_1, ds_1_2, ds_1_3, ds_1_4,
-  ds_2_1, ds_2_2, ds_2_3, ds_2_4,
-  ds_3_1, ds_3_2, ds_3_3, ds_3_4,
-  ds_4_1, ds_4_2, ds_4_3, ds_4_4,
+  ds_1_1, ds_1_2, ds_1_3, ds_1_4, ds_1_5,
+  ds_2_1, ds_2_2, ds_2_3, ds_2_4, ds_2_5,
+  ds_3_1, ds_3_2, ds_3_3, ds_3_4, ds_3_5,
+  ds_4_1, ds_4_2, ds_4_3,
 ];

@@ -1,0 +1,2212 @@
+import type { CppExercise } from './cpp-exercises';
+
+export const CPP_EXERCISES_PART5: CppExercise[] = [
+{
+  id: "cpp-ex-4-11",
+  title: "Pointer Basics",
+  titleZh: "指针基础",
+  difficulty: "medium",
+  level: 4,
+  category: "Pointers",
+  categoryZh: "指针",
+  tags: [
+    "pointer",
+    "address",
+    "dereference"
+  ],
+  description: "Read an integer, create a pointer to it, and print both the address and value through the pointer.\n\nInput: an integer n\nOutput: two lines — \"Address: 0x...\" and \"Value: n\"",
+  descriptionZh: "读取一个整数，创建指向它的指针，输出地址和通过指针获取的值。",
+  examples: [
+    {
+      input: "42",
+      output: "Value: 42"
+    }
+  ],
+  starterCode: "#include <iostream>\nusing namespace std;\n\nint main() {\n    int n;\n    cin >> n;\n    // TODO: create a pointer to n, print value via pointer\n    \n    return 0;\n}",
+  solution: "#include <iostream>\nusing namespace std;\n\nint main() {\n    int n;\n    cin >> n;\n    int* ptr = &n;\n    cout << \"Value: \" << *ptr << endl;\n    return 0;\n}",
+  hints: [
+    "Use & to get address",
+    "Use * to dereference"
+  ],
+  hintsZh: [
+    "用 & 获取地址",
+    "用 * 解引用"
+  ],
+  testCases: [
+    {
+      input: "42",
+      expectedOutput: "Value: 42"
+    },
+    {
+      input: "0",
+      expectedOutput: "Value: 0"
+    },
+    {
+      input: "-5",
+      expectedOutput: "Value: -5"
+    }
+  ]
+},
+{
+  id: "cpp-ex-4-12",
+  title: "Swap with Pointers",
+  titleZh: "用指针交换",
+  difficulty: "medium",
+  level: 4,
+  category: "Pointers",
+  categoryZh: "指针",
+  tags: [
+    "pointer",
+    "swap",
+    "pass-by-pointer"
+  ],
+  description: "Read two integers. Write a function that swaps them using pointers. Print the swapped values.\n\nInput: two integers a b\nOutput: b a",
+  descriptionZh: "读取两个整数，编写函数用指针交换它们，输出交换后的值。",
+  examples: [
+    {
+      input: "3 7",
+      output: "7 3"
+    }
+  ],
+  starterCode: "#include <iostream>\nusing namespace std;\n\nvoid swapValues(int* a, int* b) {\n    // TODO\n}\n\nint main() {\n    int a, b;\n    cin >> a >> b;\n    swapValues(&a, &b);\n    cout << a << \" \" << b << endl;\n    return 0;\n}",
+  solution: "#include <iostream>\nusing namespace std;\n\nvoid swapValues(int* a, int* b) {\n    int temp = *a;\n    *a = *b;\n    *b = temp;\n}\n\nint main() {\n    int a, b;\n    cin >> a >> b;\n    swapValues(&a, &b);\n    cout << a << \" \" << b << endl;\n    return 0;\n}",
+  hints: [
+    "Dereference to get/set values",
+    "Use a temp variable"
+  ],
+  hintsZh: [
+    "解引用来获取/设置值",
+    "使用临时变量"
+  ],
+  testCases: [
+    {
+      input: "3 7",
+      expectedOutput: "7 3"
+    },
+    {
+      input: "1 1",
+      expectedOutput: "1 1"
+    },
+    {
+      input: "-2 5",
+      expectedOutput: "5 -2"
+    }
+  ]
+},
+{
+  id: "cpp-ex-4-13",
+  title: "Pointer Arithmetic",
+  titleZh: "指针算术",
+  difficulty: "medium",
+  level: 4,
+  category: "Pointers",
+  categoryZh: "指针",
+  tags: [
+    "pointer",
+    "arithmetic",
+    "array"
+  ],
+  description: "Read n integers into an array. Use pointer arithmetic (not index) to print all elements.\n\nInput: n followed by n integers\nOutput: elements separated by spaces",
+  descriptionZh: "读取n个整数到数组中，用指针算术（非下标）输出所有元素。",
+  examples: [
+    {
+      input: "3\n10 20 30",
+      output: "10 20 30"
+    }
+  ],
+  starterCode: "#include <iostream>\nusing namespace std;\n\nint main() {\n    int n;\n    cin >> n;\n    int arr[100];\n    for (int i = 0; i < n; i++) cin >> arr[i];\n    // TODO: use pointer arithmetic to print\n    \n    return 0;\n}",
+  solution: "#include <iostream>\nusing namespace std;\n\nint main() {\n    int n;\n    cin >> n;\n    int arr[100];\n    for (int i = 0; i < n; i++) cin >> arr[i];\n    int* ptr = arr;\n    for (int i = 0; i < n; i++) {\n        if (i > 0) cout << \" \";\n        cout << *(ptr + i);\n    }\n    cout << endl;\n    return 0;\n}",
+  hints: [
+    "Array name is a pointer to first element",
+    "*(ptr + i) accesses element i"
+  ],
+  hintsZh: [
+    "数组名是指向首元素的指针",
+    "*(ptr + i) 访问第i个元素"
+  ],
+  testCases: [
+    {
+      input: "3\n10 20 30",
+      expectedOutput: "10 20 30"
+    },
+    {
+      input: "1\n5",
+      expectedOutput: "5"
+    },
+    {
+      input: "4\n1 2 3 4",
+      expectedOutput: "1 2 3 4"
+    }
+  ]
+},
+{
+  id: "cpp-ex-4-14",
+  title: "Dynamic Array",
+  titleZh: "动态数组",
+  difficulty: "medium",
+  level: 4,
+  category: "Pointers",
+  categoryZh: "指针",
+  tags: [
+    "new",
+    "delete",
+    "dynamic-memory"
+  ],
+  description: "Read n, dynamically allocate an array of n integers using new, read them, print their sum, then delete the array.\n\nInput: n followed by n integers\nOutput: sum",
+  descriptionZh: "读取n，用new动态分配n个整数的数组，读取并输出总和，然后delete数组。",
+  examples: [
+    {
+      input: "3\n1 2 3",
+      output: "6"
+    }
+  ],
+  starterCode: "#include <iostream>\nusing namespace std;\n\nint main() {\n    int n;\n    cin >> n;\n    // TODO: dynamically allocate, read, sum, delete\n    \n    return 0;\n}",
+  solution: "#include <iostream>\nusing namespace std;\n\nint main() {\n    int n;\n    cin >> n;\n    int* arr = new int[n];\n    int sum = 0;\n    for (int i = 0; i < n; i++) {\n        cin >> arr[i];\n        sum += arr[i];\n    }\n    cout << sum << endl;\n    delete[] arr;\n    return 0;\n}",
+  hints: [
+    "Use new int[n] to allocate",
+    "Use delete[] to free array memory"
+  ],
+  hintsZh: [
+    "用 new int[n] 分配",
+    "用 delete[] 释放数组内存"
+  ],
+  testCases: [
+    {
+      input: "3\n1 2 3",
+      expectedOutput: "6"
+    },
+    {
+      input: "1\n10",
+      expectedOutput: "10"
+    },
+    {
+      input: "4\n-1 -2 3 4",
+      expectedOutput: "4"
+    }
+  ]
+},
+{
+  id: "cpp-ex-4-15",
+  title: "Double Pointer",
+  titleZh: "二级指针",
+  difficulty: "medium",
+  level: 4,
+  category: "Pointers",
+  categoryZh: "指针",
+  tags: [
+    "double-pointer",
+    "pointer-to-pointer"
+  ],
+  description: "Read an integer. Create a pointer and a pointer-to-pointer. Print the value using the double pointer.\n\nInput: an integer\nOutput: Value: n",
+  descriptionZh: "读取一个整数，创建指针和二级指针，通过二级指针输出值。",
+  examples: [
+    {
+      input: "99",
+      output: "Value: 99"
+    }
+  ],
+  starterCode: "#include <iostream>\nusing namespace std;\n\nint main() {\n    int n;\n    cin >> n;\n    // TODO: create pointer and pointer-to-pointer\n    \n    return 0;\n}",
+  solution: "#include <iostream>\nusing namespace std;\n\nint main() {\n    int n;\n    cin >> n;\n    int* ptr = &n;\n    int** pptr = &ptr;\n    cout << \"Value: \" << **pptr << endl;\n    return 0;\n}",
+  hints: [
+    "int** is a pointer to pointer",
+    "Use ** to dereference twice"
+  ],
+  hintsZh: [
+    "int** 是指向指针的指针",
+    "用 ** 两次解引用"
+  ],
+  testCases: [
+    {
+      input: "99",
+      expectedOutput: "Value: 99"
+    },
+    {
+      input: "0",
+      expectedOutput: "Value: 0"
+    },
+    {
+      input: "-7",
+      expectedOutput: "Value: -7"
+    }
+  ]
+},
+{
+  id: "cpp-ex-4-16",
+  title: "Function Pointer",
+  titleZh: "函数指针",
+  difficulty: "medium",
+  level: 4,
+  category: "Pointers",
+  categoryZh: "指针",
+  tags: [
+    "function-pointer",
+    "callback"
+  ],
+  description: "Read two integers and an operator (+, -, *). Use function pointers to call the appropriate operation and print the result.\n\nInput: a b op\nOutput: result",
+  descriptionZh: "读取两个整数和运算符，用函数指针调用对应运算并输出结果。",
+  examples: [
+    {
+      input: "3 4 +",
+      output: "7"
+    }
+  ],
+  starterCode: "#include <iostream>\nusing namespace std;\n\nint add(int a, int b) { return a + b; }\nint sub(int a, int b) { return a - b; }\nint mul(int a, int b) { return a * b; }\n\nint main() {\n    int a, b; char op;\n    cin >> a >> b >> op;\n    // TODO: use function pointer\n    \n    return 0;\n}",
+  solution: "#include <iostream>\nusing namespace std;\n\nint add(int a, int b) { return a + b; }\nint sub(int a, int b) { return a - b; }\nint mul(int a, int b) { return a * b; }\n\nint main() {\n    int a, b; char op;\n    cin >> a >> b >> op;\n    int (*func)(int, int) = nullptr;\n    if (op == '+') func = add;\n    else if (op == '-') func = sub;\n    else if (op == '*') func = mul;\n    cout << func(a, b) << endl;\n    return 0;\n}",
+  hints: [
+    "Declare: int (*func)(int, int)",
+    "Assign function name to pointer"
+  ],
+  hintsZh: [
+    "声明: int (*func)(int, int)",
+    "将函数名赋值给指针"
+  ],
+  testCases: [
+    {
+      input: "3 4 +",
+      expectedOutput: "7"
+    },
+    {
+      input: "10 3 -",
+      expectedOutput: "7"
+    },
+    {
+      input: "5 6 *",
+      expectedOutput: "30"
+    }
+  ]
+},
+{
+  id: "cpp-ex-4-17",
+  title: "Struct Basics",
+  titleZh: "结构体基础",
+  difficulty: "medium",
+  level: 4,
+  category: "Structs",
+  categoryZh: "结构体",
+  tags: [
+    "struct",
+    "basics"
+  ],
+  description: "Define a struct Student with name (string) and score (int). Read name and score, print \"name: score\".\n\nInput: name score\nOutput: name: score",
+  descriptionZh: "定义Student结构体（name和score），读取并输出。",
+  examples: [
+    {
+      input: "Alice 95",
+      output: "Alice: 95"
+    }
+  ],
+  starterCode: "#include <iostream>\n#include <string>\nusing namespace std;\n\n// TODO: define struct Student\n\nint main() {\n    // TODO\n    return 0;\n}",
+  solution: "#include <iostream>\n#include <string>\nusing namespace std;\n\nstruct Student {\n    string name;\n    int score;\n};\n\nint main() {\n    Student s;\n    cin >> s.name >> s.score;\n    cout << s.name << \": \" << s.score << endl;\n    return 0;\n}",
+  hints: [
+    "Use struct keyword",
+    "Access members with dot operator"
+  ],
+  hintsZh: [
+    "使用 struct 关键字",
+    "用点运算符访问成员"
+  ],
+  testCases: [
+    {
+      input: "Alice 95",
+      expectedOutput: "Alice: 95"
+    },
+    {
+      input: "Bob 80",
+      expectedOutput: "Bob: 80"
+    },
+    {
+      input: "Tom 100",
+      expectedOutput: "Tom: 100"
+    }
+  ]
+},
+{
+  id: "cpp-ex-4-18",
+  title: "Struct with Function",
+  titleZh: "结构体与函数",
+  difficulty: "medium",
+  level: 4,
+  category: "Structs",
+  categoryZh: "结构体",
+  tags: [
+    "struct",
+    "function",
+    "pass-by-reference"
+  ],
+  description: "Define a Rectangle struct with width and height. Write a function that takes a Rectangle by reference and returns its area.\n\nInput: width height\nOutput: area",
+  descriptionZh: "定义Rectangle结构体，编写函数通过引用传递并返回面积。",
+  examples: [
+    {
+      input: "3 4",
+      output: "12"
+    }
+  ],
+  starterCode: "#include <iostream>\nusing namespace std;\n\nstruct Rectangle {\n    int width, height;\n};\n\n// TODO: int area(const Rectangle& r)\n\nint main() {\n    Rectangle r;\n    cin >> r.width >> r.height;\n    cout << area(r) << endl;\n    return 0;\n}",
+  solution: "#include <iostream>\nusing namespace std;\n\nstruct Rectangle {\n    int width, height;\n};\n\nint area(const Rectangle& r) {\n    return r.width * r.height;\n}\n\nint main() {\n    Rectangle r;\n    cin >> r.width >> r.height;\n    cout << area(r) << endl;\n    return 0;\n}",
+  hints: [
+    "Use const reference for efficiency",
+    "Return width * height"
+  ],
+  hintsZh: [
+    "用const引用提高效率",
+    "返回 width * height"
+  ],
+  testCases: [
+    {
+      input: "3 4",
+      expectedOutput: "12"
+    },
+    {
+      input: "1 1",
+      expectedOutput: "1"
+    },
+    {
+      input: "10 5",
+      expectedOutput: "50"
+    }
+  ]
+},
+{
+  id: "cpp-ex-4-19",
+  title: "Class with Constructor",
+  titleZh: "带构造函数的类",
+  difficulty: "medium",
+  level: 4,
+  category: "Classes",
+  categoryZh: "类",
+  tags: [
+    "class",
+    "constructor"
+  ],
+  description: "Create a Circle class with a constructor that takes radius. Provide a method getArea() returning pi*r*r. Read radius, print area with 2 decimal places.\n\nInput: radius (double)\nOutput: area (2 decimal places)",
+  descriptionZh: "创建Circle类，构造函数接受半径，getArea()返回面积，保留2位小数。",
+  examples: [
+    {
+      input: "5",
+      output: "78.54"
+    }
+  ],
+  starterCode: "#include <iostream>\n#include <iomanip>\nusing namespace std;\n\nclass Circle {\n    // TODO\n};\n\nint main() {\n    double r;\n    cin >> r;\n    Circle c(r);\n    cout << fixed << setprecision(2) << c.getArea() << endl;\n    return 0;\n}",
+  solution: "#include <iostream>\n#include <iomanip>\nusing namespace std;\n\nclass Circle {\nprivate:\n    double radius;\npublic:\n    Circle(double r) : radius(r) {}\n    double getArea() { return 3.14159265358979 * radius * radius; }\n};\n\nint main() {\n    double r;\n    cin >> r;\n    Circle c(r);\n    cout << fixed << setprecision(2) << c.getArea() << endl;\n    return 0;\n}",
+  hints: [
+    "Use initializer list in constructor",
+    "pi ≈ 3.14159265358979"
+  ],
+  hintsZh: [
+    "在构造函数中使用初始化列表",
+    "pi ≈ 3.14159265358979"
+  ],
+  testCases: [
+    {
+      input: "5",
+      expectedOutput: "78.54"
+    },
+    {
+      input: "1",
+      expectedOutput: "3.14"
+    },
+    {
+      input: "10",
+      expectedOutput: "314.16"
+    }
+  ]
+},
+{
+  id: "cpp-ex-4-20",
+  title: "Destructor Demo",
+  titleZh: "析构函数演示",
+  difficulty: "medium",
+  level: 4,
+  category: "Classes",
+  categoryZh: "类",
+  tags: [
+    "class",
+    "destructor"
+  ],
+  description: "Create a class Resource that prints \"Created\" in constructor and \"Destroyed\" in destructor. In main, create an instance inside a block scope.\n\nInput: none\nOutput:\nCreated\nDestroyed",
+  descriptionZh: "创建Resource类，构造时输出Created，析构时输出Destroyed。在main中用块作用域创建实例。",
+  examples: [
+    {
+      input: "",
+      output: "Created\nDestroyed"
+    }
+  ],
+  starterCode: "#include <iostream>\nusing namespace std;\n\nclass Resource {\n    // TODO\n};\n\nint main() {\n    {\n        Resource r;\n    }\n    return 0;\n}",
+  solution: "#include <iostream>\nusing namespace std;\n\nclass Resource {\npublic:\n    Resource() { cout << \"Created\" << endl; }\n    ~Resource() { cout << \"Destroyed\" << endl; }\n};\n\nint main() {\n    {\n        Resource r;\n    }\n    return 0;\n}",
+  hints: [
+    "Destructor is ~ClassName()",
+    "Object destroyed when leaving scope"
+  ],
+  hintsZh: [
+    "析构函数是 ~类名()",
+    "对象离开作用域时销毁"
+  ],
+  testCases: [
+    {
+      input: "",
+      expectedOutput: "Created\nDestroyed"
+    }
+  ]
+},
+{
+  id: "cpp-ex-4-21",
+  title: "Copy Constructor",
+  titleZh: "拷贝构造函数",
+  difficulty: "medium",
+  level: 4,
+  category: "Classes",
+  categoryZh: "类",
+  tags: [
+    "class",
+    "copy-constructor"
+  ],
+  description: "Create a Box class with length and width. Implement a copy constructor. Read l w, create Box b1, copy to b2, print b2's area.\n\nInput: l w\nOutput: area",
+  descriptionZh: "创建Box类，实现拷贝构造函数。读取长宽，拷贝后输出面积。",
+  examples: [
+    {
+      input: "3 4",
+      output: "12"
+    }
+  ],
+  starterCode: "#include <iostream>\nusing namespace std;\n\nclass Box {\nprivate:\n    int length, width;\npublic:\n    Box(int l, int w) : length(l), width(w) {}\n    // TODO: copy constructor\n    int area() { return length * width; }\n};\n\nint main() {\n    int l, w;\n    cin >> l >> w;\n    Box b1(l, w);\n    Box b2 = b1;\n    cout << b2.area() << endl;\n    return 0;\n}",
+  solution: "#include <iostream>\nusing namespace std;\n\nclass Box {\nprivate:\n    int length, width;\npublic:\n    Box(int l, int w) : length(l), width(w) {}\n    Box(const Box& other) : length(other.length), width(other.width) {}\n    int area() { return length * width; }\n};\n\nint main() {\n    int l, w;\n    cin >> l >> w;\n    Box b1(l, w);\n    Box b2 = b1;\n    cout << b2.area() << endl;\n    return 0;\n}",
+  hints: [
+    "Copy constructor takes const reference",
+    "Copy all member variables"
+  ],
+  hintsZh: [
+    "拷贝构造函数接受const引用",
+    "复制所有成员变量"
+  ],
+  testCases: [
+    {
+      input: "3 4",
+      expectedOutput: "12"
+    },
+    {
+      input: "5 5",
+      expectedOutput: "25"
+    },
+    {
+      input: "1 10",
+      expectedOutput: "10"
+    }
+  ]
+},
+{
+  id: "cpp-ex-4-22",
+  title: "Static Member",
+  titleZh: "静态成员",
+  difficulty: "medium",
+  level: 4,
+  category: "Classes",
+  categoryZh: "类",
+  tags: [
+    "class",
+    "static"
+  ],
+  description: "Create a Counter class with a static count variable. Increment in constructor, decrement in destructor. Read n, create n objects in a loop, print final count.\n\nInput: n\nOutput: count after creating n objects (all in scope)",
+  descriptionZh: "创建Counter类，静态变量count在构造时+1。读取n，创建n个对象后输出count。",
+  examples: [
+    {
+      input: "3",
+      output: "3"
+    }
+  ],
+  starterCode: "#include <iostream>\nusing namespace std;\n\nclass Counter {\n    // TODO: static member\npublic:\n    Counter() { /* TODO */ }\n    static int getCount() { /* TODO */ }\n};\n\nint main() {\n    int n;\n    cin >> n;\n    Counter* arr = new Counter[n];\n    cout << Counter::getCount() << endl;\n    delete[] arr;\n    return 0;\n}",
+  solution: "#include <iostream>\nusing namespace std;\n\nclass Counter {\n    static int count;\npublic:\n    Counter() { count++; }\n    static int getCount() { return count; }\n};\nint Counter::count = 0;\n\nint main() {\n    int n;\n    cin >> n;\n    Counter* arr = new Counter[n];\n    cout << Counter::getCount() << endl;\n    delete[] arr;\n    return 0;\n}",
+  hints: [
+    "Static members are shared across all instances",
+    "Initialize static member outside class"
+  ],
+  hintsZh: [
+    "静态成员在所有实例间共享",
+    "在类外初始化静态成员"
+  ],
+  testCases: [
+    {
+      input: "3",
+      expectedOutput: "3"
+    },
+    {
+      input: "1",
+      expectedOutput: "1"
+    },
+    {
+      input: "10",
+      expectedOutput: "10"
+    }
+  ]
+},
+{
+  id: "cpp-ex-4-23",
+  title: "Single Inheritance",
+  titleZh: "单继承",
+  difficulty: "medium",
+  level: 4,
+  category: "Inheritance",
+  categoryZh: "继承",
+  tags: [
+    "inheritance",
+    "class"
+  ],
+  description: "Create Animal base class with name and a speak() method. Create Dog that inherits Animal and overrides speak() to return \"Woof!\". Read a name, create Dog, print name and speak.\n\nInput: name\nOutput: name says Woof!",
+  descriptionZh: "创建Animal基类和Dog派生类，Dog重写speak()返回Woof!。",
+  examples: [
+    {
+      input: "Rex",
+      output: "Rex says Woof!"
+    }
+  ],
+  starterCode: "#include <iostream>\n#include <string>\nusing namespace std;\n\nclass Animal {\nprotected:\n    string name;\npublic:\n    Animal(string n) : name(n) {}\n    virtual string speak() { return \"...\"; }\n    string getName() { return name; }\n};\n\n// TODO: class Dog : public Animal\n\nint main() {\n    string n;\n    cin >> n;\n    Dog d(n);\n    cout << d.getName() << \" says \" << d.speak() << endl;\n    return 0;\n}",
+  solution: "#include <iostream>\n#include <string>\nusing namespace std;\n\nclass Animal {\nprotected:\n    string name;\npublic:\n    Animal(string n) : name(n) {}\n    virtual string speak() { return \"...\"; }\n    string getName() { return name; }\n};\n\nclass Dog : public Animal {\npublic:\n    Dog(string n) : Animal(n) {}\n    string speak() override { return \"Woof!\"; }\n};\n\nint main() {\n    string n;\n    cin >> n;\n    Dog d(n);\n    cout << d.getName() << \" says \" << d.speak() << endl;\n    return 0;\n}",
+  hints: [
+    "Use : public Animal to inherit",
+    "Call base constructor with Animal(n)"
+  ],
+  hintsZh: [
+    "用 : public Animal 继承",
+    "用 Animal(n) 调用基类构造函数"
+  ],
+  testCases: [
+    {
+      input: "Rex",
+      expectedOutput: "Rex says Woof!"
+    },
+    {
+      input: "Buddy",
+      expectedOutput: "Buddy says Woof!"
+    }
+  ]
+},
+{
+  id: "cpp-ex-4-24",
+  title: "Multilevel Inheritance",
+  titleZh: "多级继承",
+  difficulty: "medium",
+  level: 4,
+  category: "Inheritance",
+  categoryZh: "继承",
+  tags: [
+    "inheritance",
+    "multilevel"
+  ],
+  description: "Create a chain: Vehicle -> Car -> SportsCar. Vehicle has speed, Car adds doors, SportsCar adds turbo (bool). Read speed doors turbo(0/1), print all.\n\nInput: speed doors turbo\nOutput: Speed: s Doors: d Turbo: yes/no",
+  descriptionZh: "创建三级继承链，读取并输出所有属性。",
+  examples: [
+    {
+      input: "200 2 1",
+      output: "Speed: 200 Doors: 2 Turbo: yes"
+    }
+  ],
+  starterCode: "#include <iostream>\nusing namespace std;\n\nclass Vehicle {\nprotected:\n    int speed;\npublic:\n    Vehicle(int s) : speed(s) {}\n};\n\n// TODO: Car and SportsCar\n\nint main() {\n    int s, d, t;\n    cin >> s >> d >> t;\n    SportsCar sc(s, d, t);\n    sc.print();\n    return 0;\n}",
+  solution: "#include <iostream>\nusing namespace std;\n\nclass Vehicle {\nprotected:\n    int speed;\npublic:\n    Vehicle(int s) : speed(s) {}\n};\n\nclass Car : public Vehicle {\nprotected:\n    int doors;\npublic:\n    Car(int s, int d) : Vehicle(s), doors(d) {}\n};\n\nclass SportsCar : public Car {\n    bool turbo;\npublic:\n    SportsCar(int s, int d, int t) : Car(s, d), turbo(t) {}\n    void print() {\n        cout << \"Speed: \" << speed << \" Doors: \" << doors << \" Turbo: \" << (turbo ? \"yes\" : \"no\") << endl;\n    }\n};\n\nint main() {\n    int s, d, t;\n    cin >> s >> d >> t;\n    SportsCar sc(s, d, t);\n    sc.print();\n    return 0;\n}",
+  hints: [
+    "Each level calls its parent constructor",
+    "Protected members are accessible in derived"
+  ],
+  hintsZh: [
+    "每级调用父类构造函数",
+    "protected成员在派生类中可访问"
+  ],
+  testCases: [
+    {
+      input: "200 2 1",
+      expectedOutput: "Speed: 200 Doors: 2 Turbo: yes"
+    },
+    {
+      input: "100 4 0",
+      expectedOutput: "Speed: 100 Doors: 4 Turbo: no"
+    }
+  ]
+},
+{
+  id: "cpp-ex-4-25",
+  title: "Multiple Inheritance",
+  titleZh: "多重继承",
+  difficulty: "medium",
+  level: 4,
+  category: "Inheritance",
+  categoryZh: "继承",
+  tags: [
+    "inheritance",
+    "multiple"
+  ],
+  description: "Create Printable (with print()) and Saveable (with save()) interfaces. Create Document that inherits both. Read text, call print and save.\n\nInput: text\nOutput:\nPrint: text\nSave: text",
+  descriptionZh: "创建Printable和Saveable接口，Document多重继承两者。",
+  examples: [
+    {
+      input: "hello",
+      output: "Print: hello\nSave: hello"
+    }
+  ],
+  starterCode: "#include <iostream>\n#include <string>\nusing namespace std;\n\nclass Printable {\npublic:\n    virtual void print() = 0;\n};\n\nclass Saveable {\npublic:\n    virtual void save() = 0;\n};\n\n// TODO: class Document\n\nint main() {\n    string text;\n    cin >> text;\n    Document d(text);\n    d.print();\n    d.save();\n    return 0;\n}",
+  solution: "#include <iostream>\n#include <string>\nusing namespace std;\n\nclass Printable {\npublic:\n    virtual void print() = 0;\n};\n\nclass Saveable {\npublic:\n    virtual void save() = 0;\n};\n\nclass Document : public Printable, public Saveable {\n    string text;\npublic:\n    Document(string t) : text(t) {}\n    void print() override { cout << \"Print: \" << text << endl; }\n    void save() override { cout << \"Save: \" << text << endl; }\n};\n\nint main() {\n    string text;\n    cin >> text;\n    Document d(text);\n    d.print();\n    d.save();\n    return 0;\n}",
+  hints: [
+    "Inherit from both with comma separation",
+    "Implement all pure virtual functions"
+  ],
+  hintsZh: [
+    "用逗号分隔继承多个类",
+    "实现所有纯虚函数"
+  ],
+  testCases: [
+    {
+      input: "hello",
+      expectedOutput: "Print: hello\nSave: hello"
+    },
+    {
+      input: "test",
+      expectedOutput: "Print: test\nSave: test"
+    }
+  ]
+},
+{
+  id: "cpp-ex-4-26",
+  title: "Virtual Function",
+  titleZh: "虚函数",
+  difficulty: "medium",
+  level: 4,
+  category: "Polymorphism",
+  categoryZh: "多态",
+  tags: [
+    "virtual",
+    "polymorphism"
+  ],
+  description: "Create Shape base with virtual area(). Create Circle (radius) and Rect (w,h) derived classes. Read type (C/R), params, use base pointer to print area.\n\nInput: C radius OR R width height\nOutput: area (2 decimal places)",
+  descriptionZh: "创建Shape基类和Circle/Rect派生类，用基类指针调用area()。",
+  examples: [
+    {
+      input: "C 5",
+      output: "78.54"
+    }
+  ],
+  starterCode: "#include <iostream>\n#include <iomanip>\nusing namespace std;\n\nclass Shape {\npublic:\n    virtual double area() = 0;\n};\n\n// TODO: Circle and Rect\n\nint main() {\n    char type;\n    cin >> type;\n    Shape* s = nullptr;\n    // TODO: create based on type\n    cout << fixed << setprecision(2) << s->area() << endl;\n    delete s;\n    return 0;\n}",
+  solution: "#include <iostream>\n#include <iomanip>\nusing namespace std;\n\nclass Shape {\npublic:\n    virtual double area() = 0;\n    virtual ~Shape() {}\n};\n\nclass Circle : public Shape {\n    double radius;\npublic:\n    Circle(double r) : radius(r) {}\n    double area() override { return 3.14159265358979 * radius * radius; }\n};\n\nclass Rect : public Shape {\n    double w, h;\npublic:\n    Rect(double w, double h) : w(w), h(h) {}\n    double area() override { return w * h; }\n};\n\nint main() {\n    char type;\n    cin >> type;\n    Shape* s = nullptr;\n    if (type == 'C') {\n        double r; cin >> r;\n        s = new Circle(r);\n    } else {\n        double w, h; cin >> w >> h;\n        s = new Rect(w, h);\n    }\n    cout << fixed << setprecision(2) << s->area() << endl;\n    delete s;\n    return 0;\n}",
+  hints: [
+    "Use virtual for runtime polymorphism",
+    "Always add virtual destructor"
+  ],
+  hintsZh: [
+    "用virtual实现运行时多态",
+    "总是添加虚析构函数"
+  ],
+  testCases: [
+    {
+      input: "C 5",
+      expectedOutput: "78.54"
+    },
+    {
+      input: "R 3 4",
+      expectedOutput: "12.00"
+    },
+    {
+      input: "C 1",
+      expectedOutput: "3.14"
+    }
+  ]
+},
+{
+  id: "cpp-ex-4-27",
+  title: "Pure Virtual & Abstract",
+  titleZh: "纯虚函数与抽象类",
+  difficulty: "medium",
+  level: 4,
+  category: "Polymorphism",
+  categoryZh: "多态",
+  tags: [
+    "pure-virtual",
+    "abstract"
+  ],
+  description: "Create abstract class Converter with pure virtual convert(double). Create CtoF (Celsius to Fahrenheit: *9/5+32) and KgToLb (kg to pounds: *2.205). Read type (C/K) and value, print result with 2 decimals.\n\nInput: type value\nOutput: result",
+  descriptionZh: "创建抽象类Converter，派生CtoF和KgToLb，读取类型和值并转换。",
+  examples: [
+    {
+      input: "C 100",
+      output: "212.00"
+    }
+  ],
+  starterCode: "#include <iostream>\n#include <iomanip>\nusing namespace std;\n\nclass Converter {\npublic:\n    virtual double convert(double val) = 0;\n    virtual ~Converter() {}\n};\n\n// TODO: CtoF and KgToLb\n\nint main() {\n    char type; double val;\n    cin >> type >> val;\n    // TODO\n    return 0;\n}",
+  solution: "#include <iostream>\n#include <iomanip>\nusing namespace std;\n\nclass Converter {\npublic:\n    virtual double convert(double val) = 0;\n    virtual ~Converter() {}\n};\n\nclass CtoF : public Converter {\npublic:\n    double convert(double val) override { return val * 9.0 / 5.0 + 32; }\n};\n\nclass KgToLb : public Converter {\npublic:\n    double convert(double val) override { return val * 2.205; }\n};\n\nint main() {\n    char type; double val;\n    cin >> type >> val;\n    Converter* c = nullptr;\n    if (type == 'C') c = new CtoF();\n    else c = new KgToLb();\n    cout << fixed << setprecision(2) << c->convert(val) << endl;\n    delete c;\n    return 0;\n}",
+  hints: [
+    "= 0 makes function pure virtual",
+    "Cannot instantiate abstract class"
+  ],
+  hintsZh: [
+    "= 0 使函数成为纯虚函数",
+    "不能实例化抽象类"
+  ],
+  testCases: [
+    {
+      input: "C 100",
+      expectedOutput: "212.00"
+    },
+    {
+      input: "C 0",
+      expectedOutput: "32.00"
+    },
+    {
+      input: "K 1",
+      expectedOutput: "2.21"
+    }
+  ]
+},
+{
+  id: "cpp-ex-4-28",
+  title: "Operator Overloading +",
+  titleZh: "运算符重载 +",
+  difficulty: "medium",
+  level: 4,
+  category: "OOP",
+  categoryZh: "面向对象",
+  tags: [
+    "operator-overloading",
+    "class"
+  ],
+  description: "Create a Vector2D class with x, y. Overload + operator. Read two vectors, print their sum.\n\nInput: x1 y1 x2 y2\nOutput: (x1+x2, y1+y2)",
+  descriptionZh: "创建Vector2D类，重载+运算符，读取两个向量并输出和。",
+  examples: [
+    {
+      input: "1 2 3 4",
+      output: "(4, 6)"
+    }
+  ],
+  starterCode: "#include <iostream>\nusing namespace std;\n\nclass Vector2D {\npublic:\n    int x, y;\n    Vector2D(int x=0, int y=0) : x(x), y(y) {}\n    // TODO: overload +\n    void print() { cout << \"(\" << x << \", \" << y << \")\" << endl; }\n};\n\nint main() {\n    int x1,y1,x2,y2;\n    cin >> x1 >> y1 >> x2 >> y2;\n    Vector2D a(x1,y1), b(x2,y2);\n    Vector2D c = a + b;\n    c.print();\n    return 0;\n}",
+  solution: "#include <iostream>\nusing namespace std;\n\nclass Vector2D {\npublic:\n    int x, y;\n    Vector2D(int x=0, int y=0) : x(x), y(y) {}\n    Vector2D operator+(const Vector2D& other) {\n        return Vector2D(x + other.x, y + other.y);\n    }\n    void print() { cout << \"(\" << x << \", \" << y << \")\" << endl; }\n};\n\nint main() {\n    int x1,y1,x2,y2;\n    cin >> x1 >> y1 >> x2 >> y2;\n    Vector2D a(x1,y1), b(x2,y2);\n    Vector2D c = a + b;\n    c.print();\n    return 0;\n}",
+  hints: [
+    "Return type is the class itself",
+    "Take const reference parameter"
+  ],
+  hintsZh: [
+    "返回类型是类本身",
+    "参数用const引用"
+  ],
+  testCases: [
+    {
+      input: "1 2 3 4",
+      expectedOutput: "(4, 6)"
+    },
+    {
+      input: "0 0 0 0",
+      expectedOutput: "(0, 0)"
+    },
+    {
+      input: "-1 5 1 -5",
+      expectedOutput: "(0, 0)"
+    }
+  ]
+},
+{
+  id: "cpp-ex-4-29",
+  title: "Operator Overloading ==",
+  titleZh: "运算符重载 ==",
+  difficulty: "medium",
+  level: 4,
+  category: "OOP",
+  categoryZh: "面向对象",
+  tags: [
+    "operator-overloading",
+    "comparison"
+  ],
+  description: "Create a Point class. Overload == to compare two points. Read two points, print \"Equal\" or \"Not Equal\".\n\nInput: x1 y1 x2 y2\nOutput: Equal or Not Equal",
+  descriptionZh: "创建Point类，重载==运算符比较两个点。",
+  examples: [
+    {
+      input: "1 2 1 2",
+      output: "Equal"
+    }
+  ],
+  starterCode: "#include <iostream>\nusing namespace std;\n\nclass Point {\npublic:\n    int x, y;\n    Point(int x=0, int y=0) : x(x), y(y) {}\n    // TODO: overload ==\n};\n\nint main() {\n    int x1,y1,x2,y2;\n    cin >> x1 >> y1 >> x2 >> y2;\n    Point a(x1,y1), b(x2,y2);\n    cout << (a == b ? \"Equal\" : \"Not Equal\") << endl;\n    return 0;\n}",
+  solution: "#include <iostream>\nusing namespace std;\n\nclass Point {\npublic:\n    int x, y;\n    Point(int x=0, int y=0) : x(x), y(y) {}\n    bool operator==(const Point& other) {\n        return x == other.x && y == other.y;\n    }\n};\n\nint main() {\n    int x1,y1,x2,y2;\n    cin >> x1 >> y1 >> x2 >> y2;\n    Point a(x1,y1), b(x2,y2);\n    cout << (a == b ? \"Equal\" : \"Not Equal\") << endl;\n    return 0;\n}",
+  hints: [
+    "Return bool",
+    "Compare all member variables"
+  ],
+  hintsZh: [
+    "返回bool",
+    "比较所有成员变量"
+  ],
+  testCases: [
+    {
+      input: "1 2 1 2",
+      expectedOutput: "Equal"
+    },
+    {
+      input: "1 2 3 4",
+      expectedOutput: "Not Equal"
+    },
+    {
+      input: "0 0 0 0",
+      expectedOutput: "Equal"
+    }
+  ]
+},
+{
+  id: "cpp-ex-4-30",
+  title: "Operator Overloading <<",
+  titleZh: "运算符重载 <<",
+  difficulty: "medium",
+  level: 4,
+  category: "OOP",
+  categoryZh: "面向对象",
+  tags: [
+    "operator-overloading",
+    "stream",
+    "friend"
+  ],
+  description: "Create a Fraction class (num, den). Overload << to print as \"num/den\". Read numerator and denominator.\n\nInput: num den\nOutput: num/den",
+  descriptionZh: "创建Fraction类，重载<<运算符输出分数形式。",
+  examples: [
+    {
+      input: "3 4",
+      output: "3/4"
+    }
+  ],
+  starterCode: "#include <iostream>\nusing namespace std;\n\nclass Fraction {\n    int num, den;\npublic:\n    Fraction(int n, int d) : num(n), den(d) {}\n    // TODO: friend overload <<\n};\n\nint main() {\n    int n, d;\n    cin >> n >> d;\n    Fraction f(n, d);\n    cout << f << endl;\n    return 0;\n}",
+  solution: "#include <iostream>\nusing namespace std;\n\nclass Fraction {\n    int num, den;\npublic:\n    Fraction(int n, int d) : num(n), den(d) {}\n    friend ostream& operator<<(ostream& os, const Fraction& f) {\n        os << f.num << \"/\" << f.den;\n        return os;\n    }\n};\n\nint main() {\n    int n, d;\n    cin >> n >> d;\n    Fraction f(n, d);\n    cout << f << endl;\n    return 0;\n}",
+  hints: [
+    "Use friend function for <<",
+    "Return ostream reference"
+  ],
+  hintsZh: [
+    "用friend函数重载<<",
+    "返回ostream引用"
+  ],
+  testCases: [
+    {
+      input: "3 4",
+      expectedOutput: "3/4"
+    },
+    {
+      input: "1 2",
+      expectedOutput: "1/2"
+    },
+    {
+      input: "7 1",
+      expectedOutput: "7/1"
+    }
+  ]
+},
+{
+  id: "cpp-ex-4-31",
+  title: "Friend Function",
+  titleZh: "友元函数",
+  difficulty: "medium",
+  level: 4,
+  category: "OOP",
+  categoryZh: "面向对象",
+  tags: [
+    "friend",
+    "class"
+  ],
+  description: "Create a BankAccount class with private balance. Write a friend function showBalance that prints it. Read balance.\n\nInput: balance\nOutput: Balance: balance",
+  descriptionZh: "创建BankAccount类，用友元函数访问私有余额。",
+  examples: [
+    {
+      input: "1000",
+      output: "Balance: 1000"
+    }
+  ],
+  starterCode: "#include <iostream>\nusing namespace std;\n\nclass BankAccount {\nprivate:\n    int balance;\npublic:\n    BankAccount(int b) : balance(b) {}\n    // TODO: declare friend\n};\n\n// TODO: implement showBalance\n\nint main() {\n    int b;\n    cin >> b;\n    BankAccount acc(b);\n    showBalance(acc);\n    return 0;\n}",
+  solution: "#include <iostream>\nusing namespace std;\n\nclass BankAccount {\nprivate:\n    int balance;\npublic:\n    BankAccount(int b) : balance(b) {}\n    friend void showBalance(const BankAccount& acc);\n};\n\nvoid showBalance(const BankAccount& acc) {\n    cout << \"Balance: \" << acc.balance << endl;\n}\n\nint main() {\n    int b;\n    cin >> b;\n    BankAccount acc(b);\n    showBalance(acc);\n    return 0;\n}",
+  hints: [
+    "Declare friend inside class",
+    "Friend can access private members"
+  ],
+  hintsZh: [
+    "在类内声明friend",
+    "友元可以访问私有成员"
+  ],
+  testCases: [
+    {
+      input: "1000",
+      expectedOutput: "Balance: 1000"
+    },
+    {
+      input: "0",
+      expectedOutput: "Balance: 0"
+    },
+    {
+      input: "999",
+      expectedOutput: "Balance: 999"
+    }
+  ]
+},
+{
+  id: "cpp-ex-4-32",
+  title: "Function Template",
+  titleZh: "函数模板",
+  difficulty: "medium",
+  level: 4,
+  category: "Templates",
+  categoryZh: "模板",
+  tags: [
+    "template",
+    "generic"
+  ],
+  description: "Write a template function maxOf that returns the max of two values. Read two integers, then two doubles. Print max of each pair.\n\nInput: a b (int) c d (double)\nOutput: max_int\\nmax_double",
+  descriptionZh: "编写模板函数maxOf返回两值中的较大者。",
+  examples: [
+    {
+      input: "3 7\n1.5 2.5",
+      output: "7\n2.5"
+    }
+  ],
+  starterCode: "#include <iostream>\nusing namespace std;\n\n// TODO: template function maxOf\n\nint main() {\n    int a, b;\n    double c, d;\n    cin >> a >> b >> c >> d;\n    cout << maxOf(a, b) << endl;\n    cout << maxOf(c, d) << endl;\n    return 0;\n}",
+  solution: "#include <iostream>\nusing namespace std;\n\ntemplate <typename T>\nT maxOf(T a, T b) {\n    return (a > b) ? a : b;\n}\n\nint main() {\n    int a, b;\n    double c, d;\n    cin >> a >> b >> c >> d;\n    cout << maxOf(a, b) << endl;\n    cout << maxOf(c, d) << endl;\n    return 0;\n}",
+  hints: [
+    "Use template <typename T>",
+    "Works with any comparable type"
+  ],
+  hintsZh: [
+    "使用 template <typename T>",
+    "适用于任何可比较类型"
+  ],
+  testCases: [
+    {
+      input: "3 7\n1.5 2.5",
+      expectedOutput: "7\n2.5"
+    },
+    {
+      input: "10 10\n3.14 2.71",
+      expectedOutput: "10\n3.14"
+    }
+  ]
+},
+{
+  id: "cpp-ex-4-33",
+  title: "Class Template",
+  titleZh: "类模板",
+  difficulty: "medium",
+  level: 4,
+  category: "Templates",
+  categoryZh: "模板",
+  tags: [
+    "template",
+    "class"
+  ],
+  description: "Create a template class Pair<T> with two values first and second. Read two integers, create Pair<int>, print them.\n\nInput: a b\nOutput: (a, b)",
+  descriptionZh: "创建模板类Pair<T>，读取两个整数并输出。",
+  examples: [
+    {
+      input: "3 7",
+      output: "(3, 7)"
+    }
+  ],
+  starterCode: "#include <iostream>\nusing namespace std;\n\n// TODO: template class Pair\n\nint main() {\n    int a, b;\n    cin >> a >> b;\n    Pair<int> p(a, b);\n    p.print();\n    return 0;\n}",
+  solution: "#include <iostream>\nusing namespace std;\n\ntemplate <typename T>\nclass Pair {\n    T first, second;\npublic:\n    Pair(T a, T b) : first(a), second(b) {}\n    void print() { cout << \"(\" << first << \", \" << second << \")\" << endl; }\n};\n\nint main() {\n    int a, b;\n    cin >> a >> b;\n    Pair<int> p(a, b);\n    p.print();\n    return 0;\n}",
+  hints: [
+    "template <typename T> before class",
+    "Use T as the type inside"
+  ],
+  hintsZh: [
+    "类前加 template <typename T>",
+    "在类内使用T作为类型"
+  ],
+  testCases: [
+    {
+      input: "3 7",
+      expectedOutput: "(3, 7)"
+    },
+    {
+      input: "0 0",
+      expectedOutput: "(0, 0)"
+    },
+    {
+      input: "-1 1",
+      expectedOutput: "(-1, 1)"
+    }
+  ]
+},
+{
+  id: "cpp-ex-4-34",
+  title: "File Write",
+  titleZh: "文件写入",
+  difficulty: "medium",
+  level: 4,
+  category: "File I/O",
+  categoryZh: "文件操作",
+  tags: [
+    "file",
+    "ofstream"
+  ],
+  description: "Read n lines of text. Write them to stdout (simulating file output). Print \"Done\" after.\n\nInput: n followed by n lines\nOutput: the n lines then \"Done\"",
+  descriptionZh: "读取n行文本输出，最后输出Done。",
+  examples: [
+    {
+      input: "2\nhello\nworld",
+      output: "hello\nworld\nDone"
+    }
+  ],
+  starterCode: "#include <iostream>\n#include <string>\nusing namespace std;\n\nint main() {\n    int n;\n    cin >> n;\n    cin.ignore();\n    // TODO: read and print n lines, then print Done\n    \n    return 0;\n}",
+  solution: "#include <iostream>\n#include <string>\nusing namespace std;\n\nint main() {\n    int n;\n    cin >> n;\n    cin.ignore();\n    for (int i = 0; i < n; i++) {\n        string line;\n        getline(cin, line);\n        cout << line << endl;\n    }\n    cout << \"Done\" << endl;\n    return 0;\n}",
+  hints: [
+    "Use cin.ignore() after reading int",
+    "Use getline for full lines"
+  ],
+  hintsZh: [
+    "读int后用cin.ignore()",
+    "用getline读整行"
+  ],
+  testCases: [
+    {
+      input: "2\nhello\nworld",
+      expectedOutput: "hello\nworld\nDone"
+    },
+    {
+      input: "1\ntest",
+      expectedOutput: "test\nDone"
+    }
+  ]
+},
+{
+  id: "cpp-ex-4-35",
+  title: "Singly Linked List - Create & Print",
+  titleZh: "单链表 - 创建与打印",
+  difficulty: "medium",
+  level: 4,
+  category: "Linked List",
+  categoryZh: "链表",
+  tags: [
+    "linked-list",
+    "singly",
+    "pointer"
+  ],
+  description: "Read n integers, build a singly linked list, then print all values.\n\nInput: n followed by n integers\nOutput: values separated by \" -> \" ending with \"NULL\"",
+  descriptionZh: "读取n个整数构建单链表并打印。",
+  examples: [
+    {
+      input: "3\n1 2 3",
+      output: "1 -> 2 -> 3 -> NULL"
+    }
+  ],
+  starterCode: "#include <iostream>\nusing namespace std;\n\nstruct Node {\n    int data;\n    Node* next;\n    Node(int d) : data(d), next(nullptr) {}\n};\n\nint main() {\n    int n;\n    cin >> n;\n    // TODO: build and print linked list\n    \n    return 0;\n}",
+  solution: "#include <iostream>\nusing namespace std;\n\nstruct Node {\n    int data;\n    Node* next;\n    Node(int d) : data(d), next(nullptr) {}\n};\n\nint main() {\n    int n;\n    cin >> n;\n    Node* head = nullptr;\n    Node* tail = nullptr;\n    for (int i = 0; i < n; i++) {\n        int val; cin >> val;\n        Node* node = new Node(val);\n        if (!head) head = tail = node;\n        else { tail->next = node; tail = node; }\n    }\n    Node* curr = head;\n    while (curr) {\n        cout << curr->data << \" -> \";\n        curr = curr->next;\n    }\n    cout << \"NULL\" << endl;\n    // cleanup\n    while (head) { Node* tmp = head; head = head->next; delete tmp; }\n    return 0;\n}",
+  hints: [
+    "Track both head and tail",
+    "Traverse with while(curr)"
+  ],
+  hintsZh: [
+    "跟踪head和tail",
+    "用while(curr)遍历"
+  ],
+  testCases: [
+    {
+      input: "3\n1 2 3",
+      expectedOutput: "1 -> 2 -> 3 -> NULL"
+    },
+    {
+      input: "1\n5",
+      expectedOutput: "5 -> NULL"
+    },
+    {
+      input: "4\n10 20 30 40",
+      expectedOutput: "10 -> 20 -> 30 -> 40 -> NULL"
+    }
+  ]
+},
+{
+  id: "cpp-ex-4-36",
+  title: "Linked List - Insert at Head",
+  titleZh: "链表 - 头部插入",
+  difficulty: "medium",
+  level: 4,
+  category: "Linked List",
+  categoryZh: "链表",
+  tags: [
+    "linked-list",
+    "insert"
+  ],
+  description: "Read n integers, insert each at the head of a linked list, then print.\n\nInput: n followed by n integers\nOutput: reversed order \" -> \" separated ending with \"NULL\"",
+  descriptionZh: "读取n个整数，每个插入链表头部，然后打印。",
+  examples: [
+    {
+      input: "3\n1 2 3",
+      output: "3 -> 2 -> 1 -> NULL"
+    }
+  ],
+  starterCode: "#include <iostream>\nusing namespace std;\n\nstruct Node {\n    int data;\n    Node* next;\n    Node(int d) : data(d), next(nullptr) {}\n};\n\nint main() {\n    int n;\n    cin >> n;\n    Node* head = nullptr;\n    // TODO: insert at head, then print\n    \n    return 0;\n}",
+  solution: "#include <iostream>\nusing namespace std;\n\nstruct Node {\n    int data;\n    Node* next;\n    Node(int d) : data(d), next(nullptr) {}\n};\n\nint main() {\n    int n;\n    cin >> n;\n    Node* head = nullptr;\n    for (int i = 0; i < n; i++) {\n        int val; cin >> val;\n        Node* node = new Node(val);\n        node->next = head;\n        head = node;\n    }\n    Node* curr = head;\n    while (curr) {\n        cout << curr->data << \" -> \";\n        curr = curr->next;\n    }\n    cout << \"NULL\" << endl;\n    while (head) { Node* tmp = head; head = head->next; delete tmp; }\n    return 0;\n}",
+  hints: [
+    "New node->next = head, then head = new node",
+    "This reverses insertion order"
+  ],
+  hintsZh: [
+    "新节点->next = head，然后head = 新节点",
+    "这会反转插入顺序"
+  ],
+  testCases: [
+    {
+      input: "3\n1 2 3",
+      expectedOutput: "3 -> 2 -> 1 -> NULL"
+    },
+    {
+      input: "1\n5",
+      expectedOutput: "5 -> NULL"
+    },
+    {
+      input: "4\n10 20 30 40",
+      expectedOutput: "40 -> 30 -> 20 -> 10 -> NULL"
+    }
+  ]
+},
+{
+  id: "cpp-ex-4-37",
+  title: "Linked List - Delete Node",
+  titleZh: "链表 - 删除节点",
+  difficulty: "medium",
+  level: 4,
+  category: "Linked List",
+  categoryZh: "链表",
+  tags: [
+    "linked-list",
+    "delete"
+  ],
+  description: "Read n integers to build a list, then read a value to delete (first occurrence). Print result.\n\nInput: n, n integers, value to delete\nOutput: list after deletion",
+  descriptionZh: "构建链表后删除指定值的第一个节点。",
+  examples: [
+    {
+      input: "4\n1 2 3 4\n3",
+      output: "1 -> 2 -> 4 -> NULL"
+    }
+  ],
+  starterCode: "#include <iostream>\nusing namespace std;\n\nstruct Node {\n    int data;\n    Node* next;\n    Node(int d) : data(d), next(nullptr) {}\n};\n\nint main() {\n    int n;\n    cin >> n;\n    Node* head = nullptr;\n    Node* tail = nullptr;\n    for (int i = 0; i < n; i++) {\n        int v; cin >> v;\n        Node* nd = new Node(v);\n        if (!head) head = tail = nd;\n        else { tail->next = nd; tail = nd; }\n    }\n    int del;\n    cin >> del;\n    // TODO: delete first occurrence of del\n    \n    // print\n    Node* curr = head;\n    while (curr) { cout << curr->data << \" -> \"; curr = curr->next; }\n    cout << \"NULL\" << endl;\n    return 0;\n}",
+  solution: "#include <iostream>\nusing namespace std;\n\nstruct Node {\n    int data;\n    Node* next;\n    Node(int d) : data(d), next(nullptr) {}\n};\n\nint main() {\n    int n;\n    cin >> n;\n    Node* head = nullptr;\n    Node* tail = nullptr;\n    for (int i = 0; i < n; i++) {\n        int v; cin >> v;\n        Node* nd = new Node(v);\n        if (!head) head = tail = nd;\n        else { tail->next = nd; tail = nd; }\n    }\n    int del;\n    cin >> del;\n    if (head && head->data == del) {\n        Node* tmp = head;\n        head = head->next;\n        delete tmp;\n    } else {\n        Node* curr = head;\n        while (curr && curr->next) {\n            if (curr->next->data == del) {\n                Node* tmp = curr->next;\n                curr->next = tmp->next;\n                delete tmp;\n                break;\n            }\n            curr = curr->next;\n        }\n    }\n    Node* curr = head;\n    while (curr) { cout << curr->data << \" -> \"; curr = curr->next; }\n    cout << \"NULL\" << endl;\n    return 0;\n}",
+  hints: [
+    "Handle deleting head separately",
+    "Find the node before the target"
+  ],
+  hintsZh: [
+    "单独处理删除头节点的情况",
+    "找到目标节点的前一个节点"
+  ],
+  testCases: [
+    {
+      input: "4\n1 2 3 4\n3",
+      expectedOutput: "1 -> 2 -> 4 -> NULL"
+    },
+    {
+      input: "3\n1 2 3\n1",
+      expectedOutput: "2 -> 3 -> NULL"
+    },
+    {
+      input: "2\n5 10\n10",
+      expectedOutput: "5 -> NULL"
+    }
+  ]
+},
+{
+  id: "cpp-ex-4-38",
+  title: "Linked List - Reverse",
+  titleZh: "链表 - 反转",
+  difficulty: "medium",
+  level: 4,
+  category: "Linked List",
+  categoryZh: "链表",
+  tags: [
+    "linked-list",
+    "reverse"
+  ],
+  description: "Read n integers into a linked list, reverse it, then print.\n\nInput: n followed by n integers\nOutput: reversed list",
+  descriptionZh: "构建链表并反转后打印。",
+  examples: [
+    {
+      input: "3\n1 2 3",
+      output: "3 -> 2 -> 1 -> NULL"
+    }
+  ],
+  starterCode: "#include <iostream>\nusing namespace std;\n\nstruct Node {\n    int data;\n    Node* next;\n    Node(int d) : data(d), next(nullptr) {}\n};\n\nNode* reverse(Node* head) {\n    // TODO\n}\n\nint main() {\n    int n; cin >> n;\n    Node* head = nullptr; Node* tail = nullptr;\n    for (int i = 0; i < n; i++) {\n        int v; cin >> v;\n        Node* nd = new Node(v);\n        if (!head) head = tail = nd;\n        else { tail->next = nd; tail = nd; }\n    }\n    head = reverse(head);\n    Node* c = head;\n    while (c) { cout << c->data << \" -> \"; c = c->next; }\n    cout << \"NULL\" << endl;\n    return 0;\n}",
+  solution: "#include <iostream>\nusing namespace std;\n\nstruct Node {\n    int data;\n    Node* next;\n    Node(int d) : data(d), next(nullptr) {}\n};\n\nNode* reverse(Node* head) {\n    Node* prev = nullptr;\n    Node* curr = head;\n    while (curr) {\n        Node* next = curr->next;\n        curr->next = prev;\n        prev = curr;\n        curr = next;\n    }\n    return prev;\n}\n\nint main() {\n    int n; cin >> n;\n    Node* head = nullptr; Node* tail = nullptr;\n    for (int i = 0; i < n; i++) {\n        int v; cin >> v;\n        Node* nd = new Node(v);\n        if (!head) head = tail = nd;\n        else { tail->next = nd; tail = nd; }\n    }\n    head = reverse(head);\n    Node* c = head;\n    while (c) { cout << c->data << \" -> \"; c = c->next; }\n    cout << \"NULL\" << endl;\n    return 0;\n}",
+  hints: [
+    "Use three pointers: prev, curr, next",
+    "Return prev at the end"
+  ],
+  hintsZh: [
+    "使用三个指针：prev, curr, next",
+    "最后返回prev"
+  ],
+  testCases: [
+    {
+      input: "3\n1 2 3",
+      expectedOutput: "3 -> 2 -> 1 -> NULL"
+    },
+    {
+      input: "1\n5",
+      expectedOutput: "5 -> NULL"
+    },
+    {
+      input: "5\n1 2 3 4 5",
+      expectedOutput: "5 -> 4 -> 3 -> 2 -> 1 -> NULL"
+    }
+  ]
+},
+{
+  id: "cpp-ex-4-39",
+  title: "Doubly Linked List",
+  titleZh: "双向链表",
+  difficulty: "medium",
+  level: 4,
+  category: "Linked List",
+  categoryZh: "链表",
+  tags: [
+    "linked-list",
+    "doubly"
+  ],
+  description: "Read n integers into a doubly linked list. Print forward then backward.\n\nInput: n followed by n integers\nOutput: forward on line 1, backward on line 2",
+  descriptionZh: "构建双向链表，正向和反向打印。",
+  examples: [
+    {
+      input: "3\n1 2 3",
+      output: "1 2 3\n3 2 1"
+    }
+  ],
+  starterCode: "#include <iostream>\nusing namespace std;\n\nstruct Node {\n    int data;\n    Node* prev;\n    Node* next;\n    Node(int d) : data(d), prev(nullptr), next(nullptr) {}\n};\n\nint main() {\n    int n; cin >> n;\n    // TODO: build doubly linked list, print forward and backward\n    \n    return 0;\n}",
+  solution: "#include <iostream>\nusing namespace std;\n\nstruct Node {\n    int data;\n    Node* prev;\n    Node* next;\n    Node(int d) : data(d), prev(nullptr), next(nullptr) {}\n};\n\nint main() {\n    int n; cin >> n;\n    Node* head = nullptr;\n    Node* tail = nullptr;\n    for (int i = 0; i < n; i++) {\n        int v; cin >> v;\n        Node* nd = new Node(v);\n        if (!head) { head = tail = nd; }\n        else { tail->next = nd; nd->prev = tail; tail = nd; }\n    }\n    // forward\n    Node* c = head;\n    while (c) {\n        if (c != head) cout << \" \";\n        cout << c->data;\n        c = c->next;\n    }\n    cout << endl;\n    // backward\n    c = tail;\n    while (c) {\n        if (c != tail) cout << \" \";\n        cout << c->data;\n        c = c->prev;\n    }\n    cout << endl;\n    while (head) { Node* tmp = head; head = head->next; delete tmp; }\n    return 0;\n}",
+  hints: [
+    "Each node has prev and next pointers",
+    "Use tail to traverse backward"
+  ],
+  hintsZh: [
+    "每个节点有prev和next指针",
+    "用tail反向遍历"
+  ],
+  testCases: [
+    {
+      input: "3\n1 2 3",
+      expectedOutput: "1 2 3\n3 2 1"
+    },
+    {
+      input: "1\n5",
+      expectedOutput: "5\n5"
+    },
+    {
+      input: "4\n10 20 30 40",
+      expectedOutput: "10 20 30 40\n40 30 20 10"
+    }
+  ]
+},
+{
+  id: "cpp-ex-4-40",
+  title: "Linked List - Find Middle",
+  titleZh: "链表 - 找中间节点",
+  difficulty: "medium",
+  level: 4,
+  category: "Linked List",
+  categoryZh: "链表",
+  tags: [
+    "linked-list",
+    "two-pointer"
+  ],
+  description: "Read n integers into a linked list. Find and print the middle element (for even length, second middle).\n\nInput: n followed by n integers\nOutput: middle value",
+  descriptionZh: "找到链表的中间节点值（偶数长度取第二个中间）。",
+  examples: [
+    {
+      input: "5\n1 2 3 4 5",
+      output: "3"
+    }
+  ],
+  starterCode: "#include <iostream>\nusing namespace std;\n\nstruct Node {\n    int data;\n    Node* next;\n    Node(int d) : data(d), next(nullptr) {}\n};\n\nint main() {\n    int n; cin >> n;\n    Node* head = nullptr; Node* tail = nullptr;\n    for (int i = 0; i < n; i++) {\n        int v; cin >> v;\n        Node* nd = new Node(v);\n        if (!head) head = tail = nd;\n        else { tail->next = nd; tail = nd; }\n    }\n    // TODO: find middle using slow/fast pointers\n    \n    return 0;\n}",
+  solution: "#include <iostream>\nusing namespace std;\n\nstruct Node {\n    int data;\n    Node* next;\n    Node(int d) : data(d), next(nullptr) {}\n};\n\nint main() {\n    int n; cin >> n;\n    Node* head = nullptr; Node* tail = nullptr;\n    for (int i = 0; i < n; i++) {\n        int v; cin >> v;\n        Node* nd = new Node(v);\n        if (!head) head = tail = nd;\n        else { tail->next = nd; tail = nd; }\n    }\n    Node* slow = head;\n    Node* fast = head;\n    while (fast && fast->next) {\n        slow = slow->next;\n        fast = fast->next->next;\n    }\n    cout << slow->data << endl;\n    while (head) { Node* tmp = head; head = head->next; delete tmp; }\n    return 0;\n}",
+  hints: [
+    "Use slow and fast pointers",
+    "Fast moves 2 steps, slow moves 1"
+  ],
+  hintsZh: [
+    "使用快慢指针",
+    "快指针走2步，慢指针走1步"
+  ],
+  testCases: [
+    {
+      input: "5\n1 2 3 4 5",
+      expectedOutput: "3"
+    },
+    {
+      input: "4\n1 2 3 4",
+      expectedOutput: "3"
+    },
+    {
+      input: "1\n7",
+      expectedOutput: "7"
+    }
+  ]
+},
+{
+  id: "cpp-ex-4-41",
+  title: "Encapsulation - Getters/Setters",
+  titleZh: "封装 - Getter/Setter",
+  difficulty: "medium",
+  level: 4,
+  category: "Classes",
+  categoryZh: "类",
+  tags: [
+    "encapsulation",
+    "getter",
+    "setter"
+  ],
+  description: "Create a Temperature class with private celsius. Provide setCelsius, getCelsius, and getFahrenheit (C*9/5+32). Read celsius, print both.\n\nInput: celsius\nOutput: C: val F: val.xx",
+  descriptionZh: "创建Temperature类，封装温度转换。",
+  examples: [
+    {
+      input: "100",
+      output: "C: 100 F: 212.00"
+    }
+  ],
+  starterCode: "#include <iostream>\n#include <iomanip>\nusing namespace std;\n\nclass Temperature {\n    // TODO\n};\n\nint main() {\n    double c;\n    cin >> c;\n    Temperature t;\n    t.setCelsius(c);\n    cout << \"C: \" << t.getCelsius() << \" F: \" << fixed << setprecision(2) << t.getFahrenheit() << endl;\n    return 0;\n}",
+  solution: "#include <iostream>\n#include <iomanip>\nusing namespace std;\n\nclass Temperature {\nprivate:\n    double celsius;\npublic:\n    void setCelsius(double c) { celsius = c; }\n    double getCelsius() { return celsius; }\n    double getFahrenheit() { return celsius * 9.0 / 5.0 + 32; }\n};\n\nint main() {\n    double c;\n    cin >> c;\n    Temperature t;\n    t.setCelsius(c);\n    cout << \"C: \" << t.getCelsius() << \" F: \" << fixed << setprecision(2) << t.getFahrenheit() << endl;\n    return 0;\n}",
+  hints: [
+    "Keep data private, expose via methods",
+    "F = C * 9/5 + 32"
+  ],
+  hintsZh: [
+    "数据私有，通过方法暴露",
+    "F = C * 9/5 + 32"
+  ],
+  testCases: [
+    {
+      input: "100",
+      expectedOutput: "C: 100 F: 212.00"
+    },
+    {
+      input: "0",
+      expectedOutput: "C: 0 F: 32.00"
+    },
+    {
+      input: "37",
+      expectedOutput: "C: 37 F: 98.60"
+    }
+  ]
+},
+{
+  id: "cpp-ex-4-42",
+  title: "Operator Overloading ++",
+  titleZh: "运算符重载 ++",
+  difficulty: "medium",
+  level: 4,
+  category: "OOP",
+  categoryZh: "面向对象",
+  tags: [
+    "operator-overloading",
+    "prefix",
+    "postfix"
+  ],
+  description: "Create a Counter class. Overload prefix ++ and postfix ++. Read initial value, apply prefix then postfix, print results.\n\nInput: n\nOutput: after prefix: n+1\\npostfix returns: n+1, value becomes: n+2",
+  descriptionZh: "创建Counter类，重载前缀和后缀++。",
+  examples: [
+    {
+      input: "5",
+      output: "6\n6 7"
+    }
+  ],
+  starterCode: "#include <iostream>\nusing namespace std;\n\nclass Counter {\n    int val;\npublic:\n    Counter(int v) : val(v) {}\n    // TODO: prefix ++ and postfix ++\n    int get() { return val; }\n};\n\nint main() {\n    int n; cin >> n;\n    Counter c(n);\n    ++c;\n    cout << c.get() << endl;\n    Counter old = c++;\n    cout << old.get() << \" \" << c.get() << endl;\n    return 0;\n}",
+  solution: "#include <iostream>\nusing namespace std;\n\nclass Counter {\n    int val;\npublic:\n    Counter(int v) : val(v) {}\n    Counter& operator++() { val++; return *this; }\n    Counter operator++(int) { Counter tmp = *this; val++; return tmp; }\n    int get() { return val; }\n};\n\nint main() {\n    int n; cin >> n;\n    Counter c(n);\n    ++c;\n    cout << c.get() << endl;\n    Counter old = c++;\n    cout << old.get() << \" \" << c.get() << endl;\n    return 0;\n}",
+  hints: [
+    "Prefix returns reference",
+    "Postfix takes dummy int, returns copy"
+  ],
+  hintsZh: [
+    "前缀返回引用",
+    "后缀接受int哑参数，返回副本"
+  ],
+  testCases: [
+    {
+      input: "5",
+      expectedOutput: "6\n6 7"
+    },
+    {
+      input: "0",
+      expectedOutput: "1\n1 2"
+    },
+    {
+      input: "10",
+      expectedOutput: "11\n11 12"
+    }
+  ]
+},
+{
+  id: "cpp-ex-4-43",
+  title: "Operator Overloading []",
+  titleZh: "运算符重载 []",
+  difficulty: "medium",
+  level: 4,
+  category: "OOP",
+  categoryZh: "面向对象",
+  tags: [
+    "operator-overloading",
+    "subscript"
+  ],
+  description: "Create an IntArray class wrapping a fixed array. Overload [] for access. Read n values, then an index, print the value at that index.\n\nInput: n, n values, index\nOutput: value at index",
+  descriptionZh: "创建IntArray类，重载[]运算符。",
+  examples: [
+    {
+      input: "3\n10 20 30\n1",
+      output: "20"
+    }
+  ],
+  starterCode: "#include <iostream>\nusing namespace std;\n\nclass IntArray {\n    int data[100];\n    int size;\npublic:\n    IntArray() : size(0) {}\n    void add(int val) { data[size++] = val; }\n    // TODO: overload []\n};\n\nint main() {\n    int n; cin >> n;\n    IntArray arr;\n    for (int i = 0; i < n; i++) { int v; cin >> v; arr.add(v); }\n    int idx; cin >> idx;\n    cout << arr[idx] << endl;\n    return 0;\n}",
+  solution: "#include <iostream>\nusing namespace std;\n\nclass IntArray {\n    int data[100];\n    int size;\npublic:\n    IntArray() : size(0) {}\n    void add(int val) { data[size++] = val; }\n    int& operator[](int idx) { return data[idx]; }\n};\n\nint main() {\n    int n; cin >> n;\n    IntArray arr;\n    for (int i = 0; i < n; i++) { int v; cin >> v; arr.add(v); }\n    int idx; cin >> idx;\n    cout << arr[idx] << endl;\n    return 0;\n}",
+  hints: [
+    "Return reference for read/write access",
+    "int& operator[](int idx)"
+  ],
+  hintsZh: [
+    "返回引用以支持读写",
+    "int& operator[](int idx)"
+  ],
+  testCases: [
+    {
+      input: "3\n10 20 30\n1",
+      expectedOutput: "20"
+    },
+    {
+      input: "3\n10 20 30\n0",
+      expectedOutput: "10"
+    },
+    {
+      input: "3\n10 20 30\n2",
+      expectedOutput: "30"
+    }
+  ]
+},
+{
+  id: "cpp-ex-4-44",
+  title: "Polymorphism - Shape Areas",
+  titleZh: "多态 - 图形面积",
+  difficulty: "medium",
+  level: 4,
+  category: "Polymorphism",
+  categoryZh: "多态",
+  tags: [
+    "polymorphism",
+    "virtual",
+    "array"
+  ],
+  description: "Read n shapes (C r for circle, R w h for rectangle, T b h for triangle). Store as Shape pointers. Print all areas with 2 decimals.\n\nInput: n, then n shape descriptions\nOutput: n areas, one per line",
+  descriptionZh: "读取多个图形，用多态计算并输出各面积。",
+  examples: [
+    {
+      input: "2\nC 5\nR 3 4",
+      output: "78.54\n12.00"
+    }
+  ],
+  starterCode: "#include <iostream>\n#include <iomanip>\nusing namespace std;\n\nclass Shape {\npublic:\n    virtual double area() = 0;\n    virtual ~Shape() {}\n};\n\n// TODO: Circle, Rect, Triangle\n\nint main() {\n    int n; cin >> n;\n    Shape* shapes[100];\n    for (int i = 0; i < n; i++) {\n        char type; cin >> type;\n        // TODO: create shapes\n    }\n    for (int i = 0; i < n; i++) {\n        cout << fixed << setprecision(2) << shapes[i]->area() << endl;\n        delete shapes[i];\n    }\n    return 0;\n}",
+  solution: "#include <iostream>\n#include <iomanip>\nusing namespace std;\n\nclass Shape {\npublic:\n    virtual double area() = 0;\n    virtual ~Shape() {}\n};\n\nclass Circle : public Shape {\n    double r;\npublic:\n    Circle(double r) : r(r) {}\n    double area() override { return 3.14159265358979 * r * r; }\n};\n\nclass Rect : public Shape {\n    double w, h;\npublic:\n    Rect(double w, double h) : w(w), h(h) {}\n    double area() override { return w * h; }\n};\n\nclass Triangle : public Shape {\n    double b, h;\npublic:\n    Triangle(double b, double h) : b(b), h(h) {}\n    double area() override { return 0.5 * b * h; }\n};\n\nint main() {\n    int n; cin >> n;\n    Shape* shapes[100];\n    for (int i = 0; i < n; i++) {\n        char type; cin >> type;\n        if (type == 'C') { double r; cin >> r; shapes[i] = new Circle(r); }\n        else if (type == 'R') { double w,h; cin >> w >> h; shapes[i] = new Rect(w,h); }\n        else { double b,h; cin >> b >> h; shapes[i] = new Triangle(b,h); }\n    }\n    for (int i = 0; i < n; i++) {\n        cout << fixed << setprecision(2) << shapes[i]->area() << endl;\n        delete shapes[i];\n    }\n    return 0;\n}",
+  hints: [
+    "Use base pointer array",
+    "Virtual function resolves at runtime"
+  ],
+  hintsZh: [
+    "使用基类指针数组",
+    "虚函数在运行时解析"
+  ],
+  testCases: [
+    {
+      input: "2\nC 5\nR 3 4",
+      expectedOutput: "78.54\n12.00"
+    },
+    {
+      input: "3\nC 1\nR 2 3\nT 4 5",
+      expectedOutput: "3.14\n6.00\n10.00"
+    }
+  ]
+},
+{
+  id: "cpp-ex-4-45",
+  title: "Template Specialization",
+  titleZh: "模板特化",
+  difficulty: "medium",
+  level: 4,
+  category: "Templates",
+  categoryZh: "模板",
+  tags: [
+    "template",
+    "specialization"
+  ],
+  description: "Write a template function printType that prints \"Value: x\" for general types, but for string prints \"String: x\". Read an int and a string.\n\nInput: number word\nOutput:\nValue: number\nString: word",
+  descriptionZh: "编写模板函数，对string类型进行特化处理。",
+  examples: [
+    {
+      input: "42 hello",
+      output: "Value: 42\nString: hello"
+    }
+  ],
+  starterCode: "#include <iostream>\n#include <string>\nusing namespace std;\n\n// TODO: template + specialization for string\n\nint main() {\n    int n; string s;\n    cin >> n >> s;\n    printType(n);\n    printType(s);\n    return 0;\n}",
+  solution: "#include <iostream>\n#include <string>\nusing namespace std;\n\ntemplate <typename T>\nvoid printType(T val) {\n    cout << \"Value: \" << val << endl;\n}\n\ntemplate <>\nvoid printType<string>(string val) {\n    cout << \"String: \" << val << endl;\n}\n\nint main() {\n    int n; string s;\n    cin >> n >> s;\n    printType(n);\n    printType(s);\n    return 0;\n}",
+  hints: [
+    "Use template <> for specialization",
+    "Specify the type in angle brackets"
+  ],
+  hintsZh: [
+    "用 template <> 进行特化",
+    "在尖括号中指定类型"
+  ],
+  testCases: [
+    {
+      input: "42 hello",
+      expectedOutput: "Value: 42\nString: hello"
+    },
+    {
+      input: "0 world",
+      expectedOutput: "Value: 0\nString: world"
+    }
+  ]
+},
+{
+  id: "cpp-ex-4-46",
+  title: "Dynamic 2D Array",
+  titleZh: "动态二维数组",
+  difficulty: "medium",
+  level: 4,
+  category: "Pointers",
+  categoryZh: "指针",
+  tags: [
+    "pointer",
+    "dynamic-memory",
+    "2d-array"
+  ],
+  description: "Read r and c, dynamically allocate a 2D array (r rows, c cols). Read values and print the matrix.\n\nInput: r c, then r*c integers\nOutput: matrix with spaces",
+  descriptionZh: "动态分配二维数组，读取并输出矩阵。",
+  examples: [
+    {
+      input: "2 3\n1 2 3 4 5 6",
+      output: "1 2 3\n4 5 6"
+    }
+  ],
+  starterCode: "#include <iostream>\nusing namespace std;\n\nint main() {\n    int r, c;\n    cin >> r >> c;\n    // TODO: allocate, read, print, deallocate\n    \n    return 0;\n}",
+  solution: "#include <iostream>\nusing namespace std;\n\nint main() {\n    int r, c;\n    cin >> r >> c;\n    int** arr = new int*[r];\n    for (int i = 0; i < r; i++) arr[i] = new int[c];\n    for (int i = 0; i < r; i++)\n        for (int j = 0; j < c; j++)\n            cin >> arr[i][j];\n    for (int i = 0; i < r; i++) {\n        for (int j = 0; j < c; j++) {\n            if (j > 0) cout << \" \";\n            cout << arr[i][j];\n        }\n        cout << endl;\n    }\n    for (int i = 0; i < r; i++) delete[] arr[i];\n    delete[] arr;\n    return 0;\n}",
+  hints: [
+    "Allocate array of pointers first",
+    "Then allocate each row"
+  ],
+  hintsZh: [
+    "先分配指针数组",
+    "再分配每一行"
+  ],
+  testCases: [
+    {
+      input: "2 3\n1 2 3 4 5 6",
+      expectedOutput: "1 2 3\n4 5 6"
+    },
+    {
+      input: "1 1\n5",
+      expectedOutput: "5"
+    },
+    {
+      input: "3 2\n1 2 3 4 5 6",
+      expectedOutput: "1 2\n3 4\n5 6"
+    }
+  ]
+},
+{
+  id: "cpp-ex-4-47",
+  title: "Const Pointer vs Pointer to Const",
+  titleZh: "const指针 vs 指向const的指针",
+  difficulty: "medium",
+  level: 4,
+  category: "Pointers",
+  categoryZh: "指针",
+  tags: [
+    "pointer",
+    "const"
+  ],
+  description: "Read two integers a and b. Create a pointer-to-const (can't change value through it) pointing to a. Print value through pointer. Then change pointer to point to b. Print again.\n\nInput: a b\nOutput: a\\nb",
+  descriptionZh: "使用指向const的指针，先指向a输出，再指向b输出。",
+  examples: [
+    {
+      input: "10 20",
+      output: "10\n20"
+    }
+  ],
+  starterCode: "#include <iostream>\nusing namespace std;\n\nint main() {\n    int a, b;\n    cin >> a >> b;\n    // TODO: const int* ptr\n    \n    return 0;\n}",
+  solution: "#include <iostream>\nusing namespace std;\n\nint main() {\n    int a, b;\n    cin >> a >> b;\n    const int* ptr = &a;\n    cout << *ptr << endl;\n    ptr = &b;\n    cout << *ptr << endl;\n    return 0;\n}",
+  hints: [
+    "const int* means value is const through pointer",
+    "Pointer itself can be reassigned"
+  ],
+  hintsZh: [
+    "const int* 表示不能通过指针修改值",
+    "指针本身可以重新赋值"
+  ],
+  testCases: [
+    {
+      input: "10 20",
+      expectedOutput: "10\n20"
+    },
+    {
+      input: "0 0",
+      expectedOutput: "0\n0"
+    },
+    {
+      input: "5 -5",
+      expectedOutput: "5\n-5"
+    }
+  ]
+},
+{
+  id: "cpp-ex-4-48",
+  title: "Inheritance - Method Override",
+  titleZh: "继承 - 方法重写",
+  difficulty: "medium",
+  level: 4,
+  category: "Inheritance",
+  categoryZh: "继承",
+  tags: [
+    "inheritance",
+    "override",
+    "virtual"
+  ],
+  description: "Create Employee base with virtual salary(). Create FullTime (monthly pay) and PartTime (hourly * hours). Read type (F/P), values, print salary.\n\nInput: F monthly OR P hourly hours\nOutput: salary",
+  descriptionZh: "创建Employee基类，FullTime和PartTime重写salary()。",
+  examples: [
+    {
+      input: "F 5000",
+      output: "5000"
+    }
+  ],
+  starterCode: "#include <iostream>\nusing namespace std;\n\nclass Employee {\npublic:\n    virtual int salary() = 0;\n    virtual ~Employee() {}\n};\n\n// TODO: FullTime, PartTime\n\nint main() {\n    char type; cin >> type;\n    Employee* e = nullptr;\n    // TODO\n    cout << e->salary() << endl;\n    delete e;\n    return 0;\n}",
+  solution: "#include <iostream>\nusing namespace std;\n\nclass Employee {\npublic:\n    virtual int salary() = 0;\n    virtual ~Employee() {}\n};\n\nclass FullTime : public Employee {\n    int monthly;\npublic:\n    FullTime(int m) : monthly(m) {}\n    int salary() override { return monthly; }\n};\n\nclass PartTime : public Employee {\n    int hourly, hours;\npublic:\n    PartTime(int h, int hrs) : hourly(h), hours(hrs) {}\n    int salary() override { return hourly * hours; }\n};\n\nint main() {\n    char type; cin >> type;\n    Employee* e = nullptr;\n    if (type == 'F') { int m; cin >> m; e = new FullTime(m); }\n    else { int h, hrs; cin >> h >> hrs; e = new PartTime(h, hrs); }\n    cout << e->salary() << endl;\n    delete e;\n    return 0;\n}",
+  hints: [
+    "Override pure virtual in each derived class",
+    "Use base pointer for polymorphism"
+  ],
+  hintsZh: [
+    "在每个派生类中重写纯虚函数",
+    "用基类指针实现多态"
+  ],
+  testCases: [
+    {
+      input: "F 5000",
+      expectedOutput: "5000"
+    },
+    {
+      input: "P 20 160",
+      expectedOutput: "3200"
+    },
+    {
+      input: "P 15 80",
+      expectedOutput: "1200"
+    }
+  ]
+},
+{
+  id: "cpp-ex-4-49",
+  title: "Linked List - Detect Cycle",
+  titleZh: "链表 - 检测环",
+  difficulty: "medium",
+  level: 4,
+  category: "Linked List",
+  categoryZh: "链表",
+  tags: [
+    "linked-list",
+    "cycle",
+    "floyd"
+  ],
+  description: "Read n integers into a list, then read k (0-based index to connect tail to, or -1 for no cycle). Print \"Cycle\" or \"No Cycle\".\n\nInput: n, n integers, k\nOutput: Cycle or No Cycle",
+  descriptionZh: "构建链表，尾部连接到第k个节点（-1表示无环），检测是否有环。",
+  examples: [
+    {
+      input: "3\n1 2 3\n-1",
+      output: "No Cycle"
+    }
+  ],
+  starterCode: "#include <iostream>\nusing namespace std;\n\nstruct Node {\n    int data;\n    Node* next;\n    Node(int d) : data(d), next(nullptr) {}\n};\n\nint main() {\n    int n; cin >> n;\n    Node* nodes[100];\n    for (int i = 0; i < n; i++) {\n        int v; cin >> v;\n        nodes[i] = new Node(v);\n        if (i > 0) nodes[i-1]->next = nodes[i];\n    }\n    int k; cin >> k;\n    if (k >= 0) nodes[n-1]->next = nodes[k];\n    // TODO: detect cycle with Floyd's algorithm\n    \n    return 0;\n}",
+  solution: "#include <iostream>\nusing namespace std;\n\nstruct Node {\n    int data;\n    Node* next;\n    Node(int d) : data(d), next(nullptr) {}\n};\n\nint main() {\n    int n; cin >> n;\n    Node* nodes[100];\n    for (int i = 0; i < n; i++) {\n        int v; cin >> v;\n        nodes[i] = new Node(v);\n        if (i > 0) nodes[i-1]->next = nodes[i];\n    }\n    int k; cin >> k;\n    if (k >= 0) nodes[n-1]->next = nodes[k];\n    Node* slow = nodes[0];\n    Node* fast = nodes[0];\n    bool hasCycle = false;\n    while (fast && fast->next) {\n        slow = slow->next;\n        fast = fast->next->next;\n        if (slow == fast) { hasCycle = true; break; }\n    }\n    cout << (hasCycle ? \"Cycle\" : \"No Cycle\") << endl;\n    return 0;\n}",
+  hints: [
+    "Floyd's: slow moves 1, fast moves 2",
+    "If they meet, there's a cycle"
+  ],
+  hintsZh: [
+    "Floyd算法：慢指针走1步，快指针走2步",
+    "如果相遇则有环"
+  ],
+  testCases: [
+    {
+      input: "3\n1 2 3\n-1",
+      expectedOutput: "No Cycle"
+    },
+    {
+      input: "3\n1 2 3\n0",
+      expectedOutput: "Cycle"
+    },
+    {
+      input: "4\n1 2 3 4\n1",
+      expectedOutput: "Cycle"
+    }
+  ]
+},
+{
+  id: "cpp-ex-4-50",
+  title: "Abstract Interface Pattern",
+  titleZh: "抽象接口模式",
+  difficulty: "medium",
+  level: 4,
+  category: "Polymorphism",
+  categoryZh: "多态",
+  tags: [
+    "interface",
+    "abstract",
+    "design-pattern"
+  ],
+  description: "Create an interface Sortable with pure virtual sort(). Create BubbleSorter and SelectionSorter. Read n integers and method (B/S), sort and print.\n\nInput: n, n integers, method\nOutput: sorted values",
+  descriptionZh: "创建Sortable接口，实现冒泡和选择排序。",
+  examples: [
+    {
+      input: "5\n5 3 1 4 2\nB",
+      output: "1 2 3 4 5"
+    }
+  ],
+  starterCode: "#include <iostream>\nusing namespace std;\n\nclass Sortable {\npublic:\n    virtual void sort(int arr[], int n) = 0;\n    virtual ~Sortable() {}\n};\n\n// TODO: BubbleSorter, SelectionSorter\n\nint main() {\n    int n; cin >> n;\n    int arr[100];\n    for (int i = 0; i < n; i++) cin >> arr[i];\n    char method; cin >> method;\n    // TODO\n    return 0;\n}",
+  solution: "#include <iostream>\nusing namespace std;\n\nclass Sortable {\npublic:\n    virtual void sort(int arr[], int n) = 0;\n    virtual ~Sortable() {}\n};\n\nclass BubbleSorter : public Sortable {\npublic:\n    void sort(int arr[], int n) override {\n        for (int i = 0; i < n-1; i++)\n            for (int j = 0; j < n-1-i; j++)\n                if (arr[j] > arr[j+1]) { int t = arr[j]; arr[j] = arr[j+1]; arr[j+1] = t; }\n    }\n};\n\nclass SelectionSorter : public Sortable {\npublic:\n    void sort(int arr[], int n) override {\n        for (int i = 0; i < n-1; i++) {\n            int mn = i;\n            for (int j = i+1; j < n; j++) if (arr[j] < arr[mn]) mn = j;\n            int t = arr[i]; arr[i] = arr[mn]; arr[mn] = t;\n        }\n    }\n};\n\nint main() {\n    int n; cin >> n;\n    int arr[100];\n    for (int i = 0; i < n; i++) cin >> arr[i];\n    char method; cin >> method;\n    Sortable* s = nullptr;\n    if (method == 'B') s = new BubbleSorter();\n    else s = new SelectionSorter();\n    s->sort(arr, n);\n    for (int i = 0; i < n; i++) { if (i) cout << \" \"; cout << arr[i]; }\n    cout << endl;\n    delete s;\n    return 0;\n}",
+  hints: [
+    "Interface = class with only pure virtual functions",
+    "Each sorter implements the algorithm"
+  ],
+  hintsZh: [
+    "接口 = 只有纯虚函数的类",
+    "每个排序器实现算法"
+  ],
+  testCases: [
+    {
+      input: "5\n5 3 1 4 2\nB",
+      expectedOutput: "1 2 3 4 5"
+    },
+    {
+      input: "5\n5 3 1 4 2\nS",
+      expectedOutput: "1 2 3 4 5"
+    },
+    {
+      input: "3\n3 1 2\nB",
+      expectedOutput: "1 2 3"
+    }
+  ]
+},
+{
+  id: "cpp-ex-4-51",
+  title: "Pointer to Array of Structs",
+  titleZh: "指向结构体数组的指针",
+  difficulty: "medium",
+  level: 4,
+  category: "Pointers",
+  categoryZh: "指针",
+  tags: [
+    "pointer",
+    "struct",
+    "array"
+  ],
+  description: "Read n students (name score). Use pointer to struct array to find the student with highest score. Print their name.\n\nInput: n, then n (name score) pairs\nOutput: name of highest scorer",
+  descriptionZh: "用指向结构体数组的指针找到最高分学生。",
+  examples: [
+    {
+      input: "3\nAlice 90\nBob 95\nTom 85",
+      output: "Bob"
+    }
+  ],
+  starterCode: "#include <iostream>\n#include <string>\nusing namespace std;\n\nstruct Student {\n    string name;\n    int score;\n};\n\nint main() {\n    int n; cin >> n;\n    Student* students = new Student[n];\n    for (int i = 0; i < n; i++) cin >> students[i].name >> students[i].score;\n    // TODO: find highest using pointer\n    \n    delete[] students;\n    return 0;\n}",
+  solution: "#include <iostream>\n#include <string>\nusing namespace std;\n\nstruct Student {\n    string name;\n    int score;\n};\n\nint main() {\n    int n; cin >> n;\n    Student* students = new Student[n];\n    for (int i = 0; i < n; i++) cin >> students[i].name >> students[i].score;\n    Student* best = students;\n    for (int i = 1; i < n; i++) {\n        if ((students + i)->score > best->score) best = students + i;\n    }\n    cout << best->name << endl;\n    delete[] students;\n    return 0;\n}",
+  hints: [
+    "Use -> to access members via pointer",
+    "Track pointer to best student"
+  ],
+  hintsZh: [
+    "用->通过指针访问成员",
+    "跟踪指向最佳学生的指针"
+  ],
+  testCases: [
+    {
+      input: "3\nAlice 90\nBob 95\nTom 85",
+      expectedOutput: "Bob"
+    },
+    {
+      input: "1\nAnn 100",
+      expectedOutput: "Ann"
+    },
+    {
+      input: "2\nX 50\nY 50",
+      expectedOutput: "X"
+    }
+  ]
+},
+{
+  id: "cpp-ex-4-52",
+  title: "Inheritance - Constructor Chain",
+  titleZh: "继承 - 构造函数链",
+  difficulty: "medium",
+  level: 4,
+  category: "Inheritance",
+  categoryZh: "继承",
+  tags: [
+    "inheritance",
+    "constructor"
+  ],
+  description: "Create A, B(inherits A), C(inherits B). Each prints its name in constructor. Create C, observe order.\n\nInput: none\nOutput: A\\nB\\nC",
+  descriptionZh: "创建三级继承，观察构造顺序。",
+  examples: [
+    {
+      input: "",
+      output: "A\nB\nC"
+    }
+  ],
+  starterCode: "#include <iostream>\nusing namespace std;\n\n// TODO: classes A, B, C\n\nint main() {\n    C c;\n    return 0;\n}",
+  solution: "#include <iostream>\nusing namespace std;\n\nclass A {\npublic:\n    A() { cout << \"A\" << endl; }\n};\n\nclass B : public A {\npublic:\n    B() { cout << \"B\" << endl; }\n};\n\nclass C : public B {\npublic:\n    C() { cout << \"C\" << endl; }\n};\n\nint main() {\n    C c;\n    return 0;\n}",
+  hints: [
+    "Base constructor runs first",
+    "Order: A -> B -> C"
+  ],
+  hintsZh: [
+    "基类构造函数先执行",
+    "顺序：A -> B -> C"
+  ],
+  testCases: [
+    {
+      input: "",
+      expectedOutput: "A\nB\nC"
+    }
+  ]
+},
+{
+  id: "cpp-ex-4-53",
+  title: "Operator Overloading - Comparison",
+  titleZh: "运算符重载 - 比较",
+  difficulty: "medium",
+  level: 4,
+  category: "OOP",
+  categoryZh: "面向对象",
+  tags: [
+    "operator-overloading",
+    "comparison"
+  ],
+  description: "Create a Date class (year, month, day). Overload < operator. Read two dates, print which is earlier.\n\nInput: y1 m1 d1 y2 m2 d2\nOutput: First or Second",
+  descriptionZh: "创建Date类，重载<运算符比较日期。",
+  examples: [
+    {
+      input: "2020 1 1 2020 6 15",
+      output: "First"
+    }
+  ],
+  starterCode: "#include <iostream>\nusing namespace std;\n\nclass Date {\npublic:\n    int year, month, day;\n    Date(int y, int m, int d) : year(y), month(m), day(d) {}\n    // TODO: overload <\n};\n\nint main() {\n    int y1,m1,d1,y2,m2,d2;\n    cin >> y1 >> m1 >> d1 >> y2 >> m2 >> d2;\n    Date a(y1,m1,d1), b(y2,m2,d2);\n    cout << (a < b ? \"First\" : \"Second\") << endl;\n    return 0;\n}",
+  solution: "#include <iostream>\nusing namespace std;\n\nclass Date {\npublic:\n    int year, month, day;\n    Date(int y, int m, int d) : year(y), month(m), day(d) {}\n    bool operator<(const Date& other) const {\n        if (year != other.year) return year < other.year;\n        if (month != other.month) return month < other.month;\n        return day < other.day;\n    }\n};\n\nint main() {\n    int y1,m1,d1,y2,m2,d2;\n    cin >> y1 >> m1 >> d1 >> y2 >> m2 >> d2;\n    Date a(y1,m1,d1), b(y2,m2,d2);\n    cout << (a < b ? \"First\" : \"Second\") << endl;\n    return 0;\n}",
+  hints: [
+    "Compare year first, then month, then day",
+    "Mark operator as const"
+  ],
+  hintsZh: [
+    "先比年，再比月，最后比日",
+    "运算符标记为const"
+  ],
+  testCases: [
+    {
+      input: "2020 1 1 2020 6 15",
+      expectedOutput: "First"
+    },
+    {
+      input: "2021 1 1 2020 12 31",
+      expectedOutput: "Second"
+    },
+    {
+      input: "2020 3 15 2020 3 14",
+      expectedOutput: "Second"
+    }
+  ]
+},
+{
+  id: "cpp-ex-4-54",
+  title: "This Pointer",
+  titleZh: "this指针",
+  difficulty: "medium",
+  level: 4,
+  category: "Classes",
+  categoryZh: "类",
+  tags: [
+    "this",
+    "class"
+  ],
+  description: "Create a Builder class with name and age. Implement setName and setAge returning *this for method chaining. Read name and age.\n\nInput: name age\nOutput: name age",
+  descriptionZh: "创建Builder类，用this指针实现链式调用。",
+  examples: [
+    {
+      input: "Alice 25",
+      output: "Alice 25"
+    }
+  ],
+  starterCode: "#include <iostream>\n#include <string>\nusing namespace std;\n\nclass Builder {\n    string name;\n    int age;\npublic:\n    // TODO: setName, setAge returning *this\n    void print() { cout << name << \" \" << age << endl; }\n};\n\nint main() {\n    string n; int a;\n    cin >> n >> a;\n    Builder b;\n    b.setName(n).setAge(a).print();\n    return 0;\n}",
+  solution: "#include <iostream>\n#include <string>\nusing namespace std;\n\nclass Builder {\n    string name;\n    int age;\npublic:\n    Builder& setName(string n) { name = n; return *this; }\n    Builder& setAge(int a) { age = a; return *this; }\n    void print() { cout << name << \" \" << age << endl; }\n};\n\nint main() {\n    string n; int a;\n    cin >> n >> a;\n    Builder b;\n    b.setName(n).setAge(a).print();\n    return 0;\n}",
+  hints: [
+    "Return Builder& for chaining",
+    "*this returns current object"
+  ],
+  hintsZh: [
+    "返回Builder&以支持链式调用",
+    "*this返回当前对象"
+  ],
+  testCases: [
+    {
+      input: "Alice 25",
+      expectedOutput: "Alice 25"
+    },
+    {
+      input: "Bob 30",
+      expectedOutput: "Bob 30"
+    }
+  ]
+},
+{
+  id: "cpp-ex-4-55",
+  title: "Virtual Destructor",
+  titleZh: "虚析构函数",
+  difficulty: "medium",
+  level: 4,
+  category: "Polymorphism",
+  categoryZh: "多态",
+  tags: [
+    "virtual",
+    "destructor"
+  ],
+  description: "Create Base and Derived with destructors that print messages. Delete Derived through Base pointer. Observe proper cleanup.\n\nInput: none\nOutput: Derived created\\nBase created\\nDerived destroyed\\nBase destroyed",
+  descriptionZh: "演示虚析构函数确保正确的析构顺序。",
+  examples: [
+    {
+      input: "",
+      output: "Base created\nDerived created\nDerived destroyed\nBase destroyed"
+    }
+  ],
+  starterCode: "#include <iostream>\nusing namespace std;\n\nclass Base {\npublic:\n    Base() { cout << \"Base created\" << endl; }\n    // TODO: virtual destructor\n};\n\nclass Derived : public Base {\npublic:\n    Derived() { cout << \"Derived created\" << endl; }\n    ~Derived() { cout << \"Derived destroyed\" << endl; }\n};\n\nint main() {\n    Base* ptr = new Derived();\n    delete ptr;\n    return 0;\n}",
+  solution: "#include <iostream>\nusing namespace std;\n\nclass Base {\npublic:\n    Base() { cout << \"Base created\" << endl; }\n    virtual ~Base() { cout << \"Base destroyed\" << endl; }\n};\n\nclass Derived : public Base {\npublic:\n    Derived() { cout << \"Derived created\" << endl; }\n    ~Derived() { cout << \"Derived destroyed\" << endl; }\n};\n\nint main() {\n    Base* ptr = new Derived();\n    delete ptr;\n    return 0;\n}",
+  hints: [
+    "Without virtual destructor, Derived destructor won't run",
+    "Always make base destructor virtual if using polymorphism"
+  ],
+  hintsZh: [
+    "没有虚析构函数，Derived析构不会执行",
+    "使用多态时总是将基类析构设为virtual"
+  ],
+  testCases: [
+    {
+      input: "",
+      expectedOutput: "Base created\nDerived created\nDerived destroyed\nBase destroyed"
+    }
+  ]
+},
+{
+  id: "cpp-ex-4-56",
+  title: "Pointer to Class Member",
+  titleZh: "指向类成员的指针",
+  difficulty: "medium",
+  level: 4,
+  category: "Pointers",
+  categoryZh: "指针",
+  tags: [
+    "pointer",
+    "class",
+    "member-pointer"
+  ],
+  description: "Read n integers. Use new to allocate them, find min and max using pointers, print both.\n\nInput: n, n integers\nOutput: min max",
+  descriptionZh: "动态分配n个整数，用指针找最小和最大值。",
+  examples: [
+    {
+      input: "5\n3 1 4 1 5",
+      output: "1 5"
+    }
+  ],
+  starterCode: "#include <iostream>\nusing namespace std;\n\nint main() {\n    int n; cin >> n;\n    int* arr = new int[n];\n    for (int i = 0; i < n; i++) cin >> arr[i];\n    // TODO: find min and max\n    \n    delete[] arr;\n    return 0;\n}",
+  solution: "#include <iostream>\nusing namespace std;\n\nint main() {\n    int n; cin >> n;\n    int* arr = new int[n];\n    for (int i = 0; i < n; i++) cin >> arr[i];\n    int* minP = arr;\n    int* maxP = arr;\n    for (int i = 1; i < n; i++) {\n        if (*(arr+i) < *minP) minP = arr+i;\n        if (*(arr+i) > *maxP) maxP = arr+i;\n    }\n    cout << *minP << \" \" << *maxP << endl;\n    delete[] arr;\n    return 0;\n}",
+  hints: [
+    "Track pointers to min/max elements",
+    "Compare dereferenced values"
+  ],
+  hintsZh: [
+    "跟踪指向最小/最大元素的指针",
+    "比较解引用后的值"
+  ],
+  testCases: [
+    {
+      input: "5\n3 1 4 1 5",
+      expectedOutput: "1 5"
+    },
+    {
+      input: "1\n7",
+      expectedOutput: "7 7"
+    },
+    {
+      input: "3\n-1 -5 -2",
+      expectedOutput: "-5 -1"
+    }
+  ]
+},
+{
+  id: "cpp-ex-4-57",
+  title: "Linked List - Sorted Insert",
+  titleZh: "链表 - 有序插入",
+  difficulty: "medium",
+  level: 4,
+  category: "Linked List",
+  categoryZh: "链表",
+  tags: [
+    "linked-list",
+    "sorted-insert"
+  ],
+  description: "Read n integers one by one. Insert each into a linked list maintaining sorted order. Print final list.\n\nInput: n, n integers\nOutput: sorted list \" -> \" format ending NULL",
+  descriptionZh: "逐个读取整数，维持有序插入链表。",
+  examples: [
+    {
+      input: "4\n3 1 4 2",
+      output: "1 -> 2 -> 3 -> 4 -> NULL"
+    }
+  ],
+  starterCode: "#include <iostream>\nusing namespace std;\n\nstruct Node {\n    int data;\n    Node* next;\n    Node(int d) : data(d), next(nullptr) {}\n};\n\nNode* sortedInsert(Node* head, int val) {\n    // TODO\n}\n\nint main() {\n    int n; cin >> n;\n    Node* head = nullptr;\n    for (int i = 0; i < n; i++) {\n        int v; cin >> v;\n        head = sortedInsert(head, v);\n    }\n    Node* c = head;\n    while (c) { cout << c->data << \" -> \"; c = c->next; }\n    cout << \"NULL\" << endl;\n    return 0;\n}",
+  solution: "#include <iostream>\nusing namespace std;\n\nstruct Node {\n    int data;\n    Node* next;\n    Node(int d) : data(d), next(nullptr) {}\n};\n\nNode* sortedInsert(Node* head, int val) {\n    Node* nd = new Node(val);\n    if (!head || val <= head->data) {\n        nd->next = head;\n        return nd;\n    }\n    Node* curr = head;\n    while (curr->next && curr->next->data < val) curr = curr->next;\n    nd->next = curr->next;\n    curr->next = nd;\n    return head;\n}\n\nint main() {\n    int n; cin >> n;\n    Node* head = nullptr;\n    for (int i = 0; i < n; i++) {\n        int v; cin >> v;\n        head = sortedInsert(head, v);\n    }\n    Node* c = head;\n    while (c) { cout << c->data << \" -> \"; c = c->next; }\n    cout << \"NULL\" << endl;\n    return 0;\n}",
+  hints: [
+    "Handle insert at head separately",
+    "Find position where next > val"
+  ],
+  hintsZh: [
+    "单独处理头部插入",
+    "找到next > val的位置"
+  ],
+  testCases: [
+    {
+      input: "4\n3 1 4 2",
+      expectedOutput: "1 -> 2 -> 3 -> 4 -> NULL"
+    },
+    {
+      input: "3\n1 2 3",
+      expectedOutput: "1 -> 2 -> 3 -> NULL"
+    },
+    {
+      input: "3\n3 2 1",
+      expectedOutput: "1 -> 2 -> 3 -> NULL"
+    }
+  ]
+},
+{
+  id: "cpp-ex-4-58",
+  title: "Template with Multiple Types",
+  titleZh: "多类型模板",
+  difficulty: "medium",
+  level: 4,
+  category: "Templates",
+  categoryZh: "模板",
+  tags: [
+    "template",
+    "multiple-types"
+  ],
+  description: "Write a template class KeyValue<K,V> with key and value. Read an int key and string value, print \"key: value\".\n\nInput: key value\nOutput: key: value",
+  descriptionZh: "创建双类型模板类KeyValue<K,V>。",
+  examples: [
+    {
+      input: "1 hello",
+      output: "1: hello"
+    }
+  ],
+  starterCode: "#include <iostream>\n#include <string>\nusing namespace std;\n\n// TODO: template class KeyValue\n\nint main() {\n    int k; string v;\n    cin >> k >> v;\n    KeyValue<int,string> kv(k, v);\n    kv.print();\n    return 0;\n}",
+  solution: "#include <iostream>\n#include <string>\nusing namespace std;\n\ntemplate <typename K, typename V>\nclass KeyValue {\n    K key;\n    V value;\npublic:\n    KeyValue(K k, V v) : key(k), value(v) {}\n    void print() { cout << key << \": \" << value << endl; }\n};\n\nint main() {\n    int k; string v;\n    cin >> k >> v;\n    KeyValue<int,string> kv(k, v);\n    kv.print();\n    return 0;\n}",
+  hints: [
+    "template <typename K, typename V>",
+    "Both types are independent"
+  ],
+  hintsZh: [
+    "template <typename K, typename V>",
+    "两个类型相互独立"
+  ],
+  testCases: [
+    {
+      input: "1 hello",
+      expectedOutput: "1: hello"
+    },
+    {
+      input: "42 world",
+      expectedOutput: "42: world"
+    }
+  ]
+},
+{
+  id: "cpp-ex-4-59",
+  title: "String Tokenizer Class",
+  titleZh: "字符串分词器类",
+  difficulty: "medium",
+  level: 4,
+  category: "Classes",
+  categoryZh: "类",
+  tags: [
+    "class",
+    "string",
+    "tokenizer"
+  ],
+  description: "Create a Tokenizer class that splits a string by spaces. Provide count() and tokenAt(i). Read a line, print token count and each token.\n\nInput: a line of text\nOutput: count then each token on separate lines",
+  descriptionZh: "创建Tokenizer类按空格分词，输出词数和每个词。",
+  examples: [
+    {
+      input: "hello world foo",
+      output: "3\nhello\nworld\nfoo"
+    }
+  ],
+  starterCode: "#include <iostream>\n#include <string>\nusing namespace std;\n\nclass Tokenizer {\n    string tokens[100];\n    int cnt;\npublic:\n    // TODO\n};\n\nint main() {\n    string line;\n    getline(cin, line);\n    Tokenizer t(line);\n    cout << t.count() << endl;\n    for (int i = 0; i < t.count(); i++) cout << t.tokenAt(i) << endl;\n    return 0;\n}",
+  solution: "#include <iostream>\n#include <string>\n#include <sstream>\nusing namespace std;\n\nclass Tokenizer {\n    string tokens[100];\n    int cnt;\npublic:\n    Tokenizer(string s) : cnt(0) {\n        istringstream iss(s);\n        string tok;\n        while (iss >> tok) tokens[cnt++] = tok;\n    }\n    int count() { return cnt; }\n    string tokenAt(int i) { return tokens[i]; }\n};\n\nint main() {\n    string line;\n    getline(cin, line);\n    Tokenizer t(line);\n    cout << t.count() << endl;\n    for (int i = 0; i < t.count(); i++) cout << t.tokenAt(i) << endl;\n    return 0;\n}",
+  hints: [
+    "Use istringstream to split by spaces",
+    "Store tokens in array"
+  ],
+  hintsZh: [
+    "用istringstream按空格分割",
+    "将token存入数组"
+  ],
+  testCases: [
+    {
+      input: "hello world foo",
+      expectedOutput: "3\nhello\nworld\nfoo"
+    },
+    {
+      input: "one",
+      expectedOutput: "1\none"
+    },
+    {
+      input: "a b c d",
+      expectedOutput: "4\na\nb\nc\nd"
+    }
+  ]
+},
+{
+  id: "cpp-ex-4-60",
+  title: "Linked List - Merge Two Sorted",
+  titleZh: "链表 - 合并两个有序链表",
+  difficulty: "medium",
+  level: 4,
+  category: "Linked List",
+  categoryZh: "链表",
+  tags: [
+    "linked-list",
+    "merge",
+    "sorted"
+  ],
+  description: "Read two sorted linked lists and merge them into one sorted list.\n\nInput: n1, n1 sorted ints, n2, n2 sorted ints\nOutput: merged sorted list \" -> \" format ending NULL",
+  descriptionZh: "读取两个有序链表并合并为一个有序链表。",
+  examples: [
+    {
+      input: "3\n1 3 5\n3\n2 4 6",
+      output: "1 -> 2 -> 3 -> 4 -> 5 -> 6 -> NULL"
+    }
+  ],
+  starterCode: "#include <iostream>\nusing namespace std;\n\nstruct Node {\n    int data;\n    Node* next;\n    Node(int d) : data(d), next(nullptr) {}\n};\n\nNode* buildList(int n) {\n    Node* head = nullptr; Node* tail = nullptr;\n    for (int i = 0; i < n; i++) {\n        int v; cin >> v;\n        Node* nd = new Node(v);\n        if (!head) head = tail = nd;\n        else { tail->next = nd; tail = nd; }\n    }\n    return head;\n}\n\nNode* merge(Node* a, Node* b) {\n    // TODO\n}\n\nint main() {\n    int n1; cin >> n1;\n    Node* l1 = buildList(n1);\n    int n2; cin >> n2;\n    Node* l2 = buildList(n2);\n    Node* merged = merge(l1, l2);\n    Node* c = merged;\n    while (c) { cout << c->data << \" -> \"; c = c->next; }\n    cout << \"NULL\" << endl;\n    return 0;\n}",
+  solution: "#include <iostream>\nusing namespace std;\n\nstruct Node {\n    int data;\n    Node* next;\n    Node(int d) : data(d), next(nullptr) {}\n};\n\nNode* buildList(int n) {\n    Node* head = nullptr; Node* tail = nullptr;\n    for (int i = 0; i < n; i++) {\n        int v; cin >> v;\n        Node* nd = new Node(v);\n        if (!head) head = tail = nd;\n        else { tail->next = nd; tail = nd; }\n    }\n    return head;\n}\n\nNode* merge(Node* a, Node* b) {\n    Node dummy(0);\n    Node* tail = &dummy;\n    while (a && b) {\n        if (a->data <= b->data) { tail->next = a; a = a->next; }\n        else { tail->next = b; b = b->next; }\n        tail = tail->next;\n    }\n    tail->next = a ? a : b;\n    return dummy.next;\n}\n\nint main() {\n    int n1; cin >> n1;\n    Node* l1 = buildList(n1);\n    int n2; cin >> n2;\n    Node* l2 = buildList(n2);\n    Node* merged = merge(l1, l2);\n    Node* c = merged;\n    while (c) { cout << c->data << \" -> \"; c = c->next; }\n    cout << \"NULL\" << endl;\n    return 0;\n}",
+  hints: [
+    "Use a dummy node to simplify",
+    "Compare heads and attach smaller"
+  ],
+  hintsZh: [
+    "用哑节点简化操作",
+    "比较头节点，连接较小的"
+  ],
+  testCases: [
+    {
+      input: "3\n1 3 5\n3\n2 4 6",
+      expectedOutput: "1 -> 2 -> 3 -> 4 -> 5 -> 6 -> NULL"
+    },
+    {
+      input: "2\n1 2\n2\n3 4",
+      expectedOutput: "1 -> 2 -> 3 -> 4 -> NULL"
+    },
+    {
+      input: "1\n5\n1\n1",
+      expectedOutput: "1 -> 5 -> NULL"
+    }
+  ]
+},
+];
