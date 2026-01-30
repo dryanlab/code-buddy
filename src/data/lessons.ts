@@ -1394,6 +1394,58 @@ for side in range(4):
 🔧 Chip says: "Your CPU does billions of loops per second - this is its favorite job!"`,
       },
       {
+        type: "concept",
+        emoji: "📖",
+        content: "New Syntax: The Power of Loops",
+        concept: {
+          title: "🔁 New Syntax: The Power of Loops",
+          titleZh: "新语法：循环的力量",
+          syntaxCards: [
+            {
+              symbol: "for x in range(n):",
+              name: "For Loop",
+              nameZh: "for 循环",
+              emoji: "🔄",
+              description: "Like a merry-go-round 🎠 — it repeats code a set number of times! range(4) means 'do this 4 times' (0, 1, 2, 3).",
+              example: "for i in range(4):\n    print(i)\n# Output: 0 1 2 3",
+            },
+            {
+              symbol: "range(start, stop)",
+              name: "Range (with start & stop)",
+              nameZh: "范围（起止值）",
+              emoji: "📏",
+              description: "A number ruler 📏 — generates numbers from start to stop-1. range(1, 6) gives you 1, 2, 3, 4, 5.",
+              example: "for i in range(1, 6):\n    print(i)\n# Output: 1 2 3 4 5",
+            },
+            {
+              symbol: "    (indent)",
+              name: "Indentation (loop body)",
+              nameZh: "缩进（循环体）",
+              emoji: "➡️",
+              description: "The 4-space indent is like a fence 🏗️ — everything indented 'belongs' to the loop and gets repeated.",
+              example: "for i in range(3):\n    print('inside')  # repeated\nprint('outside')  # NOT repeated",
+            },
+            {
+              symbol: "import turtle",
+              name: "Import Module",
+              nameZh: "导入模块",
+              emoji: "📦",
+              description: "Like opening a toolbox 🧰 — import brings in extra tools Python doesn't load by default.",
+              example: "import turtle\nimport random",
+            },
+          ],
+          codeAnatomy: {
+            lines: [
+              { code: "import turtle", explanation: "Import the turtle drawing module — our digital artist!", explanationZh: "导入海龟绘图模块 — 我们的数字画家！" },
+              { code: "t = turtle.Turtle()", explanation: "Create a turtle object we can command to draw.", explanationZh: "创建一个可以画图的海龟对象" },
+              { code: "for side in range(4):", explanation: "Repeat the next lines 4 times (side = 0, 1, 2, 3).", explanationZh: "重复下面的代码 4 次（side = 0, 1, 2, 3）" },
+              { code: "    t.forward(100)", explanation: "Move turtle forward 100 pixels (inside the loop!).", explanationZh: "海龟前进 100 像素（在循环内！）" },
+              { code: "    t.right(90)", explanation: "Turn right 90° — loop draws a perfect square!", explanationZh: "右转 90° — 循环画出完美正方形！" },
+            ],
+          },
+        },
+      },
+      {
         type: "code",
         emoji: "🔺",
         content: `## 🔺 Polygon Factory - Any Shape You Want!
@@ -1613,6 +1665,66 @@ Imagine you're playing the coolest RPG ever. Your backpack can hold:
 🔧 Chip says: "Real game engines use lists exactly like this for player inventories!"`,
       },
       {
+        type: "concept",
+        emoji: "📖",
+        content: "New Syntax: Lists — Your Digital Backpack",
+        concept: {
+          title: "🎒 New Syntax: Lists — Your Digital Backpack",
+          titleZh: "新语法：列表 — 你的数字背包",
+          syntaxCards: [
+            {
+              symbol: "[item1, item2]",
+              name: "List (ordered collection)",
+              nameZh: "列表（有序集合）",
+              emoji: "📋",
+              description: "Like a backpack 🎒 — holds multiple items in order! You can add, remove, and check what's inside.",
+              example: 'backpack = ["Sword", "Potion", "Shield"]',
+            },
+            {
+              symbol: ".append(item)",
+              name: "Append (add to end)",
+              nameZh: "追加（添加到末尾）",
+              emoji: "➕",
+              description: "Like picking up loot ✨ — adds a new item to the END of your list.",
+              example: 'backpack.append("Dragon Scale")\n# backpack now has 4 items',
+            },
+            {
+              symbol: ".remove(item)",
+              name: "Remove (delete item)",
+              nameZh: "移除（删除元素）",
+              emoji: "🗑️",
+              description: "Like using a potion 🧪 — removes the first matching item from the list.",
+              example: 'backpack.remove("Potion")\n# Potion is gone!',
+            },
+            {
+              symbol: "item in list",
+              name: "Membership Check",
+              nameZh: "成员检查",
+              emoji: "🔍",
+              description: "Like checking your pockets 🔍 — returns True if the item exists in the list.",
+              example: 'if "Sword" in backpack:\n    print("Ready to fight!")',
+            },
+            {
+              symbol: "len(list)",
+              name: "Length (count items)",
+              nameZh: "长度（计数）",
+              emoji: "📊",
+              description: "Like weighing your backpack ⚖️ — tells you how many items are inside.",
+              example: 'print(len(backpack))  # 3',
+            },
+          ],
+          codeAnatomy: {
+            lines: [
+              { code: 'backpack = ["Sword", "Potion", "Torch"]', explanation: "Create a list with 3 starting items.", explanationZh: "创建包含 3 个初始物品的列表" },
+              { code: 'backpack.append("Shield")', explanation: "Add 'Shield' to the end of the list.", explanationZh: "在列表末尾添加 'Shield'" },
+              { code: 'if "Potion" in backpack:', explanation: "Check if we have a Potion before using it.", explanationZh: "使用之前先检查是否有药水" },
+              { code: '    backpack.remove("Potion")', explanation: "Remove the Potion (we used it!).", explanationZh: "移除药水（我们用掉了！）" },
+              { code: "print(len(backpack))", explanation: "Print how many items remain: 3.", explanationZh: "打印剩余物品数量：3" },
+            ],
+          },
+        },
+      },
+      {
         type: "interactive",
         content: `## ⚔️ RPG Inventory Challenge!
 
@@ -1821,6 +1933,59 @@ print("You won!")
 \`\`\`
 
 🤖 Botty says: "AI systems use while loops to keep learning until they get smart enough!"`,
+      },
+      {
+        type: "concept",
+        emoji: "📖",
+        content: "New Syntax: while Loops & Game Flow",
+        concept: {
+          title: "🔄 New Syntax: while Loops & Game Flow",
+          titleZh: "新语法：while 循环与游戏流程",
+          syntaxCards: [
+            {
+              symbol: "while condition:",
+              name: "While Loop",
+              nameZh: "while 循环",
+              emoji: "🔁",
+              description: "Like a stubborn gamer 🎮 — keeps going UNTIL the condition becomes False. Perfect when you don't know how many tries it'll take!",
+              example: "while guess != secret:\n    guess = int(input('Guess: '))",
+            },
+            {
+              symbol: "break",
+              name: "Break (exit loop)",
+              nameZh: "跳出循环",
+              emoji: "🚪",
+              description: "The emergency exit 🚪 — immediately stops the loop and jumps out, no matter what the condition says.",
+              example: "while True:\n    if found:\n        break  # Exit!",
+            },
+            {
+              symbol: "continue",
+              name: "Continue (skip iteration)",
+              nameZh: "跳过本次",
+              emoji: "⏭️",
+              description: "Like skipping a song ⏭️ — skips the rest of THIS iteration and jumps to the next one.",
+              example: "while True:\n    if invalid:\n        continue  # Skip!",
+            },
+            {
+              symbol: "import random",
+              name: "Random Module",
+              nameZh: "随机模块",
+              emoji: "🎲",
+              description: "A digital dice box 🎲 — gives you random numbers, choices, and shuffles for games!",
+              example: "import random\nnum = random.randint(1, 100)",
+            },
+          ],
+          codeAnatomy: {
+            lines: [
+              { code: "import random", explanation: "Import the random module for generating secret numbers.", explanationZh: "导入随机模块生成秘密数字" },
+              { code: "secret = random.randint(1, 100)", explanation: "Pick a random number between 1 and 100.", explanationZh: "在 1 到 100 之间随机选一个数" },
+              { code: "while guess != secret:", explanation: "Keep looping as long as the guess is wrong.", explanationZh: "只要猜错就一直循环" },
+              { code: "    guess = int(input('Guess: '))", explanation: "Ask for a new guess each time through the loop.", explanationZh: "每次循环都要求新的猜测" },
+              { code: "    if guess < secret:", explanation: "Give a hint — is the guess too low or too high?", explanationZh: "给提示 — 猜的太低还是太高？" },
+              { code: "print('You won!')", explanation: "After the loop ends, the player guessed correctly!", explanationZh: "循环结束后，玩家猜对了！" },
+            ],
+          },
+        },
       },
       {
         type: "interactive",

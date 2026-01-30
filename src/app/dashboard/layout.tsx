@@ -22,7 +22,13 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
           if (!session) {
             await new Promise(r => setTimeout(r, 500));
             const { data: { session: retrySession } } = await supabase.auth.getSession();
-            if (!retrySession) { router.replace("/login"); return; }
+            if (!retrySession) {
+              // Clear stale localStorage to prevent redirect loop
+              const { logout } = await import("@/lib/auth-store");
+              await logout();
+              router.replace("/login");
+              return;
+            }
           }
         }
         const { hasProfile, needsSetup } = await ensureProfile();
