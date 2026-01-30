@@ -1583,7 +1583,7 @@ export default function CodeLabPage() {
   );
 
   return (
-    <div className="h-screen flex flex-col overflow-hidden">
+    <div className="flex flex-col overflow-hidden" style={{ height: "calc(100dvh - 3.5rem)" }}>
       {/* CSS */}
       <style>{`
         .step-highlight-line { background: rgba(250, 204, 21, 0.15) !important; border-left: 4px solid #facc15 !important; }
