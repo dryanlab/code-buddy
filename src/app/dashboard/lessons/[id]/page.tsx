@@ -15,6 +15,7 @@ import {
 } from "@/components/InteractiveExercises";
 import Celebration from "@/components/Celebration";
 import ConceptSection from "@/components/ConceptSection";
+import TurtleQuiz from "@/components/TurtleQuiz";
 
 function TextSection({ section }: { section: LessonSection }) {
   return (
@@ -130,123 +131,7 @@ function ChallengeSection({ section }: { section: LessonSection }) {
   );
 }
 
-function QuizSection({ section, onComplete }: { section: LessonSection; onComplete: (score: number) => void }) {
-  const questions = section.quiz!;
-  const [currentQ, setCurrentQ] = useState(0);
-  const [selected, setSelected] = useState<number | null>(null);
-  const [showResult, setShowResult] = useState(false);
-  const [correct, setCorrect] = useState(0);
-  const [finished, setFinished] = useState(false);
-
-  const q = questions[currentQ];
-
-  const handleSelect = (idx: number) => {
-    if (showResult) return;
-    setSelected(idx);
-    setShowResult(true);
-    if (idx === q.correctIndex) setCorrect((c) => c + 1);
-  };
-
-  const handleNext = () => {
-    if (currentQ + 1 >= questions.length) {
-      setFinished(true);
-      const score = Math.round(((correct + (selected === q.correctIndex ? 1 : 0)) / questions.length) * 100);
-      onComplete(score);
-    } else {
-      setCurrentQ((c) => c + 1);
-      setSelected(null);
-      setShowResult(false);
-    }
-  };
-
-  if (finished) {
-    const score = Math.round((correct / questions.length) * 100);
-    return (
-      <motion.div
-        initial={{ opacity: 0, scale: 0.9 }}
-        animate={{ opacity: 1, scale: 1 }}
-        className="bg-gradient-to-br from-green-500/20 to-cyan-500/20 border border-green-500/30 rounded-xl p-8 text-center"
-      >
-        <div className="text-6xl mb-4">{score >= 80 ? "🎉" : score >= 50 ? "👍" : "💪"}</div>
-        <div className="text-2xl font-bold mb-1">
-          {score >= 80 ? "Awesome!" : score >= 50 ? "Good job!" : "Keep practicing!"}
-        </div>
-        <div className="text-sm text-[var(--theme-text-muted)] mb-2">
-          {score >= 80 ? "太棒了！" : score >= 50 ? "做得不错！" : "继续加油！"}
-        </div>
-        <div className="text-lg text-[var(--theme-text-secondary)]">
-          Score: {correct}/{questions.length} ({score}%)
-        </div>
-        <div className="text-sm text-[var(--theme-text-muted)]">得分</div>
-      </motion.div>
-    );
-  }
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      className="bg-[var(--theme-card-bg)] border border-[var(--theme-border)] rounded-xl p-6"
-    >
-      <div className="flex items-center justify-between mb-4">
-        <h3 className="text-lg font-bold text-cyan-400">🧠 Quiz Time! · 测验时间！</h3>
-        <span className="text-sm text-[var(--theme-text-secondary)]">{currentQ + 1}/{questions.length}</span>
-      </div>
-
-      <p className="text-lg mb-4">{q.question}</p>
-
-      <div className="space-y-2 mb-4">
-        {q.options.map((opt, i) => (
-          <button
-            key={i}
-            onClick={() => handleSelect(i)}
-            disabled={showResult}
-            className={`w-full text-left px-4 py-3 rounded-lg border transition-colors ${
-              showResult
-                ? i === q.correctIndex
-                  ? "bg-green-500/20 border-green-500/50 text-green-400"
-                  : i === selected
-                  ? "bg-red-500/20 border-red-500/50 text-red-400"
-                  : "bg-[var(--theme-card-bg)] border-[var(--theme-border)] text-[var(--theme-text-muted)]"
-                : selected === i
-                ? "bg-cyan-500/20 border-cyan-500/50"
-                : "bg-[var(--theme-card-bg)] border-[var(--theme-border)] hover:border-cyan-500/30"
-            }`}
-          >
-            <span className="font-mono text-sm mr-2">{String.fromCharCode(65 + i)}.</span>
-            {opt}
-          </button>
-        ))}
-      </div>
-
-      {showResult && (
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="mb-4"
-        >
-          <div className={`p-3 rounded-lg text-sm ${
-            selected === q.correctIndex
-              ? "bg-green-500/10 text-green-300"
-              : "bg-red-500/10 text-red-300"
-          }`}>
-            {selected === q.correctIndex ? "✅ " : "❌ "}
-            {q.explanation}
-          </div>
-        </motion.div>
-      )}
-
-      {showResult && (
-        <button
-          onClick={handleNext}
-          className="px-6 py-2 bg-cyan-500 text-black font-bold rounded-lg hover:bg-cyan-400 transition-colors"
-        >
-          {currentQ + 1 >= questions.length ? "Finish Quiz · 完成测验" : "Next → 下一题"}
-        </button>
-      )}
-    </motion.div>
-  );
-}
+// QuizSection removed — replaced by TurtleQuiz component
 
 // Simple markdown to HTML converter
 function markdownToHtml(md: string): string {
@@ -279,6 +164,7 @@ export default function LessonPage() {
   const [quizScore, setQuizScore] = useState<number | null>(null);
   const [isCompleted, setIsCompleted] = useState(false);
   const [showCelebration, setShowCelebration] = useState(false);
+  const [quizPassed, setQuizPassed] = useState(false);
 
   useEffect(() => {
     const p = getProgress();
@@ -313,9 +199,7 @@ export default function LessonPage() {
     setTimeout(() => setShowCelebration(false), 3000);
   };
 
-  const handleQuizComplete = (score: number) => {
-    setQuizScore(score);
-  };
+  // Quiz completion now handled by TurtleQuiz onQuizComplete callback
 
   return (
     <div className="p-6 md:p-8 max-w-3xl mx-auto">
@@ -364,7 +248,22 @@ export default function LessonPage() {
           {section.type === "interactive" && <InteractiveSection section={section} />}
           {section.type === "code" && <CodeSection section={section} />}
           {section.type === "challenge" && <ChallengeSection section={section} />}
-          {section.type === "quiz" && <QuizSection section={section} onComplete={handleQuizComplete} />}
+          {section.type === "quiz" && (
+            <TurtleQuiz
+              section={section}
+              onQuizComplete={() => {
+                setQuizPassed(true);
+                setQuizScore(100);
+                // Auto-complete lesson when quiz is passed
+                if (!isCompleted) {
+                  completeLesson(lessonId, 100, lesson.xp);
+                  setIsCompleted(true);
+                  setShowCelebration(true);
+                  setTimeout(() => setShowCelebration(false), 3500);
+                }
+              }}
+            />
+          )}
           {section.type === "parsons" && <ParsonsExercise section={section} />}
           {section.type === "fill-blank" && <FillBlankExercise section={section} />}
           {section.type === "output-choice" && <OutputChoiceExercise section={section} />}
@@ -399,7 +298,18 @@ export default function LessonPage() {
         </button>
 
         {isLast ? (
-          isCompleted ? (
+          section.type === "quiz" ? (
+            // Quiz section handles its own completion via TurtleQuiz
+            quizPassed || isCompleted ? (
+              <div className="px-6 py-2 bg-green-500/20 text-green-400 rounded-lg font-bold">
+                ✅ Completed! · 已完成！
+              </div>
+            ) : (
+              <div className="px-6 py-2 text-[var(--theme-text-muted)] text-sm">
+                🐢 Complete the quiz to finish! · 完成测验才能过关！
+              </div>
+            )
+          ) : isCompleted ? (
             <div className="px-6 py-2 bg-green-500/20 text-green-400 rounded-lg font-bold">
               ✅ Completed! · 已完成！
             </div>

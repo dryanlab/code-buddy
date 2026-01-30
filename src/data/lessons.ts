@@ -5,9 +5,17 @@
 // Characters: 🐍Py (Python Snake), 🤖Botty (AI Assistant), 🔧Chip (Hardware Sprite)
 
 export interface QuizQuestion {
+  type?: "multiple-choice" | "coding";
   question: string;
-  options: string[];
-  correctIndex: number;
+  // For multiple choice:
+  options?: string[];
+  correctIndex?: number;
+  // For coding challenges:
+  prompt?: string;
+  starterCode?: string;
+  expectedOutput?: string;
+  hint?: string;
+  // Common:
   explanation: string;
 }
 

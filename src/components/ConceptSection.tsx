@@ -98,6 +98,9 @@ function CodeAnatomyComponent({ anatomy }: { anatomy: CodeAnatomy }) {
     if (result.error) {
       setOutput(result.error);
       setHasError(true);
+    } else if (result.hasTurtle) {
+      setOutput(result.output || "🐢 Turtle graphics rendered above! · 海龟图形已在上方显示！");
+      setHasError(false);
     } else {
       setOutput(result.output || "(No output · 没有输出)");
       setHasError(false);
@@ -154,6 +157,9 @@ function CodeAnatomyComponent({ anatomy }: { anatomy: CodeAnatomy }) {
           ))}
         </pre>
       </div>
+
+      {/* Turtle canvas mount point */}
+      <div id="turtle-output" data-turtle-mount="true" />
 
       {/* Output panel */}
       {(output || isLoading) && (
