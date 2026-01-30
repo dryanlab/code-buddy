@@ -337,7 +337,7 @@ my_list.append("C")
 my_list.display()  # A → B → C → None
 
 # 🔗 Link: "See? Each node points to the next one!"
-# 📦 Box: "Unlike arrays, no shifting needed for inserts!"`
+# 📦 Box: "Unlike arrays, no shifting needed for inserts!"`,
       codeCpp: `// 🔗 Link: "Let's build a linked list step by step!"
 
 #include <iostream>
@@ -385,7 +385,7 @@ int main() {
     // 🔗 Link: "See? Each node points to the next one!"
     // 📦 Box: "Unlike arrays, no shifting needed for inserts!"
     return 0;
-}`,,
+}`,
     },
     {
       type: "code",
@@ -457,7 +457,7 @@ ll.prepend(5)   # Fast insert at start!
 ll.display()     # 5 → 10 → 20 → 30 → None
 
 pos = ll.search(20)
-print(f"Found 20 at position {pos}")  # 2`
+print(f"Found 20 at position {pos}")  # 2`,
       codeCpp: `#include <iostream>
 using namespace std;
 
@@ -523,7 +523,7 @@ int main() {
     int pos = ll.search(20);
     cout << "Found 20 at position " << pos << endl;  // 2
     return 0;
-}`,,
+}`,
     },
     {
       type: "quiz",
@@ -959,7 +959,7 @@ print("\\nRemoving plates:")
 plates.pop()  # Green (last in, first out!)
 plates.pop()  # Blue
 plates.pop()  # Red
-plates.pop()  # Empty!`
+plates.pop()  # Empty!`,
       codeCpp: `// 📦 Box: "Let's build a stack!"
 
 #include <iostream>
@@ -1022,7 +1022,7 @@ int main() {
     plates.pop();  // Red
     plates.pop();  // Empty!
     return 0;
-}`,,
+}`,
     },
     {
       type: "code",
@@ -1079,7 +1079,7 @@ browser.visit("youtube.com")
 browser.visit("github.com")
 browser.back()       # youtube.com
 browser.back()       # google.com
-browser.forward()    # youtube.com`
+browser.forward()    # youtube.com`,
       codeCpp: `// Simulate a browser's back/forward with stacks!
 // 用栈模拟浏览器的前进/后退！
 
@@ -1134,7 +1134,7 @@ int main() {
     browser.back();       // google.com
     browser.forward();    // youtube.com
     return 0;
-}`,,
+}`,
     },
     {
       type: "quiz",
@@ -1301,7 +1301,7 @@ tests = [
 for expr, expected in tests:
     result = is_balanced(expr)
     status = "✅" if result == expected else "❌"
-    print(f'{status} "{expr}" → {result}')`
+    print(f'{status} "{expr}" → {result}')`,
       codeCpp: `// 📦 Box: "This is a CLASSIC interview question!"
 
 #include <iostream>
@@ -1343,7 +1343,7 @@ int main() {
         cout << status << " \"" << expr << "\" → " << (result ? "true" : "false") << endl;
     }
     return 0;
-}`,,
+}`,
     },
     {
       type: "code",
@@ -1592,7 +1592,7 @@ line.dequeue()  # Alice served first!
 line.dequeue()  # Then Bob
 line.enqueue("Diana")  # Diana joins
 line.dequeue()  # Charlie (was before Diana)
-line.dequeue()  # Diana`
+line.dequeue()  # Diana`,
       codeCpp: `// 📦 Box: "First come, first served!"
 #include <iostream>
 #include <deque>
@@ -1651,7 +1651,7 @@ int main() {
     line.dequeueItem();  // Charlie (was before Diana)
     line.dequeueItem();  // Diana
     return 0;
-}`,,
+}`,
     },
     {
       type: "quiz",
@@ -1809,7 +1809,7 @@ while er_queue:
     order += 1
 
 # Output order: Bob (heart attack), Diana (stroke), Charlie (arm), Alice (cold)
-# 📦 Box: "The heap always gives us the highest-priority item!"`
+# 📦 Box: "The heap always gives us the highest-priority item!"`,
       codeCpp: `#include <iostream>
 #include <queue>
 #include <vector>
@@ -1841,7 +1841,7 @@ int main() {
     }
     // 📦 Box: "The heap always gives us the highest-priority item!"
     return 0;
-}`,,
+}`,
     },
     {
       type: "code",
@@ -2085,7 +2085,7 @@ print("\\n\\nPre-order (Root→Left→Right):")
 preorder(root)   # 1 2 4 5 3 6
 print("\\n\\nPost-order (Left→Right→Root):")
 postorder(root)  # 4 5 2 6 3 1
-print()`
+print()`,
       codeCpp: `// 🌳 Root: "Let's grow a tree!"
 
 #include <iostream>
@@ -2148,7 +2148,7 @@ int main() {
     postorder(root);  // 4 5 2 6 3 1
     cout << endl;
     return 0;
-}`,,
+}`,
     },
     {
       type: "quiz",
@@ -2583,7 +2583,7 @@ root.left.right = ExprNode('5')
 result = evaluate(root)
 print(f"(3 + 5) * 2 = {result}")  # 16
 
-# 🌳 Root: "Compilers build expression trees to evaluate your code!"`
+# 🌳 Root: "Compilers build expression trees to evaluate your code!"`,
       codeCpp: `// 🌳 Root: "Calculators use trees to parse math!"
 // Expression: (3 + 5) * 2
 
@@ -2626,7 +2626,7 @@ int main() {
 
     // 🌳 Root: "Compilers build expression trees to evaluate your code!"
     return 0;
-}`,,
+}`,
     },
     {
       type: "quiz",
@@ -2845,7 +2845,7 @@ for word in words:
 # Solution 2: Open addressing (find next empty slot)
 
 print("\\n📦 Box: Python's dict handles collisions automatically!")
-print("🔗 Link: Collisions use chaining — each slot has a linked list!")`
+print("🔗 Link: Collisions use chaining — each slot has a linked list!")`,
       codeCpp: `// 📦 Box: "What happens when two keys hash to the same spot?"
 
 #include <iostream>
@@ -2880,7 +2880,7 @@ int main() {
     cout << "\n📦 Box: C++ unordered_map handles collisions automatically!" << endl;
     cout << "🔗 Link: Collisions use chaining — each slot has a linked list!" << endl;
     return 0;
-}`,,
+}`,
     },
     {
       type: "quiz",
@@ -3048,7 +3048,7 @@ nums = [1, 2, 2, 3, 3, 3, 4, 4, 4, 4]
 unique = list(set(nums))
 print(f"\\nDeduplicated: {unique}")
 
-# 📦 Box: "Sets are perfect for removing duplicates and set math!"`
+# 📦 Box: "Sets are perfect for removing duplicates and set math!"`,
       codeCpp: `// 📦 Box: "Sets are like hash maps without values!"
 
 #include <iostream>
@@ -3124,7 +3124,7 @@ int main() {
 
     // 📦 Box: "Sets are perfect for removing duplicates and set math!"
     return 0;
-}`,,
+}`,
     },
     {
       type: "quiz",
@@ -3303,7 +3303,7 @@ social.display()
 print(f"\\nAlice connected to Bob? {social.has_edge('Alice', 'Bob')}")
 print(f"Alice connected to Eve? {social.has_edge('Alice', 'Eve')}")
 
-# 🔗 Link: "Graphs model relationships — the web is a giant graph!"`
+# 🔗 Link: "Graphs model relationships — the web is a giant graph!"`,
       codeCpp: `// 🔗 Link: "Let me show you how to build a graph!"
 
 #include <iostream>
@@ -3362,7 +3362,7 @@ int main() {
 
     // 🔗 Link: "Graphs model relationships — the web is a giant graph!"
     return 0;
-}`,,
+}`,
     },
     {
       type: "quiz",
@@ -3548,7 +3548,7 @@ def bfs_shortest_path(graph, start, end):
     return None
 
 path = bfs_shortest_path(graph, 'A', 'E')
-print(f"Shortest A→E: {' → '.join(path)}")`
+print(f"Shortest A→E: {' → '.join(path)}")`,
       codeCpp: `#include <iostream>
 #include <unordered_map>
 #include <unordered_set>
@@ -3627,7 +3627,7 @@ int main() {
     }
     cout << endl;
     return 0;
-}`,,
+}`,
     },
     {
       type: "code",
@@ -3687,7 +3687,7 @@ print("🏊 DFS from A:", dfs(graph, 'A'))
 
 print("\\n🏊 DFS recursive from A:", end=" ")
 dfs_recursive(graph, 'A')
-print()`
+print()`,
       codeCpp: `#include <iostream>
 #include <unordered_map>
 #include <unordered_set>
@@ -3754,7 +3754,7 @@ int main() {
     dfsRecursive(graph, "A", visited);
     cout << endl;
     return 0;
-}`,,
+}`,
     },
     {
       type: "quiz",
@@ -3932,7 +3932,7 @@ net.add_friendship("Charlie", "Frank")
 print("👥 Friend suggestions for Alice:")
 for person, mutuals in net.suggest_friends("Alice"):
     print(f"  {person} ({mutuals} mutual friends)")
-# Diana (2 mutual), Eve (1 mutual), Frank (1 mutual)`
+# Diana (2 mutual), Eve (1 mutual), Frank (1 mutual)`,
       codeCpp: `// 🔗 Link: "Who should you be friends with?"
 
 #include <iostream>
@@ -3993,7 +3993,7 @@ int main() {
         cout << "  " << person << " (" << mutuals << " mutual friends)" << endl;
     // Diana (2 mutual), Eve (1 mutual), Frank (1 mutual)
     return 0;
-}`,,
+}`,
     },
     {
       type: "code",
@@ -4243,7 +4243,7 @@ print(f"  Result: {data1}")
 print(f"  Comparisons: {c1}")
 print(f"\\n🎯 Selection Sort:")
 print(f"  Result: {data2}")
-print(f"  Comparisons: {c2}")`
+print(f"  Comparisons: {c2}")`,
       codeCpp: `// 📦 Box: "Start with the simple ones!"
 
 #include <iostream>
@@ -4307,7 +4307,7 @@ int main() {
     cout << "]" << endl;
     cout << "  Comparisons: " << c2 << endl;
     return 0;
-}`,,
+}`,
     },
     {
       type: "code",
@@ -4374,7 +4374,7 @@ merge_time = time.time() - start
 print(f"\\n⏱️ 1000 elements (worst case):")
 print(f"  Bubble Sort: {bubble_time:.4f}s")
 print(f"  Merge Sort:  {merge_time:.4f}s")
-print(f"  Merge is {bubble_time/max(merge_time, 0.0001):.0f}x faster! 🚀")`
+print(f"  Merge is {bubble_time/max(merge_time, 0.0001):.0f}x faster! 🚀")`,
       codeCpp: `// 📦 Box: "Divide and conquer — split, sort, merge!"
 
 #include <iostream>
@@ -4453,7 +4453,7 @@ int main() {
     cout << "  Merge Sort:  " << mergeTime << "s" << endl;
     cout << "  Merge is " << (int)(bubbleTime / max(mergeTime, 0.0001)) << "x faster! 🚀" << endl;
     return 0;
-}`,,
+}`,
     },
     {
       type: "quiz",
@@ -4690,7 +4690,7 @@ print(f"  🐢 Linear:        {s1} steps")
 print(f"  🚀 Binary:        {s2} steps")
 print(f"  ⚡ Interpolation: {s3} steps")
 
-# For uniformly distributed data, interpolation search is even faster!`
+# For uniformly distributed data, interpolation search is even faster!`,
       codeCpp: `// 📦 Box: "An even smarter search for uniform data!"
 
 #include <iostream>
@@ -4754,7 +4754,7 @@ int main() {
 
     // For uniformly distributed data, interpolation search is even faster!
     return 0;
-}`,,
+}`,
     },
     {
       type: "quiz",
