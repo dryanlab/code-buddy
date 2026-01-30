@@ -14,6 +14,7 @@ import {
   BugHuntExercise,
 } from "@/components/InteractiveExercises";
 import Celebration from "@/components/Celebration";
+import ConceptSection from "@/components/ConceptSection";
 
 function TextSection({ section }: { section: LessonSection }) {
   return (
@@ -358,6 +359,7 @@ export default function LessonPage() {
       {/* Section content */}
       <AnimatePresence mode="wait">
         <div key={currentSection} className="space-y-6">
+          {section.type === "concept" && <ConceptSection section={section} />}
           {section.type === "text" && <TextSection section={section} />}
           {section.type === "interactive" && <InteractiveSection section={section} />}
           {section.type === "code" && <CodeSection section={section} />}

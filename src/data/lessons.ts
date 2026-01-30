@@ -59,8 +59,34 @@ export interface InlineExercise {
   solution: string;
 }
 
+export interface SyntaxCard {
+  symbol: string;
+  name: string;
+  nameZh: string;
+  emoji: string;
+  description: string;
+  example?: string;
+}
+
+export interface CodeAnatomyLine {
+  code: string;
+  explanation: string;
+  explanationZh?: string;
+}
+
+export interface CodeAnatomy {
+  lines: CodeAnatomyLine[];
+}
+
+export interface ConceptData {
+  title: string;
+  titleZh?: string;
+  syntaxCards?: SyntaxCard[];
+  codeAnatomy?: CodeAnatomy;
+}
+
 export interface LessonSection {
-  type: "text" | "interactive" | "code" | "quiz" | "animation" | "challenge" | "parsons" | "fill-blank" | "output-choice" | "bug-hunt";
+  type: "text" | "interactive" | "code" | "quiz" | "animation" | "challenge" | "parsons" | "fill-blank" | "output-choice" | "bug-hunt" | "concept";
   content: string;
   emoji?: string;
   code?: string;
@@ -72,6 +98,7 @@ export interface LessonSection {
   outputChoice?: OutputChoice;
   bugChallenge?: BugChallenge;
   exercise?: InlineExercise;
+  concept?: ConceptData;
 }
 
 export interface Lesson {
@@ -180,6 +207,56 @@ You're about to learn the most EPIC skill ever: **commanding computers like a ha
 Ready to see the Matrix? Let's make your screen look like a hacker movie! 🕶️`,
       },
       {
+        type: "concept",
+        emoji: "📖",
+        content: "New Syntax: Your First Python Tools",
+        concept: {
+          title: "🧰 New Syntax: Your First Python Tools",
+          titleZh: "新语法：你的第一批 Python 工具",
+          syntaxCards: [
+            {
+              symbol: "print()",
+              name: "Print / Show on screen",
+              nameZh: "打印 / 在屏幕上显示",
+              emoji: "📢",
+              description: "Like a loudspeaker 📢 for your computer! Whatever you put inside the parentheses, Python shouts it to the screen.",
+              example: 'print("Hello!")\n# Output: Hello!',
+            },
+            {
+              symbol: '"..."',
+              name: "String (text in quotes)",
+              nameZh: "字符串（引号里的文字）",
+              emoji: "💬",
+              description: "Quotes are like a gift box 🎁 — they wrap text so Python knows it's words, not code. Use double \" or single ' quotes.",
+              example: '"Hello, World!"\n\'Also works!\'',
+            },
+            {
+              symbol: "#",
+              name: "Comment (note to humans)",
+              nameZh: "注释（给人看的笔记）",
+              emoji: "📝",
+              description: "A sticky note 📝 for yourself! Python ignores everything after #. Use it to explain your code.",
+              example: '# This is a comment\nprint("Hi")  # This part is ignored',
+            },
+            {
+              symbol: "(  )",
+              name: "Parentheses (function input)",
+              nameZh: "括号（函数的输入口）",
+              emoji: "📥",
+              description: "Like a mailbox slot 📥 — you put stuff INTO a function through parentheses. print() needs them!",
+              example: 'print("stuff goes here")',
+            },
+          ],
+          codeAnatomy: {
+            lines: [
+              { code: '# My first Python program', explanation: "Comment — Python skips this. It's a note for you!", explanationZh: "注释 — Python 会跳过，这是给你自己看的笔记" },
+              { code: 'print("Hello, World!")', explanation: "print() = show on screen. The text in quotes is what appears.", explanationZh: "print() = 显示到屏幕。引号里的文字会出现" },
+              { code: 'print("🐍 Python is cool!")', explanation: "You can use emojis inside strings too! Anything in quotes is text.", explanationZh: "引号里也可以用表情符号！引号内的都是文字" },
+            ],
+          },
+        },
+      },
+      {
         type: "code",
         emoji: "💚",
         content: `## 🎬 Your First Hacker Screen!
@@ -272,6 +349,64 @@ number = 17             # A number box
 **The = sign is NOT math!** It means **"put this INTO that box"** ➡️📦
 
 🤖 Botty says: "AI chatbots use variables to remember what you told them earlier!"`,
+      },
+      {
+        type: "concept",
+        emoji: "📖",
+        content: "New Syntax: Variables & User Input",
+        concept: {
+          title: "🧰 New Syntax: Variables & User Input",
+          titleZh: "新语法：变量和用户输入",
+          syntaxCards: [
+            {
+              symbol: "=",
+              name: "Assignment (put into box)",
+              nameZh: "赋值（放进盒子）",
+              emoji: "📦",
+              description: "NOT math equals! Think of = as an arrow ➡️📦. It puts the right side INTO the box on the left.",
+              example: 'name = "Alice"\nage = 12',
+            },
+            {
+              symbol: "variable",
+              name: "Variable (labeled box)",
+              nameZh: "变量（贴标签的盒子）",
+              emoji: "🏷️",
+              description: "A labeled box that stores data. You pick the name (label), Python remembers the value inside.",
+              example: 'score = 100  # box labeled "score" holds 100',
+            },
+            {
+              symbol: "input()",
+              name: "Input (ask the user)",
+              nameZh: "输入（问用户）",
+              emoji: "🎤",
+              description: "Like handing someone a microphone 🎤 — the program stops and waits for them to type something!",
+              example: 'name = input("What is your name? ")',
+            },
+            {
+              symbol: "f\"...{var}...\"",
+              name: "f-string (mix text + variables)",
+              nameZh: "f字符串（混合文字和变量）",
+              emoji: "🧩",
+              description: "Put f before quotes, then use {curly braces} to plug in variables — like filling blanks in Mad Libs!",
+              example: 'name = "Py"\nprint(f"Hi, {name}!")\n# Output: Hi, Py!',
+            },
+            {
+              symbol: "+",
+              name: "String concatenation (join text)",
+              nameZh: "字符串拼接（连接文字）",
+              emoji: "🔗",
+              description: "The + between strings glues them together like a chain 🔗. Different from math addition!",
+              example: '"Hello" + " " + "World"\n# Result: "Hello World"',
+            },
+          ],
+          codeAnatomy: {
+            lines: [
+              { code: 'name = input("Your name? ")', explanation: "Ask the user, then store their answer in the 'name' box", explanationZh: "问用户名字，然后存进 name 盒子" },
+              { code: 'print("Hello, " + name + "!")', explanation: "Glue three text pieces together with + and display them", explanationZh: "用 + 把三段文字粘在一起然后显示" },
+              { code: 'print(f"Hello, {name}!")', explanation: "Same thing, but cleaner! f-string plugs name directly in", explanationZh: "同样效果但更简洁！f字符串直接插入变量" },
+            ],
+          },
+        },
       },
       {
         type: "interactive",
@@ -390,6 +525,74 @@ Who says math is boring? Let's use Python to solve the MOST IMPORTANT problem: *
 - \`**\` Power → \`2 ** 3\` = 8 (cheese level!)
 
 🔧 Chip says: "That % operator is SUPER useful for pizza sharing!"`,
+      },
+      {
+        type: "concept",
+        emoji: "📖",
+        content: "New Syntax: Numbers & Math Operators",
+        concept: {
+          title: "🧰 New Syntax: Numbers & Math Operators",
+          titleZh: "新语法：数字和数学运算符",
+          syntaxCards: [
+            {
+              symbol: "int()",
+              name: "Convert to integer (whole number)",
+              nameZh: "转成整数（没有小数点）",
+              emoji: "🔢",
+              description: "Turns text or decimals into a whole number. input() gives text, so use int() to make it a number!",
+              example: 'int("42")   # text → number 42\nint(3.7)    # → 3 (cuts off decimal)',
+            },
+            {
+              symbol: "float()",
+              name: "Convert to decimal number",
+              nameZh: "转成小数",
+              emoji: "🔣",
+              description: "Makes a decimal number. Use when you need precision, like money or measurements.",
+              example: 'float("3.14")  # text → number 3.14',
+            },
+            {
+              symbol: "+  -  *  /",
+              name: "Basic math operators",
+              nameZh: "基本数学运算符",
+              emoji: "🧮",
+              description: "Add, subtract, multiply, divide — just like your calculator! Python follows order of operations (PEMDAS).",
+              example: '2 + 3    # 5\n10 - 4   # 6\n6 * 8    # 48\n12 / 4   # 3.0',
+            },
+            {
+              symbol: "//",
+              name: "Floor division (whole number result)",
+              nameZh: "整除（只要整数部分）",
+              emoji: "✂️",
+              description: "Division that chops off the decimal — perfect for splitting things into whole pieces!",
+              example: '17 // 5  # → 3 (not 3.4)',
+            },
+            {
+              symbol: "%",
+              name: "Modulo (remainder)",
+              nameZh: "取余（剩下多少）",
+              emoji: "🍕",
+              description: "The leftover after dividing! Like sharing pizza — how many slices are left over?",
+              example: '17 % 5   # → 2 (17÷5=3 remainder 2)',
+            },
+            {
+              symbol: "**",
+              name: "Power / Exponent",
+              nameZh: "幂运算 / 指数",
+              emoji: "💪",
+              description: "Multiply a number by itself. 2**3 means 2×2×2 = 8. Super powerful!",
+              example: '2 ** 3   # → 8\n10 ** 2  # → 100',
+            },
+          ],
+          codeAnatomy: {
+            lines: [
+              { code: 'slices = 17', explanation: "Store 17 in the 'slices' box (it's already a number, no quotes needed!)", explanationZh: "把17存进 slices 盒子（数字不需要引号！）" },
+              { code: 'friends = 5', explanation: "Store 5 in the 'friends' box", explanationZh: "把5存进 friends 盒子" },
+              { code: 'each = slices // friends', explanation: "// = divide and keep only whole number → 17//5 = 3", explanationZh: "// = 整除只保留整数 → 17//5 = 3" },
+              { code: 'leftover = slices % friends', explanation: "% = what's left over after dividing → 17%5 = 2", explanationZh: "% = 除后剩余 → 17%5 = 2" },
+              { code: 'print(str(each))', explanation: "str() converts number to text so print() can show it", explanationZh: "str() 把数字转成文字，print() 才能显示" },
+            ],
+          },
+        },
       },
       {
         type: "interactive",
@@ -532,16 +735,77 @@ Imagine you have a **magic turtle** 🐢 that can draw anything you command:
 
 **Turtle Graphics** = Programming + Art = AWESOME!
 
-💻 **Important:** Turtle graphics need to run in **Thonny** or **local Python** - the turtle needs a special window to draw in! Download Python from python.org to try these at home! 
+🐢 **Turtle graphics now work right here in the browser!** Click Run to see the drawing appear below the code! 海龟画图现在可以直接在浏览器中运行！ 
 
 🤖 Botty says: "Video game graphics work the same way - math + movement commands!"`,
+      },
+      {
+        type: "concept",
+        emoji: "📖",
+        content: "New Syntax: Import & Turtle Commands",
+        concept: {
+          title: "🧰 New Syntax: Import & Turtle Commands",
+          titleZh: "新语法：导入模块和海龟指令",
+          syntaxCards: [
+            {
+              symbol: "import",
+              name: "Import (load a toolbox)",
+              nameZh: "导入（加载工具箱）",
+              emoji: "🧰",
+              description: "Like opening a new toolbox 🧰! Python has built-in toolboxes (modules) with extra powers. import loads them.",
+              example: 'import turtle\nimport random',
+            },
+            {
+              symbol: "forward(n)",
+              name: "Move turtle forward n steps",
+              nameZh: "海龟向前走 n 步",
+              emoji: "➡️",
+              description: "Tell the turtle to walk forward. The number is how many steps (pixels) to move.",
+              example: 'artist.forward(100)  # walk 100 steps',
+            },
+            {
+              symbol: "right(n) / left(n)",
+              name: "Turn turtle right/left n degrees",
+              nameZh: "海龟右转/左转 n 度",
+              emoji: "↩️",
+              description: "Rotate the turtle like turning a steering wheel. The number is degrees (90° = right angle).",
+              example: 'artist.right(90)   # turn right 90°\nartist.left(120)  # turn left 120°',
+            },
+            {
+              symbol: 'color("...")',
+              name: "Change turtle pen color",
+              nameZh: "改变画笔颜色",
+              emoji: "🎨",
+              description: "Like picking a new crayon! The turtle draws in whatever color you choose.",
+              example: 'artist.color("red")\nartist.color("blue")',
+            },
+            {
+              symbol: "for x in range(n):",
+              name: "Repeat n times",
+              nameZh: "重复 n 次",
+              emoji: "🔄",
+              description: "The repeat button 🔄! Everything indented below runs n times. Perfect for drawing shapes!",
+              example: 'for side in range(4):  # repeat 4 times\n    forward(100)\n    right(90)',
+            },
+          ],
+          codeAnatomy: {
+            lines: [
+              { code: 'import turtle', explanation: "Load the turtle drawing toolbox", explanationZh: "加载海龟绘图工具箱" },
+              { code: 'artist = turtle.Turtle()', explanation: "Create a turtle and name it 'artist'", explanationZh: "创建一只海龟，取名 artist" },
+              { code: 'artist.color("green")', explanation: "Set the pen color to green", explanationZh: "设置画笔颜色为绿色" },
+              { code: 'for side in range(4):', explanation: "Repeat the next indented lines 4 times (for a square)", explanationZh: "重复下面缩进的行4次（画正方形）" },
+              { code: '    artist.forward(100)', explanation: "↳ (inside loop) Move forward 100 steps", explanationZh: "↳（循环内）向前走100步" },
+              { code: '    artist.right(90)', explanation: "↳ (inside loop) Turn right 90 degrees", explanationZh: "↳（循环内）右转90度" },
+            ],
+          },
+        },
       },
       {
         type: "code", 
         emoji: "🟩",
         content: `## 🟩 Your First Turtle Drawing - Perfect Square!
 
-💻 **Run this in Thonny or local Python - not in browser!**`,
+🐢 **Click Run to see the turtle draw!** 点击运行看海龟画图！`,
         code: `# 🐢 Turtle Square Drawing Masterpiece!
 import turtle
 
@@ -629,7 +893,7 @@ turtle.done()`,
         type: "interactive",
         content: `## 🎮 Design Your Own Turtle Challenge!
 
-**Since turtle needs local Python, let's design on paper first!**
+🐢 **Try designing your own patterns! Click Run to see them!**
 
 Plan your turtle masterpiece:
 
@@ -665,10 +929,10 @@ Plan your turtle masterpiece:
             explanation: "🐍 Py: Perfect! A square has 4 equal sides and 4 right angles (90°). 360° ÷ 4 sides = 90° per turn! 正方形每个角都是90度！",
           },
           {
-            question: "🔧 Chip asks: Why can't turtle graphics run in the browser?",
-            options: ["Browsers are too slow", "Turtle needs a special drawing window", "It's too advanced", "Only Python can run turtle"],
+            question: "🔧 Chip asks: How does Code Buddy make turtle graphics work in the browser?",
+            options: ["It downloads Python first", "It uses an HTML5 Canvas to simulate turtle drawing", "It sends code to a server", "It uses a browser plugin"],
             correctIndex: 1,
-            explanation: "🔧 Chip: Right! Turtle graphics create a special pop-up window for drawing. Browsers can't do that, but local Python can! 需要专门的绘图窗口！",
+            explanation: "🔧 Chip: Right! Turtle graphics originally need a pop-up window, but Code Buddy has a built-in turtle simulator! You can draw right in the browser! 我们内置了海龟画图模拟器！",
           },
           {
             question: "🤖 Botty asks: What's the connection between turtle graphics and video games?",
@@ -712,6 +976,82 @@ Your job? Make sure EVERYONE stays safe on the rollercoasters! Here's how it wor
 Python's **if-else** statements are perfect for safety checks! Computers never get tired or make mistakes - they're the ultimate safety inspectors! 🤖
 
 🔧 Chip says: "Real rollercoasters use computer safety systems just like this!"`,
+      },
+      {
+        type: "concept",
+        emoji: "📖",
+        content: "New Syntax: Decisions with if/else",
+        concept: {
+          title: "🧰 New Syntax: Decisions with if/else",
+          titleZh: "新语法：用 if/else 做决定",
+          syntaxCards: [
+            {
+              symbol: "if condition:",
+              name: "If (check a condition)",
+              nameZh: "如果（检查条件）",
+              emoji: "🚦",
+              description: "Like a traffic light 🚦 — if the light is green (condition is True), GO! Run the indented code below.",
+              example: 'if age >= 10:\n    print("You can ride!")',
+            },
+            {
+              symbol: "else:",
+              name: "Else (otherwise)",
+              nameZh: "否则",
+              emoji: "🔀",
+              description: "The backup plan! If the 'if' condition is False, do this instead. Like a fork in the road 🔀.",
+              example: 'if sunny:\n    print("Go outside!")\nelse:\n    print("Stay inside")',
+            },
+            {
+              symbol: "elif condition:",
+              name: "Else if (another check)",
+              nameZh: "否则如果（再检查一个条件）",
+              emoji: "🪜",
+              description: "A middle step 🪜! Check another condition if the first 'if' was False. You can have many elif's!",
+              example: 'if score >= 90:\n    print("A")\nelif score >= 80:\n    print("B")\nelse:\n    print("C")',
+            },
+            {
+              symbol: ">  <  >=  <=",
+              name: "Comparison operators",
+              nameZh: "比较运算符",
+              emoji: "⚖️",
+              description: "Compare two values like a scale ⚖️. The result is True or False.",
+              example: '5 > 3    # True\n10 <= 10 # True\n7 < 2    # False',
+            },
+            {
+              symbol: "==",
+              name: "Equal to (comparison)",
+              nameZh: "等于（比较）",
+              emoji: "🟰",
+              description: "⚠️ Double equals! Asks 'are these the same?' NOT the same as = (assignment). Two different things!",
+              example: 'name == "Alice"  # True or False?\n5 == 5           # True',
+            },
+            {
+              symbol: "!=",
+              name: "Not equal to",
+              nameZh: "不等于",
+              emoji: "🚫",
+              description: "The opposite of ==. Asks 'are these DIFFERENT?' ! means 'not'.",
+              example: '5 != 3       # True (they ARE different)\n"a" != "a"   # False (they are the same)',
+            },
+            {
+              symbol: "and / or",
+              name: "Combine conditions",
+              nameZh: "组合条件",
+              emoji: "🤝",
+              description: "'and' = BOTH must be True (strict!). 'or' = at least ONE must be True (flexible).",
+              example: 'age >= 10 and height >= 48  # BOTH needed\nhas_ticket or has_pass     # either works',
+            },
+          ],
+          codeAnatomy: {
+            lines: [
+              { code: 'height = 50', explanation: "Store the rider's height in a variable", explanationZh: "把乘客身高存进变量" },
+              { code: 'if height >= 48:', explanation: "🚦 Check: is height at least 48? If True, run the next indented line", explanationZh: "🚦 检查：身高至少48吗？如果是，运行下面缩进的行" },
+              { code: '    print("Safe to ride!")', explanation: "↳ This only runs if the condition above is True", explanationZh: "↳ 只有上面条件为 True 时才运行" },
+              { code: 'else:', explanation: "🔀 Otherwise (if the condition was False)...", explanationZh: "🔀 否则（如果条件为 False）…" },
+              { code: '    print("Too short!")', explanation: "↳ This only runs if the condition was False", explanationZh: "↳ 只有条件为 False 时才运行" },
+            ],
+          },
+        },
       },
       {
         type: "interactive",
@@ -885,6 +1225,59 @@ Congratulations! You've learned the fundamental building blocks of programming:
 Let's build a **Text Adventure Game** — the same genre that inspired modern AI!`,
       },
       {
+        type: "concept",
+        emoji: "📖",
+        content: "Syntax Review: Combining Everything!",
+        concept: {
+          title: "🧰 Syntax Review: Combining Everything!",
+          titleZh: "语法复习：把所有东西组合起来！",
+          syntaxCards: [
+            {
+              symbol: "str()",
+              name: "Convert to string (text)",
+              nameZh: "转成字符串（文字）",
+              emoji: "🔤",
+              description: "Turns numbers into text so you can print() or concatenate them. Numbers and text don't mix without str()!",
+              example: 'score = 100\nprint("Score: " + str(score))',
+            },
+            {
+              symbol: "True / False",
+              name: "Boolean (yes/no values)",
+              nameZh: "布尔值（是/否）",
+              emoji: "✅",
+              description: "Only two possible values: True (yes ✅) or False (no ❌). Used with if/else and variables like flags.",
+              example: 'has_key = False\nif found_key:\n    has_key = True',
+            },
+            {
+              symbol: "variable = variable - value",
+              name: "Update a variable",
+              nameZh: "更新变量",
+              emoji: "🔄",
+              description: "You can change what's inside a box! Take the old value, do math, put the result back in the same box.",
+              example: 'hp = 100\nhp = hp - 25  # hp is now 75',
+            },
+            {
+              symbol: "Combining skills",
+              name: "Real programs use everything together!",
+              nameZh: "真正的程序把所有技能组合在一起！",
+              emoji: "🏗️",
+              description: "Variables store game state, input() gets player choices, if/else creates different paths, print() tells the story. That's a real program!",
+              example: 'choice = input("Go left or right? ")\nif choice == "left":\n    print("You found treasure!")',
+            },
+          ],
+          codeAnatomy: {
+            lines: [
+              { code: 'player_name = input("Name? ")', explanation: "Ask for name, store it (input + variable)", explanationZh: "问名字并存储（输入+变量）" },
+              { code: 'hp = 100', explanation: "Set up game state with a variable", explanationZh: "用变量设置游戏状态" },
+              { code: 'has_key = False', explanation: "Boolean flag — player doesn't have the key yet", explanationZh: "布尔标记 — 玩家还没有钥匙" },
+              { code: 'hp = hp - 25', explanation: "Update hp: take old value (100), subtract 25, store result (75)", explanationZh: "更新hp：旧值(100)减25，存回结果(75)" },
+              { code: 'if hp > 50:', explanation: "Check condition: is HP still above 50?", explanationZh: "检查条件：HP还大于50吗？" },
+              { code: '    print("Still strong!")', explanation: "↳ Only runs if hp > 50 is True", explanationZh: "↳ 只有 hp > 50 为 True 时运行" },
+            ],
+          },
+        },
+      },
+      {
         type: "code",
         emoji: "🏗️",
         content: `## Game Foundation - Setup & Introduction`,
@@ -1005,7 +1398,7 @@ for side in range(4):
         emoji: "🔺",
         content: `## 🔺 Polygon Factory - Any Shape You Want!
 
-💻 **Run this in Thonny or local Python - turtle magic needs its own window!**`,
+🐢 **Click Run to see the turtle draw!** 点击运行看海龟画图！`,
         code: `# 🔺 POLYGON FACTORY - Master of All Shapes!
 import turtle
 
@@ -1053,7 +1446,7 @@ turtle.done()`,
         emoji: "🌈",
         content: `## 🌈 Kaleidoscope Creator - Psychedelic Art!
 
-💻 **Mind-blowing patterns - run locally in Python!**`,
+🐢 **Click Run to see the kaleidoscope!** 点击运行看万花筒！`,
         code: `# 🌈 KALEIDOSCOPE CREATOR - Trippy Pattern Master!
 import turtle
 
@@ -2544,7 +2937,7 @@ draw_triangle(100)   # 1 line!
         emoji: "🏠",
         content: `## 🏠 Turtle House Builder - Your First Function Factory!
 
-💻 **Run this in Thonny or local Python for turtle magic!**`,
+🐢 **Click Run to see the turtle draw!** 点击运行看海龟画图！`,
         code: `# 🏠 TURTLE HOUSE BUILDER - Function Factory v1.0!
 import turtle
 

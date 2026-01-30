@@ -1,14 +1,18 @@
 // Pyodide Python runtime integration
 // Lazy-loads Pyodide for real Python execution in the browser
 
+import { getTurtleMockPython } from "./turtle-graphics";
+
 export interface PyodideResult {
   output: string;
   error: string | null;
   variables: Record<string, string>;
+  hasTurtle?: boolean;
 }
 
 let pyodideInstance: unknown = null;
 let loadingPromise: Promise<unknown> | null = null;
+let turtleMockInstalled = false;
 
 type PyodideInterface = {
   runPythonAsync: (code: string) => Promise<unknown>;
@@ -53,8 +57,66 @@ export async function loadPyodideEngine(
   await loadingPromise;
 }
 
+// Unsupported modules that need friendly messages
+const UNSUPPORTED_MODULES: Record<string, string> = {
+  tkinter: "🖼️ tkinter (图形界面库) 在浏览器中不可用。\n💡 提示：可以在本地安装 Python 后使用 tkinter，或尝试用 turtle 模块画图！",
+  pygame: "🎮 pygame (游戏库) 在浏览器中不可用。\n💡 提示：可以在本地安装 Python 和 pygame 来制作游戏！",
+  cv2: "📷 OpenCV (cv2) 在浏览器中不可用。\n💡 提示：图像处理需要在本地 Python 环境中运行。",
+  PIL: "🖼️ Pillow (PIL) 在浏览器中不可用。\n💡 提示：图像处理需要在本地 Python 环境中运行。",
+  matplotlib: "📊 matplotlib 在浏览器中不可用。\n💡 提示：数据可视化可以在本地 Python 或 Google Colab 中使用。",
+  numpy: "🔢 正在加载 numpy... 这可能需要一点时间。",
+  pandas: "📊 pandas 在浏览器中可能加载较慢或不可用。",
+  requests: "🌐 requests 在浏览器中不可用（浏览器有安全限制）。\n💡 提示：网络请求需要在本地 Python 中运行。",
+  socket: "🔌 socket 在浏览器中不可用。\n💡 提示：网络编程需要在本地 Python 中运行。",
+  os: "💻 os 模块的部分功能在浏览器中受限。",
+  subprocess: "⚙️ subprocess 在浏览器中不可用。\n💡 提示：系统命令需要在本地 Python 中运行。",
+};
+
+// Check if code uses unsupported modules (excluding turtle which we mock)
+function checkUnsupportedModules(code: string): string | null {
+  const importRegex = /(?:^|\n)\s*(?:import|from)\s+(\w+)/g;
+  let match;
+  const warnings: string[] = [];
+  
+  while ((match = importRegex.exec(code)) !== null) {
+    const moduleName = match[1];
+    if (moduleName === "turtle") continue; // We handle turtle!
+    if (UNSUPPORTED_MODULES[moduleName]) {
+      warnings.push(UNSUPPORTED_MODULES[moduleName]);
+    }
+  }
+  
+  return warnings.length > 0 ? warnings.join("\n\n") : null;
+}
+
+// Detect if code uses turtle
+function usesTurtle(code: string): boolean {
+  return /(?:^|\n)\s*(?:import\s+turtle|from\s+turtle\s+import)/.test(code);
+}
+
+// Detect input() calls and extract prompts
+function detectInputCalls(code: string): string[] {
+  const prompts: string[] = [];
+  const inputRegex = /input\s*\(\s*(?:["']([^"']*)["'])?\s*\)/g;
+  let match;
+  while ((match = inputRegex.exec(code)) !== null) {
+    prompts.push(match[1] || "请输入 (Enter value):");
+  }
+  return prompts;
+}
+
 // Translate Python errors to kid-friendly Chinese
 function translateError(error: string): string {
+  // Check for module import errors specifically
+  const moduleMatch = error.match(/ModuleNotFoundError: No module named '(\w+)'/);
+  if (moduleMatch) {
+    const mod = moduleMatch[1];
+    if (UNSUPPORTED_MODULES[mod]) {
+      return UNSUPPORTED_MODULES[mod];
+    }
+    return `📦 找不到模块 '${mod}'。\n💡 这个模块在浏览器中可能不可用。试试在本地 Python 环境中运行！`;
+  }
+
   if (error.includes("SyntaxError")) {
     const match = error.match(/SyntaxError: (.+)/);
     const detail = match?.[1] || "";
@@ -91,9 +153,46 @@ function translateError(error: string): string {
   if (error.includes("ValueError")) {
     return `❌ 值错误：给的值不对 —— ${error.match(/ValueError: (.+)/)?.[1] || ""}`;
   }
+  if (error.includes("KeyboardInterrupt")) {
+    return "⏹️ 程序被中断了。";
+  }
+  if (error.includes("RecursionError")) {
+    return "🔄 递归错误：函数调用自己太多次了！检查是否有正确的停止条件（base case）。";
+  }
+  if (error.includes("KeyError")) {
+    const keyMatch = error.match(/KeyError: (.+)/);
+    return `❌ 键错误：字典中找不到这个键 ${keyMatch?.[1] || ""}。检查键名是否拼写正确！`;
+  }
+  if (error.includes("AttributeError")) {
+    const attrMatch = error.match(/AttributeError: (.+)/);
+    return `❌ 属性错误：${attrMatch?.[1] || "对象没有这个属性或方法"}`;
+  }
   // fallback
   const lastLine = error.trim().split("\n").pop() || error;
   return `❌ 错误：${lastLine}`;
+}
+
+async function installTurtleMock(py: PyodideInterface): Promise<void> {
+  if (turtleMockInstalled) return;
+  
+  const turtleCode = getTurtleMockPython();
+  
+  // Register the turtle mock as a real Python module
+  py.runPython(`
+import sys
+import types
+
+# Create turtle module
+_turtle_mod = types.ModuleType("turtle")
+sys.modules["turtle"] = _turtle_mod
+`);
+
+  // Execute turtle mock code within the module namespace
+  py.runPython(`
+exec(${JSON.stringify(turtleCode)}, sys.modules["turtle"].__dict__)
+`);
+  
+  turtleMockInstalled = true;
 }
 
 export async function runPython(
@@ -105,10 +204,17 @@ export async function runPython(
   }
 
   const py = pyodideInstance as PyodideInterface;
-  const outputLines: string[] = [];
-  let inputIndex = 0;
+  const hasTurtle = usesTurtle(code);
+
+  // Check for unsupported modules early (but don't block - let it try)
+  const moduleWarning = checkUnsupportedModules(code);
 
   try {
+    // Install turtle mock if needed
+    if (hasTurtle) {
+      await installTurtleMock(py);
+    }
+
     // Set up stdout/stderr capture and input mock
     py.runPython(`
 import sys, io
@@ -132,7 +238,7 @@ sys.stdout = _CaptureOut(_capture)
 sys.stderr = _CaptureOut(_capture)
 `);
 
-    // Mock input() if values provided
+    // Mock input() - use provided values or prompt via JS
     if (inputValues && inputValues.length > 0) {
       const inputJson = JSON.stringify(inputValues);
       py.runPython(`
@@ -150,6 +256,22 @@ def input(prompt=""):
         return val
     return ""
 `);
+    } else {
+      // Use browser prompt() for input when no values pre-provided
+      py.runPython(`
+import js
+
+def input(prompt=""):
+    if prompt:
+        _output_lines.append(prompt)
+    result = js.prompt(prompt or "请输入 (Enter a value):")
+    if result is None:
+        result = ""
+    else:
+        result = str(result)
+    _output_lines.append(result + "\\n")
+    return result
+`);
     }
 
     // Run user code
@@ -157,14 +279,19 @@ def input(prompt=""):
 
     // Collect output
     const rawOutput = py.runPython(`"".join(_output_lines)`) as string;
-    const output = rawOutput.replace(/\n$/, "");
+    let output = rawOutput.replace(/\n$/, "");
+
+    // Prepend module warning if any
+    if (moduleWarning) {
+      output = moduleWarning + "\n\n" + output;
+    }
 
     // Collect variables (simple types only)
     py.runPython(`
 import json as _json
 _user_vars = {}
 for _k, _v in dict(globals()).items():
-    if not _k.startswith('_') and _k not in ('sys', 'io', 'input', 'json'):
+    if not _k.startswith('_') and _k not in ('sys', 'io', 'input', 'json', 'js', 'types'):
         try:
             if isinstance(_v, (int, float, str, bool)):
                 _user_vars[_k] = str(_v)
@@ -183,7 +310,7 @@ sys.stdout = sys.__stdout__
 sys.stderr = sys.__stderr__
 `);
 
-    return { output, error: null, variables };
+    return { output, error: null, variables, hasTurtle };
   } catch (e) {
     // Cleanup
     try {
@@ -195,6 +322,6 @@ sys.stderr = sys.__stderr__
     } catch {}
 
     const errMsg = e instanceof Error ? e.message : String(e);
-    return { output: outputLines.join(""), error: translateError(errMsg), variables: {} };
+    return { output: "", error: translateError(errMsg), variables: {}, hasTurtle };
   }
 }

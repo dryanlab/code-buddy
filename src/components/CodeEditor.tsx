@@ -28,10 +28,11 @@ export default function CodeEditor({
   const [loadingMsg, setLoadingMsg] = useState("");
   const [variables, setVariables] = useState<Record<string, string>>({});
   const [showSuccess, setShowSuccess] = useState(false);
-  const [needsInput, setNeedsInput] = useState(false);
   const [inputValues, setInputValues] = useState<string[]>([]);
-  const [inputPrompt, setInputPrompt] = useState("");
-  const [currentInput, setCurrentInput] = useState("");
+  const [hasTurtle, setHasTurtle] = useState(false);
+  const [inputPrompts, setInputPrompts] = useState<string[]>([]);
+  const [showInputForm, setShowInputForm] = useState(false);
+  const [currentInputs, setCurrentInputs] = useState<string[]>([]);
 
   // Update code when initialCode changes
   useEffect(() => {
@@ -52,17 +53,25 @@ export default function CodeEditor({
     }
   }, []);
 
-  const runCode = useCallback(async () => {
+  // Detect input() calls in code and extract prompts
+  const detectInputPrompts = useCallback((src: string): string[] => {
+    const prompts: string[] = [];
+    const regex = /input\s*\(\s*(?:["']([^"']*)["'])?\s*\)/g;
+    let m;
+    while ((m = regex.exec(src)) !== null) {
+      prompts.push(m[1] || "请输入 (Enter value):");
+    }
+    return prompts;
+  }, []);
+
+  const executeCode = useCallback(async (inputs?: string[]) => {
     setIsRunning(true);
     setOutput("");
     setShowSuccess(false);
+    setHasTurtle(false);
 
     const ready = await ensurePyodide();
     if (!ready) { setIsRunning(false); return; }
-
-    // Check if code has input() calls - provide mock values
-    const hasInput = /\binput\s*\(/.test(code);
-    const inputs = hasInput ? inputValues : undefined;
 
     const result = await runPython(code, inputs);
     
@@ -75,10 +84,23 @@ export default function CodeEditor({
       onRunSuccess?.();
     }
     setVariables(result.variables);
+    setHasTurtle(result.hasTurtle || false);
     setIsRunning(false);
     incrementCodeRun();
     addXP(5);
-  }, [code, ensurePyodide, inputValues, onRunSuccess]);
+  }, [code, ensurePyodide, onRunSuccess]);
+
+  const runCode = useCallback(async () => {
+    const prompts = detectInputPrompts(code);
+    
+    if (prompts.length > 0 && inputValues.length === 0) {
+      // Show input form for users to fill in values before running
+      // Or use browser prompt() - the engine handles this via JS prompt
+      // Just run directly - the engine will use prompt() dialogs
+    }
+    
+    await executeCode(inputValues.length > 0 ? inputValues : undefined);
+  }, [code, detectInputPrompts, executeCode, inputValues]);
 
   return (
     <div className="rounded-xl overflow-hidden border border-slate-700/50">
@@ -144,6 +166,9 @@ export default function CodeEditor({
             )}
           </AnimatePresence>
         </div>
+        {/* Turtle canvas mount point */}
+        <div id="turtle-output" data-turtle-mount="true" />
+        
         <pre className="text-sm text-green-400 terminal-text whitespace-pre-wrap min-h-[2rem]">
           {output || <span className="text-slate-600">Click &quot;Run&quot; to execute code... 点击 &quot;Run&quot; 运行代码</span>}
         </pre>
