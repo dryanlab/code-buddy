@@ -564,7 +564,7 @@ export default function CodeLabPage() {
   }, [searchParams]);
 
   // Sidebar
-  const [sidebarTab, setSidebarTab] = useState<"projects" | "exercises">("projects");
+  const [sidebarTab, setSidebarTab] = useState<"projects" | "exercises">("exercises");
   const [projects, setProjects] = useState<Project[]>([]);
   const [showNewProject, setShowNewProject] = useState(false);
 
@@ -583,6 +583,11 @@ export default function CodeLabPage() {
   // Language
   const [activeLanguage, setActiveLanguage] = useState<ProjectLanguage>("python");
   const isPython = activeLanguage === "python";
+
+  // Sync language toggle with exercise filter
+  useEffect(() => {
+    setExLangFilter(activeLanguage === "python" ? "python" : "cpp");
+  }, [activeLanguage]);
 
   // Editor
   const [code, setCode] = useState('# Write your Python code here!\nprint("Hello, World!")');
@@ -1121,6 +1126,16 @@ export default function CodeLabPage() {
       {/* Sidebar tabs */}
       <div className="flex border-b" style={{ borderColor: "var(--theme-border)" }}>
         <button
+          onClick={() => setSidebarTab("exercises")}
+          className="flex-1 py-2 text-xs font-bold transition-colors"
+          style={{
+            color: sidebarTab === "exercises" ? "var(--color-primary)" : "var(--theme-text-muted)",
+            borderBottom: sidebarTab === "exercises" ? "2px solid var(--color-primary)" : "2px solid transparent",
+          }}
+        >
+          📝 Exercises · 练习
+        </button>
+        <button
           onClick={() => preview ? setShowSignUpModal(true) : setSidebarTab("projects")}
           className="flex-1 py-2 text-xs font-bold transition-colors"
           style={{
@@ -1130,16 +1145,6 @@ export default function CodeLabPage() {
           }}
         >
           {preview ? "🔒" : "📁"} Projects · 项目
-        </button>
-        <button
-          onClick={() => setSidebarTab("exercises")}
-          className="flex-1 py-2 text-xs font-bold transition-colors"
-          style={{
-            color: sidebarTab === "exercises" ? "var(--color-primary)" : "var(--theme-text-muted)",
-            borderBottom: sidebarTab === "exercises" ? "2px solid var(--color-primary)" : "2px solid transparent",
-          }}
-        >
-          📝 Exercises · 练习
         </button>
       </div>
 
