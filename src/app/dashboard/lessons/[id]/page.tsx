@@ -194,6 +194,13 @@ function markdownToHtml(md: string): string {
     .replace(/\n/g, '<br/>');
 
   if (!html.startsWith('<')) html = '<p>' + html + '</p>';
+
+  // Wrap content after <h2> in indented blocks (until next <h2> or end)
+  html = html.replace(/(<h2>[\s\S]*?<\/h2>)([\s\S]*?)(?=<h2>|$)/g, (_, heading, body) => {
+    if (!body.trim()) return heading;
+    return `${heading}<div style="margin-left:1.25rem;padding-left:0.75rem;border-left:2px solid rgba(255,255,255,0.1);margin-bottom:0.5rem">${body}</div>`;
+  });
+
   return html;
 }
 
