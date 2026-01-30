@@ -142,20 +142,15 @@ function HotspotOverlay({
           }}
         />
 
-        {/* "You are here" marker for active track */}
+        {/* "You are here" cartoon arrow for active track */}
         {isActive && (
           <motion.div
-            className="absolute -top-12 left-1/2 -translate-x-1/2 pointer-events-none"
-            animate={{ y: [0, -5, 0] }}
-            transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+            className="absolute -top-14 left-1/2 -translate-x-1/2 pointer-events-none"
+            animate={{ y: [0, -6, 0] }}
+            transition={{ duration: 1.2, repeat: Infinity, ease: "easeInOut" }}
+            style={{ filter: "drop-shadow(0 3px 6px rgba(0,0,0,0.5))" }}
           >
-            <svg width="28" height="36" viewBox="0 0 28 36" fill="none" style={{ filter: `drop-shadow(0 2px 6px ${track.colorHex}aa)` }}>
-              {/* Pin shape */}
-              <path d="M14 0C6.27 0 0 6.27 0 14c0 10.5 14 22 14 22s14-11.5 14-22C28 6.27 21.73 0 14 0z" fill={track.colorHex} />
-              <circle cx="14" cy="14" r="6" fill="white" />
-              {/* Inner dot */}
-              <circle cx="14" cy="14" r="3" fill={track.colorHex} />
-            </svg>
+            <Image src="/images/you-are-here-arrow.png" alt="You are here" width={36} height={48} className="w-9 h-auto" draggable={false} />
           </motion.div>
         )}
 
