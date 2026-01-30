@@ -455,7 +455,7 @@ color = input("🌈 Pick a color: ")
 food = input("🍕 What's your favorite food: ")
 number = input("🔢 Random number (1-100): ")
 
-print("\n" + "="*40)
+print("\\n" + "="*40)
 print("🎭 YOUR CUSTOM STORY! 🎭")
 print("="*40)
 
@@ -1098,7 +1098,7 @@ rider_name = input("👤 What's your name? ")
 height_inches = int(input("📏 How tall are you (inches)? "))
 has_gear = input("🎒 Do you have safety gear? (yes/no): ")
 
-print("\n🔍 SAFETY INSPECTION IN PROGRESS...")
+print("\\n🔍 SAFETY INSPECTION IN PROGRESS...")
 print("Checking rider: " + rider_name)
 
 # Height safety check
@@ -1118,7 +1118,7 @@ else:
     gear_ok = False
 
 # Final safety decision
-print("\n🎯 FINAL DECISION:")
+print("\\n🎯 FINAL DECISION:")
 if height_ok and gear_ok:
     print("🎉 APPROVED! Welcome aboard, " + rider_name + "!")
     print("🎢 Enjoy the Mega Loop! Stay safe!")
@@ -1162,7 +1162,7 @@ if age >= 16 and height >= 54:
 else:
     print("💀 Death Defying Drop: ❌ Too young/short")
 
-print("\n🎯 Safety is our #1 priority!")
+print("\\n🎯 Safety is our #1 priority!")
 
 # 🔧 Chip: "Real theme parks use computer systems exactly like this!"`,
       },
@@ -1571,14 +1571,14 @@ print("🎪 Welcome to the Loop Circus! 🎪")
 print("=" * 40)
 
 # Pattern 1: Star Pyramid
-print("\n⭐ STAR PYRAMID:")
+print("\\n⭐ STAR PYRAMID:")
 for row in range(5):
     spaces = " " * (5 - row - 1)  # Decreasing spaces
     stars = "⭐" * (row + 1)      # Increasing stars
     print(spaces + stars)
 
 # Pattern 2: Number Diamond  
-print("\n💎 NUMBER DIAMOND:")
+print("\\n💎 NUMBER DIAMOND:")
 for i in range(1, 6):
     spaces = " " * (5 - i)
     numbers = ""
@@ -1587,19 +1587,19 @@ for i in range(1, 6):
     print(spaces + numbers)
 
 # Pattern 3: Countdown Rocket
-print("\n🚀 COUNTDOWN ROCKET:")
+print("\\n🚀 COUNTDOWN ROCKET:")
 for count in range(10, 0, -1):
     print("🚀 " + str(count))
 print("💥 BLAST OFF!")
 
 # Pattern 4: Progress Bar Simulation
-print("\n📊 LOADING PROGRESS:")
+print("\\n📊 LOADING PROGRESS:")
 for percent in range(0, 101, 10):
     filled = "█" * (percent // 10)
     empty = "░" * (10 - percent // 10)
     print(f"[{filled}{empty}] {percent}%")
 
-print("\n🎉 Loop Circus Complete!")
+print("\\n🎉 Loop Circus Complete!")
 # 🤖 Botty: "These are the building blocks of user interfaces!"`,
       },
       {
@@ -2077,7 +2077,7 @@ if guess_count >= max_guesses and player_guess != secret_number:
     print(f"💔 Game Over! The number was {secret_number}")
     print(f"🎮 Better luck next time, {player_name}!")
 
-print("\n🎯 Thanks for playing Number Guessing Game 2.0!")
+print("\\n🎯 Thanks for playing Number Guessing Game 2.0!")
 
 # 🔧 Chip: "This game loop runs on every gaming device!"
 # 🤖 Botty: "AI learns by making guesses and getting feedback, just like this!"`,
@@ -2281,42 +2281,42 @@ print("🌟 Welcome to the Star Pattern Factory! 🌟")
 print("=" * 45)
 
 # Pattern 1: Simple Square
-print("\n🟦 PATTERN 1: Perfect Square")
+print("\\n🟦 PATTERN 1: Perfect Square")
 for row in range(5):
     for col in range(5):
         print("⭐", end="")  # Print star without newline
     print()  # New line after each row completes
 
 # Pattern 2: Right Triangle (Growing)
-print("\n📐 PATTERN 2: Growing Triangle") 
+print("\\n📐 PATTERN 2: Growing Triangle") 
 for row in range(6):  # 6 rows
     for col in range(row + 1):  # Row 0→1 star, Row 1→2 stars, etc.
         print("⭐", end="")
     print()
 
 # Pattern 3: Upside Down Triangle (Shrinking)
-print("\n📐 PATTERN 3: Shrinking Triangle")
+print("\\n📐 PATTERN 3: Shrinking Triangle")
 for row in range(5):
     for col in range(5 - row):  # Row 0→5 stars, Row 1→4 stars, etc.
         print("⭐", end="")
     print()
 
 # Pattern 4: Number Stairs
-print("\n🔢 PATTERN 4: Number Stairs")
+print("\\n🔢 PATTERN 4: Number Stairs")
 for row in range(1, 6):  # Rows 1 to 5
     for number in range(1, row + 1):  # Numbers 1 to current row
         print(number, end="")
     print()
 
 # Pattern 5: Multiplication Table Preview
-print("\n📊 PATTERN 5: Mini Multiplication Table")
+print("\\n📊 PATTERN 5: Mini Multiplication Table")
 for row in range(1, 4):  # 3 rows
     for col in range(1, 4):  # 3 columns  
         result = row * col
         print(f"{result:2}", end=" ")  # Format with 2 spaces
     print(f" ← {row} × table")
 
-print("\n✨ Pattern Factory Complete! Wasn't that AMAZING?")
+print("\\n✨ Pattern Factory Complete! Wasn't that AMAZING?")
 
 # 🔧 Chip: "Your computer screen was drawn using patterns just like these!"`,
       },
@@ -2331,7 +2331,7 @@ print("🥷 Ninja-level nested loops ahead!")
 print("=" * 40)
 
 # Pattern 1: Centered Pyramid
-print("\n🏔️ PATTERN 1: Centered Pyramid")
+print("\\n🏔️ PATTERN 1: Centered Pyramid")
 height = 5
 for row in range(height):
     # Print spaces for centering
@@ -2347,7 +2347,7 @@ for row in range(height):
     print()  # New line
 
 # Pattern 2: Diamond Shape  
-print("\n💎 PATTERN 2: Perfect Diamond")
+print("\\n💎 PATTERN 2: Perfect Diamond")
 # Top half (growing)
 for row in range(4):
     spaces = 3 - row
@@ -2371,7 +2371,7 @@ for row in range(3):
     print()
 
 # Pattern 3: Rainbow Pattern
-print("\n🌈 PATTERN 3: Rainbow Pattern")
+print("\\n🌈 PATTERN 3: Rainbow Pattern")
 colors = ["🔴", "🟠", "🟡", "🟢", "🔵", "🟣"]
 for row in range(6):
     color = colors[row]  # Pick color for this row
@@ -2380,7 +2380,7 @@ for row in range(6):
     print(f" ← Row {row + 1}")
 
 # Pattern 4: Chess Board Pattern
-print("\n♟️ PATTERN 4: Mini Chessboard")
+print("\\n♟️ PATTERN 4: Mini Chessboard")
 for row in range(4):
     for col in range(4):
         if (row + col) % 2 == 0:  # Even squares
@@ -2389,7 +2389,7 @@ for row in range(4):
             print("⬛", end="")
     print()
 
-print("\n🏆 You've mastered advanced patterns! You're a nested loop ninja!")
+print("\\n🏆 You've mastered advanced patterns! You're a nested loop ninja!")
 
 # 🤖 Botty: "Video game textures are created with patterns like these!"`,
       },
@@ -2644,7 +2644,7 @@ print(f"🎯 Original: {secret_message}")
 print(f"✨ Encrypted: {encrypted}")
 
 # Fun fact about encryption!
-print("\n🤓 SECRET AGENT FACT:")
+print("\\n🤓 SECRET AGENT FACT:")
 print("Julius Caesar used this cipher 2000+ years ago!")
 print("🌐 Modern internet uses much stronger encryption!")
 
@@ -2671,7 +2671,7 @@ print("🎯 Intercepted encrypted messages:")
 for i, (encrypted, shift, method) in enumerate(secret_messages):
     print(f"📨 Message {i+1}: {encrypted} (Method: {method})")
 
-print("\n🔍 Attempting to decode...")
+print("\\n🔍 Attempting to decode...")
 
 for i, (encrypted_msg, shift, method) in enumerate(secret_messages):
     print(f"\n📨 Decoding Message {i+1}: {encrypted_msg}")
@@ -2690,7 +2690,7 @@ for i, (encrypted_msg, shift, method) in enumerate(secret_messages):
     print(f"🔓 DECODED: {decoded}")
 
 # Interactive decoder
-print("\n🎮 YOUR TURN TO DECODE!")
+print("\\n🎮 YOUR TURN TO DECODE!")
 user_encrypted = input("🔒 Enter encrypted message: ").upper()
 user_shift = int(input("🔢 Enter shift amount: "))
 
@@ -2707,7 +2707,7 @@ for letter in user_encrypted:
 print(f"\n✨ YOUR DECODED MESSAGE: {decoded_message}")
 
 # Real-world connection
-print("\n🌐 REAL WORLD CONNECTION:")
+print("\\n🌐 REAL WORLD CONNECTION:")
 print("🔐 HTTPS websites encrypt your data!")
 print("💳 Credit cards, passwords, messages - all encrypted!")
 print("🤖 AI models encrypt their training data too!")
@@ -2731,11 +2731,11 @@ print(f"\n🎨 Creating art from: '{text}'")
 print("-" * 30)
 
 # Transformation 1: Mirror Text
-print("\n🪞 MIRROR WRITING:")
+print("\\n🪞 MIRROR WRITING:")
 print(text + " | " + text[::-1])  # ::-1 reverses the string!
 
 # Transformation 2: Zigzag Pattern
-print("\n⚡ ZIGZAG PATTERN:")
+print("\\n⚡ ZIGZAG PATTERN:")
 for i, char in enumerate(text):
     if i % 2 == 0:
         print(char.upper(), end="")  # Even positions: uppercase
@@ -2744,7 +2744,7 @@ for i, char in enumerate(text):
 print()
 
 # Transformation 3: Letter Count Art
-print("\n📊 LETTER ANALYSIS:")
+print("\\n📊 LETTER ANALYSIS:")
 letter_counts = {}
 for letter in text.lower():
     if letter.isalpha():  # Only count letters
@@ -2757,14 +2757,14 @@ for letter, count in letter_counts.items():
     print(f"{letter.upper()}: {'█' * count} ({count})")
 
 # Transformation 4: Secret Code (Every 2nd Letter)
-print("\n🤐 SECRET CODE (every 2nd letter):")
+print("\\n🤐 SECRET CODE (every 2nd letter):")
 secret = ""
 for i in range(0, len(text), 2):  # Skip every other letter
     secret += text[i]
 print(f"Hidden message: {secret}")
 
 # Transformation 5: ASCII Art Letters
-print("\n🔤 ASCII ART BLOCK LETTERS:")
+print("\\n🔤 ASCII ART BLOCK LETTERS:")
 big_letters = {
     'A': ['█████', '█   █', '█████', '█   █', '█   █'],
     'B': ['████ ', '█   █', '████ ', '█   █', '████ '],
@@ -2967,7 +2967,7 @@ while True:
         print("🏆 You are the ULTIMATE CHAMPION!")
         break
     elif computer_wins == 3:
-        print("\n💻 Computer wins the championship!")
+        print("\\n💻 Computer wins the championship!")
         print("🎮 Better luck next time, champion!")
         break
     
@@ -3028,7 +3028,7 @@ if len(game_history) > 0:
     for battle in game_history:
         print(f"Round {battle['round']}: {choices[battle['player']]} vs {choices[battle['computer']]} → {battle['result']}")
 
-print("\n🎮 Thanks for playing Rock Paper Scissors Championship!")
+print("\\n🎮 Thanks for playing Rock Paper Scissors Championship!")
 
 # 🔧 Chip: "This game uses every core programming concept you've learned!"`,
       },
@@ -3151,7 +3151,7 @@ elif calculate_win_rate() >= 50:
 else:
     print(f"🎮 {player_name} - DEVELOPING CHAMPION!")
 
-print("\n🎪 Thanks for playing Advanced Championship!")
+print("\\n🎪 Thanks for playing Advanced Championship!")
 
 # 🤖 Botty: "You just built a game with AI learning capabilities!"`,
       },
@@ -3383,7 +3383,7 @@ def build_neighborhood():
 print("🎯 Calling our building block functions...")
 build_neighborhood()
 
-print("\n🎉 NEIGHBORHOOD COMPLETE!")
+print("\\n🎉 NEIGHBORHOOD COMPLETE!")
 print("🧱 Look how we built complex things from simple blocks!")
 
 # 🔧 Chip: "This is exactly how video game graphics are programmed!"
@@ -3851,27 +3851,27 @@ def complete_mission(codename):
         print(f"❌ Agent {codename} not found!")
 
 # 🎮 DEMONSTRATE DATABASE OPERATIONS
-print("\n🎮 TESTING AGENT DATABASE OPERATIONS:")
+print("\\n🎮 TESTING AGENT DATABASE OPERATIONS:")
 
 # Display all agent profiles
 for codename in agent_database:
     display_agent_profile(codename)
 
 # Update agent statuses
-print("\n📝 STATUS UPDATES:")
+print("\\n📝 STATUS UPDATES:")
 update_agent_status("007", "On Mission")
 update_agent_status("phoenix", "Training")
 
 # Complete missions
-print("\n🎯 MISSION COMPLETIONS:")
+print("\\n🎯 MISSION COMPLETIONS:")
 complete_mission("007")
 complete_mission("black_widow")
 
 # Show updated profile
-print("\n🔍 UPDATED PROFILE:")
+print("\\n🔍 UPDATED PROFILE:")
 display_agent_profile("007")
 
-print("\n🔒 Database operations complete!")
+print("\\n🔒 Database operations complete!")
 
 # 🔧 Chip: "This is exactly how real databases work!"`,
       },
@@ -4006,11 +4006,11 @@ print("AGENT STATUS:")
 for agent_code, agent_data in agents.items():
     print(f"🕵️ Agent {agent_code}: {agent_data['status']}")
 
-print("\nMISSION STATUS:")
+print("\\nMISSION STATUS:")
 for mission_key, mission_data in missions.items():
     print(f"🎯 {mission_data['mission_name']}: {mission_data['status']}")
 
-print("\n🔒 Mission assignment complete!")
+print("\\n🔒 Mission assignment complete!")
 
 # 🤖 Botty: "This is how AI systems match data and make decisions!"`,
       },
