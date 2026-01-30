@@ -5290,6 +5290,50 @@ while True:
 - 🔍 **Data analysis** for conclusions`,
       },
       {
+        type: "concept",
+        emoji: "📖",
+        content: "Review: Scientific Computing Toolkit",
+        concept: {
+          title: "🧪 Review: Scientific Computing Toolkit",
+          titleZh: "复习：科学计算工具包",
+          syntaxCards: [
+            {
+              symbol: "f-string formatting",
+              name: "Formatted Output",
+              nameZh: "格式化输出",
+              emoji: "📋",
+              description: "Lab reports need clean numbers 📋 — f-strings with format specs control decimal places, alignment, and more!",
+              example: "pi = 3.14159\nprint(f'Pi = {pi:.2f}')  # Pi = 3.14\nprint(f'{name:>20}')    # right-aligned",
+            },
+            {
+              symbol: "def experiment(trials):",
+              name: "Experiment Function Pattern",
+              nameZh: "实验函数模式",
+              emoji: "🔬",
+              description: "The scientific method in code 🔬 — run experiments as functions with parameters for trials, conditions, etc.",
+              example: "def coin_flip_experiment(n):\n    results = [random.choice(['H','T']) for _ in range(n)]\n    return results.count('H') / n",
+            },
+            {
+              symbol: "csv / json",
+              name: "Data File Formats",
+              nameZh: "数据文件格式",
+              emoji: "💾",
+              description: "Scientists save data in standard formats 💾 — CSV for spreadsheets, JSON for structured data!",
+              example: "import csv\nwith open('data.csv') as f:\n    reader = csv.reader(f)\n    for row in reader:\n        print(row)",
+            },
+          ],
+          codeAnatomy: {
+            lines: [
+              { code: "import random, json", explanation: "Import tools for simulation and data storage.", explanationZh: "导入模拟和数据存储工具" },
+              { code: "def run_experiment(trials=1000):", explanation: "Function with default parameter for trial count.", explanationZh: "带默认参数的实验函数" },
+              { code: "    results = [random.randint(1,6) for _ in range(trials)]", explanation: "List comprehension to simulate dice rolls.", explanationZh: "列表推导式模拟骰子投掷" },
+              { code: "    avg = sum(results) / len(results)", explanation: "Calculate the experimental average.", explanationZh: "计算实验平均值" },
+              { code: "    return {'avg': round(avg,2), 'trials': trials}", explanation: "Return results as a dictionary.", explanationZh: "以字典形式返回结果" },
+            ],
+          },
+        },
+      },
+      {
         type: "quiz",
         content: "🧪 Science Lab Graduation Quiz!",
         quiz: [
@@ -5334,6 +5378,59 @@ AI isn't magic — it's advanced programming using the same concepts you've lear
 The difference? **Scale and complexity!**`,
       },
       {
+        type: "concept",
+        emoji: "📖",
+        content: "Key Concepts: How AI Actually Works",
+        concept: {
+          title: "🤖 Key Concepts: How AI Actually Works",
+          titleZh: "关键概念：AI 到底如何工作",
+          syntaxCards: [
+            {
+              symbol: "Training Data",
+              name: "Training Data",
+              nameZh: "训练数据",
+              emoji: "📚",
+              description: "AI's textbook 📚 — thousands or millions of examples that teach AI what 'correct' looks like. More data = smarter AI!",
+              example: "# Like studying flashcards:\ntrain_data = [\n  ('cat pic', 'cat'),\n  ('dog pic', 'dog'),\n]",
+            },
+            {
+              symbol: "Model",
+              name: "AI Model",
+              nameZh: "AI 模型",
+              emoji: "🧠",
+              description: "The AI's brain 🧠 — a mathematical function with millions of adjustable numbers (weights) that transform input into output.",
+              example: "# Simplified AI:\ndef predict(input, weights):\n    return sum(i*w for i,w in zip(input,weights))",
+            },
+            {
+              symbol: "Prediction",
+              name: "Inference (Prediction)",
+              nameZh: "推理（预测）",
+              emoji: "🎯",
+              description: "The AI's answer 🎯 — after training, the model takes NEW input and predicts an output it's never seen before!",
+              example: "result = model.predict(new_image)\nprint(result)  # 'cat' or 'dog'",
+            },
+            {
+              symbol: "Accuracy",
+              name: "Accuracy (how good is it?)",
+              nameZh: "准确率（有多好？）",
+              emoji: "📊",
+              description: "The report card 📊 — what percentage of predictions the AI gets RIGHT. 95% accuracy = wrong 1 in 20 times.",
+              example: "correct = 950\ntotal = 1000\naccuracy = correct / total  # 0.95 = 95%",
+            },
+          ],
+          codeAnatomy: {
+            lines: [
+              { code: "# AI is just: Input → Math → Output", explanation: "At its core, AI is a mathematical transformation.", explanationZh: "AI 的核心就是数学变换" },
+              { code: "def simple_ai(features, weights):", explanation: "A tiny AI model — takes features and weights.", explanationZh: "一个微型 AI 模型 — 接受特征和权重" },
+              { code: "    score = sum(f * w for f, w in zip(features, weights))", explanation: "Multiply each feature by its weight and sum up.", explanationZh: "每个特征乘以权重然后求和" },
+              { code: "    if score > 0.5:", explanation: "Make a decision based on the score.", explanationZh: "根据分数做出决定" },
+              { code: '        return "Yes"', explanation: "Above threshold → positive prediction.", explanationZh: "超过阈值 → 正面预测" },
+              { code: '    return "No"', explanation: "Below threshold → negative prediction.", explanationZh: "低于阈值 → 负面预测" },
+            ],
+          },
+        },
+      },
+      {
         type: "quiz",
         content: "🤖 AI Understanding Quiz!",
         quiz: [
@@ -5373,6 +5470,50 @@ AI can help with:
 - ✅ **Explaining errors** in plain English
 - ✅ **Generating boilerplate** code
 - ❌ But YOU still need to understand and verify everything!`,
+      },
+      {
+        type: "concept",
+        emoji: "📖",
+        content: "Key Concepts: AI-Assisted Coding",
+        concept: {
+          title: "🤝 Key Concepts: AI-Assisted Coding",
+          titleZh: "关键概念：AI 辅助编程",
+          syntaxCards: [
+            {
+              symbol: "Prompt Engineering",
+              name: "Prompt Engineering",
+              nameZh: "提示词工程",
+              emoji: "💬",
+              description: "Talking to AI effectively 💬 — the better your question, the better the answer! Be specific, give context, and ask step-by-step.",
+              example: '# Bad: "Write code"\n# Good: "Write a Python function that\n#  takes a list of numbers and returns\n#  the average, handling empty lists"',
+            },
+            {
+              symbol: "Code Review",
+              name: "Reviewing AI Code",
+              nameZh: "审查 AI 代码",
+              emoji: "🔍",
+              description: "Never blindly trust AI code 🔍 — always read it, understand it, test it, and check for bugs. YOU are responsible!",
+              example: "# AI wrote this — does it look right?\ndef avg(nums):\n    return sum(nums) / len(nums)\n# Bug: crashes on empty list!",
+            },
+            {
+              symbol: "Iterate & Refine",
+              name: "Iterative Refinement",
+              nameZh: "迭代改进",
+              emoji: "🔄",
+              description: "Like sculpting clay 🎨 — ask AI for a first draft, then refine: 'Now add error handling', 'Make it faster', etc.",
+              example: '# Round 1: "Write a calculator"\n# Round 2: "Add error handling"\n# Round 3: "Support history"',
+            },
+          ],
+          codeAnatomy: {
+            lines: [
+              { code: "# Step 1: Ask AI for a starting point", explanation: "Give AI a clear, specific prompt.", explanationZh: "给 AI 一个清晰具体的提示" },
+              { code: "def calculate_bmi(weight_kg, height_m):", explanation: "AI generates a function — looks reasonable.", explanationZh: "AI 生成了一个函数 — 看起来合理" },
+              { code: "    return weight_kg / (height_m ** 2)", explanation: "The formula is correct ✓", explanationZh: "公式是正确的 ✓" },
+              { code: "# Step 2: YOU add error handling!", explanation: "AI forgot edge cases — you need to fix that!", explanationZh: "AI 忘了边界情况 — 你需要修复！" },
+              { code: "    if height_m <= 0: raise ValueError", explanation: "YOU add validation AI missed.", explanationZh: "你添加 AI 遗漏的验证" },
+            ],
+          },
+        },
       },
       {
         type: "quiz",
@@ -5416,6 +5557,51 @@ Common AI coding mistakes:
 - 🎯 **Over-complicated solutions**
 
 **Your job:** Be the smart human who catches these!`,
+      },
+      {
+        type: "concept",
+        emoji: "📖",
+        content: "Key Concepts: AI Limitations & Critical Thinking",
+        concept: {
+          title: "🔍 Key Concepts: AI Limitations & Critical Thinking",
+          titleZh: "关键概念：AI 局限性与批判性思维",
+          syntaxCards: [
+            {
+              symbol: "Hallucination",
+              name: "AI Hallucination",
+              nameZh: "AI 幻觉",
+              emoji: "🌀",
+              description: "AI can confidently make things up 🌀 — inventing functions that don't exist, wrong facts, or plausible-looking but broken code!",
+              example: "# AI might write:\nimport magic_library  # Doesn't exist!\nmagic_library.solve_everything()",
+            },
+            {
+              symbol: "Edge Cases",
+              name: "Edge Cases",
+              nameZh: "边界情况",
+              emoji: "🧊",
+              description: "The tricky corners 🧊 — what happens with empty lists, zero, negative numbers, or really long text? AI often forgets these!",
+              example: "# AI's code:\ndef avg(nums):\n    return sum(nums)/len(nums)\n# Crashes on empty list! 💥",
+            },
+            {
+              symbol: "Test Your Code",
+              name: "Testing",
+              nameZh: "测试",
+              emoji: "🧪",
+              description: "The trust-but-verify approach 🧪 — ALWAYS test AI code with normal inputs, edge cases, and weird inputs!",
+              example: "# Test with normal: avg([1,2,3]) ✓\n# Test edge: avg([]) 💥\n# Test weird: avg(['a']) 💥",
+            },
+          ],
+          codeAnatomy: {
+            lines: [
+              { code: "# AI generated this function:", explanation: "Let's review what AI wrote...", explanationZh: "让我们审查 AI 写的代码..." },
+              { code: "def find_max(numbers):", explanation: "Looks like a simple max-finder.", explanationZh: "看起来是一个简单的求最大值函数" },
+              { code: "    max_val = numbers[0]", explanation: "⚠️ Bug! Crashes if list is empty!", explanationZh: "⚠️ Bug！如果列表为空就会崩溃！" },
+              { code: "    for n in numbers:", explanation: "Loop through all numbers.", explanationZh: "遍历所有数字" },
+              { code: "        if n > max_val: max_val = n", explanation: "Logic is correct for non-empty lists ✓", explanationZh: "对于非空列表逻辑正确 ✓" },
+              { code: "# FIX: Add 'if not numbers: return None'", explanation: "YOU catch the edge case AI missed!", explanationZh: "你发现了 AI 遗漏的边界情况！" },
+            ],
+          },
+        },
       },
       {
         type: "quiz",

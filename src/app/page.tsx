@@ -176,7 +176,7 @@ export default function LandingPage() {
             <span className="block text-xs font-normal opacity-80">开始冒险</span>
           </Link>
           <Link
-            href="/login"
+            href="/dashboard/code-lab"
             className="px-8 py-4 font-bold text-lg rounded-xl transition-colors"
             style={{ border: "1px solid var(--color-secondary)", color: "var(--color-secondary)" }}
           >
