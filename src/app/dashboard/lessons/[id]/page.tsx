@@ -16,6 +16,7 @@ import {
 import Celebration from "@/components/Celebration";
 import ConceptSection from "@/components/ConceptSection";
 import TurtleQuiz from "@/components/TurtleQuiz";
+import type { QuizScore } from "@/components/TurtleQuiz";
 
 function TextSection({ section }: { section: LessonSection }) {
   return (
@@ -251,15 +252,16 @@ export default function LessonPage() {
           {section.type === "quiz" && (
             <TurtleQuiz
               section={section}
-              onQuizComplete={() => {
+              lessonXP={lesson.xp}
+              onQuizComplete={(score: QuizScore) => {
                 setQuizPassed(true);
-                setQuizScore(100);
-                // Auto-complete lesson when quiz is passed
+                const pct = Math.round((score.correctFirstTry / Math.max(1, score.totalQuestions)) * 100);
+                setQuizScore(pct);
+                // Auto-complete lesson with scored XP
                 if (!isCompleted) {
-                  completeLesson(lessonId, 100, lesson.xp);
+                  completeLesson(lessonId, pct, score.xpEarned);
                   setIsCompleted(true);
-                  setShowCelebration(true);
-                  setTimeout(() => setShowCelebration(false), 3500);
+                  // Don't show the global celebration overlay — TurtleQuiz handles its own
                 }
               }}
             />

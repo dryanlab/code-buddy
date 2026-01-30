@@ -272,13 +272,39 @@ function evalSimpleExpr(expr: string, vars: Record<string, string | number | boo
   return expr;
 }
 
+// ═══ Scoring System ═══
+export interface QuizScore {
+  correctFirstTry: number;
+  wrongAnswers: number;
+  totalQuestions: number;
+  xpEarned: number;
+  isPerfect: boolean;
+}
+
+function calculateXP(correctFirstTry: number, wrongAnswers: number, baseXP: number): QuizScore {
+  const bonusPerCorrect = 5;
+  const penaltyPerWrong = 3;
+  const perfectBonus = 25;
+  
+  let xp = Math.floor(baseXP * 0.5); // base 50% just for completing
+  xp += correctFirstTry * bonusPerCorrect;
+  xp -= wrongAnswers * penaltyPerWrong;
+  const isPerfect = wrongAnswers === 0;
+  if (isPerfect) xp += perfectBonus;
+  xp = Math.max(Math.floor(baseXP * 0.3), xp); // floor at 30% of lesson XP
+  
+  return { correctFirstTry, wrongAnswers, totalQuestions: correctFirstTry + wrongAnswers, xpEarned: xp, isPerfect };
+}
+
 // ═══ Main Turtle Quiz Component ═══
 export default function TurtleQuiz({
   section,
   onQuizComplete,
+  lessonXP,
 }: {
   section: LessonSection;
-  onQuizComplete: () => void;
+  onQuizComplete: (score: QuizScore) => void;
+  lessonXP: number;
 }) {
   const questions = section.quiz!;
   const TOTAL_SEGMENTS = Math.min(questions.length + 2, 12); // calibrated: need good accuracy
@@ -290,6 +316,9 @@ export default function TurtleQuiz({
   const [questionsAnswered, setQuestionsAnswered] = useState(0);
   const [quizComplete, setQuizComplete] = useState(false);
   const [showCelebration, setShowCelebration] = useState(false);
+  const [correctFirstTry, setCorrectFirstTry] = useState(0);
+  const [wrongAnswers, setWrongAnswers] = useState(0);
+  const [finalScore, setFinalScore] = useState<QuizScore | null>(null);
   const celebrationFired = useRef(false);
 
   // Check if turtle reached the end
@@ -298,28 +327,38 @@ export default function TurtleQuiz({
       setQuizComplete(true);
       if (!celebrationFired.current) {
         celebrationFired.current = true;
+        const score = calculateXP(correctFirstTry, wrongAnswers, lessonXP);
+        setFinalScore(score);
         setShowCelebration(true);
-        // Fire confetti
+        // Fire confetti — extra for perfect!
         import("canvas-confetti").then((confetti) => {
           const fire = confetti.default;
           fire({ particleCount: 100, spread: 80, origin: { x: 0.3, y: 0.5 } });
           fire({ particleCount: 100, spread: 80, origin: { x: 0.7, y: 0.5 } });
           setTimeout(() => fire({ particleCount: 120, spread: 120, origin: { x: 0.5, y: 0.4 } }), 400);
-          setTimeout(() => fire({ particleCount: 80, spread: 90, origin: { x: 0.5, y: 0.6 } }), 800);
+          if (score.isPerfect) {
+            setTimeout(() => fire({ particleCount: 150, spread: 140, origin: { x: 0.5, y: 0.3 }, colors: ["#FFD700", "#FFA500", "#FF6347"] }), 800);
+            setTimeout(() => fire({ particleCount: 80, spread: 100, origin: { x: 0.2, y: 0.4 } }), 1000);
+            setTimeout(() => fire({ particleCount: 80, spread: 100, origin: { x: 0.8, y: 0.4 } }), 1200);
+          } else {
+            setTimeout(() => fire({ particleCount: 80, spread: 90, origin: { x: 0.5, y: 0.6 } }), 800);
+          }
         });
         // Notify parent after celebration
-        setTimeout(() => onQuizComplete(), 1500);
+        setTimeout(() => onQuizComplete(score), 1500);
       }
     }
-  }, [turtlePos, TOTAL_SEGMENTS, quizComplete, onQuizComplete]);
+  }, [turtlePos, TOTAL_SEGMENTS, quizComplete, onQuizComplete, correctFirstTry, wrongAnswers, lessonXP]);
 
   const handleAnswer = useCallback(
     (correct: boolean) => {
       setAnswered(true);
       setShowResult(true);
       if (correct) {
+        setCorrectFirstTry((c) => c + 1);
         setTurtlePos((p) => Math.min(p + 1, TOTAL_SEGMENTS));
       } else {
+        setWrongAnswers((w) => w + 1);
         setTurtlePos((p) => Math.max(0, p - 2));
       }
     },
@@ -352,7 +391,7 @@ export default function TurtleQuiz({
 
   const q = questions[currentQ];
 
-  if (showCelebration && quizComplete) {
+  if (showCelebration && quizComplete && finalScore) {
     return (
       <motion.div
         initial={{ opacity: 0, scale: 0.8 }}
@@ -367,7 +406,7 @@ export default function TurtleQuiz({
           transition={{ duration: 0.6 }}
           className="text-7xl"
         >
-          🎉
+          {finalScore.isPerfect ? "⭐" : "🎉"}
         </motion.div>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -375,17 +414,48 @@ export default function TurtleQuiz({
           transition={{ delay: 0.3 }}
         >
           <h2 className="text-3xl font-bold" style={{ color: "var(--theme-accent, #22c55e)" }}>
-            Lesson Complete!
+            {finalScore.isPerfect ? "Perfect! ⭐" : "Lesson Complete!"}
           </h2>
-          <p className="text-lg text-[var(--theme-text-muted)]">课程完成！🐢 到达终点了！</p>
+          <p className="text-lg text-[var(--theme-text-muted)]">
+            {finalScore.isPerfect ? "满分通关！太厉害了！🌟" : "课程完成！🐢 到达终点了！"}
+          </p>
         </motion.div>
+        {/* XP display */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.5 }}
+          animate={{ opacity: 1, scale: [0.5, 1.2, 1] }}
+          transition={{ delay: 0.6, duration: 0.5 }}
+          className="text-4xl font-bold"
+          style={{ color: finalScore.isPerfect ? "#FFD700" : "var(--theme-accent, #22c55e)" }}
+        >
+          🌟 +{finalScore.xpEarned} XP
+        </motion.div>
+        {/* Score breakdown */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 0.8 }}
-          className="text-sm text-[var(--theme-text-secondary)]"
+          transition={{ delay: 1 }}
+          className="space-y-1"
         >
-          Questions answered · 回答问题数: {questionsAnswered + 1}
+          <div className="text-sm text-[var(--theme-text-secondary)]">
+            ✅ {finalScore.correctFirstTry}/{finalScore.totalQuestions} correct on first try · 首次答对
+          </div>
+          {finalScore.wrongAnswers > 0 && (
+            <div className="text-sm text-[var(--theme-text-muted)]">
+              ❌ {finalScore.wrongAnswers} mistake{finalScore.wrongAnswers !== 1 ? "s" : ""} · 失误
+            </div>
+          )}
+          {finalScore.isPerfect && (
+            <motion.div
+              initial={{ opacity: 0, y: 5 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 1.3 }}
+              className="inline-block mt-2 px-4 py-1 rounded-full text-sm font-bold"
+              style={{ backgroundColor: "rgba(255, 215, 0, 0.2)", color: "#FFD700", border: "1px solid rgba(255, 215, 0, 0.4)" }}
+            >
+              🏆 Perfect Score Badge! · 满分徽章！
+            </motion.div>
+          )}
         </motion.div>
       </motion.div>
     );
