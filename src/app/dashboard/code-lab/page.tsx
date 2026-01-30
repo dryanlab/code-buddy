@@ -15,6 +15,7 @@ import { runTestCases } from "@/lib/test-runner";
 import { type GradeResult, getXPReward } from "@/lib/exercise-grader";
 import { useUserProfile } from "@/lib/useUserProfile";
 import { isPreviewMode, PREVIEW_MAX_EXERCISES } from "@/lib/preview-mode";
+import { getCompletedExercises, markExerciseCompleted, isExerciseCompleted } from "@/lib/exercise-progress";
 import SignUpModal from "@/components/SignUpModal";
 import MemoryModel from "@/components/MemoryModel";
 import {
@@ -273,11 +274,13 @@ function UnifiedExerciseCard({
   isSelected,
   onClick,
   locked,
+  completed,
 }: {
   exercise: UnifiedExercise;
   isSelected: boolean;
   onClick: () => void;
   locked?: boolean;
+  completed?: boolean;
 }) {
   const diffBadge = exercise.difficulty === "easy" ? "🟢" : exercise.difficulty === "medium" ? "🟡" : "🔴";
   const langIcon = exercise.language === "python" ? "🐍" : "⚡";
@@ -293,7 +296,7 @@ function UnifiedExerciseCard({
         borderColor: isSelected
           ? "color-mix(in srgb, var(--color-primary) 30%, transparent)"
           : "var(--theme-border)",
-        opacity: locked ? 0.4 : 1,
+        opacity: locked ? 0.4 : completed ? 0.45 : 1,
       }}
     >
       {locked && (
@@ -306,18 +309,13 @@ function UnifiedExerciseCard({
       )}
       <div className="flex items-center justify-between mb-1">
         <span className="font-bold text-xs truncate">
-          {langIcon} {diffBadge} {exercise.title}
+          {completed && "✅ "}{langIcon} {diffBadge} {exercise.title}
         </span>
         <span
           className="text-[9px] px-1.5 py-0.5 rounded-full flex-shrink-0 ml-1"
           style={{ backgroundColor: "color-mix(in srgb, var(--color-primary) 12%, transparent)", color: "var(--color-primary)" }}
         >
           L{exercise.level}
-        </span>
-      </div>
-      <div className="flex items-center gap-1 mb-0.5">
-        <span className="text-[9px] px-1.5 py-0.5 rounded-full" style={{ backgroundColor: "var(--theme-border)", color: "var(--theme-text-muted)" }}>
-          {exercise.category}
         </span>
       </div>
       <p className="text-[10px] line-clamp-1" style={{ color: "var(--theme-text-secondary)" }}>
@@ -606,6 +604,10 @@ export default function CodeLabPage() {
   const [exercisesPassed, setExercisesPassed] = useState<Set<string>>(new Set());
   const [showExplanation, setShowExplanation] = useState(false);
 
+  // Exercise completion tracking
+  const [completedExerciseIds, setCompletedExerciseIds] = useState<Set<string>>(new Set());
+  const [collapsedCategories, setCollapsedCategories] = useState<Set<string>>(new Set());
+
   // Step/Debug
   const [stepMode, setStepMode] = useState(false);
   const [stepIndex, setStepIndex] = useState(0);
@@ -642,6 +644,11 @@ export default function CodeLabPage() {
   // ─── Load projects ────────────────────────────────────────
   useEffect(() => {
     loadProjects().then(setProjects);
+  }, []);
+
+  // ─── Load completed exercises ─────────────────────────────
+  useEffect(() => {
+    setCompletedExerciseIds(new Set(getCompletedExercises()));
   }, []);
 
   // ─── Auto-save (debounce 2s) ──────────────────────────────
@@ -795,6 +802,9 @@ export default function CodeLabPage() {
             earnCoins(xp, `exercise:${selectedExercise.id}`);
             setExercisesPassed(prev => new Set(prev).add(selectedExercise.id));
           }
+          // Track completion
+          markExerciseCompleted(selectedExercise.id);
+          setCompletedExerciseIds(prev => new Set(prev).add(selectedExercise.id));
           setShowCelebration(true);
           setTimeout(() => setShowCelebration(false), 3000);
         }
@@ -1029,6 +1039,54 @@ export default function CodeLabPage() {
       setProjects((prev) => [dup, ...prev]);
     },
     []
+  );
+
+  // ─── Resize state ────────────────────────────────────────
+  const [col1Width, setCol1Width] = useState(256);
+  const [col3Width, setCol3Width] = useState(350);
+  const [isDragging, setIsDragging] = useState<"col1" | "col3" | null>(null);
+  const [isMobile, setIsMobile] = useState(false);
+  const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
+  const [mobileView, setMobileView] = useState<"editor" | "output">("editor");
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
+
+  const startResize = useCallback(
+    (col: "col1" | "col3") => (e: React.MouseEvent) => {
+      e.preventDefault();
+      setIsDragging(col);
+      const startX = e.clientX;
+      const startWidth = col === "col1" ? col1Width : col3Width;
+
+      const onMouseMove = (ev: MouseEvent) => {
+        const delta = ev.clientX - startX;
+        if (col === "col1") {
+          setCol1Width(Math.max(200, Math.min(500, startWidth + delta)));
+        } else {
+          // col3: dragging left edge, so subtract delta
+          setCol3Width(Math.max(250, Math.min(600, startWidth - delta)));
+        }
+      };
+
+      const onMouseUp = () => {
+        setIsDragging(null);
+        document.removeEventListener("mousemove", onMouseMove);
+        document.removeEventListener("mouseup", onMouseUp);
+        document.body.style.cursor = "";
+        document.body.style.userSelect = "";
+      };
+
+      document.body.style.cursor = "col-resize";
+      document.body.style.userSelect = "none";
+      document.addEventListener("mousemove", onMouseMove);
+      document.addEventListener("mouseup", onMouseUp);
+    },
+    [col1Width, col3Width]
   );
 
   // Toggle breakpoint on glyph margin click
@@ -1287,18 +1345,73 @@ export default function CodeLabPage() {
                 <div className="text-[10px] mb-1" style={{ color: "var(--theme-text-muted)" }}>
                   {filteredExercises.length} exercises
                 </div>
-                {filteredExercises.map((ex, idx) => {
-                  const exerciseLocked = preview && idx >= PREVIEW_MAX_EXERCISES;
-                  return (
-                    <UnifiedExerciseCard
-                      key={ex.id}
-                      exercise={ex}
-                      isSelected={activeTabId === `ex_${ex.id}`}
-                      locked={exerciseLocked}
-                      onClick={() => exerciseLocked ? setShowSignUpModal(true) : openUnifiedExercise(ex)}
-                    />
-                  );
-                })}
+                {/* Grouped by category */}
+                {(() => {
+                  // Build ordered categories from filtered exercises
+                  const categoryOrder: string[] = [];
+                  const categoryMap: Record<string, UnifiedExercise[]> = {};
+                  const categoryZhMap: Record<string, string> = {};
+                  for (const ex of filteredExercises) {
+                    if (!categoryMap[ex.category]) {
+                      categoryMap[ex.category] = [];
+                      categoryOrder.push(ex.category);
+                      categoryZhMap[ex.category] = ex.categoryZh;
+                    }
+                    categoryMap[ex.category].push(ex);
+                  }
+                  // Track global exercise index for preview locking
+                  let globalIdx = 0;
+                  return categoryOrder.map((cat, catIdx) => {
+                    const exercises = categoryMap[cat];
+                    const isCollapsed = collapsedCategories.has(cat);
+                    const completedCount = exercises.filter(ex => completedExerciseIds.has(ex.id)).length;
+                    const allCompleted = completedCount === exercises.length && exercises.length > 0;
+                    // Default: first category expanded, rest collapsed (on first render)
+                    // We use collapsedCategories as explicit toggle; unset means use default
+                    const startIdx = globalIdx;
+                    globalIdx += exercises.length;
+                    return (
+                      <div key={cat} className="mb-1">
+                        <button
+                          onClick={() => setCollapsedCategories(prev => {
+                            const next = new Set(prev);
+                            if (next.has(cat)) next.delete(cat);
+                            else next.add(cat);
+                            return next;
+                          })}
+                          className="w-full flex items-center justify-between px-2 py-1.5 rounded-lg text-left transition-colors hover:bg-white/5"
+                          style={{
+                            backgroundColor: allCompleted ? "color-mix(in srgb, #22c55e 8%, transparent)" : "transparent",
+                          }}
+                        >
+                          <span className="text-xs font-bold truncate" style={{ color: "var(--theme-text-primary)" }}>
+                            {isCollapsed ? "▸" : "▾"} 📂 {cat} · {categoryZhMap[cat]}
+                          </span>
+                          <span className="text-[10px] flex-shrink-0 ml-1" style={{ color: allCompleted ? "#22c55e" : "var(--theme-text-muted)" }}>
+                            {completedCount}/{exercises.length} ✓
+                          </span>
+                        </button>
+                        {!isCollapsed && (
+                          <div className="space-y-1.5 mt-1 ml-1">
+                            {exercises.map((ex, idx) => {
+                              const exerciseLocked = preview && (startIdx + idx) >= PREVIEW_MAX_EXERCISES;
+                              return (
+                                <UnifiedExerciseCard
+                                  key={ex.id}
+                                  exercise={ex}
+                                  isSelected={activeTabId === `ex_${ex.id}`}
+                                  locked={exerciseLocked}
+                                  completed={completedExerciseIds.has(ex.id)}
+                                  onClick={() => exerciseLocked ? setShowSignUpModal(true) : openUnifiedExercise(ex)}
+                                />
+                              );
+                            })}
+                          </div>
+                        )}
+                      </div>
+                    );
+                  });
+                })()}
               </>
             )}
           </div>

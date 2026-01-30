@@ -35,6 +35,11 @@ export default function DataStructuresPage() {
 
   useEffect(() => {
     setPreview(isPreviewMode());
+    // Auto-select tab from URL hash fragment
+    const hash = window.location.hash.replace("#", "");
+    if (hash && TABS.some(t => t.id === hash)) {
+      setActiveTab(hash);
+    }
   }, []);
 
   return (

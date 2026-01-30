@@ -16,6 +16,7 @@ const NAV_ITEMS = [
   { href: "/dashboard/code-lab", icon: "💻", label: "Code Lab", labelCn: "代码实验室" },
   { href: "/dashboard/ai-chat", icon: "🤖", label: "AI Assistant", labelCn: "AI 助手" },
   { href: "/dashboard/explore", icon: "🔬", label: "Explore CS", labelCn: "计算机探秘" },
+  { href: "/dashboard/data-structures", icon: "🎮", label: "DS Playground", labelCn: "数据结构实验室" },
   { href: "/dashboard/progress", icon: "📊", label: "My Progress", labelCn: "我的进度" },
   { href: "/dashboard/shop", icon: "🏪", label: "Reward Shop", labelCn: "奖励商店" },
   { href: "/dashboard/settings", icon: "⚙️", label: "Settings", labelCn: "设置" },

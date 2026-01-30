@@ -19,6 +19,24 @@ import Celebration from "@/components/Celebration";
 import ConceptSection from "@/components/ConceptSection";
 import TurtleQuiz from "@/components/TurtleQuiz";
 import type { QuizScore } from "@/components/TurtleQuiz";
+import Link from "next/link";
+
+// Map DS lesson IDs to playground tab hashes
+const DS_PLAYGROUND_TAB: Record<string, string> = {
+  "ds-1-1": "array",
+  "ds-1-2": "linked-list",
+  "ds-1-3": "linked-list",
+  "ds-1-4": "stack",
+  "ds-1-5": "stack",
+  "ds-2-1": "queue",
+  "ds-2-2": "queue",
+  "ds-2-3": "bst",
+  "ds-2-4": "bst",
+  "ds-3-1": "hashmap",
+  "ds-3-3": "graph",
+  "ds-3-4": "graph",
+  "ds-4-1": "sorting",
+};
 
 function TextSection({ section }: { section: LessonSection }) {
   return (
@@ -235,6 +253,20 @@ export default function LessonPage() {
   return (
     <div className="p-6 md:p-8 max-w-7xl mx-auto">
       {showCelebration && <Celebration />}
+
+      {/* Floating DS Playground button */}
+      {DS_PLAYGROUND_TAB[lessonId] && (
+        <Link
+          href={`/dashboard/data-structures#${DS_PLAYGROUND_TAB[lessonId]}`}
+          className="fixed bottom-6 right-6 z-50 flex items-center gap-2 px-4 py-3 rounded-full font-bold text-sm shadow-lg hover:scale-105 transition-transform"
+          style={{
+            background: "linear-gradient(135deg, #8b5cf6, #06b6d4)",
+            color: "#fff",
+          }}
+        >
+          🎮 Open Playground
+        </Link>
+      )}
 
       {/* Header */}
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="mb-6">
