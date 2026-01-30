@@ -240,11 +240,17 @@ def input(prompt=""):
     }
 
     // Run user code
-    await py.runPythonAsync(code);
+    const returnVal = await py.runPythonAsync(code);
 
     // Collect output
     const rawOutput = py.runPython(`_output_buf.getvalue()`) as string;
+    console.log("[pyodide] raw output:", JSON.stringify(rawOutput), "returnVal:", returnVal);
     let output = rawOutput.replace(/\n$/, "");
+    
+    // Fallback: if no captured output but code had print(), something went wrong
+    if (!output && returnVal !== undefined && returnVal !== null) {
+      output = String(returnVal);
+    }
 
     // Prepend module warning if any
     if (moduleWarning) {
@@ -277,6 +283,13 @@ sys.stderr = sys.__stderr__
 
     return { output, error: null, variables, hasTurtle };
   } catch (e) {
+    // Try to get partial output before the error
+    let partialOutput = "";
+    try {
+      partialOutput = py.runPython(`_output_buf.getvalue()`) as string;
+      partialOutput = partialOutput.replace(/\n$/, "");
+    } catch {}
+    
     // Cleanup
     try {
       py.runPython(`
@@ -287,6 +300,9 @@ sys.stderr = sys.__stderr__
     } catch {}
 
     const errMsg = e instanceof Error ? e.message : String(e);
-    return { output: "", error: translateError(errMsg), variables: {}, hasTurtle };
+    console.log("[pyodide] error:", errMsg, "partial output:", partialOutput);
+    const errorText = translateError(errMsg);
+    const fullOutput = partialOutput ? partialOutput + "\n\n" + errorText : errorText;
+    return { output: "", error: fullOutput, variables: {}, hasTurtle };
   }
 }
