@@ -378,7 +378,7 @@ int main() {
     cout << "Comments are ignored by the compiler!" << endl;
     
     // Comments help explain your code
-    // ALWAYS comment your C++ code — it's harder to read than Python!
+    // ALWAYS comment your C++ code -- it's harder to read than Python!
     
     return 0;
 }`,
@@ -648,23 +648,23 @@ In Python, a variable is like a **stretchy bag** 🎒 — it holds anything. In 
 using namespace std;
 
 int main() {
-    // Integer types 整数类型
+    // Integer types 
     int age = 16;                    // Whole numbers: -2billion to +2billion
     long long bigNum = 9000000000LL; // Really big numbers (for competitive programming!)
     
-    // Floating point types 浮点类型
+    // Floating point types 
     double pi = 3.14159;             // Decimal numbers (most common)
     float piF = 3.14f;              // Less precise, rarely used
     
-    // Character type 字符类型
+    // Character type 
     char grade = 'A';               // Single character (use single quotes!)
     char newline = '\\n';            // Special characters work too
     
-    // Boolean type 布尔类型
+    // Boolean type 
     bool isStudent = true;          // true or false (like Python's True/False)
     bool isTired = false;
     
-    // String type 字符串类型
+    // String type 
     string name = "Volt";           // Text (use double quotes!)
     string empty = "";              // Empty string
     
@@ -733,12 +733,12 @@ int main() {
     // Method 3: Multiple variables of same type
     int a = 1, b = 2, c = 3;
     
-    // Method 4: const — value cannot change (like Python's convention for CONSTANTS)
+    // Method 4: const -- value cannot change (like Python's convention for CONSTANTS)
     const double PI = 3.14159;
     const int MAX_SCORE = 100;
-    // PI = 3.0;  // ❌ ERROR! Cannot modify a const
+    // PI = 3.0;  // [X] ERROR! Cannot modify a const
     
-    // Method 5: auto — let the compiler figure out the type (C++11)
+    // Method 5: auto -- let the compiler figure out the type (C++11)
     auto num = 42;           // compiler knows it's int
     auto text = string("hi"); // compiler knows it's string
     
@@ -807,21 +807,21 @@ Type conversion is like **currency exchange** 💱 — you're converting one "ty
 using namespace std;
 
 int main() {
-    // Implicit conversion (automatic) 隐式转换
+    // Implicit conversion (automatic) 
     int a = 5;
-    double b = a;       // int → double: 5 becomes 5.0 (safe!)
+    double b = a;       // int -> double: 5 becomes 5.0 (safe!)
     cout << "b = " << b << endl;
     
-    int c = 3.99;       // double → int: 3.99 becomes 3 (truncated! ⚠️)
+    int c = 3.99;       // double -> int: 3.99 becomes 3 (truncated! [!])
     cout << "c = " << c << endl;
     
-    // Explicit casting (you ask for it) 显式转换
+    // Explicit casting (you ask for it) 
     double pi = 3.14159;
     int rounded = (int)pi;              // C-style cast: 3
     int rounded2 = static_cast<int>(pi); // C++ style cast (preferred): 3
     cout << "rounded = " << rounded << endl;
     
-    // String conversions 字符串转换
+    // String conversions 
     string numStr = "42";
     int num = stoi(numStr);       // string to int (stoi = string to integer)
     double dec = stod("3.14");    // string to double
@@ -915,25 +915,25 @@ This is your **Rosetta Stone** 🗿 — the same ideas in two languages! Keep th
 using namespace std;
 
 int main() {
-    // Python: x = 10          →  C++: int x = 10;
+    // Python: x = 10          ->  C++: int x = 10;
     int x = 10;
     
-    // Python: pi = 3.14       →  C++: double pi = 3.14;
+    // Python: pi = 3.14       ->  C++: double pi = 3.14;
     double pi = 3.14;
     
-    // Python: name = "Volt"   →  C++: string name = "Volt";
+    // Python: name = "Volt"   ->  C++: string name = "Volt";
     string name = "Volt";
     
-    // Python: is_cool = True  →  C++: bool isCool = true;
+    // Python: is_cool = True  ->  C++: bool isCool = true;
     bool isCool = true;
     
-    // Python: letter = "A"    →  C++: char letter = 'A'; (single char!)
+    // Python: letter = "A"    ->  C++: char letter = 'A'; (single char!)
     char letter = 'A';
     
-    // Python: big = 10**18    →  C++: long long big = 1e18;
+    // Python: big = 10**18    ->  C++: long long big = 1e18;
     long long big = 1000000000000000000LL;
     
-    // Python: CONSTANT = 42   →  C++: const int CONSTANT = 42;
+    // Python: CONSTANT = 42   ->  C++: const int CONSTANT = 42;
     const int CONSTANT = 42;
     
     cout << "All types working!" << endl;
@@ -1221,7 +1221,7 @@ int main() {
     getline(cin, fullName);
     cout << "Hello, " << fullName << "!" << endl;
     
-    // ⚠️ TRICKY: Mixing cin >> and getline()
+    // [!] TRICKY: Mixing cin >> and getline()
     int age;
     string hobby;
     
@@ -1384,16 +1384,16 @@ using namespace std;
 
 int main() {
     // === INPUT COMPARISON ===
-    // Python: name = input()         →  C++: getline(cin, name);
-    // Python: n = int(input())       →  C++: cin >> n;  (auto-converts)
-    // Python: x = float(input())     →  C++: cin >> x;  (auto-converts)
+    // Python: name = input()         ->  C++: getline(cin, name);
+    // Python: n = int(input())       ->  C++: cin >> n;  (auto-converts)
+    // Python: x = float(input())     ->  C++: cin >> x;  (auto-converts)
     
     // === OUTPUT COMPARISON ===
-    // Python: print("hi")            →  C++: cout << "hi" << endl;
-    // Python: print(x, y)            →  C++: cout << x << " " << y << endl;
-    // Python: print(f"{x:.2f}")      →  C++: cout << fixed << setprecision(2) << x;
-    // Python: print(end="")          →  C++: cout << "no newline";
-    // Python: print("a", end=" ")    →  C++: cout << "a" << " ";
+    // Python: print("hi")            ->  C++: cout << "hi" << endl;
+    // Python: print(x, y)            ->  C++: cout << x << " " << y << endl;
+    // Python: print(f"{x:.2f}")      ->  C++: cout << fixed << setprecision(2) << x;
+    // Python: print(end="")          ->  C++: cout << "no newline";
+    // Python: print("a", end=" ")    ->  C++: cout << "a" << " ";
     
     cout << "Comparison complete!" << endl;
     return 0;
@@ -1594,7 +1594,7 @@ This is the #1 bug trap! 🪤 In Python, \`7/2 = 3.5\`. In C++, \`7/2 = 3\` — 
 using namespace std;
 
 int main() {
-    // Integer division — TRUNCATES in C++!
+    // Integer division -- TRUNCATES in C++!
     cout << "=== Integer Division ===" << endl;
     cout << "7 / 2 = " << 7 / 2 << endl;         // 3 (not 3.5!)
     cout << "10 / 3 = " << 10 / 3 << endl;        // 3
@@ -1613,7 +1613,7 @@ int main() {
     cout << "7 % 2 = " << 7 % 2 << endl;          // 1
     cout << "10 % 3 = " << 10 % 3 << endl;        // 1
     
-    // Power — use pow() from <cmath>
+    // Power -- use pow() from <cmath>
     cout << "\\n=== Power ===" << endl;
     cout << "2^10 = " << pow(2, 10) << endl;       // 1024
     cout << "3^4 = " << pow(3, 4) << endl;         // 81
@@ -1647,20 +1647,20 @@ int main() {
     int x = 5;
     
     // Compound assignment (same as Python)
-    x += 3;    // x = x + 3  → x is 8
-    x -= 2;    // x = x - 2  → x is 6
-    x *= 4;    // x = x * 4  → x is 24
-    x /= 6;    // x = x / 6  → x is 4
-    x %= 3;    // x = x % 3  → x is 1
+    x += 3;    // x = x + 3  -> x is 8
+    x -= 2;    // x = x - 2  -> x is 6
+    x *= 4;    // x = x * 4  -> x is 24
+    x /= 6;    // x = x / 6  -> x is 4
+    x %= 3;    // x = x % 3  -> x is 1
     
     cout << "After compound ops: x = " << x << endl;
     
     // C++ EXCLUSIVE: ++ and --
     int y = 10;
-    y++;       // y = y + 1  → y is 11
-    y--;       // y = y - 1  → y is 10
-    ++y;       // y = y + 1  → y is 11 (prefix)
-    --y;       // y = y - 1  → y is 10 (prefix)
+    y++;       // y = y + 1  -> y is 11
+    y--;       // y = y - 1  -> y is 10
+    ++y;       // y = y + 1  -> y is 11 (prefix)
+    --y;       // y = y - 1  -> y is 10 (prefix)
     
     cout << "y = " << y << endl;
     
@@ -2039,7 +2039,7 @@ int main() {
     // Access individual characters
     cout << "First char: " << greeting[0] << endl;    // H
     cout << "Last char: " << greeting[greeting.length()-1] << endl;  // !
-    // Python: greeting[0], greeting[-1]  ← C++ has NO negative indexing!
+    // Python: greeting[0], greeting[-1]  <- C++ has NO negative indexing!
     
     // Modify characters (C++ strings ARE mutable!)
     greeting[0] = 'J';
@@ -2081,11 +2081,11 @@ using namespace std;
 int main() {
     string s = "Hello, World!";
     
-    // Substring (Python: s[7:12] → C++: s.substr(start, length))
+    // Substring (Python: s[7:12] -> C++: s.substr(start, length))
     cout << s.substr(7, 5) << endl;     // World
     // NOTE: It's (start, LENGTH), not (start, end)!
     
-    // Find (Python: s.find("World") → same in C++!)
+    // Find (Python: s.find("World") -> same in C++!)
     size_t pos = s.find("World");
     cout << "Found at: " << pos << endl;  // 7
     
@@ -2274,7 +2274,7 @@ int main() {
     }
     cout << "'l' appears " << count << " times" << endl;
     
-    // Split by delimiter (manual — no built-in!)
+    // Split by delimiter (manual -- no built-in!)
     string csv = "apple,banana,cherry";
     stringstream ss(csv);
     string token;
@@ -2499,11 +2499,11 @@ int main() {
     double fahrenheit = celsius * 9.0 / 5.0 + 32.0;
     
     cout << fixed << setprecision(1);
-    cout << celsius << "°C = " << fahrenheit << "°F" << endl;
+    cout << celsius << " deg C = " << fahrenheit << " deg F" << endl;
     
     // Bonus: Convert back
     double backToCelsius = (fahrenheit - 32.0) * 5.0 / 9.0;
-    cout << fahrenheit << "°F = " << backToCelsius << "°C" << endl;
+    cout << fahrenheit << " deg F = " << backToCelsius << " deg C" << endl;
     
     return 0;
 }`,
@@ -2934,17 +2934,17 @@ int main() {
     int x = 10, y = 20;
     
     // Comparison operators (same as Python!)
-    cout << (x == y) << endl;   // 0 (false) — equal
-    cout << (x != y) << endl;   // 1 (true)  — not equal
-    cout << (x < y) << endl;    // 1 (true)  — less than
-    cout << (x > y) << endl;    // 0 (false) — greater than
+    cout << (x == y) << endl;   // 0 (false) -- equal
+    cout << (x != y) << endl;   // 1 (true)  -- not equal
+    cout << (x < y) << endl;    // 1 (true)  -- less than
+    cout << (x > y) << endl;    // 0 (false) -- greater than
     cout << (x <= y) << endl;   // 1 (true)
     cout << (x >= y) << endl;   // 0 (false)
     
     // Logical operators
-    // Python: and → C++: &&
-    // Python: or  → C++: ||
-    // Python: not → C++: !
+    // Python: and -> C++: &&
+    // Python: or  -> C++: ||
+    // Python: not -> C++: !
     
     bool isStudent = true;
     int age = 16;
@@ -3309,10 +3309,10 @@ int main() {
             cout << "Friday" << endl;
             break;
         case 6:
-            cout << "Saturday 🎉" << endl;
+            cout << "Saturday " << endl;
             break;
         case 7:
-            cout << "Sunday 🎉" << endl;
+            cout << "Sunday " << endl;
             break;
         default:
             cout << "Invalid day!" << endl;
@@ -3689,7 +3689,7 @@ int main() {
     }
     cout << "Sum 1-100 = " << sum << endl;
     
-    // Range-based for loop (C++11) — closest to Python!
+    // Range-based for loop (C++11) -- closest to Python!
     // Python: for c in "Hello":
     string word = "Hello";
     cout << "Characters: ";
@@ -3734,7 +3734,7 @@ int main() {
     }
     cout << endl;  // 5 4 3 2 1
     
-    // do-while loop (C++ EXCLUSIVE — Python doesn't have this!)
+    // do-while loop (C++ EXCLUSIVE -- Python doesn't have this!)
     // Runs the body AT LEAST ONCE before checking condition
     int guess;
     cout << "\\nGuess the number (hint: it's 7): ";
@@ -3747,9 +3747,9 @@ int main() {
     cout << "Correct!" << endl;
     
     // When to use each:
-    // for → know how many iterations
-    // while → don't know when to stop, check BEFORE
-    // do-while → want to run at least once, check AFTER
+    // for -> know how many iterations
+    // while -> don't know when to stop, check BEFORE
+    // do-while -> want to run at least once, check AFTER
     
     return 0;
 }`,
@@ -4015,7 +4015,7 @@ int main() {
 using namespace std;
 
 int main() {
-    // break — exit the loop entirely
+    // break -- exit the loop entirely
     cout << "Finding first multiple of 7 after 50:" << endl;
     for (int i = 51; ; i++) {  // infinite loop!
         if (i % 7 == 0) {
@@ -4024,7 +4024,7 @@ int main() {
         }
     }
     
-    // continue — skip to next iteration
+    // continue -- skip to next iteration
     cout << "\\nOdd numbers 1-10: ";
     for (int i = 1; i <= 10; i++) {
         if (i % 2 == 0) continue;  // Skip even numbers
@@ -4372,7 +4372,7 @@ string greet(string name) {
     return "Hello, " + name + "!";
 }
 
-// void function — no return value
+// void function -- no return value
 void printLine(int length) {
     for (int i = 0; i < length; i++) {
         cout << "-";
@@ -4694,13 +4694,13 @@ Pass by value = giving a **photocopy** 📄 (original safe). Pass by reference =
       code: `#include <iostream>
 using namespace std;
 
-// Pass by VALUE — gets a COPY
+// Pass by VALUE -- gets a COPY
 void doubleValue(int x) {
     x = x * 2;
     cout << "Inside function: x = " << x << endl;
 }
 
-// Pass by REFERENCE — gets the ORIGINAL
+// Pass by REFERENCE -- gets the ORIGINAL
 void doubleReference(int &x) {  // Note the &
     x = x * 2;
     cout << "Inside function: x = " << x << endl;
@@ -5034,26 +5034,26 @@ int main() {
     // === Vector (preferred!) ===
     vector<int> vec = {10, 20, 30, 40, 50};
     
-    // Python: list.append(60)  →  C++: vec.push_back(60)
+    // Python: list.append(60)  ->  C++: vec.push_back(60)
     vec.push_back(60);
     
-    // Python: len(list)  →  C++: vec.size()
+    // Python: len(list)  ->  C++: vec.size()
     cout << "Vector size: " << vec.size() << endl;
     
-    // Python: for x in list:  →  C++: for (int x : vec)
+    // Python: for x in list:  ->  C++: for (int x : vec)
     cout << "Vector: ";
     for (int x : vec) {
         cout << x << " ";
     }
     cout << endl;
     
-    // Python: list.pop()  →  C++: vec.pop_back()
+    // Python: list.pop()  ->  C++: vec.pop_back()
     vec.pop_back();
     
-    // Python: list[-1]  →  C++: vec.back()
+    // Python: list[-1]  ->  C++: vec.back()
     cout << "Last element: " << vec.back() << endl;
     
-    // Python: list[0]  →  C++: vec.front() or vec[0]
+    // Python: list[0]  ->  C++: vec.front() or vec[0]
     cout << "First element: " << vec.front() << endl;
     
     return 0;
@@ -5711,9 +5711,9 @@ Header files are like a **table of contents** 📑 — they list what's availabl
 #include <cmath>
 using namespace std;
 
-// ══════════════════════════════════════════
+// ==========================================
 // Imagine this is "math_utils.h"
-// ══════════════════════════════════════════
+// ==========================================
 // #pragma once  (would go at the top of the .h file)
 
 // Function DECLARATIONS (prototypes)
@@ -5721,10 +5721,10 @@ double circleArea(double radius);
 double rectangleArea(double w, double h);
 bool isPrime(int n);
 
-// ══════════════════════════════════════════
+// ==========================================
 // Imagine this is "math_utils.cpp"
 // It would have: #include "math_utils.h"
-// ══════════════════════════════════════════
+// ==========================================
 
 // Function DEFINITIONS (implementations)
 double circleArea(double radius) {
@@ -5743,10 +5743,10 @@ bool isPrime(int n) {
     return true;
 }
 
-// ══════════════════════════════════════════
+// ==========================================
 // Imagine this is "main.cpp"
 // It would have: #include "math_utils.h"
-// ══════════════════════════════════════════
+// ==========================================
 int main() {
     cout << "Circle area (r=5): " << circleArea(5.0) << endl;
     cout << "Rectangle area (3x4): " << rectangleArea(3, 4) << endl;
@@ -5824,17 +5824,17 @@ Header guards are like a **"Do Not Enter If Already Inside"** sign 🚫 — they
 #include <cmath>
 using namespace std;
 
-// ══════════════════════════════════════════
-// WITHOUT header guards — PROBLEM!
+// ==========================================
+// WITHOUT header guards -- PROBLEM!
 // If "point.h" were included twice:
 //   #include "point.h"
 //   #include "point.h"  // ERROR: struct Point redefined!
-// ══════════════════════════════════════════
+// ==========================================
 
-// ══════════════════════════════════════════
-// WITH header guards — SAFE! ✅
+// ==========================================
+// WITH header guards -- SAFE! [OK]
 // This is what "point.h" should look like:
-// ══════════════════════════════════════════
+// ==========================================
 
 // Method 1: Traditional #ifndef guard
 #ifndef POINT_H
@@ -5857,10 +5857,10 @@ struct Point {
 // struct Point { ... };
 // (Simpler! Same effect. Works on all major compilers.)
 
-// ══════════════════════════════════════════
+// ==========================================
 // Even if "included" twice, the guard prevents
 // the second definition from being processed!
-// ══════════════════════════════════════════
+// ==========================================
 
 int main() {
     Point a = {0, 0};
@@ -5890,9 +5890,9 @@ The header should declare these functions:
       code: `#include <iostream>
 using namespace std;
 
-// ══════════════════════════════════════════
-// "temperature.h" — YOUR HEADER FILE
-// ══════════════════════════════════════════
+// ==========================================
+// "temperature.h" -- YOUR HEADER FILE
+// ==========================================
 // TODO: Add #pragma once (or #ifndef guard)
 // TODO: Declare 3 functions (no bodies!)
 
@@ -5900,9 +5900,9 @@ double celsiusToFahrenheit(double c);
 double fahrenheitToCelsius(double f);
 double celsiusToKelvin(double c);
 
-// ══════════════════════════════════════════
-// "temperature.cpp" — YOUR IMPLEMENTATION
-// ══════════════════════════════════════════
+// ==========================================
+// "temperature.cpp" -- YOUR IMPLEMENTATION
+// ==========================================
 // TODO: Implement all 3 functions
 
 double celsiusToFahrenheit(double c) {
@@ -5917,20 +5917,20 @@ double celsiusToKelvin(double c) {
     return c + 273.15;
 }
 
-// ══════════════════════════════════════════
-// "main.cpp" — uses the temperature header
-// ══════════════════════════════════════════
+// ==========================================
+// "main.cpp" -- uses the temperature header
+// ==========================================
 int main() {
     double tempC = 100.0;
     
-    cout << tempC << "°C = " 
-         << celsiusToFahrenheit(tempC) << "°F" << endl;
-    cout << tempC << "°C = " 
+    cout << tempC << " deg C = " 
+         << celsiusToFahrenheit(tempC) << " deg F" << endl;
+    cout << tempC << " deg C = " 
          << celsiusToKelvin(tempC) << "K" << endl;
     
     double tempF = 98.6;
-    cout << tempF << "°F = " 
-         << fahrenheitToCelsius(tempF) << "°C" << endl;
+    cout << tempF << " deg F = " 
+         << fahrenheitToCelsius(tempF) << " deg C" << endl;
     
     return 0;
 }`,
@@ -6025,9 +6025,9 @@ This is how **professional C++ projects** 🏗️ work — like separating ingre
 #include <string>
 using namespace std;
 
-// ══════════════════════════════════════════
-// "inventory.h" — Class DECLARATION
-// ══════════════════════════════════════════
+// ==========================================
+// "inventory.h" -- Class DECLARATION
+// ==========================================
 // #pragma once
 
 class Inventory {
@@ -6042,9 +6042,9 @@ public:
     int getCount();                // Get item count
 };
 
-// ══════════════════════════════════════════
-// "inventory.cpp" — Class IMPLEMENTATION
-// ══════════════════════════════════════════
+// ==========================================
+// "inventory.cpp" -- Class IMPLEMENTATION
+// ==========================================
 // #include "inventory.h"
 
 Inventory::Inventory() : count(0) {}
@@ -6053,9 +6053,9 @@ void Inventory::addItem(string item) {
     if (count < 100) {
         items[count] = item;
         count++;
-        cout << "✅ Added: " << item << endl;
+        cout << "[OK] Added: " << item << endl;
     } else {
-        cout << "❌ Inventory full!" << endl;
+        cout << "[X] Inventory full!" << endl;
     }
 }
 
@@ -6067,16 +6067,16 @@ bool Inventory::removeItem(string item) {
                 items[j] = items[j + 1];
             }
             count--;
-            cout << "🗑️ Removed: " << item << endl;
+            cout << "[del] Removed: " << item << endl;
             return true;
         }
     }
-    cout << "❓ Not found: " << item << endl;
+    cout << "[?] Not found: " << item << endl;
     return false;
 }
 
 void Inventory::display() {
-    cout << "\\n🎒 Inventory (" << count << " items):" << endl;
+    cout << "\\n Inventory (" << count << " items):" << endl;
     for (int i = 0; i < count; i++) {
         cout << "  " << (i+1) << ". " << items[i] << endl;
     }
@@ -6085,9 +6085,9 @@ void Inventory::display() {
 
 int Inventory::getCount() { return count; }
 
-// ══════════════════════════════════════════
+// ==========================================
 // "main.cpp"
-// ══════════════════════════════════════════
+// ==========================================
 int main() {
     Inventory inv;
     
@@ -6460,7 +6460,7 @@ int main() {
     double* dPtr = &pi;
     cout << "Pi: " << *dPtr << endl;
     
-    // nullptr — pointer to nothing (Python's None)
+    // nullptr -- pointer to nothing (Python's None)
     int* nothing = nullptr;
     // *nothing would CRASH! Always check before dereferencing
     if (nothing != nullptr) {
@@ -6494,17 +6494,17 @@ Passing pointers is like giving someone your **home address** 📮 — they can 
       code: `#include <iostream>
 using namespace std;
 
-// Pass by value — makes a COPY (Python default for ints)
+// Pass by value -- makes a COPY (Python default for ints)
 void addTenCopy(int n) {
     n += 10;  // Only changes the copy!
 }
 
-// Pass by pointer — modifies the ORIGINAL
+// Pass by pointer -- modifies the ORIGINAL
 void addTenPtr(int* n) {
     *n += 10;  // Changes the original!
 }
 
-// Pass by reference — cleaner syntax, same effect
+// Pass by reference -- cleaner syntax, same effect
 void addTenRef(int& n) {
     n += 10;  // Changes the original!
 }
@@ -7584,7 +7584,7 @@ int main() {
     
     // DO this (modern C++):
     vector<int> vec(100);  // Automatically managed!
-    // No delete needed — vector cleans up itself
+    // No delete needed -- vector cleans up itself
     
     // Vectors resize automatically
     vector<int> v;
@@ -7803,7 +7803,7 @@ public:
 };
 
 int main() {
-    // unique_ptr — ONE owner, auto-deletes
+    // unique_ptr -- ONE owner, auto-deletes
     {
         unique_ptr<Player> p1 = make_unique<Player>("Alice");
         cout << "Playing as " << p1->name << endl;
@@ -7811,7 +7811,7 @@ int main() {
     
     cout << "---" << endl;
     
-    // shared_ptr — MULTIPLE owners
+    // shared_ptr -- MULTIPLE owners
     shared_ptr<Player> p2;
     {
         shared_ptr<Player> p3 = make_shared<Player>("Bob");
@@ -8852,9 +8852,9 @@ int main() {
     // unordered_map: unsorted, O(1) average, uses more memory
     
     // For competitive programming:
-    // - Need sorted order? → map
-    // - Need fastest lookup? → unordered_map
-    // - Default choice? → unordered_map (usually faster)
+    // - Need sorted order? -> map
+    // - Need fastest lookup? -> unordered_map
+    // - Default choice? -> unordered_map (usually faster)
     
     // Two Sum problem (classic!)
     int arr[] = {2, 7, 11, 15};
@@ -8922,14 +8922,14 @@ Regular containers are **exclusive clubs** 🎪 — no duplicates. Multi-contain
 using namespace std;
 
 int main() {
-    // multiset — sorted, allows duplicates
+    // multiset -- sorted, allows duplicates
     multiset<int> ms = {3, 1, 4, 1, 5, 9, 2, 6, 5};
     cout << "multiset: ";
     for (int x : ms) cout << x << " ";  // 1 1 2 3 4 5 5 6 9
     cout << endl;
     cout << "Count of 5: " << ms.count(5) << endl;  // 2
     
-    // multimap — duplicate keys allowed
+    // multimap -- duplicate keys allowed
     multimap<string, int> grades;
     grades.insert({"Alice", 95});
     grades.insert({"Alice", 87});
@@ -9227,17 +9227,17 @@ using namespace std;
 int main() {
     vector<int> v = {5, 2, 8, 1, 9, 3};
     
-    // Basic sort (ascending) — Python: list.sort()
+    // Basic sort (ascending) -- Python: list.sort()
     sort(v.begin(), v.end());
     for (int x : v) cout << x << " ";  // 1 2 3 5 8 9
     cout << endl;
     
-    // Sort descending — Python: list.sort(reverse=True)
+    // Sort descending -- Python: list.sort(reverse=True)
     sort(v.begin(), v.end(), greater<int>());
     for (int x : v) cout << x << " ";  // 9 8 5 3 2 1
     cout << endl;
     
-    // Custom sort — Python: list.sort(key=lambda x: ...)
+    // Custom sort -- Python: list.sort(key=lambda x: ...)
     vector<string> words = {"banana", "apple", "cherry", "date"};
     
     // Sort by length
@@ -9287,7 +9287,7 @@ int main() {
     vector<int> v = {1, 3, 5, 7, 9, 11, 13, 15};
     // Must be sorted for binary search!
     
-    // Check if element exists — O(log n)
+    // Check if element exists -- O(log n)
     bool found = binary_search(v.begin(), v.end(), 7);
     cout << "7 found: " << found << endl;  // 1 (true)
     
@@ -9341,17 +9341,17 @@ int main() {
     cout << "Min: " << *min_element(v.begin(), v.end()) << endl;
     cout << "Max: " << *max_element(v.begin(), v.end()) << endl;
     
-    // count — how many times value appears
+    // count -- how many times value appears
     cout << "Count of 1: " << count(v.begin(), v.end(), 1) << endl;
     
-    // accumulate — sum (Python: sum())
+    // accumulate -- sum (Python: sum())
     int total = accumulate(v.begin(), v.end(), 0);
     cout << "Sum: " << total << endl;
     
     // reverse
     reverse(v.begin(), v.end());
     
-    // unique — remove consecutive duplicates
+    // unique -- remove consecutive duplicates
     vector<int> u = {1, 1, 2, 2, 3, 1, 1};
     sort(u.begin(), u.end());  // Sort first!
     auto last = unique(u.begin(), u.end());
@@ -9359,7 +9359,7 @@ int main() {
     for (int x : u) cout << x << " ";  // 1 2 3
     cout << endl;
     
-    // next_permutation — generate all permutations!
+    // next_permutation -- generate all permutations!
     vector<int> perm = {1, 2, 3};
     do {
         for (int x : perm) cout << x;
@@ -9543,12 +9543,12 @@ int main() {
     for (int x : v) cout << x << " ";
     cout << endl;
     
-    // partial_sort — only sort first K
+    // partial_sort -- only sort first K
     vector<int> w = {9, 3, 7, 1, 5, 8, 2};
     partial_sort(w.begin(), w.begin() + 3, w.end());
     cout << "Top 3 smallest: " << w[0] << " " << w[1] << " " << w[2] << endl;
     
-    // nth_element — O(n) to find nth
+    // nth_element -- O(n) to find nth
     vector<int> z = {9, 3, 7, 1, 5, 8, 2, 4, 6};
     nth_element(z.begin(), z.begin() + 4, z.end());
     cout << "Median: " << z[4] << endl;
@@ -9940,7 +9940,7 @@ int main() {
     }
     cout << endl;
     
-    // Min-heap (smallest on top) — note the syntax!
+    // Min-heap (smallest on top) -- note the syntax!
     priority_queue<int, vector<int>, greater<int>> minPQ;
     minPQ.push(30);
     minPQ.push(10);
@@ -10386,7 +10386,7 @@ typedef vector<ll> vll;
 #define FOR(i, a, b) for (int i = (a); i < (b); i++)
 
 int main() {
-    // THE magic lines — makes cin/cout as fast as scanf/printf
+    // THE magic lines -- makes cin/cout as fast as scanf/printf
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
     
@@ -11204,13 +11204,13 @@ DP is using a **notebook** 📓 during a test — write down answers instead of 
 using namespace std;
 typedef long long ll;
 
-// Bad: O(2^n) — exponential!
+// Bad: O(2^n) -- exponential!
 int fibSlow(int n) {
     if (n <= 1) return n;
     return fibSlow(n-1) + fibSlow(n-2);
 }
 
-// Good: Top-down with memoization — O(n)
+// Good: Top-down with memoization -- O(n)
 map<int, ll> memo;
 ll fibMemo(int n) {
     if (n <= 1) return n;
@@ -11218,7 +11218,7 @@ ll fibMemo(int n) {
     return memo[n] = fibMemo(n-1) + fibMemo(n-2);
 }
 
-// Best: Bottom-up DP — O(n) time, O(n) space
+// Best: Bottom-up DP -- O(n) time, O(n) space
 ll fibDP(int n) {
     if (n <= 1) return n;
     vector<ll> dp(n + 1);
