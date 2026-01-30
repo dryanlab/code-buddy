@@ -212,7 +212,7 @@ export default function LandingPage() {
           {[
             { icon: "🐍", title: "Python Programming", titleCn: "Python 编程", desc: "From Hello World to text adventure games", descCn: "从 Hello World 到文字冒险游戏" },
             { icon: "💻", title: "Computer Science", titleCn: "计算机探秘", desc: "CPU, memory, and the secrets of binary", descCn: "CPU、内存、二进制的奥秘" },
-            { icon: "🤖", title: "AI Assistant", titleCn: "AI 助手", desc: "Your coding buddy that guides you to think", descCn: "你的编程伙伴，引导你思考" },
+            { icon: "🤖", title: "AI Buddy", titleCn: "AI 助手", desc: "Your CS & STEM companion that guides you to think", descCn: "你的 CS & STEM 学习伙伴，引导你思考" },
           ].map((feature) => (
             <div
               key={feature.title}
