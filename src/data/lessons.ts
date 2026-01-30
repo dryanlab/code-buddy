@@ -3681,6 +3681,32 @@ print(f"\\n🎉 Calculator complete! Total area processed: {total:.2f}")
 # 🤖 Botty: "AI math models are just millions of functions like these!"`,
       },
       {
+        type: "challenge",
+        emoji: "🧱",
+        content: "## 🧱 Challenge: Temperature Converter",
+        challenge: {
+          title: "Build Temperature Converter Functions",
+          description: "Create two functions: one to convert Celsius to Fahrenheit, and one for Fahrenheit to Celsius!\n\n创建两个函数：一个将摄氏度转为华氏度，一个反过来！",
+          starterCode: "def celsius_to_fahrenheit(c):\n    # Formula: F = C × 9/5 + 32\n    pass\n\ndef fahrenheit_to_celsius(f):\n    # Formula: C = (F - 32) × 5/9\n    pass\n\nprint(celsius_to_fahrenheit(0))    # 32.0\nprint(celsius_to_fahrenheit(100))  # 212.0\nprint(fahrenheit_to_celsius(98.6)) # 37.0",
+          hint: "Just apply the formulas! F = C * 9/5 + 32 and C = (F - 32) * 5/9",
+          solution: "def celsius_to_fahrenheit(c):\n    return c * 9/5 + 32\n\ndef fahrenheit_to_celsius(f):\n    return (f - 32) * 5/9\n\nprint(celsius_to_fahrenheit(0))\nprint(celsius_to_fahrenheit(100))\nprint(fahrenheit_to_celsius(98.6))",
+          expectedOutput: "32.0\n212.0\n37.0",
+        },
+      },
+      {
+        type: "challenge",
+        emoji: "🎯",
+        content: "## 🎯 Challenge: Greeting Generator",
+        challenge: {
+          title: "Multi-Language Greeting Function",
+          description: "Create a function that greets someone in different languages based on a parameter!\n\n创建一个函数，根据参数用不同语言问候！",
+          starterCode: "def greet(name, language='en'):\n    # 'en' → 'Hello, {name}!'\n    # 'es' → '¡Hola, {name}!'\n    # 'zh' → '你好，{name}！'\n    # other → 'Hi, {name}!'\n    pass\n\nprint(greet('Alice'))\nprint(greet('Bob', 'es'))\nprint(greet('Charlie', 'zh'))",
+          hint: "Use if/elif/else to check the language parameter",
+          solution: "def greet(name, language='en'):\n    if language == 'en':\n        return f'Hello, {name}!'\n    elif language == 'es':\n        return f'¡Hola, {name}!'\n    elif language == 'zh':\n        return f'你好，{name}！'\n    else:\n        return f'Hi, {name}!'\n\nprint(greet('Alice'))\nprint(greet('Bob', 'es'))\nprint(greet('Charlie', 'zh'))",
+          expectedOutput: "Hello, Alice!\n¡Hola, Bob!\n你好，Charlie！",
+        },
+      },
+      {
         type: "quiz",
         content: "🧱 Function Factory Master Quiz!",
         quiz: QUIZ_DATA["3-1"],
@@ -4074,6 +4100,32 @@ for mission_key, mission_data in missions.items():
 print("\\n🔒 Mission assignment complete!")
 
 # 🤖 Botty: "This is how AI systems match data and make decisions!"`,
+      },
+      {
+        type: "challenge",
+        emoji: "🕵️",
+        content: "## 🕵️ Challenge: Contact Book",
+        challenge: {
+          title: "Build a Contact Book",
+          description: "Create a contact book using dictionaries where you can add and look up contacts!\n\n用字典创建一个通讯录，可以添加和查找联系人！",
+          starterCode: "contacts = {}\n\ndef add_contact(name, phone, email):\n    # Add a contact as a nested dictionary\n    pass\n\ndef find_contact(name):\n    # Return contact info or 'Not found'\n    pass\n\nadd_contact('Alice', '555-1234', 'alice@email.com')\nadd_contact('Bob', '555-5678', 'bob@email.com')\n\nprint(find_contact('Alice'))\nprint(find_contact('Charlie'))",
+          hint: "contacts[name] = {'phone': phone, 'email': email}. Use 'in' to check if name exists.",
+          solution: "contacts = {}\n\ndef add_contact(name, phone, email):\n    contacts[name] = {'phone': phone, 'email': email}\n\ndef find_contact(name):\n    if name in contacts:\n        c = contacts[name]\n        return f\"{name}: {c['phone']}, {c['email']}\"\n    return 'Not found'\n\nadd_contact('Alice', '555-1234', 'alice@email.com')\nadd_contact('Bob', '555-5678', 'bob@email.com')\n\nprint(find_contact('Alice'))\nprint(find_contact('Charlie'))",
+          expectedOutput: "Alice: 555-1234, alice@email.com\nNot found",
+        },
+      },
+      {
+        type: "challenge",
+        emoji: "📊",
+        content: "## 📊 Challenge: Word Counter",
+        challenge: {
+          title: "Count Word Frequencies",
+          description: "Use a dictionary to count how many times each word appears in a sentence!\n\n用字典统计句子中每个单词出现的次数！",
+          starterCode: "def count_words(sentence):\n    # Split into words, count each one\n    counts = {}\n    # Your code here\n    return counts\n\nresult = count_words('the cat sat on the mat the cat')\nfor word, count in sorted(result.items()):\n    print(f'{word}: {count}')",
+          hint: "Split the sentence with .split(), then for each word: counts[word] = counts.get(word, 0) + 1",
+          solution: "def count_words(sentence):\n    counts = {}\n    for word in sentence.split():\n        counts[word] = counts.get(word, 0) + 1\n    return counts\n\nresult = count_words('the cat sat on the mat the cat')\nfor word, count in sorted(result.items()):\n    print(f'{word}: {count}')",
+          expectedOutput: "cat: 2\nmat: 1\non: 1\nsat: 1\nthe: 3",
+        },
       },
       {
         type: "quiz",
@@ -4501,6 +4553,32 @@ while True:
 # 🤖 Botty: "This is how real game databases work!"`,
       },
       {
+        type: "challenge",
+        emoji: "📝",
+        content: "## 📝 Challenge: Simple Note Saver",
+        challenge: {
+          title: "Save and Load Notes",
+          description: "Create functions to save notes to a file and load them back!\n\n创建函数将笔记保存到文件并加载回来！",
+          starterCode: "def save_note(filename, note):\n    # Write the note to a file\n    pass\n\ndef load_notes(filename):\n    # Read and return all notes from file\n    pass\n\nsave_note('notes.txt', 'Learn Python!')\nsave_note('notes.txt', 'Build a game!')\nprint(load_notes('notes.txt'))",
+          hint: "Use open(filename, 'a') to append, open(filename, 'r') to read. Don't forget the newline!",
+          solution: "def save_note(filename, note):\n    with open(filename, 'a') as f:\n        f.write(note + '\\n')\n\ndef load_notes(filename):\n    with open(filename, 'r') as f:\n        return f.read()\n\nsave_note('notes.txt', 'Learn Python!')\nsave_note('notes.txt', 'Build a game!')\nprint(load_notes('notes.txt'))",
+          expectedOutput: "Learn Python!\nBuild a game!",
+        },
+      },
+      {
+        type: "challenge",
+        emoji: "🏆",
+        content: "## 🏆 Challenge: High Score Tracker",
+        challenge: {
+          title: "Track and Sort High Scores",
+          description: "Build a high score system that saves scores to a file and shows the top 3!\n\n构建一个高分系统，将分数保存到文件并显示前3名！",
+          starterCode: "scores = []\n\ndef add_score(name, score):\n    scores.append({'name': name, 'score': score})\n\ndef top_3():\n    # Sort by score (highest first) and return top 3\n    pass\n\nadd_score('Alice', 9500)\nadd_score('Bob', 8200)\nadd_score('Charlie', 9800)\nadd_score('Diana', 7600)\n\nprint('🏆 TOP 3 HIGH SCORES')\nfor i, s in enumerate(top_3(), 1):\n    print(f'{i}. {s[\"name\"]}: {s[\"score\"]}')",
+          hint: "Use sorted(scores, key=lambda s: s['score'], reverse=True)[:3]",
+          solution: "scores = []\n\ndef add_score(name, score):\n    scores.append({'name': name, 'score': score})\n\ndef top_3():\n    return sorted(scores, key=lambda s: s['score'], reverse=True)[:3]\n\nadd_score('Alice', 9500)\nadd_score('Bob', 8200)\nadd_score('Charlie', 9800)\nadd_score('Diana', 7600)\n\nprint('🏆 TOP 3 HIGH SCORES')\nfor i, s in enumerate(top_3(), 1):\n    print(f'{i}. {s[\"name\"]}: {s[\"score\"]}')",
+          expectedOutput: "🏆 TOP 3 HIGH SCORES\n1. Charlie: 9800\n2. Alice: 9500\n3. Bob: 8200",
+        },
+      },
+      {
         type: "quiz",
         content: "🏆 High Score File Master Quiz!",
         quiz: QUIZ_DATA["3-3"],
@@ -4571,6 +4649,87 @@ while True:
               { code: "    return result", explanation: "Return the verified result.", explanationZh: "返回验证过的结果" },
             ],
           },
+        },
+      },
+      {
+        type: "interactive",
+        emoji: "🔦",
+        content: "## 🔦 Debug with Print Statements\nAdd print debugging to find the bug!\n\n用 print 调试来找到 bug！",
+        exercise: {
+          prompt: "This function should calculate the average, but it returns the wrong answer. Add print() statements to find the bug, then fix it!",
+          promptZh: "这个函数应该计算平均值，但返回了错误答案。添加 print() 语句找到 bug，然后修复它！",
+          starterCode: "def average(numbers):\n    total = 0\n    for num in numbers:\n        total = num  # 🐛 Bug is here!\n    return total / len(numbers)\n\n# Fix the bug and test:\nresult = average([10, 20, 30])\nprint(f'Average: {result}')  # Should be 20.0",
+          expectedOutput: "Average: 20.0",
+          hint: "Look at the line inside the loop — should it replace total or add to it?",
+          hintZh: "看循环里的那行 — 应该是替换 total 还是累加？",
+          solution: "def average(numbers):\n    total = 0\n    for num in numbers:\n        total += num  # Fixed: += instead of =\n    return total / len(numbers)\n\nresult = average([10, 20, 30])\nprint(f'Average: {result}')",
+        },
+      },
+      {
+        type: "code",
+        emoji: "✅",
+        content: `## ✅ Assert: Your Code's Self-Check
+
+\`\`\`python
+def withdraw(balance, amount):
+    assert amount > 0, "Amount must be positive!"
+    assert amount <= balance, f"Not enough funds! Have {balance}"
+    balance -= amount
+    print(f"Withdrew {amount}, remaining: {balance}")
+    return balance
+
+wallet = 100
+wallet = withdraw(wallet, 30)   # ✅ Works: Withdrew 30, remaining: 70
+wallet = withdraw(wallet, 50)   # ✅ Works: Withdrew 50, remaining: 20
+# wallet = withdraw(wallet, -5) # ❌ AssertionError: Amount must be positive!
+\`\`\`
+
+**🐍 Py:** "assert catches bugs EARLY — before they cause mysterious problems later!"`,
+      },
+      {
+        type: "code",
+        emoji: "🏷️",
+        content: `## 🏷️ Type Checking for Debugging
+
+\`\`\`python
+def double(value):
+    print(f"DEBUG type: {type(value)}")  # Check what we got
+    if isinstance(value, str):
+        return value * 2  # "ha" → "haha"
+    elif isinstance(value, (int, float)):
+        return value * 2  # 5 → 10
+    else:
+        print(f"WARNING: unexpected type {type(value)}")
+        return None
+
+print(double(5))       # 10
+print(double("ha"))    # haha
+print(double([1,2]))   # WARNING + None
+\`\`\``,
+      },
+      {
+        type: "challenge",
+        emoji: "🔍",
+        content: "## 🔍 Challenge: Multi-Bug Hunt",
+        challenge: {
+          title: "Fix All Three Bugs",
+          description: "This program has 3 bugs. Use print debugging and assert to find and fix them all!\n\n这个程序有3个bug。用print调试和assert来找到并修复它们！",
+          starterCode: "def calculate_grade(scores):\n    # Bug 1: Wrong calculation\n    total = 0\n    for s in scores:\n        total = s\n    avg = total / len(scores)\n    \n    # Bug 2: Wrong comparison\n    if avg > 90:\n        grade = 'A'\n    elif avg > 80:\n        grade = 'B'\n    elif avg > 70:\n        grade = 'C'\n    else:\n        grade = 'F'  # Bug 3: Missing 'D' grade\n    \n    return grade\n\nprint(calculate_grade([85, 90, 88]))",
+          hint: "Bug 1: += not =. Bug 3: Add elif avg > 60 for 'D' grade",
+          solution: "def calculate_grade(scores):\n    total = 0\n    for s in scores:\n        total += s  # Fix 1: += not =\n    avg = total / len(scores)\n    \n    if avg >= 90:  # Fix 2: >= for boundary\n        grade = 'A'\n    elif avg >= 80:\n        grade = 'B'\n    elif avg >= 70:\n        grade = 'C'\n    elif avg >= 60:  # Fix 3: Added D grade\n        grade = 'D'\n    else:\n        grade = 'F'\n    \n    return grade\n\nprint(calculate_grade([85, 90, 88]))",
+          expectedOutput: "B",
+        },
+      },
+      {
+        type: "challenge",
+        emoji: "🐛",
+        content: "## 🐛 Challenge: Debug a Number Guessing Game",
+        challenge: {
+          title: "Fix the Guessing Game",
+          description: "This guessing game has bugs that prevent it from working correctly. Fix them!\n\n这个猜数字游戏有bug，修复它们！",
+          starterCode: "import random\n\ndef guessing_game():\n    secret = random.randint(1, 10)\n    guesses = [5, 3, 7, secret]  # Simulated guesses\n    \n    for guess in guesses:\n        if guess = secret:  # Bug!\n            print(f'{guess} is correct! 🎉')\n        elif guess > secret:\n            print(f'{guess} is too high')\n        else:\n            print(f'{guess} is too low')\n\nguessing_game()",
+          hint: "= is assignment, == is comparison!",
+          solution: "import random\n\ndef guessing_game():\n    secret = random.randint(1, 10)\n    guesses = [5, 3, 7, secret]\n    \n    for guess in guesses:\n        if guess == secret:  # Fixed: == not =\n            print(f'{guess} is correct! 🎉')\n        elif guess > secret:\n            print(f'{guess} is too high')\n        else:\n            print(f'{guess} is too low')\n\nguessing_game()",
         },
       },
       {
@@ -4654,6 +4813,92 @@ while True:
         },
       },
       {
+        type: "interactive",
+        emoji: "🛡️",
+        content: "## 🛡️ Protect This Code!\nWrap the dangerous code in try-except!\n\n用 try-except 保护危险代码！",
+        exercise: {
+          prompt: "This code crashes when the user enters a non-number. Add try-except to handle it gracefully!",
+          promptZh: "这段代码在用户输入非数字时会崩溃。添加 try-except 优雅地处理它！",
+          starterCode: "# Make this safe from bad input!\ntext = 'hello'  # Simulating bad input\nnum = int(text)\nprint(f'Your number doubled: {num * 2}')",
+          expectedOutput: "Oops! That's not a valid number!",
+          hint: "Wrap int(text) in try: and catch ValueError in except:",
+          hintZh: "把 int(text) 放在 try: 里，用 except ValueError: 捕获",
+          solution: "text = 'hello'\ntry:\n    num = int(text)\n    print(f'Your number doubled: {num * 2}')\nexcept ValueError:\n    print(\"Oops! That's not a valid number!\")",
+        },
+      },
+      {
+        type: "code",
+        emoji: "🥅",
+        content: `## 🥅 Multiple Exception Types
+
+\`\`\`python
+def safe_divide(a, b):
+    try:
+        result = a / b
+        print(f"{a} / {b} = {result}")
+    except ZeroDivisionError:
+        print("❌ Can't divide by zero!")
+    except TypeError:
+        print("❌ Both values must be numbers!")
+    finally:
+        print("✅ Division attempt complete")
+
+safe_divide(10, 2)    # 10 / 2 = 5.0 ✅
+safe_divide(10, 0)    # ❌ Can't divide by zero!
+safe_divide("hi", 2)  # ❌ Both values must be numbers!
+\`\`\`
+
+**🐍 Py:** "Each except block catches a different type of error — like having different safety nets for different problems!"`,
+      },
+      {
+        type: "code",
+        emoji: "🚨",
+        content: `## 🚨 Raise Your Own Errors
+
+\`\`\`python
+def set_age(age):
+    if not isinstance(age, int):
+        raise TypeError("Age must be a whole number!")
+    if age < 0 or age > 150:
+        raise ValueError(f"Age {age} is not realistic!")
+    print(f"Age set to {age} ✅")
+
+try:
+    set_age(25)    # Age set to 25 ✅
+    set_age(-5)    # Raises ValueError
+except ValueError as e:
+    print(f"Error: {e}")
+except TypeError as e:
+    print(f"Error: {e}")
+\`\`\``,
+      },
+      {
+        type: "challenge",
+        emoji: "🛡️",
+        content: "## 🛡️ Challenge: Safe Calculator",
+        challenge: {
+          title: "Build a Safe Calculator",
+          description: "Build a calculator that handles ALL errors gracefully — division by zero, invalid input, and more!\n\n构建一个能优雅处理所有错误的计算器！",
+          starterCode: "def safe_calc(a, op, b):\n    # Add try-except to handle errors!\n    if op == '+':\n        return a + b\n    elif op == '-':\n        return a - b\n    elif op == '*':\n        return a * b\n    elif op == '/':\n        return a / b\n\nprint(safe_calc(10, '+', 5))\nprint(safe_calc(10, '/', 0))\nprint(safe_calc(10, '/', 'abc'))",
+          hint: "Wrap the division in try-except ZeroDivisionError, and the whole function in try-except TypeError",
+          solution: "def safe_calc(a, op, b):\n    try:\n        if op == '+':\n            return a + b\n        elif op == '-':\n            return a - b\n        elif op == '*':\n            return a * b\n        elif op == '/':\n            try:\n                return a / b\n            except ZeroDivisionError:\n                return '❌ Cannot divide by zero!'\n        else:\n            return f'❌ Unknown operator: {op}'\n    except TypeError:\n        return '❌ Invalid input types!'\n\nprint(safe_calc(10, '+', 5))\nprint(safe_calc(10, '/', 0))\nprint(safe_calc(10, '/', 'abc'))",
+          expectedOutput: "15\n❌ Cannot divide by zero!\n❌ Invalid input types!",
+        },
+      },
+      {
+        type: "challenge",
+        emoji: "🏗️",
+        content: "## 🏗️ Challenge: Robust Password Validator",
+        challenge: {
+          title: "Password Validator with Error Handling",
+          description: "Create a password validator that raises custom errors for different problems!\n\n创建一个密码验证器，对不同问题抛出自定义错误！",
+          starterCode: "def validate_password(password):\n    # Raise ValueError if:\n    # - Less than 8 characters\n    # - No numbers in it\n    # - No uppercase letters\n    pass\n\n# Test it:\nfor pw in ['short', 'nouppercase1', 'NoNumbers', 'GoodPass1']:\n    try:\n        validate_password(pw)\n        print(f'{pw}: Valid ✅')\n    except ValueError as e:\n        print(f'{pw}: {e} ❌')",
+          hint: "Use len() to check length, any(c.isdigit() for c in password) for numbers, any(c.isupper() ...) for uppercase",
+          solution: "def validate_password(password):\n    if len(password) < 8:\n        raise ValueError('Too short (need 8+ chars)')\n    if not any(c.isdigit() for c in password):\n        raise ValueError('Need at least one number')\n    if not any(c.isupper() for c in password):\n        raise ValueError('Need at least one uppercase letter')\n\nfor pw in ['short', 'nouppercase1', 'NoNumbers', 'GoodPass1']:\n    try:\n        validate_password(pw)\n        print(f'{pw}: Valid ✅')\n    except ValueError as e:\n        print(f'{pw}: {e} ❌')",
+          expectedOutput: "short: Too short (need 8+ chars) ❌\nnouppercase1: Need at least one uppercase letter ❌\nNoNumbers: Need at least one number ❌\nGoodPass1: Valid ✅",
+        },
+      },
+      {
         type: "quiz",
         content: "🛡️ Error Shield Quiz!",
         quiz: QUIZ_DATA["3-5"],
@@ -4734,6 +4979,93 @@ while True:
         },
       },
       {
+        type: "interactive",
+        emoji: "📦",
+        content: "## 📦 Try Using Modules!\nImport and use the math module!\n\n导入并使用 math 模块！",
+        exercise: {
+          prompt: "Use the math module to calculate the area of a circle with radius 5 (area = π × r²)",
+          promptZh: "用 math 模块计算半径为 5 的圆的面积（面积 = π × r²）",
+          starterCode: "# Import math and calculate circle area\n# 导入 math 并计算圆的面积\n\nradius = 5\n# Your code here:\n\n# Should print: Area = 78.54 (approximately)",
+          expectedOutput: "Area = 78.54",
+          hint: "import math, then use math.pi and radius ** 2",
+          hintZh: "import math，然后用 math.pi 和 radius ** 2",
+          solution: "import math\n\nradius = 5\narea = math.pi * radius ** 2\nprint(f'Area = {area:.2f}')",
+        },
+      },
+      {
+        type: "code",
+        emoji: "🎲",
+        content: `## 🎲 The Random Module — Fun with Chance!
+
+\`\`\`python
+import random
+
+# Random integer between 1 and 6 (dice roll)
+dice = random.randint(1, 6)
+print(f"🎲 You rolled: {dice}")
+
+# Random choice from a list
+snacks = ["🍕 Pizza", "🌮 Taco", "🍔 Burger", "🍣 Sushi"]
+pick = random.choice(snacks)
+print(f"Today's lunch: {pick}")
+
+# Shuffle a list (like shuffling cards)
+cards = ["A♠", "K♥", "Q♦", "J♣"]
+random.shuffle(cards)
+print(f"Shuffled: {cards}")
+\`\`\`
+
+**🐍 Py:** "The random module is perfect for games, simulations, and making programs fun!"`,
+      },
+      {
+        type: "code",
+        emoji: "📅",
+        content: `## 📅 Useful Built-in Modules
+
+\`\`\`python
+# datetime — work with dates and times
+from datetime import datetime
+now = datetime.now()
+print(f"Current time: {now.strftime('%H:%M')}")
+print(f"Today: {now.strftime('%B %d, %Y')}")
+
+# math — advanced math operations
+import math
+print(f"Square root of 144: {math.sqrt(144)}")
+print(f"Pi = {math.pi:.4f}")
+
+# json — save and load data
+import json
+data = {"name": "Py", "level": 5, "skills": ["loops", "functions"]}
+text = json.dumps(data, indent=2)
+print(text)
+\`\`\``,
+      },
+      {
+        type: "challenge",
+        emoji: "🎲",
+        content: "## 🎲 Challenge: Magic 8-Ball",
+        challenge: {
+          title: "Build a Magic 8-Ball",
+          description: "Use the random module to build a Magic 8-Ball that gives random answers!\n\n用 random 模块构建一个魔法8号球，给出随机回答！",
+          starterCode: "# Build a Magic 8-Ball!\n# 构建魔法8号球！\nimport random\n\nquestion = 'Will I ace my test?'\nprint(f'🎱 Question: {question}')\n\n# Create a list of possible answers\n# Then use random.choice() to pick one\n# Print the answer\n",
+          hint: "Make a list of answers like ['Yes!', 'No way', 'Maybe...'] and use random.choice(answers)",
+          solution: "import random\n\nquestion = 'Will I ace my test?'\nprint(f'🎱 Question: {question}')\n\nanswers = [\n    '🟢 Yes, definitely!',\n    '🔴 No way!',\n    '🟡 Maybe... ask again later',\n    '🟢 Signs point to yes!',\n    '🔴 Don\\'t count on it',\n    '🟡 Cannot predict now',\n]\n\nprint(f'🎱 Answer: {random.choice(answers)}')",
+        },
+      },
+      {
+        type: "challenge",
+        emoji: "📊",
+        content: "## 📊 Challenge: Random Stats Generator",
+        challenge: {
+          title: "RPG Character Generator",
+          description: "Use random and math modules to generate random RPG character stats!\n\n用 random 和 math 模块生成随机RPG角色属性！",
+          starterCode: "import random\nimport math\n\n# Generate a character with:\n# - Random name from a list\n# - Random HP between 50-100\n# - Random attack between 5-20\n# - Defense = math.ceil(attack * 0.6)\n# Print a character card!\n",
+          hint: "Use random.choice() for name, random.randint() for stats, math.ceil() for defense",
+          solution: "import random\nimport math\n\nnames = ['Shadow', 'Blaze', 'Storm', 'Crystal', 'Thunder']\nname = random.choice(names)\nhp = random.randint(50, 100)\nattack = random.randint(5, 20)\ndefense = math.ceil(attack * 0.6)\n\nprint(f'⚔️ CHARACTER CARD ⚔️')\nprint(f'Name: {name}')\nprint(f'HP: {hp} ❤️')\nprint(f'Attack: {attack} ⚔️')\nprint(f'Defense: {defense} 🛡️')",
+        },
+      },
+      {
         type: "quiz",
         content: "🧰 Module Quiz!",
         quiz: QUIZ_DATA["3-6"],
@@ -4810,6 +5142,120 @@ while True:
               { code: "        f.write(json.dumps(student) + '\\n')", explanation: "Convert dict to JSON text and write to file.", explanationZh: "将字典转为 JSON 文本并写入文件" },
             ],
           },
+        },
+      },
+      {
+        type: "interactive",
+        emoji: "💾",
+        content: "## 💾 Build the Core: Add & View Students\nCreate functions to add and view students!\n\n创建添加和查看学生的函数！",
+        exercise: {
+          prompt: "Create an add_student function that adds a student dict to a list, then print all students",
+          promptZh: "创建一个 add_student 函数，将学生字典添加到列表中，然后打印所有学生",
+          starterCode: "students = []\n\ndef add_student(name, grade):\n    # Create a dict and append to students list\n    pass\n\n# Add 3 students:\nadd_student('Alice', 95)\nadd_student('Bob', 82)\nadd_student('Charlie', 91)\n\n# Print each student:\nfor s in students:\n    print(f\"{s['name']}: {s['grade']}\")",
+          expectedOutput: "Alice: 95\nBob: 82\nCharlie: 91",
+          hint: "student = {'name': name, 'grade': grade}, then students.append(student)",
+          hintZh: "student = {'name': name, 'grade': grade}，然后 students.append(student)",
+          solution: "students = []\n\ndef add_student(name, grade):\n    student = {'name': name, 'grade': grade}\n    students.append(student)\n\nadd_student('Alice', 95)\nadd_student('Bob', 82)\nadd_student('Charlie', 91)\n\nfor s in students:\n    print(f\"{s['name']}: {s['grade']}\")",
+        },
+      },
+      {
+        type: "code",
+        emoji: "📊",
+        content: `## 📊 Complete Grade Manager System
+
+\`\`\`python
+import json
+
+class GradeManager:
+    def __init__(self):
+        self.students = []
+    
+    def add_student(self, name, grade):
+        self.students.append({"name": name, "grade": grade})
+        print(f"✅ Added {name} with grade {grade}")
+    
+    def get_average(self):
+        if not self.students:
+            return 0
+        total = sum(s["grade"] for s in self.students)
+        return total / len(self.students)
+    
+    def get_top_student(self):
+        if not self.students:
+            return None
+        return max(self.students, key=lambda s: s["grade"])
+    
+    def show_report(self):
+        print("\\n📋 GRADE REPORT")
+        print("=" * 30)
+        for s in sorted(self.students, key=lambda s: s["grade"], reverse=True):
+            print(f"  {s['name']}: {s['grade']}")
+        print(f"\\n📊 Average: {self.get_average():.1f}")
+        top = self.get_top_student()
+        if top:
+            print(f"🏆 Top Student: {top['name']}")
+
+# Try it out!
+gm = GradeManager()
+gm.add_student("Alice", 95)
+gm.add_student("Bob", 82)
+gm.add_student("Charlie", 91)
+gm.show_report()
+\`\`\``,
+      },
+      {
+        type: "code",
+        emoji: "💾",
+        content: `## 💾 Saving Data to Files with JSON
+
+\`\`\`python
+import json
+
+# Save student data to a file
+students = [
+    {"name": "Alice", "grade": 95},
+    {"name": "Bob", "grade": 82},
+]
+
+# Write to file
+with open("students.json", "w") as f:
+    json.dump(students, f, indent=2)
+print("💾 Data saved!")
+
+# Read from file
+with open("students.json", "r") as f:
+    loaded = json.load(f)
+print(f"📂 Loaded {len(loaded)} students")
+for s in loaded:
+    print(f"  {s['name']}: {s['grade']}")
+\`\`\`
+
+**🐍 Py:** "JSON files let your program remember data between runs — like saving a game!"`,
+      },
+      {
+        type: "challenge",
+        emoji: "🎮",
+        content: "## 🎮 Challenge: Grade Statistics",
+        challenge: {
+          title: "Calculate Grade Statistics",
+          description: "Write functions to find the highest, lowest, and average grade from a list of students!\n\n编写函数找出学生列表中的最高分、最低分和平均分！",
+          starterCode: "students = [\n    {'name': 'Alice', 'grade': 95},\n    {'name': 'Bob', 'grade': 72},\n    {'name': 'Charlie', 'grade': 88},\n    {'name': 'Diana', 'grade': 91},\n]\n\ndef highest_grade(students):\n    pass  # Return the student with highest grade\n\ndef average_grade(students):\n    pass  # Return the average grade\n\ntop = highest_grade(students)\nprint(f'Top: {top[\"name\"]} ({top[\"grade\"]})')\nprint(f'Average: {average_grade(students):.1f}')",
+          hint: "Use max() with key=lambda for highest, sum() with list comprehension for average",
+          solution: "students = [\n    {'name': 'Alice', 'grade': 95},\n    {'name': 'Bob', 'grade': 72},\n    {'name': 'Charlie', 'grade': 88},\n    {'name': 'Diana', 'grade': 91},\n]\n\ndef highest_grade(students):\n    return max(students, key=lambda s: s['grade'])\n\ndef average_grade(students):\n    return sum(s['grade'] for s in students) / len(students)\n\ntop = highest_grade(students)\nprint(f'Top: {top[\"name\"]} ({top[\"grade\"]})')\nprint(f'Average: {average_grade(students):.1f}')",
+          expectedOutput: "Top: Alice (95)\nAverage: 86.5",
+        },
+      },
+      {
+        type: "challenge",
+        emoji: "🏆",
+        content: "## 🏆 Final Challenge: Grade Report Card",
+        challenge: {
+          title: "Generate a Report Card",
+          description: "Create a function that generates a formatted report card with letter grades!\n\n创建一个函数，生成带有字母等级的格式化成绩单！",
+          starterCode: "def letter_grade(score):\n    # Return A, B, C, D, or F based on score\n    pass\n\ndef report_card(students):\n    # Print a formatted report card\n    pass\n\nstudents = [\n    {'name': 'Alice', 'grade': 95},\n    {'name': 'Bob', 'grade': 72},\n    {'name': 'Charlie', 'grade': 88},\n]\nreport_card(students)",
+          hint: "A>=90, B>=80, C>=70, D>=60, else F. Use f-strings for formatting",
+          solution: "def letter_grade(score):\n    if score >= 90: return 'A'\n    elif score >= 80: return 'B'\n    elif score >= 70: return 'C'\n    elif score >= 60: return 'D'\n    else: return 'F'\n\ndef report_card(students):\n    print('📋 REPORT CARD')\n    print('=' * 25)\n    for s in students:\n        lg = letter_grade(s['grade'])\n        print(f\"  {s['name']}: {s['grade']} ({lg})\")\n\nstudents = [\n    {'name': 'Alice', 'grade': 95},\n    {'name': 'Bob', 'grade': 72},\n    {'name': 'Charlie', 'grade': 88},\n]\nreport_card(students)",
+          expectedOutput: "📋 REPORT CARD\n=========================\n  Alice: 95 (A)\n  Bob: 72 (C)\n  Charlie: 88 (B)",
         },
       },
       {
