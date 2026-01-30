@@ -250,7 +250,7 @@ export default function CodeEditor({
             <div className="w-3 h-3 rounded-full bg-red-500" />
             <div className="w-3 h-3 rounded-full bg-yellow-500" />
             <div className="w-3 h-3 rounded-full bg-green-500" />
-            <span className="text-xs text-[var(--theme-text-secondary)] ml-2 terminal-text">main.py</span>
+            <span className="text-xs text-[var(--theme-text-secondary)] ml-2 terminal-text">{language === "cpp" ? "main.cpp" : "main.py"}</span>
           </div>
           <div className="flex items-center gap-2">
             {isLoading && (

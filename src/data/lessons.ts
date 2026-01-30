@@ -214,7 +214,9 @@ You're about to learn the most EPIC skill ever: **commanding computers like a ha
 
 🖥️ When you see those green text screens in movies? That's what programmers actually use! 
 💻 Every line you type is a **command** that the computer must obey!
+
 🎯 **Programming** = Giving computers super-precise instructions
+
 🐍 **Python** = The easiest "hacking language" for beginners
 
 Ready to see the Matrix? Let's make your screen look like a hacker movie! 🕶️`,
@@ -295,7 +297,9 @@ Create your own hacker-style message! Try changing the text above to make it you
 
 **Hacker Tips:**
 - Use emojis like 🟢🔴⚡💻🔓🎯
+
 - Make it dramatic: "INITIATING...", "BYPASSING SECURITY..."
+
 - Add your name: "Welcome, Agent [YourName]!"`,
         exercise: {
           prompt: "Write a print statement that displays: Hello, World!",
@@ -360,8 +364,11 @@ Create your own hacker-style message! Try changing the text above to make it you
 Remember Mad Libs? You know, where you fill in random words and create SUPER funny stories! 
 
 Variables are like **magic labeled boxes** that store anything:
+
 - Words (like "banana" or "stinky")  
+
 - Numbers (like 42 or 999)
+
 - True/False facts
 
 \`\`\`python
@@ -763,8 +770,11 @@ print("Suggested tip: $" + str(round(tip_amount, 2)))
 Welcome to the coolest programming experience EVER! 🎨✨
 
 Imagine you have a **magic turtle** 🐢 that can draw anything you command:
+
 - "Move forward 100 steps!" 
+
 - "Turn right 90 degrees!"
+
 - "Change your pen color to blue!"
 
 **Turtle Graphics** = Programming + Art = AWESOME!
@@ -1006,8 +1016,11 @@ Your job? Make sure EVERYONE stays safe on the rollercoasters! Here's how it wor
 
 **Safety Rules:**
 - 🎢 If height ≥ 48 inches → "Safe to ride!"
+
 - 🎢 If height < 48 inches → "Sorry, too short!"
+
 - 🎒 If has safety gear → "All set!"
+
 - 🚫 If no safety gear → "Need safety gear first!"
 
 Python's **if-else** statements are perfect for safety checks! Computers never get tired or make mistakes - they're the ultimate safety inspectors! 🤖
@@ -1097,8 +1110,11 @@ Python's **if-else** statements are perfect for safety checks! Computers never g
 Before we code, let's practice safety inspector thinking:
 
 **Scenario:** A 12-year-old kid who's 50 inches tall wants to ride the Super Loop coaster.
+
 - Minimum height: 48 inches
+
 - Has safety gear: Yes
+
 - Age requirement: 10+
 
 **Your decision:** Safe to ride? 
@@ -1254,10 +1270,15 @@ print("\\n🎯 Safety is our #1 priority!")
         content: `## 🎮 Final Challenge: Build a Complete Game!
 
 Congratulations! You've learned the fundamental building blocks of programming:
+
 - 📝 **print()** — Make computers talk
+
 - 📦 **Variables** — Store data in memory
+
 - 🧮 **Math** — Calculate and process numbers
+
 - 💬 **input()** — Listen to users  
+
 - 🔀 **if-else** — Make decisions
 
 **🐍 Py:** "Time to combine everything into your first real program!"  
@@ -1602,13 +1623,18 @@ turtle.done()`,
 
 **Pattern Ideas:**
 - 🌟 **Star Burst:** Draw 20 lines from center, each rotated 18° (360°÷20)
+
 - 🌼 **Flower Power:** Draw 12 circles arranged in a circle
+
 - 🌀 **Spiral Galaxy:** Draw while moving forward AND turning slightly
+
 - 🎆 **Fireworks:** Random colored lines exploding from center
 
 **Math Magic Formulas:**
 - Circle pattern: Turn = 360° ÷ number of repeats
+
 - Polygon: Turn = 360° ÷ number of sides
+
 - Spiral: Small forward + small turn = infinite beauty!
 
 🐢 When you install Python locally, try creating these patterns!`,
@@ -1717,8 +1743,11 @@ print("\\n🎉 Loop Circus Complete!")
 **🐍 Py:** "Every great RPG hero needs an EPIC backpack system!"
 
 Imagine you're playing the coolest RPG ever. Your backpack can hold:
+
 - ⚔️ Weapons: ["Dragon Sword", "Magic Bow", "Lightning Staff"]  
+
 - 🧪 Potions: ["Health Potion", "Mana Potion", "Speed Boost"]
+
 - 🏆 Quest Items: ["Ancient Key", "Magic Crystal", "Dragon Scale"]
 
 **Python Lists = Perfect RPG Inventories!**
@@ -1806,6 +1835,7 @@ Starting inventory: ["Rusty Sword", "Health Potion", "Torch"]
 4. ⚔️ Battle boss → use "Health Potion"
 
 **Think:** What list operations would you use for each event?
+
 - Add items? → \`.append()\`
 - Remove items? → \`.remove()\`  
 - Check if you have something? → \`in\``,
@@ -1991,6 +2021,7 @@ print("✨ Total items:", len(weapons) + len(potions) + len(treasures))
 
 **The difference:**
 - **for loop:** "Do this exactly 5 times"
+
 - **while loop:** "Keep doing this UNTIL you succeed!"
 
 **Perfect for games:**
@@ -2264,6 +2295,7 @@ else:
 
 **The Magic Formula:**
 - **Outer loop:** Controls ROWS (how many lines down)
+
 - **Inner loop:** Controls COLUMNS (how many characters across)
 
 \`\`\`python
@@ -2337,13 +2369,18 @@ for row in range(5):        # Outer: 5 rows
 
 **Pattern Building Rules:**
 - **Outer loop = Rows:** How tall is your pattern?
+
 - **Inner loop = Columns:** What goes on each row?
+
 - **Variables change:** Make each row different!
 
 **Cool Pattern Ideas:**
 - 🏔️ **Mountain:** Each row has more stars than the last
+
 - 💎 **Diamond:** Wide in middle, narrow at ends  
+
 - 🔢 **Number Stairs:** 1, 12, 123, 1234...
+
 - 🌈 **Rainbow:** Different colors/characters per row
 
 **Think:** How would you code a triangle that starts with 1 star and adds 1 more each row?`,
@@ -2583,9 +2620,13 @@ print("🔧 You just used nested loops like a pro programmer!")
 **🐍 Py:** "Strings aren't just text - they're SECRET CODES waiting to be encrypted!"
 
 Every great secret agent needs to know cryptography! Today you'll learn:
+
 - 🔤 How to scramble text into secret codes
+
 - 🔍 How to decode encrypted messages  
+
 - 🧮 Caesar cipher (used by Julius Caesar!)
+
 - 🌐 Why encryption protects the internet
 
 **String Superpowers for Spies:**
@@ -2667,9 +2708,13 @@ Every great secret agent needs to know cryptography! Today you'll learn:
 
 **How it works:**
 - A → D (A+3=D)
+
 - B → E (B+3=E)  
+
 - C → F (C+3=F)
+
 - ...
+
 - M → P, E → H, E → H, T → W...
 
 **Your Task:** What would "MEET AT MIDNIGHT" become?
@@ -2913,16 +2958,25 @@ print(f"\\n🎉 String art complete for '{text}'!")
 **🐍 Py:** "Congratulations! You've mastered the entire Loop Forest curriculum!"
 
 Time to prove your skills with the ULTIMATE project that combines everything:
+
 - 🔁 **for loops** → Multiple game rounds
+
 - 📋 **Lists** → Track game history  
+
 - 🔄 **while loops** → Keep playing until user quits
+
 - ✨ **Strings** → Beautiful game display
+
 - 🎲 **Random** → Computer's choices
+
 - 🎯 **if/else** → Game logic and scoring
 
 **🪨📄✂️ Rock Paper Scissors** is perfect because:
+
 - Simple rules, complex programming
+
 - Used in computer science competitions
+
 - Great for learning game AI concepts
 
 🤖 Botty says: "This project teaches the same logic used in gaming AI!"
@@ -2999,7 +3053,9 @@ Time to prove your skills with the ULTIMATE project that combines everything:
 
 **Advanced Features:**
 - 📈 **Statistics:** Win rate, streak tracking
+
 - 🤖 **Smart AI:** Computer learns your patterns (optional)
+
 - 🎪 **Tournament Mode:** Multiple rounds with elimination
 
 **Which Loop Forest skills will you use for each feature?**`,
@@ -3298,14 +3354,20 @@ print("\\n🎪 Thanks for playing Advanced Championship!")
 You've been USING tools (print, input, if, loops). Now you'll start BUILDING tools! 🛠️
 
 **Functions = Code Building Blocks!** Just like LEGO blocks:
+
 - 🧱 Each function does ONE specific job perfectly
+
 - 🔄 You can use the same block over and over
+
 - 🏗️ Combine simple blocks to build AMAZING things
+
 - 📦 Other programmers can use YOUR blocks!
 
 **Real examples:**
 - Turtle drawing functions → Game graphics
+
 - Math functions → AI calculations  
+
 - File functions → Database operations
 
 🤖 Botty says: "AI models are made of millions of functions working together!"`,
@@ -3740,18 +3802,26 @@ print(f"\\n🎉 Calculator complete! Total area processed: {total:.2f}")
 **Lists vs Dictionaries - The Secret Agent Way:**
 
 **🗂️ Lists** = File cabinets with numbered folders:
+
 - agents[0] → "Who's in folder #0?"
+
 - agents[5] → "What if there are only 4 agents?"
 
 **📋 Dictionaries** = Smart filing system with labeled folders:
+
 - agents["007"] → "James Bond" ✨
+
 - agents["ninja"] → "Silent Strike"
+
 - agents["hacker"] → "Zero Cool"
 
 **Why Secret Agents LOVE Dictionaries:**
 - 🔍 **Fast lookup:** Find Agent 007 instantly! 
+
 - 🏷️ **Meaningful keys:** No memorizing numbers
+
 - 🔄 **Easy updates:** Change agent status anytime
+
 - 🌐 **Real-world data:** Just like JSON, databases, APIs
 
 🤖 Botty says: "Every web API returns data as dictionaries (JSON format)!"`,
@@ -3825,10 +3895,15 @@ print(f"\\n🎉 Calculator complete! Total area processed: {total:.2f}")
 
 **Think about what info each agent needs:**
 - 🆔 **Code Name:** "007", "BlackWidow", "Phoenix"
+
 - 👤 **Real Name:** "James Bond", "Natasha Romanoff"  
+
 - 🎖️ **Rank:** "Commander", "Agent", "Rookie"
+
 - 🛡️ **Clearance Level:** 1-10
+
 - 🌍 **Mission Status:** "Active", "Undercover", "Retired"
+
 - 🔫 **Specialties:** ["Infiltration", "Combat", "Tech"]
 
 **Dictionary Structure:**
@@ -4162,6 +4237,7 @@ print("\\n🔒 Mission assignment complete!")
 - 🧠 **RAM/Variables:** Fast but TEMPORARY 
   - Great for current game session
   - GONE when program ends! 💀
+
 - 💾 **Files:** Slower but PERMANENT
   - Survives computer restarts  
   - Lasts forever (until deleted)
@@ -4169,13 +4245,18 @@ print("\\n🔒 Mission assignment complete!")
 
 **File Superpowers:**
 - 📊 **High Score Boards:** Remember the legends
+
 - 💾 **Save Games:** Continue your adventure
+
 - 📈 **Statistics:** Track progress over time
+
 - 🌐 **Data Sharing:** Send scores to friends
 
 **🎮 Real Examples:**
 - Minecraft saves your worlds in files
+
 - Chrome saves your bookmarks in files  
+
 - Every app stores settings in files
 
 🤖 Botty says: "AI models are saved as giant files - that's how ChatGPT remembers its training!"`,
@@ -4255,12 +4336,16 @@ print("\\n🔒 Mission assignment complete!")
 
 **File Format Options:**
 - **Simple text:** "Alice,9850,2024-01-15"
+
 - **JSON format:** Structured data
+
 - **CSV format:** Spreadsheet-friendly
 
 **Think about:**
 - What happens if the file doesn't exist yet?
+
 - How do you sort scores highest to lowest?
+
 - What if two players have the same score?
 
 Let's build this step by step! 🚀`,
@@ -5096,8 +5181,11 @@ print(text)
 
 **🏗️ Build a complete Grade Management System using all Builder City skills:**
 - 🏭 **Functions** for reusable operations
+
 - 📚 **Dictionaries** for student data
+
 - 💾 **Files** for data persistence
+
 - 🛡️ **Error handling** for robust operation
 
 > 💡 **This lesson's project is available in Code Lab!** You can build it there with full IDE features.
@@ -7513,13 +7601,19 @@ Day 46 🌿███████████████ 🐇██████�
 **🤖 Botty:** "That's how ALL AI starts — completely blank! You have to TEACH it."
 
 Imagine you got a brand new puppy 🐶. It doesn't know:
+
 - What "sit" means
+
 - Whether you're happy or sad
+
 - What its name is
 
 **Your mission:** Build a virtual AI pet that can:
+
 - 🎯 Understand your commands
+
 - 😊 Read your emotions
+
 - 🧠 Learn and remember new things
 
 **The secret?** Every "smart" AI starts with simple rules — \`if\` statements that match patterns!
@@ -7787,8 +7881,11 @@ for msg in test_messages:
 **🤖 Botty:** "Challenge accepted! But first, let's learn HOW game AI thinks."
 
 Have you ever played against a computer in a game? 🎯
+
 - In chess, the computer looks AHEAD at future moves
+
 - In racing games, the AI knows the perfect racing line
+
 - In card games, the AI calculates probabilities
 
 **The big secret:** Game AI isn't truly "smart" — it follows STRATEGIES!
@@ -8122,8 +8219,11 @@ print(f"Smart AI figured out you love 'rock' and started picking 'paper'! 🧠")
 **🤖 Botty:** "Absolutely! Some of the most amazing art is made by algorithms!"
 
 Think about it:
+
 - 🎵 Music is patterns of notes
+
 - 📝 Poetry is patterns of words
+
 - 🎨 Art is patterns of shapes and colors
 
 And what are computers GREAT at? **Patterns!**
@@ -8426,8 +8526,11 @@ print("🔗 This is called a Markov Chain — the basis of text generation!")`,
 **🤖 Botty:** "Not magic — MATH! If you study enough past data, you can spot patterns."
 
 Think about it:
+
 - 📈 Study 2 hours → probably score 70. Study 5 hours → probably score 90
+
 - 🌤️ Sunny for 3 days in a row → probably sunny tomorrow too
+
 - 🎮 A player always goes left → they'll probably go left next time
 
 **The idea:** Look at past data → find the pattern → extend it into the future!
@@ -8702,8 +8805,11 @@ print(f"\\n💡 The AI learned that after {today}, {prediction} is most likely!"
 **🤖 Botty:** "Actually... NO. AI can be VERY unfair. And that's a HUGE problem."
 
 Here's a scary truth:
+
 - 🏥 AI denied healthcare to sick people because of their race
+
 - 👮 AI wrongly identified innocent people as criminals
+
 - 💼 AI rejected job applications because of names that "sounded foreign"
 
 **Why?** Because AI learns from DATA — and data can be BIASED!

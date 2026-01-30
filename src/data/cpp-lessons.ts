@@ -93,9 +93,13 @@ const cpp_1_1: Lesson = {
 ## Why C++? 为什么学C++？
 
 C++ is used for:
+
 - 🎮 **Game engines** (Unreal Engine, Unity internals)
+
 - 💻 **Operating systems** (Windows, macOS, Linux)
+
 - 🏎️ **Competitive programming** (USACO, Codeforces, IOI)
+
 - 🤖 **Robotics & embedded systems**
 - 🚀 **High-performance applications** (10-100x faster than Python!)
 
@@ -725,9 +729,13 @@ int main() {
       content: `# Try It! · 动手试试！
 
 Declare variables of different types and print them. Create:
+
 - An int for your age
+
 - A double for your height in meters
+
 - A string for your name
+
 - A bool for whether you like C++`,
       exercise: {
         prompt: "Declare and print variables of different types",
@@ -3560,13 +3568,19 @@ const cpp_3_2: Lesson = {
 ⚡ **Volt says:** "This is one of the MOST IMPORTANT concepts in C++. Understanding pass-by-value vs pass-by-reference will save you from countless bugs!"
 
 ## Pass by Value (default):
+
 - A **COPY** of the variable is made
+
 - Changes inside the function don't affect the original
+
 - Like giving someone a photocopy of a document
 
 ## Pass by Reference (&):
+
 - The function gets the **ORIGINAL** variable (via reference)
+
 - Changes inside the function DO affect the original
+
 - Like giving someone the actual document`,
     },
     {
@@ -4298,8 +4312,11 @@ const cpp_4_1: Lesson = {
 🔧 **Chip says:** "Think of memory as a huge array of boxes. Each box has an address (a number) and can hold data. A pointer is a variable that stores one of those addresses."
 
 ## Key Concepts:
+
 - **&** (address-of): Gets the memory address of a variable
+
 - **\\*** (dereference): Gets the value at an address
+
 - A pointer variable stores an address, not a value
 
 ⚡ **Volt says:** "Pointers are THE key concept that separates C++ from Python. Master this and you'll understand how computers really work!"`,
@@ -4612,7 +4629,9 @@ int main() {
 
 **When to use which?**
 - **Reference**: Default for function params — cleaner syntax
+
 - **Pointer**: Need nullptr, pointer arithmetic, or dynamic memory
+
 - **const reference**: Read-only access to big objects
 
 \`\`\`cpp
@@ -5363,15 +5382,23 @@ int main() {
       content: `# Stack vs Heap: A Visual Guide · 栈vs堆
 
 🏢 **Stack** (Auto-managed):
+
 - Variables inside functions live here
+
 - **Fast** allocation, **automatic** cleanup
+
 - **Limited** size (~1-8 MB)
+
 - Like a stack of plates: last on, first off
 
 🏗️ **Heap** (You manage):
+
 - new allocates memory here
+
 - **Slower** allocation, **manual** cleanup with delete
+
 - **Huge** size (GBs available)
+
 - Like a warehouse: you rent and return space
 
 \`\`\`
@@ -6372,27 +6399,37 @@ int main() {
 
 **Need key-value pairs?**
 - Sorted keys? → map (O(log n))
+
 - Fastest access? → unordered_map (O(1) avg)
+
 - Duplicate keys? → multimap
 
 **Need unique elements?**
 - Sorted? → set
+
 - Fastest? → unordered_set
 
 **Need ordered sequence?**
 - Default → vector (random access, fast end ops)
+
 - Both ends → deque
+
 - Middle insert/delete → list
 
 **Restricted access?**
 - LIFO → stack
+
 - FIFO → queue
+
 - By priority → priority_queue
 
 ⚡ **Competition Tips:**
 - Default to vector
+
 - map/set for sorted data or log-time ops
+
 - unordered_map for O(1) lookups
+
 - priority_queue for greedy & Dijkstra's`,
     },
     {
@@ -7717,9 +7754,13 @@ const cpp_6_2: Lesson = {
 
 **When to use greedy:**
 - Sort + scan patterns
+
 - Interval scheduling
+
 - Activity selection
+
 - Making change with coins
+
 - Minimum/maximum with constraints`,
     },
     {
