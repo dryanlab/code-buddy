@@ -610,7 +610,8 @@ export default function CodeLabPage() {
 
   // Exercise completion tracking
   const [completedExerciseIds, setCompletedExerciseIds] = useState<Set<string>>(new Set());
-  const [collapsedCategories, setCollapsedCategories] = useState<Set<string> | "all">("all");
+  // Track EXPANDED categories (default: nothing expanded = all collapsed)
+  const [expandedCategories, setExpandedCategories] = useState<Set<string>>(new Set());
 
   // Step/Debug
   const [stepMode, setStepMode] = useState(false);
@@ -1233,33 +1234,26 @@ export default function CodeLabPage() {
                   </div>
                   {Object.entries(groups).map(([area, exs]) => {
                     const areaLabel = isCpp ? (cppCategoryNames[area] || area) : (areaNames[area] || area);
-                    const isCollapsed = collapsedCategories === "all" || (collapsedCategories instanceof Set && collapsedCategories.has(`lp_${area}`));
+                    const catKey = `lp_${area}`;
+                    const isExpanded = expandedCategories.has(catKey);
                     return (
                       <div key={area}>
                         <button
                           onClick={() => {
-                            if (collapsedCategories === "all") {
-                              const allKeys = Object.keys(groups).map(a => `lp_${a}`);
-                              const s = new Set(allKeys);
-                              s.delete(`lp_${area}`);
-                              setCollapsedCategories(s);
-                            } else {
-                              const next = new Set(collapsedCategories);
-                              const key = `lp_${area}`;
-                              if (next.has(key)) next.delete(key); else next.add(key);
-                              setCollapsedCategories(next);
-                            }
+                            const next = new Set(expandedCategories);
+                            if (next.has(catKey)) next.delete(catKey); else next.add(catKey);
+                            setExpandedCategories(next);
                           }}
                           className="w-full text-left py-1.5 px-1 text-[11px] font-bold flex items-center gap-1"
                           style={{ color: "var(--theme-text-secondary)" }}
                         >
-                          <span>{isCollapsed ? "▸" : "▾"}</span>
+                          <span>{isExpanded ? "▾" : "▸"}</span>
                           <span>{areaLabel}</span>
                           <span className="ml-auto text-[9px] font-normal" style={{ color: "var(--theme-text-muted)" }}>
                             {exs.length}
                           </span>
                         </button>
-                        {!isCollapsed && exs.map((ex) => {
+                        {isExpanded && exs.map((ex) => {
                           const diffBadge = ex.difficulty === 1 ? "🟢" : ex.difficulty === 2 ? "🟡" : "🔴";
                           const isSelected = activeTabId === `ex_${ex.id}`;
                           return (
@@ -1355,7 +1349,7 @@ export default function CodeLabPage() {
               });
               let globalIdx = 0;
               return Object.entries(groups).map(([cat, exercises]) => {
-                const isCollapsed = collapsedCategories === "all" || (collapsedCategories instanceof Set && collapsedCategories.has(cat));
+                const isExpanded = expandedCategories.has(cat);
                 const catZh = exercises[0]?.categoryZh || cat;
                 const completedCount = exercises.filter((e) => completedExerciseIds.has(e.id)).length;
                 const allDone = completedCount === exercises.length && exercises.length > 0;
@@ -1363,27 +1357,20 @@ export default function CodeLabPage() {
                   <div key={cat}>
                     <button
                       onClick={() => {
-                        if (collapsedCategories === "all") {
-                          // First click: expand only this one
-                          const allCats = new Set(Object.keys(groups));
-                          allCats.delete(cat);
-                          setCollapsedCategories(allCats);
-                        } else {
-                          const next = new Set(collapsedCategories);
-                          if (next.has(cat)) next.delete(cat); else next.add(cat);
-                          setCollapsedCategories(next);
-                        }
+                        const next = new Set(expandedCategories);
+                        if (next.has(cat)) next.delete(cat); else next.add(cat);
+                        setExpandedCategories(next);
                       }}
                       className="w-full text-left py-1.5 px-1 text-[11px] font-bold flex items-center gap-1"
                       style={{ color: allDone ? "var(--color-primary)" : "var(--theme-text-secondary)" }}
                     >
-                      <span>{isCollapsed ? "▸" : "▾"}</span>
+                      <span>{isExpanded ? "▾" : "▸"}</span>
                       <span>📂 {cat} · {catZh}</span>
                       <span className="ml-auto text-[9px] font-normal" style={{ color: "var(--theme-text-muted)" }}>
                         {completedCount}/{exercises.length} ✓
                       </span>
                     </button>
-                    {!isCollapsed && exercises.map((ex) => {
+                    {isExpanded && exercises.map((ex) => {
                       const exerciseLocked = preview && globalIdx++ >= PREVIEW_MAX_EXERCISES;
                       const done = completedExerciseIds.has(ex.id);
                       return (
