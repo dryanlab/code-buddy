@@ -1,0 +1,5942 @@
+// Code Buddy - C++ Track
+// 6 Modules, 24 Lessons
+// Target: High school students WITH Python basics
+// Characters: 🐍Py (Python comparison), ⚡Volt (C++ guide), 🔧Chip (Hardware/performance)
+
+import type {
+  Lesson,
+  Module,
+  LessonSection,
+} from "./lessons";
+
+// ═══════════════════════════════════════════════════════════════
+// C++ MODULES
+// ═══════════════════════════════════════════════════════════════
+
+export const CPP_MODULES: Module[] = [
+  {
+    id: "cpp-1",
+    title: "⚡ C++ Basics",
+    subtitle: "From Python to C++ · 从Python到C++",
+    icon: "⚡",
+    color: "from-blue-500 to-indigo-600",
+    lessons: ["cpp-1-1", "cpp-1-2", "cpp-1-3", "cpp-1-4", "cpp-1-5", "cpp-1-6"],
+  },
+  {
+    id: "cpp-2",
+    title: "🔀 Control Flow",
+    subtitle: "Decisions and loops with braces · 用花括号控制流程",
+    icon: "🔀",
+    color: "from-emerald-500 to-teal-600",
+    lessons: ["cpp-2-1", "cpp-2-2", "cpp-2-3", "cpp-2-4"],
+  },
+  {
+    id: "cpp-3",
+    title: "📦 Functions & Arrays",
+    subtitle: "Typed functions, arrays, vectors · 类型化函数、数组和向量",
+    icon: "📦",
+    color: "from-orange-500 to-amber-600",
+    lessons: ["cpp-3-1", "cpp-3-2", "cpp-3-3", "cpp-3-4"],
+  },
+  {
+    id: "cpp-4",
+    title: "🔗 Pointers & OOP",
+    subtitle: "Memory and object-oriented programming · 指针与面向对象",
+    icon: "🔗",
+    color: "from-red-500 to-rose-600",
+    lessons: ["cpp-4-1", "cpp-4-2", "cpp-4-3", "cpp-4-4"],
+  },
+  {
+    id: "cpp-5",
+    title: "🧰 STL Power",
+    subtitle: "Standard Template Library mastery · STL标准模板库",
+    icon: "🧰",
+    color: "from-purple-500 to-violet-600",
+    lessons: ["cpp-5-1", "cpp-5-2", "cpp-5-3"],
+  },
+  {
+    id: "cpp-6",
+    title: "🏆 Competition Prep",
+    subtitle: "Competitive programming skills · 竞赛编程技巧",
+    icon: "🏆",
+    color: "from-yellow-500 to-orange-600",
+    lessons: ["cpp-6-1", "cpp-6-2", "cpp-6-3"],
+  },
+];
+
+// ═══════════════════════════════════════════════════════════════
+// MODULE CPP-1: C++ BASICS — 从Python到C++ (6 lessons, EXTRA DETAILED)
+// ═══════════════════════════════════════════════════════════════
+
+const cpp_1_1: Lesson = {
+  id: "cpp-1-1",
+  moduleId: "cpp-1",
+  title: "Welcome to C++! Hello, Compiler!",
+  subtitle: "Your first C++ program · 你的第一个C++程序",
+  icon: "👋",
+  xp: 150,
+  duration: "25 min",
+  order: 1,
+  gradeRange: [9, 12],
+  difficulty: "beginner",
+  skillLevel: "beginner",
+  sections: [
+    {
+      type: "text",
+      emoji: "⚡",
+      content: `# Welcome to C++! 欢迎来到C++！
+
+⚡ **Volt says:** "Hey there! You already know Python — awesome! Now let's learn C++, one of the most powerful programming languages ever created."
+
+🐍 **Py says:** "Don't worry, I'll be here to remind you how we did things in Python. You'll see — a lot of the *logic* is the same, just the *syntax* is different!"
+
+## Why C++? 为什么学C++？
+
+C++ is used for:
+- 🎮 **Game engines** (Unreal Engine, Unity internals)
+- 💻 **Operating systems** (Windows, macOS, Linux)
+- 🏎️ **Competitive programming** (USACO, Codeforces, IOI)
+- 🤖 **Robotics & embedded systems**
+- 🚀 **High-performance applications** (10-100x faster than Python!)
+
+🔧 **Chip says:** "C++ gives you direct control over memory and hardware. Python is like driving an automatic car; C++ is like driving a manual — more control, more power, but you need to learn more!"`,
+    },
+    {
+      type: "text",
+      emoji: "🔄",
+      content: `# Compiled vs Interpreted · 编译 vs 解释
+
+## 🐍 Python (Interpreted 解释型)
+You write code → Python reads it line by line → runs it immediately.
+\`\`\`
+python my_program.py  →  runs directly!
+\`\`\`
+
+## ⚡ C++ (Compiled 编译型)
+You write code → **Compiler** translates it to machine code → THEN you run it.
+\`\`\`
+g++ my_program.cpp -o my_program  →  creates executable
+./my_program                       →  runs the executable
+\`\`\`
+
+⚡ **Volt says:** "The extra compilation step is why C++ is SO fast. The compiler optimizes your code into machine language that the CPU understands directly!"
+
+🔧 **Chip says:** "Think of it this way: Python is like having a translator speaking for you in real-time. C++ is like translating the whole book first — takes time upfront, but then reading is instant!"`,
+    },
+    {
+      type: "code",
+      emoji: "📝",
+      content: `# Your First C++ Program · 你的第一个C++程序
+
+Let's compare the classic "Hello, World!" in both languages:
+
+## 🐍 In Python:
+\`\`\`python
+print("Hello, World!")
+\`\`\`
+That's it. One line. Simple.
+
+## ⚡ In C++:`,
+      code: `#include <iostream>
+using namespace std;
+
+int main() {
+    cout << "Hello, World!" << endl;
+    return 0;
+}`,
+    },
+    {
+      type: "text",
+      emoji: "🔬",
+      content: `# Line-by-Line Breakdown · 逐行解析
+
+Let's understand every single line:
+
+| Line | What it does | 中文解释 |
+|------|-------------|---------|
+| \`#include <iostream>\` | Import the input/output library | 导入输入输出库 |
+| \`using namespace std;\` | Use the standard namespace (so we can write \`cout\` instead of \`std::cout\`) | 使用标准命名空间 |
+| \`int main() {\` | The main function — every C++ program starts here | 主函数，程序从这里开始 |
+| \`cout << "Hello, World!" << endl;\` | Print text to the screen | 输出文字到屏幕 |
+| \`return 0;\` | Tell the OS the program finished successfully | 告诉系统程序成功结束 |
+| \`}\` | End of main function | 主函数结束 |
+
+🐍 **Py says:** "In Python, the program just runs top to bottom. In C++, everything must be inside \`main()\`. Think of \`main()\` as the starting gate!"
+
+⚡ **Volt says:** "The \`#include\` is like Python's \`import\`. And \`return 0\` means 'everything went fine!' — it's like giving a thumbs up to the operating system."`,
+    },
+    {
+      type: "code",
+      emoji: "🖨️",
+      content: `# cout — Your New print() · cout是你的新print()
+
+## 🐍 In Python:
+\`\`\`python
+print("Hello")
+print("My name is", "Py")
+print("Age:", 15)
+\`\`\`
+
+## ⚡ In C++:
+\`cout\` uses the \`<<\` operator (think of it as an arrow pointing where the text goes):`,
+      code: `#include <iostream>
+using namespace std;
+
+int main() {
+    cout << "Hello" << endl;
+    cout << "My name is " << "Volt" << endl;
+    cout << "Age: " << 15 << endl;
+    
+    // You can chain multiple items with <<
+    cout << "I am " << 15 << " years old and love " << "C++" << endl;
+    
+    // endl = end line (like pressing Enter)
+    // You can also use \\n inside strings:
+    cout << "Line 1\\nLine 2\\nLine 3\\n";
+    
+    return 0;
+}`,
+    },
+    {
+      type: "text",
+      emoji: "⚠️",
+      content: `# What Could Go Wrong? · 常见错误
+
+## ❌ Error 1: Missing semicolon 忘记分号
+\`\`\`cpp
+cout << "Hello" << endl   // ERROR! Missing ;
+\`\`\`
+**Fix:** Every statement in C++ ends with \`;\` (semicolon). Python doesn't need this!
+
+## ❌ Error 2: Missing #include 忘记包含头文件
+\`\`\`cpp
+int main() {
+    cout << "Hello";  // ERROR! cout is not declared
+    return 0;
+}
+\`\`\`
+**Fix:** Add \`#include <iostream>\` at the top.
+
+## ❌ Error 3: Wrong quotes 引号错误
+\`\`\`cpp
+cout << 'Hello';  // ERROR! Single quotes are for single characters only
+\`\`\`
+**Fix:** Use double quotes \`"Hello"\` for strings. Single quotes \`'H'\` are only for one character.
+
+## ❌ Error 4: Missing return 忘记return
+\`\`\`cpp
+int main() {
+    cout << "Hello";
+    // Missing return 0; — actually this is OK in C++11+, but good practice to include it
+}
+\`\`\`
+
+🐍 **Py says:** "In Python, we never worry about semicolons or includes. C++ is pickier — but that pickiness helps catch bugs early!"`,
+    },
+    {
+      type: "interactive",
+      emoji: "🎮",
+      content: `# Try It! · 动手试试！
+
+Write a C++ program that prints your name and your favorite food on separate lines.
+
+Example output:
+\`\`\`
+My name is Alex
+My favorite food is pizza
+\`\`\``,
+      exercise: {
+        prompt: "Print your name and favorite food on separate lines",
+        promptZh: "在两行分别打印你的名字和你最喜欢的食物",
+        starterCode: `#include <iostream>
+using namespace std;
+
+int main() {
+    // Print your name here
+    
+    // Print your favorite food here
+    
+    return 0;
+}`,
+        expectedOutput: "My name is Alex\nMy favorite food is pizza",
+        hint: "Use cout << \"text\" << endl; for each line",
+        hintZh: "每行使用 cout << \"文字\" << endl;",
+        solution: `#include <iostream>
+using namespace std;
+
+int main() {
+    cout << "My name is Alex" << endl;
+    cout << "My favorite food is pizza" << endl;
+    return 0;
+}`,
+      },
+    },
+    {
+      type: "code",
+      emoji: "💬",
+      content: `# Comments in C++ · C++中的注释
+
+## 🐍 In Python:
+\`\`\`python
+# This is a comment
+"""
+This is a
+multi-line comment
+"""
+\`\`\`
+
+## ⚡ In C++:`,
+      code: `#include <iostream>
+using namespace std;
+
+int main() {
+    // This is a single-line comment (like Python's #)
+    
+    /* This is a
+       multi-line comment
+       (Python uses triple quotes) */
+    
+    cout << "Comments are ignored by the compiler!" << endl;
+    
+    // Comments help explain your code
+    // ALWAYS comment your C++ code — it's harder to read than Python!
+    
+    return 0;
+}`,
+    },
+    {
+      type: "code",
+      emoji: "🎨",
+      content: `# Multiple Output Examples · 多种输出示例
+
+Let's practice different ways to use cout:`,
+      code: `#include <iostream>
+using namespace std;
+
+int main() {
+    // Method 1: Simple text
+    cout << "Hello!" << endl;
+    
+    // Method 2: Numbers
+    cout << 42 << endl;
+    cout << 3.14 << endl;
+    
+    // Method 3: Mix text and numbers
+    cout << "The answer is " << 42 << endl;
+    
+    // Method 4: Multiple items chained
+    cout << "Pi is approximately " << 3.14159 << " and e is " << 2.71828 << endl;
+    
+    // Method 5: Using \\n instead of endl
+    cout << "Line 1\\n";
+    cout << "Line 2\\n";
+    cout << "Line 3\\n";
+    
+    // Method 6: Printing special characters
+    cout << "She said \\"Hello!\\"" << endl;  // Use \\" for quotes
+    cout << "Path: C:\\\\Users\\\\Name" << endl;  // Use \\\\ for backslash
+    cout << "Tab\\there" << endl;  // \\t for tab
+    
+    return 0;
+}`,
+    },
+    {
+      type: "quiz",
+      emoji: "🧪",
+      content: "# Quick Quiz · 小测验",
+      quiz: [
+        {
+          question: "What does `#include <iostream>` do in C++?\n`#include <iostream>` 在C++中做什么？",
+          options: [
+            "Runs the program 运行程序",
+            "Imports the input/output library 导入输入输出库",
+            "Creates a variable 创建变量",
+            "Ends the program 结束程序",
+          ],
+          correctIndex: 1,
+          explanation: "#include <iostream> imports the I/O library so we can use cout and cin. It's like Python's 'import' statement! · 它导入I/O库，这样我们才能使用cout和cin。",
+        },
+        {
+          question: "Which symbol ends every C++ statement?\n哪个符号结束每个C++语句？",
+          options: [":", ".", ";", "!"],
+          correctIndex: 2,
+          explanation: "Every C++ statement ends with a semicolon (;). This is one of the biggest differences from Python! · 每个C++语句以分号(;)结尾。这是与Python最大的区别之一！",
+        },
+        {
+          question: "What does `return 0;` mean in main()?\n在main()中 `return 0;` 是什么意思？",
+          options: [
+            "The program has an error 程序有错误",
+            "Print the number 0 打印数字0",
+            "The program finished successfully 程序成功结束",
+            "Restart the program 重启程序",
+          ],
+          correctIndex: 2,
+          explanation: "return 0 tells the operating system that the program completed without errors. Non-zero values indicate errors. · return 0 告诉操作系统程序无错误完成。",
+        },
+      ],
+    },
+  ],
+};
+
+const cpp_1_2: Lesson = {
+  id: "cpp-1-2",
+  moduleId: "cpp-1",
+  title: "Types are Serious Business",
+  subtitle: "Static typing in C++ · C++的静态类型系统",
+  icon: "🏷️",
+  xp: 150,
+  duration: "30 min",
+  order: 2,
+  gradeRange: [9, 12],
+  difficulty: "beginner",
+  skillLevel: "beginner",
+  sections: [
+    {
+      type: "text",
+      emoji: "🏷️",
+      content: `# Types Matter in C++! · 类型在C++中很重要！
+
+⚡ **Volt says:** "In C++, every variable has a TYPE, and you must declare it. No exceptions!"
+
+🐍 **Py says:** "In Python, we just write \`x = 5\` and Python figures out it's an integer. In C++, you must TELL the compiler what type each variable is."
+
+## 🐍 In Python (Dynamic Typing 动态类型):
+\`\`\`python
+x = 5           # Python knows it's an int
+x = "hello"     # Now it's a string — Python is fine with this!
+x = 3.14        # Now it's a float — no problem!
+\`\`\`
+
+## ⚡ In C++ (Static Typing 静态类型):
+\`\`\`cpp
+int x = 5;          // x is an integer — FOREVER
+x = "hello";        // ❌ ERROR! Can't put a string in an int variable
+x = 3.14;           // ⚠️ Converts to 3 (truncates decimal)
+\`\`\`
+
+🔧 **Chip says:** "Static typing makes C++ faster because the compiler knows exactly how much memory each variable needs. No guessing at runtime!"`,
+    },
+    {
+      type: "code",
+      emoji: "📊",
+      content: `# The Basic Types · 基本数据类型
+
+Here are the C++ types you'll use most:`,
+      code: `#include <iostream>
+#include <string>
+using namespace std;
+
+int main() {
+    // Integer types 整数类型
+    int age = 16;                    // Whole numbers: -2billion to +2billion
+    long long bigNum = 9000000000LL; // Really big numbers (for competitive programming!)
+    
+    // Floating point types 浮点类型
+    double pi = 3.14159;             // Decimal numbers (most common)
+    float piF = 3.14f;              // Less precise, rarely used
+    
+    // Character type 字符类型
+    char grade = 'A';               // Single character (use single quotes!)
+    char newline = '\\n';            // Special characters work too
+    
+    // Boolean type 布尔类型
+    bool isStudent = true;          // true or false (like Python's True/False)
+    bool isTired = false;
+    
+    // String type 字符串类型
+    string name = "Volt";           // Text (use double quotes!)
+    string empty = "";              // Empty string
+    
+    // Print them all
+    cout << "Age: " << age << endl;
+    cout << "Big number: " << bigNum << endl;
+    cout << "Pi: " << pi << endl;
+    cout << "Grade: " << grade << endl;
+    cout << "Is student? " << isStudent << endl;  // Prints 1 (true) or 0 (false)
+    cout << "Name: " << name << endl;
+    
+    return 0;
+}`,
+    },
+    {
+      type: "text",
+      emoji: "📏",
+      content: `# Type Sizes & Ranges · 类型大小和范围
+
+| C++ Type | Size | Range | Python Equivalent |
+|----------|------|-------|-------------------|
+| \`int\` | 4 bytes | ±2.1 billion | \`int\` (but Python int has no limit!) |
+| \`long long\` | 8 bytes | ±9.2 quintillion | \`int\` (for big numbers) |
+| \`double\` | 8 bytes | ±1.7×10³⁰⁸ | \`float\` |
+| \`char\` | 1 byte | -128 to 127 (or a character) | No direct equivalent |
+| \`bool\` | 1 byte | true/false | \`bool\` (True/False) |
+| \`string\` | varies | any text | \`str\` |
+
+🔧 **Chip says:** "In Python, an integer can be infinitely large. In C++, \`int\` maxes out at about 2.1 billion. For competitive programming, use \`long long\` when numbers might be big!"
+
+⚡ **Volt says:** "Pro tip: When in doubt about size, use \`long long\` for integers and \`double\` for decimals."`,
+    },
+    {
+      type: "code",
+      emoji: "📝",
+      content: `# Declaring Variables · 声明变量
+
+Multiple ways to create variables in C++:`,
+      code: `#include <iostream>
+#include <string>
+using namespace std;
+
+int main() {
+    // Method 1: Declare and initialize (most common)
+    int x = 10;
+    double price = 9.99;
+    string greeting = "Hello";
+    
+    // Method 2: Declare first, assign later
+    int y;          // y exists but has GARBAGE value (undefined!)
+    y = 20;         // Now y has a value
+    
+    // Method 3: Multiple variables of same type
+    int a = 1, b = 2, c = 3;
+    
+    // Method 4: const — value cannot change (like Python's convention for CONSTANTS)
+    const double PI = 3.14159;
+    const int MAX_SCORE = 100;
+    // PI = 3.0;  // ❌ ERROR! Cannot modify a const
+    
+    // Method 5: auto — let the compiler figure out the type (C++11)
+    auto num = 42;           // compiler knows it's int
+    auto text = string("hi"); // compiler knows it's string
+    
+    cout << "x = " << x << ", y = " << y << endl;
+    cout << "a = " << a << ", b = " << b << ", c = " << c << endl;
+    cout << "PI = " << PI << endl;
+    
+    return 0;
+}`,
+    },
+    {
+      type: "text",
+      emoji: "⚠️",
+      content: `# Common Type Mistakes · 常见类型错误
+
+## ❌ Mistake 1: Using uninitialized variables
+\`\`\`cpp
+int x;           // x has GARBAGE value!
+cout << x;       // Might print -8573629 or anything random
+\`\`\`
+🐍 **Py says:** "In Python, you can't use a variable before assigning it. C++ lets you — but the value is garbage!"
+
+## ❌ Mistake 2: Integer overflow
+\`\`\`cpp
+int x = 2147483647;  // Maximum int value
+x = x + 1;           // OVERFLOW! x becomes -2147483648
+\`\`\`
+**Fix:** Use \`long long\` for big numbers.
+
+## ❌ Mistake 3: Wrong quotes
+\`\`\`cpp
+char c = "A";     // ❌ ERROR! Double quotes = string, not char
+char c = 'A';     // ✅ Correct! Single quotes for char
+string s = 'Hi';  // ❌ ERROR! Single quotes = char, not string
+string s = "Hi";  // ✅ Correct! Double quotes for string
+\`\`\`
+
+## ❌ Mistake 4: Forgetting #include <string>
+\`\`\`cpp
+string name = "Volt";  // Might work or might not without #include <string>
+\`\`\`
+**Fix:** Always \`#include <string>\` when using strings.`,
+    },
+    {
+      type: "code",
+      emoji: "🔄",
+      content: `# Type Conversion · 类型转换
+
+## 🐍 In Python:
+\`\`\`python
+x = int("42")      # string to int
+y = float(10)       # int to float
+z = str(3.14)       # number to string
+\`\`\`
+
+## ⚡ In C++:`,
+      code: `#include <iostream>
+#include <string>
+using namespace std;
+
+int main() {
+    // Implicit conversion (automatic) 隐式转换
+    int a = 5;
+    double b = a;       // int → double: 5 becomes 5.0 (safe!)
+    cout << "b = " << b << endl;
+    
+    int c = 3.99;       // double → int: 3.99 becomes 3 (truncated! ⚠️)
+    cout << "c = " << c << endl;
+    
+    // Explicit casting (you ask for it) 显式转换
+    double pi = 3.14159;
+    int rounded = (int)pi;              // C-style cast: 3
+    int rounded2 = static_cast<int>(pi); // C++ style cast (preferred): 3
+    cout << "rounded = " << rounded << endl;
+    
+    // String conversions 字符串转换
+    string numStr = "42";
+    int num = stoi(numStr);       // string to int (stoi = string to integer)
+    double dec = stod("3.14");    // string to double
+    string back = to_string(num); // int to string
+    
+    cout << "num = " << num << endl;
+    cout << "dec = " << dec << endl;
+    cout << "back = " << back << endl;
+    
+    // char is actually a number!
+    char letter = 'A';
+    int ascii = letter;            // 'A' = 65
+    cout << "ASCII of A = " << ascii << endl;
+    
+    return 0;
+}`,
+    },
+    {
+      type: "interactive",
+      emoji: "🎮",
+      content: `# Try It! · 动手试试！
+
+Declare variables of different types and print them. Create:
+- An int for your age
+- A double for your height in meters
+- A string for your name
+- A bool for whether you like C++`,
+      exercise: {
+        prompt: "Declare and print variables of different types",
+        promptZh: "声明并打印不同类型的变量",
+        starterCode: `#include <iostream>
+#include <string>
+using namespace std;
+
+int main() {
+    // Declare your variables here
+    
+    
+    // Print them
+    
+    
+    return 0;
+}`,
+        expectedOutput: "Name: Alex\nAge: 16\nHeight: 1.75\nLikes C++: 1",
+        hint: "Use int, double, string, and bool. Print with cout <<",
+        hintZh: "使用 int, double, string 和 bool。用 cout << 打印",
+        solution: `#include <iostream>
+#include <string>
+using namespace std;
+
+int main() {
+    string name = "Alex";
+    int age = 16;
+    double height = 1.75;
+    bool likesCpp = true;
+    
+    cout << "Name: " << name << endl;
+    cout << "Age: " << age << endl;
+    cout << "Height: " << height << endl;
+    cout << "Likes C++: " << likesCpp << endl;
+    
+    return 0;
+}`,
+      },
+    },
+    {
+      type: "code",
+      emoji: "🧮",
+      content: `# Type Comparison Cheat Sheet · 类型对比速查表
+
+Side-by-side comparison of Python vs C++ variable declarations:`,
+      code: `#include <iostream>
+#include <string>
+using namespace std;
+
+int main() {
+    // Python: x = 10          →  C++: int x = 10;
+    int x = 10;
+    
+    // Python: pi = 3.14       →  C++: double pi = 3.14;
+    double pi = 3.14;
+    
+    // Python: name = "Volt"   →  C++: string name = "Volt";
+    string name = "Volt";
+    
+    // Python: is_cool = True  →  C++: bool isCool = true;
+    bool isCool = true;
+    
+    // Python: letter = "A"    →  C++: char letter = 'A'; (single char!)
+    char letter = 'A';
+    
+    // Python: big = 10**18    →  C++: long long big = 1e18;
+    long long big = 1000000000000000000LL;
+    
+    // Python: CONSTANT = 42   →  C++: const int CONSTANT = 42;
+    const int CONSTANT = 42;
+    
+    cout << "All types working!" << endl;
+    cout << x << " " << pi << " " << name << " " 
+         << isCool << " " << letter << " " << big << endl;
+    
+    return 0;
+}`,
+    },
+    {
+      type: "quiz",
+      emoji: "🧪",
+      content: "# Quick Quiz · 小测验",
+      quiz: [
+        {
+          question: "What happens when you write `int x = 3.99;` in C++?\n当你写 `int x = 3.99;` 时会发生什么？",
+          options: [
+            "x becomes 4 (rounds up) · x变成4（向上取整）",
+            "x becomes 3 (truncates) · x变成3（截断）",
+            "Compilation error · 编译错误",
+            "x becomes 3.99 · x变成3.99",
+          ],
+          correctIndex: 1,
+          explanation: "C++ truncates (cuts off) the decimal part. 3.99 becomes 3, not 4! This is called narrowing conversion. · C++截断小数部分，3.99变成3，不是4！",
+        },
+        {
+          question: "Which type should you use for very large numbers in competitive programming?\n竞赛编程中处理很大的数应该用什么类型？",
+          options: ["int", "double", "long long", "char"],
+          correctIndex: 2,
+          explanation: "long long can hold numbers up to about 9.2 × 10¹⁸, while int maxes out at about 2.1 billion. · long long可以存储约9.2×10¹⁸的数字。",
+        },
+        {
+          question: "What's wrong with: `char c = \"A\";`?\n这行代码有什么问题？",
+          options: [
+            "Nothing, it's correct · 没问题",
+            "Double quotes should be single quotes for char · 双引号应该是单引号",
+            "char can't hold letters · char不能存字母",
+            "Missing semicolon · 缺少分号",
+          ],
+          correctIndex: 1,
+          explanation: "In C++, single quotes 'A' are for char (one character). Double quotes \"A\" create a string. · 单引号用于char，双引号用于string。",
+        },
+      ],
+    },
+  ],
+};
+
+const cpp_1_3: Lesson = {
+  id: "cpp-1-3",
+  moduleId: "cpp-1",
+  title: "Input & Output Mastery",
+  subtitle: "cin, cout, and formatting · 输入输出与格式化",
+  icon: "⌨️",
+  xp: 150,
+  duration: "25 min",
+  order: 3,
+  gradeRange: [9, 12],
+  difficulty: "beginner",
+  skillLevel: "beginner",
+  sections: [
+    {
+      type: "text",
+      emoji: "⌨️",
+      content: `# Input in C++ · C++中的输入
+
+🐍 **Py says:** "In Python, \`input()\` always returns a string and we convert it. Let's see how C++ handles input!"
+
+⚡ **Volt says:** "In C++, \`cin >>\` reads input and automatically converts it to the variable's type. No need for int() or float() conversion!"
+
+## 🐍 In Python:
+\`\`\`python
+name = input("Enter your name: ")        # Always returns string
+age = int(input("Enter your age: "))      # Must convert to int
+height = float(input("Enter height: "))   # Must convert to float
+\`\`\`
+
+## ⚡ In C++:
+\`\`\`cpp
+string name;
+int age;
+double height;
+
+cout << "Enter your name: ";
+cin >> name;          // Reads a word (stops at space!)
+cout << "Enter your age: ";
+cin >> age;           // Automatically reads as int
+cout << "Enter height: ";
+cin >> height;        // Automatically reads as double
+\`\`\`
+
+⚠️ **BIG DIFFERENCE:** \`cin >> name\` only reads ONE WORD! It stops at spaces. To read a full line, use \`getline()\`.`,
+    },
+    {
+      type: "code",
+      emoji: "📥",
+      content: `# cin Basics · cin基础
+
+Let's see cin in action:`,
+      code: `#include <iostream>
+#include <string>
+using namespace std;
+
+int main() {
+    // Reading different types
+    int age;
+    double gpa;
+    string name;
+    
+    cout << "Enter your age: ";
+    cin >> age;
+    
+    cout << "Enter your GPA: ";
+    cin >> gpa;
+    
+    cout << "Enter your first name: ";
+    cin >> name;
+    
+    cout << "\\n--- Your Info ---" << endl;
+    cout << "Name: " << name << endl;
+    cout << "Age: " << age << endl;
+    cout << "GPA: " << gpa << endl;
+    
+    // Reading multiple values on one line
+    int a, b, c;
+    cout << "\\nEnter 3 numbers separated by spaces: ";
+    cin >> a >> b >> c;
+    cout << "Sum = " << a + b + c << endl;
+    
+    return 0;
+}`,
+    },
+    {
+      type: "code",
+      emoji: "📜",
+      content: `# getline() — Read Full Lines · 读取整行
+
+The #1 gotcha with cin: it stops at spaces! Use getline() for full lines.
+
+## 🐍 In Python:
+\`\`\`python
+sentence = input("Enter a sentence: ")  # Reads the whole line
+\`\`\`
+
+## ⚡ In C++:`,
+      code: `#include <iostream>
+#include <string>
+using namespace std;
+
+int main() {
+    string fullName;
+    
+    // Method 1: getline reads the ENTIRE line
+    cout << "Enter your full name: ";
+    getline(cin, fullName);
+    cout << "Hello, " << fullName << "!" << endl;
+    
+    // ⚠️ TRICKY: Mixing cin >> and getline()
+    int age;
+    string hobby;
+    
+    cout << "Enter your age: ";
+    cin >> age;
+    cin.ignore();  // IMPORTANT! Clear the leftover newline character
+    
+    cout << "Enter your hobby: ";
+    getline(cin, hobby);  // Without cin.ignore(), this would read an empty string!
+    
+    cout << "You are " << age << " and you like " << hobby << endl;
+    
+    return 0;
+}`,
+    },
+    {
+      type: "text",
+      emoji: "⚠️",
+      content: `# The cin.ignore() Trap · cin.ignore()陷阱
+
+This is the #1 bug beginners hit when mixing \`cin >>\` and \`getline()\`:
+
+## What happens without cin.ignore():
+\`\`\`
+Enter your age: 16↵     ← You type 16 and press Enter
+Enter your hobby:        ← SKIPPED! getline reads the leftover ↵
+\`\`\`
+
+## Why? 为什么？
+When you type \`16\` and press Enter, \`cin >> age\` reads \`16\` but leaves the Enter key (\`\\n\`) in the buffer. Then \`getline()\` sees that \`\\n\` and thinks you entered an empty line!
+
+## The Fix: 解决方法
+\`\`\`cpp
+cin >> age;
+cin.ignore();        // Throw away the leftover \\n
+getline(cin, hobby); // Now this works correctly!
+\`\`\`
+
+🐍 **Py says:** "Python's input() never has this problem because it always reads the full line. This is one of those C++ quirks you just have to remember!"`,
+    },
+    {
+      type: "code",
+      emoji: "🎨",
+      content: `# Output Formatting · 输出格式化
+
+## 🐍 In Python:
+\`\`\`python
+print(f"Price: \${price:.2f}")
+print(f"{'Name':<10} {'Score':>5}")
+\`\`\`
+
+## ⚡ In C++:`,
+      code: `#include <iostream>
+#include <iomanip>  // Required for formatting!
+using namespace std;
+
+int main() {
+    double pi = 3.14159265358979;
+    double price = 9.5;
+    
+    // Fixed decimal places (like Python's :.2f)
+    cout << fixed << setprecision(2);
+    cout << "Price: $" << price << endl;       // $9.50
+    cout << "Pi: " << pi << endl;              // 3.14
+    
+    // Reset to default
+    cout << defaultfloat;
+    cout << "Pi default: " << pi << endl;      // 3.14159
+    
+    // Set width (like Python's format alignment)
+    cout << "--- Score Table ---" << endl;
+    cout << left << setw(10) << "Name" << right << setw(5) << "Score" << endl;
+    cout << left << setw(10) << "Alice" << right << setw(5) << 95 << endl;
+    cout << left << setw(10) << "Bob" << right << setw(5) << 87 << endl;
+    cout << left << setw(10) << "Charlie" << right << setw(5) << 92 << endl;
+    
+    // Fill character
+    cout << setfill('*') << setw(20) << "" << endl;  // ********************
+    cout << setfill('-') << setw(20) << "" << endl;  // --------------------
+    
+    return 0;
+}`,
+    },
+    {
+      type: "interactive",
+      emoji: "🎮",
+      content: `# Try It! · 动手试试！
+
+Write a program that reads two numbers and prints their sum, difference, product, and quotient (with 2 decimal places).`,
+      exercise: {
+        prompt: "Read two numbers and print arithmetic results",
+        promptZh: "读取两个数字并打印四则运算结果",
+        starterCode: `#include <iostream>
+#include <iomanip>
+using namespace std;
+
+int main() {
+    double a, b;
+    cout << "Enter two numbers: ";
+    cin >> a >> b;
+    
+    // Print sum, difference, product, quotient
+    
+    
+    return 0;
+}`,
+        expectedOutput: "Sum: 15.00\nDifference: 5.00\nProduct: 50.00\nQuotient: 2.00",
+        hint: "Use fixed << setprecision(2) for formatting, then cout for each operation",
+        hintZh: "使用 fixed << setprecision(2) 格式化，然后用cout输出每个运算",
+        solution: `#include <iostream>
+#include <iomanip>
+using namespace std;
+
+int main() {
+    double a, b;
+    cout << "Enter two numbers: ";
+    cin >> a >> b;
+    
+    cout << fixed << setprecision(2);
+    cout << "Sum: " << a + b << endl;
+    cout << "Difference: " << a - b << endl;
+    cout << "Product: " << a * b << endl;
+    cout << "Quotient: " << a / b << endl;
+    
+    return 0;
+}`,
+      },
+    },
+    {
+      type: "code",
+      emoji: "🔄",
+      content: `# Input/Output Comparison Summary · 输入输出对比总结`,
+      code: `#include <iostream>
+#include <string>
+#include <iomanip>
+using namespace std;
+
+int main() {
+    // === INPUT COMPARISON ===
+    // Python: name = input()         →  C++: getline(cin, name);
+    // Python: n = int(input())       →  C++: cin >> n;  (auto-converts)
+    // Python: x = float(input())     →  C++: cin >> x;  (auto-converts)
+    
+    // === OUTPUT COMPARISON ===
+    // Python: print("hi")            →  C++: cout << "hi" << endl;
+    // Python: print(x, y)            →  C++: cout << x << " " << y << endl;
+    // Python: print(f"{x:.2f}")      →  C++: cout << fixed << setprecision(2) << x;
+    // Python: print(end="")          →  C++: cout << "no newline";
+    // Python: print("a", end=" ")    →  C++: cout << "a" << " ";
+    
+    cout << "Comparison complete!" << endl;
+    return 0;
+}`,
+    },
+    {
+      type: "quiz",
+      emoji: "🧪",
+      content: "# Quiz Time · 测验时间",
+      quiz: [
+        {
+          question: "What does `cin >> name` do if you type 'John Smith'?\n如果你输入'John Smith'，`cin >> name`会怎样？",
+          options: [
+            "Reads 'John Smith' · 读取'John Smith'",
+            "Reads 'John' only · 只读取'John'",
+            "Error · 报错",
+            "Reads 'Smith' only · 只读取'Smith'",
+          ],
+          correctIndex: 1,
+          explanation: "cin >> stops at whitespace (spaces, tabs, newlines). To read a full line, use getline(cin, name). · cin >>在空白处停止，要读整行请用getline。",
+        },
+        {
+          question: "When do you need `cin.ignore()`?\n什么时候需要`cin.ignore()`？",
+          options: [
+            "Before every cin · 每次cin之前",
+            "After cin >> before getline() · 在cin >>之后getline()之前",
+            "After getline() · 在getline()之后",
+            "Never · 从不需要",
+          ],
+          correctIndex: 1,
+          explanation: "cin.ignore() clears the leftover newline after cin >> so that getline() works correctly. · cin.ignore()清除cin >>后残留的换行符。",
+        },
+      ],
+    },
+  ],
+};
+
+const cpp_1_4: Lesson = {
+  id: "cpp-1-4",
+  moduleId: "cpp-1",
+  title: "Math & Operators",
+  subtitle: "Arithmetic, casting, and operators · 算术、转换和运算符",
+  icon: "🧮",
+  xp: 150,
+  duration: "25 min",
+  order: 4,
+  gradeRange: [9, 12],
+  difficulty: "beginner",
+  skillLevel: "beginner",
+  sections: [
+    {
+      type: "text",
+      emoji: "🧮",
+      content: `# Math in C++ · C++中的数学
+
+⚡ **Volt says:** "Most math operators are the same as Python, but there are some important differences — especially with integer division!"
+
+## Quick Comparison:
+
+| Operation | Python | C++ | Notes |
+|-----------|--------|-----|-------|
+| Add | \`a + b\` | \`a + b\` | Same! |
+| Subtract | \`a - b\` | \`a - b\` | Same! |
+| Multiply | \`a * b\` | \`a * b\` | Same! |
+| Divide | \`a / b\` | \`a / b\` | ⚠️ DIFFERENT for ints! |
+| Modulo | \`a % b\` | \`a % b\` | Same! |
+| Power | \`a ** b\` | \`pow(a, b)\` | Need \`#include <cmath>\` |
+| Floor divide | \`a // b\` | \`a / b\` (int) | C++ int division IS floor division |`,
+    },
+    {
+      type: "code",
+      emoji: "⚠️",
+      content: `# Integer Division — The Big Difference! · 整数除法的大区别！
+
+## 🐍 In Python:
+\`\`\`python
+print(7 / 2)    # 3.5 (always float division)
+print(7 // 2)   # 3   (floor division)
+\`\`\`
+
+## ⚡ In C++:`,
+      code: `#include <iostream>
+#include <cmath>
+using namespace std;
+
+int main() {
+    // Integer division — TRUNCATES in C++!
+    cout << "=== Integer Division ===" << endl;
+    cout << "7 / 2 = " << 7 / 2 << endl;         // 3 (not 3.5!)
+    cout << "10 / 3 = " << 10 / 3 << endl;        // 3
+    cout << "-7 / 2 = " << -7 / 2 << endl;        // -3 (truncates toward zero)
+    
+    // To get decimal division, at least one operand must be double
+    cout << "\\n=== Decimal Division ===" << endl;
+    cout << "7.0 / 2 = " << 7.0 / 2 << endl;     // 3.5
+    cout << "7 / 2.0 = " << 7 / 2.0 << endl;     // 3.5
+    
+    int a = 7, b = 2;
+    cout << "(double)a / b = " << (double)a / b << endl;  // 3.5
+    
+    // Modulo (remainder)
+    cout << "\\n=== Modulo ===" << endl;
+    cout << "7 % 2 = " << 7 % 2 << endl;          // 1
+    cout << "10 % 3 = " << 10 % 3 << endl;        // 1
+    
+    // Power — use pow() from <cmath>
+    cout << "\\n=== Power ===" << endl;
+    cout << "2^10 = " << pow(2, 10) << endl;       // 1024
+    cout << "3^4 = " << pow(3, 4) << endl;         // 81
+    
+    return 0;
+}`,
+    },
+    {
+      type: "code",
+      emoji: "➕",
+      content: `# Increment & Decrement — Python Doesn't Have These! · 自增自减
+
+## 🐍 In Python:
+\`\`\`python
+x = 5
+x += 1  # x is now 6
+x -= 1  # x is now 5
+\`\`\`
+
+## ⚡ In C++: (has shortcuts!)`,
+      code: `#include <iostream>
+using namespace std;
+
+int main() {
+    int x = 5;
+    
+    // Compound assignment (same as Python)
+    x += 3;    // x = x + 3  → x is 8
+    x -= 2;    // x = x - 2  → x is 6
+    x *= 4;    // x = x * 4  → x is 24
+    x /= 6;    // x = x / 6  → x is 4
+    x %= 3;    // x = x % 3  → x is 1
+    
+    cout << "After compound ops: x = " << x << endl;
+    
+    // C++ EXCLUSIVE: ++ and --
+    int y = 10;
+    y++;       // y = y + 1  → y is 11
+    y--;       // y = y - 1  → y is 10
+    ++y;       // y = y + 1  → y is 11 (prefix)
+    --y;       // y = y - 1  → y is 10 (prefix)
+    
+    cout << "y = " << y << endl;
+    
+    // Pre vs Post increment (tricky!)
+    int a = 5;
+    cout << "a++ = " << a++ << endl;   // Prints 5, THEN increments (a becomes 6)
+    cout << "a is now " << a << endl;  // 6
+    cout << "++a = " << ++a << endl;   // Increments FIRST, then prints 7
+    
+    return 0;
+}`,
+    },
+    {
+      type: "code",
+      emoji: "🔄",
+      content: `# Type Casting in Math · 数学中的类型转换`,
+      code: `#include <iostream>
+using namespace std;
+
+int main() {
+    // Be careful with integer math!
+    int total = 7;
+    int count = 2;
+    
+    // Wrong way:
+    double avg1 = total / count;    // 3.0 (integer division happened first!)
+    
+    // Right way:
+    double avg2 = (double)total / count;  // 3.5
+    double avg3 = total * 1.0 / count;    // 3.5 (trick: multiply by 1.0)
+    
+    cout << "Wrong average: " << avg1 << endl;
+    cout << "Right average: " << avg2 << endl;
+    cout << "Trick average: " << avg3 << endl;
+    
+    // Overflow danger!
+    int bigA = 100000;
+    int bigB = 100000;
+    // int product = bigA * bigB;  // OVERFLOW! 10^10 > int max
+    long long product = (long long)bigA * bigB;  // Cast BEFORE multiply
+    cout << "Product: " << product << endl;
+    
+    return 0;
+}`,
+    },
+    {
+      type: "interactive",
+      emoji: "🎮",
+      content: `# Try It! · 动手试试！
+
+Calculate the average of 3 integers with proper decimal output.`,
+      exercise: {
+        prompt: "Read 3 integers and print their average with 2 decimal places",
+        promptZh: "读取3个整数并输出保留2位小数的平均值",
+        starterCode: `#include <iostream>
+#include <iomanip>
+using namespace std;
+
+int main() {
+    int a, b, c;
+    cin >> a >> b >> c;
+    
+    // Calculate and print average with 2 decimal places
+    
+    
+    return 0;
+}`,
+        expectedOutput: "Average: 3.33",
+        hint: "Cast to double before dividing! Use (double)(a+b+c) / 3",
+        hintZh: "除法前先转为double！使用 (double)(a+b+c) / 3",
+        solution: `#include <iostream>
+#include <iomanip>
+using namespace std;
+
+int main() {
+    int a, b, c;
+    cin >> a >> b >> c;
+    
+    double avg = (double)(a + b + c) / 3;
+    cout << fixed << setprecision(2);
+    cout << "Average: " << avg << endl;
+    
+    return 0;
+}`,
+      },
+    },
+    {
+      type: "code",
+      emoji: "📐",
+      content: `# Math Library Functions · 数学库函数
+
+## 🐍 In Python: \`import math\`
+## ⚡ In C++: \`#include <cmath>\``,
+      code: `#include <iostream>
+#include <cmath>
+using namespace std;
+
+int main() {
+    // Common math functions
+    cout << "abs(-5) = " << abs(-5) << endl;           // 5
+    cout << "sqrt(16) = " << sqrt(16) << endl;         // 4
+    cout << "pow(2, 10) = " << pow(2, 10) << endl;     // 1024
+    cout << "ceil(3.2) = " << ceil(3.2) << endl;       // 4
+    cout << "floor(3.8) = " << floor(3.8) << endl;     // 3
+    cout << "round(3.5) = " << round(3.5) << endl;     // 4
+    cout << "max(5, 3) = " << max(5, 3) << endl;       // 5
+    cout << "min(5, 3) = " << min(5, 3) << endl;       // 3
+    
+    // Useful for competitive programming:
+    cout << "log2(1024) = " << log2(1024) << endl;     // 10
+    cout << "log10(1000) = " << log10(1000) << endl;   // 3
+    
+    return 0;
+}`,
+    },
+    {
+      type: "text",
+      emoji: "🔑",
+      content: `# Operator Precedence · 运算符优先级
+
+Same as Python (and math class!):
+
+1. \`()\` — Parentheses first
+2. \`++\` \`--\` — Increment/decrement
+3. \`*\` \`/\` \`%\` — Multiply, divide, modulo
+4. \`+\` \`-\` — Add, subtract
+5. \`=\` \`+=\` \`-=\` etc. — Assignment last
+
+⚡ **Volt says:** "When in doubt, use parentheses! \`(a + b) * c\` is always clearer than \`a + b * c\`."`,
+    },
+    {
+      type: "quiz",
+      emoji: "🧪",
+      content: "# Quiz · 测验",
+      quiz: [
+        {
+          question: "What does `7 / 2` give in C++ (both are int)?\n在C++中 `7 / 2`（都是int）的结果是？",
+          options: ["3.5", "3", "4", "3.0"],
+          correctIndex: 1,
+          explanation: "Integer division in C++ truncates the decimal. 7/2 = 3, not 3.5! To get 3.5, use 7.0/2. · C++整数除法截断小数部分。",
+        },
+        {
+          question: "What does `x++` do?\n`x++`做了什么？",
+          options: [
+            "Adds 2 to x · 给x加2",
+            "Doubles x · x翻倍",
+            "Adds 1 to x · 给x加1",
+            "Error · 报错",
+          ],
+          correctIndex: 2,
+          explanation: "x++ increments x by 1. It's equivalent to x = x + 1 or x += 1. · x++相当于x = x + 1。",
+        },
+      ],
+    },
+  ],
+};
+
+const cpp_1_5: Lesson = {
+  id: "cpp-1-5",
+  moduleId: "cpp-1",
+  title: "Strings: Not as Easy as Python",
+  subtitle: "C++ strings vs Python strings · C++字符串的挑战",
+  icon: "🔤",
+  xp: 150,
+  duration: "30 min",
+  order: 5,
+  gradeRange: [9, 12],
+  difficulty: "beginner",
+  skillLevel: "beginner",
+  sections: [
+    {
+      type: "text",
+      emoji: "🔤",
+      content: `# Strings in C++ · C++中的字符串
+
+🐍 **Py says:** "In Python, strings are SO easy — slicing, methods, f-strings... C++ strings are... more work."
+
+⚡ **Volt says:** "C++ has TWO kinds of strings: C-style char arrays (old school) and std::string (modern). We'll focus on std::string, which is closer to Python strings."
+
+## Key Differences:
+| Feature | Python | C++ |
+|---------|--------|-----|
+| Type | \`str\` | \`string\` (need \`#include <string>\`) |
+| Mutable? | ❌ No (immutable) | ✅ Yes (mutable!) |
+| Slicing | \`s[1:4]\` | \`s.substr(1, 3)\` (start, LENGTH not end!) |
+| Length | \`len(s)\` | \`s.length()\` or \`s.size()\` |
+| Concat | \`s1 + s2\` | \`s1 + s2\` (same!) |
+| Repeat | \`s * 3\` | No direct equivalent |
+| f-string | \`f"Hello {name}"\` | No direct equivalent (use \`+\` or stringstream) |`,
+    },
+    {
+      type: "code",
+      emoji: "📝",
+      content: `# String Basics · 字符串基础`,
+      code: `#include <iostream>
+#include <string>
+using namespace std;
+
+int main() {
+    // Creating strings
+    string s1 = "Hello";
+    string s2 = "World";
+    string s3;           // Empty string ""
+    
+    // Concatenation (same as Python!)
+    string greeting = s1 + ", " + s2 + "!";
+    cout << greeting << endl;  // Hello, World!
+    
+    // Length
+    cout << "Length: " << greeting.length() << endl;  // 13
+    // Python: len(greeting)
+    
+    // Access individual characters
+    cout << "First char: " << greeting[0] << endl;    // H
+    cout << "Last char: " << greeting[greeting.length()-1] << endl;  // !
+    // Python: greeting[0], greeting[-1]  ← C++ has NO negative indexing!
+    
+    // Modify characters (C++ strings ARE mutable!)
+    greeting[0] = 'J';
+    cout << greeting << endl;  // Jello, World!
+    // Python: Can't do this! Strings are immutable in Python.
+    
+    // String comparison
+    string a = "apple", b = "banana";
+    if (a < b) cout << a << " comes before " << b << endl;
+    // Python: same! "apple" < "banana"
+    
+    return 0;
+}`,
+    },
+    {
+      type: "code",
+      emoji: "✂️",
+      content: `# String Methods · 字符串方法
+
+## 🐍 Python vs ⚡ C++ method comparison:`,
+      code: `#include <iostream>
+#include <string>
+#include <algorithm>
+using namespace std;
+
+int main() {
+    string s = "Hello, World!";
+    
+    // Substring (Python: s[7:12] → C++: s.substr(start, length))
+    cout << s.substr(7, 5) << endl;     // World
+    // NOTE: It's (start, LENGTH), not (start, end)!
+    
+    // Find (Python: s.find("World") → same in C++!)
+    size_t pos = s.find("World");
+    cout << "Found at: " << pos << endl;  // 7
+    
+    // Not found check
+    if (s.find("xyz") == string::npos) {
+        cout << "Not found!" << endl;
+    }
+    // Python: s.find("xyz") returns -1
+    
+    // Replace
+    string s2 = s;
+    s2.replace(7, 5, "C++");  // Replace 5 chars starting at pos 7
+    cout << s2 << endl;        // Hello, C++!
+    
+    // Insert & erase
+    string s3 = "Hello World";
+    s3.insert(5, ",");         // Insert at position
+    cout << s3 << endl;        // Hello, World
+    s3.erase(5, 1);           // Erase 1 char at position 5
+    cout << s3 << endl;        // Hello World
+    
+    // Append
+    string s4 = "Hello";
+    s4.append(" World");       // or s4 += " World";
+    cout << s4 << endl;
+    
+    // Clear
+    s4.clear();
+    cout << "Empty? " << s4.empty() << endl;  // 1 (true)
+    
+    return 0;
+}`,
+    },
+    {
+      type: "code",
+      emoji: "🔡",
+      content: `# Character Operations · 字符操作
+
+C++ can manipulate individual characters easily — something Python makes harder!`,
+      code: `#include <iostream>
+#include <string>
+#include <cctype>  // Character functions
+using namespace std;
+
+int main() {
+    // Characters are numbers (ASCII)!
+    char c = 'A';
+    cout << "A as number: " << (int)c << endl;   // 65
+    cout << "A + 1 = " << (char)(c + 1) << endl; // B
+    
+    // Character checking functions from <cctype>
+    cout << "isalpha('A'): " << isalpha('A') << endl;   // non-zero (true)
+    cout << "isdigit('5'): " << isdigit('5') << endl;   // non-zero (true)
+    cout << "isspace(' '): " << isspace(' ') << endl;   // non-zero (true)
+    cout << "isupper('A'): " << isupper('A') << endl;   // non-zero (true)
+    cout << "islower('a'): " << islower('a') << endl;   // non-zero (true)
+    
+    // Convert case
+    cout << "toupper('a'): " << (char)toupper('a') << endl;  // A
+    cout << "tolower('Z'): " << (char)tolower('Z') << endl;  // z
+    
+    // Iterate over string characters
+    string word = "Hello";
+    for (int i = 0; i < word.length(); i++) {
+        cout << word[i] << " ";
+    }
+    cout << endl;  // H e l l o
+    
+    // Convert whole string to uppercase
+    string upper = "hello";
+    for (int i = 0; i < upper.length(); i++) {
+        upper[i] = toupper(upper[i]);
+    }
+    cout << upper << endl;  // HELLO
+    
+    return 0;
+}`,
+    },
+    {
+      type: "text",
+      emoji: "📊",
+      content: `# String Method Comparison Chart · 字符串方法对照表
+
+| Python | C++ | Notes |
+|--------|-----|-------|
+| \`len(s)\` | \`s.length()\` / \`s.size()\` | Both work in C++ |
+| \`s.find("x")\` | \`s.find("x")\` | Returns \`string::npos\` if not found |
+| \`s[1:4]\` | \`s.substr(1, 3)\` | C++ uses (start, LENGTH) |
+| \`s.upper()\` | Loop with \`toupper()\` | No built-in method! |
+| \`s.lower()\` | Loop with \`tolower()\` | No built-in method! |
+| \`s.replace("a","b")\` | \`s.replace(pos, len, "b")\` | C++ replaces by position |
+| \`s.split()\` | Manual parsing | No built-in split! 😱 |
+| \`",".join(list)\` | Manual building | No built-in join! |
+| \`s.strip()\` | Manual trimming | No built-in strip! |
+| \`s * 3\` | Loop or \`string(3, 'x')\` | Only for single char repeat |
+| \`f"Hi {name}"\` | \`"Hi " + name\` | No f-strings in C++ |
+| \`s in "hello"\` | \`s.find(s) != npos\` | No \`in\` operator for strings |
+
+🐍 **Py says:** "Yeah... Python strings are way more convenient. But C++ gives you more control and speed!"`,
+    },
+    {
+      type: "interactive",
+      emoji: "🎮",
+      content: `# Try It! · 动手试试！
+
+Write a program that reads a word and prints it reversed.`,
+      exercise: {
+        prompt: "Read a word and print it reversed",
+        promptZh: "读取一个单词并反向输出",
+        starterCode: `#include <iostream>
+#include <string>
+using namespace std;
+
+int main() {
+    string word;
+    cin >> word;
+    
+    // Reverse and print the word
+    
+    
+    return 0;
+}`,
+        expectedOutput: "olleH",
+        hint: "Loop from the last index to 0, printing each character",
+        hintZh: "从最后一个索引循环到0，打印每个字符",
+        solution: `#include <iostream>
+#include <string>
+using namespace std;
+
+int main() {
+    string word;
+    cin >> word;
+    
+    for (int i = word.length() - 1; i >= 0; i--) {
+        cout << word[i];
+    }
+    cout << endl;
+    
+    return 0;
+}`,
+      },
+    },
+    {
+      type: "code",
+      emoji: "🔧",
+      content: `# Useful String Patterns · 实用字符串技巧`,
+      code: `#include <iostream>
+#include <string>
+#include <sstream>  // For stringstream
+using namespace std;
+
+int main() {
+    // Count character occurrences
+    string text = "hello world";
+    int count = 0;
+    for (char c : text) {  // Range-based for loop (like Python's for c in text)
+        if (c == 'l') count++;
+    }
+    cout << "'l' appears " << count << " times" << endl;
+    
+    // Split by delimiter (manual — no built-in!)
+    string csv = "apple,banana,cherry";
+    stringstream ss(csv);
+    string token;
+    while (getline(ss, token, ',')) {
+        cout << token << endl;
+    }
+    
+    // Build a string with numbers
+    string result = "";
+    for (int i = 1; i <= 5; i++) {
+        result += to_string(i);
+        if (i < 5) result += ", ";
+    }
+    cout << result << endl;  // 1, 2, 3, 4, 5
+    
+    // Check if string starts/ends with (C++20, or manual)
+    string s = "Hello World";
+    if (s.substr(0, 5) == "Hello") {
+        cout << "Starts with Hello!" << endl;
+    }
+    if (s.substr(s.length()-5) == "World") {
+        cout << "Ends with World!" << endl;
+    }
+    
+    return 0;
+}`,
+    },
+    {
+      type: "quiz",
+      emoji: "🧪",
+      content: "# Quiz · 测验",
+      quiz: [
+        {
+          question: "What does `s.substr(2, 3)` return if s = \"Hello\"?\n如果s = \"Hello\"，`s.substr(2, 3)`返回什么？",
+          options: ["\"llo\"", "\"ll\"", "\"lo\"", "\"el\""],
+          correctIndex: 0,
+          explanation: "substr(2, 3) means: start at index 2, take 3 characters → 'l', 'l', 'o' = \"llo\". Remember: it's (start, LENGTH) not (start, end)! · substr(2,3)从索引2开始取3个字符。",
+        },
+        {
+          question: "Can you do `s[0] = 'X'` in C++?\n在C++中可以写 `s[0] = 'X'` 吗？",
+          options: [
+            "No, strings are immutable · 不行，字符串不可变",
+            "Yes, C++ strings are mutable! · 可以，C++字符串可变！",
+            "Only for char arrays · 只对字符数组可以",
+            "Only with const · 只能用const",
+          ],
+          correctIndex: 1,
+          explanation: "Unlike Python, C++ strings ARE mutable! You can change individual characters. · 与Python不同，C++字符串是可变的！",
+        },
+      ],
+    },
+  ],
+};
+
+const cpp_1_6: Lesson = {
+  id: "cpp-1-6",
+  moduleId: "cpp-1",
+  title: "Your First C++ Projects",
+  subtitle: "Mini projects combining basics · 综合小项目",
+  icon: "🚀",
+  xp: 200,
+  duration: "30 min",
+  order: 6,
+  gradeRange: [9, 12],
+  difficulty: "beginner",
+  skillLevel: "beginner",
+  sections: [
+    {
+      type: "text",
+      emoji: "🚀",
+      content: `# Time to Build! · 动手做项目！
+
+⚡ **Volt says:** "You've learned the basics — variables, types, I/O, math, and strings. Now let's combine everything into real mini-projects!"
+
+🐍 **Py says:** "I'll show you the Python version first so you can see how the logic translates."
+
+We'll build:
+1. 🌡️ Temperature Converter
+2. 🧮 Simple Calculator
+3. 🎲 Mad Libs Game`,
+    },
+    {
+      type: "code",
+      emoji: "🌡️",
+      content: `# Project 1: Temperature Converter · 温度转换器
+
+## 🐍 In Python:
+\`\`\`python
+celsius = float(input("Enter temperature in Celsius: "))
+fahrenheit = celsius * 9/5 + 32
+print(f"{celsius}°C = {fahrenheit:.1f}°F")
+\`\`\`
+
+## ⚡ In C++:`,
+      code: `#include <iostream>
+#include <iomanip>
+using namespace std;
+
+int main() {
+    double celsius;
+    cout << "Enter temperature in Celsius: ";
+    cin >> celsius;
+    
+    double fahrenheit = celsius * 9.0 / 5.0 + 32.0;
+    
+    cout << fixed << setprecision(1);
+    cout << celsius << "°C = " << fahrenheit << "°F" << endl;
+    
+    // Bonus: Convert back
+    double backToCelsius = (fahrenheit - 32.0) * 5.0 / 9.0;
+    cout << fahrenheit << "°F = " << backToCelsius << "°C" << endl;
+    
+    return 0;
+}`,
+    },
+    {
+      type: "code",
+      emoji: "🧮",
+      content: `# Project 2: Simple Calculator · 简单计算器
+
+## 🐍 In Python:
+\`\`\`python
+a = float(input("First number: "))
+op = input("Operator (+,-,*,/): ")
+b = float(input("Second number: "))
+if op == "+": print(f"Result: {a+b}")
+elif op == "-": print(f"Result: {a-b}")
+# ...
+\`\`\`
+
+## ⚡ In C++:`,
+      code: `#include <iostream>
+#include <iomanip>
+using namespace std;
+
+int main() {
+    double a, b;
+    char op;
+    
+    cout << "Simple Calculator" << endl;
+    cout << "Enter: number operator number" << endl;
+    cout << "Example: 5 + 3" << endl;
+    cout << "> ";
+    cin >> a >> op >> b;
+    
+    cout << fixed << setprecision(2);
+    
+    if (op == '+') {
+        cout << a << " + " << b << " = " << a + b << endl;
+    } else if (op == '-') {
+        cout << a << " - " << b << " = " << a - b << endl;
+    } else if (op == '*') {
+        cout << a << " * " << b << " = " << a * b << endl;
+    } else if (op == '/') {
+        if (b != 0) {
+            cout << a << " / " << b << " = " << a / b << endl;
+        } else {
+            cout << "Error: Cannot divide by zero!" << endl;
+        }
+    } else {
+        cout << "Unknown operator: " << op << endl;
+    }
+    
+    return 0;
+}`,
+    },
+    {
+      type: "code",
+      emoji: "🎲",
+      content: `# Project 3: Mad Libs Game · 疯狂填词游戏`,
+      code: `#include <iostream>
+#include <string>
+using namespace std;
+
+int main() {
+    string name, animal, food, adjective, verb;
+    int number;
+    
+    cout << "=== Mad Libs Game ===" << endl;
+    
+    cout << "Enter a name: ";
+    getline(cin, name);
+    
+    cout << "Enter an animal: ";
+    getline(cin, animal);
+    
+    cout << "Enter a food: ";
+    getline(cin, food);
+    
+    cout << "Enter an adjective: ";
+    getline(cin, adjective);
+    
+    cout << "Enter a verb (past tense): ";
+    getline(cin, verb);
+    
+    cout << "Enter a number: ";
+    cin >> number;
+    
+    cout << "\\n=== Your Story ===" << endl;
+    cout << "Once upon a time, " << name << " found a " << adjective 
+         << " " << animal << "." << endl;
+    cout << "The " << animal << " " << verb << " " << number 
+         << " times and then ate " << food << "." << endl;
+    cout << "\"That was " << adjective << "!\" said " << name << "." << endl;
+    cout << "The End." << endl;
+    
+    return 0;
+}`,
+    },
+    {
+      type: "interactive",
+      emoji: "🎮",
+      content: `# Your Turn! · 你来写！
+
+Write a program that calculates the area and perimeter of a rectangle.
+Input: length and width
+Output: area and perimeter with 2 decimal places`,
+      exercise: {
+        prompt: "Calculate rectangle area and perimeter",
+        promptZh: "计算矩形的面积和周长",
+        starterCode: `#include <iostream>
+#include <iomanip>
+using namespace std;
+
+int main() {
+    double length, width;
+    
+    cout << "Enter length: ";
+    cin >> length;
+    cout << "Enter width: ";
+    cin >> width;
+    
+    // Calculate and print area and perimeter
+    
+    
+    return 0;
+}`,
+        expectedOutput: "Area: 50.00\nPerimeter: 30.00",
+        hint: "Area = length * width, Perimeter = 2 * (length + width)",
+        hintZh: "面积 = 长 × 宽，周长 = 2 × (长 + 宽)",
+        solution: `#include <iostream>
+#include <iomanip>
+using namespace std;
+
+int main() {
+    double length, width;
+    
+    cout << "Enter length: ";
+    cin >> length;
+    cout << "Enter width: ";
+    cin >> width;
+    
+    double area = length * width;
+    double perimeter = 2 * (length + width);
+    
+    cout << fixed << setprecision(2);
+    cout << "Area: " << area << endl;
+    cout << "Perimeter: " << perimeter << endl;
+    
+    return 0;
+}`,
+      },
+    },
+    {
+      type: "text",
+      emoji: "📋",
+      content: `# Module 1 Cheat Sheet · 第一模块速查表
+
+## Essential C++ Structure:
+\`\`\`cpp
+#include <iostream>
+#include <string>
+using namespace std;
+
+int main() {
+    // Your code here
+    return 0;
+}
+\`\`\`
+
+## Types: \`int\`, \`double\`, \`char\`, \`string\`, \`bool\`, \`long long\`
+## Output: \`cout << "text" << variable << endl;\`
+## Input: \`cin >> variable;\` or \`getline(cin, stringVar);\`
+## Formatting: \`fixed << setprecision(n)\` (need \`#include <iomanip>\`)
+## Math: \`+\`, \`-\`, \`*\`, \`/\`, \`%\`, \`++\`, \`--\`, \`pow()\`
+## Strings: \`.length()\`, \`.substr()\`, \`.find()\`, \`+\` to concatenate
+
+🐍 **Py says:** "You've learned the C++ versions of everything in Python's first chapter. The syntax is different but the logic is the same!"
+
+⚡ **Volt says:** "Next up: control flow! if/else, switches, and loops — with braces! 🏗️"`,
+    },
+    {
+      type: "quiz",
+      emoji: "🧪",
+      content: "# Module 1 Final Quiz · 第一模块测验",
+      quiz: [
+        {
+          question: "Which line correctly reads a full name with spaces?\n哪行代码能正确读取带空格的全名？",
+          options: [
+            "`cin >> name;`",
+            "`getline(cin, name);`",
+            "`scanf(name);`",
+            "`read(name);`",
+          ],
+          correctIndex: 1,
+          explanation: "getline(cin, name) reads the entire line including spaces. cin >> only reads one word! · getline读取整行包括空格。",
+        },
+        {
+          question: "What's the output of: `cout << 10 / 3;`?\n`cout << 10 / 3;` 输出什么？",
+          options: ["3.33", "3", "3.0", "4"],
+          correctIndex: 1,
+          explanation: "Both 10 and 3 are integers, so integer division gives 3 (truncated). · 两个都是整数，整数除法得3。",
+        },
+      ],
+    },
+  ],
+};
+
+// ═══════════════════════════════════════════════════════════════
+// MODULE CPP-2: CONTROL FLOW (4 lessons)
+// ═══════════════════════════════════════════════════════════════
+
+const cpp_2_1: Lesson = {
+  id: "cpp-2-1",
+  moduleId: "cpp-2",
+  title: "if/else with Braces",
+  subtitle: "Conditionals in C++ · C++条件语句",
+  icon: "🔀",
+  xp: 150,
+  duration: "20 min",
+  order: 7,
+  gradeRange: [9, 12],
+  difficulty: "beginner",
+  skillLevel: "beginner",
+  sections: [
+    {
+      type: "text",
+      emoji: "🔀",
+      content: `# if/else: Python vs C++ · 条件语句对比
+
+🐍 **Py says:** "In Python, we use indentation and colons. In C++, we use braces \`{}\`."
+
+## 🐍 Python:
+\`\`\`python
+age = 16
+if age >= 18:
+    print("Adult")
+elif age >= 13:
+    print("Teen")
+else:
+    print("Child")
+\`\`\`
+
+## ⚡ C++:
+\`\`\`cpp
+int age = 16;
+if (age >= 18) {
+    cout << "Adult" << endl;
+} else if (age >= 13) {
+    cout << "Teen" << endl;
+} else {
+    cout << "Child" << endl;
+}
+\`\`\`
+
+### Key Differences:
+- Python: \`if condition:\` → C++: \`if (condition) {\`
+- Python: \`elif\` → C++: \`else if\`
+- Python uses **indentation** → C++ uses **braces \`{}\`**
+- C++ conditions MUST be in parentheses \`()\``,
+    },
+    {
+      type: "code",
+      emoji: "📝",
+      content: `# Comparison & Logical Operators · 比较和逻辑运算符`,
+      code: `#include <iostream>
+using namespace std;
+
+int main() {
+    int x = 10, y = 20;
+    
+    // Comparison operators (same as Python!)
+    cout << (x == y) << endl;   // 0 (false) — equal
+    cout << (x != y) << endl;   // 1 (true)  — not equal
+    cout << (x < y) << endl;    // 1 (true)  — less than
+    cout << (x > y) << endl;    // 0 (false) — greater than
+    cout << (x <= y) << endl;   // 1 (true)
+    cout << (x >= y) << endl;   // 0 (false)
+    
+    // Logical operators
+    // Python: and → C++: &&
+    // Python: or  → C++: ||
+    // Python: not → C++: !
+    
+    bool isStudent = true;
+    int age = 16;
+    
+    if (isStudent && age < 18) {
+        cout << "Student discount!" << endl;
+    }
+    
+    if (age < 13 || age > 65) {
+        cout << "Special ticket" << endl;
+    }
+    
+    if (!isStudent) {
+        cout << "Not a student" << endl;
+    }
+    
+    return 0;
+}`,
+    },
+    {
+      type: "code",
+      emoji: "🏗️",
+      content: `# Nested if & Common Patterns · 嵌套if和常见模式`,
+      code: `#include <iostream>
+using namespace std;
+
+int main() {
+    int score;
+    cout << "Enter your score (0-100): ";
+    cin >> score;
+    
+    // Grade calculator
+    char grade;
+    if (score >= 90) {
+        grade = 'A';
+    } else if (score >= 80) {
+        grade = 'B';
+    } else if (score >= 70) {
+        grade = 'C';
+    } else if (score >= 60) {
+        grade = 'D';
+    } else {
+        grade = 'F';
+    }
+    
+    cout << "Grade: " << grade << endl;
+    
+    // Nested if
+    if (score >= 60) {
+        cout << "You passed!" << endl;
+        if (score >= 90) {
+            cout << "Excellent work!" << endl;
+        }
+    } else {
+        cout << "You need to study more." << endl;
+    }
+    
+    // Single-line if (no braces needed for one statement)
+    if (score == 100) cout << "PERFECT!" << endl;
+    
+    return 0;
+}`,
+    },
+    {
+      type: "text",
+      emoji: "⚠️",
+      content: `# Common Mistakes · 常见错误
+
+## ❌ Mistake 1: Using = instead of ==
+\`\`\`cpp
+if (x = 5) {  // WRONG! This ASSIGNS 5 to x (always true!)
+if (x == 5) { // CORRECT! This COMPARES x to 5
+\`\`\`
+
+## ❌ Mistake 2: Missing parentheses
+\`\`\`cpp
+if x > 5 {    // WRONG! Missing ()
+if (x > 5) {  // CORRECT!
+\`\`\`
+
+## ❌ Mistake 3: Dangling else
+\`\`\`cpp
+if (x > 0)
+    if (x > 10)
+        cout << "Big";
+else                    // This belongs to the INNER if, not the outer!
+    cout << "Negative?"; // Bug! Use braces to be safe.
+\`\`\`
+
+⚡ **Volt says:** "ALWAYS use braces, even for single statements. It prevents subtle bugs!"`,
+    },
+    {
+      type: "interactive",
+      emoji: "🎮",
+      content: `# Try It! · 动手试试！
+
+Write a program that reads a year and checks if it's a leap year.
+Leap year rules: divisible by 4, BUT not by 100, UNLESS also by 400.`,
+      exercise: {
+        prompt: "Check if a year is a leap year",
+        promptZh: "判断是否为闰年",
+        starterCode: `#include <iostream>
+using namespace std;
+
+int main() {
+    int year;
+    cin >> year;
+    
+    // Check leap year and print result
+    
+    
+    return 0;
+}`,
+        expectedOutput: "2024 is a leap year",
+        hint: "A year is leap if: (divisible by 4 AND not by 100) OR (divisible by 400)",
+        hintZh: "闰年条件：(能被4整除且不能被100整除) 或 (能被400整除)",
+        solution: `#include <iostream>
+using namespace std;
+
+int main() {
+    int year;
+    cin >> year;
+    
+    if ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0)) {
+        cout << year << " is a leap year" << endl;
+    } else {
+        cout << year << " is not a leap year" << endl;
+    }
+    
+    return 0;
+}`,
+      },
+    },
+    {
+      type: "quiz",
+      emoji: "🧪",
+      content: "# Quiz · 测验",
+      quiz: [
+        {
+          question: "What's the C++ equivalent of Python's `elif`?\nPython的`elif`在C++中是什么？",
+          options: ["elif", "else if", "elseif", "elsif"],
+          correctIndex: 1,
+          explanation: "C++ uses `else if` (two words). Python shortened it to `elif`. · C++使用`else if`（两个词）。",
+        },
+        {
+          question: "What's the C++ equivalent of Python's `and`?\nPython的`and`在C++中是什么？",
+          options: ["and", "AND", "&&", "&"],
+          correctIndex: 2,
+          explanation: "Python uses `and`, C++ uses `&&`. Similarly: `or` → `||`, `not` → `!`. · Python用and，C++用&&。",
+        },
+      ],
+    },
+  ],
+};
+
+const cpp_2_2: Lesson = {
+  id: "cpp-2-2",
+  moduleId: "cpp-2",
+  title: "switch & Ternary",
+  subtitle: "New tools Python doesn't have! · Python没有的新工具！",
+  icon: "🔃",
+  xp: 150,
+  duration: "20 min",
+  order: 8,
+  gradeRange: [9, 12],
+  difficulty: "beginner",
+  skillLevel: "beginner",
+  sections: [
+    {
+      type: "text",
+      emoji: "🔃",
+      content: `# switch Statement · switch语句
+
+⚡ **Volt says:** "The \`switch\` statement is like a super-powered if/else chain for checking one variable against many values. Python doesn't have this! (Python 3.10 added match/case, but switch is different.)"
+
+## When to use switch:
+- Checking ONE variable against MANY specific values
+- The values are constants (not ranges!)
+- Cleaner than a long if/else if chain`,
+    },
+    {
+      type: "code",
+      emoji: "📝",
+      content: `# switch in Action · switch实战`,
+      code: `#include <iostream>
+using namespace std;
+
+int main() {
+    int day;
+    cout << "Enter day number (1-7): ";
+    cin >> day;
+    
+    switch (day) {
+        case 1:
+            cout << "Monday" << endl;
+            break;
+        case 2:
+            cout << "Tuesday" << endl;
+            break;
+        case 3:
+            cout << "Wednesday" << endl;
+            break;
+        case 4:
+            cout << "Thursday" << endl;
+            break;
+        case 5:
+            cout << "Friday" << endl;
+            break;
+        case 6:
+            cout << "Saturday 🎉" << endl;
+            break;
+        case 7:
+            cout << "Sunday 🎉" << endl;
+            break;
+        default:
+            cout << "Invalid day!" << endl;
+            break;
+    }
+    
+    // With fall-through (intentional):
+    cout << "\\nIs it a weekday or weekend?" << endl;
+    switch (day) {
+        case 1: case 2: case 3: case 4: case 5:
+            cout << "Weekday" << endl;
+            break;
+        case 6: case 7:
+            cout << "Weekend!" << endl;
+            break;
+        default:
+            cout << "Invalid" << endl;
+    }
+    
+    return 0;
+}`,
+    },
+    {
+      type: "text",
+      emoji: "⚠️",
+      content: `# Don't Forget break! · 别忘了break！
+
+The \`break\` statement is CRITICAL in switch. Without it, execution "falls through" to the next case!
+
+\`\`\`cpp
+switch (x) {
+    case 1:
+        cout << "One" << endl;
+        // No break! Falls through to case 2!
+    case 2:
+        cout << "Two" << endl;
+        break;
+}
+// If x is 1, this prints BOTH "One" AND "Two"!
+\`\`\`
+
+⚡ **Volt says:** "Always include \`break\` unless you intentionally want fall-through. It's one of the most common bugs in C++!"`,
+    },
+    {
+      type: "code",
+      emoji: "❓",
+      content: `# Ternary Operator · 三元运算符
+
+The ternary operator is a one-line if/else:
+
+## 🐍 In Python:
+\`\`\`python
+result = "Even" if x % 2 == 0 else "Odd"
+\`\`\`
+
+## ⚡ In C++:`,
+      code: `#include <iostream>
+#include <string>
+using namespace std;
+
+int main() {
+    int x = 7;
+    
+    // Ternary: condition ? value_if_true : value_if_false
+    string result = (x % 2 == 0) ? "Even" : "Odd";
+    cout << x << " is " << result << endl;
+    
+    // Use directly in cout
+    int age = 16;
+    cout << "You are " << (age >= 18 ? "an adult" : "a minor") << endl;
+    
+    // Nested ternary (use sparingly!)
+    int score = 85;
+    string grade = (score >= 90) ? "A" :
+                   (score >= 80) ? "B" :
+                   (score >= 70) ? "C" : "F";
+    cout << "Grade: " << grade << endl;
+    
+    // Useful for min/max
+    int a = 10, b = 20;
+    int smaller = (a < b) ? a : b;
+    cout << "Smaller: " << smaller << endl;
+    
+    return 0;
+}`,
+    },
+    {
+      type: "interactive",
+      emoji: "🎮",
+      content: `# Try It! · 动手试试！
+
+Write a simple calculator using switch on the operator character.`,
+      exercise: {
+        prompt: "Calculator using switch statement",
+        promptZh: "用switch语句写计算器",
+        starterCode: `#include <iostream>
+using namespace std;
+
+int main() {
+    double a, b;
+    char op;
+    cin >> a >> op >> b;
+    
+    // Use switch on op to calculate and print result
+    
+    
+    return 0;
+}`,
+        expectedOutput: "Result: 8",
+        hint: "switch(op) { case '+': ... break; case '-': ... }",
+        hintZh: "switch(op) { case '+': ... break; case '-': ... }",
+        solution: `#include <iostream>
+using namespace std;
+
+int main() {
+    double a, b;
+    char op;
+    cin >> a >> op >> b;
+    
+    switch (op) {
+        case '+': cout << "Result: " << a + b << endl; break;
+        case '-': cout << "Result: " << a - b << endl; break;
+        case '*': cout << "Result: " << a * b << endl; break;
+        case '/': cout << "Result: " << a / b << endl; break;
+        default: cout << "Unknown operator" << endl;
+    }
+    
+    return 0;
+}`,
+      },
+    },
+    {
+      type: "quiz",
+      emoji: "🧪",
+      content: "# Quiz · 测验",
+      quiz: [
+        {
+          question: "What happens if you forget `break` in a switch case?\n如果在switch的case中忘了break会怎样？",
+          options: [
+            "Compilation error · 编译错误",
+            "Only that case runs · 只运行那个case",
+            "Falls through to next case(s) · 继续执行下一个case",
+            "Program crashes · 程序崩溃",
+          ],
+          correctIndex: 2,
+          explanation: "Without break, execution 'falls through' and continues into the next case(s). This is a common source of bugs! · 没有break会继续执行下一个case。",
+        },
+      ],
+    },
+  ],
+};
+
+const cpp_2_3: Lesson = {
+  id: "cpp-2-3",
+  moduleId: "cpp-2",
+  title: "Loops: for, while, do-while",
+  subtitle: "All three C++ loop types · C++的三种循环",
+  icon: "🔁",
+  xp: 150,
+  duration: "25 min",
+  order: 9,
+  gradeRange: [9, 12],
+  difficulty: "beginner",
+  skillLevel: "beginner",
+  sections: [
+    {
+      type: "text",
+      emoji: "🔁",
+      content: `# Loops: Python vs C++ · 循环对比
+
+## The for loop is VERY different in C++!
+
+### 🐍 Python for loop:
+\`\`\`python
+for i in range(5):     # 0, 1, 2, 3, 4
+    print(i)
+for i in range(1, 11): # 1, 2, ..., 10
+    print(i)
+\`\`\`
+
+### ⚡ C++ for loop:
+\`\`\`cpp
+for (int i = 0; i < 5; i++) {   // 0, 1, 2, 3, 4
+    cout << i << endl;
+}
+for (int i = 1; i <= 10; i++) {  // 1, 2, ..., 10
+    cout << i << endl;
+}
+\`\`\`
+
+### C++ for loop anatomy:
+\`\`\`
+for (initialization; condition; update) {
+    // body
+}
+\`\`\`
+- **initialization**: runs once at the start (\`int i = 0\`)
+- **condition**: checked before each iteration (\`i < 5\`)
+- **update**: runs after each iteration (\`i++\`)`,
+    },
+    {
+      type: "code",
+      emoji: "🔄",
+      content: `# for Loop Examples · for循环示例`,
+      code: `#include <iostream>
+using namespace std;
+
+int main() {
+    // Count up
+    cout << "Count 1-5: ";
+    for (int i = 1; i <= 5; i++) {
+        cout << i << " ";
+    }
+    cout << endl;
+    
+    // Count down
+    cout << "Countdown: ";
+    for (int i = 5; i >= 1; i--) {
+        cout << i << " ";
+    }
+    cout << endl;
+    
+    // Step by 2 (Python: range(0, 10, 2))
+    cout << "Evens: ";
+    for (int i = 0; i <= 10; i += 2) {
+        cout << i << " ";
+    }
+    cout << endl;
+    
+    // Sum of numbers
+    int sum = 0;
+    for (int i = 1; i <= 100; i++) {
+        sum += i;
+    }
+    cout << "Sum 1-100 = " << sum << endl;
+    
+    // Range-based for loop (C++11) — closest to Python!
+    // Python: for c in "Hello":
+    string word = "Hello";
+    cout << "Characters: ";
+    for (char c : word) {
+        cout << c << " ";
+    }
+    cout << endl;
+    
+    return 0;
+}`,
+    },
+    {
+      type: "code",
+      emoji: "⏳",
+      content: `# while and do-while · while和do-while循环`,
+      code: `#include <iostream>
+using namespace std;
+
+int main() {
+    // while loop (same concept as Python!)
+    // Python: while x > 0:    C++: while (x > 0) {
+    int x = 5;
+    cout << "while loop: ";
+    while (x > 0) {
+        cout << x << " ";
+        x--;
+    }
+    cout << endl;  // 5 4 3 2 1
+    
+    // do-while loop (C++ EXCLUSIVE — Python doesn't have this!)
+    // Runs the body AT LEAST ONCE before checking condition
+    int guess;
+    cout << "\\nGuess the number (hint: it's 7): ";
+    do {
+        cin >> guess;
+        if (guess != 7) {
+            cout << "Wrong! Try again: ";
+        }
+    } while (guess != 7);
+    cout << "Correct!" << endl;
+    
+    // When to use each:
+    // for → know how many iterations
+    // while → don't know when to stop, check BEFORE
+    // do-while → want to run at least once, check AFTER
+    
+    return 0;
+}`,
+    },
+    {
+      type: "interactive",
+      emoji: "🎮",
+      content: `# Try It! · 动手试试！
+
+Print the multiplication table for a given number (1-10).`,
+      exercise: {
+        prompt: "Print multiplication table",
+        promptZh: "打印乘法表",
+        starterCode: `#include <iostream>
+using namespace std;
+
+int main() {
+    int n;
+    cin >> n;
+    
+    // Print n x 1 = ?, n x 2 = ?, ..., n x 10 = ?
+    
+    
+    return 0;
+}`,
+        expectedOutput: "5 x 1 = 5\n5 x 2 = 10\n5 x 3 = 15\n5 x 4 = 20\n5 x 5 = 25\n5 x 6 = 30\n5 x 7 = 35\n5 x 8 = 40\n5 x 9 = 45\n5 x 10 = 50",
+        hint: "Use a for loop from 1 to 10: cout << n << \" x \" << i << \" = \" << n*i",
+        hintZh: "用for循环从1到10",
+        solution: `#include <iostream>
+using namespace std;
+
+int main() {
+    int n;
+    cin >> n;
+    
+    for (int i = 1; i <= 10; i++) {
+        cout << n << " x " << i << " = " << n * i << endl;
+    }
+    
+    return 0;
+}`,
+      },
+    },
+    {
+      type: "quiz",
+      emoji: "🧪",
+      content: "# Quiz · 测验",
+      quiz: [
+        {
+          question: "What's the C++ equivalent of `for i in range(5):`?\n`for i in range(5):`的C++等价是？",
+          options: [
+            "`for (int i = 0; i < 5; i++)`",
+            "`for (int i = 1; i <= 5; i++)`",
+            "`for i in range(5)`",
+            "`for (int i = 0; i <= 5; i++)`",
+          ],
+          correctIndex: 0,
+          explanation: "range(5) gives 0,1,2,3,4. In C++: start at 0, go while < 5, increment by 1. · range(5)产生0到4，C++中从0开始，条件<5。",
+        },
+        {
+          question: "What's special about do-while?\ndo-while有什么特别的？",
+          options: [
+            "It's faster · 更快",
+            "It runs at least once · 至少执行一次",
+            "It runs backwards · 反向执行",
+            "It's the same as while · 和while一样",
+          ],
+          correctIndex: 1,
+          explanation: "do-while checks the condition AFTER running the body, so it always runs at least once. · do-while先执行再检查条件，所以至少执行一次。",
+        },
+      ],
+    },
+  ],
+};
+
+const cpp_2_4: Lesson = {
+  id: "cpp-2-4",
+  moduleId: "cpp-2",
+  title: "Loop Challenges",
+  subtitle: "Nested loops, break, continue · 嵌套循环和控制",
+  icon: "🎯",
+  xp: 200,
+  duration: "25 min",
+  order: 10,
+  gradeRange: [9, 12],
+  difficulty: "intermediate",
+  skillLevel: "intermediate",
+  sections: [
+    {
+      type: "code",
+      emoji: "🔲",
+      content: `# Nested Loops · 嵌套循环
+
+Perfect for grids, patterns, and 2D problems:`,
+      code: `#include <iostream>
+using namespace std;
+
+int main() {
+    // Rectangle pattern
+    cout << "=== Rectangle ===" << endl;
+    for (int row = 0; row < 3; row++) {
+        for (int col = 0; col < 5; col++) {
+            cout << "* ";
+        }
+        cout << endl;
+    }
+    
+    // Right triangle
+    cout << "\\n=== Triangle ===" << endl;
+    for (int i = 1; i <= 5; i++) {
+        for (int j = 0; j < i; j++) {
+            cout << "* ";
+        }
+        cout << endl;
+    }
+    
+    // Multiplication table
+    cout << "\\n=== 5x5 Table ===" << endl;
+    for (int i = 1; i <= 5; i++) {
+        for (int j = 1; j <= 5; j++) {
+            cout << i * j << "\\t";
+        }
+        cout << endl;
+    }
+    
+    return 0;
+}`,
+    },
+    {
+      type: "code",
+      emoji: "⏹️",
+      content: `# break and continue · break和continue`,
+      code: `#include <iostream>
+using namespace std;
+
+int main() {
+    // break — exit the loop entirely
+    cout << "Finding first multiple of 7 after 50:" << endl;
+    for (int i = 51; ; i++) {  // infinite loop!
+        if (i % 7 == 0) {
+            cout << "Found: " << i << endl;
+            break;  // Exit the loop
+        }
+    }
+    
+    // continue — skip to next iteration
+    cout << "\\nOdd numbers 1-10: ";
+    for (int i = 1; i <= 10; i++) {
+        if (i % 2 == 0) continue;  // Skip even numbers
+        cout << i << " ";
+    }
+    cout << endl;
+    
+    // break only affects the INNERMOST loop
+    cout << "\\nBreaking inner loop:" << endl;
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 5; j++) {
+            if (j == 3) break;  // Only breaks inner loop!
+            cout << "(" << i << "," << j << ") ";
+        }
+        cout << endl;
+    }
+    
+    return 0;
+}`,
+    },
+    {
+      type: "interactive",
+      emoji: "🎮",
+      content: `# Pattern Challenge · 图案挑战
+
+Print this number triangle:
+\`\`\`
+1
+1 2
+1 2 3
+1 2 3 4
+1 2 3 4 5
+\`\`\``,
+      exercise: {
+        prompt: "Print a number triangle pattern",
+        promptZh: "打印数字三角形",
+        starterCode: `#include <iostream>
+using namespace std;
+
+int main() {
+    int n;
+    cin >> n;
+    
+    // Print the number triangle
+    
+    
+    return 0;
+}`,
+        expectedOutput: "1\n1 2\n1 2 3\n1 2 3 4\n1 2 3 4 5",
+        hint: "Outer loop for rows (1 to n), inner loop for numbers (1 to row)",
+        hintZh: "外层循环控制行(1到n)，内层循环控制数字(1到当前行)",
+        solution: `#include <iostream>
+using namespace std;
+
+int main() {
+    int n;
+    cin >> n;
+    
+    for (int i = 1; i <= n; i++) {
+        for (int j = 1; j <= i; j++) {
+            cout << j;
+            if (j < i) cout << " ";
+        }
+        cout << endl;
+    }
+    
+    return 0;
+}`,
+      },
+    },
+    {
+      type: "code",
+      emoji: "🏆",
+      content: `# Classic Loop Patterns · 经典循环模式`,
+      code: `#include <iostream>
+using namespace std;
+
+int main() {
+    int n = 5;
+    
+    // Diamond pattern
+    cout << "=== Diamond ===" << endl;
+    // Top half
+    for (int i = 1; i <= n; i++) {
+        for (int j = 0; j < n - i; j++) cout << " ";
+        for (int j = 0; j < 2*i - 1; j++) cout << "*";
+        cout << endl;
+    }
+    // Bottom half
+    for (int i = n - 1; i >= 1; i--) {
+        for (int j = 0; j < n - i; j++) cout << " ";
+        for (int j = 0; j < 2*i - 1; j++) cout << "*";
+        cout << endl;
+    }
+    
+    // Prime number check
+    cout << "\\n=== Primes up to 30 ===" << endl;
+    for (int num = 2; num <= 30; num++) {
+        bool isPrime = true;
+        for (int i = 2; i * i <= num; i++) {
+            if (num % i == 0) {
+                isPrime = false;
+                break;
+            }
+        }
+        if (isPrime) cout << num << " ";
+    }
+    cout << endl;
+    
+    return 0;
+}`,
+    },
+    {
+      type: "quiz",
+      emoji: "🧪",
+      content: "# Quiz · 测验",
+      quiz: [
+        {
+          question: "In nested loops, which loop does `break` exit?\n在嵌套循环中，`break`退出哪个循环？",
+          options: [
+            "All loops · 所有循环",
+            "The outermost loop · 最外层循环",
+            "The innermost loop · 最内层循环",
+            "Random · 随机",
+          ],
+          correctIndex: 2,
+          explanation: "break only exits the innermost loop that contains it. To exit outer loops, you need flags or goto (avoid goto!). · break只退出包含它的最内层循环。",
+        },
+      ],
+    },
+  ],
+};
+
+// ═══════════════════════════════════════════════════════════════
+// MODULE CPP-3: FUNCTIONS & ARRAYS (4 lessons)
+// ═══════════════════════════════════════════════════════════════
+
+const cpp_3_1: Lesson = {
+  id: "cpp-3-1",
+  moduleId: "cpp-3",
+  title: "Functions with Types",
+  subtitle: "Typed functions and overloading · 类型化函数和重载",
+  icon: "🔧",
+  xp: 150,
+  duration: "25 min",
+  order: 11,
+  gradeRange: [9, 12],
+  difficulty: "intermediate",
+  skillLevel: "intermediate",
+  sections: [
+    {
+      type: "text",
+      emoji: "🔧",
+      content: `# Functions: Python vs C++ · 函数对比
+
+## 🐍 Python:
+\`\`\`python
+def add(a, b):
+    return a + b
+\`\`\`
+
+## ⚡ C++:
+\`\`\`cpp
+int add(int a, int b) {
+    return a + b;
+}
+\`\`\`
+
+### Key Differences:
+- C++ needs **return type** before function name
+- C++ needs **parameter types**
+- \`void\` = no return value (like Python returning \`None\`)
+- Functions must be **declared before use** (or use forward declaration)`,
+    },
+    {
+      type: "code",
+      emoji: "📝",
+      content: `# Function Examples · 函数示例`,
+      code: `#include <iostream>
+#include <string>
+using namespace std;
+
+// Function that returns an int
+int add(int a, int b) {
+    return a + b;
+}
+
+// Function that returns a double
+double average(double a, double b) {
+    return (a + b) / 2.0;
+}
+
+// Function that returns a string
+string greet(string name) {
+    return "Hello, " + name + "!";
+}
+
+// void function — no return value
+void printLine(int length) {
+    for (int i = 0; i < length; i++) {
+        cout << "-";
+    }
+    cout << endl;
+}
+
+// Function with default parameter (like Python!)
+void sayHello(string name = "World") {
+    cout << "Hello, " << name << "!" << endl;
+}
+
+int main() {
+    cout << add(3, 5) << endl;          // 8
+    cout << average(10, 20) << endl;    // 15
+    cout << greet("Volt") << endl;      // Hello, Volt!
+    printLine(20);                       // --------------------
+    sayHello();                          // Hello, World!
+    sayHello("Alice");                   // Hello, Alice!
+    
+    return 0;
+}`,
+    },
+    {
+      type: "code",
+      emoji: "🔄",
+      content: `# Function Overloading — Python CAN'T Do This! · 函数重载
+
+C++ lets you have multiple functions with the same name but different parameter types!`,
+      code: `#include <iostream>
+#include <string>
+using namespace std;
+
+// Three functions named "print" with different parameter types!
+void print(int x) {
+    cout << "Integer: " << x << endl;
+}
+
+void print(double x) {
+    cout << "Double: " << x << endl;
+}
+
+void print(string x) {
+    cout << "String: " << x << endl;
+}
+
+// Different number of parameters also works
+int multiply(int a, int b) {
+    return a * b;
+}
+
+int multiply(int a, int b, int c) {
+    return a * b * c;
+}
+
+int main() {
+    print(42);           // Calls print(int)
+    print(3.14);         // Calls print(double)
+    print(string("Hi")); // Calls print(string)
+    
+    cout << multiply(3, 4) << endl;     // 12
+    cout << multiply(2, 3, 4) << endl;  // 24
+    
+    return 0;
+}`,
+    },
+    {
+      type: "interactive",
+      emoji: "🎮",
+      content: `# Try It! · 动手试试！
+
+Write a function \`isPrime\` that returns true if a number is prime.`,
+      exercise: {
+        prompt: "Write an isPrime function",
+        promptZh: "写一个判断素数的函数",
+        starterCode: `#include <iostream>
+using namespace std;
+
+bool isPrime(int n) {
+    // Return true if n is prime, false otherwise
+    
+}
+
+int main() {
+    for (int i = 2; i <= 20; i++) {
+        if (isPrime(i)) {
+            cout << i << " ";
+        }
+    }
+    cout << endl;
+    return 0;
+}`,
+        expectedOutput: "2 3 5 7 11 13 17 19",
+        hint: "Check if n is divisible by any number from 2 to sqrt(n)",
+        hintZh: "检查n是否能被2到sqrt(n)之间的数整除",
+        solution: `#include <iostream>
+using namespace std;
+
+bool isPrime(int n) {
+    if (n < 2) return false;
+    for (int i = 2; i * i <= n; i++) {
+        if (n % i == 0) return false;
+    }
+    return true;
+}
+
+int main() {
+    for (int i = 2; i <= 20; i++) {
+        if (isPrime(i)) {
+            cout << i << " ";
+        }
+    }
+    cout << endl;
+    return 0;
+}`,
+      },
+    },
+    {
+      type: "quiz",
+      emoji: "🧪",
+      content: "# Quiz · 测验",
+      quiz: [
+        {
+          question: "What does `void` mean as a return type?\n`void`作为返回类型是什么意思？",
+          options: [
+            "Returns zero · 返回零",
+            "Returns nothing · 不返回任何值",
+            "Returns null · 返回null",
+            "Error · 错误",
+          ],
+          correctIndex: 1,
+          explanation: "void means the function doesn't return any value. Like a Python function that doesn't have a return statement. · void表示函数不返回任何值。",
+        },
+      ],
+    },
+  ],
+};
+
+const cpp_3_2: Lesson = {
+  id: "cpp-3-2",
+  moduleId: "cpp-3",
+  title: "Pass by Value vs Reference",
+  subtitle: "The & operator explained · 引用传递详解",
+  icon: "🔗",
+  xp: 150,
+  duration: "25 min",
+  order: 12,
+  gradeRange: [9, 12],
+  difficulty: "intermediate",
+  skillLevel: "intermediate",
+  sections: [
+    {
+      type: "text",
+      emoji: "🔗",
+      content: `# How Are Parameters Passed? · 参数如何传递？
+
+⚡ **Volt says:** "This is one of the MOST IMPORTANT concepts in C++. Understanding pass-by-value vs pass-by-reference will save you from countless bugs!"
+
+## Pass by Value (default):
+- A **COPY** of the variable is made
+- Changes inside the function don't affect the original
+- Like giving someone a photocopy of a document
+
+## Pass by Reference (&):
+- The function gets the **ORIGINAL** variable (via reference)
+- Changes inside the function DO affect the original
+- Like giving someone the actual document`,
+    },
+    {
+      type: "code",
+      emoji: "📝",
+      content: `# Value vs Reference Demo · 值传递 vs 引用传递`,
+      code: `#include <iostream>
+using namespace std;
+
+// Pass by VALUE — gets a COPY
+void doubleValue(int x) {
+    x = x * 2;
+    cout << "Inside function: x = " << x << endl;
+}
+
+// Pass by REFERENCE — gets the ORIGINAL
+void doubleReference(int &x) {  // Note the &
+    x = x * 2;
+    cout << "Inside function: x = " << x << endl;
+}
+
+// Classic example: swap function
+void swapValues(int &a, int &b) {
+    int temp = a;
+    a = b;
+    b = temp;
+}
+
+int main() {
+    int num = 10;
+    
+    cout << "=== Pass by Value ===" << endl;
+    cout << "Before: " << num << endl;
+    doubleValue(num);
+    cout << "After: " << num << endl;  // Still 10!
+    
+    cout << "\\n=== Pass by Reference ===" << endl;
+    cout << "Before: " << num << endl;
+    doubleReference(num);
+    cout << "After: " << num << endl;  // Now 20!
+    
+    cout << "\\n=== Swap ===" << endl;
+    int a = 5, b = 10;
+    cout << "Before: a=" << a << " b=" << b << endl;
+    swapValues(a, b);
+    cout << "After: a=" << a << " b=" << b << endl;
+    
+    return 0;
+}`,
+    },
+    {
+      type: "code",
+      emoji: "🛡️",
+      content: `# const Reference — Read-Only Access · const引用`,
+      code: `#include <iostream>
+#include <string>
+using namespace std;
+
+// const reference: can read but NOT modify
+void printInfo(const string &name, const int &age) {
+    cout << name << " is " << age << " years old" << endl;
+    // name = "test";  // ERROR! Can't modify const reference
+}
+
+// Why use const &?
+// 1. Passing by value copies the string (slow for large strings)
+// 2. Passing by reference allows modification (might not want that)
+// 3. const & = fast (no copy) + safe (can't modify)
+
+// Return multiple values via reference
+void getMinMax(int a, int b, int c, int &minVal, int &maxVal) {
+    minVal = min({a, b, c});
+    maxVal = max({a, b, c});
+}
+
+int main() {
+    printInfo("Alice", 16);
+    
+    int lo, hi;
+    getMinMax(5, 2, 8, lo, hi);
+    cout << "Min: " << lo << ", Max: " << hi << endl;
+    
+    return 0;
+}`,
+    },
+    {
+      type: "interactive",
+      emoji: "🎮",
+      content: `# Try It! · 动手试试！
+
+Write a function that takes two integers by reference and sorts them so the smaller comes first.`,
+      exercise: {
+        prompt: "Sort two numbers using pass by reference",
+        promptZh: "用引用传递排序两个数",
+        starterCode: `#include <iostream>
+using namespace std;
+
+void sortPair(int &a, int &b) {
+    // Make sure a <= b
+    
+}
+
+int main() {
+    int x, y;
+    cin >> x >> y;
+    sortPair(x, y);
+    cout << x << " " << y << endl;
+    return 0;
+}`,
+        expectedOutput: "3 7",
+        hint: "If a > b, swap them!",
+        hintZh: "如果a > b就交换它们！",
+        solution: `#include <iostream>
+using namespace std;
+
+void sortPair(int &a, int &b) {
+    if (a > b) {
+        int temp = a;
+        a = b;
+        b = temp;
+    }
+}
+
+int main() {
+    int x, y;
+    cin >> x >> y;
+    sortPair(x, y);
+    cout << x << " " << y << endl;
+    return 0;
+}`,
+      },
+    },
+    {
+      type: "quiz",
+      emoji: "🧪",
+      content: "# Quiz · 测验",
+      quiz: [
+        {
+          question: "What does `&` do in a function parameter `void f(int &x)`?\n`void f(int &x)`中的`&`有什么作用？",
+          options: [
+            "Gets the address of x · 获取x的地址",
+            "Makes x a reference (alias) to the original · 使x成为原始变量的引用",
+            "Makes x constant · 使x为常量",
+            "Creates a pointer · 创建指针",
+          ],
+          correctIndex: 1,
+          explanation: "& in a parameter makes it a reference — an alias for the original variable. Changes to x change the original! · &使参数成为原始变量的别名。",
+        },
+      ],
+    },
+  ],
+};
+
+const cpp_3_3: Lesson = {
+  id: "cpp-3-3",
+  moduleId: "cpp-3",
+  title: "Arrays & Vectors",
+  subtitle: "C arrays and std::vector · 数组和向量",
+  icon: "📦",
+  xp: 150,
+  duration: "25 min",
+  order: 13,
+  gradeRange: [9, 12],
+  difficulty: "intermediate",
+  skillLevel: "intermediate",
+  sections: [
+    {
+      type: "text",
+      emoji: "📦",
+      content: `# Arrays in C++ · C++中的数组
+
+🐍 **Py says:** "Python lists are flexible — they grow, shrink, hold any type. C++ has two options: C-style arrays (fixed size) and vectors (flexible like Python lists)."
+
+## Quick Comparison:
+| Feature | Python list | C++ array | C++ vector |
+|---------|-------------|-----------|------------|
+| Size | Dynamic | Fixed | Dynamic |
+| Types | Mixed | Same type | Same type |
+| Syntax | \`[1,2,3]\` | \`{1,2,3}\` | \`{1,2,3}\` |
+| Add items | \`.append()\` | Can't! | \`.push_back()\` |
+| Get size | \`len()\` | Manual | \`.size()\` |
+
+⚡ **Volt says:** "Use \`vector\` for almost everything. C-style arrays are for competitive programming speed and when you know the exact size."`,
+    },
+    {
+      type: "code",
+      emoji: "📝",
+      content: `# C-Style Arrays vs Vectors · C数组 vs 向量`,
+      code: `#include <iostream>
+#include <vector>
+using namespace std;
+
+int main() {
+    // === C-style array ===
+    int arr[5] = {10, 20, 30, 40, 50};  // Fixed size!
+    cout << "Array: ";
+    for (int i = 0; i < 5; i++) {
+        cout << arr[i] << " ";
+    }
+    cout << endl;
+    
+    arr[2] = 99;  // Modify element
+    cout << "Modified: " << arr[2] << endl;
+    
+    // === Vector (preferred!) ===
+    vector<int> vec = {10, 20, 30, 40, 50};
+    
+    // Python: list.append(60)  →  C++: vec.push_back(60)
+    vec.push_back(60);
+    
+    // Python: len(list)  →  C++: vec.size()
+    cout << "Vector size: " << vec.size() << endl;
+    
+    // Python: for x in list:  →  C++: for (int x : vec)
+    cout << "Vector: ";
+    for (int x : vec) {
+        cout << x << " ";
+    }
+    cout << endl;
+    
+    // Python: list.pop()  →  C++: vec.pop_back()
+    vec.pop_back();
+    
+    // Python: list[-1]  →  C++: vec.back()
+    cout << "Last element: " << vec.back() << endl;
+    
+    // Python: list[0]  →  C++: vec.front() or vec[0]
+    cout << "First element: " << vec.front() << endl;
+    
+    return 0;
+}`,
+    },
+    {
+      type: "code",
+      emoji: "🔧",
+      content: `# Vector Operations · 向量操作`,
+      code: `#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+int main() {
+    vector<int> v = {5, 2, 8, 1, 9, 3};
+    
+    // Sort (Python: list.sort())
+    sort(v.begin(), v.end());
+    cout << "Sorted: ";
+    for (int x : v) cout << x << " ";
+    cout << endl;
+    
+    // Reverse (Python: list.reverse())
+    reverse(v.begin(), v.end());
+    cout << "Reversed: ";
+    for (int x : v) cout << x << " ";
+    cout << endl;
+    
+    // Find min/max (Python: min(list), max(list))
+    cout << "Min: " << *min_element(v.begin(), v.end()) << endl;
+    cout << "Max: " << *max_element(v.begin(), v.end()) << endl;
+    
+    // Create vector of specific size
+    vector<int> zeros(10, 0);     // 10 zeros
+    vector<int> fives(5, 5);     // [5, 5, 5, 5, 5]
+    
+    // 2D vector (like 2D list in Python)
+    vector<vector<int>> grid(3, vector<int>(4, 0));  // 3x4 grid of zeros
+    grid[1][2] = 42;
+    cout << "Grid[1][2] = " << grid[1][2] << endl;
+    
+    return 0;
+}`,
+    },
+    {
+      type: "interactive",
+      emoji: "🎮",
+      content: `# Try It! · 动手试试！
+
+Read N numbers, store in a vector, then print them sorted.`,
+      exercise: {
+        prompt: "Read numbers into vector and sort them",
+        promptZh: "读取数字到向量并排序输出",
+        starterCode: `#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+int main() {
+    int n;
+    cin >> n;
+    
+    vector<int> nums;
+    // Read n numbers and sort them
+    
+    
+    return 0;
+}`,
+        expectedOutput: "1 2 3 4 5",
+        hint: "Use push_back to add, sort() to sort, range-for to print",
+        hintZh: "用push_back添加，sort()排序，范围for循环打印",
+        solution: `#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+int main() {
+    int n;
+    cin >> n;
+    
+    vector<int> nums;
+    for (int i = 0; i < n; i++) {
+        int x;
+        cin >> x;
+        nums.push_back(x);
+    }
+    
+    sort(nums.begin(), nums.end());
+    
+    for (int i = 0; i < nums.size(); i++) {
+        cout << nums[i];
+        if (i < nums.size() - 1) cout << " ";
+    }
+    cout << endl;
+    
+    return 0;
+}`,
+      },
+    },
+    {
+      type: "quiz",
+      emoji: "🧪",
+      content: "# Quiz · 测验",
+      quiz: [
+        {
+          question: "What's the C++ equivalent of Python's `list.append(x)`?\nPython的`list.append(x)`在C++中是什么？",
+          options: [
+            "`vec.add(x)`",
+            "`vec.push_back(x)`",
+            "`vec.append(x)`",
+            "`vec.insert(x)`",
+          ],
+          correctIndex: 1,
+          explanation: "push_back() adds an element to the end of a vector, just like Python's append(). · push_back()向向量末尾添加元素，类似Python的append()。",
+        },
+      ],
+    },
+  ],
+};
+
+const cpp_3_4: Lesson = {
+  id: "cpp-3-4",
+  moduleId: "cpp-3",
+  title: "String Processing",
+  subtitle: "Advanced string algorithms · 高级字符串处理",
+  icon: "🔤",
+  xp: 150,
+  duration: "25 min",
+  order: 14,
+  gradeRange: [9, 12],
+  difficulty: "intermediate",
+  skillLevel: "intermediate",
+  sections: [
+    {
+      type: "code",
+      emoji: "🔤",
+      content: `# String Processing Patterns · 字符串处理模式`,
+      code: `#include <iostream>
+#include <string>
+#include <algorithm>
+#include <cctype>
+using namespace std;
+
+int main() {
+    // Count vowels
+    string text = "Hello World";
+    int vowels = 0;
+    for (char c : text) {
+        c = tolower(c);
+        if (c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u') {
+            vowels++;
+        }
+    }
+    cout << "Vowels: " << vowels << endl;
+    
+    // Reverse a string
+    string rev = text;
+    reverse(rev.begin(), rev.end());
+    cout << "Reversed: " << rev << endl;
+    
+    // Check palindrome
+    string word = "racecar";
+    string reversed = word;
+    reverse(reversed.begin(), reversed.end());
+    cout << word << " is palindrome: " << (word == reversed) << endl;
+    
+    // Count words (split by spaces)
+    string sentence = "The quick brown fox";
+    int wordCount = 1;
+    for (char c : sentence) {
+        if (c == ' ') wordCount++;
+    }
+    cout << "Words: " << wordCount << endl;
+    
+    // Convert to uppercase
+    string upper = text;
+    for (char &c : upper) {  // Note: reference to modify!
+        c = toupper(c);
+    }
+    cout << "Upper: " << upper << endl;
+    
+    return 0;
+}`,
+    },
+    {
+      type: "code",
+      emoji: "🧩",
+      content: `# String Comparison & Searching · 字符串比较和搜索`,
+      code: `#include <iostream>
+#include <string>
+using namespace std;
+
+int main() {
+    string s1 = "hello";
+    string s2 = "world";
+    
+    // Compare strings (Python: ==, <, >)
+    if (s1 == s2) cout << "Equal" << endl;
+    if (s1 < s2) cout << s1 << " comes before " << s2 << endl;
+    
+    // Find substring (Python: str.find())
+    string text = "The quick brown fox jumps";
+    size_t pos = text.find("brown");
+    if (pos != string::npos) {
+        cout << "Found 'brown' at index " << pos << endl;
+    }
+    
+    // Substring (Python: str[start:end])
+    string sub = text.substr(4, 5);  // "quick"
+    cout << "Substring: " << sub << endl;
+    
+    // Replace (Python: str.replace())
+    string modified = text;
+    modified.replace(modified.find("brown"), 5, "red");
+    cout << "Replaced: " << modified << endl;
+    
+    // String to int (Python: int(str))
+    string numStr = "42";
+    int num = stoi(numStr);  // string to int
+    cout << "Number + 1 = " << num + 1 << endl;
+    
+    // Int to string (Python: str(int))
+    string back = to_string(num);
+    cout << "Back to string: " << back << endl;
+    
+    return 0;
+}`,
+    },
+    {
+      type: "interactive",
+      emoji: "🎮",
+      content: `# Try It! · 动手试试！
+
+Read a string and check if it's a palindrome (reads same forwards and backwards).`,
+      exercise: {
+        prompt: "Check if a string is a palindrome",
+        promptZh: "检查字符串是否是回文",
+        starterCode: `#include <iostream>
+#include <string>
+#include <algorithm>
+using namespace std;
+
+int main() {
+    string s;
+    cin >> s;
+    
+    // Check palindrome
+    
+    
+    return 0;
+}`,
+        expectedOutput: "YES",
+        hint: "Reverse a copy and compare with the original",
+        hintZh: "反转一个副本并与原始字符串比较",
+        solution: `#include <iostream>
+#include <string>
+#include <algorithm>
+using namespace std;
+
+int main() {
+    string s;
+    cin >> s;
+    
+    string rev = s;
+    reverse(rev.begin(), rev.end());
+    
+    if (s == rev) {
+        cout << "YES" << endl;
+    } else {
+        cout << "NO" << endl;
+    }
+    
+    return 0;
+}`,
+      },
+    },
+    {
+      type: "text",
+      emoji: "🐍",
+      content: `# Python vs C++ Strings · Python和C++字符串对比
+
+🐍 **Py says:** "Here's your cheat sheet for string conversions!"
+
+| Python | C++ | What it does |
+|--------|-----|-------------|
+| \`s.find("x")\` | \`s.find("x")\` | Find substring |
+| \`s[1:4]\` | \`s.substr(1, 3)\` | Substring (C++ uses start, length!) |
+| \`len(s)\` | \`s.length()\` or \`s.size()\` | String length |
+| \`s.upper()\` | \`transform + toupper\` | To uppercase |
+| \`int(s)\` | \`stoi(s)\` | String to int |
+| \`str(n)\` | \`to_string(n)\` | Int to string |
+| \`s + t\` | \`s + t\` | Concatenate |
+| \`s[i]\` | \`s[i]\` | Get character |
+
+⚡ **Volt says:** "C++ strings are mutable! You can change individual characters with \`s[i] = 'x'\`. In Python, strings are immutable."`,
+    },
+    {
+      type: "quiz",
+      emoji: "🧪",
+      content: "# Quiz · 测验",
+      quiz: [
+        {
+          question: "What does `s.substr(3, 5)` return?\n`s.substr(3, 5)`返回什么？",
+          options: [
+            "Characters from index 3 to 5 · 索引3到5的字符",
+            "5 characters starting from index 3 · 从索引3开始的5个字符",
+            "3 characters starting from index 5 · 从索引5开始的3个字符",
+            "The first 5 characters · 前5个字符",
+          ],
+          correctIndex: 1,
+          explanation: "substr(pos, len) returns `len` characters starting at position `pos`. Different from Python's [start:end] slicing! · substr(pos, len)返回从位置pos开始的len个字符。",
+        },
+      ],
+    },
+  ],
+};
+
+// ═══════════════════════════════════════════════════════════════
+// MODULE CPP-4: POINTERS & OOP (4 lessons)
+// ═══════════════════════════════════════════════════════════════
+
+const cpp_4_1: Lesson = {
+  id: "cpp-4-1",
+  moduleId: "cpp-4",
+  title: "Pointers: Memory Addresses",
+  subtitle: "Understanding memory · 理解内存和指针",
+  icon: "📍",
+  xp: 200,
+  duration: "30 min",
+  order: 15,
+  gradeRange: [9, 12],
+  difficulty: "intermediate",
+  skillLevel: "intermediate",
+  sections: [
+    {
+      type: "text",
+      emoji: "📍",
+      content: `# What Are Pointers? · 什么是指针？
+
+🐍 **Py says:** "In Python, every variable is already a reference — you just don't see it. In C++, you get to see and control the actual memory addresses!"
+
+🔧 **Chip says:** "Think of memory as a huge array of boxes. Each box has an address (a number) and can hold data. A pointer is a variable that stores one of those addresses."
+
+## Key Concepts:
+- **&** (address-of): Gets the memory address of a variable
+- **\\*** (dereference): Gets the value at an address
+- A pointer variable stores an address, not a value
+
+⚡ **Volt says:** "Pointers are THE key concept that separates C++ from Python. Master this and you'll understand how computers really work!"`,
+    },
+    {
+      type: "code",
+      emoji: "🔍",
+      content: `# Pointer Basics · 指针基础`,
+      code: `#include <iostream>
+using namespace std;
+
+int main() {
+    int x = 42;
+    
+    // & = "address of"
+    cout << "Value of x: " << x << endl;
+    cout << "Address of x: " << &x << endl;
+    
+    // Declare a pointer with *
+    int* ptr = &x;  // ptr stores the address of x
+    
+    cout << "ptr stores: " << ptr << endl;       // The address
+    cout << "ptr points to: " << *ptr << endl;    // The value (42)
+    
+    // Modify through pointer
+    *ptr = 100;
+    cout << "x is now: " << x << endl;  // 100! Changed via pointer
+    
+    // Pointer to different types
+    double pi = 3.14;
+    double* dPtr = &pi;
+    cout << "Pi: " << *dPtr << endl;
+    
+    // nullptr — pointer to nothing (Python's None)
+    int* nothing = nullptr;
+    // *nothing would CRASH! Always check before dereferencing
+    if (nothing != nullptr) {
+        cout << *nothing << endl;
+    } else {
+        cout << "Pointer is null!" << endl;
+    }
+    
+    return 0;
+}`,
+    },
+    {
+      type: "code",
+      emoji: "🔗",
+      content: `# Pointers and Functions · 指针和函数`,
+      code: `#include <iostream>
+using namespace std;
+
+// Pass by value — makes a COPY (Python default for ints)
+void addTenCopy(int n) {
+    n += 10;  // Only changes the copy!
+}
+
+// Pass by pointer — modifies the ORIGINAL
+void addTenPtr(int* n) {
+    *n += 10;  // Changes the original!
+}
+
+// Pass by reference — cleaner syntax, same effect
+void addTenRef(int& n) {
+    n += 10;  // Changes the original!
+}
+
+// Swap using pointers (classic!)
+void swapPtr(int* a, int* b) {
+    int temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
+int main() {
+    int x = 5;
+    
+    addTenCopy(x);
+    cout << "After copy: " << x << endl;  // Still 5
+    
+    addTenPtr(&x);
+    cout << "After pointer: " << x << endl;  // 15!
+    
+    addTenRef(x);
+    cout << "After reference: " << x << endl;  // 25!
+    
+    int a = 1, b = 2;
+    swapPtr(&a, &b);
+    cout << "Swapped: " << a << " " << b << endl;  // 2 1
+    
+    return 0;
+}`,
+    },
+    {
+      type: "text",
+      emoji: "🐍",
+      content: `# Python vs C++ — Passing Data · 传递数据对比
+
+🐍 **Py says:** "In Python, everything is passed by object reference. Numbers and strings are immutable so they SEEM like copies. Lists are mutable so changes stick."
+
+| Python | C++ | Effect |
+|--------|-----|--------|
+| \`def f(x)\` | \`void f(int x)\` | Copy — changes don't affect original |
+| (no equivalent) | \`void f(int* x)\` | Pointer — modify original with \`*x\` |
+| (no equivalent) | \`void f(int& x)\` | Reference — modify original directly |
+| \`def f(lst)\` | \`void f(vector<int>& v)\` | Both modify the original |
+
+⚡ **Volt says:** "Use references (\`&\`) for most cases. Use pointers (\`*\`) when you need nullptr or pointer arithmetic. Pass by value for small types you don't need to modify."`,
+    },
+    {
+      type: "code",
+      emoji: "📊",
+      content: `# Arrays and Pointers · 数组和指针`,
+      code: `#include <iostream>
+using namespace std;
+
+// Arrays decay to pointers when passed to functions!
+void printArray(int* arr, int size) {
+    for (int i = 0; i < size; i++) {
+        cout << arr[i] << " ";  // arr[i] same as *(arr + i)
+    }
+    cout << endl;
+}
+
+int main() {
+    int arr[] = {10, 20, 30, 40, 50};
+    
+    // Array name IS a pointer to first element
+    cout << "arr points to: " << arr << endl;
+    cout << "First element: " << *arr << endl;     // 10
+    cout << "Second element: " << *(arr+1) << endl; // 20
+    
+    // Pointer arithmetic
+    int* p = arr;
+    cout << "p[0] = " << p[0] << endl;  // 10
+    p++;  // Move to next element
+    cout << "After p++, *p = " << *p << endl;  // 20
+    
+    // Pass array to function
+    printArray(arr, 5);
+    
+    return 0;
+}`,
+    },
+    {
+      type: "interactive",
+      emoji: "🎮",
+      content: `# Try It! · 动手试试！
+
+Write a function that takes a pointer to an int array and its size, and returns the sum.`,
+      exercise: {
+        prompt: "Sum array elements using a pointer",
+        promptZh: "使用指针求数组元素之和",
+        starterCode: `#include <iostream>
+using namespace std;
+
+int arraySum(int* arr, int size) {
+    // Calculate sum using pointer
+    
+}
+
+int main() {
+    int arr[] = {1, 2, 3, 4, 5};
+    cout << arraySum(arr, 5) << endl;
+    return 0;
+}`,
+        expectedOutput: "15",
+        hint: "Loop through using arr[i] or *(arr + i)",
+        hintZh: "用arr[i]或*(arr + i)遍历数组",
+        solution: `#include <iostream>
+using namespace std;
+
+int arraySum(int* arr, int size) {
+    int sum = 0;
+    for (int i = 0; i < size; i++) {
+        sum += arr[i];
+    }
+    return sum;
+}
+
+int main() {
+    int arr[] = {1, 2, 3, 4, 5};
+    cout << arraySum(arr, 5) << endl;
+    return 0;
+}`,
+      },
+    },
+    {
+      type: "quiz",
+      emoji: "🧪",
+      content: "# Quiz · 测验",
+      quiz: [
+        {
+          question: "What does `int* ptr = &x;` do?\n`int* ptr = &x;`做了什么？",
+          options: [
+            "Multiplies ptr by x · 将ptr乘以x",
+            "Creates a pointer storing x's address · 创建一个存储x地址的指针",
+            "Creates a copy of x · 创建x的副本",
+            "Declares an array · 声明一个数组",
+          ],
+          correctIndex: 1,
+          explanation: "The * in a declaration makes ptr a pointer, and &x gets the address of x. So ptr now points to x. · 声明中的*使ptr成为指针，&x获取x的地址。",
+        },
+      ],
+    },
+  ],
+};
+
+const cpp_4_2: Lesson = {
+  id: "cpp-4-2",
+  moduleId: "cpp-4",
+  title: "Structs & Classes",
+  subtitle: "Custom data types · 自定义数据类型",
+  icon: "🏗️",
+  xp: 200,
+  duration: "30 min",
+  order: 16,
+  gradeRange: [9, 12],
+  difficulty: "intermediate",
+  skillLevel: "intermediate",
+  sections: [
+    {
+      type: "text",
+      emoji: "🏗️",
+      content: `# Structs: Grouping Data · 结构体：数据分组
+
+🐍 **Py says:** "In Python, you'd use a class or dataclass. In C++, \`struct\` is the simplest way to bundle related data together."
+
+⚡ **Volt says:** "Structs are like classes where everything is public by default. For competitive programming, structs are super common!"
+
+\`\`\`
+Python:                    C++:
+class Point:               struct Point {
+    def __init__(self,         int x;
+                 x, y):        int y;
+        self.x = x        };
+        self.y = y
+\`\`\``,
+    },
+    {
+      type: "code",
+      emoji: "📐",
+      content: `# Struct Basics · 结构体基础`,
+      code: `#include <iostream>
+#include <string>
+#include <cmath>
+using namespace std;
+
+struct Point {
+    double x;
+    double y;
+};
+
+struct Student {
+    string name;
+    int age;
+    double gpa;
+};
+
+double distance(Point a, Point b) {
+    double dx = a.x - b.x;
+    double dy = a.y - b.y;
+    return sqrt(dx*dx + dy*dy);
+}
+
+int main() {
+    // Create and initialize structs
+    Point p1 = {3.0, 4.0};
+    Point p2 = {0.0, 0.0};
+    
+    cout << "Point: (" << p1.x << ", " << p1.y << ")" << endl;
+    cout << "Distance: " << distance(p1, p2) << endl;
+    
+    Student s;
+    s.name = "Alice";
+    s.age = 16;
+    s.gpa = 3.9;
+    
+    cout << s.name << " age " << s.age << " GPA " << s.gpa << endl;
+    
+    // Array of structs
+    Student roster[3] = {
+        {"Alice", 16, 3.9},
+        {"Bob", 17, 3.5},
+        {"Charlie", 15, 4.0}
+    };
+    
+    for (int i = 0; i < 3; i++) {
+        cout << roster[i].name << ": " << roster[i].gpa << endl;
+    }
+    
+    return 0;
+}`,
+    },
+    {
+      type: "code",
+      emoji: "🎓",
+      content: `# Classes: Data + Behavior · 类：数据+行为`,
+      code: `#include <iostream>
+#include <string>
+using namespace std;
+
+// Python:                     C++:
+// class Dog:                  class Dog {
+//     def __init__(self,...):  public:
+//         self.name = name        string name;
+//     def bark(self):              int age;
+//         print("Woof!")           
+//                                  void bark() {
+//                                      cout << name << " says Woof!" << endl;
+//                                  }
+//                              };
+
+class Dog {
+public:
+    string name;
+    int age;
+    
+    // Constructor (like Python's __init__)
+    Dog(string n, int a) {
+        name = n;
+        age = a;
+    }
+    
+    void bark() {
+        cout << name << " says Woof!" << endl;
+    }
+    
+    void info() {
+        cout << name << " is " << age << " years old" << endl;
+    }
+};
+
+int main() {
+    Dog d1("Rex", 5);
+    Dog d2("Buddy", 3);
+    
+    d1.bark();    // Rex says Woof!
+    d2.info();    // Buddy is 3 years old
+    
+    return 0;
+}`,
+    },
+    {
+      type: "code",
+      emoji: "🔒",
+      content: `# Public vs Private · 公有vs私有`,
+      code: `#include <iostream>
+#include <string>
+using namespace std;
+
+class BankAccount {
+private:
+    double balance;  // Can't access from outside!
+    string owner;
+
+public:
+    // Constructor
+    BankAccount(string name, double initial) {
+        owner = name;
+        balance = initial;
+    }
+    
+    // Getter (Python: @property)
+    double getBalance() {
+        return balance;
+    }
+    
+    // Methods that safely modify private data
+    void deposit(double amount) {
+        if (amount > 0) {
+            balance += amount;
+            cout << "Deposited $" << amount << endl;
+        }
+    }
+    
+    void withdraw(double amount) {
+        if (amount > 0 && amount <= balance) {
+            balance -= amount;
+            cout << "Withdrew $" << amount << endl;
+        } else {
+            cout << "Insufficient funds!" << endl;
+        }
+    }
+    
+    void display() {
+        cout << owner << ": $" << balance << endl;
+    }
+};
+
+int main() {
+    BankAccount acc("Alice", 1000.0);
+    acc.display();
+    acc.deposit(500);
+    acc.withdraw(200);
+    acc.display();
+    // acc.balance = 999999;  // ERROR! balance is private
+    
+    return 0;
+}`,
+    },
+    {
+      type: "interactive",
+      emoji: "🎮",
+      content: `# Try It! · 动手试试！
+
+Create a Rectangle struct with width and height, and a function to compute the area.`,
+      exercise: {
+        prompt: "Create Rectangle struct with area function",
+        promptZh: "创建Rectangle结构体和面积函数",
+        starterCode: `#include <iostream>
+using namespace std;
+
+// Define Rectangle struct
+
+
+// Function to compute area
+
+
+int main() {
+    Rectangle r = {5, 3};
+    cout << area(r) << endl;
+    return 0;
+}`,
+        expectedOutput: "15",
+        hint: "struct Rectangle { int width; int height; }; then area returns r.width * r.height",
+        hintZh: "struct Rectangle { int width; int height; }; area返回r.width * r.height",
+        solution: `#include <iostream>
+using namespace std;
+
+struct Rectangle {
+    int width;
+    int height;
+};
+
+int area(Rectangle r) {
+    return r.width * r.height;
+}
+
+int main() {
+    Rectangle r = {5, 3};
+    cout << area(r) << endl;
+    return 0;
+}`,
+      },
+    },
+    {
+      type: "quiz",
+      emoji: "🧪",
+      content: "# Quiz · 测验",
+      quiz: [
+        {
+          question: "What's the difference between `struct` and `class` in C++?\n`struct`和`class`在C++中有什么区别？",
+          options: [
+            "struct can't have methods · struct不能有方法",
+            "class can't have data · class不能有数据",
+            "struct members are public by default, class members are private · struct默认公有，class默认私有",
+            "There's no difference · 没有区别",
+          ],
+          correctIndex: 2,
+          explanation: "The only difference is default access: struct = public by default, class = private by default. Both can have methods, constructors, etc. · 唯一区别是默认访问权限。",
+        },
+      ],
+    },
+  ],
+};
+
+const cpp_4_3: Lesson = {
+  id: "cpp-4-3",
+  moduleId: "cpp-4",
+  title: "Dynamic Memory",
+  subtitle: "new, delete, and smart pointers · 动态内存管理",
+  icon: "🧠",
+  xp: 200,
+  duration: "25 min",
+  order: 17,
+  gradeRange: [9, 12],
+  difficulty: "advanced",
+  skillLevel: "advanced",
+  sections: [
+    {
+      type: "text",
+      emoji: "🧠",
+      content: `# Dynamic Memory · 动态内存
+
+🐍 **Py says:** "Python handles memory automatically — garbage collection cleans up. In C++, you sometimes allocate memory manually with \`new\` and MUST free it with \`delete\`."
+
+🔧 **Chip says:** "Memory has two regions:
+- **Stack**: fast, automatic, limited size (local variables)
+- **Heap**: slower, manual, huge (dynamic allocation)
+
+When you use \`new\`, memory comes from the heap. When you forget \`delete\`, you get a **memory leak**."
+
+⚡ **Volt says:** "Modern C++ has smart pointers that handle cleanup automatically. But understanding raw pointers is essential for competitions and interviews."`,
+    },
+    {
+      type: "code",
+      emoji: "📦",
+      content: `# new and delete · 分配和释放内存`,
+      code: `#include <iostream>
+using namespace std;
+
+int main() {
+    // Stack allocation (automatic)
+    int x = 42;  // Freed when function ends
+    
+    // Heap allocation (manual)
+    int* p = new int;       // Allocate one int on heap
+    *p = 42;
+    cout << "*p = " << *p << endl;
+    delete p;               // Free it! MUST do this!
+    
+    // Dynamic array
+    int n = 5;
+    int* arr = new int[n];  // Allocate array on heap
+    for (int i = 0; i < n; i++) {
+        arr[i] = i * 10;
+    }
+    for (int i = 0; i < n; i++) {
+        cout << arr[i] << " ";
+    }
+    cout << endl;
+    delete[] arr;  // Free array! Note the []
+    
+    // Why dynamic? Size can be decided at runtime!
+    int size;
+    cout << "Enter size: ";
+    cin >> size;
+    int* dynArr = new int[size];
+    // ... use it ...
+    delete[] dynArr;
+    
+    return 0;
+}`,
+    },
+    {
+      type: "code",
+      emoji: "🛡️",
+      content: `# Vectors vs Raw Arrays · vector对比原始数组`,
+      code: `#include <iostream>
+#include <vector>
+using namespace std;
+
+int main() {
+    // DON'T do this (old C++ style):
+    int* arr = new int[100];
+    // ... easy to forget delete[] ...
+    delete[] arr;
+    
+    // DO this (modern C++):
+    vector<int> vec(100);  // Automatically managed!
+    // No delete needed — vector cleans up itself
+    
+    // Vectors resize automatically
+    vector<int> v;
+    for (int i = 0; i < 1000; i++) {
+        v.push_back(i);  // Grows as needed
+    }
+    cout << "Size: " << v.size() << endl;
+    
+    // For competitive programming, vectors are almost
+    // always better than raw new/delete
+    
+    // Dynamic 2D array with vectors
+    int rows = 3, cols = 4;
+    vector<vector<int>> grid(rows, vector<int>(cols, 0));
+    grid[1][2] = 42;
+    cout << "Grid[1][2] = " << grid[1][2] << endl;
+    
+    return 0;
+}`,
+    },
+    {
+      type: "text",
+      emoji: "💡",
+      content: `# Memory Best Practices · 内存管理最佳实践
+
+⚡ **Volt's Rules:**
+
+1. **Prefer vector over new[]** — vectors manage memory automatically
+2. **Every new needs a delete** — or you leak memory
+3. **new[] needs delete[]** — don't mix them!
+4. **Set pointers to nullptr after delete** — prevents "dangling pointers"
+5. **Use smart pointers in real projects** — \`unique_ptr\` and \`shared_ptr\`
+
+🔧 **Chip says:** "Memory leaks are bugs where you allocate memory but never free it. In a short program, the OS cleans up when the program ends. But in long-running programs (servers, games), leaks accumulate and crash!"
+
+🐍 **Py says:** "This is the ONE thing I love about Python — no memory management headaches! But the tradeoff is speed."`,
+    },
+    {
+      type: "code",
+      emoji: "✨",
+      content: `# Structs with Dynamic Memory · 带动态内存的结构体`,
+      code: `#include <iostream>
+#include <string>
+#include <vector>
+using namespace std;
+
+struct Team {
+    string name;
+    vector<string> members;  // Vector handles memory!
+    
+    void addMember(string m) {
+        members.push_back(m);
+    }
+    
+    void display() {
+        cout << name << " (" << members.size() << " members):" << endl;
+        for (const string& m : members) {
+            cout << "  - " << m << endl;
+        }
+    }
+};
+
+int main() {
+    Team t;
+    t.name = "Alpha";
+    t.addMember("Alice");
+    t.addMember("Bob");
+    t.addMember("Charlie");
+    t.display();
+    
+    // Vector of structs
+    vector<Team> teams;
+    teams.push_back({"Beta", {"Dave", "Eve"}});
+    teams.push_back({"Gamma", {"Frank"}});
+    
+    for (auto& team : teams) {
+        team.display();
+    }
+    
+    return 0;
+}`,
+    },
+    {
+      type: "quiz",
+      emoji: "🧪",
+      content: "# Quiz · 测验",
+      quiz: [
+        {
+          question: "What happens if you `new` memory but never `delete` it?\n如果`new`了内存但从不`delete`会怎样？",
+          options: [
+            "The compiler catches the error · 编译器会捕获错误",
+            "Memory leak — the memory is wasted · 内存泄漏——内存被浪费",
+            "The program crashes immediately · 程序立即崩溃",
+            "Nothing — it's automatically freed · 没事——会自动释放",
+          ],
+          correctIndex: 1,
+          explanation: "Memory leaks mean allocated memory is never freed. The program keeps running but wastes memory. The OS reclaims it when the program exits. · 内存泄漏意味着分配的内存永远不会被释放。",
+        },
+      ],
+    },
+  ],
+};
+
+const cpp_4_4: Lesson = {
+  id: "cpp-4-4",
+  moduleId: "cpp-4",
+  title: "Inheritance & Polymorphism",
+  subtitle: "OOP hierarchy · 面向对象继承和多态",
+  icon: "🌳",
+  xp: 200,
+  duration: "30 min",
+  order: 18,
+  gradeRange: [9, 12],
+  difficulty: "advanced",
+  skillLevel: "advanced",
+  sections: [
+    {
+      type: "text",
+      emoji: "🌳",
+      content: `# Inheritance · 继承
+
+🐍 **Py says:** "Inheritance works similarly! A child class extends a parent class."
+
+\`\`\`
+Python:                          C++:
+class Animal:                    class Animal {
+    def speak(self):             public:
+        print("...")                 virtual void speak() {
+                                         cout << "..." << endl;
+class Dog(Animal):                   }
+    def speak(self):             };
+        print("Woof!")           
+                                 class Dog : public Animal {
+                                 public:
+                                     void speak() override {
+                                         cout << "Woof!" << endl;
+                                     }
+                                 };
+\`\`\`
+
+⚡ **Volt says:** "The \`virtual\` keyword enables polymorphism — calling the right method based on the actual object type, not the pointer type."`,
+    },
+    {
+      type: "code",
+      emoji: "🐾",
+      content: `# Inheritance Basics · 继承基础`,
+      code: `#include <iostream>
+#include <string>
+using namespace std;
+
+class Animal {
+protected:  // Accessible by subclasses (Python: convention _name)
+    string name;
+public:
+    Animal(string n) : name(n) {}
+    
+    virtual void speak() {
+        cout << name << " says ..." << endl;
+    }
+    
+    string getName() { return name; }
+};
+
+class Dog : public Animal {
+public:
+    Dog(string n) : Animal(n) {}  // Call parent constructor
+    
+    void speak() override {
+        cout << name << " says Woof!" << endl;
+    }
+    
+    void fetch() {
+        cout << name << " fetches the ball!" << endl;
+    }
+};
+
+class Cat : public Animal {
+public:
+    Cat(string n) : Animal(n) {}
+    
+    void speak() override {
+        cout << name << " says Meow!" << endl;
+    }
+};
+
+int main() {
+    Dog d("Rex");
+    Cat c("Whiskers");
+    
+    d.speak();   // Rex says Woof!
+    c.speak();   // Whiskers says Meow!
+    d.fetch();   // Dog-specific method
+    
+    // Polymorphism: pointer to base class
+    Animal* animals[] = {&d, &c};
+    for (auto a : animals) {
+        a->speak();  // Calls the RIGHT version!
+    }
+    
+    return 0;
+}`,
+    },
+    {
+      type: "code",
+      emoji: "🎮",
+      content: `# Practical OOP: Game Characters · 实际OOP：游戏角色`,
+      code: `#include <iostream>
+#include <string>
+#include <vector>
+using namespace std;
+
+class Character {
+protected:
+    string name;
+    int hp;
+    int attack;
+public:
+    Character(string n, int h, int a) : name(n), hp(h), attack(a) {}
+    
+    virtual void specialMove() = 0;  // Pure virtual = abstract
+    
+    void takeDamage(int dmg) {
+        hp -= dmg;
+        if (hp < 0) hp = 0;
+        cout << name << " takes " << dmg << " damage! HP: " << hp << endl;
+    }
+    
+    bool isAlive() { return hp > 0; }
+    string getName() { return name; }
+    int getAttack() { return attack; }
+};
+
+class Warrior : public Character {
+public:
+    Warrior(string n) : Character(n, 100, 15) {}
+    
+    void specialMove() override {
+        cout << name << " uses SHIELD BASH! (double damage)" << endl;
+    }
+};
+
+class Mage : public Character {
+public:
+    Mage(string n) : Character(n, 60, 25) {}
+    
+    void specialMove() override {
+        cout << name << " casts FIREBALL! (area damage)" << endl;
+    }
+};
+
+int main() {
+    Warrior w("Thor");
+    Mage m("Gandalf");
+    
+    w.specialMove();
+    m.specialMove();
+    
+    m.takeDamage(w.getAttack());
+    w.takeDamage(m.getAttack());
+    
+    // Polymorphic container
+    vector<Character*> party = {&w, &m};
+    cout << "\\nParty:" << endl;
+    for (auto c : party) {
+        cout << c->getName() << " alive: " << c->isAlive() << endl;
+    }
+    
+    return 0;
+}`,
+    },
+    {
+      type: "text",
+      emoji: "🐍",
+      content: `# Python vs C++ OOP · Python和C++ OOP对比
+
+| Feature | Python | C++ |
+|---------|--------|-----|
+| Inheritance | \`class Dog(Animal)\` | \`class Dog : public Animal\` |
+| Constructor | \`__init__(self)\` | \`ClassName()\` |
+| Call parent | \`super().__init__()\` | \`: ParentClass()\` |
+| Virtual | All methods are virtual | Must mark \`virtual\` |
+| Override | Just redefine | \`override\` keyword |
+| Abstract | \`@abstractmethod\` | \`= 0\` (pure virtual) |
+| Access | Convention (\`_name\`) | \`private/protected/public\` |
+| Multiple inheritance | Supported | Supported (but complex) |
+
+🔧 **Chip says:** "C++'s virtual dispatch uses a 'vtable' — a hidden lookup table. Non-virtual calls are faster because the compiler knows exactly which function to call at compile time!"`,
+    },
+    {
+      type: "interactive",
+      emoji: "🎮",
+      content: `# Try It! · 动手试试！
+
+Create a Shape base class with an area() method, and Circle and Square subclasses.`,
+      exercise: {
+        prompt: "Create Shape hierarchy with area()",
+        promptZh: "创建Shape层次结构和area()方法",
+        starterCode: `#include <iostream>
+#include <cmath>
+using namespace std;
+
+class Shape {
+public:
+    virtual double area() = 0;
+};
+
+// Create Circle and Square classes
+
+
+int main() {
+    Circle c(5.0);
+    Square s(4.0);
+    cout << "Circle: " << c.area() << endl;
+    cout << "Square: " << s.area() << endl;
+    return 0;
+}`,
+        expectedOutput: "Circle: 78.5398\nSquare: 16",
+        hint: "Circle area = pi * r * r, Square area = side * side. Use M_PI or 3.14159.",
+        hintZh: "圆面积 = pi * r * r，正方形面积 = side * side",
+        solution: `#include <iostream>
+#include <cmath>
+using namespace std;
+
+class Shape {
+public:
+    virtual double area() = 0;
+};
+
+class Circle : public Shape {
+    double radius;
+public:
+    Circle(double r) : radius(r) {}
+    double area() override {
+        return M_PI * radius * radius;
+    }
+};
+
+class Square : public Shape {
+    double side;
+public:
+    Square(double s) : side(s) {}
+    double area() override {
+        return side * side;
+    }
+};
+
+int main() {
+    Circle c(5.0);
+    Square s(4.0);
+    cout << "Circle: " << c.area() << endl;
+    cout << "Square: " << s.area() << endl;
+    return 0;
+}`,
+      },
+    },
+    {
+      type: "quiz",
+      emoji: "🧪",
+      content: "# Quiz · 测验",
+      quiz: [
+        {
+          question: "What does `= 0` mean in `virtual void speak() = 0;`?\n`virtual void speak() = 0;`中的`= 0`是什么意思？",
+          options: [
+            "The function returns 0 · 函数返回0",
+            "The function does nothing · 函数什么都不做",
+            "It's a pure virtual function — subclasses MUST implement it · 纯虚函数——子类必须实现",
+            "The function is deleted · 函数被删除",
+          ],
+          correctIndex: 2,
+          explanation: "= 0 makes it a pure virtual function (abstract). The class becomes abstract and can't be instantiated directly. · = 0使之成为纯虚函数，类变为抽象类。",
+        },
+      ],
+    },
+  ],
+};
+
+// ═══════════════════════════════════════════════════════════════
+// MODULE CPP-5: STL POWER (3 lessons)
+// ═══════════════════════════════════════════════════════════════
+
+const cpp_5_1: Lesson = {
+  id: "cpp-5-1",
+  moduleId: "cpp-5",
+  title: "Maps & Sets",
+  subtitle: "Key-value pairs and unique collections · 映射和集合",
+  icon: "🗺️",
+  xp: 200,
+  duration: "25 min",
+  order: 19,
+  gradeRange: [9, 12],
+  difficulty: "intermediate",
+  skillLevel: "intermediate",
+  sections: [
+    {
+      type: "text",
+      emoji: "🗺️",
+      content: `# STL Containers · STL容器
+
+🐍 **Py says:** "Python has \`dict\` and \`set\`. C++ has \`map\` and \`set\` — they work similarly but are sorted by default!"
+
+⚡ **Volt says:** "The STL (Standard Template Library) gives you powerful, optimized data structures. Know these well for competitions!"
+
+| Python | C++ (sorted) | C++ (hash/fast) |
+|--------|-------------|------------------|
+| \`dict\` | \`map\` | \`unordered_map\` |
+| \`set\` | \`set\` | \`unordered_set\` |
+| — | \`multiset\` | \`unordered_multiset\` |
+
+🔧 **Chip says:** "\`map\` and \`set\` use balanced BSTs — O(log n) operations. \`unordered_\` versions use hash tables — O(1) average."`,
+    },
+    {
+      type: "code",
+      emoji: "📖",
+      content: `# map — Like Python's dict · map——类似Python的dict`,
+      code: `#include <iostream>
+#include <map>
+#include <string>
+using namespace std;
+
+int main() {
+    // Python: scores = {"Alice": 95, "Bob": 87}
+    map<string, int> scores;
+    scores["Alice"] = 95;
+    scores["Bob"] = 87;
+    scores["Charlie"] = 92;
+    
+    // Access (Python: scores["Alice"])
+    cout << "Alice: " << scores["Alice"] << endl;
+    
+    // Check existence (Python: "Alice" in scores)
+    if (scores.count("Alice")) {
+        cout << "Alice found!" << endl;
+    }
+    
+    // Iterate (automatically sorted by key!)
+    // Python: for name, score in scores.items():
+    for (auto& [name, score] : scores) {
+        cout << name << ": " << score << endl;
+    }
+    // Output: Alice: 95, Bob: 87, Charlie: 92 (sorted!)
+    
+    // Size (Python: len(scores))
+    cout << "Size: " << scores.size() << endl;
+    
+    // Erase (Python: del scores["Bob"])
+    scores.erase("Bob");
+    
+    // Word frequency counter (very common pattern!)
+    string words[] = {"the", "cat", "the", "hat", "the"};
+    map<string, int> freq;
+    for (const string& w : words) {
+        freq[w]++;  // Auto-initializes to 0!
+    }
+    for (auto& [word, count] : freq) {
+        cout << word << ": " << count << endl;
+    }
+    
+    return 0;
+}`,
+    },
+    {
+      type: "code",
+      emoji: "🎯",
+      content: `# set — Unique Sorted Collection · set——唯一有序集合`,
+      code: `#include <iostream>
+#include <set>
+#include <vector>
+using namespace std;
+
+int main() {
+    // Python: s = {3, 1, 4, 1, 5, 9}
+    set<int> s = {3, 1, 4, 1, 5, 9};
+    // Duplicates removed, sorted: {1, 3, 4, 5, 9}
+    
+    cout << "Set: ";
+    for (int x : s) cout << x << " ";
+    cout << endl;
+    
+    // Insert (Python: s.add(7))
+    s.insert(7);
+    s.insert(3);  // Already exists, ignored
+    
+    // Check membership (Python: 4 in s)
+    if (s.count(4)) {
+        cout << "4 is in the set" << endl;
+    }
+    
+    // Remove (Python: s.remove(1))
+    s.erase(1);
+    
+    // Size
+    cout << "Size: " << s.size() << endl;
+    
+    // Practical: Remove duplicates from vector
+    vector<int> v = {5, 2, 8, 2, 5, 1, 8, 3};
+    set<int> unique(v.begin(), v.end());
+    cout << "Unique: ";
+    for (int x : unique) cout << x << " ";
+    cout << endl;
+    
+    // Find first element >= value (lower_bound)
+    auto it = s.lower_bound(4);
+    if (it != s.end()) {
+        cout << "First >= 4: " << *it << endl;
+    }
+    
+    return 0;
+}`,
+    },
+    {
+      type: "interactive",
+      emoji: "🎮",
+      content: `# Try It! · 动手试试！
+
+Count the frequency of each character in a string using a map.`,
+      exercise: {
+        prompt: "Count character frequency",
+        promptZh: "统计字符频率",
+        starterCode: `#include <iostream>
+#include <map>
+#include <string>
+using namespace std;
+
+int main() {
+    string s;
+    cin >> s;
+    
+    // Count frequency of each character
+    
+    
+    return 0;
+}`,
+        expectedOutput: "a:2 b:1 c:1 ...",
+        hint: "Use map<char, int> and freq[c]++ for each character",
+        hintZh: "用map<char, int>和freq[c]++统计每个字符",
+        solution: `#include <iostream>
+#include <map>
+#include <string>
+using namespace std;
+
+int main() {
+    string s;
+    cin >> s;
+    
+    map<char, int> freq;
+    for (char c : s) {
+        freq[c]++;
+    }
+    
+    for (auto& [ch, count] : freq) {
+        cout << ch << ":" << count << " ";
+    }
+    cout << endl;
+    
+    return 0;
+}`,
+      },
+    },
+    {
+      type: "code",
+      emoji: "⚡",
+      content: `# unordered_map — Hash Map (Faster!) · 哈希表（更快！）`,
+      code: `#include <iostream>
+#include <unordered_map>
+#include <string>
+using namespace std;
+
+int main() {
+    // Same API as map, but uses hashing
+    // Average O(1) instead of O(log n)!
+    unordered_map<string, int> scores;
+    scores["Alice"] = 95;
+    scores["Bob"] = 87;
+    
+    // Access same as map
+    cout << scores["Alice"] << endl;
+    
+    // When to use which?
+    // map:           sorted keys, O(log n), uses less memory
+    // unordered_map: unsorted, O(1) average, uses more memory
+    
+    // For competitive programming:
+    // - Need sorted order? → map
+    // - Need fastest lookup? → unordered_map
+    // - Default choice? → unordered_map (usually faster)
+    
+    // Two Sum problem (classic!)
+    int arr[] = {2, 7, 11, 15};
+    int target = 9;
+    unordered_map<int, int> seen;
+    for (int i = 0; i < 4; i++) {
+        int complement = target - arr[i];
+        if (seen.count(complement)) {
+            cout << "Found pair: indices " 
+                 << seen[complement] << " and " << i << endl;
+        }
+        seen[arr[i]] = i;
+    }
+    
+    return 0;
+}`,
+    },
+    {
+      type: "quiz",
+      emoji: "🧪",
+      content: "# Quiz · 测验",
+      quiz: [
+        {
+          question: "What's the time complexity of `map` lookup vs `unordered_map`?\n`map`和`unordered_map`查找的时间复杂度？",
+          options: [
+            "Both O(1) · 都是O(1)",
+            "map: O(log n), unordered_map: O(1) average",
+            "Both O(log n) · 都是O(log n)",
+            "map: O(n), unordered_map: O(log n)",
+          ],
+          correctIndex: 1,
+          explanation: "map uses a balanced BST (O(log n)), while unordered_map uses a hash table (O(1) average, O(n) worst case). · map用平衡BST，unordered_map用哈希表。",
+        },
+      ],
+    },
+  ],
+};
+
+const cpp_5_2: Lesson = {
+  id: "cpp-5-2",
+  moduleId: "cpp-5",
+  title: "STL Algorithms",
+  subtitle: "sort, binary_search, and more · 排序、二分查找等",
+  icon: "🔧",
+  xp: 200,
+  duration: "25 min",
+  order: 20,
+  gradeRange: [9, 12],
+  difficulty: "intermediate",
+  skillLevel: "intermediate",
+  sections: [
+    {
+      type: "text",
+      emoji: "🔧",
+      content: `# STL Algorithms · STL算法
+
+🐍 **Py says:** "Python has \`sorted()\`, \`min()\`, \`max()\`. C++ has ALL of those and way more in \`<algorithm>\`!"
+
+⚡ **Volt says:** "The STL algorithm library is a competitive programmer's best friend. These are highly optimized and battle-tested."
+
+Key header: \`#include <algorithm>\`
+
+Most algorithms work with **iterators** — think of them as generalized pointers that work with any container.`,
+    },
+    {
+      type: "code",
+      emoji: "📊",
+      content: `# Sorting — The Most Important Algorithm · 排序——最重要的算法`,
+      code: `#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <string>
+using namespace std;
+
+int main() {
+    vector<int> v = {5, 2, 8, 1, 9, 3};
+    
+    // Basic sort (ascending) — Python: list.sort()
+    sort(v.begin(), v.end());
+    for (int x : v) cout << x << " ";  // 1 2 3 5 8 9
+    cout << endl;
+    
+    // Sort descending — Python: list.sort(reverse=True)
+    sort(v.begin(), v.end(), greater<int>());
+    for (int x : v) cout << x << " ";  // 9 8 5 3 2 1
+    cout << endl;
+    
+    // Custom sort — Python: list.sort(key=lambda x: ...)
+    vector<string> words = {"banana", "apple", "cherry", "date"};
+    
+    // Sort by length
+    sort(words.begin(), words.end(), [](const string& a, const string& b) {
+        return a.length() < b.length();
+    });
+    for (const string& w : words) cout << w << " ";
+    cout << endl;  // date apple banana cherry
+    
+    // Sort pairs (common in competitions)
+    vector<pair<int,int>> pts = {{3,1}, {1,5}, {3,0}, {1,2}};
+    sort(pts.begin(), pts.end());  // Sorts by first, then second
+    for (auto& [x,y] : pts) {
+        cout << "(" << x << "," << y << ") ";
+    }
+    cout << endl;
+    
+    return 0;
+}`,
+    },
+    {
+      type: "code",
+      emoji: "🔍",
+      content: `# Binary Search · 二分查找`,
+      code: `#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+int main() {
+    vector<int> v = {1, 3, 5, 7, 9, 11, 13, 15};
+    // Must be sorted for binary search!
+    
+    // Check if element exists — O(log n)
+    bool found = binary_search(v.begin(), v.end(), 7);
+    cout << "7 found: " << found << endl;  // 1 (true)
+    
+    // lower_bound: first element >= value
+    auto lb = lower_bound(v.begin(), v.end(), 6);
+    cout << "First >= 6: " << *lb << endl;  // 7
+    cout << "Index: " << (lb - v.begin()) << endl;  // 3
+    
+    // upper_bound: first element > value
+    auto ub = upper_bound(v.begin(), v.end(), 7);
+    cout << "First > 7: " << *ub << endl;  // 9
+    
+    // Count elements in range [5, 11]
+    auto lo = lower_bound(v.begin(), v.end(), 5);
+    auto hi = upper_bound(v.begin(), v.end(), 11);
+    cout << "Elements in [5,11]: " << (hi - lo) << endl;  // 4
+    
+    return 0;
+}`,
+    },
+    {
+      type: "code",
+      emoji: "🛠️",
+      content: `# More Useful Algorithms · 更多实用算法`,
+      code: `#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <numeric>
+using namespace std;
+
+int main() {
+    vector<int> v = {3, 1, 4, 1, 5, 9, 2, 6};
+    
+    // min/max element
+    cout << "Min: " << *min_element(v.begin(), v.end()) << endl;
+    cout << "Max: " << *max_element(v.begin(), v.end()) << endl;
+    
+    // count — how many times value appears
+    cout << "Count of 1: " << count(v.begin(), v.end(), 1) << endl;
+    
+    // accumulate — sum (Python: sum())
+    int total = accumulate(v.begin(), v.end(), 0);
+    cout << "Sum: " << total << endl;
+    
+    // reverse
+    reverse(v.begin(), v.end());
+    
+    // unique — remove consecutive duplicates
+    vector<int> u = {1, 1, 2, 2, 3, 1, 1};
+    sort(u.begin(), u.end());  // Sort first!
+    auto last = unique(u.begin(), u.end());
+    u.erase(last, u.end());  // Actually remove
+    for (int x : u) cout << x << " ";  // 1 2 3
+    cout << endl;
+    
+    // next_permutation — generate all permutations!
+    vector<int> perm = {1, 2, 3};
+    do {
+        for (int x : perm) cout << x;
+        cout << " ";
+    } while (next_permutation(perm.begin(), perm.end()));
+    cout << endl;  // 123 132 213 231 312 321
+    
+    return 0;
+}`,
+    },
+    {
+      type: "interactive",
+      emoji: "🎮",
+      content: `# Try It! · 动手试试！
+
+Read N numbers and find how many are less than a target value using binary search.`,
+      exercise: {
+        prompt: "Count elements less than target using lower_bound",
+        promptZh: "用lower_bound统计小于目标值的元素数",
+        starterCode: `#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+int main() {
+    int n, target;
+    cin >> n >> target;
+    
+    vector<int> v(n);
+    for (int i = 0; i < n; i++) cin >> v[i];
+    
+    // Sort and count elements < target
+    
+    
+    return 0;
+}`,
+        expectedOutput: "3",
+        hint: "Sort the vector, then use lower_bound to find the first element >= target. The answer is the iterator minus begin().",
+        hintZh: "排序向量，用lower_bound找到第一个>=target的元素，答案是迭代器减去begin()",
+        solution: `#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+int main() {
+    int n, target;
+    cin >> n >> target;
+    
+    vector<int> v(n);
+    for (int i = 0; i < n; i++) cin >> v[i];
+    
+    sort(v.begin(), v.end());
+    auto it = lower_bound(v.begin(), v.end(), target);
+    cout << (it - v.begin()) << endl;
+    
+    return 0;
+}`,
+      },
+    },
+    {
+      type: "quiz",
+      emoji: "🧪",
+      content: "# Quiz · 测验",
+      quiz: [
+        {
+          question: "What does `lower_bound(v.begin(), v.end(), 5)` return?\n`lower_bound`返回什么？",
+          options: [
+            "Iterator to the largest element < 5 · 指向最大的<5的元素的迭代器",
+            "Iterator to the first element >= 5 · 指向第一个>=5的元素的迭代器",
+            "Iterator to element equal to 5 · 指向等于5的元素的迭代器",
+            "The value 5 · 值5",
+          ],
+          correctIndex: 1,
+          explanation: "lower_bound returns an iterator to the first element that is NOT less than the given value (i.e., >= value). · lower_bound返回第一个不小于给定值的元素的迭代器。",
+        },
+      ],
+    },
+  ],
+};
+
+const cpp_5_3: Lesson = {
+  id: "cpp-5-3",
+  moduleId: "cpp-5",
+  title: "Stacks, Queues & Priority Queues",
+  subtitle: "Essential data structures · 栈、队列和优先队列",
+  icon: "📚",
+  xp: 200,
+  duration: "25 min",
+  order: 21,
+  gradeRange: [9, 12],
+  difficulty: "advanced",
+  skillLevel: "advanced",
+  sections: [
+    {
+      type: "text",
+      emoji: "📚",
+      content: `# Stack & Queue · 栈和队列
+
+🐍 **Py says:** "Python uses lists as stacks (\`append/pop\`) and \`collections.deque\` as queues. C++ has dedicated \`stack\` and \`queue\` classes!"
+
+⚡ **Volt says:** "These are essential for BFS, DFS, expression parsing, and many competition problems."
+
+| Structure | Analogy | Operations | Order |
+|-----------|---------|------------|-------|
+| Stack | Plates | push, pop, top | LIFO (Last In, First Out) |
+| Queue | Line at store | push, pop, front | FIFO (First In, First Out) |
+| Priority Queue | ER triage | push, pop, top | Highest priority first |`,
+    },
+    {
+      type: "code",
+      emoji: "📦",
+      content: `# Stack — LIFO · 栈——后进先出`,
+      code: `#include <iostream>
+#include <stack>
+#include <string>
+using namespace std;
+
+int main() {
+    stack<int> s;
+    
+    // Push elements (Python: list.append())
+    s.push(10);
+    s.push(20);
+    s.push(30);
+    
+    cout << "Top: " << s.top() << endl;  // 30
+    cout << "Size: " << s.size() << endl;  // 3
+    
+    // Pop and print all (Python: while list: list.pop())
+    while (!s.empty()) {
+        cout << s.top() << " ";
+        s.pop();
+    }
+    cout << endl;  // 30 20 10
+    
+    // Classic: Check balanced parentheses
+    string expr = "({[()]})";
+    stack<char> brackets;
+    bool valid = true;
+    for (char c : expr) {
+        if (c == '(' || c == '{' || c == '[') {
+            brackets.push(c);
+        } else {
+            if (brackets.empty()) { valid = false; break; }
+            char top = brackets.top();
+            brackets.pop();
+            if ((c == ')' && top != '(') ||
+                (c == '}' && top != '{') ||
+                (c == ']' && top != '[')) {
+                valid = false; break;
+            }
+        }
+    }
+    valid = valid && brackets.empty();
+    cout << expr << " is " << (valid ? "valid" : "invalid") << endl;
+    
+    return 0;
+}`,
+    },
+    {
+      type: "code",
+      emoji: "🚶",
+      content: `# Queue — FIFO · 队列——先进先出`,
+      code: `#include <iostream>
+#include <queue>
+using namespace std;
+
+int main() {
+    queue<int> q;
+    
+    // Enqueue (Python: deque.append())
+    q.push(10);
+    q.push(20);
+    q.push(30);
+    
+    cout << "Front: " << q.front() << endl;  // 10
+    cout << "Back: " << q.back() << endl;    // 30
+    
+    // Dequeue all (Python: while deque: deque.popleft())
+    while (!q.empty()) {
+        cout << q.front() << " ";
+        q.pop();  // Removes from front!
+        // Note: pop() doesn't return the value in C++!
+    }
+    cout << endl;  // 10 20 30
+    
+    // BFS simulation
+    cout << "\\nBFS level-order:" << endl;
+    queue<pair<int,int>> bfs;
+    bfs.push({0, 0});  // Start position
+    int steps = 0;
+    while (!bfs.empty() && steps < 3) {
+        auto [x, y] = bfs.front();
+        bfs.pop();
+        cout << "Visit (" << x << "," << y << ")" << endl;
+        bfs.push({x+1, y});
+        bfs.push({x, y+1});
+        steps++;
+    }
+    
+    return 0;
+}`,
+    },
+    {
+      type: "code",
+      emoji: "🏆",
+      content: `# Priority Queue — Always Get the Best · 优先队列`,
+      code: `#include <iostream>
+#include <queue>
+#include <vector>
+using namespace std;
+
+int main() {
+    // Max-heap by default (largest on top)
+    priority_queue<int> maxPQ;
+    maxPQ.push(30);
+    maxPQ.push(10);
+    maxPQ.push(50);
+    maxPQ.push(20);
+    
+    cout << "Max-heap:" << endl;
+    while (!maxPQ.empty()) {
+        cout << maxPQ.top() << " ";  // 50 30 20 10
+        maxPQ.pop();
+    }
+    cout << endl;
+    
+    // Min-heap (smallest on top) — note the syntax!
+    priority_queue<int, vector<int>, greater<int>> minPQ;
+    minPQ.push(30);
+    minPQ.push(10);
+    minPQ.push(50);
+    minPQ.push(20);
+    
+    cout << "Min-heap:" << endl;
+    while (!minPQ.empty()) {
+        cout << minPQ.top() << " ";  // 10 20 30 50
+        minPQ.pop();
+    }
+    cout << endl;
+    
+    // Practical: Find K largest elements
+    vector<int> nums = {3, 7, 1, 9, 4, 6, 2, 8, 5};
+    int k = 3;
+    priority_queue<int> pq;
+    for (int x : nums) pq.push(x);
+    cout << "Top " << k << ": ";
+    for (int i = 0; i < k; i++) {
+        cout << pq.top() << " ";
+        pq.pop();
+    }
+    cout << endl;  // 9 8 7
+    
+    return 0;
+}`,
+    },
+    {
+      type: "interactive",
+      emoji: "🎮",
+      content: `# Try It! · 动手试试！
+
+Use a stack to reverse a string.`,
+      exercise: {
+        prompt: "Reverse string using a stack",
+        promptZh: "用栈反转字符串",
+        starterCode: `#include <iostream>
+#include <stack>
+#include <string>
+using namespace std;
+
+int main() {
+    string s;
+    cin >> s;
+    
+    // Use a stack to reverse the string
+    
+    
+    return 0;
+}`,
+        expectedOutput: "olleh",
+        hint: "Push each character, then pop them all into a result string",
+        hintZh: "将每个字符入栈，然后全部弹出到结果字符串",
+        solution: `#include <iostream>
+#include <stack>
+#include <string>
+using namespace std;
+
+int main() {
+    string s;
+    cin >> s;
+    
+    stack<char> st;
+    for (char c : s) st.push(c);
+    
+    string result = "";
+    while (!st.empty()) {
+        result += st.top();
+        st.pop();
+    }
+    
+    cout << result << endl;
+    
+    return 0;
+}`,
+      },
+    },
+    {
+      type: "quiz",
+      emoji: "🧪",
+      content: "# Quiz · 测验",
+      quiz: [
+        {
+          question: "Which STL container gives you the largest element first?\n哪个STL容器首先给你最大的元素？",
+          options: [
+            "stack",
+            "queue",
+            "priority_queue",
+            "set",
+          ],
+          correctIndex: 2,
+          explanation: "priority_queue is a max-heap by default — top() always returns the largest element. Use greater<int> for a min-heap. · priority_queue默认是最大堆。",
+        },
+      ],
+    },
+  ],
+};
+
+// ═══════════════════════════════════════════════════════════════
+// MODULE CPP-6: COMPETITION PREP (3 lessons)
+// ═══════════════════════════════════════════════════════════════
+
+const cpp_6_1: Lesson = {
+  id: "cpp-6-1",
+  moduleId: "cpp-6",
+  title: "Fast I/O & Templates",
+  subtitle: "Competition programming setup · 竞赛编程设置",
+  icon: "🚀",
+  xp: 250,
+  duration: "25 min",
+  order: 22,
+  gradeRange: [9, 12],
+  difficulty: "advanced",
+  skillLevel: "advanced",
+  sections: [
+    {
+      type: "text",
+      emoji: "🚀",
+      content: `# Competitive Programming Setup · 竞赛编程设置
+
+🐍 **Py says:** "In Python competitions, speed is always a concern. In C++, you're already fast — but these tricks make you EVEN faster!"
+
+⚡ **Volt says:** "Every competitive programmer has a template. Let's build yours!"
+
+🔧 **Chip says:** "The biggest time savings: fast I/O. Default \`cin/cout\` is slow because it syncs with C's \`printf/scanf\`. Turn that off!"`,
+    },
+    {
+      type: "code",
+      emoji: "⚡",
+      content: `# Fast I/O Template · 快速I/O模板`,
+      code: `#include <bits/stdc++.h>  // Includes EVERYTHING (competition only!)
+using namespace std;
+
+// Type shortcuts
+typedef long long ll;
+typedef pair<int,int> pii;
+typedef vector<int> vi;
+typedef vector<ll> vll;
+
+// Macros (use sparingly in real code)
+#define pb push_back
+#define all(x) (x).begin(), (x).end()
+#define sz(x) (int)(x).size()
+#define FOR(i, a, b) for (int i = (a); i < (b); i++)
+
+int main() {
+    // THE magic lines — makes cin/cout as fast as scanf/printf
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    
+    // Now cin/cout are fast!
+    int n;
+    cin >> n;
+    
+    vi v(n);
+    FOR(i, 0, n) cin >> v[i];
+    
+    sort(all(v));
+    
+    for (int x : v) cout << x << " ";
+    cout << "\\n";  // \\n is faster than endl (no flush)
+    
+    return 0;
+}`,
+    },
+    {
+      type: "code",
+      emoji: "📋",
+      content: `# Full Competition Template · 完整竞赛模板`,
+      code: `#include <bits/stdc++.h>
+using namespace std;
+
+typedef long long ll;
+typedef pair<int,int> pii;
+typedef vector<int> vi;
+
+#define pb push_back
+#define all(x) (x).begin(), (x).end()
+#define sz(x) (int)(x).size()
+
+const int MOD = 1e9 + 7;
+const int INF = 1e9;
+
+void solve() {
+    // Your solution here for each test case
+    int n;
+    cin >> n;
+    
+    vi a(n);
+    for (int& x : a) cin >> x;
+    
+    // Process...
+    ll sum = 0;
+    for (int x : a) sum += x;
+    
+    cout << sum << "\\n";
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    
+    int t = 1;
+    // cin >> t;  // Uncomment for multiple test cases
+    while (t--) {
+        solve();
+    }
+    
+    return 0;
+}`,
+    },
+    {
+      type: "text",
+      emoji: "💡",
+      content: `# Competition Tips · 竞赛技巧
+
+⚡ **Volt's Competition Checklist:**
+
+1. **Always use** \`ios::sync_with_stdio(false); cin.tie(nullptr);\`
+2. **Use** \`long long\` for anything that might exceed 2 billion
+3. **Use** \`\\n\` instead of \`endl\` (endl flushes the buffer, slow!)
+4. **Watch for overflow:** \`int\` max ≈ 2×10⁹, \`long long\` max ≈ 9×10¹⁸
+5. **Read the constraints!** They tell you the expected time complexity
+6. **Test edge cases:** n=0, n=1, negative numbers, maximum values
+
+🐍 **Py says:** "Many competitive programmers start with Python for prototyping, then translate to C++ for speed. The algorithm is the same — only syntax changes!"
+
+| Constraint | Expected complexity | Typical approach |
+|------------|-------------------|------------------|
+| n ≤ 10 | O(n!) | Brute force / backtracking |
+| n ≤ 20 | O(2ⁿ) | Bitmask / subset DP |
+| n ≤ 1000 | O(n²) | Nested loops / simple DP |
+| n ≤ 100,000 | O(n log n) | Sorting / binary search |
+| n ≤ 1,000,000 | O(n) | Greedy / linear scan |`,
+    },
+    {
+      type: "code",
+      emoji: "🔢",
+      content: `# Common Patterns · 常见模式`,
+      code: `#include <bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    
+    // Pattern 1: Read until EOF
+    // int x;
+    // while (cin >> x) { ... }
+    
+    // Pattern 2: Multiple test cases
+    int t;
+    cin >> t;
+    while (t--) {
+        int n;
+        cin >> n;
+        // solve...
+    }
+    
+    // Pattern 3: Modular arithmetic
+    ll a = 1e18, b = 1e18;
+    ll MOD = 1e9 + 7;
+    ll result = ((a % MOD) * (b % MOD)) % MOD;
+    cout << result << "\\n";
+    
+    // Pattern 4: Prefix sums (fast range queries)
+    int arr[] = {1, 3, 5, 7, 9};
+    int n = 5;
+    vector<int> prefix(n + 1, 0);
+    for (int i = 0; i < n; i++) {
+        prefix[i + 1] = prefix[i] + arr[i];
+    }
+    // Sum of arr[1..3] = prefix[4] - prefix[1]
+    cout << "Sum [1,3]: " << prefix[4] - prefix[1] << "\\n";  // 15
+    
+    return 0;
+}`,
+    },
+    {
+      type: "interactive",
+      emoji: "🎮",
+      content: `# Try It! · 动手试试！
+
+Given an array and Q queries, each asking for sum of range [l, r], answer using prefix sums.`,
+      exercise: {
+        prompt: "Answer range sum queries with prefix sums",
+        promptZh: "用前缀和回答区间求和查询",
+        starterCode: `#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    
+    int n, q;
+    cin >> n >> q;
+    
+    vector<int> a(n);
+    for (int& x : a) cin >> x;
+    
+    // Build prefix sum and answer queries
+    
+    
+    return 0;
+}`,
+        expectedOutput: "12\n7",
+        hint: "Build prefix[i+1] = prefix[i] + a[i]. Answer = prefix[r+1] - prefix[l]",
+        hintZh: "构建prefix[i+1] = prefix[i] + a[i]，答案 = prefix[r+1] - prefix[l]",
+        solution: `#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    
+    int n, q;
+    cin >> n >> q;
+    
+    vector<int> a(n);
+    for (int& x : a) cin >> x;
+    
+    vector<long long> prefix(n + 1, 0);
+    for (int i = 0; i < n; i++) {
+        prefix[i + 1] = prefix[i] + a[i];
+    }
+    
+    while (q--) {
+        int l, r;
+        cin >> l >> r;
+        cout << prefix[r + 1] - prefix[l] << "\\n";
+    }
+    
+    return 0;
+}`,
+      },
+    },
+    {
+      type: "quiz",
+      emoji: "🧪",
+      content: "# Quiz · 测验",
+      quiz: [
+        {
+          question: "Why do we use `\\n` instead of `endl` in competitions?\n为什么竞赛中用`\\n`而不是`endl`？",
+          options: [
+            "`\\n` looks cleaner · `\\n`看起来更整洁",
+            "`endl` flushes the buffer which is slow · `endl`刷新缓冲区，很慢",
+            "`endl` is not valid C++ · `endl`不是有效的C++",
+            "No difference · 没有区别",
+          ],
+          correctIndex: 1,
+          explanation: "endl outputs a newline AND flushes the output buffer. In competitions with lots of output, this flush is wasteful. · endl输出换行并刷新缓冲区，竞赛中这很浪费时间。",
+        },
+      ],
+    },
+  ],
+};
+
+const cpp_6_2: Lesson = {
+  id: "cpp-6-2",
+  moduleId: "cpp-6",
+  title: "Greedy & Searching",
+  subtitle: "Greedy algorithms and binary search · 贪心算法和二分查找",
+  icon: "🎯",
+  xp: 250,
+  duration: "30 min",
+  order: 23,
+  gradeRange: [9, 12],
+  difficulty: "advanced",
+  skillLevel: "advanced",
+  sections: [
+    {
+      type: "text",
+      emoji: "🎯",
+      content: `# Greedy Algorithms · 贪心算法
+
+🐍 **Py says:** "Greedy algorithms make the locally optimal choice at each step, hoping it leads to a global optimum. Same concept in Python or C++!"
+
+⚡ **Volt says:** "Greedy works when you can prove that local best = global best. Common in sorting-based problems, scheduling, and intervals."
+
+**When to use greedy:**
+- Sort + scan patterns
+- Interval scheduling
+- Activity selection
+- Making change with coins
+- Minimum/maximum with constraints`,
+    },
+    {
+      type: "code",
+      emoji: "🪙",
+      content: `# Classic Greedy Problems · 经典贪心问题`,
+      code: `#include <bits/stdc++.h>
+using namespace std;
+
+// Problem 1: Coin change (greedy works with standard denominations)
+void coinChange(int amount) {
+    int coins[] = {25, 10, 5, 1};
+    int count = 0;
+    cout << amount << " cents = ";
+    for (int coin : coins) {
+        while (amount >= coin) {
+            amount -= coin;
+            count++;
+            cout << coin << " ";
+        }
+    }
+    cout << "(" << count << " coins)" << endl;
+}
+
+// Problem 2: Activity Selection
+void activitySelection() {
+    // Each activity: {end_time, start_time}
+    vector<pair<int,int>> activities = {
+        {3, 1}, {4, 2}, {6, 3}, {7, 5}, {9, 6}, {10, 8}
+    };
+    
+    // Sort by end time (greedy choice!)
+    sort(activities.begin(), activities.end());
+    
+    int count = 0;
+    int lastEnd = 0;
+    cout << "Selected activities: ";
+    for (auto& [end, start] : activities) {
+        if (start >= lastEnd) {
+            cout << "[" << start << "-" << end << "] ";
+            lastEnd = end;
+            count++;
+        }
+    }
+    cout << "\\nTotal: " << count << endl;
+}
+
+int main() {
+    coinChange(67);
+    activitySelection();
+    return 0;
+}`,
+    },
+    {
+      type: "code",
+      emoji: "🔍",
+      content: `# Binary Search on Answer · 二分答案`,
+      code: `#include <bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+
+// Classic: Can we split array into k parts each with sum <= maxSum?
+bool canSplit(vector<int>& arr, int k, ll maxSum) {
+    int parts = 1;
+    ll currentSum = 0;
+    for (int x : arr) {
+        if (currentSum + x > maxSum) {
+            parts++;
+            currentSum = x;
+            if (parts > k) return false;
+        } else {
+            currentSum += x;
+        }
+    }
+    return true;
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    
+    // Minimize the maximum sum when splitting array into k parts
+    vector<int> arr = {7, 2, 5, 10, 8};
+    int k = 2;
+    
+    ll lo = *max_element(arr.begin(), arr.end());  // Min possible
+    ll hi = accumulate(arr.begin(), arr.end(), 0LL);  // Max possible
+    
+    while (lo < hi) {
+        ll mid = lo + (hi - lo) / 2;
+        if (canSplit(arr, k, mid)) {
+            hi = mid;  // Try smaller
+        } else {
+            lo = mid + 1;  // Need bigger
+        }
+    }
+    
+    cout << "Minimum max-sum: " << lo << endl;  // 18
+    
+    return 0;
+}`,
+    },
+    {
+      type: "code",
+      emoji: "📊",
+      content: `# Two Pointers Technique · 双指针技巧`,
+      code: `#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    // Problem: Find pair with given sum in sorted array
+    vector<int> v = {1, 3, 5, 7, 9, 11};
+    int target = 12;
+    
+    int left = 0, right = v.size() - 1;
+    while (left < right) {
+        int sum = v[left] + v[right];
+        if (sum == target) {
+            cout << "Found: " << v[left] << " + " << v[right] << endl;
+            break;
+        } else if (sum < target) {
+            left++;   // Need bigger sum
+        } else {
+            right--;  // Need smaller sum
+        }
+    }
+    
+    // Problem: Remove duplicates from sorted array (in-place)
+    vector<int> a = {1, 1, 2, 2, 3, 4, 4, 5};
+    int write = 1;
+    for (int read = 1; read < a.size(); read++) {
+        if (a[read] != a[read-1]) {
+            a[write++] = a[read];
+        }
+    }
+    cout << "Unique: ";
+    for (int i = 0; i < write; i++) cout << a[i] << " ";
+    cout << endl;  // 1 2 3 4 5
+    
+    // Problem: Sliding window max sum of size k
+    vector<int> nums = {1, 3, 2, 5, 1, 1, 7, 2};
+    int k = 3;
+    int windowSum = 0;
+    for (int i = 0; i < k; i++) windowSum += nums[i];
+    int maxSum = windowSum;
+    for (int i = k; i < nums.size(); i++) {
+        windowSum += nums[i] - nums[i-k];
+        maxSum = max(maxSum, windowSum);
+    }
+    cout << "Max window sum: " << maxSum << endl;  // 10
+    
+    return 0;
+}`,
+    },
+    {
+      type: "interactive",
+      emoji: "🎮",
+      content: `# Try It! · 动手试试！
+
+Given a sorted array, use two pointers to find if any pair sums to target.`,
+      exercise: {
+        prompt: "Two-pointer pair sum search",
+        promptZh: "双指针查找目标和对",
+        starterCode: `#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int n, target;
+    cin >> n >> target;
+    
+    vector<int> v(n);
+    for (int& x : v) cin >> x;
+    
+    // Find pair summing to target
+    
+    
+    return 0;
+}`,
+        expectedOutput: "YES",
+        hint: "Start with left=0, right=n-1. If sum too small, move left++. Too big, move right--.",
+        hintZh: "从left=0，right=n-1开始。和太小就left++，太大就right--",
+        solution: `#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int n, target;
+    cin >> n >> target;
+    
+    vector<int> v(n);
+    for (int& x : v) cin >> x;
+    
+    int l = 0, r = n - 1;
+    bool found = false;
+    while (l < r) {
+        int s = v[l] + v[r];
+        if (s == target) { found = true; break; }
+        else if (s < target) l++;
+        else r--;
+    }
+    
+    cout << (found ? "YES" : "NO") << "\\n";
+    
+    return 0;
+}`,
+      },
+    },
+    {
+      type: "quiz",
+      emoji: "🧪",
+      content: "# Quiz · 测验",
+      quiz: [
+        {
+          question: "When can you use a greedy algorithm?\n什么时候可以使用贪心算法？",
+          options: [
+            "Always — it's the fastest · 总是——它最快",
+            "Only for sorting problems · 只用于排序问题",
+            "When the locally optimal choice leads to the global optimum · 当局部最优能导致全局最优时",
+            "Never — dynamic programming is always better · 从不——动态规划总是更好",
+          ],
+          correctIndex: 2,
+          explanation: "Greedy works when you can prove that making the best local choice at each step gives the best overall solution. · 贪心在可以证明局部最优等于全局最优时有效。",
+        },
+      ],
+    },
+  ],
+};
+
+const cpp_6_3: Lesson = {
+  id: "cpp-6-3",
+  moduleId: "cpp-6",
+  title: "Dynamic Programming Intro",
+  subtitle: "Breaking problems into subproblems · 动态规划入门",
+  icon: "🧩",
+  xp: 300,
+  duration: "30 min",
+  order: 24,
+  gradeRange: [9, 12],
+  difficulty: "advanced",
+  skillLevel: "advanced",
+  sections: [
+    {
+      type: "text",
+      emoji: "🧩",
+      content: `# Dynamic Programming · 动态规划
+
+🐍 **Py says:** "DP is the same in any language — break a problem into overlapping subproblems and store results to avoid recalculating."
+
+⚡ **Volt says:** "DP is the most important technique in competitive programming. If greedy doesn't work, try DP!"
+
+🔧 **Chip says:** "DP trades memory for speed. Instead of recomputing the same thing millions of times, we store it in a table."
+
+**Two approaches:**
+1. **Top-down (memoization):** Recursion + cache (natural but can stack overflow)
+2. **Bottom-up (tabulation):** Iterative, fill a table (preferred in competitions)`,
+    },
+    {
+      type: "code",
+      emoji: "🐰",
+      content: `# Fibonacci — DP Hello World · 斐波那契——DP入门`,
+      code: `#include <bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+
+// Bad: O(2^n) — exponential!
+int fibSlow(int n) {
+    if (n <= 1) return n;
+    return fibSlow(n-1) + fibSlow(n-2);
+}
+
+// Good: Top-down with memoization — O(n)
+map<int, ll> memo;
+ll fibMemo(int n) {
+    if (n <= 1) return n;
+    if (memo.count(n)) return memo[n];
+    return memo[n] = fibMemo(n-1) + fibMemo(n-2);
+}
+
+// Best: Bottom-up DP — O(n) time, O(n) space
+ll fibDP(int n) {
+    if (n <= 1) return n;
+    vector<ll> dp(n + 1);
+    dp[0] = 0;
+    dp[1] = 1;
+    for (int i = 2; i <= n; i++) {
+        dp[i] = dp[i-1] + dp[i-2];
+    }
+    return dp[n];
+}
+
+// Space-optimized: O(1) space!
+ll fibOpt(int n) {
+    if (n <= 1) return n;
+    ll a = 0, b = 1;
+    for (int i = 2; i <= n; i++) {
+        ll c = a + b;
+        a = b;
+        b = c;
+    }
+    return b;
+}
+
+int main() {
+    int n = 40;
+    // cout << fibSlow(n) << endl;  // Slow!
+    cout << "Memo: " << fibMemo(n) << endl;
+    cout << "DP: " << fibDP(n) << endl;
+    cout << "Opt: " << fibOpt(n) << endl;
+    
+    return 0;
+}`,
+    },
+    {
+      type: "code",
+      emoji: "🎒",
+      content: `# Classic DP: Climbing Stairs & Coin Change · 经典DP`,
+      code: `#include <bits/stdc++.h>
+using namespace std;
+
+// Climbing stairs: How many ways to reach step n?
+// Can take 1 or 2 steps at a time
+int climbStairs(int n) {
+    if (n <= 2) return n;
+    vector<int> dp(n + 1);
+    dp[1] = 1;
+    dp[2] = 2;
+    for (int i = 3; i <= n; i++) {
+        dp[i] = dp[i-1] + dp[i-2];
+    }
+    return dp[n];
+}
+
+// Coin change: Minimum coins to make amount
+// Python: same logic, just different syntax
+int coinChange(vector<int>& coins, int amount) {
+    vector<int> dp(amount + 1, amount + 1);  // Initialize to "impossible"
+    dp[0] = 0;  // 0 coins needed for amount 0
+    
+    for (int i = 1; i <= amount; i++) {
+        for (int coin : coins) {
+            if (coin <= i) {
+                dp[i] = min(dp[i], dp[i - coin] + 1);
+            }
+        }
+    }
+    
+    return dp[amount] > amount ? -1 : dp[amount];
+}
+
+int main() {
+    cout << "Stairs(5): " << climbStairs(5) << endl;  // 8
+    cout << "Stairs(10): " << climbStairs(10) << endl;  // 89
+    
+    vector<int> coins = {1, 5, 10, 25};
+    cout << "Coins for 30: " << coinChange(coins, 30) << endl;  // 2 (25+5)
+    cout << "Coins for 67: " << coinChange(coins, 67) << endl;  // 6
+    
+    return 0;
+}`,
+    },
+    {
+      type: "code",
+      emoji: "📊",
+      content: `# 2D DP: Grid Problems · 二维DP：网格问题`,
+      code: `#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    // How many paths from top-left to bottom-right?
+    // Can only move right or down
+    int m = 3, n = 3;  // 3x3 grid
+    
+    vector<vector<int>> dp(m, vector<int>(n, 0));
+    
+    // Base cases: first row and first column = 1 path each
+    for (int i = 0; i < m; i++) dp[i][0] = 1;
+    for (int j = 0; j < n; j++) dp[0][j] = 1;
+    
+    // Fill table: paths = from above + from left
+    for (int i = 1; i < m; i++) {
+        for (int j = 1; j < n; j++) {
+            dp[i][j] = dp[i-1][j] + dp[i][j-1];
+        }
+    }
+    
+    cout << "Paths in " << m << "x" << n << " grid: " << dp[m-1][n-1] << endl;
+    
+    // Print the DP table
+    cout << "\\nDP Table:" << endl;
+    for (int i = 0; i < m; i++) {
+        for (int j = 0; j < n; j++) {
+            cout << dp[i][j] << "\\t";
+        }
+        cout << endl;
+    }
+    
+    return 0;
+}`,
+    },
+    {
+      type: "text",
+      emoji: "💡",
+      content: `# DP Problem-Solving Framework · DP解题框架
+
+⚡ **Volt's DP Checklist:**
+
+1. **Define state:** What does dp[i] (or dp[i][j]) represent?
+2. **Base case:** What's the simplest case you know the answer to?
+3. **Transition:** How does dp[i] relate to smaller subproblems?
+4. **Answer:** Where is the final answer in the table?
+
+**Common DP patterns:**
+| Pattern | Example | State |
+|---------|---------|-------|
+| Linear | Fibonacci, stairs | dp[i] |
+| Knapsack | Coin change | dp[amount] |
+| Grid | Path counting | dp[i][j] |
+| Interval | Matrix chain | dp[i][j] = range [i,j] |
+| Subsequence | LCS, LIS | dp[i][j] or dp[i] |
+
+🐍 **Py says:** "The thinking process is identical in Python and C++. Only the syntax differs. If you can solve it in Python, you can solve it in C++!"`,
+    },
+    {
+      type: "interactive",
+      emoji: "🎮",
+      content: `# Try It! · 动手试试！
+
+Solve the climbing stairs problem: given n stairs and you can take 1, 2, or 3 steps, how many ways?`,
+      exercise: {
+        prompt: "Count ways to climb n stairs (1, 2, or 3 steps)",
+        promptZh: "计算爬n级台阶的方法数（可走1、2或3步）",
+        starterCode: `#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int n;
+    cin >> n;
+    
+    // Count ways with 1, 2, or 3 steps
+    
+    
+    return 0;
+}`,
+        expectedOutput: "7",
+        hint: "dp[i] = dp[i-1] + dp[i-2] + dp[i-3]. Base cases: dp[0]=1, dp[1]=1, dp[2]=2",
+        hintZh: "dp[i] = dp[i-1] + dp[i-2] + dp[i-3]，基础情况：dp[0]=1, dp[1]=1, dp[2]=2",
+        solution: `#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int n;
+    cin >> n;
+    
+    vector<long long> dp(n + 1, 0);
+    dp[0] = 1;
+    if (n >= 1) dp[1] = 1;
+    if (n >= 2) dp[2] = 2;
+    
+    for (int i = 3; i <= n; i++) {
+        dp[i] = dp[i-1] + dp[i-2] + dp[i-3];
+    }
+    
+    cout << dp[n] << "\\n";
+    
+    return 0;
+}`,
+      },
+    },
+    {
+      type: "quiz",
+      emoji: "🧪",
+      content: "# Quiz · 测验",
+      quiz: [
+        {
+          question: "What's the key difference between greedy and DP?\n贪心和DP的关键区别是什么？",
+          options: [
+            "DP is always faster · DP总是更快",
+            "Greedy makes irrevocable choices; DP considers all subproblems · 贪心做不可撤销的选择；DP考虑所有子问题",
+            "DP can't use recursion · DP不能用递归",
+            "Greedy uses more memory · 贪心用更多内存",
+          ],
+          correctIndex: 1,
+          explanation: "Greedy commits to the locally best choice. DP explores all possibilities via subproblems and picks the overall best. DP is more general but usually slower. · 贪心选择局部最优，DP探索所有子问题选全局最优。",
+        },
+      ],
+    },
+  ],
+};
+
+// ═══════════════════════════════════════════════════════════════
+// EXPORT ALL LESSONS
+// ═══════════════════════════════════════════════════════════════
+
+export const CPP_LESSONS: Lesson[] = [
+  cpp_1_1, cpp_1_2, cpp_1_3, cpp_1_4, cpp_1_5, cpp_1_6,
+  cpp_2_1, cpp_2_2, cpp_2_3, cpp_2_4,
+  cpp_3_1, cpp_3_2, cpp_3_3, cpp_3_4,
+  cpp_4_1, cpp_4_2, cpp_4_3, cpp_4_4,
+  cpp_5_1, cpp_5_2, cpp_5_3,
+  cpp_6_1, cpp_6_2, cpp_6_3,
+];
