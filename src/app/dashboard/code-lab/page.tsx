@@ -594,7 +594,6 @@ export default function CodeLabPage() {
   const [variableDetails, setVariableDetails] = useState<VariableDetail[]>([]);
   const [showSuccess, setShowSuccess] = useState(false);
   const [hasError, setHasError] = useState(false);
-  const [outputCollapsed, setOutputCollapsed] = useState(false);
 
   // Grading
   const [gradeResult, setGradeResult] = useState<GradeResult | null>(null);
@@ -606,7 +605,7 @@ export default function CodeLabPage() {
 
   // Exercise completion tracking
   const [completedExerciseIds, setCompletedExerciseIds] = useState<Set<string>>(new Set());
-  const [collapsedCategories, setCollapsedCategories] = useState<Set<string>>(new Set());
+  const [collapsedCategories, setCollapsedCategories] = useState<Set<string> | "all">("all");
 
   // Step/Debug
   const [stepMode, setStepMode] = useState(false);
@@ -1115,6 +1114,432 @@ export default function CodeLabPage() {
     []
   );
 
+
+  // ─── Sidebar content (shared between mobile/desktop) ────
+  const sidebarContent = (
+    <>
+      {/* Sidebar tabs */}
+      <div className="flex border-b" style={{ borderColor: "var(--theme-border)" }}>
+        <button
+          onClick={() => preview ? setShowSignUpModal(true) : setSidebarTab("projects")}
+          className="flex-1 py-2 text-xs font-bold transition-colors"
+          style={{
+            color: sidebarTab === "projects" ? "var(--color-primary)" : "var(--theme-text-muted)",
+            borderBottom: sidebarTab === "projects" ? "2px solid var(--color-primary)" : "2px solid transparent",
+            opacity: preview ? 0.45 : 1,
+          }}
+        >
+          {preview ? "🔒" : "📁"} Projects · 项目
+        </button>
+        <button
+          onClick={() => setSidebarTab("exercises")}
+          className="flex-1 py-2 text-xs font-bold transition-colors"
+          style={{
+            color: sidebarTab === "exercises" ? "var(--color-primary)" : "var(--theme-text-muted)",
+            borderBottom: sidebarTab === "exercises" ? "2px solid var(--color-primary)" : "2px solid transparent",
+          }}
+        >
+          📝 Exercises · 练习
+        </button>
+      </div>
+
+      <div className="flex-1 overflow-y-auto p-2 space-y-2">
+        {sidebarTab === "projects" ? (
+          <>
+            <button
+              onClick={() => setShowNewProject(true)}
+              className="w-full p-2 rounded-lg border-2 border-dashed text-xs font-bold transition-colors hover:border-solid"
+              style={{ borderColor: "var(--color-primary)", color: "var(--color-primary)" }}
+            >
+              + New Project · 新建项目
+            </button>
+            <button
+              onClick={openFreeMode}
+              className="w-full text-left p-3 rounded-xl border transition-colors"
+              style={{
+                backgroundColor:
+                  activeTabId === "__free__"
+                    ? "color-mix(in srgb, var(--color-secondary) 10%, var(--theme-card-bg))"
+                    : "var(--theme-card-bg)",
+                borderColor:
+                  activeTabId === "__free__"
+                    ? "color-mix(in srgb, var(--color-secondary) 30%, transparent)"
+                    : "var(--theme-border)",
+              }}
+            >
+              <span className="text-xs font-bold">🆓 Free Code · 自由编程</span>
+            </button>
+
+            {/* Lesson Projects */}
+            {(() => {
+              const lessonProjects = CODE_EXERCISES.filter(ex => ex.tags.includes("project") && ex.fromLesson);
+              if (lessonProjects.length === 0) return null;
+              return (
+                <>
+                  <div className="text-[10px] font-bold pt-2 pb-1 px-1" style={{ color: "var(--theme-text-muted)" }}>
+                    📚 Lesson Projects · 课程项目
+                  </div>
+                  {lessonProjects.map((ex) => {
+                    const diffBadge = ex.difficulty === 1 ? "🟢" : ex.difficulty === 2 ? "🟡" : "🔴";
+                    const isSelected = activeTabId === `ex_${ex.id}`;
+                    return (
+                      <motion.button
+                        key={ex.id}
+                        whileHover={{ scale: 1.02 }}
+                        onClick={() => {
+                          setSelectedExercise(null);
+                          setCode(ex.starterCode);
+                          setShowHint(false);
+                          setShowSolution(false);
+                          const tabId = `ex_${ex.id}`;
+                          const existing = openTabs.find((t) => t.id === tabId);
+                          if (!existing) {
+                            setOpenTabs((prev) => [...prev, { type: "exercise" as const, id: tabId, name: ex.title }]);
+                          }
+                          setActiveTabId(tabId);
+                          if (isMobile) setMobileSidebarOpen(false);
+                        }}
+                        className="w-full text-left p-3 rounded-xl border transition-colors"
+                        style={{
+                          backgroundColor: isSelected
+                            ? "color-mix(in srgb, var(--color-primary) 10%, var(--theme-card-bg))"
+                            : "var(--theme-card-bg)",
+                          borderColor: isSelected
+                            ? "color-mix(in srgb, var(--color-primary) 30%, transparent)"
+                            : "var(--theme-border)",
+                        }}
+                      >
+                        <div className="flex items-center justify-between mb-0.5">
+                          <span className="font-bold text-xs truncate">🚀 {ex.title}</span>
+                          <span
+                            className="text-[9px] px-1.5 py-0.5 rounded-full flex-shrink-0 ml-1"
+                            style={{ backgroundColor: "color-mix(in srgb, var(--color-primary) 12%, transparent)", color: "var(--color-primary)" }}
+                          >
+                            {diffBadge}
+                          </span>
+                        </div>
+                        <p className="text-[10px] line-clamp-1" style={{ color: "var(--theme-text-secondary)" }}>
+                          {ex.description}
+                        </p>
+                        <p className="text-[9px]" style={{ color: "var(--theme-text-muted)" }}>
+                          📚 From Lesson {ex.fromLesson}
+                        </p>
+                      </motion.button>
+                    );
+                  })}
+                </>
+              );
+            })()}
+
+            <div className="text-[10px] font-bold pt-2 pb-1 px-1" style={{ color: "var(--theme-text-muted)" }}>
+              📁 My Projects · 我的项目
+            </div>
+            {projects.map((p) => (
+              <ProjectCard
+                key={p.id}
+                project={p}
+                isSelected={activeTabId === p.id}
+                onClick={() => { openProject(p); if (isMobile) setMobileSidebarOpen(false); }}
+                onRename={() => handleRename(p)}
+                onDelete={() => handleDelete(p)}
+                onDuplicate={() => handleDuplicate(p)}
+              />
+            ))}
+            {projects.length === 0 && (
+              <p className="text-[10px] text-center py-4" style={{ color: "var(--theme-text-muted)" }}>
+                No projects yet · 还没有项目
+              </p>
+            )}
+          </>
+        ) : (
+          <>
+            {/* Language filter */}
+            <div className="flex gap-1 mb-1">
+              {([["all", "All"], ["python", "🐍 Python"], ["cpp", "⚡ C++"]] as const).map(([val, label]) => (
+                <button
+                  key={val}
+                  onClick={() => setExLangFilter(val as "all" | ExerciseLanguage)}
+                  className="px-2 py-0.5 rounded-full text-[10px] font-bold transition-colors"
+                  style={{
+                    backgroundColor: exLangFilter === val ? "color-mix(in srgb, var(--color-primary) 20%, transparent)" : "transparent",
+                    color: exLangFilter === val ? "var(--color-primary)" : "var(--theme-text-muted)",
+                    border: exLangFilter === val ? "1px solid var(--color-primary)" : "1px solid var(--theme-border)",
+                  }}
+                >
+                  {label}
+                </button>
+              ))}
+            </div>
+            {/* Level filter */}
+            <div className="flex gap-1 flex-wrap mb-2">
+              {[0, 1, 2, 3, 4, 5].map((lvl) => (
+                <button
+                  key={lvl}
+                  onClick={() => setExLevelFilter(lvl)}
+                  className="px-2 py-0.5 rounded-full text-[10px] font-bold transition-colors"
+                  style={{
+                    backgroundColor: exLevelFilter === lvl ? "color-mix(in srgb, var(--color-secondary) 20%, transparent)" : "transparent",
+                    color: exLevelFilter === lvl ? "var(--color-secondary)" : "var(--theme-text-muted)",
+                    border: exLevelFilter === lvl ? "1px solid var(--color-secondary)" : "1px solid var(--theme-border)",
+                  }}
+                >
+                  {lvl === 0 ? "All Levels" : `L${lvl}`}
+                </button>
+              ))}
+            </div>
+            <div className="text-[10px] mb-1" style={{ color: "var(--theme-text-muted)" }}>
+              {filteredExercises.length} exercises
+            </div>
+            {(() => {
+              // Group by category
+              const groups: Record<string, UnifiedExercise[]> = {};
+              filteredExercises.forEach((ex) => {
+                const cat = ex.category || "Other";
+                if (!groups[cat]) groups[cat] = [];
+                groups[cat].push(ex);
+              });
+              let globalIdx = 0;
+              return Object.entries(groups).map(([cat, exercises]) => {
+                const isCollapsed = collapsedCategories === "all" || (collapsedCategories instanceof Set && collapsedCategories.has(cat));
+                const catZh = exercises[0]?.categoryZh || cat;
+                const completedCount = exercises.filter((e) => completedExerciseIds.has(e.id)).length;
+                const allDone = completedCount === exercises.length && exercises.length > 0;
+                return (
+                  <div key={cat}>
+                    <button
+                      onClick={() => {
+                        if (collapsedCategories === "all") {
+                          // First click: expand only this one
+                          const allCats = new Set(Object.keys(groups));
+                          allCats.delete(cat);
+                          setCollapsedCategories(allCats);
+                        } else {
+                          const next = new Set(collapsedCategories);
+                          if (next.has(cat)) next.delete(cat); else next.add(cat);
+                          setCollapsedCategories(next);
+                        }
+                      }}
+                      className="w-full text-left py-1.5 px-1 text-[11px] font-bold flex items-center gap-1"
+                      style={{ color: allDone ? "var(--color-primary)" : "var(--theme-text-secondary)" }}
+                    >
+                      <span>{isCollapsed ? "▸" : "▾"}</span>
+                      <span>📂 {cat} · {catZh}</span>
+                      <span className="ml-auto text-[9px] font-normal" style={{ color: "var(--theme-text-muted)" }}>
+                        {completedCount}/{exercises.length} ✓
+                      </span>
+                    </button>
+                    {!isCollapsed && exercises.map((ex) => {
+                      const exerciseLocked = preview && globalIdx++ >= PREVIEW_MAX_EXERCISES;
+                      const done = completedExerciseIds.has(ex.id);
+                      return (
+                        <div key={ex.id} style={{ opacity: done ? 0.45 : 1 }}>
+                          <UnifiedExerciseCard
+                            exercise={ex}
+                            isSelected={activeTabId === `ex_${ex.id}`}
+                            locked={exerciseLocked}
+                            onClick={() => {
+                              if (exerciseLocked) { setShowSignUpModal(true); return; }
+                              openUnifiedExercise(ex);
+                              if (isMobile) setMobileSidebarOpen(false);
+                            }}
+                          />
+                        </div>
+                      );
+                    })}
+                  </div>
+                );
+              });
+            })()}
+          </>
+        )}
+      </div>
+    </>
+  );
+
+  // ─── Output panel content (shared between mobile/desktop) ─
+  const outputPanelContent = (
+    <div className="flex flex-col h-full overflow-auto" style={{ backgroundColor: "#0d1117" }}>
+      {/* Output header */}
+      <div
+        className="flex items-center justify-between px-3 py-1.5 border-b flex-shrink-0"
+        style={{ borderColor: "var(--theme-border)" }}
+      >
+        <div className="flex items-center gap-2">
+          <span className="text-[10px] text-[var(--theme-text-muted)] terminal-text font-bold">
+            OUTPUT · 输出
+          </span>
+          {isRunning && <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />}
+          <AnimatePresence>
+            {showSuccess && (
+              <motion.span initial={{ opacity: 0, scale: 0.5 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0 }} className="text-[10px] text-green-400 font-bold">
+                ✅ Success!
+              </motion.span>
+            )}
+          </AnimatePresence>
+        </div>
+        {breakpoints.size > 0 && (
+          <span className="text-[10px] text-red-400">🔴 {breakpoints.size} bp</span>
+        )}
+      </div>
+
+      {/* Output content */}
+      <div className="flex-1 p-3 overflow-auto min-h-0">
+        <div id="turtle-output" data-turtle-mount="true" />
+        <pre className={`text-xs terminal-text whitespace-pre-wrap min-h-[2rem] ${hasError ? "text-red-400" : "text-green-400"}`}>
+          {output || (
+            <span className="text-[var(--theme-text-muted)]">Click Run to execute · 点击 Run 运行代码</span>
+          )}
+        </pre>
+      </div>
+
+      {/* Step mode info */}
+      {stepMode && (
+        <div className="px-3 py-2 border-t flex-shrink-0" style={{ borderColor: "var(--theme-border)" }}>
+          <div className="flex items-center gap-2 mb-1">
+            <span className="text-[10px] text-yellow-300 font-mono font-bold">
+              ⏭ Step {stepIndex + 1}/{traceSteps.length}
+            </span>
+            <span className="text-[10px] text-yellow-300 font-mono">
+              Line {highlightLines ? highlightLines.start + 1 : "?"}
+            </span>
+          </div>
+          <div className="flex gap-1">
+            <button onClick={nextStep} className="px-2 py-1 bg-cyan-500 text-black text-[10px] font-bold rounded-md hover:bg-cyan-400">
+              ⏭ Next
+            </button>
+            <button onClick={continueToBreakpoint} className="px-2 py-1 bg-blue-500 text-white text-[10px] font-bold rounded-md hover:bg-blue-400">
+              ▶ Continue
+            </button>
+            <button
+              onClick={() => { setStepMode(false); setHighlightLines(null); }}
+              className="px-2 py-1 bg-red-500 text-white text-[10px] font-bold rounded-md hover:bg-red-400"
+            >
+              ⏹ Stop
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Variables panel */}
+      {isPython && (
+        <div className="px-3 py-2 border-t flex-shrink-0" style={{ borderColor: "var(--theme-border)" }}>
+          <div className="text-[10px] text-[var(--theme-text-muted)] terminal-text mb-2 font-bold">VARIABLES · 变量</div>
+          <MemoryModel variables={variableDetails} />
+          {variableDetails.length === 0 && Object.keys(variables).length > 0 && (
+            <div className="flex flex-wrap gap-1.5">
+              {Object.entries(variables).map(([name, value]) => (
+                <motion.div
+                  key={name}
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  className="px-2 py-0.5 bg-purple-500/10 border border-purple-500/20 rounded text-[10px] terminal-text"
+                >
+                  <span className="text-purple-400">{name}</span>
+                  <span className="text-[var(--theme-text-muted)]"> = </span>
+                  <span className="text-cyan-400">{value}</span>
+                </motion.div>
+              ))}
+            </div>
+          )}
+          {variableDetails.length === 0 && Object.keys(variables).length === 0 && (
+            <p className="text-[10px]" style={{ color: "var(--theme-text-muted)" }}>
+              Run code to see variables · 运行代码查看变量
+            </p>
+          )}
+
+          {/* Call stack (during step mode) */}
+          {stepMode && traceSteps[stepIndex] && (
+            <div className="mt-3 pt-2 border-t" style={{ borderColor: "var(--theme-border)" }}>
+              <div className="text-[10px] text-[var(--theme-text-muted)] terminal-text mb-1">CALL STACK · 调用栈</div>
+              <div className="text-[10px] text-cyan-400 terminal-text">
+                → Line {traceSteps[stepIndex].line + 1}: {code.split("\n")[traceSteps[stepIndex].line]?.trim() || ""}
+              </div>
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* Grading Panel */}
+      {isGrading && (
+        <div className="mx-3 mb-2 px-3 py-2 rounded-lg text-xs animate-pulse flex-shrink-0" style={{ backgroundColor: "color-mix(in srgb, var(--color-primary) 10%, transparent)" }}>
+          ⏳ {gradingProgress}
+        </div>
+      )}
+      {gradeResult && !isGrading && (
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="mx-3 mb-2 rounded-lg border overflow-hidden flex-shrink-0"
+          style={{ borderColor: gradeResult.passed ? "#22c55e" : "#ef4444" }}
+        >
+          <div
+            className="px-3 py-2 text-xs font-bold"
+            style={{
+              backgroundColor: gradeResult.passed ? "rgba(34,197,94,0.15)" : "rgba(239,68,68,0.15)",
+              color: gradeResult.passed ? "#22c55e" : "#ef4444",
+            }}
+          >
+            {gradeResult.passed
+              ? `✅ ${gradeResult.passedTests}/${gradeResult.totalTests} passed!`
+              : `❌ ${gradeResult.passedTests}/${gradeResult.totalTests} passed`}
+            {gradeResult.passed && selectedExercise && !exercisesPassed.has(selectedExercise.id) && (
+              <span className="ml-2 text-yellow-400">+{getXPReward(selectedExercise.difficulty)} XP 🎉</span>
+            )}
+          </div>
+          {!gradeResult.passed && (
+            <div className="px-3 py-2 space-y-1.5">
+              {gradeResult.results.map((r, i) => (
+                <div
+                  key={i}
+                  className="text-[10px] terminal-text p-1.5 rounded"
+                  style={{
+                    backgroundColor: r.passed ? "rgba(34,197,94,0.05)" : "rgba(239,68,68,0.05)",
+                  }}
+                >
+                  <span className="mr-1">{r.passed ? "✅" : "❌"}</span>
+                  <span style={{ color: "var(--theme-text-muted)" }}>In:</span>{" "}
+                  <span className="text-cyan-400">{r.input || "(none)"}</span>
+                  <span className="mx-1">→</span>
+                  <span style={{ color: "var(--theme-text-muted)" }}>Exp:</span>{" "}
+                  <span className="text-green-400">{r.expectedOutput}</span>
+                  {!r.passed && (
+                    <>
+                      <span className="mx-1">→</span>
+                      <span style={{ color: "var(--theme-text-muted)" }}>Got:</span>{" "}
+                      <span className="text-red-400">{r.actualOutput || "(empty)"}</span>
+                    </>
+                  )}
+                </div>
+              ))}
+            </div>
+          )}
+        </motion.div>
+      )}
+    </div>
+  );
+
+  // ─── Resize handle component ──────────────────────────────
+  const ResizeHandle = ({ onMouseDown: onDown, active }: { onMouseDown: (e: React.MouseEvent) => void; active: boolean }) => (
+    <div
+      onMouseDown={onDown}
+      className="flex-shrink-0 flex items-center justify-center group"
+      style={{
+        width: 6,
+        cursor: "col-resize",
+        backgroundColor: active ? "rgba(255,255,255,0.12)" : "rgba(255,255,255,0.04)",
+        transition: "background-color 0.15s",
+      }}
+      onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.backgroundColor = "rgba(255,255,255,0.12)"; }}
+      onMouseLeave={(e) => { if (!active) (e.currentTarget as HTMLElement).style.backgroundColor = "rgba(255,255,255,0.04)"; }}
+    >
+      <div className="flex flex-col gap-[3px] opacity-40 group-hover:opacity-80 transition-opacity" style={{ pointerEvents: "none" }}>
+        <div className="w-[3px] h-[3px] rounded-full bg-white/60" />
+        <div className="w-[3px] h-[3px] rounded-full bg-white/60" />
+        <div className="w-[3px] h-[3px] rounded-full bg-white/60" />
+      </div>
+    </div>
+  );
+
   return (
     <div className="h-screen flex flex-col overflow-hidden">
       {/* CSS */}
@@ -1133,11 +1558,16 @@ export default function CodeLabPage() {
         style={{ borderColor: "var(--theme-border)", backgroundColor: "var(--theme-card-bg)" }}
       >
         <div className="flex items-center gap-3">
+          {/* Mobile hamburger */}
+          {isMobile && (
+            <button onClick={() => setMobileSidebarOpen(!mobileSidebarOpen)} className="text-lg">
+              {mobileSidebarOpen ? "✕" : "☰"}
+            </button>
+          )}
           <h1 className="text-lg font-bold">💻 Code Lab</h1>
-          <span className="text-xs" style={{ color: "var(--theme-text-muted)" }}>
+          <span className="text-xs hidden sm:inline" style={{ color: "var(--theme-text-muted)" }}>
             {isPython ? "Python" : "C++"} IDE · 代码实验室
           </span>
-          {/* Language pill — only in free/project mode (not exercises) */}
           {activeTab?.type !== "exercise" && (
             <div className="flex rounded-full border overflow-hidden" style={{ borderColor: "var(--theme-border)" }}>
               {(["python", "cpp"] as const).map((lang) => (
@@ -1164,659 +1594,369 @@ export default function CodeLabPage() {
             </div>
           )}
         </div>
+        {/* Mobile view toggle */}
+        {isMobile && (
+          <div className="flex rounded-full border overflow-hidden" style={{ borderColor: "var(--theme-border)" }}>
+            <button
+              onClick={() => setMobileView("editor")}
+              className="px-2 py-0.5 text-[10px] font-bold"
+              style={{
+                backgroundColor: mobileView === "editor" ? "var(--color-primary)" : "transparent",
+                color: mobileView === "editor" ? "white" : "var(--theme-text-muted)",
+              }}
+            >
+              📝 Editor
+            </button>
+            <button
+              onClick={() => setMobileView("output")}
+              className="px-2 py-0.5 text-[10px] font-bold"
+              style={{
+                backgroundColor: mobileView === "output" ? "var(--color-primary)" : "transparent",
+                color: mobileView === "output" ? "white" : "var(--theme-text-muted)",
+              }}
+            >
+              📤 Output
+            </button>
+          </div>
+        )}
       </motion.div>
 
       {/* Main layout */}
-      <div className="flex flex-1 min-h-0 flex-col md:flex-row">
-        {/* ─── Sidebar ─────────────────────────────────────── */}
-        <div
-          className="w-full md:w-56 lg:w-64 flex-shrink-0 border-r flex flex-col overflow-hidden"
-          style={{ borderColor: "var(--theme-border)", backgroundColor: "var(--theme-card-bg)" }}
-        >
-          {/* Sidebar tabs */}
-          <div className="flex border-b" style={{ borderColor: "var(--theme-border)" }}>
-            <button
-              onClick={() => preview ? setShowSignUpModal(true) : setSidebarTab("projects")}
-              className="flex-1 py-2 text-xs font-bold transition-colors"
-              style={{
-                color: sidebarTab === "projects" ? "var(--color-primary)" : "var(--theme-text-muted)",
-                borderBottom: sidebarTab === "projects" ? "2px solid var(--color-primary)" : "2px solid transparent",
-                opacity: preview ? 0.45 : 1,
-              }}
-            >
-              {preview ? "🔒" : "📁"} Projects · 项目
-            </button>
-            <button
-              onClick={() => setSidebarTab("exercises")}
-              className="flex-1 py-2 text-xs font-bold transition-colors"
-              style={{
-                color: sidebarTab === "exercises" ? "var(--color-primary)" : "var(--theme-text-muted)",
-                borderBottom: sidebarTab === "exercises" ? "2px solid var(--color-primary)" : "2px solid transparent",
-              }}
-            >
-              📝 Exercises · 练习
-            </button>
-          </div>
-
-          <div className="flex-1 overflow-y-auto p-2 space-y-2">
-            {sidebarTab === "projects" ? (
+      <div className="flex flex-1 min-h-0 relative">
+        {/* ─── Mobile sidebar overlay ─────────────────────── */}
+        {isMobile && (
+          <AnimatePresence>
+            {mobileSidebarOpen && (
               <>
-                <button
-                  onClick={() => setShowNewProject(true)}
-                  className="w-full p-2 rounded-lg border-2 border-dashed text-xs font-bold transition-colors hover:border-solid"
-                  style={{ borderColor: "var(--color-primary)", color: "var(--color-primary)" }}
-                >
-                  + New Project · 新建项目
-                </button>
-                <button
-                  onClick={openFreeMode}
-                  className="w-full text-left p-3 rounded-xl border transition-colors"
-                  style={{
-                    backgroundColor:
-                      activeTabId === "__free__"
-                        ? "color-mix(in srgb, var(--color-secondary) 10%, var(--theme-card-bg))"
-                        : "var(--theme-card-bg)",
-                    borderColor:
-                      activeTabId === "__free__"
-                        ? "color-mix(in srgb, var(--color-secondary) 30%, transparent)"
-                        : "var(--theme-border)",
-                  }}
-                >
-                  <span className="text-xs font-bold">🆓 Free Code · 自由编程</span>
-                </button>
-
-                {/* Lesson Projects */}
-                {(() => {
-                  const lessonProjects = CODE_EXERCISES.filter(ex => ex.tags.includes("project") && ex.fromLesson);
-                  if (lessonProjects.length === 0) return null;
-                  return (
-                    <>
-                      <div className="text-[10px] font-bold pt-2 pb-1 px-1" style={{ color: "var(--theme-text-muted)" }}>
-                        📚 Lesson Projects · 课程项目
-                      </div>
-                      {lessonProjects.map((ex) => {
-                        const diffBadge = ex.difficulty === 1 ? "🟢" : ex.difficulty === 2 ? "🟡" : "🔴";
-                        const isSelected = activeTabId === `ex_${ex.id}`;
-                        return (
-                          <motion.button
-                            key={ex.id}
-                            whileHover={{ scale: 1.02 }}
-                            onClick={() => {
-                              // Open as exercise tab directly
-                              setSelectedExercise(null);
-                              setCode(ex.starterCode);
-                              setShowHint(false);
-                              setShowSolution(false);
-                              const tabId = `ex_${ex.id}`;
-                              const existing = openTabs.find((t) => t.id === tabId);
-                              if (!existing) {
-                                setOpenTabs((prev) => [...prev, { type: "exercise" as const, id: tabId, name: ex.title }]);
-                              }
-                              setActiveTabId(tabId);
-                            }}
-                            className="w-full text-left p-3 rounded-xl border transition-colors"
-                            style={{
-                              backgroundColor: isSelected
-                                ? "color-mix(in srgb, var(--color-primary) 10%, var(--theme-card-bg))"
-                                : "var(--theme-card-bg)",
-                              borderColor: isSelected
-                                ? "color-mix(in srgb, var(--color-primary) 30%, transparent)"
-                                : "var(--theme-border)",
-                            }}
-                          >
-                            <div className="flex items-center justify-between mb-0.5">
-                              <span className="font-bold text-xs truncate">🚀 {ex.title}</span>
-                              <span
-                                className="text-[9px] px-1.5 py-0.5 rounded-full flex-shrink-0 ml-1"
-                                style={{ backgroundColor: "color-mix(in srgb, var(--color-primary) 12%, transparent)", color: "var(--color-primary)" }}
-                              >
-                                {diffBadge}
-                              </span>
-                            </div>
-                            <p className="text-[10px] line-clamp-1" style={{ color: "var(--theme-text-secondary)" }}>
-                              {ex.description}
-                            </p>
-                            <p className="text-[9px]" style={{ color: "var(--theme-text-muted)" }}>
-                              📚 From Lesson {ex.fromLesson}
-                            </p>
-                          </motion.button>
-                        );
-                      })}
-                    </>
-                  );
-                })()}
-
-                <div className="text-[10px] font-bold pt-2 pb-1 px-1" style={{ color: "var(--theme-text-muted)" }}>
-                  📁 My Projects · 我的项目
-                </div>
-                {projects.map((p) => (
-                  <ProjectCard
-                    key={p.id}
-                    project={p}
-                    isSelected={activeTabId === p.id}
-                    onClick={() => openProject(p)}
-                    onRename={() => handleRename(p)}
-                    onDelete={() => handleDelete(p)}
-                    onDuplicate={() => handleDuplicate(p)}
-                  />
-                ))}
-                {projects.length === 0 && (
-                  <p className="text-[10px] text-center py-4" style={{ color: "var(--theme-text-muted)" }}>
-                    No projects yet · 还没有项目
-                  </p>
-                )}
-              </>
-            ) : (
-              <>
-                {/* Language filter */}
-                <div className="flex gap-1 mb-1">
-                  {([["all", "All"], ["python", "🐍 Python"], ["cpp", "⚡ C++"]] as const).map(([val, label]) => (
-                    <button
-                      key={val}
-                      onClick={() => setExLangFilter(val as "all" | ExerciseLanguage)}
-                      className="px-2 py-0.5 rounded-full text-[10px] font-bold transition-colors"
-                      style={{
-                        backgroundColor: exLangFilter === val ? "color-mix(in srgb, var(--color-primary) 20%, transparent)" : "transparent",
-                        color: exLangFilter === val ? "var(--color-primary)" : "var(--theme-text-muted)",
-                        border: exLangFilter === val ? "1px solid var(--color-primary)" : "1px solid var(--theme-border)",
-                      }}
-                    >
-                      {label}
-                    </button>
-                  ))}
-                </div>
-                {/* Level filter */}
-                <div className="flex gap-1 flex-wrap mb-2">
-                  {[0, 1, 2, 3, 4, 5].map((lvl) => (
-                    <button
-                      key={lvl}
-                      onClick={() => setExLevelFilter(lvl)}
-                      className="px-2 py-0.5 rounded-full text-[10px] font-bold transition-colors"
-                      style={{
-                        backgroundColor: exLevelFilter === lvl ? "color-mix(in srgb, var(--color-secondary) 20%, transparent)" : "transparent",
-                        color: exLevelFilter === lvl ? "var(--color-secondary)" : "var(--theme-text-muted)",
-                        border: exLevelFilter === lvl ? "1px solid var(--color-secondary)" : "1px solid var(--theme-border)",
-                      }}
-                    >
-                      {lvl === 0 ? "All Levels" : `L${lvl}`}
-                    </button>
-                  ))}
-                </div>
-                <div className="text-[10px] mb-1" style={{ color: "var(--theme-text-muted)" }}>
-                  {filteredExercises.length} exercises
-                </div>
-                {/* Grouped by category */}
-                {(() => {
-                  // Build ordered categories from filtered exercises
-                  const categoryOrder: string[] = [];
-                  const categoryMap: Record<string, UnifiedExercise[]> = {};
-                  const categoryZhMap: Record<string, string> = {};
-                  for (const ex of filteredExercises) {
-                    if (!categoryMap[ex.category]) {
-                      categoryMap[ex.category] = [];
-                      categoryOrder.push(ex.category);
-                      categoryZhMap[ex.category] = ex.categoryZh;
-                    }
-                    categoryMap[ex.category].push(ex);
-                  }
-                  // Track global exercise index for preview locking
-                  let globalIdx = 0;
-                  return categoryOrder.map((cat, catIdx) => {
-                    const exercises = categoryMap[cat];
-                    const isCollapsed = collapsedCategories.has(cat);
-                    const completedCount = exercises.filter(ex => completedExerciseIds.has(ex.id)).length;
-                    const allCompleted = completedCount === exercises.length && exercises.length > 0;
-                    // Default: first category expanded, rest collapsed (on first render)
-                    // We use collapsedCategories as explicit toggle; unset means use default
-                    const startIdx = globalIdx;
-                    globalIdx += exercises.length;
-                    return (
-                      <div key={cat} className="mb-1">
-                        <button
-                          onClick={() => setCollapsedCategories(prev => {
-                            const next = new Set(prev);
-                            if (next.has(cat)) next.delete(cat);
-                            else next.add(cat);
-                            return next;
-                          })}
-                          className="w-full flex items-center justify-between px-2 py-1.5 rounded-lg text-left transition-colors hover:bg-white/5"
-                          style={{
-                            backgroundColor: allCompleted ? "color-mix(in srgb, #22c55e 8%, transparent)" : "transparent",
-                          }}
-                        >
-                          <span className="text-xs font-bold truncate" style={{ color: "var(--theme-text-primary)" }}>
-                            {isCollapsed ? "▸" : "▾"} 📂 {cat} · {categoryZhMap[cat]}
-                          </span>
-                          <span className="text-[10px] flex-shrink-0 ml-1" style={{ color: allCompleted ? "#22c55e" : "var(--theme-text-muted)" }}>
-                            {completedCount}/{exercises.length} ✓
-                          </span>
-                        </button>
-                        {!isCollapsed && (
-                          <div className="space-y-1.5 mt-1 ml-1">
-                            {exercises.map((ex, idx) => {
-                              const exerciseLocked = preview && (startIdx + idx) >= PREVIEW_MAX_EXERCISES;
-                              return (
-                                <UnifiedExerciseCard
-                                  key={ex.id}
-                                  exercise={ex}
-                                  isSelected={activeTabId === `ex_${ex.id}`}
-                                  locked={exerciseLocked}
-                                  completed={completedExerciseIds.has(ex.id)}
-                                  onClick={() => exerciseLocked ? setShowSignUpModal(true) : openUnifiedExercise(ex)}
-                                />
-                              );
-                            })}
-                          </div>
-                        )}
-                      </div>
-                    );
-                  });
-                })()}
-              </>
-            )}
-          </div>
-        </div>
-
-        {/* ─── Editor Area ─────────────────────────────────── */}
-        <div className="flex-1 flex flex-col min-h-0 min-w-0">
-          {/* Tab bar + run buttons */}
-          <div
-            className="flex items-center justify-between px-2 py-1 border-b flex-shrink-0 overflow-x-auto"
-            style={{ borderColor: "var(--theme-border)", backgroundColor: "#1e1e1e" }}
-          >
-            <div className="flex items-center gap-0.5 min-w-0 overflow-x-auto flex-shrink">
-              {openTabs.map((tab) => (
-                <div
-                  key={tab.id}
-                  onClick={() => switchTab(tab.id)}
-                  className="flex items-center gap-1 px-3 py-1.5 text-xs cursor-pointer rounded-t-lg transition-colors whitespace-nowrap group"
-                  style={{
-                    backgroundColor: activeTabId === tab.id ? "#2d2d2d" : "transparent",
-                    color: activeTabId === tab.id ? "#e0e0e0" : "#888",
-                    borderBottom: activeTabId === tab.id ? "2px solid var(--color-primary)" : "2px solid transparent",
-                  }}
-                >
-                  <span>{tab.type === "free" ? "🆓" : tab.type === "project" ? "📄" : "📝"}</span>
-                  <span className="truncate max-w-[100px]">{tab.name}</span>
-                  {openTabs.length > 1 && (
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        closeTab(tab.id);
-                      }}
-                      className="ml-1 opacity-0 group-hover:opacity-100 hover:text-red-400 transition-opacity"
-                    >
-                      ×
-                    </button>
-                  )}
-                </div>
-              ))}
-            </div>
-
-            {/* Run/Step buttons */}
-            <div className="flex items-center gap-1.5 flex-shrink-0 ml-2">
-              {isLoading && <span className="text-[10px] text-cyan-400 animate-pulse">{loadingMsg}</span>}
-              {!stepMode ? (
-                <>
-                  {isPython && (
-                    <button
-                      onClick={startStepMode}
-                      disabled={isRunning || isLoading}
-                      className="flex items-center gap-1 px-2 py-1 bg-cyan-500 text-black text-xs font-bold rounded-md hover:bg-cyan-400 disabled:opacity-50 transition-colors"
-                    >
-                      ⏭ Step
-                    </button>
-                  )}
-                  <button
-                    onClick={runCode}
-                    disabled={isRunning || isLoading}
-                    className="flex items-center gap-1 px-3 py-1 bg-green-500 text-black text-xs font-bold rounded-md hover:bg-green-400 disabled:opacity-50 transition-colors"
-                  >
-                    {isRunning ? "⏳..." : "▶ Run"}
-                  </button>
-                </>
-              ) : (
-                <>
-                  <span className="text-[10px] text-yellow-300 font-mono whitespace-nowrap">
-                    {stepIndex + 1}/{traceSteps.length}
-                  </span>
-                  <button onClick={nextStep} className="px-2 py-1 bg-cyan-500 text-black text-[10px] font-bold rounded-md hover:bg-cyan-400">
-                    ⏭ Next
-                  </button>
-                  <button onClick={continueToBreakpoint} className="px-2 py-1 bg-blue-500 text-white text-[10px] font-bold rounded-md hover:bg-blue-400">
-                    ▶ Continue
-                  </button>
-                  <button
-                    onClick={() => {
-                      setStepMode(false);
-                      setHighlightLines(null);
-                    }}
-                    className="px-2 py-1 bg-red-500 text-white text-[10px] font-bold rounded-md hover:bg-red-400"
-                  >
-                    ⏹ Stop
-                  </button>
-                </>
-              )}
-            </div>
-          </div>
-
-          {/* Exercise hint bar */}
-          {selectedExercise && activeTab?.type === "exercise" && (
-            <div className="flex items-center gap-2 px-3 py-1.5 border-b text-xs" style={{ borderColor: "var(--theme-border)", backgroundColor: "var(--theme-card-bg)" }}>
-              <span style={{ color: "var(--theme-text-secondary)" }}>{selectedExercise.description}</span>
-              <button
-                onClick={() => setShowHint(!showHint)}
-                className="px-2 py-0.5 rounded text-[10px]"
-                style={{ backgroundColor: "color-mix(in srgb, var(--color-warning) 20%, transparent)", color: "var(--color-warning)" }}
-              >
-                💡 {showHint ? "Hide" : "Hint"}
-              </button>
-              <button
-                onClick={() => setShowSolution(!showSolution)}
-                className="px-2 py-0.5 rounded text-[10px] border"
-                style={{ borderColor: "var(--theme-border)", color: "var(--theme-text-secondary)" }}
-              >
-                👀 {showSolution ? "Hide" : "Solution"}
-              </button>
-            </div>
-          )}
-
-          {showHint && selectedExercise && (
-            <motion.div
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: "auto", opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-              className="px-3 py-2 text-xs border-b flex items-center gap-2"
-              style={{ backgroundColor: "color-mix(in srgb, var(--color-warning) 8%, var(--theme-bg))", borderColor: "var(--theme-border)" }}
-            >
-              <span>💡 {selectedExercise.hints[hintIndex] || "No hints available"}</span>
-              {selectedExercise.hints.length > 1 && (
-                <button
-                  onClick={() => setHintIndex((i) => (i + 1) % selectedExercise.hints.length)}
-                  className="text-[10px] px-1.5 py-0.5 rounded"
-                  style={{ backgroundColor: "color-mix(in srgb, var(--color-warning) 20%, transparent)", color: "var(--color-warning)" }}
-                >
-                  Next hint ({hintIndex + 1}/{selectedExercise.hints.length})
-                </button>
-              )}
-            </motion.div>
-          )}
-
-          {/* Editor */}
-          <div className="flex-1 min-h-0 relative">
-            <MonacoEditor
-              height="100%"
-              language={isPython ? "python" : "cpp"}
-              theme="vs-dark"
-              value={code}
-              onChange={(v) => setCode(v || "")}
-              onMount={handleEditorMount}
-              options={{
-                fontSize: 14,
-                fontFamily: "'JetBrains Mono', 'Fira Code', monospace",
-                minimap: { enabled: false },
-                scrollBeyondLastLine: false,
-                lineNumbers: "on",
-                renderLineHighlight: "line",
-                readOnly: stepMode,
-                padding: { top: 8 },
-                automaticLayout: true,
-                glyphMargin: true,
-              }}
-            />
-            {showSolution && selectedExercise && (
-              <motion.div
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                className="absolute bottom-2 right-2 z-10 rounded-xl border p-4 max-w-md max-h-[70%] overflow-auto text-xs shadow-2xl"
-                style={{ backgroundColor: "var(--theme-card-bg)", borderColor: "var(--theme-border)" }}
-              >
-                <div className="flex justify-between items-center mb-2">
-                  <span className="font-bold text-sm">👀 Solution · 解答</span>
-                  <button onClick={() => setShowSolution(false)} className="text-red-400 text-xs hover:text-red-300">✕</button>
-                </div>
-
-                {/* Progressive hints */}
-                {selectedExercise.hints.length > 0 && !showExplanation && (
-                  <div className="mb-3 space-y-1">
-                    <div className="text-[10px] font-bold mb-1" style={{ color: "var(--color-warning)" }}>
-                      💡 Hints · 提示
-                    </div>
-                    {selectedExercise.hints.slice(0, hintIndex + 1).map((h, i) => (
-                      <motion.div
-                        key={i}
-                        initial={{ opacity: 0, y: 5 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        className="text-[11px] p-1.5 rounded"
-                        style={{ backgroundColor: "color-mix(in srgb, var(--color-warning) 8%, transparent)" }}
-                      >
-                        {i + 1}. {h}
-                      </motion.div>
-                    ))}
-                    {selectedExercise.hintsZh && selectedExercise.hintsZh.slice(0, hintIndex + 1).map((h, i) => (
-                      <div key={`zh-${i}`} className="text-[10px] pl-3" style={{ color: "var(--theme-text-muted)" }}>
-                        ↳ {h}
-                      </div>
-                    ))}
-                    {hintIndex < selectedExercise.hints.length - 1 && (
-                      <button
-                        onClick={() => setHintIndex(i => i + 1)}
-                        className="text-[10px] px-2 py-0.5 rounded mt-1"
-                        style={{ backgroundColor: "color-mix(in srgb, var(--color-warning) 15%, transparent)", color: "var(--color-warning)" }}
-                      >
-                        Show next hint · 下一个提示 ({hintIndex + 1}/{selectedExercise.hints.length})
-                      </button>
-                    )}
-                  </div>
-                )}
-
-                {/* Solution code */}
-                <div className="mb-2">
-                  <div className="text-[10px] font-bold mb-1" style={{ color: "var(--theme-text-muted)" }}>
-                    CODE · 代码
-                  </div>
-                  <pre className="text-green-400 terminal-text whitespace-pre-wrap text-[11px] p-2 rounded-lg" style={{ backgroundColor: "rgba(0,0,0,0.3)" }}>
-                    {selectedExercise.solution}
-                  </pre>
-                </div>
-
-                {/* Explain button & explanation */}
-                <button
-                  onClick={() => setShowExplanation(!showExplanation)}
-                  className="text-[10px] px-2.5 py-1 rounded-lg font-bold transition-colors"
-                  style={{
-                    backgroundColor: showExplanation
-                      ? "color-mix(in srgb, var(--color-primary) 20%, transparent)"
-                      : "color-mix(in srgb, var(--color-secondary) 15%, transparent)",
-                    color: showExplanation ? "var(--color-primary)" : "var(--color-secondary)",
-                  }}
-                >
-                  {showExplanation ? "Hide Explanation · 隐藏解析" : "📖 Explain · 解析"}
-                </button>
-
-                <AnimatePresence>
-                  {showExplanation && (
-                    <motion.div
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: "auto", opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      className="mt-2 p-2 rounded-lg text-[11px] space-y-1"
-                      style={{ backgroundColor: "color-mix(in srgb, var(--color-primary) 6%, transparent)" }}
-                    >
-                      <div className="font-bold text-[10px]" style={{ color: "var(--color-primary)" }}>
-                        Step-by-step · 逐步解析
-                      </div>
-                      {generateExplanation(selectedExercise).map((step, i) => (
-                        <div key={i} style={{ color: "var(--theme-text-secondary)" }}>
-                          <span className="font-bold">{i + 1}.</span> {step}
-                        </div>
-                      ))}
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </motion.div>
-            )}
-          </div>
-
-          {/* ─── Bottom Panel: Output + Variables ─────────── */}
-          <div
-            className="flex-shrink-0 border-t"
-            style={{ borderColor: "var(--theme-border)", backgroundColor: "#0d1117" }}
-          >
-            {/* Panel header */}
-            <div
-              className="flex items-center justify-between px-3 py-1 border-b cursor-pointer"
-              style={{ borderColor: "var(--theme-border)" }}
-              onClick={() => setOutputCollapsed(!outputCollapsed)}
-            >
-              <div className="flex items-center gap-2">
-                <span className="text-[10px] text-[var(--theme-text-muted)] terminal-text">
-                  {outputCollapsed ? "▸" : "▾"} OUTPUT · 输出
-                </span>
-                {isRunning && <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />}
-                <AnimatePresence>
-                  {showSuccess && (
-                    <motion.span initial={{ opacity: 0, scale: 0.5 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0 }} className="text-[10px] text-green-400 font-bold">
-                      ✅ Success!
-                    </motion.span>
-                  )}
-                </AnimatePresence>
-                {stepMode && (
-                  <span className="text-[10px] text-yellow-300 font-mono">
-                    Line {highlightLines ? highlightLines.start + 1 : "?"} · Step {stepIndex + 1}/{traceSteps.length}
-                  </span>
-                )}
-              </div>
-              {breakpoints.size > 0 && (
-                <span className="text-[10px] text-red-400">🔴 {breakpoints.size} breakpoint{breakpoints.size > 1 ? "s" : ""}</span>
-              )}
-            </div>
-
-            <AnimatePresence>
-              {!outputCollapsed && (
                 <motion.div
-                  initial={{ height: 0 }}
-                  animate={{ height: "auto" }}
-                  exit={{ height: 0 }}
-                  className="overflow-hidden"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  className="fixed inset-0 bg-black/50 z-40"
+                  onClick={() => setMobileSidebarOpen(false)}
+                />
+                <motion.div
+                  initial={{ x: -280 }}
+                  animate={{ x: 0 }}
+                  exit={{ x: -280 }}
+                  transition={{ type: "spring", damping: 25, stiffness: 300 }}
+                  className="fixed left-0 top-0 bottom-0 w-[280px] z-50 flex flex-col overflow-hidden"
+                  style={{ backgroundColor: "var(--theme-card-bg)", borderRight: "1px solid var(--theme-border)" }}
                 >
-                  <div className="flex flex-col md:flex-row" style={{ maxHeight: "250px" }}>
-                    {/* Output */}
-                    <div className="flex-1 p-3 overflow-auto" style={{ maxHeight: "250px" }}>
-                      <div id="turtle-output" data-turtle-mount="true" />
-                      <pre className={`text-xs terminal-text whitespace-pre-wrap min-h-[2rem] ${hasError ? "text-red-400" : "text-green-400"}`}>
-                        {output || (
-                          <span className="text-[var(--theme-text-muted)]">Click Run to execute · 点击 Run 运行代码</span>
-                        )}
-                      </pre>
+                  <div className="flex items-center justify-between px-3 py-2 border-b" style={{ borderColor: "var(--theme-border)" }}>
+                    <span className="text-sm font-bold">📂 Browser</span>
+                    <button onClick={() => setMobileSidebarOpen(false)} className="text-lg">✕</button>
+                  </div>
+                  {sidebarContent}
+                </motion.div>
+              </>
+            )}
+          </AnimatePresence>
+        )}
 
-                      {/* Grading Panel */}
-                      {isGrading && (
-                        <div className="mt-2 px-3 py-2 rounded-lg text-xs animate-pulse" style={{ backgroundColor: "color-mix(in srgb, var(--color-primary) 10%, transparent)" }}>
-                          ⏳ {gradingProgress}
-                        </div>
-                      )}
-                      {gradeResult && !isGrading && (
-                        <motion.div
-                          initial={{ opacity: 0, y: 10 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          className="mt-2 rounded-lg border overflow-hidden"
-                          style={{ borderColor: gradeResult.passed ? "#22c55e" : "#ef4444" }}
+        {/* ─── Desktop 3-column layout ───────────────────── */}
+        {!isMobile ? (
+          <>
+            {/* Column 1: Sidebar */}
+            <div
+              className="flex-shrink-0 border-r flex flex-col overflow-hidden"
+              style={{ width: col1Width, minWidth: 200, borderColor: "var(--theme-border)", backgroundColor: "var(--theme-card-bg)" }}
+            >
+              {sidebarContent}
+            </div>
+
+            {/* Resize handle 1 */}
+            <ResizeHandle onMouseDown={startResize("col1")} active={isDragging === "col1"} />
+
+            {/* Column 2: Editor */}
+            <div className="flex-1 flex flex-col min-h-0 min-w-0" style={{ minWidth: 300 }}>
+              {/* Tab bar + run buttons */}
+              <div
+                className="flex items-center justify-between px-2 py-1 border-b flex-shrink-0 overflow-x-auto"
+                style={{ borderColor: "var(--theme-border)", backgroundColor: "#1e1e1e" }}
+              >
+                <div className="flex items-center gap-0.5 min-w-0 overflow-x-auto flex-shrink">
+                  {openTabs.map((tab) => (
+                    <div
+                      key={tab.id}
+                      onClick={() => switchTab(tab.id)}
+                      className="flex items-center gap-1 px-3 py-1.5 text-xs cursor-pointer rounded-t-lg transition-colors whitespace-nowrap group"
+                      style={{
+                        backgroundColor: activeTabId === tab.id ? "#2d2d2d" : "transparent",
+                        color: activeTabId === tab.id ? "#e0e0e0" : "#888",
+                        borderBottom: activeTabId === tab.id ? "2px solid var(--color-primary)" : "2px solid transparent",
+                      }}
+                    >
+                      <span>{tab.type === "free" ? "🆓" : tab.type === "project" ? "📄" : "📝"}</span>
+                      <span className="truncate max-w-[100px]">{tab.name}</span>
+                      {openTabs.length > 1 && (
+                        <button
+                          onClick={(e) => { e.stopPropagation(); closeTab(tab.id); }}
+                          className="ml-1 opacity-0 group-hover:opacity-100 hover:text-red-400 transition-opacity"
                         >
-                          <div
-                            className="px-3 py-2 text-xs font-bold"
-                            style={{
-                              backgroundColor: gradeResult.passed
-                                ? "rgba(34,197,94,0.15)"
-                                : "rgba(239,68,68,0.15)",
-                              color: gradeResult.passed ? "#22c55e" : "#ef4444",
-                            }}
-                          >
-                            {gradeResult.passed
-                              ? `✅ ${gradeResult.passedTests}/${gradeResult.totalTests} tests passed — Great job! 太棒了！`
-                              : `❌ ${gradeResult.passedTests}/${gradeResult.totalTests} tests passed · 测试未通过`}
-                            {gradeResult.passed && selectedExercise && !exercisesPassed.has(selectedExercise.id) && (
-                              <span className="ml-2 text-yellow-400">+{getXPReward(selectedExercise.difficulty)} XP 🎉</span>
-                            )}
-                          </div>
-                          {!gradeResult.passed && (
-                            <div className="px-3 py-2 space-y-1.5">
-                              {gradeResult.results.map((r, i) => (
-                                <div
-                                  key={i}
-                                  className="text-[10px] terminal-text p-1.5 rounded"
-                                  style={{
-                                    backgroundColor: r.passed ? "rgba(34,197,94,0.05)" : "rgba(239,68,68,0.05)",
-                                  }}
-                                >
-                                  <span className="mr-1">{r.passed ? "✅" : "❌"}</span>
-                                  <span style={{ color: "var(--theme-text-muted)" }}>Input:</span>{" "}
-                                  <span className="text-cyan-400">{r.input || "(none)"}</span>
-                                  <span className="mx-1">→</span>
-                                  <span style={{ color: "var(--theme-text-muted)" }}>Expected:</span>{" "}
-                                  <span className="text-green-400">{r.expectedOutput}</span>
-                                  {!r.passed && (
-                                    <>
-                                      <span className="mx-1">→</span>
-                                      <span style={{ color: "var(--theme-text-muted)" }}>Got:</span>{" "}
-                                      <span className="text-red-400">{r.actualOutput || "(empty)"}</span>
-                                    </>
-                                  )}
-                                </div>
-                              ))}
-                            </div>
-                          )}
-                        </motion.div>
+                          ×
+                        </button>
                       )}
                     </div>
-
-                    {/* Variables (Python only) */}
-                    {isPython && (
-                      <div
-                        className="md:w-64 lg:w-80 p-3 border-t md:border-t-0 md:border-l overflow-auto"
-                        style={{ borderColor: "var(--theme-border)", maxHeight: "250px" }}
+                  ))}
+                </div>
+                <div className="flex items-center gap-1.5 flex-shrink-0 ml-2">
+                  {isLoading && <span className="text-[10px] text-cyan-400 animate-pulse">{loadingMsg}</span>}
+                  {!stepMode ? (
+                    <>
+                      {isPython && (
+                        <button
+                          onClick={startStepMode}
+                          disabled={isRunning || isLoading}
+                          className="flex items-center gap-1 px-2 py-1 bg-cyan-500 text-black text-xs font-bold rounded-md hover:bg-cyan-400 disabled:opacity-50 transition-colors"
+                        >
+                          ⏭ Step
+                        </button>
+                      )}
+                      <button
+                        onClick={runCode}
+                        disabled={isRunning || isLoading}
+                        className="flex items-center gap-1 px-3 py-1 bg-green-500 text-black text-xs font-bold rounded-md hover:bg-green-400 disabled:opacity-50 transition-colors"
                       >
-                        <div className="text-[10px] text-[var(--theme-text-muted)] terminal-text mb-2">VARIABLES · 变量</div>
-                        <MemoryModel variables={variableDetails} />
-                        {variableDetails.length === 0 && Object.keys(variables).length > 0 && (
-                          <div className="flex flex-wrap gap-1.5">
-                            {Object.entries(variables).map(([name, value]) => (
-                              <motion.div
-                                key={name}
-                                initial={{ opacity: 0, scale: 0.8 }}
-                                animate={{ opacity: 1, scale: 1 }}
-                                className="px-2 py-0.5 bg-purple-500/10 border border-purple-500/20 rounded text-[10px] terminal-text"
-                              >
-                                <span className="text-purple-400">{name}</span>
-                                <span className="text-[var(--theme-text-muted)]"> = </span>
-                                <span className="text-cyan-400">{value}</span>
-                              </motion.div>
-                            ))}
-                          </div>
-                        )}
-                        {variableDetails.length === 0 && Object.keys(variables).length === 0 && (
-                          <p className="text-[10px]" style={{ color: "var(--theme-text-muted)" }}>
-                            Run code to see variables · 运行代码查看变量
-                          </p>
-                        )}
+                        {isRunning ? "⏳..." : "▶ Run"}
+                      </button>
+                    </>
+                  ) : (
+                    <>
+                      <span className="text-[10px] text-yellow-300 font-mono whitespace-nowrap">
+                        {stepIndex + 1}/{traceSteps.length}
+                      </span>
+                      <button onClick={nextStep} className="px-2 py-1 bg-cyan-500 text-black text-[10px] font-bold rounded-md hover:bg-cyan-400">
+                        ⏭ Next
+                      </button>
+                      <button onClick={continueToBreakpoint} className="px-2 py-1 bg-blue-500 text-white text-[10px] font-bold rounded-md hover:bg-blue-400">
+                        ▶ Continue
+                      </button>
+                      <button
+                        onClick={() => { setStepMode(false); setHighlightLines(null); }}
+                        className="px-2 py-1 bg-red-500 text-white text-[10px] font-bold rounded-md hover:bg-red-400"
+                      >
+                        ⏹ Stop
+                      </button>
+                    </>
+                  )}
+                </div>
+              </div>
 
-                        {/* Call stack (during step mode) */}
-                        {stepMode && traceSteps[stepIndex] && (
-                          <div className="mt-3 pt-2 border-t" style={{ borderColor: "var(--theme-border)" }}>
-                            <div className="text-[10px] text-[var(--theme-text-muted)] terminal-text mb-1">CALL STACK · 调用栈</div>
-                            <div className="text-[10px] text-cyan-400 terminal-text">
-                              → Line {traceSteps[stepIndex].line + 1}: {code.split("\n")[traceSteps[stepIndex].line]?.trim() || ""}
-                            </div>
-                          </div>
-                        )}
-                      </div>
-                    )}
-                  </div>
+              {/* Exercise hint bar */}
+              {selectedExercise && activeTab?.type === "exercise" && (
+                <div className="flex items-center gap-2 px-3 py-1.5 border-b text-xs" style={{ borderColor: "var(--theme-border)", backgroundColor: "var(--theme-card-bg)" }}>
+                  <span className="truncate" style={{ color: "var(--theme-text-secondary)" }}>{selectedExercise.description}</span>
+                  <button
+                    onClick={() => setShowHint(!showHint)}
+                    className="px-2 py-0.5 rounded text-[10px] flex-shrink-0"
+                    style={{ backgroundColor: "color-mix(in srgb, var(--color-warning) 20%, transparent)", color: "var(--color-warning)" }}
+                  >
+                    💡 {showHint ? "Hide" : "Hint"}
+                  </button>
+                  <button
+                    onClick={() => setShowSolution(!showSolution)}
+                    className="px-2 py-0.5 rounded text-[10px] border flex-shrink-0"
+                    style={{ borderColor: "var(--theme-border)", color: "var(--theme-text-secondary)" }}
+                  >
+                    👀 {showSolution ? "Hide" : "Solution"}
+                  </button>
+                </div>
+              )}
+
+              {showHint && selectedExercise && (
+                <motion.div
+                  initial={{ height: 0, opacity: 0 }}
+                  animate={{ height: "auto", opacity: 1 }}
+                  exit={{ height: 0, opacity: 0 }}
+                  className="px-3 py-2 text-xs border-b flex items-center gap-2"
+                  style={{ backgroundColor: "color-mix(in srgb, var(--color-warning) 8%, var(--theme-bg))", borderColor: "var(--theme-border)" }}
+                >
+                  <span>💡 {selectedExercise.hints[hintIndex] || "No hints available"}</span>
+                  {selectedExercise.hints.length > 1 && (
+                    <button
+                      onClick={() => setHintIndex((i) => (i + 1) % selectedExercise.hints.length)}
+                      className="text-[10px] px-1.5 py-0.5 rounded"
+                      style={{ backgroundColor: "color-mix(in srgb, var(--color-warning) 20%, transparent)", color: "var(--color-warning)" }}
+                    >
+                      Next hint ({hintIndex + 1}/{selectedExercise.hints.length})
+                    </button>
+                  )}
                 </motion.div>
               )}
-            </AnimatePresence>
+
+              {/* Editor */}
+              <div className="flex-1 min-h-0 relative">
+                <MonacoEditor
+                  height="100%"
+                  language={isPython ? "python" : "cpp"}
+                  theme="vs-dark"
+                  value={code}
+                  onChange={(v) => setCode(v || "")}
+                  onMount={handleEditorMount}
+                  options={{
+                    fontSize: 14,
+                    fontFamily: "'JetBrains Mono', 'Fira Code', monospace",
+                    minimap: { enabled: false },
+                    scrollBeyondLastLine: false,
+                    lineNumbers: "on",
+                    renderLineHighlight: "line",
+                    readOnly: stepMode,
+                    padding: { top: 8 },
+                    automaticLayout: true,
+                    glyphMargin: true,
+                  }}
+                />
+                {showSolution && selectedExercise && (
+                  <motion.div
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    className="absolute bottom-2 right-2 z-10 rounded-xl border p-4 max-w-md max-h-[70%] overflow-auto text-xs shadow-2xl"
+                    style={{ backgroundColor: "var(--theme-card-bg)", borderColor: "var(--theme-border)" }}
+                  >
+                    <div className="flex justify-between items-center mb-2">
+                      <span className="font-bold text-sm">👀 Solution · 解答</span>
+                      <button onClick={() => setShowSolution(false)} className="text-red-400 text-xs hover:text-red-300">✕</button>
+                    </div>
+                    {selectedExercise.hints.length > 0 && !showExplanation && (
+                      <div className="mb-3 space-y-1">
+                        <div className="text-[10px] font-bold mb-1" style={{ color: "var(--color-warning)" }}>💡 Hints · 提示</div>
+                        {selectedExercise.hints.slice(0, hintIndex + 1).map((h, i) => (
+                          <motion.div key={i} initial={{ opacity: 0, y: 5 }} animate={{ opacity: 1, y: 0 }} className="text-[11px] p-1.5 rounded" style={{ backgroundColor: "color-mix(in srgb, var(--color-warning) 8%, transparent)" }}>
+                            {i + 1}. {h}
+                          </motion.div>
+                        ))}
+                        {selectedExercise.hintsZh && selectedExercise.hintsZh.slice(0, hintIndex + 1).map((h, i) => (
+                          <div key={`zh-${i}`} className="text-[10px] pl-3" style={{ color: "var(--theme-text-muted)" }}>↳ {h}</div>
+                        ))}
+                        {hintIndex < selectedExercise.hints.length - 1 && (
+                          <button onClick={() => setHintIndex(i => i + 1)} className="text-[10px] px-2 py-0.5 rounded mt-1" style={{ backgroundColor: "color-mix(in srgb, var(--color-warning) 15%, transparent)", color: "var(--color-warning)" }}>
+                            Show next hint · 下一个提示 ({hintIndex + 1}/{selectedExercise.hints.length})
+                          </button>
+                        )}
+                      </div>
+                    )}
+                    <div className="mb-2">
+                      <div className="text-[10px] font-bold mb-1" style={{ color: "var(--theme-text-muted)" }}>CODE · 代码</div>
+                      <pre className="text-green-400 terminal-text whitespace-pre-wrap text-[11px] p-2 rounded-lg" style={{ backgroundColor: "rgba(0,0,0,0.3)" }}>
+                        {selectedExercise.solution}
+                      </pre>
+                    </div>
+                    <button
+                      onClick={() => setShowExplanation(!showExplanation)}
+                      className="text-[10px] px-2.5 py-1 rounded-lg font-bold transition-colors"
+                      style={{
+                        backgroundColor: showExplanation ? "color-mix(in srgb, var(--color-primary) 20%, transparent)" : "color-mix(in srgb, var(--color-secondary) 15%, transparent)",
+                        color: showExplanation ? "var(--color-primary)" : "var(--color-secondary)",
+                      }}
+                    >
+                      {showExplanation ? "Hide Explanation · 隐藏解析" : "📖 Explain · 解析"}
+                    </button>
+                    <AnimatePresence>
+                      {showExplanation && (
+                        <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }} className="mt-2 p-2 rounded-lg text-[11px] space-y-1" style={{ backgroundColor: "color-mix(in srgb, var(--color-primary) 6%, transparent)" }}>
+                          <div className="font-bold text-[10px]" style={{ color: "var(--color-primary)" }}>Step-by-step · 逐步解析</div>
+                          {generateExplanation(selectedExercise).map((step, i) => (
+                            <div key={i} style={{ color: "var(--theme-text-secondary)" }}><span className="font-bold">{i + 1}.</span> {step}</div>
+                          ))}
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </motion.div>
+                )}
+              </div>
+            </div>
+
+            {/* Resize handle 2 */}
+            <ResizeHandle onMouseDown={startResize("col3")} active={isDragging === "col3"} />
+
+            {/* Column 3: Output + Variables */}
+            <div
+              className="flex-shrink-0 flex flex-col overflow-hidden"
+              style={{ width: col3Width, minWidth: 250, borderLeft: "1px solid var(--theme-border)" }}
+            >
+              {outputPanelContent}
+            </div>
+          </>
+        ) : (
+          /* ─── Mobile stacked layout ──────────────────────── */
+          <div className="flex-1 flex flex-col min-h-0">
+            {/* Tab bar + run buttons */}
+            <div
+              className="flex items-center justify-between px-2 py-1 border-b flex-shrink-0 overflow-x-auto"
+              style={{ borderColor: "var(--theme-border)", backgroundColor: "#1e1e1e" }}
+            >
+              <div className="flex items-center gap-0.5 min-w-0 overflow-x-auto flex-shrink">
+                {openTabs.map((tab) => (
+                  <div
+                    key={tab.id}
+                    onClick={() => switchTab(tab.id)}
+                    className="flex items-center gap-1 px-3 py-1.5 text-xs cursor-pointer rounded-t-lg transition-colors whitespace-nowrap group"
+                    style={{
+                      backgroundColor: activeTabId === tab.id ? "#2d2d2d" : "transparent",
+                      color: activeTabId === tab.id ? "#e0e0e0" : "#888",
+                      borderBottom: activeTabId === tab.id ? "2px solid var(--color-primary)" : "2px solid transparent",
+                    }}
+                  >
+                    <span>{tab.type === "free" ? "🆓" : tab.type === "project" ? "📄" : "📝"}</span>
+                    <span className="truncate max-w-[80px]">{tab.name}</span>
+                    {openTabs.length > 1 && (
+                      <button onClick={(e) => { e.stopPropagation(); closeTab(tab.id); }} className="ml-1 opacity-0 group-hover:opacity-100 hover:text-red-400 transition-opacity">×</button>
+                    )}
+                  </div>
+                ))}
+              </div>
+              <div className="flex items-center gap-1.5 flex-shrink-0 ml-2">
+                {isLoading && <span className="text-[10px] text-cyan-400 animate-pulse">{loadingMsg}</span>}
+                {isPython && !stepMode && (
+                  <button onClick={startStepMode} disabled={isRunning || isLoading} className="flex items-center gap-1 px-2 py-1 bg-cyan-500 text-black text-xs font-bold rounded-md hover:bg-cyan-400 disabled:opacity-50 transition-colors">⏭</button>
+                )}
+                <button onClick={runCode} disabled={isRunning || isLoading} className="flex items-center gap-1 px-3 py-1 bg-green-500 text-black text-xs font-bold rounded-md hover:bg-green-400 disabled:opacity-50 transition-colors">
+                  {isRunning ? "⏳" : "▶ Run"}
+                </button>
+              </div>
+            </div>
+
+            {/* Exercise hint bar (mobile) */}
+            {selectedExercise && activeTab?.type === "exercise" && (
+              <div className="flex items-center gap-2 px-3 py-1.5 border-b text-xs overflow-x-auto" style={{ borderColor: "var(--theme-border)", backgroundColor: "var(--theme-card-bg)" }}>
+                <span className="truncate" style={{ color: "var(--theme-text-secondary)" }}>{selectedExercise.description}</span>
+                <button onClick={() => setShowHint(!showHint)} className="px-2 py-0.5 rounded text-[10px] flex-shrink-0" style={{ backgroundColor: "color-mix(in srgb, var(--color-warning) 20%, transparent)", color: "var(--color-warning)" }}>💡</button>
+                <button onClick={() => setShowSolution(!showSolution)} className="px-2 py-0.5 rounded text-[10px] border flex-shrink-0" style={{ borderColor: "var(--theme-border)", color: "var(--theme-text-secondary)" }}>👀</button>
+              </div>
+            )}
+
+            {/* Mobile content area */}
+            {mobileView === "editor" ? (
+              <div className="flex-1 min-h-0 relative">
+                <MonacoEditor
+                  height="100%"
+                  language={isPython ? "python" : "cpp"}
+                  theme="vs-dark"
+                  value={code}
+                  onChange={(v) => setCode(v || "")}
+                  onMount={handleEditorMount}
+                  options={{
+                    fontSize: 13,
+                    fontFamily: "'JetBrains Mono', 'Fira Code', monospace",
+                    minimap: { enabled: false },
+                    scrollBeyondLastLine: false,
+                    lineNumbers: "on",
+                    renderLineHighlight: "line",
+                    readOnly: stepMode,
+                    padding: { top: 8 },
+                    automaticLayout: true,
+                    glyphMargin: true,
+                  }}
+                />
+              </div>
+            ) : (
+              <div className="flex-1 min-h-0 overflow-auto">
+                {outputPanelContent}
+              </div>
+            )}
           </div>
-        </div>
+        )}
       </div>
 
       {/* New Project Dialog */}
@@ -1834,50 +1974,27 @@ export default function CodeLabPage() {
             exit={{ opacity: 0 }}
             className="fixed inset-0 pointer-events-none z-[100] flex items-center justify-center"
           >
-            {/* Confetti particles */}
             {Array.from({ length: 40 }).map((_, i) => (
               <motion.div
                 key={i}
-                initial={{
-                  opacity: 1,
-                  x: 0,
-                  y: 0,
-                  scale: 1,
-                }}
-                animate={{
-                  opacity: 0,
-                  x: (Math.random() - 0.5) * 600,
-                  y: (Math.random() - 0.5) * 600,
-                  scale: Math.random() * 1.5,
-                  rotate: Math.random() * 720,
-                }}
+                initial={{ opacity: 1, x: 0, y: 0, scale: 1 }}
+                animate={{ opacity: 0, x: (Math.random() - 0.5) * 600, y: (Math.random() - 0.5) * 600, scale: Math.random() * 1.5, rotate: Math.random() * 720 }}
                 transition={{ duration: 2, ease: "easeOut" }}
                 className="absolute w-3 h-3 rounded-sm"
-                style={{
-                  backgroundColor: ["#22c55e", "#3b82f6", "#f59e0b", "#ec4899", "#8b5cf6", "#ef4444"][i % 6],
-                }}
+                style={{ backgroundColor: ["#22c55e", "#3b82f6", "#f59e0b", "#ec4899", "#8b5cf6", "#ef4444"][i % 6] }}
               />
             ))}
-            <motion.div
-              initial={{ scale: 0, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0, opacity: 0 }}
-              transition={{ type: "spring", damping: 10 }}
-              className="text-center"
-            >
+            <motion.div initial={{ scale: 0, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0, opacity: 0 }} transition={{ type: "spring", damping: 10 }} className="text-center">
               <div className="text-6xl mb-2">🎉</div>
-              <div className="text-2xl font-bold text-white drop-shadow-lg">
-                All Tests Passed!
-              </div>
-              <div className="text-lg text-white/80 drop-shadow">
-                太棒了！全部通过！
-              </div>
+              <div className="text-2xl font-bold text-white drop-shadow-lg">All Tests Passed!</div>
+              <div className="text-lg text-white/80 drop-shadow">太棒了！全部通过！</div>
             </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
     </div>
   );
+
 }
 
 // end of file
