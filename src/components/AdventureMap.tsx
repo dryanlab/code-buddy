@@ -6,6 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { TRACKS, type Track } from "@/data/tracks";
 import { LESSONS } from "@/data/lessons";
+import { CPP_LESSONS } from "@/data/cpp-lessons";
 import type { UserProgress } from "@/lib/progress-store";
 
 // ═══════════════════════════════════════════════════
@@ -69,8 +70,9 @@ function HotspotOverlay({
 }) {
   let pct = 0;
   if (track.id === "python" && progress) {
-    const total = LESSONS.length;
-    const done = LESSONS.filter((l) => progress.completedLessons.includes(l.id)).length;
+    const allLessons = [...LESSONS, ...CPP_LESSONS];
+    const total = allLessons.length;
+    const done = allLessons.filter((l) => progress.completedLessons.includes(l.id)).length;
     pct = total > 0 ? Math.round((done / total) * 100) : 0;
   }
 
@@ -169,8 +171,9 @@ function TrackPopup({
   let pct = 0;
   let completedCount = 0;
   if (track.id === "python" && progress) {
-    const total = LESSONS.length;
-    completedCount = LESSONS.filter((l) => progress.completedLessons.includes(l.id)).length;
+    const allLessons = [...LESSONS, ...CPP_LESSONS];
+    const total = allLessons.length;
+    completedCount = allLessons.filter((l) => progress.completedLessons.includes(l.id)).length;
     pct = total > 0 ? Math.round((completedCount / total) * 100) : 0;
   }
 
@@ -302,7 +305,7 @@ export default function AdventureMap({ progress }: { progress: UserProgress | nu
   const activeTrackId = (() => {
     const lastId = progress?.lastLessonId;
     if (!lastId) return "python"; // default
-    if (lastId.startsWith("cpp-")) return "cpp";
+    if (lastId.startsWith("cpp-")) return "python"; // C++ is part of Starter Island
     if (lastId.startsWith("ds-")) return "data-structures";
     return "python";
   })();

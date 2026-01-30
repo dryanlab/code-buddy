@@ -21,13 +21,13 @@ export interface Track {
 export const TRACKS: Track[] = [
   {
     id: "python",
-    title: "Python Programming",
-    titleZh: "Python 编程",
+    title: "Python / C++ Programming",
+    titleZh: "Python / C++ 编程",
     icon: "🐍",
-    description: "Start your coding journey! Learn programming fundamentals with Python — variables, loops, functions, and more.",
-    descriptionZh: "开启编程之旅！学习 Python 基础——变量、循环、函数等。",
+    description: "Start your coding journey! Learn programming fundamentals with Python and C++ — variables, loops, functions, and more.",
+    descriptionZh: "开启编程之旅！学习 Python 和 C++ 基础——变量、循环、函数等。",
     difficulty: "beginner",
-    lessonCount: 31,
+    lessonCount: 56,
     status: "available",
     wave: 1,
     prerequisites: [],
