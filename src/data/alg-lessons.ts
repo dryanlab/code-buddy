@@ -140,6 +140,38 @@ print(f"\\n📊 Array size: {len(numbers)}")
 print(f"Best case: 1 comparison (first element)")
 print(f"Worst case: {len(numbers)} comparisons (last or not found)")
 print(f"Average: {len(numbers)//2} comparisons")`,
+      codeCpp: `// 🔍 Detective: "Watch me search one by one!"
+#include <iostream>
+#include <vector>
+using namespace std;
+
+int linear_search(vector<int>& arr, int target) {
+    for (int i = 0; i < (int)arr.size(); i++) {
+        cout << "  Checking index " << i << ": " << arr[i];
+        if (arr[i] == target) {
+            cout << " ✅ FOUND!" << endl;
+            return i;
+        }
+        cout << " ❌" << endl;
+    }
+    return -1;
+}
+
+int main() {
+    vector<int> numbers = {4, 2, 7, 1, 9, 3, 8, 5};
+    cout << "Array: [4, 2, 7, 1, 9, 3, 8, 5]" << endl;
+    cout << "\nSearching for 9:" << endl;
+    int result = linear_search(numbers, 9);
+    cout << "Found at index: " << result << endl;
+    cout << "\nSearching for 6:" << endl;
+    result = linear_search(numbers, 6);
+    cout << "Result: " << result << " (not found)" << endl;
+    cout << "\n📊 Array size: " << numbers.size() << endl;
+    cout << "Best case: 1 comparison (first element)" << endl;
+    cout << "Worst case: " << numbers.size() << " comparisons (last or not found)" << endl;
+    cout << "Average: " << numbers.size()/2 << " comparisons" << endl;
+    return 0;
+}`,
       exercise: {
         prompt: "Write a linear search that returns the INDEX of the LAST occurrence of a target in an array. Return -1 if not found.",
         promptZh: "写一个线性搜索，返回目标值在数组中最后一次出现的索引。未找到返回 -1。",
@@ -148,6 +180,16 @@ print(f"Average: {len(numbers)//2} comparisons")`,
         hint: "Track the last found index. Don't return early — check ALL elements!",
         hintZh: "记录最后找到的索引。不要提前返回——检查所有元素！",
         solution: "def find_last(arr, target):\\n    last = -1\\n    for i in range(len(arr)):\\n        if arr[i] == target:\\n            last = i\\n    return last\\n\\nprint(find_last([3, 1, 4, 1, 5, 1], 1))\\nprint(find_last([3, 1, 4], 9))",
+      },
+      exerciseCpp: {
+        prompt: "Write a linear search that returns the INDEX of the LAST occurrence of a target. Return -1 if not found.",
+        promptZh: "写一个线性搜索，返回目标值最后一次出现的索引。未找到返回 -1。",
+        starterCode: "#include <iostream>\n#include <vector>\nusing namespace std;\n\nint find_last(vector<int>& arr, int target) {\n    // Your code here\n    return -1;\n}\n\nint main() {\n    vector<int> a = {3,1,4,1,5,1};\n    cout << find_last(a, 1) << endl;\n    vector<int> b = {3,1,4};\n    cout << find_last(b, 9) << endl;\n    return 0;\n}",
+        expectedOutput: "5\n-1",
+        hint: "Track the last found index. Don't return early — check ALL elements!",
+        hintZh: "记录最后找到的索引。不要提前返回——检查所有元素！",
+        solution: "#include <iostream>\n#include <vector>\nusing namespace std;\n\nint find_last(vector<int>& arr, int target) {\n    int last = -1;\n    for (int i = 0; i < (int)arr.size(); i++)\n        if (arr[i] == target) last = i;\n    return last;\n}\n\nint main() {\n    vector<int> a = {3,1,4,1,5,1};\n    cout << find_last(a, 1) << endl;\n    vector<int> b = {3,1,4};\n    cout << find_last(b, 9) << endl;\n    return 0;\n}",
+        language: "cpp",
       },
     },
     {
@@ -221,6 +263,49 @@ def find_min(arr):
 
 idx, val = find_min(data)
 print(f"\\nMinimum value: {val} at index {idx}")`,
+      codeCpp: `#include <iostream>
+#include <vector>
+#include <string>
+using namespace std;
+
+int find_char(const string& text, char ch) {
+    for (int i = 0; i < (int)text.size(); i++)
+        if (text[i] == ch) return i;
+    return -1;
+}
+
+vector<int> find_all(const vector<int>& arr, int target) {
+    vector<int> positions;
+    for (int i = 0; i < (int)arr.size(); i++)
+        if (arr[i] == target) positions.push_back(i);
+    return positions;
+}
+
+pair<int,int> find_min(const vector<int>& arr) {
+    int min_val = arr[0], min_idx = 0;
+    for (int i = 1; i < (int)arr.size(); i++)
+        if (arr[i] < min_val) { min_val = arr[i]; min_idx = i; }
+    return {min_idx, min_val};
+}
+
+int main() {
+    string word = "algorithm";
+    cout << "'r' in '" << word << "' at index: " << find_char(word, 'r') << endl;
+
+    vector<int> data = {3,1,4,1,5,9,2,6,5,3,5};
+    auto pos5 = find_all(data, 5);
+    cout << "\nAll positions of 5: [";
+    for (int i = 0; i < (int)pos5.size(); i++) { if (i) cout << ", "; cout << pos5[i]; }
+    cout << "]" << endl;
+    auto pos1 = find_all(data, 1);
+    cout << "All positions of 1: [";
+    for (int i = 0; i < (int)pos1.size(); i++) { if (i) cout << ", "; cout << pos1[i]; }
+    cout << "]" << endl;
+
+    auto [idx, val] = find_min(data);
+    cout << "\nMinimum value: " << val << " at index " << idx << endl;
+    return 0;
+}`,
       exercise: {
         prompt: "Write a function that finds the SECOND largest value in an array using linear search.",
         promptZh: "写一个函数，用线性搜索找到数组中第二大的值。",
@@ -229,6 +314,16 @@ print(f"\\nMinimum value: {val} at index {idx}")`,
         hint: "Track both the largest and second largest as you scan through.",
         hintZh: "扫描数组时同时跟踪最大值和第二大值。",
         solution: "def second_largest(arr):\\n    first = second = float('-inf')\\n    for x in arr:\\n        if x > first:\\n            second = first\\n            first = x\\n        elif x > second and x != first:\\n            second = x\\n    return second\\n\\nprint(second_largest([3, 1, 4, 1, 5, 9, 2, 6]))",
+      },
+      exerciseCpp: {
+        prompt: "Write a function that finds the SECOND largest value in an array.",
+        promptZh: "写一个函数找到数组中第二大的值。",
+        starterCode: "#include <iostream>\n#include <vector>\n#include <climits>\nusing namespace std;\n\nint second_largest(vector<int>& arr) {\n    // Your code here\n    return 0;\n}\n\nint main() {\n    vector<int> a = {3,1,4,1,5,9,2,6};\n    cout << second_largest(a) << endl;\n    return 0;\n}",
+        expectedOutput: "6",
+        hint: "Track both the largest and second largest as you scan.",
+        hintZh: "扫描时同时跟踪最大值和第二大值。",
+        solution: "#include <iostream>\n#include <vector>\n#include <climits>\nusing namespace std;\n\nint second_largest(vector<int>& arr) {\n    int first=INT_MIN, second=INT_MIN;\n    for (int x : arr) {\n        if (x>first) { second=first; first=x; }\n        else if (x>second && x!=first) second=x;\n    }\n    return second;\n}\n\nint main() {\n    vector<int> a = {3,1,4,1,5,9,2,6};\n    cout << second_largest(a) << endl;\n    return 0;\n}",
+        language: "cpp",
       },
     },
     {
@@ -454,6 +549,44 @@ print(f"\\n📊 For {len(nums)} elements:")
 print(f"  Linear search: up to {len(nums)} steps")
 print(f"  Binary search: up to {math.ceil(math.log2(len(nums)))} steps")
 print(f"  That's {len(nums) // math.ceil(math.log2(len(nums)))}x faster!")`,
+      codeCpp: `// 🔍 Detective: "Watch me cut the search space in HALF each time!"
+#include <iostream>
+#include <vector>
+#include <cmath>
+using namespace std;
+
+int binary_search(vector<int>& arr, int target) {
+    int left = 0, right = (int)arr.size() - 1, step = 0;
+    while (left <= right) {
+        step++;
+        int mid = (left + right) / 2;
+        cout << "  Step " << step << ": left=" << left << ", right=" << right
+             << ", mid=" << mid << ", arr[mid]=" << arr[mid];
+        if (arr[mid] == target) { cout << " ✅ FOUND!" << endl; return mid; }
+        else if (arr[mid] < target) { cout << " → go RIGHT (target is bigger)" << endl; left = mid + 1; }
+        else { cout << " → go LEFT (target is smaller)" << endl; right = mid - 1; }
+    }
+    cout << "  Not found after " << step << " steps" << endl;
+    return -1;
+}
+
+int main() {
+    vector<int> nums = {2,5,8,12,16,23,38,42,55,67,78,91};
+    cout << "Sorted array: [2,5,8,12,16,23,38,42,55,67,78,91]" << endl;
+    cout << "Size: " << nums.size() << " elements\n" << endl;
+    cout << "Searching for 23:" << endl;
+    int idx = binary_search(nums, 23);
+    cout << "Result: index " << idx << "\n" << endl;
+    cout << "Searching for 50:" << endl;
+    idx = binary_search(nums, 50);
+    cout << "Result: " << idx << endl;
+    int n = nums.size(), logn = (int)ceil(log2(n));
+    cout << "\n📊 For " << n << " elements:" << endl;
+    cout << "  Linear search: up to " << n << " steps" << endl;
+    cout << "  Binary search: up to " << logn << " steps" << endl;
+    cout << "  That's " << n/logn << "x faster!" << endl;
+    return 0;
+}`,
       exercise: {
         prompt: "Implement binary search that returns the INSERTION POINT (like bisect_left).",
         promptZh: "实现二分搜索，返回插入位置（类似 bisect_left）。",
@@ -462,6 +595,16 @@ print(f"  That's {len(nums) // math.ceil(math.log2(len(nums)))}x faster!")`,
         hint: "When not found, 'left' will be at the insertion point.",
         hintZh: "当未找到时，'left' 就在插入位置。",
         solution: "def bisect_left(arr, target):\\n    left, right = 0, len(arr)\\n    while left < right:\\n        mid = (left + right) // 2\\n        if arr[mid] < target:\\n            left = mid + 1\\n        else:\\n            right = mid\\n    return left\\n\\nprint(bisect_left([1, 3, 5, 7, 9], 5))\\nprint(bisect_left([1, 3, 5, 7, 9], 6))",
+      },
+      exerciseCpp: {
+        prompt: "Implement binary search that returns the INSERTION POINT.",
+        promptZh: "实现二分搜索，返回插入位置。",
+        starterCode: "#include <iostream>\n#include <vector>\nusing namespace std;\n\nint bisect_left(vector<int>& arr, int target) {\n    // Your code here\n    return 0;\n}\n\nint main() {\n    vector<int> a = {1,3,5,7,9};\n    cout << bisect_left(a, 5) << endl;\n    cout << bisect_left(a, 6) << endl;\n    return 0;\n}",
+        expectedOutput: "2\n3",
+        hint: "When not found, 'left' will be at the insertion point.",
+        hintZh: "当未找到时，'left' 就在插入位置。",
+        solution: "#include <iostream>\n#include <vector>\nusing namespace std;\n\nint bisect_left(vector<int>& arr, int target) {\n    int l=0, r=arr.size();\n    while (l<r) { int m=(l+r)/2; if(arr[m]<target) l=m+1; else r=m; }\n    return l;\n}\n\nint main() {\n    vector<int> a = {1,3,5,7,9};\n    cout << bisect_left(a, 5) << endl;\n    cout << bisect_left(a, 6) << endl;\n    return 0;\n}",
+        language: "cpp",
       },
     },
     {
@@ -546,6 +689,29 @@ print(f"\\n⏱️ Finding 999999 in 1,000,000 elements:")
 print(f"  Linear: {linear_time:.4f}s")
 print(f"  Binary: {binary_time:.6f}s")
 print(f"  Binary is ~{int(linear_time/max(binary_time,0.000001))}x faster!")`,
+      codeCpp: `#include <iostream>
+#include <vector>
+#include <string>
+using namespace std;
+
+int binary_search_recursive(vector<int>& arr, int target, int left, int right, int depth = 0) {
+    string indent(depth * 2, ' ');
+    if (left > right) { cout << indent << "Not found!" << endl; return -1; }
+    int mid = (left + right) / 2;
+    cout << indent << "Searching [" << left << ":" << right << "], mid=" << mid << ", val=" << arr[mid] << endl;
+    if (arr[mid] == target) { cout << indent << "Found at " << mid << "!" << endl; return mid; }
+    else if (arr[mid] < target) return binary_search_recursive(arr, target, mid+1, right, depth+1);
+    else return binary_search_recursive(arr, target, left, mid-1, depth+1);
+}
+
+int main() {
+    vector<int> nums = {2,5,8,12,16,23,38,42,55,67,78,91};
+    cout << "Searching for 23:" << endl;
+    cout << "Result: " << binary_search_recursive(nums, 23, 0, nums.size()-1) << endl;
+    cout << "\nSearching for 50:" << endl;
+    cout << "Result: " << binary_search_recursive(nums, 50, 0, nums.size()-1) << endl;
+    return 0;
+}`,
       exercise: {
         prompt: "Write a recursive binary search that COUNTS comparisons. Return (index, count).",
         promptZh: "写一个递归二分搜索，统计比较次数。返回 (索引, 次数)。",
@@ -554,6 +720,16 @@ print(f"  Binary is ~{int(linear_time/max(binary_time,0.000001))}x faster!")`,
         hint: "Pass count+1 in each recursive call.",
         hintZh: "每次递归调用传 count+1。",
         solution: "def binary_count(arr, target, left=0, right=None, count=0):\\n    if right is None: right = len(arr) - 1\\n    if left > right: return (-1, count)\\n    mid = (left + right) // 2\\n    count += 1\\n    if arr[mid] == target: return (mid, count)\\n    elif arr[mid] < target: return binary_count(arr, target, mid+1, right, count)\\n    else: return binary_count(arr, target, left, mid-1, count)\\n\\nidx, steps = binary_count([1,3,5,7,9,11,13,15], 11)\\nprint(f'{idx} {steps}')",
+      },
+      exerciseCpp: {
+        prompt: "Write a recursive binary search that COUNTS comparisons.",
+        promptZh: "写一个递归二分搜索，统计比较次数。",
+        starterCode: "#include <iostream>\n#include <vector>\nusing namespace std;\n\npair<int,int> binary_count(vector<int>& arr, int target, int l, int r, int cnt=0) {\n    // Your code here\n    return {-1, cnt};\n}\n\nint main() {\n    vector<int> a={1,3,5,7,9,11,13,15};\n    auto [idx,steps]=binary_count(a,11,0,a.size()-1);\n    cout << idx << ' ' << steps << endl;\n    return 0;\n}",
+        expectedOutput: "5 3",
+        hint: "Pass count+1 in each recursive call.",
+        hintZh: "每次递归调用传 count+1。",
+        solution: "#include <iostream>\n#include <vector>\nusing namespace std;\n\npair<int,int> binary_count(vector<int>& arr, int target, int l, int r, int cnt=0) {\n    if (l>r) return {-1,cnt};\n    int m=(l+r)/2; cnt++;\n    if (arr[m]==target) return {m,cnt};\n    if (arr[m]<target) return binary_count(arr,target,m+1,r,cnt);\n    return binary_count(arr,target,l,m-1,cnt);\n}\n\nint main() {\n    vector<int> a={1,3,5,7,9,11,13,15};\n    auto [idx,steps]=binary_count(a,11,0,a.size()-1);\n    cout << idx << ' ' << steps << endl;\n    return 0;\n}",
+        language: "cpp",
       },
     },
     {
@@ -756,6 +932,31 @@ for row in matrix:
 print(f"\\nBrute force search:")
 search_2d_brute(matrix, 9)
 search_2d_brute(matrix, 15)`,
+      codeCpp: `#include <iostream>
+#include <vector>
+using namespace std;
+
+pair<int,int> search_2d_brute(vector<vector<int>>& matrix, int target) {
+    int steps = 0;
+    for (int i = 0; i < (int)matrix.size(); i++)
+        for (int j = 0; j < (int)matrix[0].size(); j++) {
+            steps++;
+            if (matrix[i][j] == target) {
+                cout << "Found " << target << " at (" << i << "," << j << ") in " << steps << " steps" << endl;
+                return {i, j};
+            }
+        }
+    cout << "Not found after " << steps << " steps" << endl;
+    return {-1, -1};
+}
+
+int main() {
+    vector<vector<int>> m = {{1,4,7,11},{2,5,8,12},{3,6,9,16},{10,13,14,17}};
+    cout << "Brute Force 2D Search:" << endl;
+    search_2d_brute(m, 9);
+    search_2d_brute(m, 15);
+    return 0;
+}`,
       exercise: {
         prompt: "Find ALL cells in a 2D matrix containing a target. Return list of (row, col) tuples.",
         promptZh: "找到二维矩阵中包含目标的所有单元格。返回 (行, 列) 元组列表。",
@@ -764,6 +965,16 @@ search_2d_brute(matrix, 15)`,
         hint: "Use nested loops. Append (i, j) whenever matrix[i][j] == target.",
         hintZh: "用嵌套循环。当 matrix[i][j] == target 时添加 (i, j)。",
         solution: "def find_all_2d(matrix, target):\\n    result = []\\n    for i in range(len(matrix)):\\n        for j in range(len(matrix[0])):\\n            if matrix[i][j] == target:\\n                result.append((i, j))\\n    return result\\n\\nm = [[1,2,3],[4,2,6],[2,8,9]]\\nprint(find_all_2d(m, 2))",
+      },
+      exerciseCpp: {
+        prompt: "Find ALL cells in a 2D matrix containing a target.",
+        promptZh: "找到二维矩阵中包含目标的所有单元格。",
+        starterCode: "#include <iostream>\n#include <vector>\nusing namespace std;\n\nint main() {\n    vector<vector<int>> m={{1,2,3},{4,2,6},{2,8,9}};\n    // Print all (row, col) where value == 2\n    return 0;\n}",
+        expectedOutput: "(0, 1)\n(1, 1)\n(2, 0)",
+        hint: "Nested loops. Print (i, j) when matrix[i][j] == target.",
+        hintZh: "嵌套循环。当 matrix[i][j] == target 时打印。",
+        solution: "#include <iostream>\n#include <vector>\nusing namespace std;\n\nint main() {\n    vector<vector<int>> m={{1,2,3},{4,2,6},{2,8,9}};\n    for (int i=0;i<(int)m.size();i++)\n        for (int j=0;j<(int)m[0].size();j++)\n            if (m[i][j]==2) cout<<'('<<i<<\", \"<<j<<')'<<endl;\n    return 0;\n}",
+        language: "cpp",
       },
     },
     {
@@ -834,6 +1045,34 @@ print(f"\\n📊 For a 4×4 matrix:")
 print(f"  Brute force: up to 16 steps")
 print(f"  Staircase: up to 4+4=8 steps")
 print(f"  For 1000×1000: brute=1,000,000 vs staircase=2,000!")`,
+      codeCpp: `#include <iostream>
+#include <vector>
+using namespace std;
+
+pair<int,int> staircase_search(vector<vector<int>>& matrix, int target) {
+    if (matrix.empty()) return {-1,-1};
+    int rows = matrix.size(), cols = matrix[0].size();
+    int r = 0, c = cols - 1, steps = 0;
+    cout << "Searching for " << target << ":" << endl;
+    while (r < rows && c >= 0) {
+        steps++;
+        cout << "  Step " << steps << ": (" << r << "," << c << ") = " << matrix[r][c];
+        if (matrix[r][c] == target) { cout << " ✅ FOUND!" << endl; return {r, c}; }
+        else if (matrix[r][c] > target) { cout << " → go LEFT" << endl; c--; }
+        else { cout << " → go DOWN" << endl; r++; }
+    }
+    cout << "  Not found after " << steps << " steps" << endl;
+    return {-1, -1};
+}
+
+int main() {
+    vector<vector<int>> m = {{1,4,7,11},{2,5,8,12},{3,6,9,16},{10,13,14,17}};
+    cout << "⚡ Staircase Search O(m+n):" << endl;
+    staircase_search(m, 9);
+    cout << endl;
+    staircase_search(m, 15);
+    return 0;
+}`,
       exercise: {
         prompt: "Modify staircase search to return the NUMBER OF STEPS taken.",
         promptZh: "修改阶梯搜索，返回所走的步数。",
@@ -842,6 +1081,16 @@ print(f"  For 1000×1000: brute=1,000,000 vs staircase=2,000!")`,
         hint: "Count each comparison as a step. Start from top-right corner.",
         hintZh: "每次比较计为一步。从右上角开始。",
         solution: "def staircase_steps(matrix, target):\\n    r, c = 0, len(matrix[0]) - 1\\n    steps = 0\\n    while r < len(matrix) and c >= 0:\\n        steps += 1\\n        if matrix[r][c] == target: return steps\\n        elif matrix[r][c] > target: c -= 1\\n        else: r += 1\\n    return steps\\n\\nm = [[1,4,7],[2,5,8],[3,6,9]]\\nprint(staircase_steps(m, 5))\\nprint(staircase_steps(m, 10))",
+      },
+      exerciseCpp: {
+        prompt: "Modify staircase search to return the NUMBER OF STEPS taken.",
+        promptZh: "修改阶梯搜索，返回所走的步数。",
+        starterCode: "#include <iostream>\n#include <vector>\nusing namespace std;\n\nint staircase_steps(vector<vector<int>>& m, int target) {\n    // Your code here\n    return 0;\n}\n\nint main() {\n    vector<vector<int>> m={{1,4,7},{2,5,8},{3,6,9}};\n    cout << staircase_steps(m, 5) << endl;\n    cout << staircase_steps(m, 10) << endl;\n    return 0;\n}",
+        expectedOutput: "2\n3",
+        hint: "Count each comparison. Start from top-right corner.",
+        hintZh: "每次比较计一步。从右上角开始。",
+        solution: "#include <iostream>\n#include <vector>\nusing namespace std;\n\nint staircase_steps(vector<vector<int>>& m, int target) {\n    int r=0,c=m[0].size()-1,steps=0;\n    while(r<(int)m.size()&&c>=0){steps++;if(m[r][c]==target)return steps;else if(m[r][c]>target)c--;else r++;}\n    return steps;\n}\n\nint main() {\n    vector<vector<int>> m={{1,4,7},{2,5,8},{3,6,9}};\n    cout << staircase_steps(m, 5) << endl;\n    cout << staircase_steps(m, 10) << endl;\n    return 0;\n}",
+        language: "cpp",
       },
     },
     {
@@ -1071,6 +1320,50 @@ def int_sqrt(n):
 print(f"\\nsqrt(16) = {int_sqrt(16)}")
 print(f"sqrt(27) = {int_sqrt(27)}")
 print(f"sqrt(100) = {int_sqrt(100)}")`,
+      codeCpp: `#include <iostream>
+#include <vector>
+using namespace std;
+
+int find_first_true(vector<bool>& arr) {
+    int left = 0, right = (int)arr.size()-1, result = -1;
+    while (left <= right) {
+        int mid = (left+right)/2;
+        if (arr[mid]) { result = mid; right = mid-1; }
+        else left = mid+1;
+    }
+    return result;
+}
+
+int find_sqrt(int n) {
+    int left = 0, right = n, ans = 0;
+    while (left <= right) {
+        long long mid = (left+right)/2;
+        if (mid*mid <= n) { ans = mid; left = mid+1; }
+        else right = mid-1;
+    }
+    return ans;
+}
+
+int find_peak(vector<int>& arr) {
+    int left = 0, right = (int)arr.size()-1;
+    while (left < right) {
+        int mid = (left+right)/2;
+        if (arr[mid] < arr[mid+1]) left = mid+1;
+        else right = mid;
+    }
+    return left;
+}
+
+int main() {
+    vector<bool> bools = {false,false,false,true,true,true};
+    cout << "First True: " << find_first_true(bools) << endl;
+    cout << "sqrt(27): " << find_sqrt(27) << endl;
+    cout << "sqrt(100): " << find_sqrt(100) << endl;
+    vector<int> mountain = {1,3,5,7,6,4,2};
+    int p = find_peak(mountain);
+    cout << "Peak at index " << p << " (value " << mountain[p] << ")" << endl;
+    return 0;
+}`,
       exercise: {
         prompt: "Find the FIRST position where value >= target in sorted array.",
         promptZh: "找到排序数组中第一个 >= target 的位置。",
@@ -1079,6 +1372,16 @@ print(f"sqrt(100) = {int_sqrt(100)}")`,
         hint: "Binary search. When arr[mid] >= target, move right boundary.",
         hintZh: "二分搜索。当 arr[mid] >= target 时移动右边界。",
         solution: "def lower_bound(arr, target):\\n    left, right = 0, len(arr)\\n    while left < right:\\n        mid = (left + right) // 2\\n        if arr[mid] < target: left = mid + 1\\n        else: right = mid\\n    return left\\n\\nprint(lower_bound([1,3,5,7,9], 5))\\nprint(lower_bound([1,3,5,7,9], 6))\\nprint(lower_bound([1,3,5,7,9], 10))",
+      },
+      exerciseCpp: {
+        prompt: "Find the FIRST position where value >= target in sorted array.",
+        promptZh: "找到排序数组中第一个 >= target 的位置。",
+        starterCode: "#include <iostream>\n#include <vector>\nusing namespace std;\n\nint lower_bound_custom(vector<int>& a, int t) {\n    // Your code here\n    return 0;\n}\n\nint main() {\n    vector<int> a={1,3,5,7,9};\n    cout<<lower_bound_custom(a,5)<<endl;\n    cout<<lower_bound_custom(a,6)<<endl;\n    cout<<lower_bound_custom(a,10)<<endl;\n    return 0;\n}",
+        expectedOutput: "2\n3\n5",
+        hint: "Binary search. When arr[mid] >= target, move right.",
+        hintZh: "二分搜索。当 arr[mid] >= target 时移动右边界。",
+        solution: "#include <iostream>\n#include <vector>\nusing namespace std;\n\nint lower_bound_custom(vector<int>& a, int t) {\n    int l=0,r=a.size();\n    while(l<r){int m=(l+r)/2;if(a[m]<t)l=m+1;else r=m;}\n    return l;\n}\n\nint main() {\n    vector<int> a={1,3,5,7,9};\n    cout<<lower_bound_custom(a,5)<<endl;\n    cout<<lower_bound_custom(a,6)<<endl;\n    cout<<lower_bound_custom(a,10)<<endl;\n    return 0;\n}",
+        language: "cpp",
       },
     },
     {
@@ -1134,6 +1437,34 @@ print(f"\\nSearching for 0:")
 print(f"Found at index: {search_rotated(rotated, 0)}")
 print(f"\\nSearching for 6:")
 print(f"Found at index: {search_rotated(rotated, 6)}")`,
+      codeCpp: `#include <iostream>
+#include <vector>
+using namespace std;
+
+int search_rotated(vector<int>& arr, int target) {
+    int left = 0, right = (int)arr.size()-1;
+    while (left <= right) {
+        int mid = (left+right)/2;
+        if (arr[mid] == target) return mid;
+        if (arr[left] <= arr[mid]) {
+            if (arr[left] <= target && target < arr[mid]) right = mid-1;
+            else left = mid+1;
+        } else {
+            if (arr[mid] < target && target <= arr[right]) left = mid+1;
+            else right = mid-1;
+        }
+    }
+    return -1;
+}
+
+int main() {
+    vector<int> arr = {4,5,6,7,0,1,2};
+    cout << "Array: [4,5,6,7,0,1,2]" << endl;
+    cout << "Search 0: index " << search_rotated(arr, 0) << endl;
+    cout << "Search 3: index " << search_rotated(arr, 3) << endl;
+    cout << "Search 6: index " << search_rotated(arr, 6) << endl;
+    return 0;
+}`,
       exercise: {
         prompt: "Find the MINIMUM element in a rotated sorted array using binary search.",
         promptZh: "用二分搜索在旋转排序数组中找到最小元素。",
@@ -1142,6 +1473,16 @@ print(f"Found at index: {search_rotated(rotated, 6)}")`,
         hint: "If arr[mid] > arr[right], minimum is in right half.",
         hintZh: "如果 arr[mid] > arr[right]，最小值在右半部分。",
         solution: "def find_min_rotated(arr):\\n    left, right = 0, len(arr) - 1\\n    while left < right:\\n        mid = (left + right) // 2\\n        if arr[mid] > arr[right]: left = mid + 1\\n        else: right = mid\\n    return arr[left]\\n\\nprint(find_min_rotated([4,5,6,7,0,1,2]))\\nprint(find_min_rotated([3,1,2]))",
+      },
+      exerciseCpp: {
+        prompt: "Find the MINIMUM element in a rotated sorted array.",
+        promptZh: "在旋转排序数组中找到最小元素。",
+        starterCode: "#include <iostream>\n#include <vector>\nusing namespace std;\n\nint find_min(vector<int>& a) {\n    // Your code here\n    return 0;\n}\n\nint main() {\n    vector<int> a1={4,5,6,7,0,1,2};\n    cout<<find_min(a1)<<endl;\n    vector<int> a2={3,1,2};\n    cout<<find_min(a2)<<endl;\n    return 0;\n}",
+        expectedOutput: "0\n1",
+        hint: "If arr[mid] > arr[right], min is in right half.",
+        hintZh: "如果 arr[mid] > arr[right]，最小值在右半部分。",
+        solution: "#include <iostream>\n#include <vector>\nusing namespace std;\n\nint find_min(vector<int>& a) {\n    int l=0,r=a.size()-1;\n    while(l<r){int m=(l+r)/2;if(a[m]>a[r])l=m+1;else r=m;}\n    return a[l];\n}\n\nint main() {\n    vector<int> a1={4,5,6,7,0,1,2};\n    cout<<find_min(a1)<<endl;\n    vector<int> a2={3,1,2};\n    cout<<find_min(a2)<<endl;\n    return 0;\n}",
+        language: "cpp",
       },
     },
     {
@@ -1193,6 +1534,33 @@ n = guess_number_game(secret)
 print(f"\\n🏆 Found in {n} guesses!")
 print(f"Maximum possible: 7 guesses (log₂(100) ≈ 7)")
 print(f"Random guessing average: 50 guesses")`,
+      codeCpp: `#include <iostream>
+#include <cstdlib>
+#include <ctime>
+using namespace std;
+
+int guess_number(int secret, int low=1, int high=100) {
+    int guesses = 0;
+    while (low <= high) {
+        int guess = (low+high)/2;
+        guesses++;
+        cout << "  Guess " << guesses << ": " << guess;
+        if (guess == secret) { cout << " ✅ Correct!" << endl; return guesses; }
+        else if (guess < secret) { cout << " Too low!" << endl; low = guess+1; }
+        else { cout << " Too high!" << endl; high = guess-1; }
+    }
+    return guesses;
+}
+
+int main() {
+    srand(time(0));
+    int secret = rand() % 100 + 1;
+    cout << "🎮 Binary Search Guessing Game!" << endl;
+    cout << "Secret: " << secret << endl;
+    int g = guess_number(secret);
+    cout << "Found in " << g << " guesses! Max needed: 7" << endl;
+    return 0;
+}`,
       exercise: {
         prompt: "Write a binary search that finds the integer square root of n.",
         promptZh: "写一个二分搜索找到 n 的整数平方根。",
@@ -1201,6 +1569,16 @@ print(f"Random guessing average: 50 guesses")`,
         hint: "Binary search between 0 and n. If mid*mid <= n, try higher.",
         hintZh: "在 0 和 n 之间二分搜索。如果 mid*mid <= n，尝试更高。",
         solution: "def int_sqrt(n):\\n    if n < 2: return n\\n    left, right = 0, n\\n    ans = 0\\n    while left <= right:\\n        mid = (left + right) // 2\\n        if mid * mid <= n:\\n            ans = mid\\n            left = mid + 1\\n        else:\\n            right = mid - 1\\n    return ans\\n\\nprint(int_sqrt(27))\\nprint(int_sqrt(100))\\nprint(int_sqrt(0))",
+      },
+      exerciseCpp: {
+        prompt: "Write a binary search that finds the integer square root of n.",
+        promptZh: "写一个二分搜索找到 n 的整数平方根。",
+        starterCode: "#include <iostream>\nusing namespace std;\n\nint int_sqrt(int n) {\n    // Your code here\n    return 0;\n}\n\nint main() {\n    cout<<int_sqrt(27)<<endl;\n    cout<<int_sqrt(100)<<endl;\n    cout<<int_sqrt(0)<<endl;\n    return 0;\n}",
+        expectedOutput: "5\n10\n0",
+        hint: "Binary search [0,n]. If mid*mid <= n, try higher.",
+        hintZh: "二分搜索 [0,n]。如果 mid*mid <= n，尝试更高。",
+        solution: "#include <iostream>\nusing namespace std;\n\nint int_sqrt(int n) {\n    if(n<2)return n;\n    int l=0,r=n,ans=0;\n    while(l<=r){long long m=(l+r)/2;if(m*m<=n){ans=m;l=m+1;}else r=m-1;}\n    return ans;\n}\n\nint main() {\n    cout<<int_sqrt(27)<<endl;\n    cout<<int_sqrt(100)<<endl;\n    cout<<int_sqrt(0)<<endl;\n    return 0;\n}",
+        language: "cpp",
       },
     },
     {
@@ -1410,6 +1788,29 @@ data = [64, 34, 25, 12, 22, 11, 90]
 print(f"Original: {data}")
 print()
 bubble_sort(data.copy())`,
+      codeCpp: `#include <iostream>
+#include <vector>
+using namespace std;
+
+void bubble_sort(vector<int> arr) {
+    int n = arr.size(), swaps = 0;
+    for (int i = 0; i < n; i++) {
+        bool swapped = false;
+        for (int j = 0; j < n-i-1; j++)
+            if (arr[j] > arr[j+1]) { swap(arr[j], arr[j+1]); swaps++; swapped = true; }
+        cout << "  Pass " << i+1 << ": [";
+        for (int k=0;k<n;k++){if(k)cout<<", ";cout<<arr[k];}
+        cout << "]" << endl;
+        if (!swapped) break;
+    }
+    cout << "Total swaps: " << swaps << endl;
+}
+
+int main() {
+    cout << "Bubble Sort:" << endl;
+    bubble_sort({64, 34, 25, 12, 22, 11, 90});
+    return 0;
+}`,
       exercise: {
         prompt: "Modify bubble sort to COUNT total swaps. Return (sorted_array, swap_count).",
         promptZh: "修改冒泡排序统计总交换次数。返回 (排序数组, 交换次数)。",
@@ -1418,6 +1819,16 @@ bubble_sort(data.copy())`,
         hint: "Add a counter. Increment every time you swap.",
         hintZh: "添加计数器。每次交换时加 1。",
         solution: "def bubble_sort_count(arr):\\n    a = arr[:]\\n    swaps = 0\\n    n = len(a)\\n    for i in range(n):\\n        for j in range(n-1-i):\\n            if a[j] > a[j+1]:\\n                a[j], a[j+1] = a[j+1], a[j]\\n                swaps += 1\\n    return a, swaps\\n\\narr, swaps = bubble_sort_count([5, 1, 4, 2, 8])\\nprint(arr)\\nprint(swaps)",
+      },
+      exerciseCpp: {
+        prompt: "Modify bubble sort to COUNT total swaps.",
+        promptZh: "修改冒泡排序统计总交换次数。",
+        starterCode: "#include <iostream>\n#include <vector>\nusing namespace std;\n\nint main() {\n    vector<int> a={5,1,4,2,8};\n    int swaps=0;\n    // Your code here\n    return 0;\n}",
+        expectedOutput: "[1, 2, 4, 5, 8]\n4",
+        hint: "Add a counter. Increment every swap.",
+        hintZh: "添加计数器，每次交换加1。",
+        solution: "#include <iostream>\n#include <vector>\nusing namespace std;\n\nint main() {\n    vector<int> a={5,1,4,2,8};\n    int swaps=0,n=a.size();\n    for(int i=0;i<n;i++)for(int j=0;j<n-1-i;j++)if(a[j]>a[j+1]){swap(a[j],a[j+1]);swaps++;}\n    cout<<'[';for(int i=0;i<n;i++){if(i)cout<<\", \";cout<<a[i];}cout<<']'<<endl;\n    cout<<swaps<<endl;\n    return 0;\n}",
+        language: "cpp",
       },
     },
     {
@@ -1462,6 +1873,28 @@ data = [64, 25, 12, 22, 11]
 print(f"Original: {data}")
 print()
 selection_sort(data.copy())`,
+      codeCpp: `#include <iostream>
+#include <vector>
+using namespace std;
+
+void selection_sort(vector<int> arr) {
+    int n = arr.size(), comparisons = 0;
+    for (int i = 0; i < n; i++) {
+        int mn = i;
+        for (int j = i+1; j < n; j++) { comparisons++; if (arr[j] < arr[mn]) mn = j; }
+        swap(arr[i], arr[mn]);
+        cout << "  Pass " << i+1 << ": [";
+        for (int k=0;k<n;k++){if(k)cout<<", ";cout<<arr[k];}
+        cout << "]" << endl;
+    }
+    cout << "Total comparisons: " << comparisons << endl;
+}
+
+int main() {
+    cout << "Selection Sort:" << endl;
+    selection_sort({64, 25, 12, 22, 11});
+    return 0;
+}`,
       exercise: {
         prompt: "Implement selection sort in DESCENDING order.",
         promptZh: "实现降序选择排序。",
@@ -1470,6 +1903,16 @@ selection_sort(data.copy())`,
         hint: "Find MAXIMUM in each pass instead of minimum.",
         hintZh: "每轮找最大值而不是最小值。",
         solution: "def selection_sort_desc(arr):\\n    a = arr[:]\\n    for i in range(len(a)):\\n        max_idx = i\\n        for j in range(i+1, len(a)):\\n            if a[j] > a[max_idx]: max_idx = j\\n        a[i], a[max_idx] = a[max_idx], a[i]\\n    return a\\n\\nprint(selection_sort_desc([3, 1, 4, 1, 5]))",
+      },
+      exerciseCpp: {
+        prompt: "Implement selection sort in DESCENDING order.",
+        promptZh: "实现降序选择排序。",
+        starterCode: "#include <iostream>\n#include <vector>\nusing namespace std;\n\nint main() {\n    vector<int> a={3,1,4,1,5};\n    // Your code here\n    return 0;\n}",
+        expectedOutput: "[5, 4, 3, 1, 1]",
+        hint: "Find MAXIMUM each pass instead of minimum.",
+        hintZh: "每轮找最大值。",
+        solution: "#include <iostream>\n#include <vector>\nusing namespace std;\n\nint main() {\n    vector<int> a={3,1,4,1,5};int n=a.size();\n    for(int i=0;i<n;i++){int mx=i;for(int j=i+1;j<n;j++)if(a[j]>a[mx])mx=j;swap(a[i],a[mx]);}\n    cout<<'[';for(int i=0;i<n;i++){if(i)cout<<\", \";cout<<a[i];}cout<<']'<<endl;\n    return 0;\n}",
+        language: "cpp",
       },
     },
     {
@@ -1524,6 +1967,28 @@ print(f"Original: {almost}")
 print()
 insertion_sort(almost.copy())
 print("Only a few shifts needed! 🎉")`,
+      codeCpp: `#include <iostream>
+#include <vector>
+using namespace std;
+
+void insertion_sort(vector<int> arr) {
+    int shifts = 0;
+    for (int i = 1; i < (int)arr.size(); i++) {
+        int key = arr[i], j = i-1;
+        while (j >= 0 && arr[j] > key) { arr[j+1] = arr[j]; j--; shifts++; }
+        arr[j+1] = key;
+        cout << "  Insert " << key << ": [";
+        for (int k=0;k<(int)arr.size();k++){if(k)cout<<", ";cout<<arr[k];}
+        cout << "]" << endl;
+    }
+    cout << "Total shifts: " << shifts << endl;
+}
+
+int main() {
+    cout << "Insertion Sort:" << endl;
+    insertion_sort({12, 11, 13, 5, 6});
+    return 0;
+}`,
       exercise: {
         prompt: "Write insertion sort that prints the array after EACH pass.",
         promptZh: "写一个插入排序，每次插入后打印数组。",
@@ -1532,6 +1997,16 @@ print("Only a few shifts needed! 🎉")`,
         hint: "After each inner loop, print the current state.",
         hintZh: "每次内层循环后打印当前状态。",
         solution: "def insertion_sort_trace(arr):\\n    a = arr[:]\\n    for i in range(1, len(a)):\\n        key = a[i]\\n        j = i - 1\\n        while j >= 0 and a[j] > key:\\n            a[j+1] = a[j]\\n            j -= 1\\n        a[j+1] = key\\n        print(a)\\n\\ninsertion_sort_trace([5, 2, 4, 6, 1, 3])",
+      },
+      exerciseCpp: {
+        prompt: "Write insertion sort that prints array after EACH pass.",
+        promptZh: "插入排序，每次插入后打印数组。",
+        starterCode: "#include <iostream>\n#include <vector>\nusing namespace std;\n\nint main() {\n    vector<int> a={5,2,4,6,1,3};\n    // Your code here\n    return 0;\n}",
+        expectedOutput: "[2, 5, 4, 6, 1, 3]\n[2, 4, 5, 6, 1, 3]\n[2, 4, 5, 6, 1, 3]\n[1, 2, 4, 5, 6, 3]\n[1, 2, 3, 4, 5, 6]",
+        hint: "After each inner loop, print current state.",
+        hintZh: "每次内层循环后打印。",
+        solution: "#include <iostream>\n#include <vector>\nusing namespace std;\n\nint main() {\n    vector<int> a={5,2,4,6,1,3};int n=a.size();\n    for(int i=1;i<n;i++){int k=a[i],j=i-1;while(j>=0&&a[j]>k){a[j+1]=a[j];j--;}a[j+1]=k;\n    cout<<'[';for(int x=0;x<n;x++){if(x)cout<<\", \";cout<<a[x];}cout<<']'<<endl;}\n    return 0;\n}",
+        language: "cpp",
       },
     },
     {
@@ -1748,6 +2223,39 @@ data = [38, 27, 43, 3, 9, 82, 10]
 print(f"Original: {data}\\n")
 sorted_data = merge_sort(data)
 print(f"\\nResult: {sorted_data}")`,
+      codeCpp: `#include <iostream>
+#include <vector>
+#include <string>
+using namespace std;
+
+void printVec(const vector<int>& v) {
+    cout << "[";
+    for (int i=0;i<(int)v.size();i++){if(i)cout<<", ";cout<<v[i];}
+    cout << "]";
+}
+
+vector<int> merge_sort(vector<int> arr, int depth=0) {
+    string indent(depth*2, ' ');
+    cout << indent << "merge_sort("; printVec(arr); cout << ")" << endl;
+    if (arr.size() <= 1) return arr;
+    int mid = arr.size()/2;
+    auto left = merge_sort(vector<int>(arr.begin(), arr.begin()+mid), depth+1);
+    auto right = merge_sort(vector<int>(arr.begin()+mid, arr.end()), depth+1);
+    vector<int> result;
+    int i=0, j=0;
+    while (i<(int)left.size() && j<(int)right.size())
+        result.push_back(left[i]<=right[j] ? left[i++] : right[j++]);
+    while (i<(int)left.size()) result.push_back(left[i++]);
+    while (j<(int)right.size()) result.push_back(right[j++]);
+    cout << indent << "→ merged: "; printVec(result); cout << endl;
+    return result;
+}
+
+int main() {
+    auto sorted = merge_sort({38, 27, 43, 3, 9, 82, 10});
+    cout << "\nResult: "; printVec(sorted); cout << endl;
+    return 0;
+}`,
       exercise: {
         prompt: "Write JUST the merge function: merge two sorted lists into one.",
         promptZh: "只写合并函数：将两个排序列表合并为一个。",
@@ -1756,6 +2264,16 @@ print(f"\\nResult: {sorted_data}")`,
         hint: "Two pointers. Compare and append the smaller. Don't forget remainders.",
         hintZh: "两个指针。比较并添加较小的。别忘了剩余元素。",
         solution: "def merge(left, right):\\n    result = []\\n    i = j = 0\\n    while i < len(left) and j < len(right):\\n        if left[i] <= right[j]:\\n            result.append(left[i]); i += 1\\n        else:\\n            result.append(right[j]); j += 1\\n    result.extend(left[i:])\\n    result.extend(right[j:])\\n    return result\\n\\nprint(merge([1, 3, 5], [2, 4, 6]))\\nprint(merge([1, 1], [2]))",
+      },
+      exerciseCpp: {
+        prompt: "Write the merge function: merge two sorted lists.",
+        promptZh: "合并两个排序列表。",
+        starterCode: "#include <iostream>\n#include <vector>\nusing namespace std;\n\nvector<int> merge_lists(vector<int> l, vector<int> r) {\n    // Your code here\n    return {};\n}\n\nint main() {\n    auto r1=merge_lists({1,3,5},{2,4,6});\n    cout<<'[';for(int i=0;i<(int)r1.size();i++){if(i)cout<<\", \";cout<<r1[i];}cout<<']'<<endl;\n    auto r2=merge_lists({1,1},{2});\n    cout<<'[';for(int i=0;i<(int)r2.size();i++){if(i)cout<<\", \";cout<<r2[i];}cout<<']'<<endl;\n    return 0;\n}",
+        expectedOutput: "[1, 2, 3, 4, 5, 6]\n[1, 1, 2]",
+        hint: "Two pointers. Compare and push smaller.",
+        hintZh: "两个指针，比较并添加较小的。",
+        solution: "#include <iostream>\n#include <vector>\nusing namespace std;\n\nvector<int> merge_lists(vector<int> l, vector<int> r) {\n    vector<int> res;int i=0,j=0;\n    while(i<(int)l.size()&&j<(int)r.size())res.push_back(l[i]<=r[j]?l[i++]:r[j++]);\n    while(i<(int)l.size())res.push_back(l[i++]);\n    while(j<(int)r.size())res.push_back(r[j++]);\n    return res;\n}\n\nint main() {\n    auto r1=merge_lists({1,3,5},{2,4,6});\n    cout<<'[';for(int i=0;i<(int)r1.size();i++){if(i)cout<<\", \";cout<<r1[i];}cout<<']'<<endl;\n    auto r2=merge_lists({1,1},{2});\n    cout<<'[';for(int i=0;i<(int)r2.size();i++){if(i)cout<<\", \";cout<<r2[i];}cout<<']'<<endl;\n    return 0;\n}",
+        language: "cpp",
       },
     },
     {
@@ -1825,6 +2343,27 @@ for n in [100, 1000, 10000, 100000]:
     nlogn = n * math.ceil(math.log2(n))
     ratio = n2 / nlogn
     print(f"  n={n:>6}: O(n²)={n2:>12,} vs O(n log n)={nlogn:>10,}  ({ratio:.0f}x faster)")`,
+      codeCpp: `#include <iostream>
+using namespace std;
+
+void show_levels(int n) {
+    cout << "For n=" << n << " elements:" << endl;
+    int level = 0, size = n;
+    while (size > 1) {
+        cout << "  Level " << level << ": " << n/size << " group(s) of " << size << endl;
+        size /= 2; level++;
+    }
+    cout << "  Level " << level << ": " << n << " individual elements" << endl;
+    cout << "  Total levels: " << level+1 << " = O(log n)" << endl;
+    cout << "  Work per level: O(n), Total: O(n log n)" << endl;
+}
+
+int main() {
+    show_levels(8);
+    cout << endl;
+    show_levels(16);
+    return 0;
+}`,
       exercise: {
         prompt: "Count how many times n can be halved before reaching 1 (this is log₂(n)).",
         promptZh: "计算 n 可以被对半分多少次才到 1（这就是 log₂(n)）。",
@@ -1833,6 +2372,16 @@ for n in [100, 1000, 10000, 100000]:
         hint: "Keep dividing n by 2 and count until n <= 1.",
         hintZh: "不断将 n 除以 2 并计数，直到 n <= 1。",
         solution: "def count_halves(n):\\n    count = 0\\n    while n > 1:\\n        n //= 2\\n        count += 1\\n    return count\\n\\nprint(count_halves(8))\\nprint(count_halves(16))\\nprint(count_halves(1000))",
+      },
+      exerciseCpp: {
+        prompt: "Count how many times n can be halved before reaching 1.",
+        promptZh: "计算 n 被对半分多少次到 1。",
+        starterCode: "#include <iostream>\nusing namespace std;\n\nint count_halves(int n) {\n    // Your code here\n    return 0;\n}\n\nint main() {\n    cout<<count_halves(8)<<endl;\n    cout<<count_halves(16)<<endl;\n    cout<<count_halves(1000)<<endl;\n    return 0;\n}",
+        expectedOutput: "3\n4\n10",
+        hint: "Keep dividing n by 2, count until n <= 1.",
+        hintZh: "不断除以 2 并计数。",
+        solution: "#include <iostream>\nusing namespace std;\n\nint count_halves(int n) {\n    int c=0;while(n>1){n/=2;c++;}return c;\n}\n\nint main() {\n    cout<<count_halves(8)<<endl;\n    cout<<count_halves(16)<<endl;\n    cout<<count_halves(1000)<<endl;\n    return 0;\n}",
+        language: "cpp",
       },
     },
     {
@@ -2044,6 +2593,42 @@ data = [10, 7, 8, 9, 1, 5]
 print(f"Original: {data}\\n")
 result = quicksort(data)
 print(f"\\nSorted: {result}")`,
+      codeCpp: `#include <iostream>
+#include <vector>
+#include <string>
+using namespace std;
+
+void printVec(const vector<int>& v) {
+    cout << "[";
+    for (int i=0;i<(int)v.size();i++){if(i)cout<<", ";cout<<v[i];}
+    cout << "]";
+}
+
+vector<int> quicksort(vector<int> arr, int depth=0) {
+    string indent(depth*2, ' ');
+    if (arr.size() <= 1) return arr;
+    int pivot = arr.back();
+    cout << indent << "pivot=" << pivot << ", arr="; printVec(arr); cout << endl;
+    vector<int> left, mid, right;
+    for (int x : arr) {
+        if (x < pivot) left.push_back(x);
+        else if (x == pivot) mid.push_back(x);
+        else right.push_back(x);
+    }
+    left = quicksort(left, depth+1);
+    right = quicksort(right, depth+1);
+    vector<int> result;
+    for (int x : left) result.push_back(x);
+    for (int x : mid) result.push_back(x);
+    for (int x : right) result.push_back(x);
+    return result;
+}
+
+int main() {
+    auto sorted = quicksort({38, 27, 43, 3, 9, 82, 10});
+    cout << "\nResult: "; printVec(sorted); cout << endl;
+    return 0;
+}`,
       exercise: {
         prompt: "Partition an array into elements <= pivot and > pivot. Return two lists.",
         promptZh: "将数组分为 <= 枢轴和 > 枢轴的元素。返回两个列表。",
@@ -2052,6 +2637,16 @@ print(f"\\nSorted: {result}")`,
         hint: "Loop through, add to left if <= pivot, else right.",
         hintZh: "遍历，<= 枢轴加左边，否则加右边。",
         solution: "def partition(arr, pivot):\\n    left = [x for x in arr if x <= pivot]\\n    right = [x for x in arr if x > pivot]\\n    return left, right\\n\\nlo, hi = partition([3,6,8,10,1,2,1], 5)\\nprint(lo)\\nprint(hi)",
+      },
+      exerciseCpp: {
+        prompt: "Partition array into <= pivot and > pivot.",
+        promptZh: "将数组分为 <= 枢轴和 > 枢轴。",
+        starterCode: "#include <iostream>\n#include <vector>\nusing namespace std;\n\nint main() {\n    vector<int> arr={3,6,8,10,1,2,1};\n    int pivot=5;\n    vector<int> lo,hi;\n    // Your code here\n    return 0;\n}",
+        expectedOutput: "[3, 1, 2, 1]\n[6, 8, 10]",
+        hint: "Loop: if <= pivot add to left, else right.",
+        hintZh: "遍历：<= 枢轴加左，否则加右。",
+        solution: "#include <iostream>\n#include <vector>\nusing namespace std;\n\nint main() {\n    vector<int> arr={3,6,8,10,1,2,1};int pivot=5;\n    vector<int> lo,hi;\n    for(int x:arr){if(x<=pivot)lo.push_back(x);else hi.push_back(x);}\n    cout<<'[';for(int i=0;i<(int)lo.size();i++){if(i)cout<<\", \";cout<<lo[i];}cout<<']'<<endl;\n    cout<<'[';for(int i=0;i<(int)hi.size();i++){if(i)cout<<\", \";cout<<hi[i];}cout<<']'<<endl;\n    return 0;\n}",
+        language: "cpp",
       },
     },
     {
@@ -2108,6 +2703,38 @@ print(f"Before partition: {demo}, pivot=70")
 p = partition(demo, 0, len(demo) - 1)
 print(f"After partition:  {demo}")
 print(f"Pivot at index {p}: everything left ≤ 70, everything right > 70")`,
+      codeCpp: `#include <iostream>
+#include <vector>
+using namespace std;
+
+int partition(vector<int>& arr, int low, int high) {
+    int pivot = arr[high], i = low-1;
+    for (int j = low; j < high; j++)
+        if (arr[j] <= pivot) { i++; swap(arr[i], arr[j]); }
+    swap(arr[i+1], arr[high]);
+    return i+1;
+}
+
+void quicksort_inplace(vector<int>& arr, int low, int high) {
+    if (low < high) {
+        int p = partition(arr, low, high);
+        cout << "  Pivot " << arr[p] << " at index " << p << ": [";
+        for (int k=0;k<(int)arr.size();k++){if(k)cout<<", ";cout<<arr[k];}
+        cout << "]" << endl;
+        quicksort_inplace(arr, low, p-1);
+        quicksort_inplace(arr, p+1, high);
+    }
+}
+
+int main() {
+    vector<int> arr = {38, 27, 43, 3, 9, 82, 10};
+    cout << "In-place Quick Sort:" << endl;
+    quicksort_inplace(arr, 0, arr.size()-1);
+    cout << "Result: [";
+    for (int i=0;i<(int)arr.size();i++){if(i)cout<<", ";cout<<arr[i];}
+    cout << "]" << endl;
+    return 0;
+}`,
       exercise: {
         prompt: "Implement Lomuto partition: return final pivot position after partitioning.",
         promptZh: "实现 Lomuto 分区：返回分区后枢轴的最终位置。",
@@ -2116,6 +2743,16 @@ print(f"Pivot at index {p}: everything left ≤ 70, everything right > 70")`,
         hint: "Use last element as pivot. Track where small elements end.",
         hintZh: "用最后一个元素做枢轴。跟踪小元素的结束位置。",
         solution: "def lomuto(arr, lo, hi):\\n    pivot = arr[hi]\\n    i = lo - 1\\n    for j in range(lo, hi):\\n        if arr[j] <= pivot:\\n            i += 1\\n            arr[i], arr[j] = arr[j], arr[i]\\n    arr[i+1], arr[hi] = arr[hi], arr[i+1]\\n    return i + 1\\n\\na = [10,80,30,90,40,50,70]\\np = lomuto(a, 0, len(a)-1)\\nprint(p)\\nprint(a)",
+      },
+      exerciseCpp: {
+        prompt: "Implement Lomuto partition.",
+        promptZh: "实现 Lomuto 分区。",
+        starterCode: "#include <iostream>\n#include <vector>\nusing namespace std;\n\nint lomuto(vector<int>& a, int lo, int hi) {\n    // Your code here\n    return 0;\n}\n\nint main() {\n    vector<int> a={10,80,30,90,40,50,70};\n    int p=lomuto(a,0,a.size()-1);\n    cout<<p<<endl;\n    cout<<'[';for(int i=0;i<(int)a.size();i++){if(i)cout<<',';cout<<a[i];}cout<<']'<<endl;\n    return 0;\n}",
+        expectedOutput: "6\n[10,30,40,50,70,80,90]",
+        hint: "Last element as pivot. Track small elements boundary.",
+        hintZh: "最后元素为枢轴。跟踪小元素边界。",
+        solution: "#include <iostream>\n#include <vector>\nusing namespace std;\n\nint lomuto(vector<int>& a, int lo, int hi) {\n    int pivot=a[hi],i=lo-1;\n    for(int j=lo;j<hi;j++)if(a[j]<=pivot){i++;swap(a[i],a[j]);}\n    swap(a[i+1],a[hi]);return i+1;\n}\n\nint main() {\n    vector<int> a={10,80,30,90,40,50,70};\n    int p=lomuto(a,0,a.size()-1);\n    cout<<p<<endl;\n    cout<<'[';for(int i=0;i<(int)a.size();i++){if(i)cout<<',';cout<<a[i];}cout<<']'<<endl;\n    return 0;\n}",
+        language: "cpp",
       },
     },
     {
@@ -2381,6 +3018,47 @@ for n in sizes:
         elapsed = time.time() - start
         bar = "█" * min(int(elapsed * 5000), 50)
         print(f"  {name:>12}: {elapsed:.4f}s {bar}")`,
+      codeCpp: `#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <chrono>
+using namespace std;
+
+vector<int> bubble_sort(vector<int> a){int n=a.size();for(int i=0;i<n;i++)for(int j=0;j<n-i-1;j++)if(a[j]>a[j+1])swap(a[j],a[j+1]);return a;}
+vector<int> selection_sort(vector<int> a){int n=a.size();for(int i=0;i<n;i++){int m=i;for(int j=i+1;j<n;j++)if(a[j]<a[m])m=j;swap(a[i],a[m]);}return a;}
+vector<int> insertion_sort(vector<int> a){for(int i=1;i<(int)a.size();i++){int k=a[i],j=i-1;while(j>=0&&a[j]>k){a[j+1]=a[j];j--;}a[j+1]=k;}return a;}
+
+vector<int> do_merge_sort(vector<int> a) {
+    if (a.size()<=1) return a;
+    int m=a.size()/2;
+    auto l=do_merge_sort(vector<int>(a.begin(),a.begin()+m));
+    auto r=do_merge_sort(vector<int>(a.begin()+m,a.end()));
+    vector<int> res; int i=0,j=0;
+    while(i<(int)l.size()&&j<(int)r.size()) res.push_back(l[i]<=r[j]?l[i++]:r[j++]);
+    while(i<(int)l.size()) res.push_back(l[i++]);
+    while(j<(int)r.size()) res.push_back(r[j++]);
+    return res;
+}
+
+int main() {
+    srand(42);
+    for (int n : {100, 500, 1000}) {
+        vector<int> arr(n);
+        for (int i=0;i<n;i++) arr[i]=rand()%10000;
+        cout << "\nSize " << n << ":" << endl;
+        auto t=[&](auto fn, string name){
+            auto s=chrono::high_resolution_clock::now();
+            fn(arr);
+            auto e=chrono::high_resolution_clock::now();
+            cout << "  " << name << ": " << chrono::duration<double,milli>(e-s).count() << " ms" << endl;
+        };
+        t(bubble_sort,"Bubble");
+        t(selection_sort,"Selection");
+        t(insertion_sort,"Insertion");
+        t(do_merge_sort,"Merge");
+    }
+    return 0;
+}`,
       exercise: {
         prompt: "Write a function that checks if an array is ALREADY sorted (ascending).",
         promptZh: "写一个函数检查数组是否已排好序（升序）。",
@@ -2389,6 +3067,16 @@ for n in sizes:
         hint: "Compare each element with the next one.",
         hintZh: "比较每个元素和下一个。",
         solution: "def is_sorted(arr):\\n    for i in range(len(arr)-1):\\n        if arr[i] > arr[i+1]: return False\\n    return True\\n\\nprint(is_sorted([1,2,3,4,5]))\\nprint(is_sorted([1,3,2,4,5]))\\nprint(is_sorted([]))",
+      },
+      exerciseCpp: {
+        prompt: "Check if array is sorted (ascending).",
+        promptZh: "检查数组是否已排序。",
+        starterCode: "#include <iostream>\n#include <vector>\nusing namespace std;\n\nbool is_sorted_check(vector<int> a) {\n    // Your code here\n    return true;\n}\n\nint main() {\n    cout<<(is_sorted_check({1,2,3,4,5})?\"True\":\"False\")<<endl;\n    cout<<(is_sorted_check({1,3,2,4,5})?\"True\":\"False\")<<endl;\n    cout<<(is_sorted_check({})?\"True\":\"False\")<<endl;\n    return 0;\n}",
+        expectedOutput: "True\nFalse\nTrue",
+        hint: "Compare each element with the next.",
+        hintZh: "比较每个元素和下一个。",
+        solution: "#include <iostream>\n#include <vector>\nusing namespace std;\n\nbool is_sorted_check(vector<int> a) {\n    for(int i=0;i<(int)a.size()-1;i++)if(a[i]>a[i+1])return false;\n    return true;\n}\n\nint main() {\n    cout<<(is_sorted_check({1,2,3,4,5})?\"True\":\"False\")<<endl;\n    cout<<(is_sorted_check({1,3,2,4,5})?\"True\":\"False\")<<endl;\n    cout<<(is_sorted_check({})?\"True\":\"False\")<<endl;\n    return 0;\n}",
+        language: "cpp",
       },
     },
     {
@@ -2454,6 +3142,22 @@ for name, info in sorts.items():
 print(f"\\n{'='*50}")
 print("🏆 In practice: just use Python's sorted() — it's TimSort!")
 print("   But knowing HOW sorts work makes you a better programmer!")`,
+      codeCpp: `#include <iostream>
+using namespace std;
+
+int main() {
+    cout << "📊 Sorting Algorithm Comparison:" << endl;
+    cout << "=============================================" << endl;
+    cout << "Algorithm       Best     Avg      Worst    Space  Stable" << endl;
+    cout << "Bubble Sort     O(n)     O(n^2)   O(n^2)   O(1)   Yes" << endl;
+    cout << "Selection Sort  O(n^2)   O(n^2)   O(n^2)   O(1)   No" << endl;
+    cout << "Insertion Sort  O(n)     O(n^2)   O(n^2)   O(1)   Yes" << endl;
+    cout << "Merge Sort      O(nlogn) O(nlogn) O(nlogn) O(n)   Yes" << endl;
+    cout << "Quick Sort      O(nlogn) O(nlogn) O(n^2)   O(logn) No" << endl;
+    cout << "=============================================" << endl;
+    cout << "\nC++ STL sort() uses IntroSort (Quick+Heap+Insertion)" << endl;
+    return 0;
+}`,
       exercise: {
         prompt: "Sort strings by LENGTH using insertion sort (don't use key=).",
         promptZh: "用插入排序按长度排序字符串（不用 key= 参数）。",
@@ -2673,6 +3377,29 @@ def factorial(n):
 
 print("\\n📐 Factorial:")
 print(f"5! = {factorial(5)}")`,
+      codeCpp: `#include <iostream>
+using namespace std;
+
+void countdown(int n) {
+    cout << "  countdown(" << n << ")" << endl;
+    if (n <= 0) { cout << "  🎉 Blast off!" << endl; return; }
+    countdown(n - 1);
+}
+
+long long factorial(int n) {
+    if (n <= 1) return 1;
+    return n * factorial(n - 1);
+}
+
+int main() {
+    cout << "🌀 Recursion Basics:\n" << endl;
+    cout << "Countdown:" << endl;
+    countdown(5);
+    cout << "\nFactorials:" << endl;
+    for (int i = 1; i <= 7; i++)
+        cout << "  " << i << "! = " << factorial(i) << endl;
+    return 0;
+}`,
       exercise: {
         prompt: "Write a recursive function to calculate the SUM of digits. sum_digits(123) → 6.",
         promptZh: "写一个递归函数计算各位数之和。sum_digits(123) → 6。",
@@ -2681,6 +3408,16 @@ print(f"5! = {factorial(5)}")`,
         hint: "Base case: n < 10 → return n. Recursive: n%10 + sum_digits(n//10).",
         hintZh: "基本情况：n < 10 → 返回 n。递归：n%10 + sum_digits(n//10)。",
         solution: "def sum_digits(n):\\n    if n < 10: return n\\n    return n % 10 + sum_digits(n // 10)\\n\\nprint(sum_digits(123))\\nprint(sum_digits(9999))\\nprint(sum_digits(0))",
+      },
+      exerciseCpp: {
+        prompt: "Write a recursive function to calculate SUM of digits.",
+        promptZh: "递归计算各位数之和。",
+        starterCode: "#include <iostream>\nusing namespace std;\n\nint sum_digits(int n) {\n    // Your code here\n    return 0;\n}\n\nint main() {\n    cout<<sum_digits(123)<<endl;\n    cout<<sum_digits(9999)<<endl;\n    cout<<sum_digits(0)<<endl;\n    return 0;\n}",
+        expectedOutput: "6\n36\n0",
+        hint: "Base: n<10 → return n. Recursive: n%10 + sum_digits(n/10).",
+        hintZh: "基本：n<10→返回n。递归：n%10+sum_digits(n/10)。",
+        solution: "#include <iostream>\nusing namespace std;\n\nint sum_digits(int n) {\n    if(n<10)return n;\n    return n%10+sum_digits(n/10);\n}\n\nint main() {\n    cout<<sum_digits(123)<<endl;\n    cout<<sum_digits(9999)<<endl;\n    cout<<sum_digits(0)<<endl;\n    return 0;\n}",
+        language: "cpp",
       },
     },
     {
@@ -2743,6 +3480,26 @@ print("def infinite(n):")
 print("    return infinite(n)  # Never stops!")
 print("# → RecursionError: maximum recursion depth exceeded")
 print(f"# Python's default limit: {__import__('sys').getrecursionlimit()}")`,
+      codeCpp: `#include <iostream>
+#include <string>
+using namespace std;
+
+long long factorial_visual(int n, int depth=0) {
+    string indent;
+    for (int i=0;i<depth;i++) indent += "│  ";
+    cout << indent << "├─ factorial(" << n << ")" << endl;
+    if (n <= 1) { cout << indent << "│  ↩ returns 1" << endl; return 1; }
+    long long result = n * factorial_visual(n-1, depth+1);
+    cout << indent << "│  ↩ returns " << result << endl;
+    return result;
+}
+
+int main() {
+    cout << "🌳 Recursion Tree:" << endl;
+    long long r = factorial_visual(5);
+    cout << "\nFinal result: " << r << endl;
+    return 0;
+}`,
       exercise: {
         prompt: "Write a recursive countdown from n to 1, then print 'Blast off!'.",
         promptZh: "写一个从 n 到 1 的递归倒计时，然后打印 'Blast off!'。",
@@ -2751,6 +3508,16 @@ print(f"# Python's default limit: {__import__('sys').getrecursionlimit()}")`,
         hint: "Base case: n == 0 → print 'Blast off!'. Print n, then countdown(n-1).",
         hintZh: "基本情况：n == 0 → 打印 'Blast off!'。打印 n，然后 countdown(n-1)。",
         solution: "def countdown(n):\\n    if n == 0:\\n        print('Blast off!')\\n        return\\n    print(n)\\n    countdown(n - 1)\\n\\ncountdown(3)",
+      },
+      exerciseCpp: {
+        prompt: "Write recursive countdown from n to 1, then 'Blast off!'.",
+        promptZh: "递归倒计时。",
+        starterCode: "#include <iostream>\nusing namespace std;\n\nvoid countdown(int n) {\n    // Your code here\n}\n\nint main() {\n    countdown(3);\n    return 0;\n}",
+        expectedOutput: "3\n2\n1\nBlast off!",
+        hint: "Base: n==0 → print Blast off!. Print n, then countdown(n-1).",
+        hintZh: "基本：n==0→打印Blast off!。打印n，然后countdown(n-1)。",
+        solution: "#include <iostream>\nusing namespace std;\n\nvoid countdown(int n) {\n    if(n==0){cout<<\"Blast off!\"<<endl;return;}\n    cout<<n<<endl;\n    countdown(n-1);\n}\n\nint main() {\n    countdown(3);\n    return 0;\n}",
+        language: "cpp",
       },
     },
     {
@@ -2805,6 +3572,36 @@ def fib(n):
 print(f"\\nFibonacci sequence:")
 for i in range(10):
     print(f"  fib({i}) = {fib(i)}")`,
+      codeCpp: `#include <iostream>
+#include <vector>
+using namespace std;
+
+int recursive_sum(vector<int> arr) {
+    if (arr.empty()) return 0;
+    int first = arr[0];
+    arr.erase(arr.begin());
+    return first + recursive_sum(arr);
+}
+
+int recursive_max(vector<int> arr) {
+    if (arr.size() == 1) return arr[0];
+    int first = arr[0];
+    arr.erase(arr.begin());
+    return max(first, recursive_max(arr));
+}
+
+int recursive_len(vector<int> arr) {
+    if (arr.empty()) return 0;
+    arr.erase(arr.begin());
+    return 1 + recursive_len(arr);
+}
+
+int main() {
+    cout << "Sum of [1,2,3,4,5]: " << recursive_sum({1,2,3,4,5}) << endl;
+    cout << "Max of [3,7,2,9,1]: " << recursive_max({3,7,2,9,1}) << endl;
+    cout << "Length of [1,2,3,4,5]: " << recursive_len({1,2,3,4,5}) << endl;
+    return 0;
+}`,
       exercise: {
         prompt: "Write a recursive function to reverse a string. reverse('hello') → 'olleh'.",
         promptZh: "写一个递归函数反转字符串。",
@@ -2813,6 +3610,16 @@ for i in range(10):
         hint: "Base case: len(s) <= 1. Recursive: reverse(s[1:]) + s[0].",
         hintZh: "基本情况：len(s) <= 1。递归：reverse(s[1:]) + s[0]。",
         solution: "def reverse(s):\\n    if len(s) <= 1: return s\\n    return reverse(s[1:]) + s[0]\\n\\nprint(reverse('hello'))\\nprint(reverse('abcd'))\\nprint(reverse('a'))",
+      },
+      exerciseCpp: {
+        prompt: "Write recursive function to reverse a string.",
+        promptZh: "递归反转字符串。",
+        starterCode: "#include <iostream>\n#include <string>\nusing namespace std;\n\nstring reverse_str(const string& s) {\n    // Your code here\n    return \"\";\n}\n\nint main() {\n    cout<<reverse_str(\"hello\")<<endl;\n    cout<<reverse_str(\"abcd\")<<endl;\n    cout<<reverse_str(\"a\")<<endl;\n    return 0;\n}",
+        expectedOutput: "olleh\ndcba\na",
+        hint: "Base: len<=1. Recursive: reverse(s[1:]) + s[0].",
+        hintZh: "基本：长度<=1。递归：reverse(s.substr(1))+s[0]。",
+        solution: "#include <iostream>\n#include <string>\nusing namespace std;\n\nstring reverse_str(const string& s) {\n    if(s.size()<=1)return s;\n    return reverse_str(s.substr(1))+s[0];\n}\n\nint main() {\n    cout<<reverse_str(\"hello\")<<endl;\n    cout<<reverse_str(\"abcd\")<<endl;\n    cout<<reverse_str(\"a\")<<endl;\n    return 0;\n}",
+        language: "cpp",
       },
     },
     {
@@ -2990,6 +3797,31 @@ def find_max(arr):
     return arr[0] if arr[0] > rest_max else rest_max
 
 print(f"Max of [3,7,2,9,4]: {find_max([3,7,2,9,4])}")`,
+      codeCpp: `#include <iostream>
+#include <string>
+#include <vector>
+using namespace std;
+
+bool is_palindrome(const string& s) {
+    if (s.size() <= 1) return true;
+    if (s.front() != s.back()) return false;
+    return is_palindrome(s.substr(1, s.size()-2));
+}
+
+bool is_power_of_2(int n) {
+    if (n == 1) return true;
+    if (n <= 0 || n % 2 != 0) return false;
+    return is_power_of_2(n / 2);
+}
+
+int main() {
+    for (auto& w : vector<string>{"racecar","hello","madam","world"})
+        cout << "  '" << w << "': " << (is_palindrome(w) ? "✅ palindrome" : "❌ not palindrome") << endl;
+    cout << "\nPower of 2:" << endl;
+    for (int n : {1,2,3,4,16,15,64})
+        cout << "  " << n << ": " << (is_power_of_2(n) ? "✅" : "❌") << endl;
+    return 0;
+}`,
       exercise: {
         prompt: "Write a recursive function to calculate the product of all elements in a list.",
         promptZh: "写一个递归函数计算列表所有元素的乘积。",
@@ -2998,6 +3830,16 @@ print(f"Max of [3,7,2,9,4]: {find_max([3,7,2,9,4])}")`,
         hint: "Base case: empty list → 1. Recursive: arr[0] * product(arr[1:]).",
         hintZh: "基本情况：空列表 → 1。递归：arr[0] * product(arr[1:])。",
         solution: "def product(arr):\\n    if not arr: return 1\\n    return arr[0] * product(arr[1:])\\n\\nprint(product([1,2,3,4,5]))\\nprint(product([3,7]))",
+      },
+      exerciseCpp: {
+        prompt: "Write recursive function for product of all elements.",
+        promptZh: "递归计算列表元素乘积。",
+        starterCode: "#include <iostream>\n#include <vector>\nusing namespace std;\n\nint product(vector<int> a, int i=0) {\n    // Your code here\n    return 1;\n}\n\nint main() {\n    cout<<product({1,2,3,4,5})<<endl;\n    cout<<product({3,7})<<endl;\n    return 0;\n}",
+        expectedOutput: "120\n21",
+        hint: "Base: i==size → 1. Recursive: a[i] * product(a, i+1).",
+        hintZh: "基本：i==size→1。递归：a[i]*product(a,i+1)。",
+        solution: "#include <iostream>\n#include <vector>\nusing namespace std;\n\nint product(vector<int> a, int i=0) {\n    if(i>=(int)a.size())return 1;\n    return a[i]*product(a,i+1);\n}\n\nint main() {\n    cout<<product({1,2,3,4,5})<<endl;\n    cout<<product({3,7})<<endl;\n    return 0;\n}",
+        language: "cpp",
       },
     },
     {
@@ -3052,6 +3894,29 @@ print()
 print("⚠️ Notice: fib(3) computed TWICE, fib(2) computed THREE times!")
 print("   This is why naive tree recursion can be very slow!")
 print("   Solution: Dynamic Programming (coming up!) 🧩")`,
+      codeCpp: `#include <iostream>
+using namespace std;
+
+int call_count = 0;
+int fib(int n) {
+    call_count++;
+    if (n <= 1) return n;
+    return fib(n-1) + fib(n-2);
+}
+
+int main() {
+    for (int n = 1; n <= 10; n++) {
+        call_count = 0;
+        int r = fib(n);
+        cout << "fib(" << n << ") = " << r << " [" << call_count << " calls]" << endl;
+    }
+    cout << "\n⚠️ Calls grow EXPONENTIALLY!" << endl;
+    call_count = 0; fib(20);
+    cout << "fib(20): " << call_count << " calls" << endl;
+    call_count = 0; fib(30);
+    cout << "fib(30): " << call_count << " calls 🐌" << endl;
+    return 0;
+}`,
       exercise: {
         prompt: "Count ways to climb n stairs (1 or 2 steps at a time).",
         promptZh: "计算爬 n 级楼梯的方式数（每次 1 或 2 步）。",
@@ -3060,6 +3925,16 @@ print("   Solution: Dynamic Programming (coming up!) 🧩")`,
         hint: "Base: n<=1 → 1. Recursive: climb(n-1) + climb(n-2).",
         hintZh: "基本：n<=1 → 1。递归：climb(n-1) + climb(n-2)。",
         solution: "def climb_stairs(n):\\n    if n <= 1: return 1\\n    return climb_stairs(n-1) + climb_stairs(n-2)\\n\\nprint(climb_stairs(1))\\nprint(climb_stairs(3))\\nprint(climb_stairs(5))",
+      },
+      exerciseCpp: {
+        prompt: "Count ways to climb n stairs (1 or 2 steps).",
+        promptZh: "计算爬 n 级楼梯方式数。",
+        starterCode: "#include <iostream>\nusing namespace std;\n\nint climb(int n) {\n    // Your code here\n    return 0;\n}\n\nint main() {\n    cout<<climb(1)<<endl;\n    cout<<climb(3)<<endl;\n    cout<<climb(5)<<endl;\n    return 0;\n}",
+        expectedOutput: "1\n3\n8",
+        hint: "Base: n<=1→1. Recursive: climb(n-1)+climb(n-2).",
+        hintZh: "基本：n<=1→1。递归：climb(n-1)+climb(n-2)。",
+        solution: "#include <iostream>\nusing namespace std;\n\nint climb(int n) {\n    if(n<=1)return 1;\n    return climb(n-1)+climb(n-2);\n}\n\nint main() {\n    cout<<climb(1)<<endl;\n    cout<<climb(3)<<endl;\n    cout<<climb(5)<<endl;\n    return 0;\n}",
+        language: "cpp",
       },
     },
     {
@@ -3116,6 +3991,32 @@ def flatten(lst):
 nested = [1, [2, 3], [4, [5, 6]], 7, [8, [9, [10]]]]
 print(f"\\nFlatten {nested}:")
 print(f"  → {flatten(nested)}")`,
+      codeCpp: `#include <iostream>
+using namespace std;
+
+long long factorial_v1(int n) {
+    if (n <= 1) return 1;
+    return n * factorial_v1(n-1);
+}
+
+long long factorial_v2(int n, long long acc=1) {
+    if (n <= 1) return acc;
+    return factorial_v2(n-1, acc*n);
+}
+
+int sum_iter(int n, int acc=0) {
+    if (n <= 0) return acc;
+    return sum_iter(n-1, acc+n);
+}
+
+int main() {
+    cout << "Without accumulator:" << endl;
+    for (int i=1;i<=6;i++) cout << "  " << i << "! = " << factorial_v1(i) << endl;
+    cout << "\nWith accumulator:" << endl;
+    for (int i=1;i<=6;i++) cout << "  " << i << "! = " << factorial_v2(i) << endl;
+    cout << "\nAccumulator sum(5): " << sum_iter(5) << endl;
+    return 0;
+}`,
       exercise: {
         prompt: "Rewrite factorial with a helper using an accumulator (tail recursion style).",
         promptZh: "用带累加器的辅助函数重写阶乘。",
@@ -3124,6 +4025,16 @@ print(f"  → {flatten(nested)}")`,
         hint: "Base: n <= 1 → return acc. Recursive: helper(n-1, acc*n).",
         hintZh: "基本：n <= 1 → 返回 acc。递归：helper(n-1, acc*n)。",
         solution: "def factorial(n):\\n    def helper(n, acc):\\n        if n <= 1: return acc\\n        return helper(n-1, acc*n)\\n    return helper(n, 1)\\n\\nprint(factorial(5))\\nprint(factorial(0))\\nprint(factorial(10))",
+      },
+      exerciseCpp: {
+        prompt: "Rewrite factorial with accumulator (tail recursion style).",
+        promptZh: "用累加器重写阶乘。",
+        starterCode: "#include <iostream>\nusing namespace std;\n\nlong long factorial(int n, long long acc=1) {\n    // Your code here\n    return 0;\n}\n\nint main() {\n    cout<<factorial(5)<<endl;\n    cout<<factorial(0)<<endl;\n    cout<<factorial(10)<<endl;\n    return 0;\n}",
+        expectedOutput: "120\n1\n3628800",
+        hint: "Base: n<=1→return acc. Recursive: factorial(n-1, acc*n).",
+        hintZh: "基本：n<=1→返回acc。递归：factorial(n-1,acc*n)。",
+        solution: "#include <iostream>\nusing namespace std;\n\nlong long factorial(int n, long long acc=1) {\n    if(n<=1)return acc;\n    return factorial(n-1,acc*n);\n}\n\nint main() {\n    cout<<factorial(5)<<endl;\n    cout<<factorial(0)<<endl;\n    cout<<factorial(10)<<endl;\n    return 0;\n}",
+        language: "cpp",
       },
     },
     {
@@ -3327,6 +4238,43 @@ def subsets(nums):
 print("📦 All subsets of [1, 2, 3]:")
 result = subsets([1, 2, 3])
 print(f"\\nTotal: {len(result)} subsets")`,
+      codeCpp: `#include <iostream>
+#include <vector>
+using namespace std;
+
+// The Backtracking Template:
+// void backtrack(state) {
+//     if (is_solution(state)) { record(state); return; }
+//     for (auto& choice : get_choices(state)) {
+//         make_choice(choice);
+//         backtrack(next_state);
+//         undo_choice(choice);  // Backtrack!
+//     }
+// }
+
+void subsets(vector<int>& nums, int start, vector<int>& current, vector<vector<int>>& result) {
+    result.push_back(current);
+    for (int i = start; i < (int)nums.size(); i++) {
+        current.push_back(nums[i]);
+        subsets(nums, i+1, current, result);
+        current.pop_back();
+    }
+}
+
+int main() {
+    vector<int> nums = {1,2,3};
+    vector<vector<int>> result;
+    vector<int> cur;
+    subsets(nums, 0, cur, result);
+    cout << "All subsets of [1,2,3]:" << endl;
+    for (auto& s : result) {
+        cout << "  [";
+        for (int i=0;i<(int)s.size();i++){if(i)cout<<", ";cout<<s[i];}
+        cout << "]" << endl;
+    }
+    cout << "Total: " << result.size() << " subsets" << endl;
+    return 0;
+}`,
       exercise: {
         prompt: "Generate all subsets of [1, 2, 3] using backtracking.",
         promptZh: "用回溯法生成 [1, 2, 3] 的所有子集。",
@@ -3335,6 +4283,16 @@ print(f"\\nTotal: {len(result)} subsets")`,
         hint: "Add current to result. Try each element from start, backtrack after.",
         hintZh: "将 current 加入结果。从 start 尝试每个元素，之后回溯。",
         solution: "def subsets(nums):\\n    result = []\\n    def backtrack(start, current):\\n        result.append(current[:])\\n        for i in range(start, len(nums)):\\n            current.append(nums[i])\\n            backtrack(i+1, current)\\n            current.pop()\\n    backtrack(0, [])\\n    return result\\n\\nfor s in subsets([1,2,3]):\\n    print(s)",
+      },
+      exerciseCpp: {
+        prompt: "Generate all subsets of [1,2,3] using backtracking.",
+        promptZh: "用回溯法生成 [1,2,3] 的所有子集。",
+        starterCode: "#include <iostream>\n#include <vector>\nusing namespace std;\n\nvoid subsets(vector<int>& nums, int start, vector<int>& cur, vector<vector<int>>& res) {\n    // Your code here\n}\n\nint main() {\n    vector<int> nums={1,2,3};\n    vector<vector<int>> res;\n    vector<int> cur;\n    subsets(nums,0,cur,res);\n    for(auto& s:res){cout<<'[';for(int i=0;i<(int)s.size();i++){if(i)cout<<\", \";cout<<s[i];}cout<<']'<<endl;}\n    return 0;\n}",
+        expectedOutput: "[]\n[1]\n[1, 2]\n[1, 2, 3]\n[1, 3]\n[2]\n[2, 3]\n[3]",
+        hint: "Add current to result. For each from start, push, recurse, pop.",
+        hintZh: "将current加入结果。从start开始，push，递归，pop。",
+        solution: "#include <iostream>\n#include <vector>\nusing namespace std;\n\nvoid subsets(vector<int>& nums, int start, vector<int>& cur, vector<vector<int>>& res) {\n    res.push_back(cur);\n    for(int i=start;i<(int)nums.size();i++){cur.push_back(nums[i]);subsets(nums,i+1,cur,res);cur.pop_back();}\n}\n\nint main() {\n    vector<int> nums={1,2,3};\n    vector<vector<int>> res;\n    vector<int> cur;\n    subsets(nums,0,cur,res);\n    for(auto& s:res){cout<<'[';for(int i=0;i<(int)s.size();i++){if(i)cout<<\", \";cout<<s[i];}cout<<']'<<endl;}\n    return 0;\n}",
+        language: "cpp",
       },
     },
     {
@@ -3389,6 +4347,42 @@ print("\\n🔤 Permutations of 'ABC':")
 str_perms = permutations(list("ABC"))
 for p in str_perms:
     print(f"  {''.join(p)}")`,
+      codeCpp: `#include <iostream>
+#include <vector>
+#include <functional>
+using namespace std;
+
+vector<vector<int>> permutations(vector<int>& nums) {
+    vector<vector<int>> result;
+    vector<bool> used(nums.size(), false);
+    vector<int> current;
+    function<void()> backtrack = [&]() {
+        if ((int)current.size() == (int)nums.size()) { result.push_back(current); return; }
+        for (int i = 0; i < (int)nums.size(); i++) {
+            if (used[i]) continue;
+            used[i] = true;
+            current.push_back(nums[i]);
+            backtrack();
+            current.pop_back();
+            used[i] = false;
+        }
+    };
+    backtrack();
+    return result;
+}
+
+int main() {
+    vector<int> nums = {1,2,3};
+    auto result = permutations(nums);
+    cout << "Permutations of [1,2,3]:" << endl;
+    for (auto& p : result) {
+        cout << "  [";
+        for (int i=0;i<(int)p.size();i++){if(i)cout<<", ";cout<<p[i];}
+        cout << "]" << endl;
+    }
+    cout << "Total: " << result.size() << " (3! = 6)" << endl;
+    return 0;
+}`,
       exercise: {
         prompt: "Generate all permutations of 'abc' as strings.",
         promptZh: "生成 'abc' 的所有排列字符串。",
@@ -3397,6 +4391,16 @@ for p in str_perms:
         hint: "Base: no remaining → add path. For each char, add to path, recurse without it.",
         hintZh: "基本：没有剩余 → 添加 path。对每个字符，加到 path，去掉它递归。",
         solution: "def permutations(s):\\n    result = []\\n    def backtrack(path, remaining):\\n        if not remaining:\\n            result.append(path)\\n            return\\n        for i in range(len(remaining)):\\n            backtrack(path + remaining[i], remaining[:i] + remaining[i+1:])\\n    backtrack('', s)\\n    return result\\n\\nfor p in permutations('abc'):\\n    print(p)",
+      },
+      exerciseCpp: {
+        prompt: "Generate all permutations of 'abc' as strings.",
+        promptZh: "生成 'abc' 的所有排列。",
+        starterCode: "#include <iostream>\n#include <string>\n#include <vector>\nusing namespace std;\n\nvoid perms(string path, string remaining, vector<string>& result) {\n    // Your code here\n}\n\nint main() {\n    vector<string> res;\n    perms(\"\",\"abc\",res);\n    for(auto& s:res)cout<<s<<endl;\n    return 0;\n}",
+        expectedOutput: "abc\nacb\nbac\nbca\ncab\ncba",
+        hint: "Base: no remaining → add path. For each char, recurse without it.",
+        hintZh: "基本：没有剩余→添加。对每个字符去掉它递归。",
+        solution: "#include <iostream>\n#include <string>\n#include <vector>\nusing namespace std;\n\nvoid perms(string path, string remaining, vector<string>& result) {\n    if(remaining.empty()){result.push_back(path);return;}\n    for(int i=0;i<(int)remaining.size();i++)\n        perms(path+remaining[i],remaining.substr(0,i)+remaining.substr(i+1),result);\n}\n\nint main() {\n    vector<string> res;\n    perms(\"\",\"abc\",res);\n    for(auto& s:res)cout<<s<<endl;\n    return 0;\n}",
+        language: "cpp",
       },
     },
     {
@@ -3463,6 +4467,45 @@ for i, sol in enumerate(sols):
 print(f"\\n📊 Number of solutions for different N:")
 for n in range(1, 9):
     print(f"  {n}-Queens: {len(solve_n_queens(n))} solutions")`,
+      codeCpp: `#include <iostream>
+#include <vector>
+#include <string>
+#include <functional>
+using namespace std;
+
+void solve_n_queens(int n) {
+    vector<vector<string>> solutions;
+    vector<string> board(n, string(n, '.'));
+    auto is_safe = [&](int row, int col) {
+        for (int i = 0; i < row; i++) {
+            if (board[i][col] == 'Q') return false;
+            if (col-(row-i) >= 0 && board[i][col-(row-i)] == 'Q') return false;
+            if (col+(row-i) < n && board[i][col+(row-i)] == 'Q') return false;
+        }
+        return true;
+    };
+    function<void(int)> backtrack = [&](int row) {
+        if (row == n) { solutions.push_back(board); return; }
+        for (int col = 0; col < n; col++) {
+            if (is_safe(row, col)) {
+                board[row][col] = 'Q';
+                backtrack(row+1);
+                board[row][col] = '.';
+            }
+        }
+    };
+    backtrack(0);
+    cout << n << "-Queens: " << solutions.size() << " solutions" << endl;
+    if (!solutions.empty()) {
+        cout << "First solution:" << endl;
+        for (auto& row : solutions[0]) cout << "  " << row << endl;
+    }
+}
+
+int main() {
+    for (int n = 4; n <= 8; n++) solve_n_queens(n);
+    return 0;
+}`,
       exercise: {
         prompt: "Write a function to check if placing a queen at (row, col) is safe.",
         promptZh: "写一个函数检查在 (row, col) 放置皇后是否安全。",
@@ -3471,6 +4514,16 @@ for n in range(1, 9):
         hint: "Check same column and diagonals: abs(queens[i]-col) == abs(i-row).",
         hintZh: "检查同列和对角线：abs(queens[i]-col) == abs(i-row)。",
         solution: "def is_safe(queens, row, col):\\n    for i in range(len(queens)):\\n        if queens[i] == col: return False\\n        if abs(queens[i]-col) == abs(i-row): return False\\n    return True\\n\\nprint(is_safe([0], 1, 2))\\nprint(is_safe([0], 1, 1))\\nprint(is_safe([0], 1, 0))",
+      },
+      exerciseCpp: {
+        prompt: "Check if placing a queen at (row, col) is safe.",
+        promptZh: "检查在 (row, col) 放皇后是否安全。",
+        starterCode: "#include <iostream>\n#include <vector>\nusing namespace std;\n\nbool is_safe(vector<int>& queens, int row, int col) {\n    // queens[i] = column of queen in row i\n    // Your code here\n    return true;\n}\n\nint main() {\n    vector<int> q={0};\n    cout<<(is_safe(q,1,2)?\"True\":\"False\")<<endl;\n    cout<<(is_safe(q,1,1)?\"True\":\"False\")<<endl;\n    cout<<(is_safe(q,1,0)?\"True\":\"False\")<<endl;\n    return 0;\n}",
+        expectedOutput: "True\nFalse\nFalse",
+        hint: "Check column and diagonals: abs(queens[i]-col)==abs(i-row).",
+        hintZh: "检查列和对角线。",
+        solution: "#include <iostream>\n#include <vector>\n#include <cmath>\nusing namespace std;\n\nbool is_safe(vector<int>& queens, int row, int col) {\n    for(int i=0;i<(int)queens.size();i++){\n        if(queens[i]==col)return false;\n        if(abs(queens[i]-col)==abs(i-row))return false;\n    }\n    return true;\n}\n\nint main() {\n    vector<int> q={0};\n    cout<<(is_safe(q,1,2)?\"True\":\"False\")<<endl;\n    cout<<(is_safe(q,1,1)?\"True\":\"False\")<<endl;\n    cout<<(is_safe(q,1,0)?\"True\":\"False\")<<endl;\n    return 0;\n}",
+        language: "cpp",
       },
     },
     {
@@ -3690,6 +4743,39 @@ def kadane(arr):
     return max_sum
 
 print(f"Kadane's answer: {kadane(arr)}")`,
+      codeCpp: `#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <climits>
+using namespace std;
+
+int max_crossing(vector<int>& a, int l, int m, int r) {
+    int ls = INT_MIN, s = 0;
+    for (int i = m; i >= l; i--) { s += a[i]; ls = max(ls, s); }
+    int rs = INT_MIN; s = 0;
+    for (int i = m+1; i <= r; i++) { s += a[i]; rs = max(rs, s); }
+    return ls + rs;
+}
+
+int max_subarray_dc(vector<int>& a, int l, int r) {
+    if (l == r) return a[l];
+    int m = (l+r)/2;
+    int lm = max_subarray_dc(a, l, m);
+    int rm = max_subarray_dc(a, m+1, r);
+    int cm = max_crossing(a, l, m, r);
+    cout << "  [" << l << ":" << r << "] left=" << lm << " cross=" << cm << " right=" << rm << endl;
+    return max({lm, rm, cm});
+}
+
+int main() {
+    vector<int> arr = {-2,1,-3,4,-1,2,1,-5,4};
+    cout << "Max Subarray (D&C): " << max_subarray_dc(arr, 0, arr.size()-1) << endl;
+    // Kadane's
+    int cur = arr[0], best = arr[0];
+    for (int i = 1; i < (int)arr.size(); i++) { cur = max(arr[i], cur+arr[i]); best = max(best, cur); }
+    cout << "Kadane's: " << best << endl;
+    return 0;
+}`,
       exercise: {
         prompt: "Find max subarray sum using Kadane's algorithm (O(n)).",
         promptZh: "用 Kadane 算法找到最大子数组和。",
@@ -3698,6 +4784,16 @@ print(f"Kadane's answer: {kadane(arr)}")`,
         hint: "Track current_sum and max_sum. Reset current if below current element.",
         hintZh: "跟踪 current_sum 和 max_sum。",
         solution: "def max_subarray(arr):\\n    max_sum = current = arr[0]\\n    for i in range(1, len(arr)):\\n        current = max(arr[i], current + arr[i])\\n        max_sum = max(max_sum, current)\\n    return max_sum\\n\\nprint(max_subarray([-2,1,-3,4,-1,2,1,-5,4]))\\nprint(max_subarray([-1,-2,-3]))",
+      },
+      exerciseCpp: {
+        prompt: "Find max subarray sum using Kadane's algorithm.",
+        promptZh: "用 Kadane 算法找最大子数组和。",
+        starterCode: "#include <iostream>\n#include <vector>\nusing namespace std;\n\nint max_subarray(vector<int> arr) {\n    // Your code here\n    return 0;\n}\n\nint main() {\n    cout<<max_subarray({-2,1,-3,4,-1,2,1,-5,4})<<endl;\n    cout<<max_subarray({-1,-2,-3})<<endl;\n    return 0;\n}",
+        expectedOutput: "6\n-1",
+        hint: "Track current_sum and max_sum.",
+        hintZh: "跟踪 current_sum 和 max_sum。",
+        solution: "#include <iostream>\n#include <vector>\n#include <algorithm>\nusing namespace std;\n\nint max_subarray(vector<int> a) {\n    int mx=a[0],cur=a[0];\n    for(int i=1;i<(int)a.size();i++){cur=max(a[i],cur+a[i]);mx=max(mx,cur);}\n    return mx;\n}\n\nint main() {\n    cout<<max_subarray({-2,1,-3,4,-1,2,1,-5,4})<<endl;\n    cout<<max_subarray({-1,-2,-3})<<endl;\n    return 0;\n}",
+        language: "cpp",
       },
     },
     {
@@ -3764,6 +4860,34 @@ for arr in arrays:
 # Max inversions for n elements = n(n-1)/2
 n = 5
 print(f"\\nMax inversions for {n} elements: {n*(n-1)//2}")`,
+      codeCpp: `#include <iostream>
+#include <vector>
+using namespace std;
+
+pair<vector<int>, long long> count_inversions(vector<int> arr) {
+    if (arr.size() <= 1) return {arr, 0};
+    int mid = arr.size()/2;
+    auto [left, li] = count_inversions(vector<int>(arr.begin(), arr.begin()+mid));
+    auto [right, ri] = count_inversions(vector<int>(arr.begin()+mid, arr.end()));
+    long long si = 0;
+    vector<int> merged;
+    int i = 0, j = 0;
+    while (i < (int)left.size() && j < (int)right.size()) {
+        if (left[i] <= right[j]) merged.push_back(left[i++]);
+        else { merged.push_back(right[j++]); si += left.size()-i; }
+    }
+    while (i < (int)left.size()) merged.push_back(left[i++]);
+    while (j < (int)right.size()) merged.push_back(right[j++]);
+    return {merged, li+ri+si};
+}
+
+int main() {
+    auto [s1, i1] = count_inversions({2,4,1,3,5});
+    cout << "[2,4,1,3,5] inversions: " << i1 << endl;
+    auto [s2, i2] = count_inversions({5,4,3,2,1});
+    cout << "[5,4,3,2,1] inversions: " << i2 << " (maximum for n=5)" << endl;
+    return 0;
+}`,
       exercise: {
         prompt: "Count inversions using O(n²) nested loops.",
         promptZh: "用 O(n²) 嵌套循环计算逆序对。",
@@ -3772,6 +4896,16 @@ print(f"\\nMax inversions for {n} elements: {n*(n-1)//2}")`,
         hint: "For each pair (i,j) where i<j, check if arr[i] > arr[j].",
         hintZh: "对每对 (i,j)，其中 i<j，检查 arr[i] > arr[j]。",
         solution: "def count_inversions(arr):\\n    count = 0\\n    for i in range(len(arr)):\\n        for j in range(i+1, len(arr)):\\n            if arr[i] > arr[j]: count += 1\\n    return count\\n\\nprint(count_inversions([2,4,1,3,5]))\\nprint(count_inversions([5,4,3,2,1]))",
+      },
+      exerciseCpp: {
+        prompt: "Count inversions using O(n²) nested loops.",
+        promptZh: "用嵌套循环计算逆序对。",
+        starterCode: "#include <iostream>\n#include <vector>\nusing namespace std;\n\nint count_inv(vector<int> a) {\n    // Your code here\n    return 0;\n}\n\nint main() {\n    cout<<count_inv({2,4,1,3,5})<<endl;\n    cout<<count_inv({5,4,3,2,1})<<endl;\n    return 0;\n}",
+        expectedOutput: "3\n10",
+        hint: "For each pair (i,j) where i<j, check if a[i]>a[j].",
+        hintZh: "对每对 (i,j)，检查 a[i]>a[j]。",
+        solution: "#include <iostream>\n#include <vector>\nusing namespace std;\n\nint count_inv(vector<int> a) {\n    int c=0;\n    for(int i=0;i<(int)a.size();i++)for(int j=i+1;j<(int)a.size();j++)if(a[i]>a[j])c++;\n    return c;\n}\n\nint main() {\n    cout<<count_inv({2,4,1,3,5})<<endl;\n    cout<<count_inv({5,4,3,2,1})<<endl;\n    return 0;\n}",
+        language: "cpp",
       },
     },
     {
@@ -3837,6 +4971,33 @@ def count_steps_fast(n):
 print(f"\\n📊 Steps comparison:")
 for n in [8, 16, 32, 64, 1000]:
     print(f"  x^{n}: naive={count_steps_naive(2,n)} vs fast={count_steps_fast(n)} steps")`,
+      codeCpp: `#include <iostream>
+#include <string>
+using namespace std;
+
+long long fast_pow(long long x, int n, int depth=0) {
+    string indent(depth*2, ' ');
+    cout << indent << "pow(" << x << ", " << n << ")" << endl;
+    if (n == 0) return 1;
+    if (n == 1) return x;
+    if (n % 2 == 0) {
+        long long half = fast_pow(x, n/2, depth+1);
+        cout << indent << "→ " << half << "^2 = " << half*half << endl;
+        return half*half;
+    } else {
+        long long half = fast_pow(x, (n-1)/2, depth+1);
+        cout << indent << "→ " << x << " * " << half << "^2 = " << x*half*half << endl;
+        return x*half*half;
+    }
+}
+
+int main() {
+    cout << "2^10:" << endl;
+    cout << "Result: " << fast_pow(2, 10) << endl;
+    cout << "\n3^7:" << endl;
+    cout << "Result: " << fast_pow(3, 7) << endl;
+    return 0;
+}`,
       exercise: {
         prompt: "Implement fast power ITERATIVELY (no recursion).",
         promptZh: "迭代实现快速幂（不用递归）。",
@@ -3845,6 +5006,16 @@ for n in [8, 16, 32, 64, 1000]:
         hint: "result=1. While exp>0: if odd, result*=base. Square base, halve exp.",
         hintZh: "result=1。当 exp>0：奇数则 result*=base。base 平方，exp 减半。",
         solution: "def fast_pow(base, exp):\\n    result = 1\\n    while exp > 0:\\n        if exp % 2 == 1: result *= base\\n        base *= base\\n        exp //= 2\\n    return result\\n\\nprint(fast_pow(2, 10))\\nprint(fast_pow(3, 5))\\nprint(fast_pow(5, 0))",
+      },
+      exerciseCpp: {
+        prompt: "Implement fast power ITERATIVELY.",
+        promptZh: "迭代实现快速幂。",
+        starterCode: "#include <iostream>\nusing namespace std;\n\nlong long fast_pow(long long base, int exp) {\n    // Your code here\n    return 0;\n}\n\nint main() {\n    cout<<fast_pow(2,10)<<endl;\n    cout<<fast_pow(3,5)<<endl;\n    cout<<fast_pow(5,0)<<endl;\n    return 0;\n}",
+        expectedOutput: "1024\n243\n1",
+        hint: "result=1. While exp>0: if odd, result*=base. Square base, halve exp.",
+        hintZh: "result=1。exp>0：奇数则*=base，base平方，exp减半。",
+        solution: "#include <iostream>\nusing namespace std;\n\nlong long fast_pow(long long base, int exp) {\n    long long r=1;\n    while(exp>0){if(exp%2==1)r*=base;base*=base;exp/=2;}\n    return r;\n}\n\nint main() {\n    cout<<fast_pow(2,10)<<endl;\n    cout<<fast_pow(3,5)<<endl;\n    cout<<fast_pow(5,0)<<endl;\n    return 0;\n}",
+        language: "cpp",
       },
     },
     {
@@ -4046,6 +5217,29 @@ print("\\n⚠️ Notice how calls EXPLODE! fib(35) makes 18 million calls!")
 print("   fib(50) would take minutes... fib(100) would take YEARS!")
 print("\\n🤔 Why? Because we recompute the SAME values over and over!")
 print("   fib(5) calls fib(3) TWICE, fib(2) THREE times, etc.")`,
+      codeCpp: `#include <iostream>
+#include <chrono>
+using namespace std;
+
+int call_count = 0;
+int fib_naive(int n) {
+    call_count++;
+    if (n <= 1) return n;
+    return fib_naive(n-1) + fib_naive(n-2);
+}
+
+int main() {
+    cout << "🐌 Naive Fibonacci — O(2^n)" << endl;
+    for (int n = 10; n <= 35; n += 5) {
+        call_count = 0;
+        auto s = chrono::high_resolution_clock::now();
+        int r = fib_naive(n);
+        auto e = chrono::high_resolution_clock::now();
+        cout << "  fib(" << n << ") = " << r << " | calls: " << call_count
+             << " | " << chrono::duration<double,milli>(e-s).count() << " ms" << endl;
+    }
+    return 0;
+}`,
       exercise: {
         prompt: "Count how many times fib(2) is called when computing fib(6).",
         promptZh: "计算 fib(6) 时 fib(2) 被调用了多少次。",
@@ -4054,6 +5248,16 @@ print("   fib(5) calls fib(3) TWICE, fib(2) THREE times, etc.")`,
         hint: "When n==2, increment count. Standard fib: 0→0, 1→1.",
         hintZh: "当 n==2 时增加 count。标准 fib：0→0，1→1。",
         solution: "count = 0\\ndef fib(n):\\n    global count\\n    if n == 2: count += 1\\n    if n <= 1: return n\\n    return fib(n-1) + fib(n-2)\\n\\nresult = fib(6)\\nprint(result)\\nprint(count)",
+      },
+      exerciseCpp: {
+        prompt: "Count how many times fib(2) is called when computing fib(6).",
+        promptZh: "计算 fib(6) 时 fib(2) 被调用多少次。",
+        starterCode: "#include <iostream>\nusing namespace std;\n\nint cnt=0;\nint fib(int n) {\n    // Your code here\n    return 0;\n}\n\nint main() {\n    int r=fib(6);\n    cout<<r<<endl;\n    cout<<cnt<<endl;\n    return 0;\n}",
+        expectedOutput: "8\n5",
+        hint: "When n==2, increment count.",
+        hintZh: "当 n==2 时增加 count。",
+        solution: "#include <iostream>\nusing namespace std;\n\nint cnt=0;\nint fib(int n) {\n    if(n==2)cnt++;\n    if(n<=1)return n;\n    return fib(n-1)+fib(n-2);\n}\n\nint main() {\n    int r=fib(6);\n    cout<<r<<endl;\n    cout<<cnt<<endl;\n    return 0;\n}",
+        language: "cpp",
       },
     },
     {
@@ -4111,6 +5315,46 @@ def fib_cached(n):
 print(f"\\n🐍 Python's @lru_cache:")
 print(f"  fib(100) = {fib_cached(100)}")
 print(f"  Cache info: {fib_cached.cache_info()}")`,
+      codeCpp: `#include <iostream>
+#include <unordered_map>
+#include <vector>
+#include <chrono>
+using namespace std;
+
+unordered_map<int,long long> memo;
+int call_count = 0;
+
+long long fib_memo(int n) {
+    call_count++;
+    if (memo.count(n)) return memo[n];
+    if (n <= 1) return n;
+    memo[n] = fib_memo(n-1) + fib_memo(n-2);
+    return memo[n];
+}
+
+long long fib_tab(int n) {
+    if (n <= 1) return n;
+    vector<long long> dp(n+1);
+    dp[0]=0; dp[1]=1;
+    for (int i=2;i<=n;i++) dp[i]=dp[i-1]+dp[i-2];
+    return dp[n];
+}
+
+int main() {
+    cout << "⚡ Memoized Fibonacci — O(n)" << endl;
+    for (int n = 10; n <= 40; n += 10) {
+        memo.clear(); call_count = 0;
+        auto s = chrono::high_resolution_clock::now();
+        long long r = fib_memo(n);
+        auto e = chrono::high_resolution_clock::now();
+        cout << "  fib(" << n << ") = " << r << " | calls: " << call_count
+             << " | " << chrono::duration<double,milli>(e-s).count() << " ms" << endl;
+    }
+    cout << "\nTabulation:" << endl;
+    for (int n = 10; n <= 40; n += 10)
+        cout << "  fib(" << n << ") = " << fib_tab(n) << endl;
+    return 0;
+}`,
       exercise: {
         prompt: "Implement Fibonacci with memoization. Count total function calls.",
         promptZh: "用记忆化实现斐波那契。统计总调用次数。",
@@ -4119,6 +5363,16 @@ print(f"  Cache info: {fib_cached.cache_info()}")`,
         hint: "Check if n in memo first. Store result before returning.",
         hintZh: "先检查 n 是否在 memo 中。返回前存储结果。",
         solution: "calls = 0\\ndef fib_memo(n, memo={}):\\n    global calls\\n    calls += 1\\n    if n in memo: return memo[n]\\n    if n <= 1: return n\\n    memo[n] = fib_memo(n-1, memo) + fib_memo(n-2, memo)\\n    return memo[n]\\n\\nprint(fib_memo(10))\\nprint(calls)",
+      },
+      exerciseCpp: {
+        prompt: "Implement Fibonacci with memoization. Count total calls.",
+        promptZh: "用记忆化实现斐波那契。统计调用次数。",
+        starterCode: "#include <iostream>\n#include <unordered_map>\nusing namespace std;\n\nunordered_map<int,long long> memo;\nint calls=0;\nlong long fib_memo(int n) {\n    calls++;\n    // Your code here\n    return 0;\n}\n\nint main() {\n    cout<<fib_memo(10)<<endl;\n    cout<<calls<<endl;\n    return 0;\n}",
+        expectedOutput: "55\n19",
+        hint: "Check if n in memo first. Store before returning.",
+        hintZh: "先检查 memo。返回前存储。",
+        solution: "#include <iostream>\n#include <unordered_map>\nusing namespace std;\n\nunordered_map<int,long long> memo;\nint calls=0;\nlong long fib_memo(int n) {\n    calls++;\n    if(memo.count(n))return memo[n];\n    if(n<=1)return n;\n    return memo[n]=fib_memo(n-1)+fib_memo(n-2);\n}\n\nint main() {\n    cout<<fib_memo(10)<<endl;\n    cout<<calls<<endl;\n    return 0;\n}",
+        language: "cpp",
       },
     },
     {
@@ -4186,6 +5440,29 @@ def climb_stairs_3(n, memo={}):
 print("\\n🪜 With 1, 2, or 3 steps:")
 for n in range(1, 11):
     print(f"  {n} stairs: {climb_stairs_3(n, {})} ways")`,
+      codeCpp: `#include <iostream>
+#include <unordered_map>
+using namespace std;
+
+unordered_map<int,long long> memo;
+
+long long climb_stairs(int n) {
+    if (memo.count(n)) return memo[n];
+    if (n <= 2) return n;
+    memo[n] = climb_stairs(n-1) + climb_stairs(n-2);
+    return memo[n];
+}
+
+int main() {
+    cout << "🪜 Climbing Stairs:" << endl;
+    for (int n = 1; n <= 10; n++) {
+        memo.clear();
+        cout << "  " << n << " stairs: " << climb_stairs(n) << " ways" << endl;
+    }
+    memo.clear();
+    cout << "  20 stairs: " << climb_stairs(20) << " ways" << endl;
+    return 0;
+}`,
       exercise: {
         prompt: "Solve climbing stairs with 1, 2, or 3 steps allowed.",
         promptZh: "解决允许走 1、2 或 3 步的爬楼梯问题。",
@@ -4194,6 +5471,16 @@ for n in range(1, 11):
         hint: "dp[i] = dp[i-1] + dp[i-2] + dp[i-3]. Base: dp[0]=1, dp[1]=1, dp[2]=2.",
         hintZh: "dp[i] = dp[i-1] + dp[i-2] + dp[i-3]。",
         solution: "def climb3(n):\\n    if n <= 1: return 1\\n    if n == 2: return 2\\n    dp = [0]*(n+1)\\n    dp[0]=1; dp[1]=1; dp[2]=2\\n    for i in range(3, n+1):\\n        dp[i] = dp[i-1]+dp[i-2]+dp[i-3]\\n    return dp[n]\\n\\nprint(climb3(3))\\nprint(climb3(5))",
+      },
+      exerciseCpp: {
+        prompt: "Solve climbing stairs with 1, 2, or 3 steps.",
+        promptZh: "允许走 1、2 或 3 步。",
+        starterCode: "#include <iostream>\n#include <vector>\nusing namespace std;\n\nint climb3(int n) {\n    // Your code here\n    return 0;\n}\n\nint main() {\n    cout<<climb3(3)<<endl;\n    cout<<climb3(5)<<endl;\n    return 0;\n}",
+        expectedOutput: "4\n13",
+        hint: "dp[i] = dp[i-1]+dp[i-2]+dp[i-3].",
+        hintZh: "dp[i] = dp[i-1]+dp[i-2]+dp[i-3]。",
+        solution: "#include <iostream>\n#include <vector>\nusing namespace std;\n\nint climb3(int n) {\n    if(n<=1)return 1;if(n==2)return 2;\n    vector<int> dp(n+1);dp[0]=1;dp[1]=1;dp[2]=2;\n    for(int i=3;i<=n;i++)dp[i]=dp[i-1]+dp[i-2]+dp[i-3];\n    return dp[n];\n}\n\nint main() {\n    cout<<climb3(3)<<endl;\n    cout<<climb3(5)<<endl;\n    return 0;\n}",
+        language: "cpp",
       },
     },
     {
@@ -4386,6 +5673,46 @@ dp[1] = 1
 for i in range(2, 11):
     dp[i] = dp[i-1] + dp[i-2]
     print(f"  dp[{i}] = dp[{i-1}] + dp[{i-2}] = {dp[i-1]} + {dp[i-2]} = {dp[i]}")`,
+      codeCpp: `#include <iostream>
+#include <vector>
+#include <unordered_map>
+using namespace std;
+
+int fib_naive(int n) { if (n<=1) return n; return fib_naive(n-1)+fib_naive(n-2); }
+
+unordered_map<int,long long> memo;
+long long fib_memo(int n) {
+    if (memo.count(n)) return memo[n];
+    if (n<=1) return n;
+    return memo[n] = fib_memo(n-1)+fib_memo(n-2);
+}
+
+long long fib_tab(int n) {
+    if (n<=1) return n;
+    vector<long long> dp(n+1); dp[0]=0; dp[1]=1;
+    for (int i=2;i<=n;i++) dp[i]=dp[i-1]+dp[i-2];
+    return dp[n];
+}
+
+long long fib_opt(int n) {
+    if (n<=1) return n;
+    long long prev=0, curr=1;
+    for (int i=2;i<=n;i++) { long long next=prev+curr; prev=curr; curr=next; }
+    return curr;
+}
+
+int main() {
+    cout << "Naive:  fib(10) = " << fib_naive(10) << endl;
+    memo.clear();
+    cout << "Memo:   fib(10) = " << fib_memo(10) << endl;
+    cout << "Table:  fib(10) = " << fib_tab(10) << endl;
+    cout << "Opt:    fib(10) = " << fib_opt(10) << endl;
+    cout << "\nLarger:" << endl;
+    memo.clear(); cout << "  fib(30) = " << fib_memo(30) << endl;
+    cout << "  fib(40) = " << fib_tab(40) << endl;
+    cout << "  fib(50) = " << fib_opt(50) << endl;
+    return 0;
+}`,
       exercise: {
         prompt: "Implement Fibonacci using ONLY two variables (O(1) space).",
         promptZh: "只用两个变量实现斐波那契（O(1) 空间）。",
@@ -4394,6 +5721,16 @@ for i in range(2, 11):
         hint: "prev=0, curr=1. Loop: prev, curr = curr, prev+curr.",
         hintZh: "prev=0, curr=1。循环：prev, curr = curr, prev+curr。",
         solution: "def fib_const(n):\\n    if n <= 1: return n\\n    prev, curr = 0, 1\\n    for _ in range(2, n+1):\\n        prev, curr = curr, prev+curr\\n    return curr\\n\\nprint(fib_const(0))\\nprint(fib_const(10))\\nprint(fib_const(20))",
+      },
+      exerciseCpp: {
+        prompt: "Implement Fibonacci using ONLY two variables.",
+        promptZh: "只用两个变量实现斐波那契。",
+        starterCode: "#include <iostream>\nusing namespace std;\n\nlong long fib_const(int n) {\n    // Your code here\n    return 0;\n}\n\nint main() {\n    cout<<fib_const(0)<<endl;\n    cout<<fib_const(10)<<endl;\n    cout<<fib_const(20)<<endl;\n    return 0;\n}",
+        expectedOutput: "0\n55\n6765",
+        hint: "prev=0, curr=1. Loop: swap and add.",
+        hintZh: "prev=0,curr=1。循环。",
+        solution: "#include <iostream>\nusing namespace std;\n\nlong long fib_const(int n) {\n    if(n<=1)return n;\n    long long prev=0,curr=1;\n    for(int i=2;i<=n;i++){long long next=prev+curr;prev=curr;curr=next;}\n    return curr;\n}\n\nint main() {\n    cout<<fib_const(0)<<endl;\n    cout<<fib_const(10)<<endl;\n    cout<<fib_const(20)<<endl;\n    return 0;\n}",
+        language: "cpp",
       },
     },
     {
@@ -4446,6 +5783,33 @@ for i in range(1, 7):
             dp[i] = dp[i-c] + 1
     print(f"  dp[{i}] = {dp[i]} coins")
 print(f"\\nAnswer: {dp[6]} coins for amount 6 with coins {coins2}")`,
+      codeCpp: `#include <iostream>
+#include <vector>
+#include <climits>
+using namespace std;
+
+int coin_change(vector<int>& coins, int amount) {
+    vector<int> dp(amount+1, INT_MAX);
+    dp[0] = 0;
+    for (int i = 1; i <= amount; i++)
+        for (int c : coins)
+            if (c <= i && dp[i-c] != INT_MAX)
+                dp[i] = min(dp[i], dp[i-c]+1);
+    cout << "Amount: ";
+    for (int i=0;i<=min(amount,15);i++) cout << i << "\t";
+    cout << "\nCoins:  ";
+    for (int i=0;i<=min(amount,15);i++) cout << (dp[i]==INT_MAX?-1:dp[i]) << "\t";
+    cout << endl;
+    return dp[amount]==INT_MAX ? -1 : dp[amount];
+}
+
+int main() {
+    vector<int> coins = {1,5,10,25};
+    cout << "Coins: [1,5,10,25]\n" << endl;
+    cout << "Min coins for 36: " << coin_change(coins, 36) << endl;
+    cout << "\nMin coins for 30: " << coin_change(coins, 30) << endl;
+    return 0;
+}`,
       exercise: {
         prompt: "Find minimum coins to make 36 cents with [1, 5, 10, 25].",
         promptZh: "用 [1, 5, 10, 25] 凑 36 美分的最少硬币数。",
@@ -4454,6 +5818,16 @@ print(f"\\nAnswer: {dp[6]} coins for amount 6 with coins {coins2}")`,
         hint: "dp[i] = min(dp[i-c] + 1) for each coin c <= i.",
         hintZh: "dp[i] = min(dp[i-c] + 1) 对每个 c <= i 的硬币。",
         solution: "def min_coins(coins, amount):\\n    dp = [float('inf')]*(amount+1)\\n    dp[0] = 0\\n    for i in range(1, amount+1):\\n        for c in coins:\\n            if c <= i and dp[i-c]+1 < dp[i]:\\n                dp[i] = dp[i-c]+1\\n    return dp[amount]\\n\\nprint(min_coins([1,5,10,25], 36))\\nprint(min_coins([1,5,10,25], 30))",
+      },
+      exerciseCpp: {
+        prompt: "Find minimum coins for 36 cents with [1,5,10,25].",
+        promptZh: "凑 36 美分最少硬币数。",
+        starterCode: "#include <iostream>\n#include <vector>\n#include <climits>\nusing namespace std;\n\nint min_coins(vector<int> coins, int amount) {\n    // Your code here\n    return 0;\n}\n\nint main() {\n    cout<<min_coins({1,5,10,25},36)<<endl;\n    cout<<min_coins({1,5,10,25},30)<<endl;\n    return 0;\n}",
+        expectedOutput: "3\n2",
+        hint: "dp[i] = min(dp[i-c]+1) for each coin.",
+        hintZh: "dp[i]=min(dp[i-c]+1)。",
+        solution: "#include <iostream>\n#include <vector>\n#include <climits>\nusing namespace std;\n\nint min_coins(vector<int> coins, int amount) {\n    vector<int> dp(amount+1,INT_MAX);dp[0]=0;\n    for(int i=1;i<=amount;i++)for(int c:coins)if(c<=i&&dp[i-c]!=INT_MAX)dp[i]=min(dp[i],dp[i-c]+1);\n    return dp[amount];\n}\n\nint main() {\n    cout<<min_coins({1,5,10,25},36)<<endl;\n    cout<<min_coins({1,5,10,25},30)<<endl;\n    return 0;\n}",
+        language: "cpp",
       },
     },
     {
@@ -4684,6 +6058,34 @@ for i, (item, w, v) in enumerate(zip(items, weights, values)):
 
 result = knapsack(weights, values, capacity)
 print(f"\\n🏆 Maximum value: {result}")`,
+      codeCpp: `#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+int knapsack(vector<int>& w, vector<int>& v, int W) {
+    int n = w.size();
+    vector<vector<int>> dp(n+1, vector<int>(W+1, 0));
+    for (int i=1;i<=n;i++)
+        for (int c=0;c<=W;c++) {
+            dp[i][c] = dp[i-1][c];
+            if (w[i-1]<=c) dp[i][c] = max(dp[i][c], dp[i-1][c-w[i-1]]+v[i-1]);
+        }
+    // Backtrack
+    cout << "Items selected: ";
+    int c = W;
+    for (int i=n;i>0;i--)
+        if (dp[i][c] != dp[i-1][c]) { cout << i << "(w=" << w[i-1] << ",v=" << v[i-1] << ") "; c -= w[i-1]; }
+    cout << endl;
+    return dp[n][W];
+}
+
+int main() {
+    vector<int> weights={2,3,4,5}, values={3,4,5,6};
+    cout << "0/1 Knapsack (capacity 8):" << endl;
+    cout << "Max value: " << knapsack(weights, values, 8) << endl;
+    return 0;
+}`,
       exercise: {
         prompt: "Solve knapsack: items=[(2,3),(3,4),(4,5),(5,6)], capacity=8. Print max value.",
         promptZh: "背包问题：物品=[(2,3),(3,4),(4,5),(5,6)]，容量=8。打印最大价值。",
@@ -4692,6 +6094,16 @@ print(f"\\n🏆 Maximum value: {result}")`,
         hint: "2D DP: dp[i][w] = max value using first i items with capacity w.",
         hintZh: "二维 DP：dp[i][w] = 用前 i 个物品、容量 w 的最大价值。",
         solution: "def knapsack(items, capacity):\\n    n = len(items)\\n    dp = [[0]*(capacity+1) for _ in range(n+1)]\\n    for i in range(1, n+1):\\n        w, v = items[i-1]\\n        for c in range(capacity+1):\\n            dp[i][c] = dp[i-1][c]\\n            if w <= c:\\n                dp[i][c] = max(dp[i][c], dp[i-1][c-w]+v)\\n    return dp[n][capacity]\\n\\nprint(knapsack([(2,3),(3,4),(4,5),(5,6)], 8))",
+      },
+      exerciseCpp: {
+        prompt: "Solve knapsack: items=[(2,3),(3,4),(4,5),(5,6)], capacity=8.",
+        promptZh: "背包问题。",
+        starterCode: "#include <iostream>\n#include <vector>\n#include <algorithm>\nusing namespace std;\n\nint knapsack(vector<pair<int,int>> items, int cap) {\n    // Your code here\n    return 0;\n}\n\nint main() {\n    cout<<knapsack({{2,3},{3,4},{4,5},{5,6}},8)<<endl;\n    return 0;\n}",
+        expectedOutput: "10",
+        hint: "2D DP: dp[i][w].",
+        hintZh: "二维 DP。",
+        solution: "#include <iostream>\n#include <vector>\n#include <algorithm>\nusing namespace std;\n\nint knapsack(vector<pair<int,int>> items, int cap) {\n    int n=items.size();\n    vector<vector<int>> dp(n+1,vector<int>(cap+1,0));\n    for(int i=1;i<=n;i++){auto[w,v]=items[i-1];for(int c=0;c<=cap;c++){dp[i][c]=dp[i-1][c];if(w<=c)dp[i][c]=max(dp[i][c],dp[i-1][c-w]+v);}}\n    return dp[n][cap];\n}\n\nint main() {\n    cout<<knapsack({{2,3},{3,4},{4,5},{5,6}},8)<<endl;\n    return 0;\n}",
+        language: "cpp",
       },
     },
     {
@@ -4756,6 +6168,35 @@ print(f"   Subsequence: '{subseq}'")
 
 # Example 3: Git diff!
 print("\\n💡 LCS is used in 'git diff' to find common lines between file versions!")`,
+      codeCpp: `#include <iostream>
+#include <vector>
+#include <string>
+using namespace std;
+
+string lcs(const string& s1, const string& s2) {
+    int m=s1.size(), n=s2.size();
+    vector<vector<int>> dp(m+1, vector<int>(n+1, 0));
+    for (int i=1;i<=m;i++)
+        for (int j=1;j<=n;j++)
+            dp[i][j] = (s1[i-1]==s2[j-1]) ? dp[i-1][j-1]+1 : max(dp[i-1][j], dp[i][j-1]);
+    // Backtrack
+    string result;
+    int i=m, j=n;
+    while (i>0 && j>0) {
+        if (s1[i-1]==s2[j-1]) { result = s1[i-1]+result; i--; j--; }
+        else if (dp[i-1][j]>dp[i][j-1]) i--;
+        else j--;
+    }
+    cout << "LCS of '" << s1 << "' and '" << s2 << "':" << endl;
+    cout << "  Length: " << dp[m][n] << ", LCS: '" << result << "'" << endl;
+    return result;
+}
+
+int main() {
+    lcs("ABCBDAB", "BDCAB");
+    lcs("AGGTAB", "GXTXAYB");
+    return 0;
+}`,
       exercise: {
         prompt: "Find LCS length of 'ABCDE' and 'ACE'.",
         promptZh: "找出 'ABCDE' 和 'ACE' 的 LCS 长度。",
@@ -4764,6 +6205,16 @@ print("\\n💡 LCS is used in 'git diff' to find common lines between file versi
         hint: "dp[i][j]: if match, dp[i-1][j-1]+1; else max(dp[i-1][j], dp[i][j-1]).",
         hintZh: "dp[i][j]：匹配则 dp[i-1][j-1]+1，否则取最大值。",
         solution: "def lcs_length(s1, s2):\\n    m, n = len(s1), len(s2)\\n    dp = [[0]*(n+1) for _ in range(m+1)]\\n    for i in range(1, m+1):\\n        for j in range(1, n+1):\\n            if s1[i-1] == s2[j-1]: dp[i][j] = dp[i-1][j-1]+1\\n            else: dp[i][j] = max(dp[i-1][j], dp[i][j-1])\\n    return dp[m][n]\\n\\nprint(lcs_length('ABCDE', 'ACE'))\\nprint(lcs_length('abc', 'def'))",
+      },
+      exerciseCpp: {
+        prompt: "Find LCS length of 'ABCDE' and 'ACE'.",
+        promptZh: "找 LCS 长度。",
+        starterCode: "#include <iostream>\n#include <vector>\n#include <string>\n#include <algorithm>\nusing namespace std;\n\nint lcs_len(string s1, string s2) {\n    // Your code here\n    return 0;\n}\n\nint main() {\n    cout<<lcs_len(\"ABCDE\",\"ACE\")<<endl;\n    cout<<lcs_len(\"abc\",\"def\")<<endl;\n    return 0;\n}",
+        expectedOutput: "3\n0",
+        hint: "dp[i][j]: match→dp[i-1][j-1]+1; else max.",
+        hintZh: "匹配则+1。",
+        solution: "#include <iostream>\n#include <vector>\n#include <string>\n#include <algorithm>\nusing namespace std;\n\nint lcs_len(string s1, string s2) {\n    int m=s1.size(),n=s2.size();\n    vector<vector<int>> dp(m+1,vector<int>(n+1,0));\n    for(int i=1;i<=m;i++)for(int j=1;j<=n;j++)dp[i][j]=(s1[i-1]==s2[j-1])?dp[i-1][j-1]+1:max(dp[i-1][j],dp[i][j-1]);\n    return dp[m][n];\n}\n\nint main() {\n    cout<<lcs_len(\"ABCDE\",\"ACE\")<<endl;\n    cout<<lcs_len(\"abc\",\"def\")<<endl;\n    return 0;\n}",
+        language: "cpp",
       },
     },
     {
@@ -4832,6 +6283,37 @@ for i in range(1, len(arr)):
 print(f"DP table for {arr}:")
 for i in range(len(arr)):
     print(f"  dp[{i}] = {dp[i]} (element {arr[i]})")`,
+      codeCpp: `#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+int lis(vector<int>& arr) {
+    int n = arr.size();
+    vector<int> dp(n, 1);
+    for (int i=1;i<n;i++)
+        for (int j=0;j<i;j++)
+            if (arr[j]<arr[i]) dp[i] = max(dp[i], dp[j]+1);
+    int mx = *max_element(dp.begin(), dp.end());
+    // Backtrack
+    vector<int> seq;
+    int target = mx;
+    for (int i=n-1;i>=0;i--)
+        if (dp[i]==target) { seq.push_back(arr[i]); target--; }
+    reverse(seq.begin(), seq.end());
+    cout << "dp: [";
+    for (int i=0;i<n;i++){if(i)cout<<", ";cout<<dp[i];}
+    cout << "]\nLIS length: " << mx << "\nLIS: [";
+    for (int i=0;i<(int)seq.size();i++){if(i)cout<<", ";cout<<seq[i];}
+    cout << "]" << endl;
+    return mx;
+}
+
+int main() {
+    vector<int> arr = {10,9,2,5,3,7,101,18};
+    lis(arr);
+    return 0;
+}`,
       exercise: {
         prompt: "Find the actual LIS (not just length) for [10,9,2,5,3,7,101,18].",
         promptZh: "找到 [10,9,2,5,3,7,101,18] 的实际 LIS（不只是长度）。",
@@ -4840,6 +6322,16 @@ for i in range(len(arr)):
         hint: "Track parent pointers alongside dp array.",
         hintZh: "在 dp 数组之外跟踪父指针。",
         solution: "def lis_sequence(arr):\\n    n = len(arr)\\n    dp = [1]*n\\n    parent = [-1]*n\\n    for i in range(1, n):\\n        for j in range(i):\\n            if arr[j] < arr[i] and dp[j]+1 > dp[i]:\\n                dp[i] = dp[j]+1\\n                parent[i] = j\\n    idx = dp.index(max(dp))\\n    result = []\\n    while idx != -1:\\n        result.append(arr[idx])\\n        idx = parent[idx]\\n    return result[::-1]\\n\\nprint(lis_sequence([10,9,2,5,3,7,101,18]))",
+      },
+      exerciseCpp: {
+        prompt: "Find actual LIS for [10,9,2,5,3,7,101,18].",
+        promptZh: "找实际 LIS。",
+        starterCode: "#include <iostream>\n#include <vector>\n#include <algorithm>\nusing namespace std;\n\nint main() {\n    vector<int> arr={10,9,2,5,3,7,101,18};\n    // Find and print LIS\n    return 0;\n}",
+        expectedOutput: "[2, 3, 7, 18]",
+        hint: "Track parent pointers alongside dp.",
+        hintZh: "跟踪父指针。",
+        solution: "#include <iostream>\n#include <vector>\n#include <algorithm>\nusing namespace std;\n\nint main() {\n    vector<int> arr={10,9,2,5,3,7,101,18};\n    int n=arr.size();\n    vector<int> dp(n,1),parent(n,-1);\n    for(int i=1;i<n;i++)for(int j=0;j<i;j++)if(arr[j]<arr[i]&&dp[j]+1>dp[i]){dp[i]=dp[j]+1;parent[i]=j;}\n    int idx=max_element(dp.begin(),dp.end())-dp.begin();\n    vector<int> res;while(idx!=-1){res.push_back(arr[idx]);idx=parent[idx];}\n    reverse(res.begin(),res.end());\n    cout<<'[';for(int i=0;i<(int)res.size();i++){if(i)cout<<\", \";cout<<res[i];}cout<<']'<<endl;\n    return 0;\n}",
+        language: "cpp",
       },
     },
     {
@@ -5036,6 +6528,32 @@ print(f"Math formula: C({m+n-2}, {m-1}) = {comb(m+n-2, m-1)}")
 # Bigger grid
 print(f"\\n10×10 grid: {count_paths(3, 3)} paths (3×3)")
 print(f"Math: C(18, 9) = {comb(18, 9)} paths (10×10)")`,
+      codeCpp: `#include <iostream>
+#include <vector>
+using namespace std;
+
+int count_paths(int m, int n) {
+    vector<vector<int>> dp(m, vector<int>(n, 0));
+    for (int i=0;i<m;i++) dp[i][0]=1;
+    for (int j=0;j<n;j++) dp[0][j]=1;
+    for (int i=1;i<m;i++)
+        for (int j=1;j<n;j++)
+            dp[i][j] = dp[i-1][j]+dp[i][j-1];
+    for (int i=0;i<m;i++) {
+        cout << "  ";
+        for (int j=0;j<n;j++) cout << dp[i][j] << "\t";
+        cout << endl;
+    }
+    return dp[m-1][n-1];
+}
+
+int main() {
+    cout << "3x3 grid:" << endl;
+    cout << "Paths: " << count_paths(3,3) << endl;
+    cout << "\n3x7 grid:" << endl;
+    cout << "Paths: " << count_paths(3,7) << endl;
+    return 0;
+}`,
       exercise: {
         prompt: "Count paths in a 4×4 grid (top-left to bottom-right, only right/down).",
         promptZh: "计算 4×4 网格的路径数。",
@@ -5044,6 +6562,16 @@ print(f"Math: C(18, 9) = {comb(18, 9)} paths (10×10)")`,
         hint: "dp[i][j] = dp[i-1][j] + dp[i][j-1]. First row/col = 1.",
         hintZh: "dp[i][j] = dp[i-1][j] + dp[i][j-1]。第一行/列 = 1。",
         solution: "def count_paths(m, n):\\n    dp = [[1]*n for _ in range(m)]\\n    for i in range(1, m):\\n        for j in range(1, n):\\n            dp[i][j] = dp[i-1][j] + dp[i][j-1]\\n    return dp[m-1][n-1]\\n\\nprint(count_paths(4, 4))\\nprint(count_paths(3, 3))",
+      },
+      exerciseCpp: {
+        prompt: "Count paths in 4x4 grid.",
+        promptZh: "计算 4×4 网格路径数。",
+        starterCode: "#include <iostream>\n#include <vector>\nusing namespace std;\n\nint count_paths(int m, int n) {\n    // Your code here\n    return 0;\n}\n\nint main() {\n    cout<<count_paths(4,4)<<endl;\n    cout<<count_paths(3,3)<<endl;\n    return 0;\n}",
+        expectedOutput: "20\n6",
+        hint: "dp[i][j] = dp[i-1][j]+dp[i][j-1]. First row/col = 1.",
+        hintZh: "dp[i][j]=dp[i-1][j]+dp[i][j-1]。",
+        solution: "#include <iostream>\n#include <vector>\nusing namespace std;\n\nint count_paths(int m, int n) {\n    vector<vector<int>> dp(m,vector<int>(n,1));\n    for(int i=1;i<m;i++)for(int j=1;j<n;j++)dp[i][j]=dp[i-1][j]+dp[i][j-1];\n    return dp[m-1][n-1];\n}\n\nint main() {\n    cout<<count_paths(4,4)<<endl;\n    cout<<count_paths(3,3)<<endl;\n    return 0;\n}",
+        language: "cpp",
       },
     },
     {
@@ -5110,6 +6638,32 @@ grid = [
 ]
 result = count_paths_obstacles(grid)
 print(f"\\n🏁 Paths avoiding obstacles: {result}")`,
+      codeCpp: `#include <iostream>
+#include <vector>
+using namespace std;
+
+int count_paths_obstacles(vector<vector<int>>& grid) {
+    int m=grid.size(), n=grid[0].size();
+    vector<vector<int>> dp(m, vector<int>(n, 0));
+    dp[0][0] = grid[0][0]==1 ? 0 : 1;
+    for (int i=1;i<m;i++) dp[i][0] = grid[i][0]==1 ? 0 : dp[i-1][0];
+    for (int j=1;j<n;j++) dp[0][j] = grid[0][j]==1 ? 0 : dp[0][j-1];
+    for (int i=1;i<m;i++)
+        for (int j=1;j<n;j++)
+            dp[i][j] = grid[i][j]==1 ? 0 : dp[i-1][j]+dp[i][j-1];
+    for (int i=0;i<m;i++){
+        cout << "  ";
+        for (int j=0;j<n;j++) cout << (grid[i][j]==1?"X":to_string(dp[i][j])) << "\t";
+        cout << endl;
+    }
+    return dp[m-1][n-1];
+}
+
+int main() {
+    vector<vector<int>> grid = {{0,0,0},{0,1,0},{0,0,0}};
+    cout << "Paths: " << count_paths_obstacles(grid) << endl;
+    return 0;
+}`,
       exercise: {
         prompt: "Count paths in a grid with obstacles (0=open, 1=blocked).",
         promptZh: "计算有障碍网格的路径数。",
@@ -5118,6 +6672,16 @@ print(f"\\n🏁 Paths avoiding obstacles: {result}")`,
         hint: "Same as grid paths, but dp[i][j] = 0 if blocked.",
         hintZh: "和网格路径一样，但阻塞处 dp[i][j] = 0。",
         solution: "def paths_obstacles(grid):\\n    m, n = len(grid), len(grid[0])\\n    dp = [[0]*n for _ in range(m)]\\n    for i in range(m):\\n        if grid[i][0] == 1: break\\n        dp[i][0] = 1\\n    for j in range(n):\\n        if grid[0][j] == 1: break\\n        dp[0][j] = 1\\n    for i in range(1, m):\\n        for j in range(1, n):\\n            if grid[i][j] == 0:\\n                dp[i][j] = dp[i-1][j] + dp[i][j-1]\\n    return dp[m-1][n-1]\\n\\nprint(paths_obstacles([[0,0,0],[0,1,0],[0,0,0]]))",
+      },
+      exerciseCpp: {
+        prompt: "Count paths with obstacles.",
+        promptZh: "有障碍网格路径数。",
+        starterCode: "#include <iostream>\n#include <vector>\nusing namespace std;\n\nint paths_obs(vector<vector<int>> grid) {\n    // Your code here\n    return 0;\n}\n\nint main() {\n    cout<<paths_obs({{0,0,0},{0,1,0},{0,0,0}})<<endl;\n    return 0;\n}",
+        expectedOutput: "2",
+        hint: "Same as paths, but blocked = 0.",
+        hintZh: "阻塞处为0。",
+        solution: "#include <iostream>\n#include <vector>\nusing namespace std;\n\nint paths_obs(vector<vector<int>> grid) {\n    int m=grid.size(),n=grid[0].size();\n    vector<vector<int>> dp(m,vector<int>(n,0));\n    for(int i=0;i<m;i++){if(grid[i][0]==1)break;dp[i][0]=1;}\n    for(int j=0;j<n;j++){if(grid[0][j]==1)break;dp[0][j]=1;}\n    for(int i=1;i<m;i++)for(int j=1;j<n;j++)if(!grid[i][j])dp[i][j]=dp[i-1][j]+dp[i][j-1];\n    return dp[m-1][n-1];\n}\n\nint main() {\n    cout<<paths_obs({{0,0,0},{0,1,0},{0,0,0}})<<endl;\n    return 0;\n}",
+        language: "cpp",
       },
     },
     {
@@ -5198,6 +6762,33 @@ grid = [
     [2, 1, 4, 1]
 ]
 min_path_sum(grid)`,
+      codeCpp: `#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+int min_path_sum(vector<vector<int>>& grid) {
+    int m=grid.size(), n=grid[0].size();
+    vector<vector<int>> dp(m, vector<int>(n, 0));
+    dp[0][0]=grid[0][0];
+    for (int i=1;i<m;i++) dp[i][0]=dp[i-1][0]+grid[i][0];
+    for (int j=1;j<n;j++) dp[0][j]=dp[0][j-1]+grid[0][j];
+    for (int i=1;i<m;i++)
+        for (int j=1;j<n;j++)
+            dp[i][j]=min(dp[i-1][j],dp[i][j-1])+grid[i][j];
+    cout << "Cost grid:" << endl;
+    for (int i=0;i<m;i++){cout<<"  ";for(int j=0;j<n;j++)cout<<grid[i][j]<<"\t";cout<<endl;}
+    cout << "\nDP table:" << endl;
+    for (int i=0;i<m;i++){cout<<"  ";for(int j=0;j<n;j++)cout<<dp[i][j]<<"\t";cout<<endl;}
+    cout << "\nMinimum path sum: " << dp[m-1][n-1] << endl;
+    return dp[m-1][n-1];
+}
+
+int main() {
+    vector<vector<int>> grid = {{1,3,1},{1,5,1},{4,2,1}};
+    min_path_sum(grid);
+    return 0;
+}`,
       exercise: {
         prompt: "Find minimum path sum AND the actual path as a list of cell values.",
         promptZh: "找到最小路径和以及实际路径。",
@@ -5206,6 +6797,16 @@ min_path_sum(grid)`,
         hint: "Compute dp, then backtrack from bottom-right following minimum.",
         hintZh: "计算 dp，然后从右下角沿最小值回溯。",
         solution: "def min_path_route(grid):\\n    m, n = len(grid), len(grid[0])\\n    dp = [[0]*n for _ in range(m)]\\n    dp[0][0] = grid[0][0]\\n    for i in range(1,m): dp[i][0] = dp[i-1][0]+grid[i][0]\\n    for j in range(1,n): dp[0][j] = dp[0][j-1]+grid[0][j]\\n    for i in range(1,m):\\n        for j in range(1,n):\\n            dp[i][j] = min(dp[i-1][j], dp[i][j-1])+grid[i][j]\\n    path = []\\n    i, j = m-1, n-1\\n    while i > 0 or j > 0:\\n        path.append(grid[i][j])\\n        if i == 0: j -= 1\\n        elif j == 0: i -= 1\\n        elif dp[i-1][j] < dp[i][j-1]: i -= 1\\n        else: j -= 1\\n    path.append(grid[0][0])\\n    return dp[m-1][n-1], path[::-1]\\n\\ns, p = min_path_route([[1,3,1],[1,5,1],[4,2,1]])\\nprint(s)\\nprint(p)",
+      },
+      exerciseCpp: {
+        prompt: "Find minimum path sum AND path.",
+        promptZh: "找最小路径和及路径。",
+        starterCode: "#include <iostream>\n#include <vector>\n#include <algorithm>\nusing namespace std;\n\nint main() {\n    vector<vector<int>> grid={{1,3,1},{1,5,1},{4,2,1}};\n    // Find min path sum and path\n    return 0;\n}",
+        expectedOutput: "7\n[1, 3, 1, 1, 1]",
+        hint: "Compute dp, backtrack from bottom-right.",
+        hintZh: "计算dp，从右下角回溯。",
+        solution: "#include <iostream>\n#include <vector>\n#include <algorithm>\nusing namespace std;\n\nint main() {\n    vector<vector<int>> g={{1,3,1},{1,5,1},{4,2,1}};\n    int m=3,n=3;\n    vector<vector<int>> dp(m,vector<int>(n));\n    dp[0][0]=g[0][0];\n    for(int i=1;i<m;i++)dp[i][0]=dp[i-1][0]+g[i][0];\n    for(int j=1;j<n;j++)dp[0][j]=dp[0][j-1]+g[0][j];\n    for(int i=1;i<m;i++)for(int j=1;j<n;j++)dp[i][j]=min(dp[i-1][j],dp[i][j-1])+g[i][j];\n    vector<int> path;int i=m-1,j=n-1;\n    while(i>0||j>0){path.push_back(g[i][j]);if(i==0)j--;else if(j==0)i--;else if(dp[i-1][j]<dp[i][j-1])i--;else j--;}\n    path.push_back(g[0][0]);reverse(path.begin(),path.end());\n    cout<<dp[m-1][n-1]<<endl;\n    cout<<'[';for(int k=0;k<(int)path.size();k++){if(k)cout<<\", \";cout<<path[k];}cout<<']'<<endl;\n    return 0;\n}",
+        language: "cpp",
       },
     },
     {
@@ -5432,6 +7033,42 @@ for node, neighbors in graph.items():
 print(f"\\n🌊 BFS from 'A':")
 result = bfs(graph, 'A')
 print(f"Visit order: {' → '.join(result)}")`,
+      codeCpp: `#include <iostream>
+#include <vector>
+#include <queue>
+#include <unordered_map>
+#include <unordered_set>
+#include <string>
+using namespace std;
+
+void bfs(unordered_map<string,vector<string>>& graph, const string& start) {
+    unordered_set<string> visited;
+    queue<string> q;
+    q.push(start); visited.insert(start);
+    int level = 0;
+    while (!q.empty()) {
+        int sz = q.size();
+        cout << "Level " << level << ": ";
+        for (int i=0;i<sz;i++) {
+            string node = q.front(); q.pop();
+            cout << node << " ";
+            for (auto& nbr : graph[node])
+                if (!visited.count(nbr)) { visited.insert(nbr); q.push(nbr); }
+        }
+        cout << endl;
+        level++;
+    }
+}
+
+int main() {
+    unordered_map<string,vector<string>> g = {
+        {"A",{"B","C"}},{"B",{"A","D","E"}},{"C",{"A","F"}},
+        {"D",{"B"}},{"E",{"B","F"}},{"F",{"C","E"}}
+    };
+    cout << "BFS from A:" << endl;
+    bfs(g, "A");
+    return 0;
+}`,
       exercise: {
         prompt: "Implement BFS returning visit order from node 0.",
         promptZh: "实现 BFS，返回从节点 0 开始的访问顺序。",
@@ -5440,6 +7077,16 @@ print(f"Visit order: {' → '.join(result)}")`,
         hint: "Queue + visited set. Dequeue, add to result, enqueue neighbors.",
         hintZh: "队列 + 已访问集合。出队，加入结果，邻居入队。",
         solution: "from collections import deque\\ndef bfs_order(graph, start):\\n    visited = set([start])\\n    queue = deque([start])\\n    order = []\\n    while queue:\\n        node = queue.popleft()\\n        order.append(node)\\n        for nbr in graph.get(node, []):\\n            if nbr not in visited:\\n                visited.add(nbr)\\n                queue.append(nbr)\\n    return order\\n\\ng = {0:[1,2], 1:[3], 2:[3,4], 3:[], 4:[]}\\nprint(bfs_order(g, 0))",
+      },
+      exerciseCpp: {
+        prompt: "Implement BFS returning visit order from node 0.",
+        promptZh: "实现BFS返回访问顺序。",
+        starterCode: "#include <iostream>\n#include <vector>\n#include <queue>\n#include <unordered_set>\nusing namespace std;\n\nvector<int> bfs_order(vector<vector<int>>& g, int start) {\n    // Your code here\n    return {};\n}\n\nint main() {\n    vector<vector<int>> g={{1,2},{3},{3,4},{},{}};\n    auto r=bfs_order(g,0);\n    cout<<'[';for(int i=0;i<(int)r.size();i++){if(i)cout<<\", \";cout<<r[i];}cout<<']'<<endl;\n    return 0;\n}",
+        expectedOutput: "[0, 1, 2, 3, 4]",
+        hint: "Queue + visited set.",
+        hintZh: "队列+已访问集合。",
+        solution: "#include <iostream>\n#include <vector>\n#include <queue>\n#include <unordered_set>\nusing namespace std;\n\nvector<int> bfs_order(vector<vector<int>>& g, int start) {\n    unordered_set<int> vis={start};queue<int> q;q.push(start);\n    vector<int> order;\n    while(!q.empty()){int n=q.front();q.pop();order.push_back(n);for(int nb:g[n])if(!vis.count(nb)){vis.insert(nb);q.push(nb);}}\n    return order;\n}\n\nint main() {\n    vector<vector<int>> g={{1,2},{3},{3,4},{},{}};\n    auto r=bfs_order(g,0);\n    cout<<'[';for(int i=0;i<(int)r.size();i++){if(i)cout<<\", \";cout<<r[i];}cout<<']'<<endl;\n    return 0;\n}",
+        language: "cpp",
       },
     },
     {
@@ -5527,6 +7174,48 @@ def bfs_order(graph, start):
 print(f"\\n📊 Comparison:")
 print(f"  BFS order: {' → '.join(bfs_order(graph, 'A'))}")
 print(f"  DFS order: {' → '.join(dfs_iterative(graph, 'A'))}")`,
+      codeCpp: `#include <iostream>
+#include <vector>
+#include <stack>
+#include <unordered_map>
+#include <unordered_set>
+#include <string>
+using namespace std;
+
+void dfs_recursive(unordered_map<string,vector<string>>& g, const string& node, unordered_set<string>& visited) {
+    visited.insert(node);
+    cout << "  Visiting: " << node << endl;
+    for (auto& nbr : g[node])
+        if (!visited.count(nbr)) dfs_recursive(g, nbr, visited);
+}
+
+void dfs_iterative(unordered_map<string,vector<string>>& g, const string& start) {
+    unordered_set<string> visited;
+    stack<string> stk;
+    stk.push(start);
+    cout << "\nIterative DFS:" << endl;
+    while (!stk.empty()) {
+        string node = stk.top(); stk.pop();
+        if (visited.count(node)) continue;
+        visited.insert(node);
+        cout << "  Visiting: " << node << endl;
+        auto& neighbors = g[node];
+        for (int i=neighbors.size()-1;i>=0;i--)
+            if (!visited.count(neighbors[i])) stk.push(neighbors[i]);
+    }
+}
+
+int main() {
+    unordered_map<string,vector<string>> g = {
+        {"A",{"B","C"}},{"B",{"A","D","E"}},{"C",{"A","F"}},
+        {"D",{"B"}},{"E",{"B","F"}},{"F",{"C","E"}}
+    };
+    cout << "Recursive DFS from A:" << endl;
+    unordered_set<string> visited;
+    dfs_recursive(g, "A", visited);
+    dfs_iterative(g, "A");
+    return 0;
+}`,
       exercise: {
         prompt: "Implement iterative DFS using a stack. Return visit order.",
         promptZh: "用栈实现迭代 DFS。返回访问顺序。",
@@ -5535,6 +7224,16 @@ print(f"  DFS order: {' → '.join(dfs_iterative(graph, 'A'))}")`,
         hint: "Stack. Pop, add if not visited, push neighbors (reversed).",
         hintZh: "栈。弹出，如果未访问则添加，压入邻居（反转）。",
         solution: "def dfs_iter(graph, start):\\n    visited = set()\\n    stack = [start]\\n    order = []\\n    while stack:\\n        node = stack.pop()\\n        if node not in visited:\\n            visited.add(node)\\n            order.append(node)\\n            for nbr in reversed(graph.get(node, [])):\\n                if nbr not in visited:\\n                    stack.append(nbr)\\n    return order\\n\\ng = {0:[1,2], 1:[3], 2:[3,4], 3:[], 4:[]}\\nprint(dfs_iter(g, 0))",
+      },
+      exerciseCpp: {
+        prompt: "Implement iterative DFS using a stack.",
+        promptZh: "用栈实现迭代DFS。",
+        starterCode: "#include <iostream>\n#include <vector>\n#include <stack>\n#include <unordered_set>\nusing namespace std;\n\nvector<int> dfs_iter(vector<vector<int>>& g, int start) {\n    // Your code here\n    return {};\n}\n\nint main() {\n    vector<vector<int>> g={{1,2},{3},{3,4},{},{}};\n    auto r=dfs_iter(g,0);\n    cout<<'[';for(int i=0;i<(int)r.size();i++){if(i)cout<<\", \";cout<<r[i];}cout<<']'<<endl;\n    return 0;\n}",
+        expectedOutput: "[0, 2, 4, 3, 1]",
+        hint: "Stack. Pop, push reversed neighbors.",
+        hintZh: "栈，弹出，反向压入邻居。",
+        solution: "#include <iostream>\n#include <vector>\n#include <stack>\n#include <unordered_set>\nusing namespace std;\n\nvector<int> dfs_iter(vector<vector<int>>& g, int start) {\n    unordered_set<int> vis;stack<int> stk;stk.push(start);\n    vector<int> order;\n    while(!stk.empty()){int n=stk.top();stk.pop();if(vis.count(n))continue;vis.insert(n);order.push_back(n);for(int i=g[n].size()-1;i>=0;i--)if(!vis.count(g[n][i]))stk.push(g[n][i]);}\n    return order;\n}\n\nint main() {\n    vector<vector<int>> g={{1,2},{3},{3,4},{},{}};\n    auto r=dfs_iter(g,0);\n    cout<<'[';for(int i=0;i<(int)r.size();i++){if(i)cout<<\", \";cout<<r[i];}cout<<']'<<endl;\n    return 0;\n}",
+        language: "cpp",
       },
     },
     {
@@ -5618,6 +7317,46 @@ for start, end in pairs:
     print(f"\\n🔗 {start} → {end}:")
     print(f"   Path: {' → '.join(path)}")
     print(f"   Degrees of separation: {len(path) - 1}")`,
+      codeCpp: `#include <iostream>
+#include <vector>
+#include <queue>
+#include <unordered_map>
+#include <unordered_set>
+#include <string>
+using namespace std;
+
+vector<string> shortest_path(unordered_map<string,vector<string>>& g, const string& start, const string& end) {
+    queue<pair<string,vector<string>>> q;
+    q.push({start, {start}});
+    unordered_set<string> visited = {start};
+    while (!q.empty()) {
+        auto [node, path] = q.front(); q.pop();
+        if (node == end) return path;
+        for (auto& nbr : g[node])
+            if (!visited.count(nbr)) {
+                visited.insert(nbr);
+                auto np = path; np.push_back(nbr);
+                q.push({nbr, np});
+            }
+    }
+    return {};
+}
+
+int main() {
+    unordered_map<string,vector<string>> g = {
+        {"A",{"B","C"}},{"B",{"A","D","E"}},{"C",{"A","F"}},
+        {"D",{"B"}},{"E",{"B","F"}},{"F",{"C","E"}}
+    };
+    auto p = shortest_path(g, "A", "F");
+    cout << "A → F: ";
+    for (int i=0;i<(int)p.size();i++){if(i)cout<<" → ";cout<<p[i];}
+    cout << " (length " << p.size()-1 << ")" << endl;
+    p = shortest_path(g, "D", "F");
+    cout << "D → F: ";
+    for (int i=0;i<(int)p.size();i++){if(i)cout<<" → ";cout<<p[i];}
+    cout << " (length " << p.size()-1 << ")" << endl;
+    return 0;
+}`,
       exercise: {
         prompt: "BFS to find shortest distance from node 0 to ALL nodes.",
         promptZh: "用 BFS 找到从节点 0 到所有节点的最短距离。",
@@ -5626,6 +7365,16 @@ for start, end in pairs:
         hint: "Track distance when first visiting each node.",
         hintZh: "首次访问时记录距离。",
         solution: "from collections import deque\\ndef bfs_distances(graph, start):\\n    dist = {start: 0}\\n    queue = deque([start])\\n    while queue:\\n        node = queue.popleft()\\n        for nbr in graph.get(node, []):\\n            if nbr not in dist:\\n                dist[nbr] = dist[node]+1\\n                queue.append(nbr)\\n    return dist\\n\\ng = {0:[1,2], 1:[0,3], 2:[0,3,4], 3:[1,2], 4:[2]}\\nprint(bfs_distances(g, 0))",
+      },
+      exerciseCpp: {
+        prompt: "BFS shortest distance from 0 to ALL nodes.",
+        promptZh: "BFS最短距离。",
+        starterCode: "#include <iostream>\n#include <vector>\n#include <queue>\n#include <map>\nusing namespace std;\n\nint main() {\n    vector<vector<int>> g={{1,2},{0,3},{0,3,4},{1,2},{2}};\n    // BFS distances from 0\n    return 0;\n}",
+        expectedOutput: "{0: 0, 1: 1, 2: 1, 3: 2, 4: 2}",
+        hint: "Track distance when first visiting.",
+        hintZh: "首次访问时记录距离。",
+        solution: "#include <iostream>\n#include <vector>\n#include <queue>\n#include <map>\nusing namespace std;\n\nint main() {\n    vector<vector<int>> g={{1,2},{0,3},{0,3,4},{1,2},{2}};\n    map<int,int> dist;dist[0]=0;queue<int> q;q.push(0);\n    while(!q.empty()){int n=q.front();q.pop();for(int nb:g[n])if(!dist.count(nb)){dist[nb]=dist[n]+1;q.push(nb);}}\n    cout<<'{';bool f=true;for(auto&[k,v]:dist){if(!f)cout<<\", \";f=false;cout<<k<<\": \"<<v;}cout<<'}'<<endl;\n    return 0;\n}",
+        language: "cpp",
       },
     },
     {
@@ -5854,6 +7603,39 @@ print(f"\\n📊 Shortest distances from A:")
 for node, dist in sorted(distances.items()):
     path = get_path(previous, 'A', node)
     print(f"  A → {node}: distance={dist}, path={' → '.join(path)}")`,
+      codeCpp: `#include <iostream>
+#include <queue>
+#include <unordered_map>
+#include <string>
+#include <climits>
+using namespace std;
+
+void dijkstra(unordered_map<string,vector<pair<string,int>>>& g, const string& start) {
+    unordered_map<string,int> dist;
+    for (auto& [n,_] : g) dist[n] = INT_MAX;
+    dist[start] = 0;
+    priority_queue<pair<int,string>, vector<pair<int,string>>, greater<>> pq;
+    pq.push({0, start});
+    while (!pq.empty()) {
+        auto [d, node] = pq.top(); pq.pop();
+        if (d > dist[node]) continue;
+        cout << "Processing " << node << " (dist: " << d << ")" << endl;
+        for (auto& [nbr, w] : g[node]) {
+            int nd = d + w;
+            if (nd < dist[nbr]) { dist[nbr] = nd; pq.push({nd, nbr}); }
+        }
+    }
+    cout << "\nShortest distances from " << start << ":" << endl;
+    for (auto& [n, d] : dist) cout << "  " << start << " → " << n << ": " << d << endl;
+}
+
+int main() {
+    unordered_map<string,vector<pair<string,int>>> g = {
+        {"A",{{"B",4},{"C",2}}},{"B",{{"D",3},{"C",1}}},{"C",{{"B",1},{"D",5}}},{"D",{}}
+    };
+    dijkstra(g, "A");
+    return 0;
+}`,
       exercise: {
         prompt: "Find shortest distances from 'A' to all nodes using Dijkstra.",
         promptZh: "用 Dijkstra 找从 'A' 到所有节点的最短距离。",
@@ -5862,6 +7644,16 @@ for node, dist in sorted(distances.items()):
         hint: "Min-heap. Pop smallest, update neighbors if shorter path found.",
         hintZh: "最小堆。弹出最小距离，更新邻居。",
         solution: "import heapq\\ndef dijkstra(graph, start):\\n    dist = {start: 0}\\n    heap = [(0, start)]\\n    while heap:\\n        d, node = heapq.heappop(heap)\\n        if d > dist.get(node, float('inf')): continue\\n        for nbr, w in graph.get(node, []):\\n            nd = d + w\\n            if nd < dist.get(nbr, float('inf')):\\n                dist[nbr] = nd\\n                heapq.heappush(heap, (nd, nbr))\\n    return dist\\n\\ng = {'A':[('B',1),('C',4)], 'B':[('C',2),('D',5)], 'C':[('D',1)], 'D':[]}\\nprint(dijkstra(g, 'A'))",
+      },
+      exerciseCpp: {
+        prompt: "Find shortest distances from 'A' to all nodes.",
+        promptZh: "Dijkstra最短距离。",
+        starterCode: "#include <iostream>\n#include <queue>\n#include <unordered_map>\n#include <string>\n#include <climits>\nusing namespace std;\n\nint main() {\n    // A->B(1),C(4); B->C(2),D(5); C->D(1)\n    return 0;\n}",
+        expectedOutput: "{'A': 0, 'B': 1, 'C': 3, 'D': 4}",
+        hint: "Min-heap. Pop smallest, update neighbors.",
+        hintZh: "最小堆。",
+        solution: "#include <iostream>\n#include <queue>\n#include <unordered_map>\n#include <string>\n#include <climits>\nusing namespace std;\n\nint main() {\n    unordered_map<string,vector<pair<string,int>>> g={{\"A\",{{\"B\",1},{\"C\",4}}},{\"B\",{{\"C\",2},{\"D\",5}}},{\"C\",{{\"D\",1}}},{\"D\",{}}};\n    unordered_map<string,int> dist;for(auto&[n,_]:g)dist[n]=INT_MAX;dist[\"A\"]=0;\n    priority_queue<pair<int,string>,vector<pair<int,string>>,greater<>> pq;pq.push({0,\"A\"});\n    while(!pq.empty()){auto[d,n]=pq.top();pq.pop();if(d>dist[n])continue;for(auto&[nb,w]:g[n]){int nd=d+w;if(nd<dist[nb]){dist[nb]=nd;pq.push({nd,nb});}}}\n    cout<<\"{'A': \"<<dist[\"A\"]<<\", 'B': \"<<dist[\"B\"]<<\", 'C': \"<<dist[\"C\"]<<\", 'D': \"<<dist[\"D\"]<<\"}\"<<endl;\n    return 0;\n}",
+        language: "cpp",
       },
     },
     {
@@ -5951,6 +7743,51 @@ destinations = ['School', 'Mall', 'Library', 'Theater', 'Gym', 'Park']
 for dest in destinations:
     dist, path = dijkstra_city(roads, 'Home', dest)
     print(f"  🏠→{dest}: {dist}km via {' → '.join(path)}")`,
+      codeCpp: `#include <iostream>
+#include <queue>
+#include <unordered_map>
+#include <string>
+#include <vector>
+#include <algorithm>
+#include <climits>
+using namespace std;
+
+pair<int,vector<string>> dijkstra_city(unordered_map<string,vector<pair<string,int>>>& roads, const string& start, const string& end) {
+    unordered_map<string,int> dist;
+    unordered_map<string,string> prev;
+    for (auto& [c,_] : roads) dist[c] = INT_MAX;
+    dist[start] = 0;
+    priority_queue<pair<int,string>,vector<pair<int,string>>,greater<>> pq;
+    pq.push({0, start});
+    while (!pq.empty()) {
+        auto [d, city] = pq.top(); pq.pop();
+        if (city == end) break;
+        if (d > dist[city]) continue;
+        for (auto& [nbr, w] : roads[city]) {
+            int nd = d+w;
+            if (nd < dist[nbr]) { dist[nbr]=nd; prev[nbr]=city; pq.push({nd,nbr}); }
+        }
+    }
+    vector<string> path;
+    for (string c=end; !c.empty(); c=prev.count(c)?prev[c]:"") path.push_back(c);
+    reverse(path.begin(), path.end());
+    return {dist[end], path};
+}
+
+int main() {
+    unordered_map<string,vector<pair<string,int>>> roads = {
+        {"Home",{{"Cafe",3},{"Park",5},{"School",10}}},
+        {"Cafe",{{"Home",3},{"School",4},{"Library",6}}},
+        {"Park",{{"Home",5},{"Library",2}}},
+        {"School",{{"Home",10},{"Cafe",4},{"Library",1}}},
+        {"Library",{{"Cafe",6},{"Park",2},{"School",1}}}
+    };
+    auto [d, p] = dijkstra_city(roads, "Home", "Library");
+    cout << "Distance: " << d << "\nPath: ";
+    for (int i=0;i<(int)p.size();i++){if(i)cout<<" → ";cout<<p[i];}
+    cout << endl;
+    return 0;
+}`,
       exercise: {
         prompt: "Modify Dijkstra to return the actual shortest PATH to a target.",
         promptZh: "修改 Dijkstra 返回到目标的实际最短路径。",
@@ -5959,6 +7796,16 @@ for dest in destinations:
         hint: "Track parent pointers. Backtrack from end to start.",
         hintZh: "跟踪父指针。从终点回溯到起点。",
         solution: "import heapq\\ndef dijkstra_path(graph, start, end):\\n    dist = {start: 0}\\n    parent = {start: None}\\n    heap = [(0, start)]\\n    while heap:\\n        d, node = heapq.heappop(heap)\\n        if node == end: break\\n        if d > dist.get(node, float('inf')): continue\\n        for nbr, w in graph.get(node, []):\\n            nd = d + w\\n            if nd < dist.get(nbr, float('inf')):\\n                dist[nbr] = nd\\n                parent[nbr] = node\\n                heapq.heappush(heap, (nd, nbr))\\n    path = []\\n    n = end\\n    while n is not None:\\n        path.append(n)\\n        n = parent.get(n)\\n    return dist[end], path[::-1]\\n\\ng = {'A':[('B',1),('C',4)], 'B':[('C',2),('D',5)], 'C':[('D',1)], 'D':[]}\\nd, p = dijkstra_path(g, 'A', 'D')\\nprint(d)\\nprint(p)",
+      },
+      exerciseCpp: {
+        prompt: "Modify Dijkstra to return actual shortest PATH.",
+        promptZh: "返回路径。",
+        starterCode: "#include <iostream>\n#include <queue>\n#include <unordered_map>\n#include <string>\n#include <vector>\n#include <algorithm>\n#include <climits>\nusing namespace std;\n\nint main() {\n    // Shortest path A to D\n    return 0;\n}",
+        expectedOutput: "4\n['A', 'B', 'C', 'D']",
+        hint: "Track parent pointers. Backtrack.",
+        hintZh: "跟踪父指针。",
+        solution: "#include <iostream>\n#include <queue>\n#include <unordered_map>\n#include <string>\n#include <vector>\n#include <algorithm>\n#include <climits>\nusing namespace std;\n\nint main() {\n    unordered_map<string,vector<pair<string,int>>> g={{\"A\",{{\"B\",1},{\"C\",4}}},{\"B\",{{\"C\",2},{\"D\",5}}},{\"C\",{{\"D\",1}}},{\"D\",{}}};\n    unordered_map<string,int> dist;unordered_map<string,string> prev;\n    for(auto&[n,_]:g)dist[n]=INT_MAX;dist[\"A\"]=0;\n    priority_queue<pair<int,string>,vector<pair<int,string>>,greater<>> pq;pq.push({0,\"A\"});\n    while(!pq.empty()){auto[d,n]=pq.top();pq.pop();if(n==\"D\")break;if(d>dist[n])continue;for(auto&[nb,w]:g[n]){int nd=d+w;if(nd<dist[nb]){dist[nb]=nd;prev[nb]=n;pq.push({nd,nb});}}}\n    vector<string> path;string c=\"D\";while(!c.empty()){path.push_back(c);c=prev.count(c)?prev[c]:\"\";}\n    reverse(path.begin(),path.end());\n    cout<<dist[\"D\"]<<endl;\n    cout<<\"['\";for(int i=0;i<(int)path.size();i++){if(i)cout<<\"', '\";cout<<path[i];}cout<<\"']\"<<endl;\n    return 0;\n}",
+        language: "cpp",
       },
     },
     {
@@ -6205,6 +8052,41 @@ for course, prereqs in courses.items():
 print(f"\\n📋 Topological Sort (valid course order):")
 order = topological_sort_kahn(courses, all_courses)
 print(f"\\n✅ Valid order: {' → '.join(order)}")`,
+      codeCpp: `#include <iostream>
+#include <queue>
+#include <unordered_map>
+#include <string>
+#include <vector>
+using namespace std;
+
+vector<string> topo_sort_kahn(unordered_map<string,vector<string>>& g, vector<string>& nodes) {
+    unordered_map<string,int> in_deg;
+    for (auto& n : nodes) in_deg[n] = 0;
+    for (auto& [n, nbrs] : g) for (auto& nb : nbrs) in_deg[nb]++;
+    queue<string> q;
+    for (auto& n : nodes) if (in_deg[n]==0) q.push(n);
+    vector<string> order;
+    while (!q.empty()) {
+        string node = q.front(); q.pop();
+        order.push_back(node);
+        cout << "Process: " << node << " (in-degree 0)" << endl;
+        for (auto& nb : g[node]) if (--in_deg[nb]==0) q.push(nb);
+    }
+    return order;
+}
+
+int main() {
+    unordered_map<string,vector<string>> g = {
+        {"Math",{"Physics","CS"}},{"Physics",{"AI"}},{"CS",{"AI","Web"}},
+        {"AI",{}},{"Web",{}},{"English",{}}
+    };
+    vector<string> nodes = {"Math","Physics","CS","AI","Web","English"};
+    auto order = topo_sort_kahn(g, nodes);
+    cout << "\nOrder: ";
+    for (auto& n : order) cout << n << " → ";
+    cout << "Done!" << endl;
+    return 0;
+}`,
       exercise: {
         prompt: "Implement Kahn's algorithm for topological sort.",
         promptZh: "实现 Kahn 拓扑排序算法。",
@@ -6213,6 +8095,16 @@ print(f"\\n✅ Valid order: {' → '.join(order)}")`,
         hint: "Build in-degree array. Start with in-degree 0 nodes. Process queue.",
         hintZh: "建立入度数组。从入度 0 的节点开始。",
         solution: "from collections import deque\\ndef topo_sort(n, edges):\\n    adj = [[] for _ in range(n)]\\n    indeg = [0]*n\\n    for u, v in edges:\\n        adj[u].append(v)\\n        indeg[v] += 1\\n    q = deque([i for i in range(n) if indeg[i] == 0])\\n    order = []\\n    while q:\\n        node = q.popleft()\\n        order.append(node)\\n        for nbr in adj[node]:\\n            indeg[nbr] -= 1\\n            if indeg[nbr] == 0: q.append(nbr)\\n    return order\\n\\nprint(topo_sort(4, [(0,1),(0,2),(1,3),(2,3)]))",
+      },
+      exerciseCpp: {
+        prompt: "Implement Kahn's topological sort.",
+        promptZh: "实现Kahn拓扑排序。",
+        starterCode: "#include <iostream>\n#include <vector>\n#include <queue>\nusing namespace std;\n\nvector<int> topo_sort(int n, vector<pair<int,int>>& edges) {\n    // Your code here\n    return {};\n}\n\nint main() {\n    vector<pair<int,int>> e={{0,1},{0,2},{1,3},{2,3}};\n    auto r=topo_sort(4,e);\n    cout<<'[';for(int i=0;i<(int)r.size();i++){if(i)cout<<\", \";cout<<r[i];}cout<<']'<<endl;\n    return 0;\n}",
+        expectedOutput: "[0, 1, 2, 3]",
+        hint: "In-degree array. Start with 0-degree nodes.",
+        hintZh: "入度数组。",
+        solution: "#include <iostream>\n#include <vector>\n#include <queue>\nusing namespace std;\n\nvector<int> topo_sort(int n, vector<pair<int,int>>& edges) {\n    vector<vector<int>> adj(n);vector<int> indeg(n,0);\n    for(auto&[u,v]:edges){adj[u].push_back(v);indeg[v]++;}\n    queue<int> q;for(int i=0;i<n;i++)if(!indeg[i])q.push(i);\n    vector<int> order;while(!q.empty()){int node=q.front();q.pop();order.push_back(node);for(int nb:adj[node])if(--indeg[nb]==0)q.push(nb);}\n    return order;\n}\n\nint main() {\n    vector<pair<int,int>> e={{0,1},{0,2},{1,3},{2,3}};\n    auto r=topo_sort(4,e);\n    cout<<'[';for(int i=0;i<(int)r.size();i++){if(i)cout<<\", \";cout<<r[i];}cout<<']'<<endl;\n    return 0;\n}",
+        language: "cpp",
       },
     },
     {
@@ -6297,6 +8189,46 @@ cyclic = {
 result = topological_sort_dfs(cyclic, ['A', 'B', 'C'])
 if result is None:
     print("  ⚠️ Cycle detected! Topological sort impossible!")`,
+      codeCpp: `#include <iostream>
+#include <unordered_map>
+#include <unordered_set>
+#include <string>
+#include <vector>
+#include <algorithm>
+#include <functional>
+using namespace std;
+
+vector<string> topo_sort_dfs(unordered_map<string,vector<string>>& g, vector<string>& nodes) {
+    unordered_set<string> visited, in_progress;
+    vector<string> result;
+    bool has_cycle = false;
+    function<void(const string&)> dfs = [&](const string& node) {
+        if (in_progress.count(node)) { has_cycle=true; return; }
+        if (visited.count(node)) return;
+        in_progress.insert(node);
+        for (auto& nb : g[node]) dfs(nb);
+        in_progress.erase(node);
+        visited.insert(node);
+        result.push_back(node);
+    };
+    for (auto& n : nodes) if (!visited.count(n)) dfs(n);
+    if (has_cycle) { cout << "Cycle detected!" << endl; return {}; }
+    reverse(result.begin(), result.end());
+    return result;
+}
+
+int main() {
+    unordered_map<string,vector<string>> g = {
+        {"Math",{"Physics","CS"}},{"Physics",{"AI"}},{"CS",{"AI","Web"}},
+        {"AI",{}},{"Web",{}},{"English",{}}
+    };
+    vector<string> nodes = {"Math","Physics","CS","AI","Web","English"};
+    auto order = topo_sort_dfs(g, nodes);
+    cout << "DFS Topo Sort: ";
+    for (auto& n : order) cout << n << " → ";
+    cout << "Done!" << endl;
+    return 0;
+}`,
       exercise: {
         prompt: "Implement DFS-based topological sort with post-order reversal.",
         promptZh: "用后序遍历反转实现 DFS 拓扑排序。",
@@ -6305,6 +8237,16 @@ if result is None:
         hint: "DFS each unvisited node. Append after visiting all neighbors. Reverse.",
         hintZh: "DFS 每个未访问节点。访问完邻居后添加。反转。",
         solution: "def topo_dfs(n, edges):\\n    adj = [[] for _ in range(n)]\\n    for u, v in edges: adj[u].append(v)\\n    visited = set()\\n    stack = []\\n    def dfs(node):\\n        visited.add(node)\\n        for nbr in adj[node]:\\n            if nbr not in visited: dfs(nbr)\\n        stack.append(node)\\n    for i in range(n):\\n        if i not in visited: dfs(i)\\n    return stack[::-1]\\n\\nprint(topo_dfs(4, [(0,1),(0,2),(1,3),(2,3)]))",
+      },
+      exerciseCpp: {
+        prompt: "Implement DFS-based topological sort.",
+        promptZh: "DFS拓扑排序。",
+        starterCode: "#include <iostream>\n#include <vector>\n#include <algorithm>\n#include <unordered_set>\n#include <functional>\nusing namespace std;\n\nvector<int> topo_dfs(int n, vector<pair<int,int>>& edges) {\n    // Your code here\n    return {};\n}\n\nint main() {\n    vector<pair<int,int>> e={{0,1},{0,2},{1,3},{2,3}};\n    auto r=topo_dfs(4,e);\n    cout<<'[';for(int i=0;i<(int)r.size();i++){if(i)cout<<\", \";cout<<r[i];}cout<<']'<<endl;\n    return 0;\n}",
+        expectedOutput: "[0, 2, 1, 3]",
+        hint: "DFS + post-order reversal.",
+        hintZh: "DFS+后序反转。",
+        solution: "#include <iostream>\n#include <vector>\n#include <algorithm>\n#include <unordered_set>\n#include <functional>\nusing namespace std;\n\nvector<int> topo_dfs(int n, vector<pair<int,int>>& edges) {\n    vector<vector<int>> adj(n);for(auto&[u,v]:edges)adj[u].push_back(v);\n    unordered_set<int> vis;vector<int> stk;\n    function<void(int)> dfs=[&](int node){vis.insert(node);for(int nb:adj[node])if(!vis.count(nb))dfs(nb);stk.push_back(node);};\n    for(int i=0;i<n;i++)if(!vis.count(i))dfs(i);\n    reverse(stk.begin(),stk.end());return stk;\n}\n\nint main() {\n    vector<pair<int,int>> e={{0,1},{0,2},{1,3},{2,3}};\n    auto r=topo_dfs(4,e);\n    cout<<'[';for(int i=0;i<(int)r.size();i++){if(i)cout<<\", \";cout<<r[i];}cout<<']'<<endl;\n    return 0;\n}",
+        language: "cpp",
       },
     },
     {
@@ -6528,6 +8470,39 @@ processes = {
     'R2': ['P1'],  # R2 held by P1 → DEADLOCK!
 }
 print(f"  Deadlock: {has_cycle(processes, ['P1','R1','P2','R2'])}")`,
+      codeCpp: `#include <iostream>
+#include <unordered_map>
+#include <string>
+#include <vector>
+#include <functional>
+using namespace std;
+
+bool has_cycle(unordered_map<string,vector<string>>& g, vector<string>& nodes) {
+    enum { WHITE, GRAY, BLACK };
+    unordered_map<string,int> color;
+    for (auto& n : nodes) color[n] = WHITE;
+    function<bool(const string&)> dfs = [&](const string& node) -> bool {
+        color[node] = GRAY;
+        for (auto& nb : g[node]) {
+            if (color[nb]==GRAY) { cout << "  Cycle: " << node << " → " << nb << endl; return true; }
+            if (color[nb]==WHITE && dfs(nb)) return true;
+        }
+        color[node] = BLACK;
+        return false;
+    };
+    for (auto& n : nodes) if (color[n]==WHITE && dfs(n)) return true;
+    return false;
+}
+
+int main() {
+    unordered_map<string,vector<string>> g1 = {{"A",{"B","C"}},{"B",{"D"}},{"C",{"D"}},{"D",{}}};
+    vector<string> n1 = {"A","B","C","D"};
+    cout << "Graph 1: " << (has_cycle(g1,n1)?"Has cycle":"No cycle") << endl;
+    unordered_map<string,vector<string>> g2 = {{"A",{"B"}},{"B",{"C"}},{"C",{"A"}}};
+    vector<string> n2 = {"A","B","C"};
+    cout << "\nGraph 2: " << (has_cycle(g2,n2)?"Has cycle":"No cycle") << endl;
+    return 0;
+}`,
       exercise: {
         prompt: "Detect if an undirected graph has a cycle using DFS.",
         promptZh: "用 DFS 检测无向图是否有环。",
@@ -6536,6 +8511,16 @@ print(f"  Deadlock: {has_cycle(processes, ['P1','R1','P2','R2'])}")`,
         hint: "DFS with parent tracking. Visited neighbor ≠ parent → cycle!",
         hintZh: "带父节点跟踪的 DFS。已访问邻居 ≠ 父节点 → 有环！",
         solution: "def has_cycle(n, edges):\\n    adj = [[] for _ in range(n)]\\n    for u, v in edges:\\n        adj[u].append(v); adj[v].append(u)\\n    visited = set()\\n    def dfs(node, parent):\\n        visited.add(node)\\n        for nbr in adj[node]:\\n            if nbr not in visited:\\n                if dfs(nbr, node): return True\\n            elif nbr != parent: return True\\n        return False\\n    for i in range(n):\\n        if i not in visited:\\n            if dfs(i, -1): return True\\n    return False\\n\\nprint(has_cycle(4, [(0,1),(1,2),(2,3)]))\\nprint(has_cycle(4, [(0,1),(1,2),(2,3),(3,0)]))",
+      },
+      exerciseCpp: {
+        prompt: "Detect if undirected graph has a cycle.",
+        promptZh: "检测无向图环。",
+        starterCode: "#include <iostream>\n#include <vector>\n#include <unordered_set>\n#include <functional>\nusing namespace std;\n\nbool has_cycle(int n, vector<pair<int,int>>& edges) {\n    // Your code here\n    return false;\n}\n\nint main() {\n    vector<pair<int,int>> e1={{0,1},{1,2},{2,3}};\n    cout<<(has_cycle(4,e1)?\"True\":\"False\")<<endl;\n    vector<pair<int,int>> e2={{0,1},{1,2},{2,3},{3,0}};\n    cout<<(has_cycle(4,e2)?\"True\":\"False\")<<endl;\n    return 0;\n}",
+        expectedOutput: "False\nTrue",
+        hint: "DFS with parent tracking.",
+        hintZh: "带父节点DFS。",
+        solution: "#include <iostream>\n#include <vector>\n#include <unordered_set>\n#include <functional>\nusing namespace std;\n\nbool has_cycle(int n, vector<pair<int,int>>& edges) {\n    vector<vector<int>> adj(n);for(auto&[u,v]:edges){adj[u].push_back(v);adj[v].push_back(u);}\n    unordered_set<int> vis;\n    function<bool(int,int)> dfs=[&](int node,int par)->bool{vis.insert(node);for(int nb:adj[node]){if(!vis.count(nb)){if(dfs(nb,node))return true;}else if(nb!=par)return true;}return false;};\n    for(int i=0;i<n;i++)if(!vis.count(i)&&dfs(i,-1))return true;\n    return false;\n}\n\nint main() {\n    vector<pair<int,int>> e1={{0,1},{1,2},{2,3}};\n    cout<<(has_cycle(4,e1)?\"True\":\"False\")<<endl;\n    vector<pair<int,int>> e2={{0,1},{1,2},{2,3},{3,0}};\n    cout<<(has_cycle(4,e2)?\"True\":\"False\")<<endl;\n    return 0;\n}",
+        language: "cpp",
       },
     },
     {
@@ -6610,6 +8595,36 @@ triangle = {
 }
 result, _ = is_bipartite(triangle)
 print(f"  Bipartite: {result}")`,
+      codeCpp: `#include <iostream>
+#include <queue>
+#include <unordered_map>
+#include <string>
+using namespace std;
+
+bool is_bipartite(unordered_map<string,vector<string>>& g) {
+    unordered_map<string,int> color;
+    for (auto& [start, _] : g) {
+        if (color.count(start)) continue;
+        queue<string> q;
+        q.push(start); color[start] = 0;
+        while (!q.empty()) {
+            string node = q.front(); q.pop();
+            for (auto& nb : g[node]) {
+                if (!color.count(nb)) { color[nb] = 1-color[node]; q.push(nb); }
+                else if (color[nb]==color[node]) { cout << "  Conflict: " << node << " & " << nb << endl; return false; }
+            }
+        }
+    }
+    return true;
+}
+
+int main() {
+    unordered_map<string,vector<string>> g1 = {{"A",{"B","D"}},{"B",{"A","C"}},{"C",{"B","D"}},{"D",{"A","C"}}};
+    cout << "Square: " << (is_bipartite(g1)?"✅ Bipartite":"❌ Not bipartite") << endl;
+    unordered_map<string,vector<string>> g2 = {{"A",{"B","C"}},{"B",{"A","C"}},{"C",{"A","B"}}};
+    cout << "Triangle: " << (is_bipartite(g2)?"✅ Bipartite":"❌ Not bipartite") << endl;
+    return 0;
+}`,
       exercise: {
         prompt: "Check if a graph is bipartite using BFS coloring.",
         promptZh: "用 BFS 着色检查图是否二部图。",
@@ -6618,6 +8633,16 @@ print(f"  Bipartite: {result}")`,
         hint: "Color neighbors with opposite color. Conflict → not bipartite.",
         hintZh: "给邻居着相反颜色。冲突 → 不是二部图。",
         solution: "from collections import deque\\ndef is_bipartite(n, edges):\\n    adj = [[] for _ in range(n)]\\n    for u, v in edges:\\n        adj[u].append(v); adj[v].append(u)\\n    color = [-1]*n\\n    for s in range(n):\\n        if color[s] != -1: continue\\n        color[s] = 0\\n        q = deque([s])\\n        while q:\\n            node = q.popleft()\\n            for nbr in adj[node]:\\n                if color[nbr] == -1:\\n                    color[nbr] = 1 - color[node]\\n                    q.append(nbr)\\n                elif color[nbr] == color[node]: return False\\n    return True\\n\\nprint(is_bipartite(4, [(0,1),(1,2),(2,3)]))\\nprint(is_bipartite(3, [(0,1),(1,2),(2,0)]))",
+      },
+      exerciseCpp: {
+        prompt: "Check if graph is bipartite.",
+        promptZh: "检查二部图。",
+        starterCode: "#include <iostream>\n#include <vector>\n#include <queue>\nusing namespace std;\n\nbool is_bipartite(int n, vector<pair<int,int>>& edges) {\n    // Your code here\n    return true;\n}\n\nint main() {\n    vector<pair<int,int>> e1={{0,1},{1,2},{2,3}};\n    cout<<(is_bipartite(4,e1)?\"True\":\"False\")<<endl;\n    vector<pair<int,int>> e2={{0,1},{1,2},{2,0}};\n    cout<<(is_bipartite(3,e2)?\"True\":\"False\")<<endl;\n    return 0;\n}",
+        expectedOutput: "True\nFalse",
+        hint: "Color neighbors oppositely. Conflict = not bipartite.",
+        hintZh: "相反颜色着色。",
+        solution: "#include <iostream>\n#include <vector>\n#include <queue>\nusing namespace std;\n\nbool is_bipartite(int n, vector<pair<int,int>>& edges) {\n    vector<vector<int>> adj(n);for(auto&[u,v]:edges){adj[u].push_back(v);adj[v].push_back(u);}\n    vector<int> color(n,-1);\n    for(int s=0;s<n;s++){if(color[s]!=-1)continue;color[s]=0;queue<int> q;q.push(s);\n    while(!q.empty()){int node=q.front();q.pop();for(int nb:adj[node]){if(color[nb]==-1){color[nb]=1-color[node];q.push(nb);}else if(color[nb]==color[node])return false;}}}\n    return true;\n}\n\nint main() {\n    vector<pair<int,int>> e1={{0,1},{1,2},{2,3}};\n    cout<<(is_bipartite(4,e1)?\"True\":\"False\")<<endl;\n    vector<pair<int,int>> e2={{0,1},{1,2},{2,0}};\n    cout<<(is_bipartite(3,e2)?\"True\":\"False\")<<endl;\n    return 0;\n}",
+        language: "cpp",
       },
     },
     {
@@ -6710,6 +8735,57 @@ print("  👥 Facebook — friend suggestions")
 print("  🎮 Game AI — pathfinding (A*)")
 print("  🧬 Bioinformatics — protein networks")
 print("  📦 Amazon — delivery optimization")`,
+      codeCpp: `#include <iostream>
+#include <vector>
+#include <queue>
+#include <tuple>
+using namespace std;
+
+int count_islands(vector<vector<int>> grid) {
+    if (grid.empty()) return 0;
+    int rows=grid.size(), cols=grid[0].size(), count=0;
+    int dx[]={0,0,1,-1}, dy[]={1,-1,0,0};
+    for (int i=0;i<rows;i++)
+        for (int j=0;j<cols;j++)
+            if (grid[i][j]==1) {
+                count++;
+                queue<pair<int,int>> q;
+                q.push({i,j}); grid[i][j]=0;
+                while (!q.empty()) {
+                    auto [r,c] = q.front(); q.pop();
+                    for (int d=0;d<4;d++) {
+                        int nr=r+dx[d], nc=c+dy[d];
+                        if (nr>=0&&nr<rows&&nc>=0&&nc<cols&&grid[nr][nc]==1)
+                            { grid[nr][nc]=0; q.push({nr,nc}); }
+                    }
+                }
+            }
+    return count;
+}
+
+int shortest_maze(vector<vector<int>> maze) {
+    int rows=maze.size(), cols=maze[0].size();
+    if (maze[0][0]==1||maze[rows-1][cols-1]==1) return -1;
+    queue<tuple<int,int,int>> q;
+    q.push({0,0,1}); maze[0][0]=1;
+    int dx[]={0,0,1,-1}, dy[]={1,-1,0,0};
+    while (!q.empty()) {
+        auto [r,c,dist] = q.front(); q.pop();
+        if (r==rows-1&&c==cols-1) return dist;
+        for (int d=0;d<4;d++) {
+            int nr=r+dx[d], nc=c+dy[d];
+            if (nr>=0&&nr<rows&&nc>=0&&nc<cols&&maze[nr][nc]==0)
+                { maze[nr][nc]=1; q.push({nr,nc,dist+1}); }
+        }
+    }
+    return -1;
+}
+
+int main() {
+    cout << "Islands: " << count_islands({{1,1,0,0,0},{1,1,0,0,0},{0,0,1,0,0},{0,0,0,1,1}}) << endl;
+    cout << "Shortest maze path: " << shortest_maze({{0,0,1,0},{0,0,0,0},{0,1,1,0},{0,0,0,0}}) << endl;
+    return 0;
+}`,
       exercise: {
         prompt: "Count connected components in an undirected graph using DFS.",
         promptZh: "用 DFS 计算无向图的连通分量数。",
@@ -6718,6 +8794,16 @@ print("  📦 Amazon — delivery optimization")`,
         hint: "DFS from each unvisited node. Each DFS call = one component.",
         hintZh: "从每个未访问节点 DFS。每次 = 一个连通分量。",
         solution: "def count_components(n, edges):\\n    adj = [[] for _ in range(n)]\\n    for u, v in edges:\\n        adj[u].append(v); adj[v].append(u)\\n    visited = set()\\n    count = 0\\n    def dfs(node):\\n        visited.add(node)\\n        for nbr in adj[node]:\\n            if nbr not in visited: dfs(nbr)\\n    for i in range(n):\\n        if i not in visited:\\n            dfs(i); count += 1\\n    return count\\n\\nprint(count_components(5, [(0,1),(2,3)]))\\nprint(count_components(4, [(0,1),(1,2),(2,3)]))",
+      },
+      exerciseCpp: {
+        prompt: "Count connected components using DFS.",
+        promptZh: "计算连通分量数。",
+        starterCode: "#include <iostream>\n#include <vector>\n#include <unordered_set>\n#include <functional>\nusing namespace std;\n\nint count_comp(int n, vector<pair<int,int>>& edges) {\n    // Your code here\n    return 0;\n}\n\nint main() {\n    vector<pair<int,int>> e1={{0,1},{2,3}};\n    cout<<count_comp(5,e1)<<endl;\n    vector<pair<int,int>> e2={{0,1},{1,2},{2,3}};\n    cout<<count_comp(4,e2)<<endl;\n    return 0;\n}",
+        expectedOutput: "3\n1",
+        hint: "DFS from each unvisited = one component.",
+        hintZh: "每次DFS=一个连通分量。",
+        solution: "#include <iostream>\n#include <vector>\n#include <unordered_set>\n#include <functional>\nusing namespace std;\n\nint count_comp(int n, vector<pair<int,int>>& edges) {\n    vector<vector<int>> adj(n);for(auto&[u,v]:edges){adj[u].push_back(v);adj[v].push_back(u);}\n    unordered_set<int> vis;int count=0;\n    function<void(int)> dfs=[&](int node){vis.insert(node);for(int nb:adj[node])if(!vis.count(nb))dfs(nb);};\n    for(int i=0;i<n;i++)if(!vis.count(i)){dfs(i);count++;}\n    return count;\n}\n\nint main() {\n    vector<pair<int,int>> e1={{0,1},{2,3}};\n    cout<<count_comp(5,e1)<<endl;\n    vector<pair<int,int>> e2={{0,1},{1,2},{2,3}};\n    cout<<count_comp(4,e2)<<endl;\n    return 0;\n}",
+        language: "cpp",
       },
     },
     {
