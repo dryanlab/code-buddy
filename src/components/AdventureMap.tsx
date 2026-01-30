@@ -124,7 +124,7 @@ function HotspotOverlay({
         whileHover={{ scale: 1.15 }}
         whileTap={{ scale: 0.95 }}
         className="relative w-full h-full rounded-full cursor-pointer flex items-center justify-center group"
-        style={{ opacity: isFuture ? 0.5 : 1 }}
+        style={{ opacity: 1 }}
       >
         <div
           className="absolute inset-[-30%] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
