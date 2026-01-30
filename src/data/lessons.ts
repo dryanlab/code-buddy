@@ -4090,6 +4090,66 @@ print("\n🔒 Mission assignment complete!")
 🤖 Botty says: "AI models are saved as giant files - that's how ChatGPT remembers its training!"`,
       },
       {
+        type: "concept",
+        emoji: "📖",
+        content: "New Syntax: File I/O — Permanent Memory",
+        concept: {
+          title: "💾 New Syntax: File I/O — Permanent Memory",
+          titleZh: "新语法：文件读写 — 永久记忆",
+          syntaxCards: [
+            {
+              symbol: 'open(file, "w")',
+              name: "Open for Writing",
+              nameZh: "打开写入",
+              emoji: "✍️",
+              description: "Like opening a blank notebook ✍️ — creates a new file (or erases the old one!) and lets you write into it.",
+              example: 'f = open("scores.txt", "w")\nf.write("Alice,100")\nf.close()',
+            },
+            {
+              symbol: 'open(file, "r")',
+              name: "Open for Reading",
+              nameZh: "打开读取",
+              emoji: "📖",
+              description: "Like opening a book 📖 — reads what's already written in the file.",
+              example: 'f = open("scores.txt", "r")\ndata = f.read()\nf.close()',
+            },
+            {
+              symbol: 'open(file, "a")',
+              name: "Open for Appending",
+              nameZh: "打开追加",
+              emoji: "➕",
+              description: "Like adding pages to a diary ➕ — adds new content to the END without erasing existing data!",
+              example: 'f = open("scores.txt", "a")\nf.write("Bob,200\\n")',
+            },
+            {
+              symbol: "with open(...) as f:",
+              name: "With Statement (auto-close)",
+              nameZh: "with 语句（自动关闭）",
+              emoji: "🛡️",
+              description: "The safe way 🛡️ — automatically closes the file when done, even if an error happens. Always use this!",
+              example: 'with open("scores.txt", "r") as f:\n    data = f.read()\n# File auto-closed here!',
+            },
+            {
+              symbol: "try: ... except:",
+              name: "Error Handling",
+              nameZh: "错误处理",
+              emoji: "🦺",
+              description: "A safety net 🦺 — catches errors (like missing files) so your program doesn't crash!",
+              example: "try:\n    f = open('data.txt')\nexcept FileNotFoundError:\n    print('File missing!')",
+            },
+          ],
+          codeAnatomy: {
+            lines: [
+              { code: 'with open("hall_of_fame.txt", "a") as f:', explanation: "Open file in append mode — add without erasing!", explanationZh: "以追加模式打开文件 — 添加不会删除已有内容！" },
+              { code: '    f.write(f"{name},{score}\\n")', explanation: "Write player name and score, \\n = new line.", explanationZh: "写入玩家名和分数，\\n = 换行" },
+              { code: 'with open("hall_of_fame.txt", "r") as f:', explanation: "Open same file in read mode to view scores.", explanationZh: "以读取模式打开同一文件查看分数" },
+              { code: "    for line in f:", explanation: "Loop through each line in the file.", explanationZh: "逐行遍历文件" },
+              { code: '        parts = line.strip().split(",")', explanation: "Remove whitespace, split by comma into a list.", explanationZh: "去除空白，按逗号分割成列表" },
+            ],
+          },
+        },
+      },
+      {
         type: "interactive",
         content: `## 🎯 High Score System Design Challenge!
 
@@ -4458,6 +4518,51 @@ while True:
 **🐍 Py:** "Now you're hunting more complex bugs in larger programs!"`,
       },
       {
+        type: "concept",
+        emoji: "📖",
+        content: "New Syntax: Debugging Techniques",
+        concept: {
+          title: "🐛 New Syntax: Debugging Techniques",
+          titleZh: "新语法：调试技巧",
+          syntaxCards: [
+            {
+              symbol: "print(variable)",
+              name: "Print Debugging",
+              nameZh: "打印调试",
+              emoji: "🔦",
+              description: "Like a flashlight in the dark 🔦 — add print() to see what your variables actually hold at each step!",
+              example: "x = calculate()\nprint(f'DEBUG: x = {x}')  # See the value!",
+            },
+            {
+              symbol: "assert condition",
+              name: "Assert (self-check)",
+              nameZh: "断言（自检）",
+              emoji: "✅",
+              description: "A tripwire 🪤 — crashes ON PURPOSE if something is wrong. Catches bugs early!",
+              example: "assert len(items) > 0, 'List is empty!'\nassert age >= 0, 'Age cannot be negative!'",
+            },
+            {
+              symbol: "type(variable)",
+              name: "Type Check",
+              nameZh: "类型检查",
+              emoji: "🏷️",
+              description: "Like checking an ingredient label 🏷️ — tells you what TYPE a variable is (str, int, list...).",
+              example: "print(type(x))  # <class 'int'>\nprint(type('hi'))  # <class 'str'>",
+            },
+          ],
+          codeAnatomy: {
+            lines: [
+              { code: "def divide(a, b):", explanation: "A function that might have a bug...", explanationZh: "一个可能有 bug 的函数..." },
+              { code: "    print(f'DEBUG: a={a}, b={b}')", explanation: "Step 1: Print inputs to see what we received.", explanationZh: "第 1 步：打印输入查看收到了什么" },
+              { code: "    assert b != 0, 'Cannot divide by zero!'", explanation: "Step 2: Assert catches bad inputs before they cause errors.", explanationZh: "第 2 步：断言在错误发生前捕获坏输入" },
+              { code: "    result = a / b", explanation: "The actual calculation.", explanationZh: "实际的计算" },
+              { code: "    print(f'DEBUG: result={result}')", explanation: "Step 3: Check the output looks correct.", explanationZh: "第 3 步：检查输出是否正确" },
+              { code: "    return result", explanation: "Return the verified result.", explanationZh: "返回验证过的结果" },
+            ],
+          },
+        },
+      },
+      {
         type: "quiz",
         content: "🔍 Bug Detective Quiz!",
         quiz: [
@@ -4493,6 +4598,58 @@ while True:
 **🐍 Py:** "try-except statements catch errors before they crash your program!"`,
       },
       {
+        type: "concept",
+        emoji: "📖",
+        content: "New Syntax: Exception Handling",
+        concept: {
+          title: "🛡️ New Syntax: Exception Handling",
+          titleZh: "新语法：异常处理",
+          syntaxCards: [
+            {
+              symbol: "try:",
+              name: "Try Block",
+              nameZh: "尝试块",
+              emoji: "🤞",
+              description: "Like wearing a seatbelt 🤞 — 'try this code, but be ready if something goes wrong!'",
+              example: "try:\n    num = int(input('Number: '))",
+            },
+            {
+              symbol: "except ErrorType:",
+              name: "Except (catch error)",
+              nameZh: "捕获异常",
+              emoji: "🥅",
+              description: "The safety net 🥅 — catches specific errors and handles them gracefully instead of crashing!",
+              example: "except ValueError:\n    print('That is not a number!')",
+            },
+            {
+              symbol: "finally:",
+              name: "Finally (always runs)",
+              nameZh: "最终（总是执行）",
+              emoji: "🏁",
+              description: "The cleanup crew 🧹 — runs NO MATTER WHAT, error or not. Perfect for closing files!",
+              example: "finally:\n    file.close()\n    print('Cleanup done!')",
+            },
+            {
+              symbol: "raise Error('msg')",
+              name: "Raise (throw error)",
+              nameZh: "抛出异常",
+              emoji: "🚨",
+              description: "Pull the alarm 🚨 — YOU create an error on purpose when something shouldn't happen!",
+              example: "if age < 0:\n    raise ValueError('Age cannot be negative!')",
+            },
+          ],
+          codeAnatomy: {
+            lines: [
+              { code: "try:", explanation: "Start the 'protected' zone — code that might fail.", explanationZh: "开始"保护区" — 可能失败的代码" },
+              { code: "    age = int(input('Age: '))", explanation: "This could crash if user types 'hello' instead of a number!", explanationZh: "如果用户输入 'hello' 而不是数字就会崩溃！" },
+              { code: "    print(f'You are {age}')", explanation: "Only runs if the conversion worked.", explanationZh: "只有转换成功才会执行" },
+              { code: "except ValueError:", explanation: "Catch the ValueError (bad number conversion).", explanationZh: "捕获 ValueError（数字转换失败）" },
+              { code: "    print('Please enter a valid number!')", explanation: "Friendly message instead of a scary crash!", explanationZh: "友好的提示而不是可怕的崩溃！" },
+            ],
+          },
+        },
+      },
+      {
         type: "quiz",
         content: "🛡️ Error Shield Quiz!",
         quiz: [
@@ -4526,6 +4683,58 @@ while True:
         content: `## 🧰 Code Organization and Sharing
 
 **🐍 Py:** "Modules let you use code that other programmers built!"`,
+      },
+      {
+        type: "concept",
+        emoji: "📖",
+        content: "New Syntax: Modules & Imports",
+        concept: {
+          title: "🧰 New Syntax: Modules & Imports",
+          titleZh: "新语法：模块与导入",
+          syntaxCards: [
+            {
+              symbol: "import module",
+              name: "Import Module",
+              nameZh: "导入模块",
+              emoji: "📦",
+              description: "Like borrowing a friend's toolbox 📦 — brings in ALL tools from another file or library!",
+              example: "import math\nprint(math.sqrt(16))  # 4.0",
+            },
+            {
+              symbol: "from module import func",
+              name: "Import Specific Tool",
+              nameZh: "导入特定工具",
+              emoji: "🔧",
+              description: "Like borrowing just ONE wrench 🔧 — import only what you need, use it directly without the module name.",
+              example: "from math import sqrt\nprint(sqrt(16))  # 4.0",
+            },
+            {
+              symbol: "import module as alias",
+              name: "Import with Nickname",
+              nameZh: "导入并起别名",
+              emoji: "🏷️",
+              description: "Give a module a shorter name 🏷️ — saves typing for modules with long names!",
+              example: "import random as rng\nrng.randint(1, 10)",
+            },
+            {
+              symbol: "pip install package",
+              name: "Install External Package",
+              nameZh: "安装外部包",
+              emoji: "🛒",
+              description: "Like shopping for new tools 🛒 — download packages from the internet that other programmers shared!",
+              example: "# In terminal:\npip install requests",
+            },
+          ],
+          codeAnatomy: {
+            lines: [
+              { code: "import math", explanation: "Import the math module — gets you sqrt, pi, sin, cos...", explanationZh: "导入 math 模块 — 包含 sqrt, pi, sin, cos..." },
+              { code: "import random", explanation: "Import the random module — for random numbers and choices.", explanationZh: "导入 random 模块 — 用于随机数和选择" },
+              { code: "from datetime import datetime", explanation: "Import just datetime from the datetime module.", explanationZh: "从 datetime 模块只导入 datetime" },
+              { code: "import json", explanation: "Import JSON module — read/write structured data files.", explanationZh: "导入 JSON 模块 — 读写结构化数据文件" },
+              { code: "print(math.pi)", explanation: "Use the module name + dot to access its tools.", explanationZh: "用模块名 + 点号访问其中的工具" },
+            ],
+          },
+        },
       },
       {
         type: "quiz",
@@ -4567,6 +4776,50 @@ while True:
 - 🛡️ **Error handling** for robust operation`,
       },
       {
+        type: "concept",
+        emoji: "📖",
+        content: "Review: Combining All Builder Skills",
+        concept: {
+          title: "🏗️ Review: Combining All Builder Skills",
+          titleZh: "复习：组合所有建造技能",
+          syntaxCards: [
+            {
+              symbol: "def + dict + file",
+              name: "Full-Stack Pattern",
+              nameZh: "全栈模式",
+              emoji: "🏛️",
+              description: "The pro pattern 🏛️ — functions handle logic, dictionaries organize data, files make it permanent. This is how real apps work!",
+              example: "def save_student(student):\n    with open('data.txt','a') as f:\n        f.write(str(student))",
+            },
+            {
+              symbol: "json.dumps() / json.loads()",
+              name: "JSON Serialization",
+              nameZh: "JSON 序列化",
+              emoji: "📋",
+              description: "Like packing a suitcase 🧳 — converts dictionaries to text (for files) and back. The universal data format!",
+              example: "import json\ntext = json.dumps(student_dict)\ndata = json.loads(text)",
+            },
+            {
+              symbol: "sorted(list, key=...)",
+              name: "Custom Sorting",
+              nameZh: "自定义排序",
+              emoji: "📊",
+              description: "Like organizing a report card 📊 — sort by any field: name, grade, date, etc.",
+              example: "sorted(students, key=lambda s: s['grade'], reverse=True)",
+            },
+          ],
+          codeAnatomy: {
+            lines: [
+              { code: "import json", explanation: "JSON module for saving/loading structured data.", explanationZh: "JSON 模块用于保存/加载结构化数据" },
+              { code: "def add_student(name, grade):", explanation: "Function to add a new student record.", explanationZh: "添加新学生记录的函数" },
+              { code: "    student = {'name': name, 'grade': grade}", explanation: "Dictionary stores the student's data.", explanationZh: "字典存储学生数据" },
+              { code: "    with open('students.json', 'a') as f:", explanation: "Open file in append mode for permanent storage.", explanationZh: "以追加模式打开文件进行永久存储" },
+              { code: "        f.write(json.dumps(student) + '\\n')", explanation: "Convert dict to JSON text and write to file.", explanationZh: "将字典转为 JSON 文本并写入文件" },
+            ],
+          },
+        },
+      },
+      {
         type: "quiz",
         content: "🏗️ Builder City Graduation Quiz!",
         quiz: [
@@ -4601,6 +4854,50 @@ while True:
         content: `## 📊 Welcome to the Science Lab!
 
 **🧪 Now you'll use programming to solve real scientific problems!**`,
+      },
+      {
+        type: "concept",
+        emoji: "📖",
+        content: "New Syntax: Data Visualization Basics",
+        concept: {
+          title: "📊 New Syntax: Data Visualization Basics",
+          titleZh: "新语法：数据可视化基础",
+          syntaxCards: [
+            {
+              symbol: 'f"{"█" * n}"',
+              name: "Text Bar Charts",
+              nameZh: "文本条形图",
+              emoji: "📊",
+              description: "ASCII art meets data 📊 — use string repetition to build simple bar charts right in the terminal!",
+              example: 'for val in data:\n    bar = "█" * val\n    print(f"{bar} {val}")',
+            },
+            {
+              symbol: "max() / min() / sum()",
+              name: "Built-in Stats Functions",
+              nameZh: "内置统计函数",
+              emoji: "🧮",
+              description: "Instant math helpers 🧮 — find the biggest, smallest, or total of a list in one line!",
+              example: "scores = [85, 92, 78, 95]\nprint(max(scores))  # 95\nprint(sum(scores)/len(scores))  # avg",
+            },
+            {
+              symbol: "enumerate(list)",
+              name: "Enumerate (index + value)",
+              nameZh: "枚举（索引 + 值）",
+              emoji: "🔢",
+              description: "Like numbered name tags 🔢 — gives you both the position AND the value when looping!",
+              example: "for i, name in enumerate(students):\n    print(f'{i+1}. {name}')",
+            },
+          ],
+          codeAnatomy: {
+            lines: [
+              { code: "data = [45, 72, 38, 91, 56]", explanation: "A list of data points to visualize.", explanationZh: "一组需要可视化的数据点" },
+              { code: "for i, val in enumerate(data):", explanation: "Loop with index (i) and value (val).", explanationZh: "同时获取索引 (i) 和值 (val) 的循环" },
+              { code: '    bar = "█" * (val // 5)', explanation: "Create a visual bar proportional to the value.", explanationZh: "创建与值成比例的可视条形" },
+              { code: '    print(f"Item {i+1}: {bar} {val}")', explanation: "Print labeled bar with the actual number.", explanationZh: "打印带标签的条形和实际数字" },
+              { code: "print(f'Average: {sum(data)/len(data):.1f}')", explanation: "Calculate and display the average.", explanationZh: "计算并显示平均值" },
+            ],
+          },
+        },
       },
       {
         type: "quiz",

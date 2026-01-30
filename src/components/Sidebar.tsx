@@ -139,11 +139,11 @@ export default function Sidebar() {
               </div>
               <button
                 onClick={async () => { await logout(); window.location.href = "/login"; }}
-                className="text-[10px] hover:text-red-400 transition-colors"
+                className="text-xs px-2 py-1 rounded-lg hover:bg-red-500/20 hover:text-red-400 transition-colors"
                 style={{ color: theme.colors.textMuted }}
-                title="Sign out"
+                title="Sign out · 退出登录"
               >
-                ↩
+                🚪 退出
               </button>
             </div>
           )}
