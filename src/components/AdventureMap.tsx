@@ -23,15 +23,15 @@ interface MapHotspot {
 const MAP_HOTSPOTS: MapHotspot[] = [
   { trackId: "python", x: 15, y: 88 },
   { trackId: "data-structures", x: 22, y: 65 },
-  { trackId: "algorithms", x: 52, y: 62, cloudOffsetY: 25 },
+  { trackId: "algorithms", x: 52, y: 62, cloudOffsetY: 40 },
   { trackId: "ai-ml", x: 80, y: 65 },
   { trackId: "web-dev", x: 32, y: 42 },
   { trackId: "databases", x: 52, y: 42 },
   { trackId: "cybersecurity", x: 78, y: 40 },
   { trackId: "computer-architecture", x: 30, y: 20 },
   { trackId: "software-engineering", x: 52, y: 20 },
-  { trackId: "app-dev", x: 72, y: 20, cloudOffsetX: -8 },
-  { trackId: "game-dev", x: 90, y: 20, cloudOffsetX: -20 },
+  { trackId: "app-dev", x: 72, y: 20, cloudOffsetX: -15 },
+  { trackId: "game-dev", x: 90, y: 20, cloudOffsetX: -30 },
 ];
 
 function ProgressRing({ pct, color, size = 48 }: { pct: number; color: string; size?: number }) {
@@ -99,18 +99,18 @@ function HotspotOverlay({
             </defs>
             {isFuture ? (
               <g filter={`url(#cloud-blur-${spot.trackId})`}>
-                {/* Future: moderate clouds, can still see building underneath */}
-                <ellipse cx="100" cy="100" rx="68" ry="52" fill="#8a9ab0" opacity="0.5" />
-                <ellipse cx="85" cy="95" rx="58" ry="45" fill="#95a5b8" opacity="0.45" />
-                <ellipse cx="115" cy="98" rx="60" ry="48" fill="#90a2b5" opacity="0.45" />
-                <ellipse cx="100" cy="88" rx="50" ry="38" fill="#a0afc0" opacity="0.4" />
-                <ellipse cx="75" cy="105" rx="45" ry="36" fill="#9dadb8" opacity="0.35" />
-                <ellipse cx="125" cy="102" rx="48" ry="38" fill="#9baabb" opacity="0.35" />
+                {/* Future: light clouds, building visible underneath */}
+                <ellipse cx="100" cy="100" rx="68" ry="52" fill="#8a9ab0" opacity="0.35" />
+                <ellipse cx="85" cy="95" rx="58" ry="45" fill="#95a5b8" opacity="0.3" />
+                <ellipse cx="115" cy="98" rx="60" ry="48" fill="#90a2b5" opacity="0.3" />
+                <ellipse cx="100" cy="88" rx="50" ry="38" fill="#a0afc0" opacity="0.28" />
+                <ellipse cx="75" cy="105" rx="45" ry="36" fill="#9dadb8" opacity="0.22" />
+                <ellipse cx="125" cy="102" rx="48" ry="38" fill="#9baabb" opacity="0.22" />
                 {/* Outer wisps */}
-                <ellipse cx="100" cy="72" rx="55" ry="25" fill="#b0bcc8" opacity="0.22" />
-                <ellipse cx="100" cy="128" rx="52" ry="22" fill="#adb9c5" opacity="0.18" />
-                <ellipse cx="50" cy="100" rx="30" ry="35" fill="#b5c0cc" opacity="0.15" />
-                <ellipse cx="150" cy="100" rx="32" ry="32" fill="#b2bfca" opacity="0.15" />
+                <ellipse cx="100" cy="72" rx="55" ry="25" fill="#b0bcc8" opacity="0.15" />
+                <ellipse cx="100" cy="128" rx="52" ry="22" fill="#adb9c5" opacity="0.12" />
+                <ellipse cx="50" cy="100" rx="30" ry="35" fill="#b5c0cc" opacity="0.1" />
+                <ellipse cx="150" cy="100" rx="32" ry="32" fill="#b2bfca" opacity="0.1" />
               </g>
             ) : (
               <g filter={`url(#cloud-blur-${spot.trackId})`}>
