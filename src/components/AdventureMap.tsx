@@ -24,17 +24,17 @@ interface MapHotspot {
 }
 
 const MAP_HOTSPOTS: MapHotspot[] = [
-  { trackId: "python", x: 15, y: 88 },
-  { trackId: "data-structures", x: 22, y: 65 },
-  { trackId: "algorithms", x: 52, y: 62, cloudOffsetY: 40, cloudScale: 1.4 },
-  { trackId: "ai-ml", x: 80, y: 65 },
-  { trackId: "web-dev", x: 32, y: 42 },
-  { trackId: "databases", x: 52, y: 42 },
-  { trackId: "cybersecurity", x: 78, y: 40 },
-  { trackId: "computer-architecture", x: 30, y: 20 },
-  { trackId: "software-engineering", x: 52, y: 20 },
-  { trackId: "app-dev", x: 72, y: 20, cloudOffsetX: -15 },
-  { trackId: "game-dev", x: 90, y: 20, cloudOffsetX: -30 },
+  { trackId: "python", x: 15, y: 84 },
+  { trackId: "data-structures", x: 22, y: 58 },
+  { trackId: "algorithms", x: 52, y: 56 },
+  { trackId: "ai-ml", x: 78, y: 60 },
+  { trackId: "web-dev", x: 33, y: 36 },
+  { trackId: "databases", x: 52, y: 35 },
+  { trackId: "cybersecurity", x: 78, y: 36 },
+  { trackId: "computer-architecture", x: 28, y: 16 },
+  { trackId: "software-engineering", x: 50, y: 14 },
+  { trackId: "app-dev", x: 73, y: 15 },
+  { trackId: "game-dev", x: 88, y: 14 },
 ];
 
 function ProgressRing({ pct, color, size = 48 }: { pct: number; color: string; size?: number }) {
@@ -367,6 +367,18 @@ function TrackPopup({
             <p className="text-sm mb-1" style={{ color: "var(--theme-text-secondary)" }}>{track.description}</p>
             <p className="text-xs mb-4" style={{ color: "var(--theme-text-muted)" }}>{track.descriptionZh}</p>
 
+            {track.id === "data-structures" && (
+              <div className="mb-4">
+                <div className="flex justify-between text-xs mb-1">
+                  <span style={{ color: "var(--theme-text-secondary)" }}>📖 {dsTotal} lessons</span>
+                  <span style={{ color: track.colorHex }}>{dsDone}/{dsTotal} ({dsPct}%)</span>
+                </div>
+                <div className="h-2.5 rounded-full overflow-hidden" style={{ backgroundColor: "var(--theme-border)" }}>
+                  <div className="h-full rounded-full transition-all" style={{ width: `${dsPct}%`, backgroundColor: track.colorHex }} />
+                </div>
+              </div>
+            )}
+
             {prereqTracks.length > 0 && (
               <div className="mb-4">
                 <div className="text-xs font-semibold mb-1" style={{ color: "var(--theme-text-muted)" }}>🔗 Prerequisites · 前置要求</div>
@@ -388,7 +400,7 @@ function TrackPopup({
                   className="w-full py-3 rounded-xl font-bold text-sm transition-opacity hover:opacity-90"
                   style={{ backgroundColor: track.colorHex, color: "#000" }}
                 >
-                  🚀 Start Learning · 开始学习
+                  {(track.id === "data-structures" ? dsPct : 0) > 0 ? "▶ Continue · 继续" : "🚀 Start Learning · 开始学习"}
                 </motion.button>
               </Link>
             ) : track.status === "coming-soon" ? (
