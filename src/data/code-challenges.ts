@@ -2682,4 +2682,4773 @@ print("\\nChat history: " + str(len(history)) + " messages")`,
     tags: ["project", "area-5", "graduation", "综合"],
     fromLesson: "5-6",
   },
+
+  // ═══════════════════════════════════════════════════════════════
+  // ═══ 🚀 C++ COURSE PROJECTS ═══
+  // These are capstone projects linked to specific C++ lessons
+  // ═══════════════════════════════════════════════════════════════
+
+  // ─── Area 1: C++ Foundations ────────────────────────────────
+
+  // cpp-1-1: Hello Compiler (print, basics)
+  {
+    id: "proj-cpp-1-1-1",
+    title: "🎨 ASCII Art Studio",
+    description: "Create stunning ASCII art using cout! Design a spaceship, robot, or dragon using creative character combinations.",
+    difficulty: 1,
+    gradeRange: [6, 12],
+    skillLevel: "beginner",
+    starterCode: `#include <iostream>
+using namespace std;
+
+int main() {
+    // TODO: Print an ASCII art rocket ship!
+    // Use cout << "..." << endl; for each line
+    // Here's the top - finish the rest!
+    cout << "     /\\\\" << endl;
+    cout << "    /  \\\\" << endl;
+    // TODO: Add the body of the rocket (use | and = characters)
+    // Hint: make it at least 4 lines tall
+
+    // TODO: Add the flames at the bottom (use ^ and * characters)
+
+    // TODO: Add a launch message
+    // cout << "3... 2... 1... LIFTOFF!" << endl;
+
+    return 0;
+}`,
+    hint: "Use cout with endl for each line. Escape backslashes with \\\\. Try characters like |, =, *, ^, / for different parts of your rocket.",
+    solution: `#include <iostream>
+using namespace std;
+
+int main() {
+    cout << "     /\\\\" << endl;
+    cout << "    /  \\\\" << endl;
+    cout << "   /    \\\\" << endl;
+    cout << "  |      |" << endl;
+    cout << "  |      |" << endl;
+    cout << "  | C++  |" << endl;
+    cout << "  |      |" << endl;
+    cout << "  |______|" << endl;
+    cout << "  |=    =|" << endl;
+    cout << "  |=    =|" << endl;
+    cout << "   \\\\^^^^/" << endl;
+    cout << "    \\\\^^/" << endl;
+    cout << "     **" << endl;
+    cout << "    ****" << endl;
+    cout << "3... 2... 1... LIFTOFF!" << endl;
+    return 0;
+}`,
+    expectedOutput: `     /\\
+    /  \\
+   /    \\
+  |      |
+  |      |
+  | C++  |
+  |      |
+  |______|
+  |=    =|
+  |=    =|
+   \\^^^^/
+    \\^^/
+     **
+    ****
+3... 2... 1... LIFTOFF!`,
+    tags: ["project", "cpp-area-1", "ascii-art"],
+    fromLesson: "cpp-1-1",
+  },
+  {
+    id: "proj-cpp-1-1-2",
+    title: "🎤 Rap Lyrics Generator",
+    description: "Print out epic rap lyrics with creative formatting! Use cout to display your bars with style.",
+    difficulty: 1,
+    gradeRange: [6, 12],
+    skillLevel: "beginner",
+    starterCode: `#include <iostream>
+using namespace std;
+
+int main() {
+    // TODO: Print a title banner
+    // Example: ===== MY RAP =====
+    cout << "===== MY RAP =====" << endl;
+
+    // TODO: Print verse 1 (at least 4 lines)
+    // Use cout for each line of your rap
+    cout << "[Verse 1]" << endl;
+    // TODO: Add your bars here!
+
+    // TODO: Print a chorus
+    cout << "[Chorus]" << endl;
+    // TODO: Add chorus lines
+
+    // TODO: Print the outro
+    cout << "==================" << endl;
+    cout << "   * MIC DROP *" << endl;
+
+    return 0;
+}`,
+    hint: "Each cout << \"...\" << endl; prints one line. Be creative with your lyrics! Use special characters for emphasis.",
+    solution: `#include <iostream>
+using namespace std;
+
+int main() {
+    cout << "===== MY RAP =====" << endl;
+    cout << "[Verse 1]" << endl;
+    cout << "I code in C++ every day," << endl;
+    cout << "Compiling bugs right away," << endl;
+    cout << "My programs never crash or stall," << endl;
+    cout << "I'm the greatest coder of them all!" << endl;
+    cout << "[Chorus]" << endl;
+    cout << "Code! Code! Code all night!" << endl;
+    cout << "Semicolons make it right!" << endl;
+    cout << "==================" << endl;
+    cout << "   * MIC DROP *" << endl;
+    return 0;
+}`,
+    expectedOutput: `===== MY RAP =====
+[Verse 1]
+I code in C++ every day,
+Compiling bugs right away,
+My programs never crash or stall,
+I'm the greatest coder of them all!
+[Chorus]
+Code! Code! Code all night!
+Semicolons make it right!
+==================
+   * MIC DROP *`,
+    tags: ["project", "cpp-area-1", "creative"],
+    fromLesson: "cpp-1-1",
+  },
+
+  // cpp-1-2: Types are Serious Business
+  {
+    id: "proj-cpp-1-2-1",
+    title: "🧬 DNA Base Decoder",
+    description: "Use char types to decode DNA base pairs! Map A→T, T→A, C→G, G→C and display nucleotide info using different data types.",
+    difficulty: 1,
+    gradeRange: [6, 12],
+    skillLevel: "beginner",
+    starterCode: `#include <iostream>
+using namespace std;
+
+int main() {
+    // DNA bases are characters!
+    char base1 = 'A';
+    char base2 = 'T';
+    char base3 = 'G';
+    char base4 = 'C';
+
+    // TODO: Create complement variables for each base
+    // A pairs with T, T pairs with A, C pairs with G, G pairs with C
+    char comp1 = 'T'; // complement of A
+    // TODO: Add comp2, comp3, comp4
+
+    // TODO: Store the number of bases as an int
+    int numBases = 4;
+
+    // TODO: Calculate GC content as a double (percentage of G and C bases)
+    // GC content = (number of G or C bases) / total bases * 100
+    double gcContent = 0.0; // TODO: fix this!
+
+    // TODO: Store whether GC content is high (> 50%) as a bool
+    bool highGC = false; // TODO: fix this!
+
+    cout << "DNA Strand: " << base1 << base2 << base3 << base4 << endl;
+    cout << "Complement: " << comp1 << endl; // TODO: print all complements
+    cout << "Total bases: " << numBases << endl;
+    cout << "GC Content: " << gcContent << "%" << endl;
+    cout << "High GC: " << highGC << endl;
+
+    return 0;
+}`,
+    hint: "A pairs with T (and vice versa), C pairs with G (and vice versa). For GC content, count how many bases are G or C, divide by total, multiply by 100. Use 2.0/4.0 for double division!",
+    solution: `#include <iostream>
+using namespace std;
+
+int main() {
+    char base1 = 'A';
+    char base2 = 'T';
+    char base3 = 'G';
+    char base4 = 'C';
+
+    char comp1 = 'T';
+    char comp2 = 'A';
+    char comp3 = 'C';
+    char comp4 = 'G';
+
+    int numBases = 4;
+    double gcContent = 2.0 / 4.0 * 100.0;
+    bool highGC = gcContent > 50.0;
+
+    cout << "DNA Strand: " << base1 << base2 << base3 << base4 << endl;
+    cout << "Complement: " << comp1 << comp2 << comp3 << comp4 << endl;
+    cout << "Total bases: " << numBases << endl;
+    cout << "GC Content: " << gcContent << "%" << endl;
+    cout << "High GC: " << highGC << endl;
+
+    return 0;
+}`,
+    expectedOutput: `DNA Strand: ATGC
+Complement: TACG
+Total bases: 4
+GC Content: 50%
+High GC: 0`,
+    tags: ["project", "cpp-area-1", "science"],
+    fromLesson: "cpp-1-2",
+  },
+  {
+    id: "proj-cpp-1-2-2",
+    title: "🎮 RPG Character Card",
+    description: "Create an RPG character using every C++ type! int for HP, double for speed, char for class initial, bool for alive status.",
+    difficulty: 1,
+    gradeRange: [6, 12],
+    skillLevel: "beginner",
+    starterCode: `#include <iostream>
+using namespace std;
+
+int main() {
+    // TODO: Create your RPG character using different types!
+    int health = 100;
+    int attack = 25;
+    // TODO: Add mana (int), defense (int)
+
+    double speed = 7.5;
+    // TODO: Add critChance (double, e.g. 0.15 for 15%)
+
+    char classInitial = 'W'; // W=Warrior, M=Mage, R=Rogue
+    // TODO: Add rankLetter (char)
+
+    bool isAlive = true;
+    // TODO: Add hasShield (bool)
+
+    // TODO: Print the character card
+    cout << "╔══════════════════╗" << endl;
+    cout << "║  CHARACTER CARD  ║" << endl;
+    cout << "╠══════════════════╣" << endl;
+    cout << "║ Class: " << classInitial << endl;
+    // TODO: Print all stats in a nice format
+    cout << "╚══════════════════╝" << endl;
+
+    return 0;
+}`,
+    hint: "Use int for whole numbers (HP, attack), double for decimals (speed, crit chance), char for single letters, bool for true/false states.",
+    solution: `#include <iostream>
+using namespace std;
+
+int main() {
+    int health = 100;
+    int attack = 25;
+    int mana = 50;
+    int defense = 15;
+
+    double speed = 7.5;
+    double critChance = 0.15;
+
+    char classInitial = 'W';
+    char rankLetter = 'A';
+
+    bool isAlive = true;
+    bool hasShield = true;
+
+    cout << "╔══════════════════╗" << endl;
+    cout << "║  CHARACTER CARD  ║" << endl;
+    cout << "╠══════════════════╣" << endl;
+    cout << "║ Class: " << classInitial << endl;
+    cout << "║ Rank: " << rankLetter << endl;
+    cout << "║ HP: " << health << endl;
+    cout << "║ ATK: " << attack << endl;
+    cout << "║ DEF: " << defense << endl;
+    cout << "║ Mana: " << mana << endl;
+    cout << "║ Speed: " << speed << endl;
+    cout << "║ Crit: " << critChance << endl;
+    cout << "║ Alive: " << isAlive << endl;
+    cout << "║ Shield: " << hasShield << endl;
+    cout << "╚══════════════════╝" << endl;
+
+    return 0;
+}`,
+    expectedOutput: `╔══════════════════╗
+║  CHARACTER CARD  ║
+╠══════════════════╣
+║ Class: W
+║ Rank: A
+║ HP: 100
+║ ATK: 25
+║ DEF: 15
+║ Mana: 50
+║ Speed: 7.5
+║ Crit: 0.15
+║ Alive: 1
+║ Shield: 1
+╚══════════════════╝`,
+    tags: ["project", "cpp-area-1", "rpg"],
+    fromLesson: "cpp-1-2",
+  },
+
+  // cpp-1-3: Input & Output Mastery
+  {
+    id: "proj-cpp-1-3-1",
+    title: "🔮 Fortune Teller Machine",
+    description: "Build an interactive fortune teller! Ask the user questions with cin and give them a personalized fortune with formatted output.",
+    difficulty: 1,
+    gradeRange: [6, 12],
+    skillLevel: "beginner",
+    starterCode: `#include <iostream>
+#include <string>
+using namespace std;
+
+int main() {
+    string name;
+    int luckyNumber;
+    int birthMonth;
+
+    cout << "🔮 FORTUNE TELLER 3000 🔮" << endl;
+    cout << "=========================" << endl;
+
+    // TODO: Ask for the user's name
+    cout << "What is your name? ";
+    // TODO: Use cin >> name; to read input
+
+    // TODO: Ask for lucky number (1-9)
+    cout << "Pick a lucky number (1-9): ";
+    // TODO: read luckyNumber
+
+    // TODO: Ask for birth month (1-12)
+    cout << "Birth month (1-12): ";
+    // TODO: read birthMonth
+
+    // TODO: Generate a fortune based on their inputs
+    // Example: combine luckyNumber + birthMonth to pick a fortune
+    cout << endl;
+    cout << "🌟 " << name << "'s Fortune 🌟" << endl;
+    // TODO: Print a fortune message
+    // TODO: Print lucky color based on number
+    // TODO: Print compatibility based on birth month
+
+    return 0;
+}`,
+    hint: "Use cin >> variable to read input. You can combine the lucky number and birth month to create different fortunes. Use cout with << to chain multiple outputs.",
+    solution: `#include <iostream>
+#include <string>
+using namespace std;
+
+int main() {
+    string name;
+    int luckyNumber;
+    int birthMonth;
+
+    cout << "🔮 FORTUNE TELLER 3000 🔮" << endl;
+    cout << "=========================" << endl;
+
+    cout << "What is your name? ";
+    name = "Alex";
+
+    cout << "Pick a lucky number (1-9): ";
+    luckyNumber = 7;
+
+    cout << "Birth month (1-12): ";
+    birthMonth = 3;
+
+    int fate = luckyNumber + birthMonth;
+
+    cout << endl;
+    cout << "🌟 " << name << "'s Fortune 🌟" << endl;
+    cout << "Fate score: " << fate << endl;
+    cout << "Fortune: Great success awaits you!" << endl;
+    cout << "Lucky color: Blue" << endl;
+    cout << "Compatibility: Pisces" << endl;
+
+    return 0;
+}`,
+    expectedOutput: `🔮 FORTUNE TELLER 3000 🔮
+=========================
+What is your name? Pick a lucky number (1-9): Birth month (1-12): 
+🌟 Alex's Fortune 🌟
+Fate score: 10
+Fortune: Great success awaits you!
+Lucky color: Blue
+Compatibility: Pisces`,
+    tags: ["project", "cpp-area-1", "interactive"],
+    fromLesson: "cpp-1-3",
+  },
+  {
+    id: "proj-cpp-1-3-2",
+    title: "📝 Student ID Card Printer",
+    description: "Create a formatted student ID card! Practice cin/cout with alignment and formatting to make a professional-looking card.",
+    difficulty: 1,
+    gradeRange: [6, 12],
+    skillLevel: "beginner",
+    starterCode: `#include <iostream>
+#include <string>
+#include <iomanip>
+using namespace std;
+
+int main() {
+    string firstName, lastName;
+    int grade, studentId;
+    double gpa;
+
+    // TODO: Collect student info
+    cout << "=== ID CARD GENERATOR ===" << endl;
+    firstName = "John";
+    lastName = "Doe";
+    grade = 10;
+    studentId = 12345;
+    gpa = 3.85;
+
+    // TODO: Print a nicely formatted ID card
+    cout << "+------------------------+" << endl;
+    cout << "|    STUDENT ID CARD     |" << endl;
+    cout << "+------------------------+" << endl;
+    // TODO: Print name with proper formatting
+    // TODO: Print grade
+    // TODO: Print student ID with leading zeros (use setw/setfill)
+    // TODO: Print GPA with 2 decimal places (use fixed/setprecision)
+    cout << "+------------------------+" << endl;
+
+    return 0;
+}`,
+    hint: "Use setw() for width, setfill('0') for leading zeros, fixed and setprecision(2) for decimal places. Include <iomanip>.",
+    solution: `#include <iostream>
+#include <string>
+#include <iomanip>
+using namespace std;
+
+int main() {
+    string firstName, lastName;
+    int grade, studentId;
+    double gpa;
+
+    cout << "=== ID CARD GENERATOR ===" << endl;
+    firstName = "John";
+    lastName = "Doe";
+    grade = 10;
+    studentId = 12345;
+    gpa = 3.85;
+
+    cout << "+------------------------+" << endl;
+    cout << "|    STUDENT ID CARD     |" << endl;
+    cout << "+------------------------+" << endl;
+    cout << "| Name: " << firstName << " " << lastName << endl;
+    cout << "| Grade: " << grade << endl;
+    cout << "| ID: " << setw(8) << setfill('0') << studentId << endl;
+    cout << "| GPA: " << fixed << setprecision(2) << gpa << endl;
+    cout << "+------------------------+" << endl;
+
+    return 0;
+}`,
+    expectedOutput: `=== ID CARD GENERATOR ===
++------------------------+
+|    STUDENT ID CARD     |
++------------------------+
+| Name: John Doe
+| Grade: 10
+| ID: 00012345
+| GPA: 3.85
++------------------------+`,
+    tags: ["project", "cpp-area-1", "formatting"],
+    fromLesson: "cpp-1-3",
+  },
+
+  // cpp-1-4: Math & Operators
+  {
+    id: "proj-cpp-1-4-1",
+    title: "🚀 Space Travel Calculator",
+    description: "Calculate travel times to planets! Use math operators and type casting to figure out how long it takes to reach Mars, Jupiter, and beyond.",
+    difficulty: 1,
+    gradeRange: [6, 12],
+    skillLevel: "beginner",
+    starterCode: `#include <iostream>
+#include <iomanip>
+using namespace std;
+
+int main() {
+    // Distances in millions of km
+    double distMars = 225.0;
+    double distJupiter = 778.0;
+    double distSaturn = 1275.0;
+
+    // Speed of spacecraft in km/h
+    double speedKmH = 58000.0; // New Horizons speed
+
+    // TODO: Convert distances to km (multiply by 1,000,000)
+    double marsKm = distMars * 1000000;
+    // TODO: Do the same for Jupiter and Saturn
+
+    // TODO: Calculate travel time in hours
+    double marsHours = marsKm / speedKmH;
+    // TODO: Calculate for Jupiter and Saturn
+
+    // TODO: Convert hours to days (divide by 24)
+    double marsDays = marsHours / 24.0;
+    // TODO: Convert for Jupiter and Saturn
+
+    // TODO: Convert days to years (divide by 365)
+
+    cout << "🚀 SPACE TRAVEL CALCULATOR 🚀" << endl;
+    cout << "Speed: " << (int)speedKmH << " km/h" << endl;
+    cout << fixed << setprecision(1);
+    cout << "Mars: " << marsDays << " days" << endl;
+    // TODO: Print Jupiter and Saturn travel times
+    // TODO: Also print in years for the far planets
+
+    return 0;
+}`,
+    hint: "Multiply millions by 1000000.0, then divide by speed for hours. Divide hours by 24 for days, by 365 for years. Use (int) to cast to integer for clean display.",
+    solution: `#include <iostream>
+#include <iomanip>
+using namespace std;
+
+int main() {
+    double distMars = 225.0;
+    double distJupiter = 778.0;
+    double distSaturn = 1275.0;
+
+    double speedKmH = 58000.0;
+
+    double marsKm = distMars * 1000000;
+    double jupiterKm = distJupiter * 1000000;
+    double saturnKm = distSaturn * 1000000;
+
+    double marsHours = marsKm / speedKmH;
+    double jupiterHours = jupiterKm / speedKmH;
+    double saturnHours = saturnKm / speedKmH;
+
+    double marsDays = marsHours / 24.0;
+    double jupiterDays = jupiterHours / 24.0;
+    double saturnDays = saturnHours / 24.0;
+
+    double marsYears = marsDays / 365.0;
+    double jupiterYears = jupiterDays / 365.0;
+    double saturnYears = saturnDays / 365.0;
+
+    cout << "🚀 SPACE TRAVEL CALCULATOR 🚀" << endl;
+    cout << "Speed: " << (int)speedKmH << " km/h" << endl;
+    cout << fixed << setprecision(1);
+    cout << "Mars: " << marsDays << " days (" << marsYears << " years)" << endl;
+    cout << "Jupiter: " << jupiterDays << " days (" << jupiterYears << " years)" << endl;
+    cout << "Saturn: " << saturnDays << " days (" << saturnYears << " years)" << endl;
+
+    return 0;
+}`,
+    expectedOutput: `🚀 SPACE TRAVEL CALCULATOR 🚀
+Speed: 58000 km/h
+Mars: 161.6 days (0.4 years)
+Jupiter: 558.6 days (1.5 years)
+Saturn: 915.9 days (2.5 years)`,
+    tags: ["project", "cpp-area-1", "math", "science"],
+    fromLesson: "cpp-1-4",
+  },
+  {
+    id: "proj-cpp-1-4-2",
+    title: "💰 Tip Calculator Deluxe",
+    description: "Build a restaurant tip calculator with tax, split, and per-person costs! Practice arithmetic and casting.",
+    difficulty: 1,
+    gradeRange: [6, 12],
+    skillLevel: "beginner",
+    starterCode: `#include <iostream>
+#include <iomanip>
+using namespace std;
+
+int main() {
+    double billAmount = 84.50;
+    double taxRate = 0.08;    // 8% tax
+    double tipPercent = 18.0; // 18% tip
+    int numPeople = 3;
+
+    // TODO: Calculate tax amount
+    double taxAmount = 0.0; // fix this
+
+    // TODO: Calculate subtotal (bill + tax)
+    double subtotal = 0.0; // fix this
+
+    // TODO: Calculate tip (based on subtotal)
+    double tipAmount = 0.0; // fix this
+
+    // TODO: Calculate total (subtotal + tip)
+    double total = 0.0; // fix this
+
+    // TODO: Calculate per-person amount (total / people)
+    double perPerson = 0.0; // fix this
+
+    cout << "🧾 BILL BREAKDOWN" << endl;
+    cout << "==================" << endl;
+    cout << fixed << setprecision(2);
+    cout << "Bill:      $" << billAmount << endl;
+    cout << "Tax (8%):  $" << taxAmount << endl;
+    cout << "Subtotal:  $" << subtotal << endl;
+    cout << "Tip (18%): $" << tipAmount << endl;
+    cout << "Total:     $" << total << endl;
+    cout << "Per person (" << numPeople << "): $" << perPerson << endl;
+
+    return 0;
+}`,
+    hint: "Tax = bill * taxRate. Subtotal = bill + tax. Tip = subtotal * (tipPercent / 100). Total = subtotal + tip. Per person = total / numPeople.",
+    solution: `#include <iostream>
+#include <iomanip>
+using namespace std;
+
+int main() {
+    double billAmount = 84.50;
+    double taxRate = 0.08;
+    double tipPercent = 18.0;
+    int numPeople = 3;
+
+    double taxAmount = billAmount * taxRate;
+    double subtotal = billAmount + taxAmount;
+    double tipAmount = subtotal * (tipPercent / 100.0);
+    double total = subtotal + tipAmount;
+    double perPerson = total / numPeople;
+
+    cout << "🧾 BILL BREAKDOWN" << endl;
+    cout << "==================" << endl;
+    cout << fixed << setprecision(2);
+    cout << "Bill:      $" << billAmount << endl;
+    cout << "Tax (8%):  $" << taxAmount << endl;
+    cout << "Subtotal:  $" << subtotal << endl;
+    cout << "Tip (18%): $" << tipAmount << endl;
+    cout << "Total:     $" << total << endl;
+    cout << "Per person (" << numPeople << "): $" << perPerson << endl;
+
+    return 0;
+}`,
+    expectedOutput: `🧾 BILL BREAKDOWN
+==================
+Bill:      $84.50
+Tax (8%):  $6.76
+Subtotal:  $91.26
+Tip (18%): $16.43
+Total:     $107.69
+Per person (3): $35.90`,
+    tags: ["project", "cpp-area-1", "math"],
+    fromLesson: "cpp-1-4",
+  },
+
+  // cpp-1-5: Strings
+  {
+    id: "proj-cpp-1-5-1",
+    title: "🔐 Secret Cipher Encoder",
+    description: "Build a Caesar cipher! Shift each letter in a message by a secret number to encode and decode messages.",
+    difficulty: 2,
+    gradeRange: [6, 12],
+    skillLevel: "beginner",
+    starterCode: `#include <iostream>
+#include <string>
+using namespace std;
+
+int main() {
+    string message = "HELLO WORLD";
+    int shift = 3;
+
+    cout << "🔐 CAESAR CIPHER 🔐" << endl;
+    cout << "Original: " << message << endl;
+    cout << "Shift: " << shift << endl;
+
+    // TODO: Encode the message
+    // For each character, if it's a letter (A-Z), shift it
+    // 'A' + shift = 'D' when shift=3
+    // Handle wrap-around: 'Z' + 1 = 'A'
+    string encoded = "";
+    for (int i = 0; i < (int)message.length(); i++) {
+        char c = message[i];
+        if (c >= 'A' && c <= 'Z') {
+            // TODO: shift the character
+            // Hint: char newChar = 'A' + (c - 'A' + shift) % 26;
+            encoded += c; // fix this!
+        } else {
+            encoded += c; // keep spaces and other chars
+        }
+    }
+
+    cout << "Encoded: " << encoded << endl;
+
+    // TODO: Decode by shifting backwards
+    string decoded = "";
+    // TODO: similar loop but shift in reverse
+
+    cout << "Decoded: " << decoded << endl;
+
+    return 0;
+}`,
+    hint: "To shift: newChar = 'A' + (c - 'A' + shift) % 26. To decode: use (c - 'A' - shift + 26) % 26 to handle negative wrap.",
+    solution: `#include <iostream>
+#include <string>
+using namespace std;
+
+int main() {
+    string message = "HELLO WORLD";
+    int shift = 3;
+
+    cout << "🔐 CAESAR CIPHER 🔐" << endl;
+    cout << "Original: " << message << endl;
+    cout << "Shift: " << shift << endl;
+
+    string encoded = "";
+    for (int i = 0; i < (int)message.length(); i++) {
+        char c = message[i];
+        if (c >= 'A' && c <= 'Z') {
+            char newChar = 'A' + (c - 'A' + shift) % 26;
+            encoded += newChar;
+        } else {
+            encoded += c;
+        }
+    }
+    cout << "Encoded: " << encoded << endl;
+
+    string decoded = "";
+    for (int i = 0; i < (int)encoded.length(); i++) {
+        char c = encoded[i];
+        if (c >= 'A' && c <= 'Z') {
+            char newChar = 'A' + (c - 'A' - shift + 26) % 26;
+            decoded += newChar;
+        } else {
+            decoded += c;
+        }
+    }
+    cout << "Decoded: " << decoded << endl;
+
+    return 0;
+}`,
+    expectedOutput: `🔐 CAESAR CIPHER 🔐
+Original: HELLO WORLD
+Shift: 3
+Encoded: KHOOR ZRUOG
+Decoded: HELLO WORLD`,
+    tags: ["project", "cpp-area-1", "cipher", "strings"],
+    fromLesson: "cpp-1-5",
+  },
+  {
+    id: "proj-cpp-1-5-2",
+    title: "📱 Username Generator",
+    description: "Create cool usernames by combining and transforming strings! Practice string methods like substr, length, and concatenation.",
+    difficulty: 1,
+    gradeRange: [6, 12],
+    skillLevel: "beginner",
+    starterCode: `#include <iostream>
+#include <string>
+using namespace std;
+
+int main() {
+    string firstName = "Alex";
+    string lastName = "Thunder";
+    int favoriteNum = 42;
+
+    cout << "📱 USERNAME GENERATOR" << endl;
+    cout << "=====================" << endl;
+
+    // Style 1: First 3 + Last 3 + Number
+    // TODO: Use substr(start, length) to get first 3 chars of each
+    string user1 = ""; // e.g. "AleThu42"
+
+    // Style 2: Reverse first name + number
+    // TODO: Loop through firstName backwards to reverse it
+    string reversed = "";
+    // TODO: build reversed string
+
+    string user2 = reversed + to_string(favoriteNum);
+
+    // Style 3: ALL CAPS version
+    // TODO: Convert firstName to uppercase
+    string upper = firstName;
+    // Hint: for each char, if lowercase, subtract 32
+
+    string user3 = upper + "_" + to_string(favoriteNum);
+
+    cout << "Style 1: " << user1 << endl;
+    cout << "Style 2: " << user2 << endl;
+    cout << "Style 3: " << user3 << endl;
+    cout << "Name length: " << firstName.length() + lastName.length() << endl;
+
+    return 0;
+}`,
+    hint: "Use substr(0, 3) to get first 3 characters. Loop backwards with i = length-1 down to 0 for reverse. Uppercase: if char >= 'a' && char <= 'z', subtract 32.",
+    solution: `#include <iostream>
+#include <string>
+using namespace std;
+
+int main() {
+    string firstName = "Alex";
+    string lastName = "Thunder";
+    int favoriteNum = 42;
+
+    cout << "📱 USERNAME GENERATOR" << endl;
+    cout << "=====================" << endl;
+
+    string user1 = firstName.substr(0, 3) + lastName.substr(0, 3) + to_string(favoriteNum);
+
+    string reversed = "";
+    for (int i = (int)firstName.length() - 1; i >= 0; i--) {
+        reversed += firstName[i];
+    }
+    string user2 = reversed + to_string(favoriteNum);
+
+    string upper = firstName;
+    for (int i = 0; i < (int)upper.length(); i++) {
+        if (upper[i] >= 'a' && upper[i] <= 'z') {
+            upper[i] = upper[i] - 32;
+        }
+    }
+    string user3 = upper + "_" + to_string(favoriteNum);
+
+    cout << "Style 1: " << user1 << endl;
+    cout << "Style 2: " << user2 << endl;
+    cout << "Style 3: " << user3 << endl;
+    cout << "Name length: " << firstName.length() + lastName.length() << endl;
+
+    return 0;
+}`,
+    expectedOutput: `📱 USERNAME GENERATOR
+=====================
+Style 1: AleThu42
+Style 2: xelA42
+Style 3: ALEX_42
+Name length: 11`,
+    tags: ["project", "cpp-area-1", "strings"],
+    fromLesson: "cpp-1-5",
+  },
+
+  // cpp-1-6: First C++ Projects
+  {
+    id: "proj-cpp-1-6-1",
+    title: "🏦 Bank Account Simulator",
+    description: "Build a mini bank system! Track balance, deposits, withdrawals, and interest using all the C++ basics you've learned.",
+    difficulty: 2,
+    gradeRange: [6, 12],
+    skillLevel: "beginner",
+    starterCode: `#include <iostream>
+#include <string>
+#include <iomanip>
+using namespace std;
+
+int main() {
+    string accountName = "Alex";
+    double balance = 1000.00;
+    double interestRate = 0.05; // 5% annual
+    int transactions = 0;
+
+    cout << "🏦 BANK OF C++" << endl;
+    cout << "Welcome, " << accountName << "!" << endl;
+    cout << fixed << setprecision(2);
+
+    // Transaction 1: Deposit
+    double deposit1 = 500.00;
+    // TODO: Add deposit1 to balance, increment transactions
+    cout << "Deposit: +$" << deposit1 << endl;
+
+    // Transaction 2: Withdrawal
+    double withdrawal1 = 200.00;
+    // TODO: Subtract withdrawal1 from balance, increment transactions
+    cout << "Withdrawal: -$" << withdrawal1 << endl;
+
+    // Transaction 3: Another deposit
+    double deposit2 = 750.00;
+    // TODO: Process this deposit
+
+    // TODO: Calculate interest earned on current balance
+    double interest = 0.0; // fix this
+    // TODO: Add interest to balance
+
+    // TODO: Print final summary
+    cout << "\\n=== ACCOUNT SUMMARY ===" << endl;
+    cout << "Total transactions: " << transactions << endl;
+    cout << "Interest earned: $" << interest << endl;
+    cout << "Final balance: $" << balance << endl;
+
+    return 0;
+}`,
+    hint: "For each deposit: balance += amount and transactions++. For withdrawal: balance -= amount. Interest = balance * rate.",
+    solution: `#include <iostream>
+#include <string>
+#include <iomanip>
+using namespace std;
+
+int main() {
+    string accountName = "Alex";
+    double balance = 1000.00;
+    double interestRate = 0.05;
+    int transactions = 0;
+
+    cout << "🏦 BANK OF C++" << endl;
+    cout << "Welcome, " << accountName << "!" << endl;
+    cout << fixed << setprecision(2);
+
+    double deposit1 = 500.00;
+    balance += deposit1;
+    transactions++;
+    cout << "Deposit: +$" << deposit1 << endl;
+
+    double withdrawal1 = 200.00;
+    balance -= withdrawal1;
+    transactions++;
+    cout << "Withdrawal: -$" << withdrawal1 << endl;
+
+    double deposit2 = 750.00;
+    balance += deposit2;
+    transactions++;
+    cout << "Deposit: +$" << deposit2 << endl;
+
+    double interest = balance * interestRate;
+    balance += interest;
+
+    cout << "\\n=== ACCOUNT SUMMARY ===" << endl;
+    cout << "Total transactions: " << transactions << endl;
+    cout << "Interest earned: $" << interest << endl;
+    cout << "Final balance: $" << balance << endl;
+
+    return 0;
+}`,
+    expectedOutput: `🏦 BANK OF C++
+Welcome, Alex!
+Deposit: +$500.00
+Withdrawal: -$200.00
+Deposit: +$750.00
+
+=== ACCOUNT SUMMARY ===
+Total transactions: 3
+Interest earned: $102.50
+Final balance: $2152.50`,
+    tags: ["project", "cpp-area-1", "simulation"],
+    fromLesson: "cpp-1-6",
+  },
+  {
+    id: "proj-cpp-1-6-2",
+    title: "🌡️ Weather Dashboard",
+    description: "Build a weather info dashboard! Convert temperatures, calculate averages, and display a formatted weather report.",
+    difficulty: 2,
+    gradeRange: [6, 12],
+    skillLevel: "beginner",
+    starterCode: `#include <iostream>
+#include <string>
+#include <iomanip>
+using namespace std;
+
+int main() {
+    // Weekly temperatures in Fahrenheit
+    double mon = 72.0, tue = 68.5, wed = 75.2;
+    double thu = 80.1, fri = 65.0;
+    string city = "Sunnyville";
+
+    cout << "🌡️ WEATHER DASHBOARD - " << city << endl;
+    cout << "==============================" << endl;
+    cout << fixed << setprecision(1);
+
+    // TODO: Calculate average temperature
+    double avgF = 0.0; // fix this
+
+    // TODO: Convert average to Celsius: C = (F - 32) * 5/9
+    double avgC = 0.0; // fix this
+
+    // TODO: Find if it's hot (>75), mild (60-75), or cold (<60)
+    string feeling = ""; // TODO: determine this
+
+    // TODO: Calculate temperature range (max - min)
+    // Hint: compare all 5 values
+    double maxTemp = 0.0; // TODO
+    double minTemp = 0.0; // TODO
+    double range = 0.0;   // TODO
+
+    cout << "Mon: " << mon << "F" << endl;
+    cout << "Tue: " << tue << "F" << endl;
+    cout << "Wed: " << wed << "F" << endl;
+    cout << "Thu: " << thu << "F" << endl;
+    cout << "Fri: " << fri << "F" << endl;
+    cout << "-----" << endl;
+    cout << "Average: " << avgF << "F / " << avgC << "C" << endl;
+    cout << "Feeling: " << feeling << endl;
+    cout << "Range: " << range << "F" << endl;
+
+    return 0;
+}`,
+    hint: "Average = sum of all / 5. Celsius = (F - 32) * 5.0 / 9.0. For max/min, compare values. Use if/else for hot/mild/cold.",
+    solution: `#include <iostream>
+#include <string>
+#include <iomanip>
+using namespace std;
+
+int main() {
+    double mon = 72.0, tue = 68.5, wed = 75.2;
+    double thu = 80.1, fri = 65.0;
+    string city = "Sunnyville";
+
+    cout << "🌡️ WEATHER DASHBOARD - " << city << endl;
+    cout << "==============================" << endl;
+    cout << fixed << setprecision(1);
+
+    double avgF = (mon + tue + wed + thu + fri) / 5.0;
+    double avgC = (avgF - 32.0) * 5.0 / 9.0;
+
+    string feeling;
+    if (avgF > 75) feeling = "Hot 🔥";
+    else if (avgF >= 60) feeling = "Mild 😊";
+    else feeling = "Cold 🥶";
+
+    double maxTemp = thu; // 80.1 is the max
+    double minTemp = fri; // 65.0 is the min
+    double range = maxTemp - minTemp;
+
+    cout << "Mon: " << mon << "F" << endl;
+    cout << "Tue: " << tue << "F" << endl;
+    cout << "Wed: " << wed << "F" << endl;
+    cout << "Thu: " << thu << "F" << endl;
+    cout << "Fri: " << fri << "F" << endl;
+    cout << "-----" << endl;
+    cout << "Average: " << avgF << "F / " << avgC << "C" << endl;
+    cout << "Feeling: " << feeling << endl;
+    cout << "Range: " << range << "F" << endl;
+
+    return 0;
+}`,
+    expectedOutput: `🌡️ WEATHER DASHBOARD - Sunnyville
+==============================
+Mon: 72.0F
+Tue: 68.5F
+Wed: 75.2F
+Thu: 80.1F
+Fri: 65.0F
+-----
+Average: 72.2F / 22.3C
+Feeling: Mild 😊
+Range: 15.1F`,
+    tags: ["project", "cpp-area-1", "simulation"],
+    fromLesson: "cpp-1-6",
+  },
+
+  // ─── Area 2: Control Flow ────────────────────────────────
+
+  // cpp-2-1: if/else with Braces
+  {
+    id: "proj-cpp-2-1-1",
+    title: "🎮 Boss Battle Decision Engine",
+    description: "Build a turn-based boss fight! Use if/else to determine attack outcomes, critical hits, and healing based on stats.",
+    difficulty: 2,
+    gradeRange: [6, 12],
+    skillLevel: "intermediate",
+    starterCode: `#include <iostream>
+using namespace std;
+
+int main() {
+    int playerHP = 100, bossHP = 150;
+    int playerATK = 25, playerDEF = 10;
+    int bossATK = 20;
+    bool hasPotion = true;
+    bool hasShield = true;
+
+    cout << "⚔️ BOSS BATTLE ⚔️" << endl;
+    cout << "Player HP: " << playerHP << " | Boss HP: " << bossHP << endl;
+
+    // Round 1: Player attacks
+    string action1 = "attack"; // attack, heal, or defend
+    // TODO: If action is "attack", deal playerATK damage to boss
+    // TODO: If action is "heal" AND hasPotion, restore 30 HP
+    // TODO: If action is "defend", reduce next incoming damage
+    if (action1 == "attack") {
+        // TODO: damage the boss
+    }
+
+    cout << "Boss HP after round 1: " << bossHP << endl;
+
+    // Round 2: Boss attacks player
+    int bossDamage = bossATK;
+    // TODO: If player defended, halve the damage
+    // TODO: If hasShield, reduce damage by playerDEF
+    // TODO: Apply damage to player
+    // TODO: If playerHP <= 0, game over!
+
+    cout << "Player HP after round 2: " << playerHP << endl;
+
+    // Round 3: Player finishes
+    string action3 = "attack";
+    // TODO: Process another action
+    // TODO: Check if boss is defeated
+
+    // TODO: Print victory or defeat message
+    cout << "Final - Player: " << playerHP << " HP | Boss: " << bossHP << " HP" << endl;
+
+    return 0;
+}`,
+    hint: "Use if/else blocks with braces {}. Check action strings with ==. Remember to update HP values. Check for <= 0 to determine death.",
+    solution: `#include <iostream>
+using namespace std;
+
+int main() {
+    int playerHP = 100, bossHP = 150;
+    int playerATK = 25, playerDEF = 10;
+    int bossATK = 20;
+    bool hasPotion = true;
+    bool hasShield = true;
+
+    cout << "⚔️ BOSS BATTLE ⚔️" << endl;
+    cout << "Player HP: " << playerHP << " | Boss HP: " << bossHP << endl;
+
+    string action1 = "attack";
+    bool defended = false;
+    if (action1 == "attack") {
+        bossHP -= playerATK;
+        cout << "You slash for " << playerATK << " damage!" << endl;
+    } else if (action1 == "heal" && hasPotion) {
+        playerHP += 30;
+        hasPotion = false;
+        cout << "You heal for 30 HP!" << endl;
+    } else if (action1 == "defend") {
+        defended = true;
+        cout << "You raise your shield!" << endl;
+    }
+
+    cout << "Boss HP after round 1: " << bossHP << endl;
+
+    int bossDamage = bossATK;
+    if (defended) {
+        bossDamage /= 2;
+    }
+    if (hasShield) {
+        bossDamage -= playerDEF;
+        if (bossDamage < 0) bossDamage = 0;
+    }
+    playerHP -= bossDamage;
+    cout << "Boss hits for " << bossDamage << " damage!" << endl;
+
+    if (playerHP <= 0) {
+        cout << "You have been defeated..." << endl;
+    }
+
+    cout << "Player HP after round 2: " << playerHP << endl;
+
+    string action3 = "attack";
+    if (action3 == "attack") {
+        bossHP -= playerATK;
+    }
+
+    if (bossHP <= 0) {
+        cout << "🎉 Victory! The boss is defeated!" << endl;
+    } else if (playerHP <= 0) {
+        cout << "💀 Defeat..." << endl;
+    } else {
+        cout << "The battle continues..." << endl;
+    }
+
+    cout << "Final - Player: " << playerHP << " HP | Boss: " << bossHP << " HP" << endl;
+
+    return 0;
+}`,
+    expectedOutput: `⚔️ BOSS BATTLE ⚔️
+Player HP: 100 | Boss HP: 150
+You slash for 25 damage!
+Boss HP after round 1: 125
+Boss hits for 10 damage!
+Player HP after round 2: 90
+Final - Player: 90 HP | Boss: 100 HP`,
+    tags: ["project", "cpp-area-2", "game"],
+    fromLesson: "cpp-2-1",
+  },
+  {
+    id: "proj-cpp-2-1-2",
+    title: "🔑 Password Strength Checker",
+    description: "Analyze password security! Check length, uppercase, lowercase, digits, and special characters using if/else chains.",
+    difficulty: 2,
+    gradeRange: [6, 12],
+    skillLevel: "intermediate",
+    starterCode: `#include <iostream>
+#include <string>
+using namespace std;
+
+int main() {
+    string password = "C0d3_Ninja!";
+    int score = 0;
+
+    cout << "🔑 PASSWORD STRENGTH CHECKER" << endl;
+    cout << "Password: " << password << endl;
+    cout << "Length: " << password.length() << endl;
+
+    // TODO: Check length (>= 8 gets a point, >= 12 gets 2 points)
+    if (password.length() >= 12) {
+        score += 2;
+    } else if (password.length() >= 8) {
+        score += 1;
+    }
+
+    // TODO: Check for uppercase letters
+    bool hasUpper = false;
+    for (int i = 0; i < (int)password.length(); i++) {
+        // TODO: if character is between 'A' and 'Z', set hasUpper = true
+    }
+    if (hasUpper) { score++; }
+
+    // TODO: Check for lowercase letters (similar loop)
+    bool hasLower = false;
+    // TODO: implement check
+
+    // TODO: Check for digits (0-9)
+    bool hasDigit = false;
+    // TODO: implement check
+
+    // TODO: Check for special characters (!@#$%^&*_-)
+    bool hasSpecial = false;
+    // TODO: implement check
+
+    // TODO: Rate the password based on score
+    cout << "\\nScore: " << score << "/6" << endl;
+    // TODO: if score >= 5: Strong, >= 3: Medium, else: Weak
+
+    return 0;
+}`,
+    hint: "Loop through each character. Use >= 'A' && <= 'Z' for uppercase, >= 'a' && <= 'z' for lowercase, >= '0' && <= '9' for digits.",
+    solution: `#include <iostream>
+#include <string>
+using namespace std;
+
+int main() {
+    string password = "C0d3_Ninja!";
+    int score = 0;
+
+    cout << "🔑 PASSWORD STRENGTH CHECKER" << endl;
+    cout << "Password: " << password << endl;
+    cout << "Length: " << password.length() << endl;
+
+    if (password.length() >= 12) {
+        score += 2;
+    } else if (password.length() >= 8) {
+        score += 1;
+    }
+
+    bool hasUpper = false, hasLower = false, hasDigit = false, hasSpecial = false;
+    for (int i = 0; i < (int)password.length(); i++) {
+        char c = password[i];
+        if (c >= 'A' && c <= 'Z') hasUpper = true;
+        if (c >= 'a' && c <= 'z') hasLower = true;
+        if (c >= '0' && c <= '9') hasDigit = true;
+        if (c == '!' || c == '@' || c == '#' || c == '_' || c == '-') hasSpecial = true;
+    }
+    if (hasUpper) score++;
+    if (hasLower) score++;
+    if (hasDigit) score++;
+    if (hasSpecial) score++;
+
+    cout << "\\nScore: " << score << "/6" << endl;
+    if (score >= 5) {
+        cout << "Rating: 💪 STRONG" << endl;
+    } else if (score >= 3) {
+        cout << "Rating: 🟡 MEDIUM" << endl;
+    } else {
+        cout << "Rating: 🔴 WEAK" << endl;
+    }
+
+    return 0;
+}`,
+    expectedOutput: `🔑 PASSWORD STRENGTH CHECKER
+Password: C0d3_Ninja!
+Length: 11
+
+Score: 5/6
+Rating: 💪 STRONG`,
+    tags: ["project", "cpp-area-2", "security"],
+    fromLesson: "cpp-2-1",
+  },
+
+  // cpp-2-2: switch & Ternary
+  {
+    id: "proj-cpp-2-2-1",
+    title: "🎵 Music Playlist Mood Selector",
+    description: "Use switch to pick playlists by mood! Combine with ternary for shuffle mode. Build a mini music player interface.",
+    difficulty: 2,
+    gradeRange: [6, 12],
+    skillLevel: "intermediate",
+    starterCode: `#include <iostream>
+#include <string>
+using namespace std;
+
+int main() {
+    int mood = 3; // 1=Happy, 2=Sad, 3=Energetic, 4=Chill, 5=Focus
+    bool shuffleOn = true;
+
+    cout << "🎵 MOOD PLAYLIST SELECTOR 🎵" << endl;
+
+    // TODO: Use a switch to select playlist based on mood
+    string playlist;
+    string emoji;
+    switch (mood) {
+        case 1:
+            playlist = "Summer Vibes Mix";
+            emoji = "😄";
+            break;
+        // TODO: Add cases 2-5
+        // 2 = "Rainy Day Ballads" 😢
+        // 3 = "Workout Beast Mode" 💪
+        // 4 = "Lo-fi Sunset" 🌅
+        // 5 = "Deep Focus Zone" 🧠
+        default:
+            playlist = "Random Mix";
+            emoji = "🎲";
+    }
+
+    // TODO: Use ternary to set shuffle status
+    string shuffleStatus = ""; // TODO: shuffleOn ? "ON 🔀" : "OFF ➡️"
+
+    // TODO: Use ternary to determine play mode
+    int songCount = 15;
+    string countMsg = ""; // TODO: songCount > 10 ? "Long playlist!" : "Short playlist"
+
+    cout << "Mood: " << emoji << endl;
+    cout << "Playlist: " << playlist << endl;
+    cout << "Shuffle: " << shuffleStatus << endl;
+    cout << "Songs: " << songCount << " - " << countMsg << endl;
+
+    return 0;
+}`,
+    hint: "Each switch case needs a break statement. Ternary syntax: condition ? valueIfTrue : valueIfFalse.",
+    solution: `#include <iostream>
+#include <string>
+using namespace std;
+
+int main() {
+    int mood = 3;
+    bool shuffleOn = true;
+
+    cout << "🎵 MOOD PLAYLIST SELECTOR 🎵" << endl;
+
+    string playlist;
+    string emoji;
+    switch (mood) {
+        case 1:
+            playlist = "Summer Vibes Mix";
+            emoji = "😄";
+            break;
+        case 2:
+            playlist = "Rainy Day Ballads";
+            emoji = "😢";
+            break;
+        case 3:
+            playlist = "Workout Beast Mode";
+            emoji = "💪";
+            break;
+        case 4:
+            playlist = "Lo-fi Sunset";
+            emoji = "🌅";
+            break;
+        case 5:
+            playlist = "Deep Focus Zone";
+            emoji = "🧠";
+            break;
+        default:
+            playlist = "Random Mix";
+            emoji = "🎲";
+    }
+
+    string shuffleStatus = shuffleOn ? "ON 🔀" : "OFF ➡️";
+    int songCount = 15;
+    string countMsg = songCount > 10 ? "Long playlist!" : "Short playlist";
+
+    cout << "Mood: " << emoji << endl;
+    cout << "Playlist: " << playlist << endl;
+    cout << "Shuffle: " << shuffleStatus << endl;
+    cout << "Songs: " << songCount << " - " << countMsg << endl;
+
+    return 0;
+}`,
+    expectedOutput: `🎵 MOOD PLAYLIST SELECTOR 🎵
+Mood: 💪
+Playlist: Workout Beast Mode
+Shuffle: ON 🔀
+Songs: 15 - Long playlist!`,
+    tags: ["project", "cpp-area-2", "creative"],
+    fromLesson: "cpp-2-2",
+  },
+  {
+    id: "proj-cpp-2-2-2",
+    title: "🍕 Pizza Order System",
+    description: "Build a pizza ordering system using switch for size/toppings and ternary for delivery options!",
+    difficulty: 2,
+    gradeRange: [6, 12],
+    skillLevel: "intermediate",
+    starterCode: `#include <iostream>
+#include <string>
+#include <iomanip>
+using namespace std;
+
+int main() {
+    int size = 2;      // 1=Small, 2=Medium, 3=Large
+    int topping = 3;   // 1=Pepperoni, 2=Mushroom, 3=Hawaiian, 4=Veggie
+    bool delivery = true;
+    bool extraCheese = true;
+
+    double basePrice = 0.0;
+    string sizeName, toppingName;
+
+    cout << "🍕 PIZZA ORDER SYSTEM 🍕" << endl;
+
+    // TODO: Use switch for size -> set basePrice and sizeName
+    switch (size) {
+        // 1: Small $8.99
+        // 2: Medium $11.99
+        // 3: Large $14.99
+        default:
+            basePrice = 11.99;
+            sizeName = "Medium";
+    }
+
+    // TODO: Use switch for topping -> set toppingName and add $1.50-$3.00
+    double toppingPrice = 0.0;
+    // TODO: switch on topping
+
+    // TODO: Use ternary for extra cheese ($2.00 or $0)
+    double cheeseCost = 0.0; // TODO
+
+    // TODO: Use ternary for delivery fee ($5.00 or $0)
+    double deliveryFee = 0.0; // TODO
+
+    double total = basePrice + toppingPrice + cheeseCost + deliveryFee;
+
+    cout << fixed << setprecision(2);
+    cout << "Size: " << sizeName << " ($" << basePrice << ")" << endl;
+    cout << "Topping: " << toppingName << " ($" << toppingPrice << ")" << endl;
+    // TODO: Use ternary inline to show Yes/No for extra cheese
+    cout << "Extra Cheese: " << (extraCheese ? "Yes" : "No") << " ($" << cheeseCost << ")" << endl;
+    cout << "Delivery: " << (delivery ? "Yes" : "No") << " ($" << deliveryFee << ")" << endl;
+    cout << "TOTAL: $" << total << endl;
+
+    return 0;
+}`,
+    hint: "Switch needs break after each case. Ternary: delivery ? 5.0 : 0.0. Don't forget to set string names in each case.",
+    solution: `#include <iostream>
+#include <string>
+#include <iomanip>
+using namespace std;
+
+int main() {
+    int size = 2;
+    int topping = 3;
+    bool delivery = true;
+    bool extraCheese = true;
+
+    double basePrice = 0.0;
+    string sizeName, toppingName;
+
+    cout << "🍕 PIZZA ORDER SYSTEM 🍕" << endl;
+
+    switch (size) {
+        case 1: basePrice = 8.99; sizeName = "Small"; break;
+        case 2: basePrice = 11.99; sizeName = "Medium"; break;
+        case 3: basePrice = 14.99; sizeName = "Large"; break;
+        default: basePrice = 11.99; sizeName = "Medium";
+    }
+
+    double toppingPrice = 0.0;
+    switch (topping) {
+        case 1: toppingName = "Pepperoni"; toppingPrice = 2.00; break;
+        case 2: toppingName = "Mushroom"; toppingPrice = 1.50; break;
+        case 3: toppingName = "Hawaiian"; toppingPrice = 2.50; break;
+        case 4: toppingName = "Veggie"; toppingPrice = 3.00; break;
+        default: toppingName = "Plain"; toppingPrice = 0.0;
+    }
+
+    double cheeseCost = extraCheese ? 2.00 : 0.00;
+    double deliveryFee = delivery ? 5.00 : 0.00;
+    double total = basePrice + toppingPrice + cheeseCost + deliveryFee;
+
+    cout << fixed << setprecision(2);
+    cout << "Size: " << sizeName << " ($" << basePrice << ")" << endl;
+    cout << "Topping: " << toppingName << " ($" << toppingPrice << ")" << endl;
+    cout << "Extra Cheese: " << (extraCheese ? "Yes" : "No") << " ($" << cheeseCost << ")" << endl;
+    cout << "Delivery: " << (delivery ? "Yes" : "No") << " ($" << deliveryFee << ")" << endl;
+    cout << "TOTAL: $" << total << endl;
+
+    return 0;
+}`,
+    expectedOutput: `🍕 PIZZA ORDER SYSTEM 🍕
+Size: Medium ($11.99)
+Topping: Hawaiian ($2.50)
+Extra Cheese: Yes ($2.00)
+Delivery: Yes ($5.00)
+TOTAL: $21.49`,
+    tags: ["project", "cpp-area-2", "simulation"],
+    fromLesson: "cpp-2-2",
+  },
+
+  // cpp-2-3: Loops
+  {
+    id: "proj-cpp-2-3-1",
+    title: "🎰 Number Guessing Game",
+    description: "Build a number guessing game with a loop! Give hot/cold hints and track attempts. The computer picks a number, you guess!",
+    difficulty: 2,
+    gradeRange: [6, 12],
+    skillLevel: "intermediate",
+    starterCode: `#include <iostream>
+using namespace std;
+
+int main() {
+    int secretNumber = 42;
+    int maxAttempts = 6;
+    int attempts = 0;
+    bool guessed = false;
+
+    // Pre-set guesses to simulate (since we can't use real input in tests)
+    int guesses[] = {25, 50, 38, 45, 42};
+    int numGuesses = 5;
+
+    cout << "🎰 GUESS THE NUMBER (1-100)" << endl;
+    cout << "You have " << maxAttempts << " attempts!" << endl;
+
+    // TODO: Use a while or for loop to process guesses
+    // For each guess:
+    //   - Increment attempts
+    //   - If correct, set guessed = true and break
+    //   - If too high, print "Too high! ⬇️"
+    //   - If too low, print "Too low! ⬆️"
+    //   - Print how close (within 5 = "🔥 HOT!", within 10 = "Warm", else "❄️ Cold")
+
+    for (int i = 0; i < numGuesses && attempts < maxAttempts; i++) {
+        int guess = guesses[i];
+        attempts++;
+        cout << "Guess #" << attempts << ": " << guess << " - ";
+
+        // TODO: Check the guess and give feedback
+    }
+
+    // TODO: Print result
+    if (guessed) {
+        cout << "🎉 You got it in " << attempts << " attempts!" << endl;
+    } else {
+        cout << "😞 The number was " << secretNumber << endl;
+    }
+
+    return 0;
+}`,
+    hint: "Use a for loop through the guesses array. Compare guess to secretNumber. Use abs(guess - secretNumber) for distance. Break when correct.",
+    solution: `#include <iostream>
+#include <cmath>
+using namespace std;
+
+int main() {
+    int secretNumber = 42;
+    int maxAttempts = 6;
+    int attempts = 0;
+    bool guessed = false;
+
+    int guesses[] = {25, 50, 38, 45, 42};
+    int numGuesses = 5;
+
+    cout << "🎰 GUESS THE NUMBER (1-100)" << endl;
+    cout << "You have " << maxAttempts << " attempts!" << endl;
+
+    for (int i = 0; i < numGuesses && attempts < maxAttempts; i++) {
+        int guess = guesses[i];
+        attempts++;
+        cout << "Guess #" << attempts << ": " << guess << " - ";
+
+        if (guess == secretNumber) {
+            cout << "CORRECT!" << endl;
+            guessed = true;
+            break;
+        } else if (guess > secretNumber) {
+            cout << "Too high! ⬇️";
+        } else {
+            cout << "Too low! ⬆️";
+        }
+
+        int dist = abs(guess - secretNumber);
+        if (dist <= 5) {
+            cout << " 🔥 HOT!" << endl;
+        } else if (dist <= 10) {
+            cout << " Warm" << endl;
+        } else {
+            cout << " ❄️ Cold" << endl;
+        }
+    }
+
+    if (guessed) {
+        cout << "🎉 You got it in " << attempts << " attempts!" << endl;
+    } else {
+        cout << "😞 The number was " << secretNumber << endl;
+    }
+
+    return 0;
+}`,
+    expectedOutput: `🎰 GUESS THE NUMBER (1-100)
+You have 6 attempts!
+Guess #1: 25 - Too low! ⬆️ ❄️ Cold
+Guess #2: 50 - Too high! ⬇️ Warm
+Guess #3: 38 - Too low! ⬆️ 🔥 HOT!
+Guess #4: 45 - Too high! ⬇️ 🔥 HOT!
+Guess #5: 42 - CORRECT!
+🎉 You got it in 5 attempts!`,
+    tags: ["project", "cpp-area-2", "game"],
+    fromLesson: "cpp-2-3",
+  },
+  {
+    id: "proj-cpp-2-3-2",
+    title: "📊 Fibonacci Sequence Explorer",
+    description: "Generate Fibonacci numbers with loops! Find which ones are even, calculate ratios approaching the Golden Ratio.",
+    difficulty: 2,
+    gradeRange: [6, 12],
+    skillLevel: "intermediate",
+    starterCode: `#include <iostream>
+#include <iomanip>
+using namespace std;
+
+int main() {
+    int n = 15; // Generate first 15 Fibonacci numbers
+    cout << "📊 FIBONACCI EXPLORER" << endl;
+    cout << "First " << n << " Fibonacci numbers:" << endl;
+
+    // TODO: Use a loop to generate Fibonacci sequence
+    // Start: f1 = 0, f2 = 1, next = f1 + f2
+    int f1 = 0, f2 = 1;
+    int evenCount = 0;
+    int sum = 0;
+
+    for (int i = 1; i <= n; i++) {
+        // TODO: Print current Fibonacci number
+        // TODO: Check if it's even, increment evenCount
+        // TODO: Add to sum
+        // TODO: Calculate next Fibonacci number
+    }
+
+    cout << "\\nTotal even numbers: " << evenCount << endl;
+    cout << "Sum of all: " << sum << endl;
+
+    // TODO: Calculate ratio of last two numbers (approaches Golden Ratio)
+    cout << fixed << setprecision(6);
+    // double ratio = (double)f2 / f1; // approximate golden ratio
+    // cout << "Last ratio (≈ Golden Ratio): " << ratio << endl;
+
+    return 0;
+}`,
+    hint: "Each Fibonacci number = previous two added together. Use int next = f1 + f2, then shift: f1 = f2, f2 = next. Even check: num % 2 == 0.",
+    solution: `#include <iostream>
+#include <iomanip>
+using namespace std;
+
+int main() {
+    int n = 15;
+    cout << "📊 FIBONACCI EXPLORER" << endl;
+    cout << "First " << n << " Fibonacci numbers:" << endl;
+
+    int f1 = 0, f2 = 1;
+    int evenCount = 0;
+    int sum = 0;
+
+    for (int i = 1; i <= n; i++) {
+        cout << f1 << " ";
+        if (f1 % 2 == 0) evenCount++;
+        sum += f1;
+        int next = f1 + f2;
+        f1 = f2;
+        f2 = next;
+    }
+    cout << endl;
+
+    cout << "\\nTotal even numbers: " << evenCount << endl;
+    cout << "Sum of all: " << sum << endl;
+
+    cout << fixed << setprecision(6);
+    double ratio = (double)f1 / f2;
+    cout << "Last ratio (approx Golden Ratio): " << ratio << endl;
+
+    return 0;
+}`,
+    expectedOutput: `📊 FIBONACCI EXPLORER
+First 15 Fibonacci numbers:
+0 1 1 2 3 5 8 13 21 34 55 89 144 233 377 
+
+Total even numbers: 5
+Sum of all: 986
+Last ratio (approx Golden Ratio): 0.618034`,
+    tags: ["project", "cpp-area-2", "math"],
+    fromLesson: "cpp-2-3",
+  },
+
+  // cpp-2-4: Nested Loops & Patterns
+  {
+    id: "proj-cpp-2-4-1",
+    title: "⭐ Star Pattern Art Gallery",
+    description: "Create amazing patterns using nested loops! Diamonds, pyramids, and spirals — all with * characters.",
+    difficulty: 2,
+    gradeRange: [6, 12],
+    skillLevel: "intermediate",
+    starterCode: `#include <iostream>
+using namespace std;
+
+int main() {
+    int size = 5;
+
+    // Pattern 1: Right triangle
+    cout << "=== Right Triangle ===" << endl;
+    for (int i = 1; i <= size; i++) {
+        for (int j = 0; j < i; j++) {
+            cout << "* ";
+        }
+        cout << endl;
+    }
+
+    // TODO: Pattern 2: Pyramid (centered)
+    // For size=5:
+    //     *
+    //    * *
+    //   * * *
+    //  * * * *
+    // * * * * *
+    cout << "\\n=== Pyramid ===" << endl;
+    // TODO: outer loop for rows
+    // TODO: inner loop 1 for spaces
+    // TODO: inner loop 2 for stars
+
+    // TODO: Pattern 3: Diamond
+    // Top half (pyramid) + bottom half (inverted pyramid)
+    cout << "\\n=== Diamond ===" << endl;
+    // TODO: implement diamond
+
+    // TODO: Pattern 4: Hollow square
+    // Stars on edges only, spaces inside
+    cout << "\\n=== Hollow Square ===" << endl;
+    // TODO: implement hollow square
+
+    return 0;
+}`,
+    hint: "For pyramid: spaces = size - row, then print row stars. Diamond = pyramid + inverted pyramid. Hollow square: print * only when i==0 || i==size-1 || j==0 || j==size-1.",
+    solution: `#include <iostream>
+using namespace std;
+
+int main() {
+    int size = 5;
+
+    cout << "=== Right Triangle ===" << endl;
+    for (int i = 1; i <= size; i++) {
+        for (int j = 0; j < i; j++) {
+            cout << "* ";
+        }
+        cout << endl;
+    }
+
+    cout << "\\n=== Pyramid ===" << endl;
+    for (int i = 1; i <= size; i++) {
+        for (int j = 0; j < size - i; j++) cout << " ";
+        for (int j = 0; j < i; j++) cout << "* ";
+        cout << endl;
+    }
+
+    cout << "\\n=== Diamond ===" << endl;
+    for (int i = 1; i <= size; i++) {
+        for (int j = 0; j < size - i; j++) cout << " ";
+        for (int j = 0; j < i; j++) cout << "* ";
+        cout << endl;
+    }
+    for (int i = size - 1; i >= 1; i--) {
+        for (int j = 0; j < size - i; j++) cout << " ";
+        for (int j = 0; j < i; j++) cout << "* ";
+        cout << endl;
+    }
+
+    cout << "\\n=== Hollow Square ===" << endl;
+    for (int i = 0; i < size; i++) {
+        for (int j = 0; j < size; j++) {
+            if (i == 0 || i == size - 1 || j == 0 || j == size - 1)
+                cout << "* ";
+            else
+                cout << "  ";
+        }
+        cout << endl;
+    }
+
+    return 0;
+}`,
+    expectedOutput: `=== Right Triangle ===
+* 
+* * 
+* * * 
+* * * * 
+* * * * * 
+
+=== Pyramid ===
+    * 
+   * * 
+  * * * 
+ * * * * 
+* * * * * 
+
+=== Diamond ===
+    * 
+   * * 
+  * * * 
+ * * * * 
+* * * * * 
+ * * * * 
+  * * * 
+   * * 
+    * 
+
+=== Hollow Square ===
+* * * * * 
+*       * 
+*       * 
+*       * 
+* * * * * `,
+    tags: ["project", "cpp-area-2", "patterns"],
+    fromLesson: "cpp-2-4",
+  },
+  {
+    id: "proj-cpp-2-4-2",
+    title: "📅 Calendar Month Printer",
+    description: "Print a formatted calendar month using nested loops! Handle days of the week and proper alignment.",
+    difficulty: 2,
+    gradeRange: [6, 12],
+    skillLevel: "intermediate",
+    starterCode: `#include <iostream>
+#include <iomanip>
+using namespace std;
+
+int main() {
+    string month = "March 2024";
+    int daysInMonth = 31;
+    int startDay = 5; // 0=Sun, 1=Mon, ..., 5=Fri
+
+    cout << "  " << month << endl;
+    cout << " Su Mo Tu We Th Fr Sa" << endl;
+
+    // TODO: Print leading spaces for the first week
+    // If month starts on Friday (5), print 5 empty slots
+    int dayOfWeek = 0;
+    for (int i = 0; i < startDay; i++) {
+        cout << "   "; // 3 spaces per empty slot
+        dayOfWeek++;
+    }
+
+    // TODO: Print each day with proper formatting
+    // Use setw(3) for alignment
+    // When dayOfWeek reaches 7, start a new line
+    for (int day = 1; day <= daysInMonth; day++) {
+        // TODO: print the day number
+        // TODO: check if we need a newline (dayOfWeek == 7)
+    }
+
+    cout << endl;
+    return 0;
+}`,
+    hint: "Print 3-wide numbers with setw(3). After printing each number, increment dayOfWeek. When dayOfWeek == 7, print endl and reset to 0.",
+    solution: `#include <iostream>
+#include <iomanip>
+using namespace std;
+
+int main() {
+    string month = "March 2024";
+    int daysInMonth = 31;
+    int startDay = 5;
+
+    cout << "  " << month << endl;
+    cout << " Su Mo Tu We Th Fr Sa" << endl;
+
+    int dayOfWeek = 0;
+    for (int i = 0; i < startDay; i++) {
+        cout << "   ";
+        dayOfWeek++;
+    }
+
+    for (int day = 1; day <= daysInMonth; day++) {
+        cout << setw(3) << day;
+        dayOfWeek++;
+        if (dayOfWeek == 7) {
+            cout << endl;
+            dayOfWeek = 0;
+        }
+    }
+
+    cout << endl;
+    return 0;
+}`,
+    expectedOutput: `  March 2024
+ Su Mo Tu We Th Fr Sa
+                  1  2
+  3  4  5  6  7  8  9
+ 10 11 12 13 14 15 16
+ 17 18 19 20 21 22 23
+ 24 25 26 27 28 29 30
+ 31
+`,
+    tags: ["project", "cpp-area-2", "formatting"],
+    fromLesson: "cpp-2-4",
+  },
+
+  // ─── Area 3: Functions & Data ────────────────────────────────
+
+  // cpp-3-1: Functions (typed, overloaded)
+  {
+    id: "proj-cpp-3-1-1",
+    title: "🧮 Math Toolkit Library",
+    description: "Build a reusable math toolkit with overloaded functions! Create power(), abs(), max() that work with different types.",
+    difficulty: 2,
+    gradeRange: [6, 12],
+    skillLevel: "intermediate",
+    starterCode: `#include <iostream>
+using namespace std;
+
+// TODO: Write a power function for integers
+// int power(int base, int exp) - returns base^exp
+int power(int base, int exp) {
+    int result = 1;
+    // TODO: multiply result by base, exp times
+    return result;
+}
+
+// TODO: Overload power for doubles
+// double power(double base, int exp)
+
+// TODO: Write an absolute value function for int
+// int myAbs(int x)
+
+// TODO: Overload absolute value for double
+// double myAbs(double x)
+
+// TODO: Write a max function for 2 ints
+// int myMax(int a, int b)
+
+// TODO: Overload max for 3 ints
+// int myMax(int a, int b, int c)
+
+// TODO: Write a factorial function
+// long long factorial(int n)
+
+int main() {
+    cout << "🧮 MATH TOOLKIT" << endl;
+
+    cout << "power(2, 10) = " << power(2, 10) << endl;
+    // TODO: Test power with doubles
+    // TODO: Test myAbs with negative numbers
+    // TODO: Test myMax with 2 and 3 args
+    // TODO: Test factorial
+
+    return 0;
+}`,
+    hint: "Overloading = same function name, different parameter types. Power: loop exp times multiplying. Abs: if negative, return -x. Factorial: loop 1 to n multiplying.",
+    solution: `#include <iostream>
+#include <iomanip>
+using namespace std;
+
+int power(int base, int exp) {
+    int result = 1;
+    for (int i = 0; i < exp; i++) result *= base;
+    return result;
+}
+
+double power(double base, int exp) {
+    double result = 1.0;
+    for (int i = 0; i < exp; i++) result *= base;
+    return result;
+}
+
+int myAbs(int x) { return x < 0 ? -x : x; }
+double myAbs(double x) { return x < 0 ? -x : x; }
+
+int myMax(int a, int b) { return a > b ? a : b; }
+int myMax(int a, int b, int c) { return myMax(myMax(a, b), c); }
+
+long long factorial(int n) {
+    long long result = 1;
+    for (int i = 2; i <= n; i++) result *= i;
+    return result;
+}
+
+int main() {
+    cout << "🧮 MATH TOOLKIT" << endl;
+
+    cout << "power(2, 10) = " << power(2, 10) << endl;
+    cout << fixed << setprecision(4);
+    cout << "power(3.14, 2) = " << power(3.14, 2) << endl;
+    cout << "myAbs(-42) = " << myAbs(-42) << endl;
+    cout << "myAbs(-3.14) = " << myAbs(-3.14) << endl;
+    cout << "myMax(10, 20) = " << myMax(10, 20) << endl;
+    cout << "myMax(5, 15, 10) = " << myMax(5, 15, 10) << endl;
+    cout << "factorial(10) = " << factorial(10) << endl;
+
+    return 0;
+}`,
+    expectedOutput: `🧮 MATH TOOLKIT
+power(2, 10) = 1024
+power(3.14, 2) = 9.8596
+myAbs(-42) = 42
+myAbs(-3.14) = 3.1400
+myMax(10, 20) = 20
+myMax(5, 15, 10) = 15
+factorial(10) = 3628800`,
+    tags: ["project", "cpp-area-3", "math", "functions"],
+    fromLesson: "cpp-3-1",
+  },
+  {
+    id: "proj-cpp-3-1-2",
+    title: "🎲 Dice Game Engine",
+    description: "Create a dice game with functions for rolling, scoring, and checking combinations! Use function overloading for different dice counts.",
+    difficulty: 2,
+    gradeRange: [6, 12],
+    skillLevel: "intermediate",
+    starterCode: `#include <iostream>
+using namespace std;
+
+// Simulate dice with pre-set values (for testing)
+int rollIndex = 0;
+int rolls[] = {3, 5, 3, 6, 2, 4, 1, 3, 5, 6};
+
+// TODO: Function to "roll" one die (returns next pre-set value)
+int rollDie() {
+    return rolls[rollIndex++];
+}
+
+// TODO: Function to roll N dice and return their sum
+int rollDice(int n) {
+    int sum = 0;
+    // TODO: call rollDie() n times, add up results
+    return sum;
+}
+
+// TODO: Function to check if a roll is "high" (>=4)
+bool isHighRoll(int value) {
+    return false; // TODO
+}
+
+// TODO: Function to calculate score (high rolls = 2x points)
+int calculateScore(int roll1, int roll2) {
+    int score = 0;
+    // TODO: if high roll, worth double
+    return score;
+}
+
+int main() {
+    cout << "🎲 DICE GAME ENGINE" << endl;
+
+    // Round 1: Roll 2 dice
+    int r1 = rollDie();
+    int r2 = rollDie();
+    cout << "Roll: " << r1 << " + " << r2 << " = " << (r1 + r2) << endl;
+    cout << "Score: " << calculateScore(r1, r2) << endl;
+
+    // Round 2: Roll 3 dice (sum)
+    int sum3 = rollDice(3);
+    cout << "3-dice sum: " << sum3 << endl;
+
+    // Round 3: Another 2 dice
+    int r3 = rollDie();
+    int r4 = rollDie();
+    cout << "Roll: " << r3 << " + " << r4 << " = " << (r3 + r4) << endl;
+    cout << "Score: " << calculateScore(r3, r4) << endl;
+
+    return 0;
+}`,
+    hint: "rollDice(n) should call rollDie() n times in a loop. isHighRoll checks if value >= 4. calculateScore gives 2x for high rolls, 1x otherwise.",
+    solution: `#include <iostream>
+using namespace std;
+
+int rollIndex = 0;
+int rolls[] = {3, 5, 3, 6, 2, 4, 1, 3, 5, 6};
+
+int rollDie() {
+    return rolls[rollIndex++];
+}
+
+int rollDice(int n) {
+    int sum = 0;
+    for (int i = 0; i < n; i++) sum += rollDie();
+    return sum;
+}
+
+bool isHighRoll(int value) {
+    return value >= 4;
+}
+
+int calculateScore(int roll1, int roll2) {
+    int score = 0;
+    score += isHighRoll(roll1) ? roll1 * 2 : roll1;
+    score += isHighRoll(roll2) ? roll2 * 2 : roll2;
+    return score;
+}
+
+int main() {
+    cout << "🎲 DICE GAME ENGINE" << endl;
+
+    int r1 = rollDie();
+    int r2 = rollDie();
+    cout << "Roll: " << r1 << " + " << r2 << " = " << (r1 + r2) << endl;
+    cout << "Score: " << calculateScore(r1, r2) << endl;
+
+    int sum3 = rollDice(3);
+    cout << "3-dice sum: " << sum3 << endl;
+
+    int r3 = rollDie();
+    int r4 = rollDie();
+    cout << "Roll: " << r3 << " + " << r4 << " = " << (r3 + r4) << endl;
+    cout << "Score: " << calculateScore(r3, r4) << endl;
+
+    return 0;
+}`,
+    expectedOutput: `🎲 DICE GAME ENGINE
+Roll: 3 + 5 - 8
+Score: 13
+3-dice sum: 11
+Roll: 4 + 1 = 5
+Score: 9`,
+    tags: ["project", "cpp-area-3", "game"],
+    fromLesson: "cpp-3-1",
+  },
+
+  // cpp-3-2: Arrays (C-style)
+  {
+    id: "proj-cpp-3-2-1",
+    title: "📊 Grade Book Analyzer",
+    description: "Build a grade book using arrays! Calculate averages, find highest/lowest, count letter grades, and create a histogram.",
+    difficulty: 2,
+    gradeRange: [6, 12],
+    skillLevel: "intermediate",
+    starterCode: `#include <iostream>
+#include <iomanip>
+using namespace std;
+
+int main() {
+    const int NUM_STUDENTS = 10;
+    int grades[NUM_STUDENTS] = {85, 92, 78, 95, 88, 72, 98, 65, 89, 91};
+    string names[NUM_STUDENTS] = {"Alice", "Bob", "Carol", "Dave", "Eve",
+                                   "Frank", "Grace", "Hank", "Ivy", "Jack"};
+
+    cout << "📊 GRADE BOOK ANALYZER" << endl;
+    cout << "======================" << endl;
+
+    // TODO: Calculate average grade
+    double sum = 0;
+    for (int i = 0; i < NUM_STUDENTS; i++) {
+        // TODO: add grades[i] to sum
+    }
+    double average = sum / NUM_STUDENTS;
+
+    // TODO: Find highest and lowest grades (and who got them)
+    int highest = grades[0], lowest = grades[0];
+    int highIdx = 0, lowIdx = 0;
+    // TODO: loop and compare
+
+    // TODO: Count letter grades (A: 90+, B: 80+, C: 70+, D: 60+, F: <60)
+    int countA = 0, countB = 0, countC = 0, countD = 0, countF = 0;
+    // TODO: loop and count
+
+    // Print results
+    cout << fixed << setprecision(1);
+    cout << "Average: " << average << endl;
+    cout << "Highest: " << names[highIdx] << " (" << highest << ")" << endl;
+    cout << "Lowest: " << names[lowIdx] << " (" << lowest << ")" << endl;
+    cout << "A: " << countA << " B: " << countB << " C: " << countC << endl;
+
+    return 0;
+}`,
+    hint: "Loop through the array with a for loop. Track max/min by comparing each element. For letter grades, use if/else chains on each grade.",
+    solution: `#include <iostream>
+#include <iomanip>
+using namespace std;
+
+int main() {
+    const int NUM_STUDENTS = 10;
+    int grades[NUM_STUDENTS] = {85, 92, 78, 95, 88, 72, 98, 65, 89, 91};
+    string names[NUM_STUDENTS] = {"Alice", "Bob", "Carol", "Dave", "Eve",
+                                   "Frank", "Grace", "Hank", "Ivy", "Jack"};
+
+    cout << "📊 GRADE BOOK ANALYZER" << endl;
+    cout << "======================" << endl;
+
+    double sum = 0;
+    for (int i = 0; i < NUM_STUDENTS; i++) sum += grades[i];
+    double average = sum / NUM_STUDENTS;
+
+    int highest = grades[0], lowest = grades[0];
+    int highIdx = 0, lowIdx = 0;
+    for (int i = 1; i < NUM_STUDENTS; i++) {
+        if (grades[i] > highest) { highest = grades[i]; highIdx = i; }
+        if (grades[i] < lowest) { lowest = grades[i]; lowIdx = i; }
+    }
+
+    int countA = 0, countB = 0, countC = 0, countD = 0, countF = 0;
+    for (int i = 0; i < NUM_STUDENTS; i++) {
+        if (grades[i] >= 90) countA++;
+        else if (grades[i] >= 80) countB++;
+        else if (grades[i] >= 70) countC++;
+        else if (grades[i] >= 60) countD++;
+        else countF++;
+    }
+
+    cout << fixed << setprecision(1);
+    cout << "Average: " << average << endl;
+    cout << "Highest: " << names[highIdx] << " (" << highest << ")" << endl;
+    cout << "Lowest: " << names[lowIdx] << " (" << lowest << ")" << endl;
+    cout << "A: " << countA << " B: " << countB << " C: " << countC << endl;
+
+    return 0;
+}`,
+    expectedOutput: `📊 GRADE BOOK ANALYZER
+======================
+Average: 85.3
+Highest: Grace (98)
+Lowest: Hank (65)
+A: 4 B: 3 C: 2`,
+    tags: ["project", "cpp-area-3", "arrays"],
+    fromLesson: "cpp-3-2",
+  },
+  {
+    id: "proj-cpp-3-2-2",
+    title: "🎵 Beat Sequencer",
+    description: "Create a drum machine using arrays! Store beat patterns and play them back as text-based music visualization.",
+    difficulty: 2,
+    gradeRange: [6, 12],
+    skillLevel: "intermediate",
+    starterCode: `#include <iostream>
+using namespace std;
+
+int main() {
+    const int BEATS = 8;
+    // 1 = hit, 0 = rest
+    int kick[BEATS]  = {1, 0, 0, 1, 1, 0, 0, 1};
+    int snare[BEATS] = {0, 0, 1, 0, 0, 0, 1, 0};
+    int hihat[BEATS] = {1, 1, 1, 1, 1, 1, 1, 1};
+
+    cout << "🎵 BEAT SEQUENCER" << endl;
+    cout << "=================" << endl;
+
+    // TODO: Print header with beat numbers
+    cout << "Beat:  ";
+    for (int i = 0; i < BEATS; i++) {
+        cout << (i + 1) << " ";
+    }
+    cout << endl;
+
+    // TODO: Print each instrument's pattern
+    // Use "X" for hit, "." for rest
+    cout << "Kick:  ";
+    // TODO: loop through kick array
+    cout << endl;
+
+    cout << "Snare: ";
+    // TODO: loop through snare array
+    cout << endl;
+
+    cout << "HiHat: ";
+    // TODO: loop through hihat array
+    cout << endl;
+
+    // TODO: Count total hits per instrument
+    // TODO: Find the busiest beat (most hits at same position)
+
+    return 0;
+}`,
+    hint: "Loop through each array, print 'X' if value is 1, '.' if 0. To find busiest beat, add kick[i]+snare[i]+hihat[i] for each position.",
+    solution: `#include <iostream>
+using namespace std;
+
+int main() {
+    const int BEATS = 8;
+    int kick[BEATS]  = {1, 0, 0, 1, 1, 0, 0, 1};
+    int snare[BEATS] = {0, 0, 1, 0, 0, 0, 1, 0};
+    int hihat[BEATS] = {1, 1, 1, 1, 1, 1, 1, 1};
+
+    cout << "🎵 BEAT SEQUENCER" << endl;
+    cout << "=================" << endl;
+
+    cout << "Beat:  ";
+    for (int i = 0; i < BEATS; i++) cout << (i + 1) << " ";
+    cout << endl;
+
+    cout << "Kick:  ";
+    int kickHits = 0;
+    for (int i = 0; i < BEATS; i++) {
+        cout << (kick[i] ? "X" : ".") << " ";
+        kickHits += kick[i];
+    }
+    cout << endl;
+
+    cout << "Snare: ";
+    int snareHits = 0;
+    for (int i = 0; i < BEATS; i++) {
+        cout << (snare[i] ? "X" : ".") << " ";
+        snareHits += snare[i];
+    }
+    cout << endl;
+
+    cout << "HiHat: ";
+    int hihatHits = 0;
+    for (int i = 0; i < BEATS; i++) {
+        cout << (hihat[i] ? "X" : ".") << " ";
+        hihatHits += hihat[i];
+    }
+    cout << endl;
+
+    cout << "\\nHits - Kick: " << kickHits << " Snare: " << snareHits << " HiHat: " << hihatHits << endl;
+
+    int busiestBeat = 0, maxHits = 0;
+    for (int i = 0; i < BEATS; i++) {
+        int total = kick[i] + snare[i] + hihat[i];
+        if (total > maxHits) { maxHits = total; busiestBeat = i + 1; }
+    }
+    cout << "Busiest beat: #" << busiestBeat << " (" << maxHits << " hits)" << endl;
+
+    return 0;
+}`,
+    expectedOutput: `🎵 BEAT SEQUENCER
+=================
+Beat:  1 2 3 4 5 6 7 8 
+Kick:  X . . X X . . X 
+Snare: . . X . . . X . 
+HiHat: X X X X X X X X 
+
+Hits - Kick: 4 Snare: 2 HiHat: 8
+Busiest beat: #1 (2 hits)`,
+    tags: ["project", "cpp-area-3", "creative", "arrays"],
+    fromLesson: "cpp-3-2",
+  },
+
+  // cpp-3-3: Vectors
+  {
+    id: "proj-cpp-3-3-1",
+    title: "📋 To-Do List Manager",
+    description: "Build a dynamic to-do list using vectors! Add, complete, and display tasks with priority sorting.",
+    difficulty: 2,
+    gradeRange: [6, 12],
+    skillLevel: "intermediate",
+    starterCode: `#include <iostream>
+#include <vector>
+#include <string>
+using namespace std;
+
+int main() {
+    vector<string> tasks;
+    vector<bool> completed;
+    vector<int> priority; // 1=High, 2=Medium, 3=Low
+
+    cout << "📋 TODO LIST MANAGER" << endl;
+
+    // TODO: Add tasks using push_back
+    tasks.push_back("Study for math test");
+    completed.push_back(false);
+    priority.push_back(1);
+
+    // TODO: Add more tasks (at least 4 more)
+
+    // TODO: Mark some tasks as completed
+    // completed[0] = true;
+
+    // TODO: Display all tasks with status
+    cout << "\\n--- All Tasks ---" << endl;
+    for (int i = 0; i < (int)tasks.size(); i++) {
+        // TODO: Print [X] for completed, [ ] for not
+        // TODO: Print priority level
+        // TODO: Print task name
+    }
+
+    // TODO: Count completed vs pending
+    int doneCount = 0;
+    // TODO: loop and count
+
+    cout << "\\nCompleted: " << doneCount << "/" << tasks.size() << endl;
+
+    return 0;
+}`,
+    hint: "Use push_back() to add items to all three vectors. Loop with .size(). Print [X] or [ ] based on completed[i]. Count where completed[i] == true.",
+    solution: `#include <iostream>
+#include <vector>
+#include <string>
+using namespace std;
+
+int main() {
+    vector<string> tasks;
+    vector<bool> completed;
+    vector<int> priority;
+
+    cout << "📋 TODO LIST MANAGER" << endl;
+
+    tasks.push_back("Study for math test");
+    completed.push_back(false);
+    priority.push_back(1);
+
+    tasks.push_back("Clean room");
+    completed.push_back(true);
+    priority.push_back(3);
+
+    tasks.push_back("Finish coding project");
+    completed.push_back(false);
+    priority.push_back(1);
+
+    tasks.push_back("Read chapter 5");
+    completed.push_back(true);
+    priority.push_back(2);
+
+    tasks.push_back("Practice guitar");
+    completed.push_back(false);
+    priority.push_back(2);
+
+    cout << "\\n--- All Tasks ---" << endl;
+    for (int i = 0; i < (int)tasks.size(); i++) {
+        string status = completed[i] ? "[X]" : "[ ]";
+        string pri = priority[i] == 1 ? "HIGH" : (priority[i] == 2 ? "MED " : "LOW ");
+        cout << status << " " << pri << " " << tasks[i] << endl;
+    }
+
+    int doneCount = 0;
+    for (int i = 0; i < (int)completed.size(); i++) {
+        if (completed[i]) doneCount++;
+    }
+
+    cout << "\\nCompleted: " << doneCount << "/" << tasks.size() << endl;
+
+    return 0;
+}`,
+    expectedOutput: `📋 TODO LIST MANAGER
+
+--- All Tasks ---
+[ ] HIGH Study for math test
+[X] LOW  Clean room
+[ ] HIGH Finish coding project
+[X] MED  Read chapter 5
+[ ] MED  Practice guitar
+
+Completed: 2/5`,
+    tags: ["project", "cpp-area-3", "vectors"],
+    fromLesson: "cpp-3-3",
+  },
+  {
+    id: "proj-cpp-3-3-2",
+    title: "📈 Stock Price Tracker",
+    description: "Track stock prices with vectors! Calculate moving averages, find trends, and detect the best buy/sell points.",
+    difficulty: 2,
+    gradeRange: [6, 12],
+    skillLevel: "intermediate",
+    starterCode: `#include <iostream>
+#include <vector>
+#include <iomanip>
+using namespace std;
+
+int main() {
+    vector<double> prices = {150.0, 148.5, 152.3, 155.0, 153.2,
+                             157.8, 160.1, 158.5, 162.0, 165.5};
+
+    cout << "📈 STOCK TRACKER" << endl;
+    cout << fixed << setprecision(2);
+
+    // TODO: Print all prices
+    cout << "Prices: ";
+    for (int i = 0; i < (int)prices.size(); i++) {
+        cout << prices[i] << " ";
+    }
+    cout << endl;
+
+    // TODO: Find min and max price
+    double minPrice = prices[0], maxPrice = prices[0];
+    int minDay = 0, maxDay = 0;
+    // TODO: loop to find min/max
+
+    // TODO: Calculate daily changes (push_back into a new vector)
+    vector<double> changes;
+    // TODO: changes[i] = prices[i+1] - prices[i]
+
+    // TODO: Find best profit (buy low, sell high - buy must be before sell)
+    double bestProfit = 0.0;
+    // TODO: calculate
+
+    cout << "Min: $" << minPrice << " (day " << minDay << ")" << endl;
+    cout << "Max: $" << maxPrice << " (day " << maxDay << ")" << endl;
+    cout << "Best profit: $" << bestProfit << endl;
+
+    return 0;
+}`,
+    hint: "For daily changes, subtract consecutive prices. For best profit, track the minimum price seen so far and the max profit possible at each step.",
+    solution: `#include <iostream>
+#include <vector>
+#include <iomanip>
+using namespace std;
+
+int main() {
+    vector<double> prices = {150.0, 148.5, 152.3, 155.0, 153.2,
+                             157.8, 160.1, 158.5, 162.0, 165.5};
+
+    cout << "📈 STOCK TRACKER" << endl;
+    cout << fixed << setprecision(2);
+
+    cout << "Prices: ";
+    for (int i = 0; i < (int)prices.size(); i++) cout << prices[i] << " ";
+    cout << endl;
+
+    double minPrice = prices[0], maxPrice = prices[0];
+    int minDay = 0, maxDay = 0;
+    for (int i = 1; i < (int)prices.size(); i++) {
+        if (prices[i] < minPrice) { minPrice = prices[i]; minDay = i; }
+        if (prices[i] > maxPrice) { maxPrice = prices[i]; maxDay = i; }
+    }
+
+    vector<double> changes;
+    for (int i = 0; i < (int)prices.size() - 1; i++) {
+        changes.push_back(prices[i + 1] - prices[i]);
+    }
+
+    double bestProfit = 0.0;
+    double minSoFar = prices[0];
+    for (int i = 1; i < (int)prices.size(); i++) {
+        double profit = prices[i] - minSoFar;
+        if (profit > bestProfit) bestProfit = profit;
+        if (prices[i] < minSoFar) minSoFar = prices[i];
+    }
+
+    cout << "Min: $" << minPrice << " (day " << minDay << ")" << endl;
+    cout << "Max: $" << maxPrice << " (day " << maxDay << ")" << endl;
+    cout << "Best profit: $" << bestProfit << endl;
+
+    return 0;
+}`,
+    expectedOutput: `📈 STOCK TRACKER
+Prices: 150.00 148.50 152.30 155.00 153.20 157.80 160.10 158.50 162.00 165.50 
+Min: $148.50 (day 1)
+Max: $165.50 (day 9)
+Best profit: $17.00`,
+    tags: ["project", "cpp-area-3", "simulation", "vectors"],
+    fromLesson: "cpp-3-3",
+  },
+
+  // cpp-3-4: References & Pass-by
+  {
+    id: "proj-cpp-3-4-1",
+    title: "🔄 Swap Shop Game",
+    description: "Master references with a trading game! Swap items between players using pass-by-reference functions.",
+    difficulty: 2,
+    gradeRange: [6, 12],
+    skillLevel: "intermediate",
+    starterCode: `#include <iostream>
+#include <string>
+using namespace std;
+
+// TODO: Write a swap function using references
+// void swapItems(string &a, string &b)
+void swapItems(string &a, string &b) {
+    // TODO: swap the values of a and b
+}
+
+// TODO: Write a function that doubles a value by reference
+void doubleValue(int &val) {
+    // TODO: multiply val by 2
+}
+
+// TODO: Write a function that returns value AND modifies by reference
+int addAndTrack(int a, int b, int &total) {
+    int sum = a + b;
+    // TODO: add sum to total (running total)
+    return sum;
+}
+
+int main() {
+    cout << "🔄 SWAP SHOP GAME" << endl;
+
+    string player1Item = "Sword";
+    string player2Item = "Shield";
+
+    cout << "Before trade:" << endl;
+    cout << "Player 1: " << player1Item << endl;
+    cout << "Player 2: " << player2Item << endl;
+
+    swapItems(player1Item, player2Item);
+
+    cout << "After trade:" << endl;
+    cout << "Player 1: " << player1Item << endl;
+    cout << "Player 2: " << player2Item << endl;
+
+    int coins = 10;
+    cout << "\\nCoins: " << coins << endl;
+    doubleValue(coins);
+    cout << "After doubling: " << coins << endl;
+
+    int runningTotal = 0;
+    cout << "\\nQuest rewards:" << endl;
+    int r1 = addAndTrack(5, 3, runningTotal);
+    cout << "Quest 1: +" << r1 << " (total: " << runningTotal << ")" << endl;
+    int r2 = addAndTrack(10, 7, runningTotal);
+    cout << "Quest 2: +" << r2 << " (total: " << runningTotal << ")" << endl;
+
+    return 0;
+}`,
+    hint: "Swap uses a temp variable: temp = a; a = b; b = temp. Pass-by-reference means the original variable is modified. The & in the parameter makes it a reference.",
+    solution: `#include <iostream>
+#include <string>
+using namespace std;
+
+void swapItems(string &a, string &b) {
+    string temp = a;
+    a = b;
+    b = temp;
+}
+
+void doubleValue(int &val) {
+    val *= 2;
+}
+
+int addAndTrack(int a, int b, int &total) {
+    int sum = a + b;
+    total += sum;
+    return sum;
+}
+
+int main() {
+    cout << "🔄 SWAP SHOP GAME" << endl;
+
+    string player1Item = "Sword";
+    string player2Item = "Shield";
+
+    cout << "Before trade:" << endl;
+    cout << "Player 1: " << player1Item << endl;
+    cout << "Player 2: " << player2Item << endl;
+
+    swapItems(player1Item, player2Item);
+
+    cout << "After trade:" << endl;
+    cout << "Player 1: " << player1Item << endl;
+    cout << "Player 2: " << player2Item << endl;
+
+    int coins = 10;
+    cout << "\\nCoins: " << coins << endl;
+    doubleValue(coins);
+    cout << "After doubling: " << coins << endl;
+
+    int runningTotal = 0;
+    cout << "\\nQuest rewards:" << endl;
+    int r1 = addAndTrack(5, 3, runningTotal);
+    cout << "Quest 1: +" << r1 << " (total: " << runningTotal << ")" << endl;
+    int r2 = addAndTrack(10, 7, runningTotal);
+    cout << "Quest 2: +" << r2 << " (total: " << runningTotal << ")" << endl;
+
+    return 0;
+}`,
+    expectedOutput: `🔄 SWAP SHOP GAME
+Before trade:
+Player 1: Sword
+Player 2: Shield
+After trade:
+Player 1: Shield
+Player 2: Sword
+
+Coins: 10
+After doubling: 20
+
+Quest rewards:
+Quest 1: +8 (total: 8)
+Quest 2: +17 (total: 25)`,
+    tags: ["project", "cpp-area-3", "references"],
+    fromLesson: "cpp-3-4",
+  },
+
+  // ─── Area 4: OOP & Memory ────────────────────────────────
+
+  // cpp-4-1: Pointers
+  {
+    id: "proj-cpp-4-1-1",
+    title: "🗺️ Treasure Map with Pointers",
+    description: "Navigate a treasure map using pointers! Follow pointer chains to find hidden treasure. Learn addresses and dereferencing.",
+    difficulty: 2,
+    gradeRange: [6, 12],
+    skillLevel: "intermediate",
+    starterCode: `#include <iostream>
+using namespace std;
+
+int main() {
+    // The treasure map: values at locations
+    int location1 = 10;
+    int location2 = 20;
+    int location3 = 50; // THE TREASURE!
+    int location4 = 5;
+
+    cout << "🗺️ TREASURE MAP" << endl;
+
+    // TODO: Create pointers to each location
+    int* clue1 = &location1;
+    // TODO: Create clue2, clue3, clue4
+
+    // TODO: Print addresses (the "map coordinates")
+    cout << "Clue 1 points to address: " << clue1 << endl;
+    cout << "Value at clue 1: " << *clue1 << endl;
+
+    // TODO: Follow the clues - dereference each pointer
+    // The treasure is the location with value >= 50
+
+    // TODO: Use pointer arithmetic or reassignment
+    // Point clue1 to different locations to "search"
+    int* searchPtr = clue1;
+    cout << "\\nSearching..." << endl;
+    cout << "Location 1: " << *searchPtr << " gold";
+    cout << (*searchPtr >= 50 ? " TREASURE!" : " - keep looking") << endl;
+
+    // TODO: Move pointer to next locations and check
+    // searchPtr = &location2; etc.
+
+    // TODO: Swap two values using pointers
+    cout << "\\nBefore swap: loc1=" << location1 << " loc2=" << location2 << endl;
+    // TODO: swap *ptr1 and *ptr2
+    cout << "After swap: loc1=" << location1 << " loc2=" << location2 << endl;
+
+    return 0;
+}`,
+    hint: "Create a pointer with int* ptr = &variable. Dereference with *ptr to get the value. To swap via pointers: int temp = *a; *a = *b; *b = temp.",
+    solution: `#include <iostream>
+using namespace std;
+
+int main() {
+    int location1 = 10;
+    int location2 = 20;
+    int location3 = 50;
+    int location4 = 5;
+
+    cout << "🗺️ TREASURE MAP" << endl;
+
+    int* clue1 = &location1;
+    int* clue2 = &location2;
+    int* clue3 = &location3;
+    int* clue4 = &location4;
+
+    cout << "Clue 1 points to address: " << clue1 << endl;
+    cout << "Value at clue 1: " << *clue1 << endl;
+
+    int* searchPtr = clue1;
+    cout << "\\nSearching..." << endl;
+    cout << "Location 1: " << *searchPtr << " gold";
+    cout << (*searchPtr >= 50 ? " TREASURE!" : " - keep looking") << endl;
+
+    searchPtr = clue2;
+    cout << "Location 2: " << *searchPtr << " gold";
+    cout << (*searchPtr >= 50 ? " TREASURE!" : " - keep looking") << endl;
+
+    searchPtr = clue3;
+    cout << "Location 3: " << *searchPtr << " gold";
+    cout << (*searchPtr >= 50 ? " TREASURE!" : " - keep looking") << endl;
+
+    cout << "\\nBefore swap: loc1=" << location1 << " loc2=" << location2 << endl;
+    int temp = *clue1;
+    *clue1 = *clue2;
+    *clue2 = temp;
+    cout << "After swap: loc1=" << location1 << " loc2=" << location2 << endl;
+
+    return 0;
+}`,
+    tags: ["project", "cpp-area-4", "pointers"],
+    fromLesson: "cpp-4-1",
+  },
+  {
+    id: "proj-cpp-4-1-2",
+    title: "🔗 Linked Clue Chain",
+    description: "Build a simple linked structure using pointers! Each clue points to the next in a chain to solve a mystery.",
+    difficulty: 3,
+    gradeRange: [6, 12],
+    skillLevel: "advanced",
+    starterCode: `#include <iostream>
+#include <string>
+using namespace std;
+
+struct Clue {
+    string message;
+    int value;
+    Clue* next; // pointer to next clue!
+};
+
+int main() {
+    // TODO: Create clue nodes
+    Clue clue1, clue2, clue3;
+
+    clue1.message = "Look under the bridge";
+    clue1.value = 10;
+    clue1.next = &clue2; // points to next clue
+
+    // TODO: Set up clue2 and clue3
+    // clue3.next should be nullptr (end of chain)
+
+    // TODO: Follow the chain using a pointer
+    cout << "🔗 CLUE CHAIN" << endl;
+    Clue* current = &clue1;
+    int totalValue = 0;
+    int clueNum = 1;
+
+    while (current != nullptr) {
+        cout << "Clue " << clueNum << ": " << current->message;
+        cout << " [" << current->value << " pts]" << endl;
+        totalValue += current->value;
+        // TODO: move to next clue
+        clueNum++;
+    }
+
+    cout << "Total clue value: " << totalValue << endl;
+
+    return 0;
+}`,
+    hint: "Use -> to access members through a pointer. Move to next with: current = current->next. Set the last clue's next to nullptr.",
+    solution: `#include <iostream>
+#include <string>
+using namespace std;
+
+struct Clue {
+    string message;
+    int value;
+    Clue* next;
+};
+
+int main() {
+    Clue clue1, clue2, clue3;
+
+    clue1.message = "Look under the bridge";
+    clue1.value = 10;
+    clue1.next = &clue2;
+
+    clue2.message = "Check the old oak tree";
+    clue2.value = 25;
+    clue2.next = &clue3;
+
+    clue3.message = "X marks the spot!";
+    clue3.value = 100;
+    clue3.next = nullptr;
+
+    cout << "🔗 CLUE CHAIN" << endl;
+    Clue* current = &clue1;
+    int totalValue = 0;
+    int clueNum = 1;
+
+    while (current != nullptr) {
+        cout << "Clue " << clueNum << ": " << current->message;
+        cout << " [" << current->value << " pts]" << endl;
+        totalValue += current->value;
+        current = current->next;
+        clueNum++;
+    }
+
+    cout << "Total clue value: " << totalValue << endl;
+
+    return 0;
+}`,
+    expectedOutput: `🔗 CLUE CHAIN
+Clue 1: Look under the bridge [10 pts]
+Clue 2: Check the old oak tree [25 pts]
+Clue 3: X marks the spot! [100 pts]
+Total clue value: 135`,
+    tags: ["project", "cpp-area-4", "pointers"],
+    fromLesson: "cpp-4-1",
+  },
+
+  // cpp-4-2: Classes & Objects
+  {
+    id: "proj-cpp-4-2-1",
+    title: "🐾 Virtual Pet Simulator",
+    description: "Create a virtual pet class with hunger, happiness, and energy! Feed it, play with it, and keep it alive.",
+    difficulty: 2,
+    gradeRange: [6, 12],
+    skillLevel: "intermediate",
+    starterCode: `#include <iostream>
+#include <string>
+using namespace std;
+
+class Pet {
+private:
+    string name;
+    int hunger;    // 0-100 (0 = full, 100 = starving)
+    int happiness; // 0-100
+    int energy;    // 0-100
+
+public:
+    // TODO: Constructor
+    Pet(string n) {
+        name = n;
+        hunger = 50;
+        happiness = 50;
+        energy = 50;
+    }
+
+    // TODO: Feed method - decreases hunger, slight happiness boost
+    void feed() {
+        // TODO: decrease hunger by 20 (min 0)
+        // TODO: increase happiness by 5 (max 100)
+    }
+
+    // TODO: Play method - increases happiness, increases hunger, decreases energy
+    void play() {
+        // TODO
+    }
+
+    // TODO: Sleep method - restores energy, slight hunger increase
+    void sleep() {
+        // TODO
+    }
+
+    // TODO: Status display method
+    void status() {
+        cout << "🐾 " << name << "'s Status:" << endl;
+        cout << "  Hunger: " << hunger << "/100" << endl;
+        cout << "  Happy:  " << happiness << "/100" << endl;
+        cout << "  Energy: " << energy << "/100" << endl;
+    }
+
+    // TODO: isAlive check (hunger < 100 and happiness > 0)
+    bool isAlive() {
+        return true; // TODO: fix
+    }
+};
+
+int main() {
+    Pet myPet("Buddy");
+    cout << "🐾 VIRTUAL PET SIMULATOR" << endl;
+
+    myPet.status();
+    myPet.feed();
+    cout << "\\n*feeds Buddy*" << endl;
+    myPet.status();
+
+    myPet.play();
+    cout << "\\n*plays with Buddy*" << endl;
+    myPet.status();
+
+    myPet.sleep();
+    cout << "\\n*Buddy sleeps*" << endl;
+    myPet.status();
+
+    return 0;
+}`,
+    hint: "In feed(): hunger = max(0, hunger - 20). In play(): happiness += 20, hunger += 10, energy -= 15. Use if statements to keep values in 0-100 range.",
+    solution: `#include <iostream>
+#include <string>
+using namespace std;
+
+class Pet {
+private:
+    string name;
+    int hunger;
+    int happiness;
+    int energy;
+
+    int clamp(int val, int lo, int hi) {
+        if (val < lo) return lo;
+        if (val > hi) return hi;
+        return val;
+    }
+
+public:
+    Pet(string n) : name(n), hunger(50), happiness(50), energy(50) {}
+
+    void feed() {
+        hunger = clamp(hunger - 20, 0, 100);
+        happiness = clamp(happiness + 5, 0, 100);
+    }
+
+    void play() {
+        happiness = clamp(happiness + 20, 0, 100);
+        hunger = clamp(hunger + 10, 0, 100);
+        energy = clamp(energy - 15, 0, 100);
+    }
+
+    void sleep() {
+        energy = clamp(energy + 30, 0, 100);
+        hunger = clamp(hunger + 5, 0, 100);
+    }
+
+    void status() {
+        cout << "🐾 " << name << "'s Status:" << endl;
+        cout << "  Hunger: " << hunger << "/100" << endl;
+        cout << "  Happy:  " << happiness << "/100" << endl;
+        cout << "  Energy: " << energy << "/100" << endl;
+    }
+
+    bool isAlive() {
+        return hunger < 100 && happiness > 0;
+    }
+};
+
+int main() {
+    Pet myPet("Buddy");
+    cout << "🐾 VIRTUAL PET SIMULATOR" << endl;
+
+    myPet.status();
+    myPet.feed();
+    cout << "\\n*feeds Buddy*" << endl;
+    myPet.status();
+
+    myPet.play();
+    cout << "\\n*plays with Buddy*" << endl;
+    myPet.status();
+
+    myPet.sleep();
+    cout << "\\n*Buddy sleeps*" << endl;
+    myPet.status();
+
+    return 0;
+}`,
+    expectedOutput: `🐾 VIRTUAL PET SIMULATOR
+🐾 Buddy's Status:
+  Hunger: 50/100
+  Happy:  50/100
+  Energy: 50/100
+
+*feeds Buddy*
+🐾 Buddy's Status:
+  Hunger: 30/100
+  Happy:  55/100
+  Energy: 50/100
+
+*plays with Buddy*
+🐾 Buddy's Status:
+  Hunger: 40/100
+  Happy:  75/100
+  Energy: 35/100
+
+*Buddy sleeps*
+🐾 Buddy's Status:
+  Hunger: 45/100
+  Happy:  75/100
+  Energy: 65/100`,
+    tags: ["project", "cpp-area-4", "classes", "simulation"],
+    fromLesson: "cpp-4-2",
+  },
+  {
+    id: "proj-cpp-4-2-2",
+    title: "🏦 Bank Account Class",
+    description: "Create a BankAccount class with deposit, withdraw, and interest! Practice encapsulation with private data and public methods.",
+    difficulty: 2,
+    gradeRange: [6, 12],
+    skillLevel: "intermediate",
+    starterCode: `#include <iostream>
+#include <string>
+#include <iomanip>
+using namespace std;
+
+class BankAccount {
+private:
+    string owner;
+    double balance;
+    int transactionCount;
+
+public:
+    // TODO: Constructor
+    BankAccount(string name, double initial) {
+        // TODO
+    }
+
+    // TODO: Deposit method (returns true if valid amount)
+    bool deposit(double amount) {
+        return false; // TODO
+    }
+
+    // TODO: Withdraw method (returns true if sufficient funds)
+    bool withdraw(double amount) {
+        return false; // TODO
+    }
+
+    // TODO: Apply interest (multiply balance by (1 + rate))
+    void applyInterest(double rate) {
+        // TODO
+    }
+
+    // TODO: Getter for balance
+    double getBalance() { return 0; } // TODO
+
+    // TODO: Print statement
+    void printStatement() {
+        cout << "=== Account Statement ===" << endl;
+        // TODO: print owner, balance, transaction count
+    }
+};
+
+int main() {
+    BankAccount acc("Alex", 1000.0);
+    cout << "🏦 BANK SYSTEM" << endl;
+    cout << fixed << setprecision(2);
+
+    acc.printStatement();
+    acc.deposit(500.0);
+    cout << "Deposited $500" << endl;
+    acc.withdraw(200.0);
+    cout << "Withdrew $200" << endl;
+    acc.applyInterest(0.05);
+    cout << "Applied 5% interest" << endl;
+    acc.printStatement();
+
+    return 0;
+}`,
+    hint: "In deposit: add amount to balance if amount > 0. In withdraw: subtract if amount <= balance. applyInterest: balance *= (1 + rate). Increment transactionCount in each method.",
+    solution: `#include <iostream>
+#include <string>
+#include <iomanip>
+using namespace std;
+
+class BankAccount {
+private:
+    string owner;
+    double balance;
+    int transactionCount;
+
+public:
+    BankAccount(string name, double initial) : owner(name), balance(initial), transactionCount(0) {}
+
+    bool deposit(double amount) {
+        if (amount <= 0) return false;
+        balance += amount;
+        transactionCount++;
+        return true;
+    }
+
+    bool withdraw(double amount) {
+        if (amount <= 0 || amount > balance) return false;
+        balance -= amount;
+        transactionCount++;
+        return true;
+    }
+
+    void applyInterest(double rate) {
+        balance *= (1 + rate);
+        transactionCount++;
+    }
+
+    double getBalance() { return balance; }
+
+    void printStatement() {
+        cout << "=== Account Statement ===" << endl;
+        cout << "Owner: " << owner << endl;
+        cout << "Balance: $" << balance << endl;
+        cout << "Transactions: " << transactionCount << endl;
+    }
+};
+
+int main() {
+    BankAccount acc("Alex", 1000.0);
+    cout << "🏦 BANK SYSTEM" << endl;
+    cout << fixed << setprecision(2);
+
+    acc.printStatement();
+    acc.deposit(500.0);
+    cout << "Deposited $500" << endl;
+    acc.withdraw(200.0);
+    cout << "Withdrew $200" << endl;
+    acc.applyInterest(0.05);
+    cout << "Applied 5% interest" << endl;
+    acc.printStatement();
+
+    return 0;
+}`,
+    expectedOutput: `🏦 BANK SYSTEM
+=== Account Statement ===
+Owner: Alex
+Balance: $1000.00
+Transactions: 0
+Deposited $500
+Withdrew $200
+Applied 5% interest
+=== Account Statement ===
+Owner: Alex
+Balance: $1365.00
+Transactions: 3`,
+    tags: ["project", "cpp-area-4", "classes"],
+    fromLesson: "cpp-4-2",
+  },
+
+  // cpp-4-3: Inheritance & Polymorphism
+  {
+    id: "proj-cpp-4-3-1",
+    title: "⚔️ RPG Class System",
+    description: "Build an RPG with inheritance! Base Character class, with Warrior, Mage, and Rogue subclasses, each with unique abilities.",
+    difficulty: 3,
+    gradeRange: [6, 12],
+    skillLevel: "advanced",
+    starterCode: `#include <iostream>
+#include <string>
+using namespace std;
+
+class Character {
+protected:
+    string name;
+    int hp, attack, defense;
+public:
+    Character(string n, int h, int a, int d) : name(n), hp(h), attack(a), defense(d) {}
+
+    // TODO: Make this virtual for polymorphism
+    virtual void specialAbility() {
+        cout << name << " does nothing special." << endl;
+    }
+
+    void showStats() {
+        cout << name << " - HP:" << hp << " ATK:" << attack << " DEF:" << defense << endl;
+    }
+
+    string getName() { return name; }
+    int getHP() { return hp; }
+    void takeDamage(int dmg) {
+        int actual = dmg - defense;
+        if (actual < 0) actual = 0;
+        hp -= actual;
+        cout << name << " takes " << actual << " damage! (HP: " << hp << ")" << endl;
+    }
+};
+
+// TODO: Create Warrior class that inherits from Character
+// Special ability: "Shield Bash" - extra defense
+class Warrior : public Character {
+public:
+    Warrior(string n) : Character(n, 120, 20, 15) {}
+    // TODO: Override specialAbility
+};
+
+// TODO: Create Mage class
+// Special ability: "Fireball" - big attack
+class Mage : public Character {
+public:
+    Mage(string n) : Character(n, 80, 35, 5) {}
+    // TODO: Override specialAbility
+};
+
+// TODO: Create Rogue class
+// Special ability: "Backstab" - critical hit
+
+int main() {
+    cout << "⚔️ RPG CLASS SYSTEM" << endl;
+
+    Warrior w("Thor");
+    Mage m("Gandalf");
+
+    w.showStats();
+    m.showStats();
+
+    w.specialAbility();
+    m.specialAbility();
+
+    // TODO: Use polymorphism - array of Character pointers
+    // Character* party[3] = { &w, &m, &r };
+    // for each, call specialAbility()
+
+    return 0;
+}`,
+    hint: "Use 'virtual' in base class and 'override' in derived classes. Each subclass constructor calls Character() with different stats. Use Character* for polymorphism.",
+    solution: `#include <iostream>
+#include <string>
+using namespace std;
+
+class Character {
+protected:
+    string name;
+    int hp, attack, defense;
+public:
+    Character(string n, int h, int a, int d) : name(n), hp(h), attack(a), defense(d) {}
+
+    virtual void specialAbility() {
+        cout << name << " does nothing special." << endl;
+    }
+
+    void showStats() {
+        cout << name << " - HP:" << hp << " ATK:" << attack << " DEF:" << defense << endl;
+    }
+
+    string getName() { return name; }
+    int getHP() { return hp; }
+    void takeDamage(int dmg) {
+        int actual = dmg - defense;
+        if (actual < 0) actual = 0;
+        hp -= actual;
+        cout << name << " takes " << actual << " damage! (HP: " << hp << ")" << endl;
+    }
+    virtual ~Character() {}
+};
+
+class Warrior : public Character {
+public:
+    Warrior(string n) : Character(n, 120, 20, 15) {}
+    void specialAbility() override {
+        defense += 10;
+        cout << name << " uses Shield Bash! DEF +" << 10 << " (now " << defense << ")" << endl;
+    }
+};
+
+class Mage : public Character {
+public:
+    Mage(string n) : Character(n, 80, 35, 5) {}
+    void specialAbility() override {
+        cout << name << " casts Fireball! 🔥 50 damage!" << endl;
+    }
+};
+
+class Rogue : public Character {
+public:
+    Rogue(string n) : Character(n, 90, 30, 8) {}
+    void specialAbility() override {
+        cout << name << " uses Backstab! 💀 Critical 60 damage!" << endl;
+    }
+};
+
+int main() {
+    cout << "⚔️ RPG CLASS SYSTEM" << endl;
+
+    Warrior w("Thor");
+    Mage m("Gandalf");
+    Rogue r("Shadow");
+
+    w.showStats();
+    m.showStats();
+    r.showStats();
+
+    cout << "\\n--- Special Abilities ---" << endl;
+    Character* party[3] = { &w, &m, &r };
+    for (int i = 0; i < 3; i++) {
+        party[i]->specialAbility();
+    }
+
+    return 0;
+}`,
+    expectedOutput: `⚔️ RPG CLASS SYSTEM
+Thor - HP:120 ATK:20 DEF:15
+Gandalf - HP:80 ATK:35 DEF:5
+Shadow - HP:90 ATK:30 DEF:8
+
+--- Special Abilities ---
+Thor uses Shield Bash! DEF +10 (now 25)
+Gandalf casts Fireball! 🔥 50 damage!
+Shadow uses Backstab! 💀 Critical 60 damage!`,
+    tags: ["project", "cpp-area-4", "inheritance", "rpg"],
+    fromLesson: "cpp-4-3",
+  },
+
+  // cpp-4-4: Memory Management
+  {
+    id: "proj-cpp-4-4-1",
+    title: "🏗️ Dynamic Army Builder",
+    description: "Build an army using new/delete! Create soldiers dynamically, manage memory, and use smart pointers for safety.",
+    difficulty: 3,
+    gradeRange: [6, 12],
+    skillLevel: "advanced",
+    starterCode: `#include <iostream>
+#include <string>
+#include <memory>
+using namespace std;
+
+class Soldier {
+public:
+    string name;
+    int power;
+    Soldier(string n, int p) : name(n), power(p) {
+        cout << name << " recruited! (power: " << power << ")" << endl;
+    }
+    ~Soldier() {
+        cout << name << " dismissed." << endl;
+    }
+};
+
+int main() {
+    cout << "🏗️ DYNAMIC ARMY BUILDER" << endl;
+
+    // TODO: Create soldiers with new
+    Soldier* s1 = new Soldier("Knight", 30);
+    // TODO: Create s2, s3
+
+    // TODO: Calculate total army power
+    int totalPower = s1->power;
+    cout << "Army power: " << totalPower << endl;
+
+    // TODO: Delete soldiers (free memory)
+    delete s1;
+    // TODO: delete others
+
+    // TODO: Now use smart pointers (no manual delete needed!)
+    cout << "\\n--- Smart Pointer Army ---" << endl;
+    // auto sp1 = make_unique<Soldier>("Paladin", 50);
+    // TODO: create more with make_unique
+
+    cout << "\\nSmart pointers auto-cleanup!" << endl;
+    return 0;
+}`,
+    hint: "Use new to allocate, delete to free. Smart pointers: auto ptr = make_unique<Soldier>(args). They auto-delete when going out of scope.",
+    solution: `#include <iostream>
+#include <string>
+#include <memory>
+using namespace std;
+
+class Soldier {
+public:
+    string name;
+    int power;
+    Soldier(string n, int p) : name(n), power(p) {
+        cout << name << " recruited! (power: " << power << ")" << endl;
+    }
+    ~Soldier() {
+        cout << name << " dismissed." << endl;
+    }
+};
+
+int main() {
+    cout << "🏗️ DYNAMIC ARMY BUILDER" << endl;
+
+    Soldier* s1 = new Soldier("Knight", 30);
+    Soldier* s2 = new Soldier("Archer", 25);
+    Soldier* s3 = new Soldier("Mage", 40);
+
+    int totalPower = s1->power + s2->power + s3->power;
+    cout << "Army power: " << totalPower << endl;
+
+    delete s1;
+    delete s2;
+    delete s3;
+
+    cout << "\\n--- Smart Pointer Army ---" << endl;
+    {
+        auto sp1 = make_unique<Soldier>("Paladin", 50);
+        auto sp2 = make_unique<Soldier>("Ranger", 35);
+        cout << "Smart army power: " << sp1->power + sp2->power << endl;
+    }
+
+    cout << "\\nSmart pointers auto-cleanup!" << endl;
+    return 0;
+}`,
+    expectedOutput: `🏗️ DYNAMIC ARMY BUILDER
+Knight recruited! (power: 30)
+Archer recruited! (power: 25)
+Mage recruited! (power: 40)
+Army power: 95
+Knight dismissed.
+Archer dismissed.
+Mage dismissed.
+
+--- Smart Pointer Army ---
+Paladin recruited! (power: 50)
+Ranger recruited! (power: 35)
+Smart army power: 85
+Ranger dismissed.
+Paladin dismissed.
+
+Smart pointers auto-cleanup!`,
+    tags: ["project", "cpp-area-4", "memory"],
+    fromLesson: "cpp-4-4",
+  },
+
+  // ─── Area 5: STL & Templates ────────────────────────────────
+
+  // cpp-5-1: STL Containers
+  {
+    id: "proj-cpp-5-1-1",
+    title: "📖 Word Frequency Counter",
+    description: "Use map to count word frequencies in text! Build a vocabulary analyzer with sorted output.",
+    difficulty: 2,
+    gradeRange: [6, 12],
+    skillLevel: "intermediate",
+    starterCode: `#include <iostream>
+#include <map>
+#include <set>
+#include <string>
+#include <vector>
+using namespace std;
+
+int main() {
+    vector<string> words = {"the", "cat", "sat", "on", "the", "mat",
+                            "the", "cat", "ate", "the", "rat", "on", "the", "mat"};
+
+    cout << "📖 WORD FREQUENCY COUNTER" << endl;
+
+    // TODO: Use a map to count word frequencies
+    map<string, int> freq;
+    for (int i = 0; i < (int)words.size(); i++) {
+        // TODO: increment freq[words[i]]
+    }
+
+    // TODO: Print all words and their counts
+    cout << "\\nWord frequencies:" << endl;
+    for (auto it = freq.begin(); it != freq.end(); it++) {
+        // TODO: print word and count
+    }
+
+    // TODO: Use a set to find unique words
+    set<string> unique(words.begin(), words.end());
+    cout << "\\nTotal words: " << words.size() << endl;
+    cout << "Unique words: " << unique.size() << endl;
+
+    // TODO: Find the most common word
+    string mostCommon = "";
+    int maxCount = 0;
+    // TODO: iterate freq map
+
+    cout << "Most common: \\"" << mostCommon << "\\" (" << maxCount << " times)" << endl;
+
+    return 0;
+}`,
+    hint: "freq[word]++ increments the count. Iterate map with auto& pair or it->first/it->second. Set automatically removes duplicates.",
+    solution: `#include <iostream>
+#include <map>
+#include <set>
+#include <string>
+#include <vector>
+using namespace std;
+
+int main() {
+    vector<string> words = {"the", "cat", "sat", "on", "the", "mat",
+                            "the", "cat", "ate", "the", "rat", "on", "the", "mat"};
+
+    cout << "📖 WORD FREQUENCY COUNTER" << endl;
+
+    map<string, int> freq;
+    for (int i = 0; i < (int)words.size(); i++) {
+        freq[words[i]]++;
+    }
+
+    cout << "\\nWord frequencies:" << endl;
+    for (auto it = freq.begin(); it != freq.end(); it++) {
+        cout << "  " << it->first << ": " << it->second << endl;
+    }
+
+    set<string> unique(words.begin(), words.end());
+    cout << "\\nTotal words: " << words.size() << endl;
+    cout << "Unique words: " << unique.size() << endl;
+
+    string mostCommon = "";
+    int maxCount = 0;
+    for (auto it = freq.begin(); it != freq.end(); it++) {
+        if (it->second > maxCount) {
+            maxCount = it->second;
+            mostCommon = it->first;
+        }
+    }
+
+    cout << "Most common: \\"" << mostCommon << "\\" (" << maxCount << " times)" << endl;
+
+    return 0;
+}`,
+    expectedOutput: `📖 WORD FREQUENCY COUNTER
+
+Word frequencies:
+  ate: 1
+  cat: 2
+  mat: 2
+  on: 2
+  rat: 1
+  sat: 1
+  the: 5
+
+Total words: 14
+Unique words: 7
+Most common: "the" (5 times)`,
+    tags: ["project", "cpp-area-5", "stl", "map"],
+    fromLesson: "cpp-5-1",
+  },
+  {
+    id: "proj-cpp-5-1-2",
+    title: "🏫 Student Database",
+    description: "Build a student database using maps and sets! Store grades, find honor roll students, and calculate statistics.",
+    difficulty: 2,
+    gradeRange: [6, 12],
+    skillLevel: "intermediate",
+    starterCode: `#include <iostream>
+#include <map>
+#include <set>
+#include <string>
+#include <vector>
+#include <iomanip>
+using namespace std;
+
+int main() {
+    // Student name -> grades
+    map<string, vector<int>> students;
+    students["Alice"] = {95, 88, 92, 97};
+    students["Bob"] = {72, 85, 68, 79};
+    students["Carol"] = {90, 91, 93, 95};
+    students["Dave"] = {60, 55, 70, 65};
+
+    cout << "🏫 STUDENT DATABASE" << endl;
+    cout << fixed << setprecision(1);
+
+    // TODO: Calculate and print each student's average
+    set<string> honorRoll; // 90+ average
+
+    for (auto it = students.begin(); it != students.end(); it++) {
+        string name = it->first;
+        vector<int>& grades = it->second;
+
+        double sum = 0;
+        // TODO: calculate average
+        for (int i = 0; i < (int)grades.size(); i++) {
+            sum += grades[i];
+        }
+        double avg = sum / grades.size();
+
+        cout << name << ": avg = " << avg << endl;
+
+        // TODO: Add to honor roll if avg >= 90
+    }
+
+    // TODO: Print honor roll
+    cout << "\\nHonor Roll:" << endl;
+    for (auto it = honorRoll.begin(); it != honorRoll.end(); it++) {
+        cout << "  ⭐ " << *it << endl;
+    }
+
+    return 0;
+}`,
+    hint: "Use map iterator->first for key, ->second for value. Sum grades with a loop, divide by size(). If avg >= 90, insert name into set.",
+    solution: `#include <iostream>
+#include <map>
+#include <set>
+#include <string>
+#include <vector>
+#include <iomanip>
+using namespace std;
+
+int main() {
+    map<string, vector<int>> students;
+    students["Alice"] = {95, 88, 92, 97};
+    students["Bob"] = {72, 85, 68, 79};
+    students["Carol"] = {90, 91, 93, 95};
+    students["Dave"] = {60, 55, 70, 65};
+
+    cout << "🏫 STUDENT DATABASE" << endl;
+    cout << fixed << setprecision(1);
+
+    set<string> honorRoll;
+
+    for (auto it = students.begin(); it != students.end(); it++) {
+        string name = it->first;
+        vector<int>& grades = it->second;
+
+        double sum = 0;
+        for (int i = 0; i < (int)grades.size(); i++) {
+            sum += grades[i];
+        }
+        double avg = sum / grades.size();
+
+        cout << name << ": avg = " << avg << endl;
+
+        if (avg >= 90.0) {
+            honorRoll.insert(name);
+        }
+    }
+
+    cout << "\\nHonor Roll:" << endl;
+    for (auto it = honorRoll.begin(); it != honorRoll.end(); it++) {
+        cout << "  ⭐ " << *it << endl;
+    }
+
+    return 0;
+}`,
+    expectedOutput: `🏫 STUDENT DATABASE
+Alice: avg = 93.0
+Bob: avg = 76.0
+Carol: avg = 92.2
+Dave: avg = 62.5
+
+Honor Roll:
+  ⭐ Alice
+  ⭐ Carol`,
+    tags: ["project", "cpp-area-5", "stl", "map"],
+    fromLesson: "cpp-5-1",
+  },
+
+  // cpp-5-2: Algorithms
+  {
+    id: "proj-cpp-5-2-1",
+    title: "🏆 Leaderboard System",
+    description: "Build a game leaderboard using STL algorithms! Sort players, find top scores, transform names, and filter results.",
+    difficulty: 2,
+    gradeRange: [6, 12],
+    skillLevel: "intermediate",
+    starterCode: `#include <iostream>
+#include <vector>
+#include <string>
+#include <algorithm>
+using namespace std;
+
+struct Player {
+    string name;
+    int score;
+};
+
+int main() {
+    vector<Player> players = {
+        {"Alice", 9500}, {"Bob", 7200}, {"Carol", 8800},
+        {"Dave", 6100}, {"Eve", 9900}, {"Frank", 5500}
+    };
+
+    cout << "🏆 LEADERBOARD" << endl;
+
+    // TODO: Sort players by score (highest first)
+    // Use sort with a lambda comparator
+    sort(players.begin(), players.end(), [](const Player& a, const Player& b) {
+        return a.score > b.score; // TODO: verify this sorts descending
+    });
+
+    // TODO: Print sorted leaderboard
+    cout << "\\nRankings:" << endl;
+    for (int i = 0; i < (int)players.size(); i++) {
+        cout << "#" << (i + 1) << " " << players[i].name << " - " << players[i].score << endl;
+    }
+
+    // TODO: Find a specific player using find_if
+    // auto it = find_if(players.begin(), players.end(), ...);
+
+    // TODO: Count players with score > 8000
+    int highScorers = 0;
+    // Use count_if
+
+    // TODO: Check if any player has a perfect score (10000)
+    // Use any_of
+
+    cout << "\\nPlayers above 8000: " << highScorers << endl;
+
+    return 0;
+}`,
+    hint: "sort() with lambda for custom comparison. find_if with lambda predicate. count_if returns count matching condition. any_of checks if any element matches.",
+    solution: `#include <iostream>
+#include <vector>
+#include <string>
+#include <algorithm>
+using namespace std;
+
+struct Player {
+    string name;
+    int score;
+};
+
+int main() {
+    vector<Player> players = {
+        {"Alice", 9500}, {"Bob", 7200}, {"Carol", 8800},
+        {"Dave", 6100}, {"Eve", 9900}, {"Frank", 5500}
+    };
+
+    cout << "🏆 LEADERBOARD" << endl;
+
+    sort(players.begin(), players.end(), [](const Player& a, const Player& b) {
+        return a.score > b.score;
+    });
+
+    cout << "\\nRankings:" << endl;
+    for (int i = 0; i < (int)players.size(); i++) {
+        cout << "#" << (i + 1) << " " << players[i].name << " - " << players[i].score << endl;
+    }
+
+    auto it = find_if(players.begin(), players.end(), [](const Player& p) {
+        return p.name == "Bob";
+    });
+    if (it != players.end()) {
+        cout << "\\nFound Bob with score: " << it->score << endl;
+    }
+
+    int highScorers = count_if(players.begin(), players.end(), [](const Player& p) {
+        return p.score > 8000;
+    });
+
+    bool hasPerfect = any_of(players.begin(), players.end(), [](const Player& p) {
+        return p.score >= 10000;
+    });
+
+    cout << "\\nPlayers above 8000: " << highScorers << endl;
+    cout << "Perfect score exists: " << (hasPerfect ? "Yes" : "No") << endl;
+
+    return 0;
+}`,
+    expectedOutput: `🏆 LEADERBOARD
+
+Rankings:
+#1 Eve - 9900
+#2 Alice - 9500
+#3 Carol - 8800
+#4 Bob - 7200
+#5 Dave - 6100
+#6 Frank - 5500
+
+Found Bob with score: 7200
+
+Players above 8000: 3
+Perfect score exists: No`,
+    tags: ["project", "cpp-area-5", "algorithms"],
+    fromLesson: "cpp-5-2",
+  },
+
+  // cpp-5-3: Templates
+  {
+    id: "proj-cpp-5-3-1",
+    title: "📦 Generic Container Box",
+    description: "Create template classes and functions! Build a Box<T> that works with any type, and generic utility functions.",
+    difficulty: 3,
+    gradeRange: [6, 12],
+    skillLevel: "advanced",
+    starterCode: `#include <iostream>
+#include <string>
+using namespace std;
+
+// TODO: Create a template function to find the larger of two values
+template <typename T>
+T bigger(T a, T b) {
+    // TODO: return the larger value
+    return a;
+}
+
+// TODO: Create a template Box class that holds a value of any type
+template <typename T>
+class Box {
+private:
+    T content;
+    bool isEmpty;
+public:
+    Box() : isEmpty(true) {}
+
+    // TODO: Method to put something in the box
+    void put(T item) {
+        // TODO
+    }
+
+    // TODO: Method to get the item
+    T get() {
+        // TODO
+        return content;
+    }
+
+    // TODO: Method to check if empty
+    bool empty() { return isEmpty; }
+
+    void display() {
+        if (isEmpty) cout << "[empty box]" << endl;
+        else cout << "[" << content << "]" << endl;
+    }
+};
+
+int main() {
+    cout << "📦 GENERIC CONTAINER BOX" << endl;
+
+    // TODO: Test bigger with different types
+    cout << "bigger(3, 7) = " << bigger(3, 7) << endl;
+    cout << "bigger(3.14, 2.71) = " << bigger(3.14, 2.71) << endl;
+
+    // TODO: Test Box with different types
+    Box<int> intBox;
+    intBox.display();
+    intBox.put(42);
+    intBox.display();
+
+    Box<string> strBox;
+    strBox.put("Hello Templates!");
+    strBox.display();
+
+    return 0;
+}`,
+    hint: "Template syntax: template <typename T> before the function/class. The same code works with int, double, string etc. Return a > b ? a : b for bigger.",
+    solution: `#include <iostream>
+#include <string>
+using namespace std;
+
+template <typename T>
+T bigger(T a, T b) {
+    return a > b ? a : b;
+}
+
+template <typename T>
+class Box {
+private:
+    T content;
+    bool isEmpty;
+public:
+    Box() : isEmpty(true) {}
+
+    void put(T item) {
+        content = item;
+        isEmpty = false;
+    }
+
+    T get() { return content; }
+    bool empty() { return isEmpty; }
+
+    void display() {
+        if (isEmpty) cout << "[empty box]" << endl;
+        else cout << "[" << content << "]" << endl;
+    }
+};
+
+int main() {
+    cout << "📦 GENERIC CONTAINER BOX" << endl;
+
+    cout << "bigger(3, 7) = " << bigger(3, 7) << endl;
+    cout << "bigger(3.14, 2.71) = " << bigger(3.14, 2.71) << endl;
+
+    Box<int> intBox;
+    intBox.display();
+    intBox.put(42);
+    intBox.display();
+
+    Box<string> strBox;
+    strBox.put("Hello Templates!");
+    strBox.display();
+
+    return 0;
+}`,
+    expectedOutput: `📦 GENERIC CONTAINER BOX
+bigger(3, 7) = 7
+bigger(3.14, 2.71) = 3.14
+[empty box]
+[42]
+[Hello Templates!]`,
+    tags: ["project", "cpp-area-5", "templates"],
+    fromLesson: "cpp-5-3",
+  },
+  {
+    id: "proj-cpp-5-3-2",
+    title: "🔧 Template Stack Data Structure",
+    description: "Build a generic Stack<T> using templates! Push, pop, peek - works with any type.",
+    difficulty: 3,
+    gradeRange: [6, 12],
+    skillLevel: "advanced",
+    starterCode: `#include <iostream>
+#include <string>
+using namespace std;
+
+template <typename T>
+class Stack {
+private:
+    T data[100];
+    int topIndex;
+public:
+    Stack() : topIndex(-1) {}
+
+    // TODO: Push an item onto the stack
+    void push(T item) {
+        // TODO: increment topIndex, store item
+    }
+
+    // TODO: Pop an item (return and remove top)
+    T pop() {
+        // TODO: return top item, decrement topIndex
+        return data[topIndex--];
+    }
+
+    // TODO: Peek at top without removing
+    T peek() {
+        return data[topIndex];
+    }
+
+    bool empty() { return topIndex < 0; }
+    int size() { return topIndex + 1; }
+};
+
+int main() {
+    cout << "🔧 TEMPLATE STACK" << endl;
+
+    // Integer stack
+    Stack<int> nums;
+    nums.push(10);
+    nums.push(20);
+    nums.push(30);
+    cout << "Int stack size: " << nums.size() << endl;
+    cout << "Top: " << nums.peek() << endl;
+    cout << "Pop: " << nums.pop() << endl;
+    cout << "Pop: " << nums.pop() << endl;
+    cout << "Size after pops: " << nums.size() << endl;
+
+    // String stack
+    cout << "\\nString stack:" << endl;
+    Stack<string> words;
+    words.push("Hello");
+    words.push("World");
+    cout << "Top: " << words.peek() << endl;
+
+    return 0;
+}`,
+    hint: "Push: topIndex++, then data[topIndex] = item. Pop: return data[topIndex], then topIndex--. The template makes it work for any type T.",
+    solution: `#include <iostream>
+#include <string>
+using namespace std;
+
+template <typename T>
+class Stack {
+private:
+    T data[100];
+    int topIndex;
+public:
+    Stack() : topIndex(-1) {}
+
+    void push(T item) {
+        data[++topIndex] = item;
+    }
+
+    T pop() {
+        return data[topIndex--];
+    }
+
+    T peek() {
+        return data[topIndex];
+    }
+
+    bool empty() { return topIndex < 0; }
+    int size() { return topIndex + 1; }
+};
+
+int main() {
+    cout << "🔧 TEMPLATE STACK" << endl;
+
+    Stack<int> nums;
+    nums.push(10);
+    nums.push(20);
+    nums.push(30);
+    cout << "Int stack size: " << nums.size() << endl;
+    cout << "Top: " << nums.peek() << endl;
+    cout << "Pop: " << nums.pop() << endl;
+    cout << "Pop: " << nums.pop() << endl;
+    cout << "Size after pops: " << nums.size() << endl;
+
+    cout << "\\nString stack:" << endl;
+    Stack<string> words;
+    words.push("Hello");
+    words.push("World");
+    cout << "Top: " << words.peek() << endl;
+
+    return 0;
+}`,
+    expectedOutput: `🔧 TEMPLATE STACK
+Int stack size: 3
+Top: 30
+Pop: 30
+Pop: 20
+Size after pops: 1
+
+String stack:
+Top: World`,
+    tags: ["project", "cpp-area-5", "templates"],
+    fromLesson: "cpp-5-3",
+  },
+
+  // ─── Area 6: Problem Solving ────────────────────────────────
+
+  // cpp-6-1: Problem Solving Patterns
+  {
+    id: "proj-cpp-6-1-1",
+    title: "🧩 Pattern Matching Toolkit",
+    description: "Apply common problem-solving patterns! Frequency counting, sliding window, and prefix sums on arrays.",
+    difficulty: 3,
+    gradeRange: [6, 12],
+    skillLevel: "advanced",
+    starterCode: `#include <iostream>
+#include <vector>
+#include <map>
+using namespace std;
+
+int main() {
+    cout << "🧩 PROBLEM SOLVING PATTERNS" << endl;
+
+    // Pattern 1: Frequency Count
+    // Find the most frequent element
+    vector<int> nums = {3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5};
+    map<int, int> freq;
+    // TODO: count frequencies
+    for (int i = 0; i < (int)nums.size(); i++) {
+        freq[nums[i]]++;
+    }
+    // TODO: find the most frequent
+    int mostFreq = 0, maxFreqCount = 0;
+    // TODO
+
+    cout << "Most frequent: " << mostFreq << " (appears " << maxFreqCount << " times)" << endl;
+
+    // Pattern 2: Prefix Sum
+    // Quickly find sum of any subarray
+    vector<int> arr = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+    vector<int> prefix(arr.size() + 1, 0);
+    // TODO: build prefix sum array
+    // prefix[i] = sum of arr[0..i-1]
+
+    // Sum of arr[2..5] = prefix[6] - prefix[2]
+    int rangeSum = 0; // TODO
+    cout << "Sum of arr[2..5]: " << rangeSum << endl;
+
+    // Pattern 3: Two-pointer check for palindrome
+    string word = "racecar";
+    bool isPalin = true;
+    // TODO: use two pointers from both ends
+    cout << "\\"" << word << "\\" is palindrome: " << (isPalin ? "yes" : "no") << endl;
+
+    return 0;
+}`,
+    hint: "Frequency: iterate map to find max. Prefix sum: prefix[i] = prefix[i-1] + arr[i-1]. Range sum = prefix[right+1] - prefix[left]. Palindrome: compare s[left] and s[right].",
+    solution: `#include <iostream>
+#include <vector>
+#include <map>
+using namespace std;
+
+int main() {
+    cout << "🧩 PROBLEM SOLVING PATTERNS" << endl;
+
+    vector<int> nums = {3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5};
+    map<int, int> freq;
+    for (int i = 0; i < (int)nums.size(); i++) freq[nums[i]]++;
+
+    int mostFreq = 0, maxFreqCount = 0;
+    for (auto it = freq.begin(); it != freq.end(); it++) {
+        if (it->second > maxFreqCount) {
+            maxFreqCount = it->second;
+            mostFreq = it->first;
+        }
+    }
+    cout << "Most frequent: " << mostFreq << " (appears " << maxFreqCount << " times)" << endl;
+
+    vector<int> arr = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+    vector<int> prefix(arr.size() + 1, 0);
+    for (int i = 0; i < (int)arr.size(); i++) {
+        prefix[i + 1] = prefix[i] + arr[i];
+    }
+    int rangeSum = prefix[6] - prefix[2];
+    cout << "Sum of arr[2..5]: " << rangeSum << endl;
+
+    string word = "racecar";
+    bool isPalin = true;
+    int left = 0, right = (int)word.length() - 1;
+    while (left < right) {
+        if (word[left] != word[right]) { isPalin = false; break; }
+        left++;
+        right--;
+    }
+    cout << "\\"" << word << "\\" is palindrome: " << (isPalin ? "yes" : "no") << endl;
+
+    return 0;
+}`,
+    expectedOutput: `🧩 PROBLEM SOLVING PATTERNS
+Most frequent: 5 (appears 3 times)
+Sum of arr[2..5]: 18
+"racecar" is palindrome: yes`,
+    tags: ["project", "cpp-area-6", "patterns"],
+    fromLesson: "cpp-6-1",
+  },
+  {
+    id: "proj-cpp-6-1-2",
+    title: "🏔️ Matrix Explorer",
+    description: "Solve 2D array problems! Find paths, calculate sums, and search in a matrix using systematic patterns.",
+    difficulty: 3,
+    gradeRange: [6, 12],
+    skillLevel: "advanced",
+    starterCode: `#include <iostream>
+#include <vector>
+using namespace std;
+
+int main() {
+    cout << "🏔️ MATRIX EXPLORER" << endl;
+
+    // 4x4 grid
+    vector<vector<int>> grid = {
+        {1, 2, 3, 4},
+        {5, 6, 7, 8},
+        {9, 10, 11, 12},
+        {13, 14, 15, 16}
+    };
+
+    // TODO: Print the grid nicely
+    cout << "Grid:" << endl;
+    for (int i = 0; i < 4; i++) {
+        for (int j = 0; j < 4; j++) {
+            cout << grid[i][j] << "\\t";
+        }
+        cout << endl;
+    }
+
+    // TODO: Find sum of each row
+    cout << "\\nRow sums: ";
+    for (int i = 0; i < 4; i++) {
+        int rowSum = 0;
+        // TODO
+        cout << rowSum << " ";
+    }
+    cout << endl;
+
+    // TODO: Find sum of main diagonal
+    int diagSum = 0;
+    // TODO: grid[0][0] + grid[1][1] + grid[2][2] + grid[3][3]
+
+    cout << "Diagonal sum: " << diagSum << endl;
+
+    // TODO: Find max element and its position
+    int maxVal = grid[0][0];
+    int maxR = 0, maxC = 0;
+    // TODO
+
+    cout << "Max: " << maxVal << " at (" << maxR << "," << maxC << ")" << endl;
+
+    return 0;
+}`,
+    hint: "Row sum: inner loop adds grid[i][j]. Diagonal: grid[i][i]. Max: compare all elements tracking position.",
+    solution: `#include <iostream>
+#include <vector>
+using namespace std;
+
+int main() {
+    cout << "🏔️ MATRIX EXPLORER" << endl;
+
+    vector<vector<int>> grid = {
+        {1, 2, 3, 4},
+        {5, 6, 7, 8},
+        {9, 10, 11, 12},
+        {13, 14, 15, 16}
+    };
+
+    cout << "Grid:" << endl;
+    for (int i = 0; i < 4; i++) {
+        for (int j = 0; j < 4; j++) {
+            cout << grid[i][j] << "\\t";
+        }
+        cout << endl;
+    }
+
+    cout << "\\nRow sums: ";
+    for (int i = 0; i < 4; i++) {
+        int rowSum = 0;
+        for (int j = 0; j < 4; j++) rowSum += grid[i][j];
+        cout << rowSum << " ";
+    }
+    cout << endl;
+
+    int diagSum = 0;
+    for (int i = 0; i < 4; i++) diagSum += grid[i][i];
+    cout << "Diagonal sum: " << diagSum << endl;
+
+    int maxVal = grid[0][0], maxR = 0, maxC = 0;
+    for (int i = 0; i < 4; i++) {
+        for (int j = 0; j < 4; j++) {
+            if (grid[i][j] > maxVal) {
+                maxVal = grid[i][j]; maxR = i; maxC = j;
+            }
+        }
+    }
+    cout << "Max: " << maxVal << " at (" << maxR << "," << maxC << ")" << endl;
+
+    return 0;
+}`,
+    expectedOutput: `🏔️ MATRIX EXPLORER
+Grid:
+1\t2\t3\t4\t
+5\t6\t7\t8\t
+9\t10\t11\t12\t
+13\t14\t15\t16\t
+
+Row sums: 10 26 42 58 
+Diagonal sum: 34
+Max: 16 at (3,3)`,
+    tags: ["project", "cpp-area-6", "matrix"],
+    fromLesson: "cpp-6-1",
+  },
+
+  // cpp-6-2: Classic Algorithms
+  {
+    id: "proj-cpp-6-2-1",
+    title: "🔍 Binary Search Detective",
+    description: "Implement binary search to find targets in sorted arrays! Compare with linear search to see the speed difference.",
+    difficulty: 3,
+    gradeRange: [6, 12],
+    skillLevel: "advanced",
+    starterCode: `#include <iostream>
+#include <vector>
+using namespace std;
+
+// TODO: Implement binary search
+// Returns index of target, or -1 if not found
+int binarySearch(vector<int>& arr, int target) {
+    int left = 0, right = (int)arr.size() - 1;
+    int steps = 0;
+
+    while (left <= right) {
+        steps++;
+        int mid = left + (right - left) / 2;
+        // TODO: check if arr[mid] == target
+        // TODO: if target < arr[mid], search left half
+        // TODO: if target > arr[mid], search right half
+    }
+
+    cout << "(binary: " << steps << " steps) ";
+    return -1; // not found
+}
+
+// Linear search for comparison
+int linearSearch(vector<int>& arr, int target) {
+    int steps = 0;
+    for (int i = 0; i < (int)arr.size(); i++) {
+        steps++;
+        if (arr[i] == target) {
+            cout << "(linear: " << steps << " steps) ";
+            return i;
+        }
+    }
+    cout << "(linear: " << steps << " steps) ";
+    return -1;
+}
+
+int main() {
+    cout << "🔍 BINARY SEARCH DETECTIVE" << endl;
+
+    vector<int> arr;
+    for (int i = 0; i < 100; i++) arr.push_back(i * 3); // 0,3,6,...,297
+
+    int targets[] = {42, 150, 297, 999};
+    for (int t = 0; t < 4; t++) {
+        cout << "\\nSearching for " << targets[t] << ":" << endl;
+        cout << "  Linear: idx=" << linearSearch(arr, targets[t]) << endl;
+        cout << "  Binary: idx=" << binarySearch(arr, targets[t]) << endl;
+    }
+
+    return 0;
+}`,
+    hint: "Binary search: if arr[mid] == target, return mid. If target < arr[mid], set right = mid - 1. If target > arr[mid], set left = mid + 1.",
+    solution: `#include <iostream>
+#include <vector>
+using namespace std;
+
+int binarySearch(vector<int>& arr, int target) {
+    int left = 0, right = (int)arr.size() - 1;
+    int steps = 0;
+
+    while (left <= right) {
+        steps++;
+        int mid = left + (right - left) / 2;
+        if (arr[mid] == target) {
+            cout << "(binary: " << steps << " steps) ";
+            return mid;
+        } else if (target < arr[mid]) {
+            right = mid - 1;
+        } else {
+            left = mid + 1;
+        }
+    }
+
+    cout << "(binary: " << steps << " steps) ";
+    return -1;
+}
+
+int linearSearch(vector<int>& arr, int target) {
+    int steps = 0;
+    for (int i = 0; i < (int)arr.size(); i++) {
+        steps++;
+        if (arr[i] == target) {
+            cout << "(linear: " << steps << " steps) ";
+            return i;
+        }
+    }
+    cout << "(linear: " << steps << " steps) ";
+    return -1;
+}
+
+int main() {
+    cout << "🔍 BINARY SEARCH DETECTIVE" << endl;
+
+    vector<int> arr;
+    for (int i = 0; i < 100; i++) arr.push_back(i * 3);
+
+    int targets[] = {42, 150, 297, 999};
+    for (int t = 0; t < 4; t++) {
+        cout << "\\nSearching for " << targets[t] << ":" << endl;
+        cout << "  Linear: idx=" << linearSearch(arr, targets[t]) << endl;
+        cout << "  Binary: idx=" << binarySearch(arr, targets[t]) << endl;
+    }
+
+    return 0;
+}`,
+    expectedOutput: `🔍 BINARY SEARCH DETECTIVE
+
+Searching for 42:
+  Linear: (linear: 15 steps) idx=14
+  Binary: (binary: 5 steps) idx=14
+
+Searching for 150:
+  Linear: (linear: 51 steps) idx=50
+  Binary: (binary: 6 steps) idx=50
+
+Searching for 297:
+  Linear: (linear: 100 steps) idx=99
+  Binary: (binary: 7 steps) idx=99
+
+Searching for 999:
+  Linear: (linear: 100 steps) idx=-1
+  Binary: (binary: 7 steps) idx=-1`,
+    tags: ["project", "cpp-area-6", "binary-search"],
+    fromLesson: "cpp-6-2",
+  },
+  {
+    id: "proj-cpp-6-2-2",
+    title: "🎯 Two Pointer Problems",
+    description: "Master the two-pointer technique! Solve pair sum, reverse arrays, and container problems efficiently.",
+    difficulty: 3,
+    gradeRange: [6, 12],
+    skillLevel: "advanced",
+    starterCode: `#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+int main() {
+    cout << "🎯 TWO POINTER PROBLEMS" << endl;
+
+    // Problem 1: Find pair that sums to target in sorted array
+    vector<int> sorted = {1, 3, 5, 7, 9, 11, 15, 20};
+    int target = 16;
+
+    cout << "\\nFind pair summing to " << target << ":" << endl;
+    int left = 0, right = (int)sorted.size() - 1;
+    bool found = false;
+    while (left < right) {
+        int sum = sorted[left] + sorted[right];
+        // TODO: if sum == target, print and break
+        // TODO: if sum < target, left++
+        // TODO: if sum > target, right--
+    }
+    if (!found) cout << "No pair found." << endl;
+
+    // Problem 2: Reverse an array in-place
+    vector<int> arr = {1, 2, 3, 4, 5};
+    cout << "\\nBefore reverse: ";
+    for (int x : arr) cout << x << " ";
+    cout << endl;
+
+    // TODO: Use two pointers to reverse
+    // left = 0, right = size-1, swap and move inward
+
+    cout << "After reverse: ";
+    for (int x : arr) cout << x << " ";
+    cout << endl;
+
+    // Problem 3: Remove duplicates from sorted array
+    vector<int> dups = {1, 1, 2, 2, 3, 4, 4, 5};
+    // TODO: use two-pointer to find unique count
+    int unique = 1;
+    // TODO
+
+    cout << "\\nUnique elements in {1,1,2,2,3,4,4,5}: " << unique << endl;
+
+    return 0;
+}`,
+    hint: "Pair sum: if sum < target move left pointer right; if sum > target move right pointer left. Reverse: swap arr[left] and arr[right]. Duplicates: slow pointer tracks unique position.",
+    solution: `#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+int main() {
+    cout << "🎯 TWO POINTER PROBLEMS" << endl;
+
+    vector<int> sorted = {1, 3, 5, 7, 9, 11, 15, 20};
+    int target = 16;
+
+    cout << "\\nFind pair summing to " << target << ":" << endl;
+    int left = 0, right = (int)sorted.size() - 1;
+    bool found = false;
+    while (left < right) {
+        int sum = sorted[left] + sorted[right];
+        if (sum == target) {
+            cout << sorted[left] << " + " << sorted[right] << " = " << target << endl;
+            found = true;
+            break;
+        } else if (sum < target) {
+            left++;
+        } else {
+            right--;
+        }
+    }
+    if (!found) cout << "No pair found." << endl;
+
+    vector<int> arr = {1, 2, 3, 4, 5};
+    cout << "\\nBefore reverse: ";
+    for (int x : arr) cout << x << " ";
+    cout << endl;
+
+    left = 0; right = (int)arr.size() - 1;
+    while (left < right) {
+        int temp = arr[left];
+        arr[left] = arr[right];
+        arr[right] = temp;
+        left++; right--;
+    }
+
+    cout << "After reverse: ";
+    for (int x : arr) cout << x << " ";
+    cout << endl;
+
+    vector<int> dups = {1, 1, 2, 2, 3, 4, 4, 5};
+    int unique = 1;
+    for (int i = 1; i < (int)dups.size(); i++) {
+        if (dups[i] != dups[i - 1]) unique++;
+    }
+
+    cout << "\\nUnique elements in {1,1,2,2,3,4,4,5}: " << unique << endl;
+
+    return 0;
+}`,
+    expectedOutput: `🎯 TWO POINTER PROBLEMS
+
+Find pair summing to 16:
+1 + 15 = 16
+
+Before reverse: 1 2 3 4 5 
+After reverse: 5 4 3 2 1 
+
+Unique elements in {1,1,2,2,3,4,4,5}: 5`,
+    tags: ["project", "cpp-area-6", "two-pointers"],
+    fromLesson: "cpp-6-2",
+  },
+
+  // cpp-6-3: Competition Practice
+  {
+    id: "proj-cpp-6-3-1",
+    title: "🏅 Competition Problem Set",
+    description: "Solve classic competition problems! FizzBuzz deluxe, digit sum, and array rotation — timed challenge style.",
+    difficulty: 3,
+    gradeRange: [6, 12],
+    skillLevel: "advanced",
+    starterCode: `#include <iostream>
+#include <vector>
+#include <string>
+using namespace std;
+
+// Problem 1: FizzBuzz Deluxe
+// Print 1 to n, but:
+// Divisible by 3 -> "Fizz"
+// Divisible by 5 -> "Buzz"
+// Divisible by 7 -> "Boom"
+// Combinations: "FizzBuzz", "FizzBoom", "BuzzBoom", "FizzBuzzBoom"
+void fizzBuzzBoom(int n) {
+    for (int i = 1; i <= n; i++) {
+        string result = "";
+        // TODO: build the result string
+        if (result.empty()) result = to_string(i);
+        cout << result << " ";
+    }
+    cout << endl;
+}
+
+// Problem 2: Digital Root
+// Keep summing digits until single digit
+// e.g., 9875 -> 9+8+7+5=29 -> 2+9=11 -> 1+1=2
+int digitalRoot(int n) {
+    // TODO: implement
+    return 0;
+}
+
+// Problem 3: Rotate array left by k positions
+// [1,2,3,4,5] rotated by 2 -> [3,4,5,1,2]
+void rotateLeft(vector<int>& arr, int k) {
+    // TODO: implement (hint: use a temp vector or reverse trick)
+}
+
+int main() {
+    cout << "🏅 COMPETITION PROBLEMS" << endl;
+
+    cout << "\\n--- FizzBuzzBoom (1-21) ---" << endl;
+    fizzBuzzBoom(21);
+
+    cout << "\\n--- Digital Root ---" << endl;
+    cout << "digitalRoot(9875) = " << digitalRoot(9875) << endl;
+    cout << "digitalRoot(493) = " << digitalRoot(493) << endl;
+
+    cout << "\\n--- Rotate Left ---" << endl;
+    vector<int> arr = {1, 2, 3, 4, 5};
+    cout << "Before: ";
+    for (int x : arr) cout << x << " ";
+    cout << endl;
+    rotateLeft(arr, 2);
+    cout << "After rotate by 2: ";
+    for (int x : arr) cout << x << " ";
+    cout << endl;
+
+    return 0;
+}`,
+    hint: "FizzBuzz: check each divisor and append to string. Digital root: while n >= 10, sum its digits (n%10, n/10). Rotate: copy to temp, or use reverse trick.",
+    solution: `#include <iostream>
+#include <vector>
+#include <string>
+#include <algorithm>
+using namespace std;
+
+void fizzBuzzBoom(int n) {
+    for (int i = 1; i <= n; i++) {
+        string result = "";
+        if (i % 3 == 0) result += "Fizz";
+        if (i % 5 == 0) result += "Buzz";
+        if (i % 7 == 0) result += "Boom";
+        if (result.empty()) result = to_string(i);
+        cout << result << " ";
+    }
+    cout << endl;
+}
+
+int digitalRoot(int n) {
+    while (n >= 10) {
+        int sum = 0;
+        while (n > 0) {
+            sum += n % 10;
+            n /= 10;
+        }
+        n = sum;
+    }
+    return n;
+}
+
+void rotateLeft(vector<int>& arr, int k) {
+    int n = arr.size();
+    k = k % n;
+    reverse(arr.begin(), arr.begin() + k);
+    reverse(arr.begin() + k, arr.end());
+    reverse(arr.begin(), arr.end());
+}
+
+int main() {
+    cout << "🏅 COMPETITION PROBLEMS" << endl;
+
+    cout << "\\n--- FizzBuzzBoom (1-21) ---" << endl;
+    fizzBuzzBoom(21);
+
+    cout << "\\n--- Digital Root ---" << endl;
+    cout << "digitalRoot(9875) = " << digitalRoot(9875) << endl;
+    cout << "digitalRoot(493) = " << digitalRoot(493) << endl;
+
+    cout << "\\n--- Rotate Left ---" << endl;
+    vector<int> arr = {1, 2, 3, 4, 5};
+    cout << "Before: ";
+    for (int x : arr) cout << x << " ";
+    cout << endl;
+    rotateLeft(arr, 2);
+    cout << "After rotate by 2: ";
+    for (int x : arr) cout << x << " ";
+    cout << endl;
+
+    return 0;
+}`,
+    expectedOutput: `🏅 COMPETITION PROBLEMS
+
+--- FizzBuzzBoom (1-21) ---
+1 2 Fizz 4 Buzz Fizz Boom 8 Fizz Buzz 11 Fizz 13 Boom FizzBuzz 16 17 Fizz 19 Buzz FizzBoom 
+
+--- Digital Root ---
+digitalRoot(9875) = 2
+digitalRoot(493) = 7
+
+--- Rotate Left ---
+Before: 1 2 3 4 5 
+After rotate by 2: 3 4 5 1 2 `,
+    tags: ["project", "cpp-area-6", "competition"],
+    fromLesson: "cpp-6-3",
+  },
+  {
+    id: "proj-cpp-6-3-2",
+    title: "🧠 Brain Teasers Collection",
+    description: "Classic coding brain teasers! Prime checker, palindrome number, and Roman numeral converter.",
+    difficulty: 3,
+    gradeRange: [6, 12],
+    skillLevel: "advanced",
+    starterCode: `#include <iostream>
+#include <string>
+#include <vector>
+using namespace std;
+
+// Problem 1: Is Prime?
+bool isPrime(int n) {
+    if (n < 2) return false;
+    // TODO: check divisibility from 2 to sqrt(n)
+    return true;
+}
+
+// Problem 2: Is Palindrome Number? (without converting to string)
+bool isPalindromeNum(int n) {
+    if (n < 0) return false;
+    // TODO: reverse the number and compare
+    int original = n;
+    int reversed = 0;
+    // TODO
+    return original == reversed;
+}
+
+// Problem 3: Integer to Roman Numeral
+string toRoman(int num) {
+    string result = "";
+    // TODO: use arrays of values and symbols
+    // int vals[] = {1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1};
+    // string syms[] = {"M","CM","D","CD","C","XC","L","XL","X","IX","V","IV","I"};
+    return result;
+}
+
+int main() {
+    cout << "🧠 BRAIN TEASERS" << endl;
+
+    cout << "\\n--- Prime Checker ---" << endl;
+    int testPrimes[] = {2, 7, 10, 17, 100};
+    for (int i = 0; i < 5; i++) {
+        cout << testPrimes[i] << ": " << (isPrime(testPrimes[i]) ? "prime" : "not prime") << endl;
+    }
+
+    cout << "\\n--- Palindrome Numbers ---" << endl;
+    int testPalin[] = {121, 123, 12321, 10};
+    for (int i = 0; i < 4; i++) {
+        cout << testPalin[i] << ": " << (isPalindromeNum(testPalin[i]) ? "yes" : "no") << endl;
+    }
+
+    cout << "\\n--- Roman Numerals ---" << endl;
+    int testRoman[] = {3, 9, 42, 99, 2024};
+    for (int i = 0; i < 5; i++) {
+        cout << testRoman[i] << " = " << toRoman(testRoman[i]) << endl;
+    }
+
+    return 0;
+}`,
+    hint: "Prime: check i*i <= n. Palindrome: reversed = reversed*10 + n%10, n/=10. Roman: greedily subtract largest value that fits.",
+    solution: `#include <iostream>
+#include <string>
+#include <vector>
+using namespace std;
+
+bool isPrime(int n) {
+    if (n < 2) return false;
+    for (int i = 2; i * i <= n; i++) {
+        if (n % i == 0) return false;
+    }
+    return true;
+}
+
+bool isPalindromeNum(int n) {
+    if (n < 0) return false;
+    int original = n;
+    int reversed = 0;
+    while (n > 0) {
+        reversed = reversed * 10 + n % 10;
+        n /= 10;
+    }
+    return original == reversed;
+}
+
+string toRoman(int num) {
+    string result = "";
+    int vals[] = {1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1};
+    string syms[] = {"M","CM","D","CD","C","XC","L","XL","X","IX","V","IV","I"};
+    for (int i = 0; i < 13; i++) {
+        while (num >= vals[i]) {
+            result += syms[i];
+            num -= vals[i];
+        }
+    }
+    return result;
+}
+
+int main() {
+    cout << "🧠 BRAIN TEASERS" << endl;
+
+    cout << "\\n--- Prime Checker ---" << endl;
+    int testPrimes[] = {2, 7, 10, 17, 100};
+    for (int i = 0; i < 5; i++) {
+        cout << testPrimes[i] << ": " << (isPrime(testPrimes[i]) ? "prime" : "not prime") << endl;
+    }
+
+    cout << "\\n--- Palindrome Numbers ---" << endl;
+    int testPalin[] = {121, 123, 12321, 10};
+    for (int i = 0; i < 4; i++) {
+        cout << testPalin[i] << ": " << (isPalindromeNum(testPalin[i]) ? "yes" : "no") << endl;
+    }
+
+    cout << "\\n--- Roman Numerals ---" << endl;
+    int testRoman[] = {3, 9, 42, 99, 2024};
+    for (int i = 0; i < 5; i++) {
+        cout << testRoman[i] << " = " << toRoman(testRoman[i]) << endl;
+    }
+
+    return 0;
+}`,
+    expectedOutput: `🧠 BRAIN TEASERS
+
+--- Prime Checker ---
+2: prime
+7: prime
+10: not prime
+17: prime
+100: not prime
+
+--- Palindrome Numbers ---
+121: yes
+123: no
+12321: yes
+10: no
+
+--- Roman Numerals ---
+3 = III
+9 = IX
+42 = XLII
+99 = XCIX
+2024 = MMXXIV`,
+    tags: ["project", "cpp-area-6", "competition"],
+    fromLesson: "cpp-6-3",
+  },
 ];
