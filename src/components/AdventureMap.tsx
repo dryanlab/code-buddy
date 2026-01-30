@@ -351,7 +351,7 @@ function TrackPopup({
                 lessonCount={cppTotal}
                 completedCount={cppDone}
                 pct={cppPct}
-                href="/dashboard/cpp-lessons"
+                href="/dashboard/lessons?track=cpp"
               />
             </div>
           </>
