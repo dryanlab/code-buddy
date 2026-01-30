@@ -537,6 +537,13 @@ DS 和 Algorithms 课程的 **所有练习和项目** 必须提供 Python 和 C+
 
 > 原因：DS 和算法是语言无关的知识，学 Python 或 C++ 的学生都需要练习。
 
+### 地图跳转规则
+
+冒险地图（AdventureMap）中所有课程区域的 "Start Learning" 按钮：
+- **必须跳到课程列表页** `/dashboard/lessons?track=xxx`，自动选中对应 tab
+- **不能直接跳到某一课**（如 `/dashboard/lessons/alg-1-1`）
+- 适用于所有现有和未来课程（Python/C++/DS/ALG/...）
+
 ---
 
 ## 已知问题
