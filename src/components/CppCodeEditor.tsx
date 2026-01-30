@@ -178,13 +178,6 @@ export default function CppCodeEditor({
                   {showStdin ? "▾ stdin" : "▸ stdin"}
                 </button>
                 <button
-                  onClick={startStepMode}
-                  disabled={isRunning}
-                  className="flex items-center gap-1.5 px-3 py-1.5 bg-cyan-500 text-black text-sm font-bold rounded-lg hover:bg-cyan-400 disabled:opacity-50 transition-colors"
-                >
-                  ⏭ Step · 分步
-                </button>
-                <button
                   onClick={runCode}
                   disabled={isRunning}
                   className="flex items-center gap-2 px-4 py-1.5 bg-green-500 text-black text-sm font-bold rounded-lg hover:bg-green-400 disabled:opacity-50 transition-colors"

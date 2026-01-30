@@ -7,6 +7,7 @@ import Link from "next/link";
 import { TRACKS, type Track } from "@/data/tracks";
 import { LESSONS } from "@/data/lessons";
 import { CPP_LESSONS } from "@/data/cpp-lessons";
+import { DS_LESSONS } from "@/data/ds-lessons";
 import type { UserProgress } from "@/lib/progress-store";
 
 // ═══════════════════════════════════════════════════
@@ -73,6 +74,10 @@ function HotspotOverlay({
     const allLessons = [...LESSONS, ...CPP_LESSONS];
     const total = allLessons.length;
     const done = allLessons.filter((l) => progress.completedLessons.includes(l.id)).length;
+    pct = total > 0 ? Math.round((done / total) * 100) : 0;
+  } else if (track.id === "data-structures" && progress) {
+    const total = DS_LESSONS.length;
+    const done = DS_LESSONS.filter((l) => progress.completedLessons.includes(l.id)).length;
     pct = total > 0 ? Math.round((done / total) * 100) : 0;
   }
 
@@ -268,8 +273,14 @@ function TrackPopup({
       ? { label: "🔜 Coming Soon", bg: "#eab30820", color: "#eab308" }
       : { label: "🔮 Future", bg: "#64748b20", color: "#64748b" };
 
-  const href = track.status === "available" ? "/dashboard/lessons"
-    : track.id === "data-structures" ? "/dashboard/data-structures" : null;
+  // DS progress
+  const dsTotal = DS_LESSONS.length;
+  const dsDone = progress ? DS_LESSONS.filter((l) => progress.completedLessons.includes(l.id)).length : 0;
+  const dsPct = dsTotal > 0 ? Math.round((dsDone / dsTotal) * 100) : 0;
+
+  const href = track.id === "data-structures" ? "/dashboard/data-structures"
+    : track.status === "available" ? "/dashboard/lessons"
+    : null;
 
   return (
     <motion.div

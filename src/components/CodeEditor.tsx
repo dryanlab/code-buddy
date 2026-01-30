@@ -258,6 +258,7 @@ export default function CodeEditor({
             )}
             {!stepMode ? (
               <>
+                {language !== "cpp" && (
                 <button
                   onClick={startStepMode}
                   disabled={isRunning || isLoading}
@@ -265,6 +266,7 @@ export default function CodeEditor({
                 >
                   ⏭ Step · 分步
                 </button>
+                )}
                 <button
                   onClick={runCode}
                   disabled={isRunning || isLoading}
