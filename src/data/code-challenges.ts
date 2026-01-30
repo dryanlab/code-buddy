@@ -945,6 +945,9 @@ print("  GAME OVER")
 print("  Health: " + str(health) + " | Gold: " + str(gold))
 print("  Inventory: " + str(inventory))
 print("=" * 40)`,
+    language: "python",
+    category: "Games",
+    categoryZh: "游戏",
     tags: ["project", "area-1", "综合"],
     fromLesson: "1-6",
   },
@@ -1066,6 +1069,9 @@ else:
     print("🤝 It's a draw!")
 for record in history:
     print("  " + record)`,
+    language: "python",
+    category: "Games",
+    categoryZh: "游戏",
     tags: ["project", "area-2", "综合"],
     fromLesson: "2-6",
   },
@@ -1215,6 +1221,9 @@ add_grade("Bob", 82)
 print_report("Alice")
 print_report("Bob")
 print_class_summary()`,
+    language: "python",
+    category: "Tools",
+    categoryZh: "工具",
     tags: ["project", "area-3", "综合"],
     fromLesson: "3-7",
   },
@@ -1344,6 +1353,9 @@ for cycle in range(1, 6):
     simulate_event()
     check_alerts()
 print("\\n🛸 Done.")`,
+    language: "python",
+    category: "Science",
+    categoryZh: "科学",
     tags: ["project", "area-4", "science-lab"],
     fromLesson: "4-1",
   },
@@ -1456,6 +1468,9 @@ for i in range(1, 11):
     spin_history.append(net)
     print("Spin " + str(i) + ": " + result["symbol"] + " " + result["name"] + " x" + str(result["multiplier"]) + " → $" + str(winnings) + " (net " + ("+" if net > 0 else "") + str(net) + ")")
 print("\\nFinal: $" + str(balance) + " | Spins: " + str(len(spin_history)))`,
+    language: "python",
+    category: "Games",
+    categoryZh: "游戏",
     tags: ["project", "area-4", "probability"],
     fromLesson: "4-2",
   },
@@ -1558,6 +1573,9 @@ for i in range(len(shots)):
     if hit: score += 100
     print("Bird " + str(i+1) + ": " + str(angle) + "° power " + str(vel) + " → landed at " + str(round(landing, 1)) + " " + status)
 print("\\nScore: " + str(score))`,
+    language: "python",
+    category: "Simulations",
+    categoryZh: "模拟",
     tags: ["project", "area-4", "physics", "math"],
     fromLesson: "4-3",
   },
@@ -1667,6 +1685,9 @@ for loc in locations:
         print("🔍 " + loc + ": Nothing unusual.")
 print("\\n🎯 ACCUSATION: " + culprit + " with " + weapon + " in " + location)
 print("✅ Case solved!")`,
+    language: "python",
+    category: "Science",
+    categoryZh: "科学",
     tags: ["project", "area-4", "logic", "game"],
     fromLesson: "4-4",
   },
@@ -1792,6 +1813,9 @@ add_entry("google.com", "user@gmail.com", "MyP@ss123!")
 add_entry("github.com", "coder", pwd)
 get_entry("google.com")
 get_entry("github.com")`,
+    language: "python",
+    category: "Science",
+    categoryZh: "科学",
     tags: ["project", "area-4", "encryption", "security"],
     fromLesson: "4-5",
   },
@@ -1927,6 +1951,9 @@ for day in range(1, 11):
 print("\\nSurvivors:")
 for c in creatures:
     if c["alive"]: print("  " + c["name"] + " (" + c["species"] + ") E:" + str(c["energy"]))`,
+    language: "python",
+    category: "Science",
+    categoryZh: "科学",
     tags: ["project", "area-4", "simulation", "ecosystem"],
     fromLesson: "4-6",
   },
@@ -2053,6 +2080,9 @@ for action, target in actions:
     elif action == "teach": teach(target)
 print("\\n🐾 " + pet["name"] + " knows: " + str(pet["tricks"]))
 print("Favorite foods: " + str([f for f,c in food_memory.items() if c >= 3]))`,
+    language: "python",
+    category: "Data",
+    categoryZh: "数据",
     tags: ["project", "area-5", "ai", "simulation"],
     fromLesson: "5-1",
   },
@@ -2191,6 +2221,9 @@ for i in range(len(names)):
 print("\\n🏆 LEADERBOARD:")
 for name, score in sorted(totals.items(), key=lambda x: -x[1]):
     print("  " + name + ": " + str(score))`,
+    language: "python",
+    category: "Crypto",
+    categoryZh: "加密",
     tags: ["project", "area-5", "ai", "game-theory"],
     fromLesson: "5-2",
   },
@@ -2316,6 +2349,9 @@ print("\\n🎋 HAIKU:")
 gen_haiku()
 print("\\n🎨 PATTERN:")
 gen_pattern()`,
+    language: "python",
+    category: "Simulations",
+    categoryZh: "模拟",
     tags: ["project", "area-5", "ai", "creative"],
     fromLesson: "5-3",
   },
@@ -2434,6 +2470,9 @@ cf = count_freq(coin_flips)
 print("  H: " + str(cf.get("H",0)) + " T: " + str(cf.get("T",0)))
 cp, cc = predict_next(coin_flips)
 print("  Prediction: " + cp + " (confidence: " + str(cc) + "%)")`,
+    language: "python",
+    category: "Data",
+    categoryZh: "数据",
     tags: ["project", "area-5", "ai", "statistics", "prediction"],
     fromLesson: "5-4",
   },
@@ -2573,6 +2612,9 @@ print("⚖️ AI COURT IN SESSION")
 for c in cases:
     trial(c)
 print("\\nCourt adjourned.")`,
+    language: "python",
+    category: "Science",
+    categoryZh: "科学",
     tags: ["project", "area-5", "ai", "logic", "ethics"],
     fromLesson: "5-5",
   },
@@ -2682,7 +2724,3210 @@ for msg in messages:
         reply = "Interesting! Tell me more."
     print("You: " + msg + " → Bot: " + reply)
 print("\\nChat history: " + str(len(history)) + " messages")`,
+    language: "python",
+    category: "Tools",
+    categoryZh: "工具",
     tags: ["project", "area-5", "graduation", "综合"],
+    fromLesson: "5-6",
+  },
+
+
+  // ═══════════════════════════════════════════════════════════════
+  // ═══ 🐍 ADDITIONAL PYTHON COURSE PROJECTS ═══
+  // These are projects linked to specific Python lessons
+  // ═══════════════════════════════════════════════════════════════
+
+  {
+    id: "proj-py-1-1-1",
+    title: "🎨 ASCII Art Gallery · ASCII 艺术画廊",
+    description: "Create an ASCII art gallery with multiple drawings! 用 print 创建 ASCII 艺术画廊",
+    difficulty: 1,
+    gradeRange: [4, 10],
+    skillLevel: "beginner",
+    starterCode: `# 🎨 ASCII Art Gallery
+# Create 3 different ASCII art pieces!
+
+# TODO: Draw a cat
+print("Art 1: Cat")
+# Use print() to draw a cat face
+
+# TODO: Draw a rocket
+print("\nArt 2: Rocket")
+# Use print() to draw a rocket
+
+# TODO: Draw your name in block letters
+print("\nArt 3: My Name")`,
+    hint: "Each print() is one line. Use characters like / \\ | _ * to make shapes!",
+    solution: `print("Art 1: Cat")
+print(" /\\_/\\ ")
+print("( o.o )")
+print(" > ^ < ")
+print("\nArt 2: Rocket")
+print("   /\\")
+print("  |  |")
+print("  |  |")
+print(" /|  |\\")
+print("/_|__|_\\")
+print("  ||||")
+print("\nArt 3: My Name")
+print("█▀▀ █▀█ █▀▄ █▀▀")
+print("█   █ █ █ █ █▀▀")
+print("▀▀▀ ▀▀▀ ▀▀  ▀▀▀")`,
+    language: "python",
+    category: "Art",
+    categoryZh: "艺术",
+    tags: ["project", "area-1", "print"],
+    fromLesson: "1-1",
+  },
+
+  {
+    id: "proj-py-1-1-2",
+    title: "📝 Mad Libs Story · 疯狂填词游戏",
+    description: "Create a funny Mad Libs story using print and string concatenation! 用 print 和字符串拼接创建疯狂填词故事",
+    difficulty: 1,
+    gradeRange: [4, 10],
+    skillLevel: "beginner",
+    starterCode: `# 📝 Mad Libs Story Generator
+# Fill in the blanks to make a funny story!
+
+noun = "dragon"
+adjective = "sparkly"
+verb = "danced"
+place = "school cafeteria"
+food = "pizza"
+
+# TODO: Print a funny story using these variables
+# Use + to join strings together
+# Make it at least 5 lines!
+# Example: print("Once upon a time, a " + adjective + " " + noun + "...")`,
+    hint: "Use + to concatenate strings: print(\"The \" + adjective + \" \" + noun + \" went to \" + place)",
+    solution: `noun = "dragon"
+adjective = "sparkly"
+verb = "danced"
+place = "school cafeteria"
+food = "pizza"
+
+print("Once upon a time, a " + adjective + " " + noun + " lived in a " + place + ".")
+print("Every day it " + verb + " while eating " + food + ".")
+print("The other students thought the " + noun + " was weird.")
+print("But then the " + noun + " shared its " + food + " with everyone!")
+print("And they all " + verb + " together happily ever after.")`,
+    language: "python",
+    category: "Creative",
+    categoryZh: "创意",
+    tags: ["project", "area-1", "print", "strings"],
+    fromLesson: "1-1",
+  },
+
+  {
+    id: "proj-py-1-2-1",
+    title: "🪪 ID Card Maker · 身份卡生成器",
+    description: "Create a student ID card using different variable types! 使用不同变量类型创建学生证",
+    difficulty: 1,
+    gradeRange: [4, 10],
+    skillLevel: "beginner",
+    starterCode: `# 🪪 Student ID Card Maker
+# Use different types: str, int, float, bool
+
+# TODO: Create variables for a student
+name = "Alex Chen"       # str
+age = 15                 # int
+gpa = 3.85               # float
+is_honors = True         # bool
+grade = 10               # int
+
+# TODO: Print a formatted ID card
+# Example output:
+# ╔════════════════════╗
+# ║  STUDENT ID CARD   ║
+# ╠════════════════════╣
+# ║ Name: Alex Chen    ║
+# ║ Age: 15            ║
+# ║ Grade: 10          ║
+# ║ GPA: 3.85          ║
+# ║ Honors: Yes        ║
+# ╚════════════════════╝`,
+    hint: "Use str() to convert numbers. For the honors field, use \"Yes\" if is_honors else \"No\"",
+    solution: `name = "Alex Chen"
+age = 15
+gpa = 3.85
+is_honors = True
+grade = 10
+
+print("+" + "=" * 22 + "+")
+print("|   STUDENT ID CARD   |")
+print("+" + "=" * 22 + "+")
+print("| Name: " + name)
+print("| Age: " + str(age))
+print("| Grade: " + str(grade))
+print("| GPA: " + str(gpa))
+honors_text = "Yes" if is_honors else "No"
+print("| Honors: " + honors_text)
+print("+" + "=" * 22 + "+")`,
+    language: "python",
+    category: "Tools",
+    categoryZh: "工具",
+    tags: ["project", "area-1", "variables", "types"],
+    fromLesson: "1-2",
+  },
+
+  {
+    id: "proj-py-1-2-2",
+    title: "🎮 Character Creator · 角色创建器",
+    description: "Build an RPG character sheet with stats using all variable types! 用所有变量类型构建 RPG 角色表",
+    difficulty: 1,
+    gradeRange: [4, 10],
+    skillLevel: "beginner",
+    starterCode: `# 🎮 RPG Character Creator
+# Design your hero with different data types!
+
+# TODO: Create character variables
+char_name = "Shadow Blade"   # str
+char_class = "Warrior"       # str
+level = 1                    # int
+health = 100.0               # float
+mana = 50.0                  # float
+is_alive = True              # bool
+strength = 15                # int
+defense = 12                 # int
+
+# TODO: Calculate derived stats
+# attack_power = strength * 1.5
+# total_hp = health + (level * 10)
+
+# TODO: Print the character sheet
+# Show all stats in a nice format
+# Include type labels: print(type(char_name))`,
+    hint: "Use type() to show variable types. Calculate derived stats with math operators.",
+    solution: `char_name = "Shadow Blade"
+char_class = "Warrior"
+level = 1
+health = 100.0
+mana = 50.0
+is_alive = True
+strength = 15
+defense = 12
+attack_power = strength * 1.5
+total_hp = health + (level * 10)
+print("⚔️ CHARACTER SHEET ⚔️")
+print("Name: " + char_name + " (" + str(type(char_name)) + ")")
+print("Class: " + char_class)
+print("Level: " + str(level) + " (" + str(type(level)) + ")")
+print("HP: " + str(total_hp) + " (" + str(type(health)) + ")")
+print("Mana: " + str(mana))
+print("Alive: " + str(is_alive) + " (" + str(type(is_alive)) + ")")
+print("ATK: " + str(attack_power) + " | DEF: " + str(defense))`,
+    language: "python",
+    category: "Games",
+    categoryZh: "游戏",
+    tags: ["project", "area-1", "variables", "types"],
+    fromLesson: "1-2",
+  },
+
+  {
+    id: "proj-py-1-3-1",
+    title: "🧮 Math Quiz Generator · 数学测验生成器",
+    description: "Generate random math quizzes and track scores! 生成随机数学测验并跟踪分数",
+    difficulty: 1,
+    gradeRange: [4, 10],
+    skillLevel: "beginner",
+    starterCode: `# 🧮 Math Quiz Generator
+import random
+import math
+
+score = 0
+total = 5
+
+# TODO: Generate 5 random math problems
+# For each problem:
+# 1. Pick two random numbers (1-20)
+# 2. Pick a random operation (+, -, *)
+# 3. Calculate the correct answer
+# 4. Display the problem and answer
+
+for i in range(total):
+    a = random.randint(1, 20)
+    b = random.randint(1, 20)
+    # TODO: Pick random operation and calculate
+    # TODO: Print "Q1: 5 + 3 = 8"
+    pass
+
+# TODO: Show final score with percentage
+# Use math.floor() or round()`,
+    hint: "Use random.choice([\"+\", \"-\", \"*\"]) to pick an operation. Use if/elif to calculate based on which op was chosen.",
+    solution: `import random
+import math
+
+score = 0
+total = 5
+ops = ["+", "-", "*"]
+
+for i in range(total):
+    a = random.randint(1, 20)
+    b = random.randint(1, 20)
+    op = random.choice(ops)
+    if op == "+":
+        answer = a + b
+    elif op == "-":
+        answer = a - b
+    else:
+        answer = a * b
+    print("Q" + str(i+1) + ": " + str(a) + " " + op + " " + str(b) + " = " + str(answer))
+    score += 1
+
+pct = math.floor((score / total) * 100)
+print("\nScore: " + str(score) + "/" + str(total) + " (" + str(pct) + "%)")`,
+    language: "python",
+    category: "Tools",
+    categoryZh: "工具",
+    tags: ["project", "area-1", "math", "random"],
+    fromLesson: "1-3",
+  },
+
+  {
+    id: "proj-py-1-3-2",
+    title: "📐 Geometry Calculator · 几何计算器",
+    description: "Calculate areas and perimeters of shapes using the math module! 使用 math 模块计算图形面积和周长",
+    difficulty: 1,
+    gradeRange: [4, 10],
+    skillLevel: "beginner",
+    starterCode: `# 📐 Geometry Calculator
+import math
+
+# TODO: Calculate for each shape:
+# 1. Circle (radius = 5)
+#    area = π * r²
+#    circumference = 2 * π * r
+
+# 2. Triangle (base=8, height=6, sides: 8, 6, 10)
+#    area = 0.5 * base * height
+#    perimeter = side1 + side2 + side3
+
+# 3. Rectangle (width=12, height=7)
+#    area = width * height
+#    diagonal = √(width² + height²) use math.sqrt()
+
+# Print results rounded to 2 decimal places
+# Use math.pi for π and math.sqrt() for square root`,
+    hint: "math.pi gives you π. math.sqrt(x) gives square root. round(num, 2) rounds to 2 decimals.",
+    solution: `import math
+
+r = 5
+print("⭕ Circle (r=" + str(r) + ")")
+print("  Area: " + str(round(math.pi * r**2, 2)))
+print("  Circumference: " + str(round(2 * math.pi * r, 2)))
+
+base, height = 8, 6
+print("🔺 Triangle (b=" + str(base) + ", h=" + str(height) + ")")
+print("  Area: " + str(round(0.5 * base * height, 2)))
+print("  Perimeter: " + str(8 + 6 + 10))
+
+w, h = 12, 7
+print("▬ Rectangle (" + str(w) + "x" + str(h) + ")")
+print("  Area: " + str(w * h))
+print("  Diagonal: " + str(round(math.sqrt(w**2 + h**2), 2)))`,
+    language: "python",
+    category: "Science",
+    categoryZh: "科学",
+    tags: ["project", "area-1", "math"],
+    fromLesson: "1-3",
+  },
+
+  {
+    id: "proj-py-1-4-1",
+    title: "🐢 Spiral Art · 螺旋艺术",
+    description: "Create beautiful spiral patterns with turtle graphics (simulated with print)! 用模拟海龟绘图创建美丽的螺旋图案",
+    difficulty: 1,
+    gradeRange: [4, 10],
+    skillLevel: "beginner",
+    starterCode: `# 🐢 Spiral Art (Simulated with text)
+# Since we can't use real turtle, we simulate with a grid!
+import math
+
+size = 21
+grid = [[" " for _ in range(size)] for _ in range(size)]
+cx, cy = size // 2, size // 2
+
+# TODO: Draw a spiral pattern on the grid
+# Use math.cos() and math.sin() to calculate positions
+# For t in range(0, 100):
+#   r = t * 0.1  (radius grows)
+#   angle = t * 0.3
+#   x = cx + int(r * math.cos(angle))
+#   y = cy + int(r * math.sin(angle))
+#   Place a "*" at grid[y][x]
+
+# TODO: Print the grid
+# for row in grid: print("".join(row))`,
+    hint: "Loop through t values, calculate r (grows each step), use cos/sin for x,y coordinates on the grid.",
+    solution: `import math
+
+size = 21
+grid = [[" " for _ in range(size)] for _ in range(size)]
+cx, cy = size // 2, size // 2
+
+for t in range(100):
+    r = t * 0.1
+    angle = t * 0.3
+    x = cx + int(r * math.cos(angle))
+    y = cy + int(r * math.sin(angle))
+    if 0 <= x < size and 0 <= y < size:
+        grid[y][x] = "*"
+
+for row in grid:
+    print("".join(row))`,
+    language: "python",
+    category: "Art",
+    categoryZh: "艺术",
+    tags: ["project", "area-1", "turtle", "math"],
+    fromLesson: "1-4",
+  },
+
+  {
+    id: "proj-py-1-4-2",
+    title: "🏠 House Drawing · 画房子",
+    description: "Draw a house using text-based turtle simulation! 用文本模拟海龟绘图画房子",
+    difficulty: 1,
+    gradeRange: [4, 10],
+    skillLevel: "beginner",
+    starterCode: `# 🏠 House Drawing (Text Art)
+# Simulate turtle graphics with a grid
+
+size = 20
+grid = [[" " for _ in range(size)] for _ in range(size)]
+
+# TODO: Draw a house on the grid
+# 1. Draw the roof (triangle) - rows 2-6
+#    Use "/" and "\\" characters
+# 2. Draw the walls (rectangle) - rows 7-14
+#    Use "|" for sides, "-" for top/bottom
+# 3. Draw a door (small rectangle) - center bottom
+# 4. Draw a window (small square)
+
+# Hint: grid[row][col] = character
+
+# TODO: Print the grid
+for row in grid:
+    print("".join(row))`,
+    hint: "Set individual grid cells: grid[row][col] = \"/\". Draw the roof first, then walls, then details.",
+    solution: `size = 20
+grid = [[" " for _ in range(size)] for _ in range(size)]
+
+# Roof
+for i in range(5):
+    grid[2+i][9-i] = "/"
+    grid[2+i][10+i] = "\\"
+# Roof peak
+grid[2][9] = "/"
+grid[2][10] = "\\"
+
+# Walls
+for r in range(7, 15):
+    grid[r][4] = "|"
+    grid[r][15] = "|"
+for c in range(4, 16):
+    grid[7][c] = "-"
+    grid[14][c] = "-"
+
+# Door
+for r in range(11, 14):
+    grid[r][9] = "|"
+    grid[r][11] = "|"
+grid[11][10] = "-"
+
+# Window
+for c in range(6, 9):
+    grid[8][c] = "-"
+    grid[10][c] = "-"
+grid[9][6] = "|"
+grid[9][8] = "|"
+
+for row in grid:
+    print("".join(row))`,
+    language: "python",
+    category: "Art",
+    categoryZh: "艺术",
+    tags: ["project", "area-1", "turtle", "art"],
+    fromLesson: "1-4",
+  },
+
+  {
+    id: "proj-py-1-5-1",
+    title: "🎯 Grade Calculator · 成绩计算器",
+    description: "Build a grade calculator with letter grades and GPA! 构建带字母等级和GPA的成绩计算器",
+    difficulty: 1,
+    gradeRange: [4, 10],
+    skillLevel: "beginner",
+    starterCode: `# 🎯 Grade Calculator
+# Convert numeric scores to letter grades
+
+scores = [92, 85, 78, 65, 95, 43, 88, 71]
+
+# TODO: For each score, determine:
+# A: 90-100
+# B: 80-89
+# C: 70-79
+# D: 60-69
+# F: below 60
+
+# TODO: Count how many of each grade
+# TODO: Calculate the average score
+# TODO: Determine if the student passes (avg >= 70)
+
+for score in scores:
+    # TODO: Use if/elif/else to assign letter grade
+    # print(str(score) + " = " + grade)
+    pass`,
+    hint: "Use if score >= 90, elif score >= 80, etc. Keep counters for each grade letter.",
+    solution: `scores = [92, 85, 78, 65, 95, 43, 88, 71]
+total = 0
+counts = {"A": 0, "B": 0, "C": 0, "D": 0, "F": 0}
+
+for score in scores:
+    total += score
+    if score >= 90:
+        grade = "A"
+    elif score >= 80:
+        grade = "B"
+    elif score >= 70:
+        grade = "C"
+    elif score >= 60:
+        grade = "D"
+    else:
+        grade = "F"
+    counts[grade] += 1
+    print(str(score) + " = " + grade)
+
+avg = total / len(scores)
+print("\nAverage: " + str(round(avg, 1)))
+print("Pass: " + ("Yes ✅" if avg >= 70 else "No ❌"))
+for g in ["A", "B", "C", "D", "F"]:
+    print(g + ": " + str(counts[g]))`,
+    language: "python",
+    category: "Tools",
+    categoryZh: "工具",
+    tags: ["project", "area-1", "if-else", "conditionals"],
+    fromLesson: "1-5",
+  },
+
+  {
+    id: "proj-py-1-5-2",
+    title: "🌤️ Weather Advisor · 天气顾问",
+    description: "Build a weather advisor that gives outfit and activity suggestions! 构建天气顾问，给出穿搭和活动建议",
+    difficulty: 1,
+    gradeRange: [4, 10],
+    skillLevel: "beginner",
+    starterCode: `# 🌤️ Weather Advisor
+# Give suggestions based on weather conditions
+
+temperature = 75  # Fahrenheit
+is_raining = False
+is_windy = True
+humidity = 60  # percent
+
+# TODO: Suggest clothing based on temperature
+# > 85: "Wear shorts and a t-shirt! 🩳"
+# 70-85: "Light jacket weather! 🧥"
+# 50-69: "Wear a warm sweater! 🧣"
+# < 50: "Bundle up! Heavy coat needed! 🧤"
+
+# TODO: Modify suggestion if raining
+# Add "Don't forget an umbrella! ☂️"
+
+# TODO: Suggest an activity
+# Hot + Not raining: "Go swimming! 🏊"
+# Nice + Not raining: "Perfect for a hike! 🥾"
+# Cold or Raining: "Stay in and read! 📚"
+# Windy: "Great day for flying a kite! 🪁"`,
+    hint: "Use if/elif/else for temperature ranges, then add extra checks with and/or for rain and wind.",
+    solution: `temperature = 75
+is_raining = False
+is_windy = True
+humidity = 60
+
+print("🌡️ Temperature: " + str(temperature) + "°F")
+print("🌧️ Raining: " + str(is_raining))
+print("💨 Windy: " + str(is_windy))
+print()
+
+if temperature > 85:
+    print("Wear shorts and a t-shirt! 🩳")
+elif temperature >= 70:
+    print("Light jacket weather! 🧥")
+elif temperature >= 50:
+    print("Wear a warm sweater! 🧣")
+else:
+    print("Bundle up! Heavy coat needed! 🧤")
+
+if is_raining:
+    print("Don't forget an umbrella! ☂️")
+
+if temperature > 85 and not is_raining:
+    print("Activity: Go swimming! 🏊")
+elif temperature >= 60 and not is_raining:
+    print("Activity: Perfect for a hike! 🥾")
+elif is_windy:
+    print("Activity: Great day for flying a kite! 🪁")
+else:
+    print("Activity: Stay in and read! 📚")`,
+    language: "python",
+    category: "Tools",
+    categoryZh: "工具",
+    tags: ["project", "area-1", "if-else", "conditionals"],
+    fromLesson: "1-5",
+  },
+
+  {
+    id: "proj-py-1-6-1",
+    title: "🏰 Castle Escape · 城堡逃脱",
+    description: "Escape from a castle by solving puzzles and making choices! 通过解谜和做选择逃出城堡",
+    difficulty: 2,
+    gradeRange: [4, 10],
+    skillLevel: "beginner",
+    starterCode: `# 🏰 Castle Escape
+# You wake up in a castle dungeon. Find your way out!
+
+health = 100
+has_key = False
+has_torch = False
+
+print("=" * 40)
+print("  🏰 CASTLE ESCAPE 🏰")
+print("=" * 40)
+print("You wake up in a dark dungeon...")
+
+# Room 1: Dungeon
+print("\n🔒 DUNGEON")
+print("You see: 1. A rusty gate  2. A crack in the wall")
+choice = "1"  # TODO: input()
+
+# TODO: Handle choice 1 - gate needs a key
+# TODO: Handle choice 2 - find a torch
+
+# Room 2: Hallway
+print("\n🕯️ HALLWAY")
+# TODO: If you have torch, you can see
+# TODO: Two doors: library (has key) or kitchen (has food +20hp)
+
+# Room 3: Tower
+print("\n🗼 TOWER")
+# TODO: Final escape! Need key to unlock main gate
+# TODO: Without key - jump from window (-50 hp)
+# TODO: With key - walk out free!
+
+print("\n" + "=" * 40)
+print("Health: " + str(health))
+print("Escaped: " + str(has_key))`,
+    hint: "Use if/else for each choice. Track inventory with boolean variables. Check conditions before allowing actions.",
+    solution: `health = 100
+has_key = False
+has_torch = False
+
+print("=" * 40)
+print("  🏰 CASTLE ESCAPE 🏰")
+print("=" * 40)
+print("You wake up in a dark dungeon...")
+
+choice = "2"
+if choice == "1":
+    print("The gate is locked! You need a key.")
+else:
+    print("You squeeze through the crack and find a torch!")
+    has_torch = True
+
+print("\n🕯️ HALLWAY")
+if has_torch:
+    print("Your torch lights the way!")
+choice2 = "1"
+if choice2 == "1":
+    print("📚 Library! You find a golden key!")
+    has_key = True
+else:
+    print("🍖 Kitchen! You eat and restore health!")
+    health = min(100, health + 20)
+
+print("\n🗼 TOWER")
+if has_key:
+    print("🔑 You unlock the gate and escape! Freedom!")
+else:
+    print("No key... you jump from the window!")
+    health -= 50
+
+print("\n" + "=" * 40)
+print("Health: " + str(health))
+print("Escaped: " + str(has_key))`,
+    language: "python",
+    category: "Games",
+    categoryZh: "游戏",
+    tags: ["project", "area-1", "if-else", "adventure"],
+    fromLesson: "1-6",
+  },
+
+  {
+    id: "proj-py-2-1-1",
+    title: "🎵 Drum Machine · 鼓机",
+    description: "Build a drum pattern generator using for loops! 使用 for 循环构建鼓模式生成器",
+    difficulty: 1,
+    gradeRange: [6, 10],
+    skillLevel: "intermediate",
+    starterCode: `# 🎵 Drum Machine
+# Create beat patterns with loops!
+
+# Define drum sounds
+kick =  "X...X...X...X..."
+snare = "....X.......X..."
+hihat = "X.X.X.X.X.X.X.X."
+
+# TODO: Print a visual drum pattern
+# Show 4 bars of the pattern
+# Each bar = 4 beats
+
+# TODO: Create a custom pattern
+# Use for loop to build a pattern string
+# Example: for i in range(16): add "X" every 4th beat
+
+# TODO: Add a "tempo" counter
+# Print beat numbers above the pattern
+# 1234567890123456`,
+    hint: "Use for i in range(16) to build patterns. Use i % 4 == 0 to place beats every 4th step.",
+    solution: `kick =  "X...X...X...X..."
+snare = "....X.......X..."
+hihat = "X.X.X.X.X.X.X.X."
+
+print("🎵 DRUM MACHINE")
+print("Beat: ", end="")
+for i in range(16):
+    print(str((i % 10) + 1)[-1], end="")
+print()
+print("Kick:  " + kick)
+print("Snare: " + snare)
+print("HiHat: " + hihat)
+
+print("\n🎶 Custom Pattern:")
+custom = ""
+for i in range(16):
+    if i % 4 == 0:
+        custom += "X"
+    elif i % 2 == 0:
+        custom += "x"
+    else:
+        custom += "."
+print("Custom: " + custom)
+
+print("\n🔁 Playing 4 bars:")
+for bar in range(1, 5):
+    print("Bar " + str(bar) + ": " + kick[:4*bar])`,
+    language: "python",
+    category: "Creative",
+    categoryZh: "创意",
+    tags: ["project", "area-2", "for-loop"],
+    fromLesson: "2-1",
+  },
+
+  {
+    id: "proj-py-2-1-2",
+    title: "🌟 Star Pattern Maker · 星星图案",
+    description: "Create beautiful patterns using nested for loops! 使用嵌套 for 循环创建美丽图案",
+    difficulty: 1,
+    gradeRange: [6, 10],
+    skillLevel: "intermediate",
+    starterCode: `# 🌟 Star Pattern Maker
+# Create different patterns with for loops!
+
+n = 5
+
+# TODO: Pattern 1 - Right triangle
+# *
+# **
+# ***
+# ****
+# *****
+
+# TODO: Pattern 2 - Pyramid
+#     *
+#    ***
+#   *****
+#  *******
+# *********
+
+# TODO: Pattern 3 - Diamond
+#   *
+#  ***
+# *****
+#  ***
+#   *`,
+    hint: "For pyramid: use spaces = n-i-1 and stars = 2*i+1. Print \" \"*spaces + \"*\"*stars",
+    solution: `n = 5
+print("Pattern 1: Right Triangle")
+for i in range(1, n+1):
+    print("*" * i)
+
+print("\nPattern 2: Pyramid")
+for i in range(n):
+    spaces = " " * (n - i - 1)
+    stars = "*" * (2 * i + 1)
+    print(spaces + stars)
+
+print("\nPattern 3: Diamond")
+for i in range(n):
+    spaces = " " * (n - i - 1)
+    stars = "*" * (2 * i + 1)
+    print(spaces + stars)
+for i in range(n - 2, -1, -1):
+    spaces = " " * (n - i - 1)
+    stars = "*" * (2 * i + 1)
+    print(spaces + stars)`,
+    language: "python",
+    category: "Art",
+    categoryZh: "艺术",
+    tags: ["project", "area-2", "for-loop", "patterns"],
+    fromLesson: "2-1",
+  },
+
+  {
+    id: "proj-py-2-2-1",
+    title: "📋 Todo List Manager · 待办事项管理器",
+    description: "Build a todo list with add, remove, and priority sorting! 构建带添加、删除和优先级排序的待办列表",
+    difficulty: 1,
+    gradeRange: [6, 10],
+    skillLevel: "intermediate",
+    starterCode: `# 📋 Todo List Manager
+todos = []
+completed = []
+
+# TODO: Add tasks to the list
+# todos.append("task")
+
+# TODO: Mark tasks as complete
+# Move from todos to completed
+
+# TODO: Show tasks with numbering
+# for i in range(len(todos)):
+#     print(str(i+1) + ". " + todos[i])
+
+# TODO: Sort tasks alphabetically
+
+# Simulate some operations:
+tasks_to_add = ["Study math", "Clean room", "Buy groceries", "Walk dog", "Read book"]
+# Add all tasks
+# Complete "Clean room" and "Walk dog"
+# Print remaining and completed lists`,
+    hint: "Use append() to add, remove() to delete, sort() to sort. Use \"in\" to check if item exists.",
+    solution: `todos = []
+completed = []
+
+tasks_to_add = ["Study math", "Clean room", "Buy groceries", "Walk dog", "Read book"]
+for task in tasks_to_add:
+    todos.append(task)
+    print("Added: " + task)
+
+print("\n📋 All Tasks:")
+for i in range(len(todos)):
+    print(str(i+1) + ". " + todos[i])
+
+for done in ["Clean room", "Walk dog"]:
+    if done in todos:
+        todos.remove(done)
+        completed.append(done)
+        print("✅ Completed: " + done)
+
+todos.sort()
+print("\n📋 Remaining (sorted):")
+for i in range(len(todos)):
+    print(str(i+1) + ". " + todos[i])
+
+print("\n✅ Completed:")
+for task in completed:
+    print("  ✓ " + task)`,
+    language: "python",
+    category: "Tools",
+    categoryZh: "工具",
+    tags: ["project", "area-2", "lists"],
+    fromLesson: "2-2",
+  },
+
+  {
+    id: "proj-py-2-2-2",
+    title: "🏆 Scoreboard · 计分板",
+    description: "Create a sports scoreboard with rankings and statistics! 创建带排名和统计的体育记分牌",
+    difficulty: 1,
+    gradeRange: [6, 10],
+    skillLevel: "intermediate",
+    starterCode: `# 🏆 Scoreboard System
+players = ["Alice", "Bob", "Charlie", "Diana", "Eve"]
+scores = [85, 92, 78, 95, 88]
+
+# TODO: Display the scoreboard with rankings
+# Sort by score (highest first)
+# Show: Rank. Name - Score
+
+# TODO: Find the highest and lowest scores
+# TODO: Calculate the average score
+# TODO: Add a new player and score
+# TODO: Find who scored above average
+
+# Bonus: Create a "medal" display
+# 🥇 1st place, 🥈 2nd place, 🥉 3rd place`,
+    hint: "Use zip(scores, players) and sorted() to sort together. Or use list indexing with sorted indices.",
+    solution: `players = ["Alice", "Bob", "Charlie", "Diana", "Eve"]
+scores = [85, 92, 78, 95, 88]
+
+paired = list(zip(scores, players))
+paired.sort(reverse=True)
+
+print("🏆 SCOREBOARD 🏆")
+medals = ["🥇", "🥈", "🥉"]
+for i in range(len(paired)):
+    medal = medals[i] if i < 3 else "  "
+    print(medal + " " + str(i+1) + ". " + paired[i][1] + " - " + str(paired[i][0]))
+
+highest = max(scores)
+lowest = min(scores)
+avg = sum(scores) / len(scores)
+print("\nHighest: " + str(highest))
+print("Lowest: " + str(lowest))
+print("Average: " + str(round(avg, 1)))
+
+print("\nAbove average:")
+for s, p in paired:
+    if s > avg:
+        print("  ⭐ " + p + ": " + str(s))`,
+    language: "python",
+    category: "Data",
+    categoryZh: "数据",
+    tags: ["project", "area-2", "lists", "sorting"],
+    fromLesson: "2-2",
+  },
+
+  {
+    id: "proj-py-2-3-1",
+    title: "🎰 Number Guessing Game · 猜数字游戏",
+    description: "Build a number guessing game with hints and attempt tracking! 构建带提示和次数追踪的猜数字游戏",
+    difficulty: 1,
+    gradeRange: [6, 10],
+    skillLevel: "intermediate",
+    starterCode: `# 🎰 Number Guessing Game
+import random
+
+secret = random.randint(1, 100)
+attempts = 0
+max_attempts = 7
+guessed = False
+
+# TODO: Use a while loop to let player guess
+# While not guessed and attempts < max_attempts:
+#   Get a guess (simulate with a list of guesses)
+#   Compare: too high, too low, or correct!
+#   Track attempts
+
+# Simulate guesses:
+guesses = [50, 75, 62, 68, 65, 67, 66]
+
+# TODO: After loop, show if they won or lost
+# Show the secret number if they lost`,
+    hint: "Use while not guessed and attempts < max_attempts. Compare guess to secret with if/elif/else.",
+    solution: `import random
+
+secret = random.randint(1, 100)
+attempts = 0
+max_attempts = 7
+guessed = False
+
+guesses = [50, 75, 62, 68, 65, 67, 66]
+guess_idx = 0
+
+print("🎰 Guess the number (1-100)!")
+print("You have " + str(max_attempts) + " attempts.\n")
+
+while not guessed and attempts < max_attempts:
+    if guess_idx < len(guesses):
+        guess = guesses[guess_idx]
+        guess_idx += 1
+    else:
+        guess = secret
+    attempts += 1
+    print("Attempt " + str(attempts) + ": " + str(guess), end=" → ")
+    if guess == secret:
+        print("🎉 Correct!")
+        guessed = True
+    elif guess < secret:
+        print("📈 Too low!")
+    else:
+        print("📉 Too high!")
+
+if guessed:
+    print("\n🏆 You won in " + str(attempts) + " attempts!")
+else:
+    print("\n💀 Game over! The number was " + str(secret))`,
+    language: "python",
+    category: "Games",
+    categoryZh: "游戏",
+    tags: ["project", "area-2", "while-loop", "game"],
+    fromLesson: "2-3",
+  },
+
+  {
+    id: "proj-py-2-3-2",
+    title: "🏧 ATM Simulator · ATM 模拟器",
+    description: "Simulate an ATM with balance checking, deposits, and withdrawals! 模拟 ATM 的余额查询、存款和取款功能",
+    difficulty: 1,
+    gradeRange: [6, 10],
+    skillLevel: "intermediate",
+    starterCode: `# 🏧 ATM Simulator
+balance = 1000.00
+pin = "1234"
+transactions = []
+
+# TODO: Simulate ATM operations using while loop
+# Operations to process:
+operations = [
+    ("check", 0),
+    ("withdraw", 200),
+    ("deposit", 500),
+    ("withdraw", 2000),  # should fail - insufficient
+    ("check", 0),
+    ("quit", 0),
+]
+
+# TODO: For each operation:
+# "check" - show balance
+# "withdraw" - subtract if enough balance
+# "deposit" - add to balance
+# "quit" - exit loop
+# Log each transaction to transactions list`,
+    hint: "Use while with an index or pop operations. Check balance >= amount before withdrawing.",
+    solution: `balance = 1000.00
+transactions = []
+
+operations = [
+    ("check", 0),
+    ("withdraw", 200),
+    ("deposit", 500),
+    ("withdraw", 2000),
+    ("check", 0),
+    ("quit", 0),
+]
+
+print("🏧 ATM SIMULATOR")
+print("=" * 30)
+
+i = 0
+running = True
+while running and i < len(operations):
+    op, amount = operations[i]
+    i += 1
+    if op == "check":
+        print("💰 Balance: $" + str(round(balance, 2)))
+        transactions.append("Checked balance")
+    elif op == "withdraw":
+        if amount <= balance:
+            balance -= amount
+            print("💸 Withdrew: $" + str(amount) + " | Balance: $" + str(round(balance, 2)))
+            transactions.append("Withdrew $" + str(amount))
+        else:
+            print("❌ Insufficient funds for $" + str(amount))
+            transactions.append("Failed withdrawal $" + str(amount))
+    elif op == "deposit":
+        balance += amount
+        print("💵 Deposited: $" + str(amount) + " | Balance: $" + str(round(balance, 2)))
+        transactions.append("Deposited $" + str(amount))
+    elif op == "quit":
+        running = False
+        print("👋 Goodbye!")
+
+print("\n📜 Transaction History:")
+for t in transactions:
+    print("  • " + t)`,
+    language: "python",
+    category: "Simulations",
+    categoryZh: "模拟",
+    tags: ["project", "area-2", "while-loop"],
+    fromLesson: "2-3",
+  },
+
+  {
+    id: "proj-py-2-4-1",
+    title: "🔍 Text Analyzer · 文本分析器",
+    description: "Analyze text with string methods - count words, find patterns, transform! 使用字符串方法分析文本",
+    difficulty: 1,
+    gradeRange: [6, 10],
+    skillLevel: "intermediate",
+    starterCode: `# 🔍 Text Analyzer
+text = "The Quick Brown Fox Jumps Over The Lazy Dog. The dog was not amused."
+
+# TODO: Basic stats
+# 1. Count total characters (len)
+# 2. Count words (split)
+# 3. Count sentences (count ".")
+# 4. Convert to uppercase / lowercase
+
+# TODO: Word analysis
+# 5. Find the longest word
+# 6. Find all words that start with "T"
+# 7. Replace "dog" with "cat"
+# 8. Check if text starts with "The"
+
+# TODO: Advanced
+# 9. Reverse the text
+# 10. Count frequency of each word`,
+    hint: "Use .split() to get words, .lower() for case, .count() for occurrences, .replace() for substitution.",
+    solution: `text = "The Quick Brown Fox Jumps Over The Lazy Dog. The dog was not amused."
+
+print("📊 TEXT ANALYSIS")
+print("Characters: " + str(len(text)))
+words = text.split()
+print("Words: " + str(len(words)))
+print("Sentences: " + str(text.count(".")))
+print("Uppercase: " + text.upper())
+print("Lowercase: " + text.lower())
+
+longest = ""
+for w in words:
+    if len(w) > len(longest):
+        longest = w
+print("\nLongest word: " + longest)
+
+t_words = [w for w in words if w.lower().startswith("t")]
+print("Words starting with T: " + str(t_words))
+print("Replaced: " + text.replace("dog", "cat").replace("Dog", "Cat"))
+print("Starts with 'The': " + str(text.startswith("The")))
+print("Reversed: " + text[::-1])
+
+freq = {}
+for w in text.lower().replace(".", "").split():
+    freq[w] = freq.get(w, 0) + 1
+print("\nWord frequency:")
+for w, c in sorted(freq.items(), key=lambda x: -x[1]):
+    print("  " + w + ": " + str(c))`,
+    language: "python",
+    category: "Data",
+    categoryZh: "数据",
+    tags: ["project", "area-2", "strings", "methods"],
+    fromLesson: "2-4",
+  },
+
+  {
+    id: "proj-py-2-4-2",
+    title: "🔐 Password Strength Checker · 密码强度检查器",
+    description: "Check password strength using string methods! 使用字符串方法检查密码强度",
+    difficulty: 1,
+    gradeRange: [6, 10],
+    skillLevel: "intermediate",
+    starterCode: `# 🔐 Password Strength Checker
+passwords = ["hello", "Hello123", "P@ssw0rd!", "12345678", "MyC@t!sGr8"]
+
+# TODO: For each password, check:
+# 1. Length >= 8 characters
+# 2. Contains uppercase (.isupper() on individual chars)
+# 3. Contains lowercase
+# 4. Contains digit (.isdigit())
+# 5. Contains special character (not .isalnum())
+
+# TODO: Score each password (1 point per check passed)
+# 5 = 💪 Strong, 3-4 = 🟡 Medium, 1-2 = 🔴 Weak
+
+# TODO: Print results for each password`,
+    hint: "Loop through each character with for ch in password. Use ch.isupper(), ch.islower(), ch.isdigit(), not ch.isalnum().",
+    solution: `passwords = ["hello", "Hello123", "P@ssw0rd!", "12345678", "MyC@t!sGr8"]
+
+print("🔐 PASSWORD STRENGTH CHECKER\n")
+for pwd in passwords:
+    score = 0
+    checks = []
+    if len(pwd) >= 8:
+        score += 1
+        checks.append("length✓")
+    has_upper = any(c.isupper() for c in pwd)
+    has_lower = any(c.islower() for c in pwd)
+    has_digit = any(c.isdigit() for c in pwd)
+    has_special = any(not c.isalnum() for c in pwd)
+    if has_upper: score += 1; checks.append("upper✓")
+    if has_lower: score += 1; checks.append("lower✓")
+    if has_digit: score += 1; checks.append("digit✓")
+    if has_special: score += 1; checks.append("special✓")
+    if score >= 5: strength = "💪 Strong"
+    elif score >= 3: strength = "🟡 Medium"
+    else: strength = "🔴 Weak"
+    print(pwd + " → " + strength + " (" + str(score) + "/5) " + ", ".join(checks))`,
+    language: "python",
+    category: "Crypto",
+    categoryZh: "加密",
+    tags: ["project", "area-2", "strings", "security"],
+    fromLesson: "2-4",
+  },
+
+  {
+    id: "proj-py-2-5-1",
+    title: "🎲 Dice Game Library · 骰子游戏库",
+    description: "Build a library of dice-related functions! 构建骰子相关的函数库",
+    difficulty: 1,
+    gradeRange: [6, 10],
+    skillLevel: "intermediate",
+    starterCode: `# 🎲 Dice Game Library
+import random
+
+# TODO: Create these functions:
+
+# 1. roll_dice(sides=6) - roll a die with N sides, return result
+
+# 2. roll_multiple(count, sides=6) - roll multiple dice, return list
+
+# 3. calculate_stats(rolls) - return dict with min, max, avg, total
+
+# 4. is_yahtzee(rolls) - check if all dice are the same
+
+# 5. play_round(num_dice=5) - roll dice, show results and stats
+
+# Test your functions:
+# roll1 = roll_dice()
+# rolls = roll_multiple(5)
+# stats = calculate_stats(rolls)
+# play_round()`,
+    hint: "Each function should use def and return. Use sum()/len()/min()/max() for stats.",
+    solution: `import random
+
+def roll_dice(sides=6):
+    return random.randint(1, sides)
+
+def roll_multiple(count, sides=6):
+    return [roll_dice(sides) for _ in range(count)]
+
+def calculate_stats(rolls):
+    return {
+        "min": min(rolls),
+        "max": max(rolls),
+        "avg": round(sum(rolls) / len(rolls), 1),
+        "total": sum(rolls)
+    }
+
+def is_yahtzee(rolls):
+    return len(set(rolls)) == 1
+
+def play_round(num_dice=5):
+    rolls = roll_multiple(num_dice)
+    stats = calculate_stats(rolls)
+    print("🎲 Rolled: " + str(rolls))
+    print("📊 Stats: " + str(stats))
+    if is_yahtzee(rolls):
+        print("🎉 YAHTZEE!")
+    return rolls
+
+print("Single roll: " + str(roll_dice()))
+print("D20 roll: " + str(roll_dice(20)))
+rolls = roll_multiple(5)
+print("5 dice: " + str(rolls))
+print("Stats: " + str(calculate_stats(rolls)))
+print("Yahtzee? " + str(is_yahtzee(rolls)))
+print()
+play_round()`,
+    language: "python",
+    category: "Games",
+    categoryZh: "游戏",
+    tags: ["project", "area-2", "functions"],
+    fromLesson: "2-5",
+  },
+
+  {
+    id: "proj-py-2-5-2",
+    title: "🔄 Unit Converter · 单位转换器",
+    description: "Build a multi-unit converter with reusable functions! 构建多单位转换器",
+    difficulty: 1,
+    gradeRange: [6, 10],
+    skillLevel: "intermediate",
+    starterCode: `# 🔄 Unit Converter
+# Create functions for different conversions
+
+# TODO: Temperature functions
+# def f_to_c(f): ...
+# def c_to_f(c): ...
+
+# TODO: Distance functions
+# def miles_to_km(miles): ...
+# def km_to_miles(km): ...
+
+# TODO: Weight functions
+# def lbs_to_kg(lbs): ...
+# def kg_to_lbs(kg): ...
+
+# TODO: A general convert function
+# def convert(value, from_unit, to_unit): ...
+# Should handle all the above conversions
+
+# Test all conversions:
+# print(f_to_c(98.6))  # body temp
+# print(miles_to_km(26.2))  # marathon
+# print(lbs_to_kg(150))  # person weight`,
+    hint: "F to C: (f-32)*5/9. Miles to km: miles*1.609. Lbs to kg: lbs*0.4536.",
+    solution: `def f_to_c(f):
+    return round((f - 32) * 5 / 9, 2)
+
+def c_to_f(c):
+    return round(c * 9 / 5 + 32, 2)
+
+def miles_to_km(miles):
+    return round(miles * 1.609, 2)
+
+def km_to_miles(km):
+    return round(km / 1.609, 2)
+
+def lbs_to_kg(lbs):
+    return round(lbs * 0.4536, 2)
+
+def kg_to_lbs(kg):
+    return round(kg / 0.4536, 2)
+
+def convert(value, from_unit, to_unit):
+    conversions = {
+        ("F", "C"): f_to_c, ("C", "F"): c_to_f,
+        ("mi", "km"): miles_to_km, ("km", "mi"): km_to_miles,
+        ("lb", "kg"): lbs_to_kg, ("kg", "lb"): kg_to_lbs,
+    }
+    fn = conversions.get((from_unit, to_unit))
+    if fn:
+        return fn(value)
+    return "Unknown conversion"
+
+print("🌡️ 98.6°F = " + str(f_to_c(98.6)) + "°C")
+print("🌡️ 0°C = " + str(c_to_f(0)) + "°F")
+print("🏃 Marathon: " + str(miles_to_km(26.2)) + " km")
+print("⚖️ 150 lbs = " + str(lbs_to_kg(150)) + " kg")
+print("🔄 " + str(convert(100, "F", "C")) + "°C")`,
+    language: "python",
+    category: "Tools",
+    categoryZh: "工具",
+    tags: ["project", "area-2", "functions"],
+    fromLesson: "2-5",
+  },
+
+  {
+    id: "proj-py-2-6-1",
+    title: "🐍 Snake Game (Text) · 贪吃蛇（文字版）",
+    description: "Build a simplified text-based snake game with grid display! 构建简化的文字版贪吃蛇游戏",
+    difficulty: 2,
+    gradeRange: [6, 10],
+    skillLevel: "intermediate",
+    starterCode: `# 🐍 Text Snake Game
+import random
+
+SIZE = 10
+snake = [[5, 5], [5, 4], [5, 3]]  # head first
+food = [3, 7]
+score = 0
+direction = "right"
+
+# TODO: Create function to draw the grid
+# def draw_grid():
+#   Show snake as "S" (head as "@"), food as "*", empty as "."
+
+# TODO: Create function to move snake
+# def move_snake(direction):
+#   Add new head based on direction
+#   Remove tail (unless eating food)
+
+# TODO: Create function to check collision
+# def check_collision():
+#   Hit wall or hit self?
+
+# TODO: Simulate 10 moves
+moves = ["right", "right", "down", "down", "left", "left", "up", "right", "right", "down"]`,
+    hint: "Grid is 2D list. Snake head moves by adding [row+dr, col+dc]. Pop tail unless food eaten.",
+    solution: `import random
+
+SIZE = 10
+snake = [[5, 5], [5, 4], [5, 3]]
+food = [3, 7]
+score = 0
+
+def draw_grid():
+    for r in range(SIZE):
+        row = ""
+        for c in range(SIZE):
+            if [r, c] == snake[0]:
+                row += "@"
+            elif [r, c] in snake:
+                row += "S"
+            elif [r, c] == food:
+                row += "*"
+            else:
+                row += "."
+        print(row)
+    print()
+
+def place_food():
+    global food
+    food = [random.randint(0, SIZE-1), random.randint(0, SIZE-1)]
+    while food in snake:
+        food = [random.randint(0, SIZE-1), random.randint(0, SIZE-1)]
+
+def move_snake(d):
+    global score, food
+    dr = {"up": -1, "down": 1, "left": 0, "right": 0}
+    dc = {"up": 0, "down": 0, "left": -1, "right": 1}
+    new_head = [snake[0][0] + dr[d], snake[0][1] + dc[d]]
+    snake.insert(0, new_head)
+    if new_head == food:
+        score += 1
+        place_food()
+    else:
+        snake.pop()
+
+def check_collision():
+    h = snake[0]
+    if h[0] < 0 or h[0] >= SIZE or h[1] < 0 or h[1] >= SIZE:
+        return True
+    if h in snake[1:]:
+        return True
+    return False
+
+moves = ["right", "right", "down", "down", "left", "left", "up", "right", "right", "down"]
+print("🐍 SNAKE GAME")
+for m in moves:
+    move_snake(m)
+    if check_collision():
+        print("💀 Game Over!")
+        break
+    draw_grid()
+print("Score: " + str(score))`,
+    language: "python",
+    category: "Games",
+    categoryZh: "游戏",
+    tags: ["project", "area-2", "loops", "lists", "game"],
+    fromLesson: "2-6",
+  },
+
+  {
+    id: "proj-py-3-1-1",
+    title: "🔧 Function Toolkit · 函数工具箱",
+    description: "Build a toolkit using lambda, *args, and **kwargs! 使用 lambda、*args 和 **kwargs 构建工具箱",
+    difficulty: 2,
+    gradeRange: [6, 10],
+    skillLevel: "intermediate",
+    starterCode: `# 🔧 Function Toolkit
+
+# TODO: Create a pipeline function
+# def pipeline(value, *functions):
+#   Apply each function to value in sequence
+#   pipeline(5, double, add_one) → 11
+
+# TODO: Create configurable functions
+# def make_multiplier(n):
+#   Return a lambda that multiplies by n
+
+# TODO: Create a function logger
+# def logged(func):
+#   Return wrapper that prints args before calling func
+
+# TODO: Create a flexible formatter
+# def format_data(**kwargs):
+#   Print each key-value pair nicely
+
+# Test:
+# double = make_multiplier(2)
+# triple = make_multiplier(3)
+# print(pipeline(5, double, triple))  # 30`,
+    hint: "lambda x: x*n creates a function. *args collects positional args as tuple. **kwargs collects keyword args as dict.",
+    solution: `def pipeline(value, *functions):
+    result = value
+    for fn in functions:
+        result = fn(result)
+    return result
+
+def make_multiplier(n):
+    return lambda x: x * n
+
+def logged(func):
+    def wrapper(*args, **kwargs):
+        print("Calling " + func.__name__ + " with " + str(args) + " " + str(kwargs))
+        result = func(*args, **kwargs)
+        print("Result: " + str(result))
+        return result
+    return wrapper
+
+def format_data(**kwargs):
+    for key, value in kwargs.items():
+        print(str(key) + ": " + str(value))
+
+double = make_multiplier(2)
+triple = make_multiplier(3)
+add_one = lambda x: x + 1
+
+print("double(5) =", double(5))
+print("triple(4) =", triple(4))
+print("pipeline(5, double, triple) =", pipeline(5, double, triple))
+print("pipeline(5, double, add_one) =", pipeline(5, double, add_one))
+
+@logged
+def add(a, b):
+    return a + b
+
+add(3, 4)
+
+print("\n📋 Student Info:")
+format_data(name="Alice", grade=10, gpa=3.9, honors=True)`,
+    language: "python",
+    category: "Tools",
+    categoryZh: "工具",
+    tags: ["project", "area-3", "lambda", "args", "kwargs"],
+    fromLesson: "3-1",
+  },
+
+  {
+    id: "proj-py-3-1-2",
+    title: "📊 Data Transformer · 数据转换器",
+    description: "Process data using map, filter, reduce with lambda functions! 使用 map、filter、lambda 处理数据",
+    difficulty: 2,
+    gradeRange: [6, 10],
+    skillLevel: "intermediate",
+    starterCode: `# 📊 Data Transformer
+from functools import reduce
+
+students = [
+    {"name": "Alice", "grade": 92},
+    {"name": "Bob", "grade": 78},
+    {"name": "Charlie", "grade": 85},
+    {"name": "Diana", "grade": 95},
+    {"name": "Eve", "grade": 67},
+]
+
+# TODO: Use map + lambda to get list of names
+# TODO: Use filter + lambda to get students with grade > 80
+# TODO: Use map + lambda to add 5 bonus points to each grade
+# TODO: Use reduce + lambda to find total of all grades
+# TODO: Sort students by grade using sorted + lambda key
+# TODO: Create a grade curve function using *args`,
+    hint: "map(lambda x: x[\"name\"], students) extracts names. filter(lambda x: x[\"grade\"]>80, students) filters.",
+    solution: `from functools import reduce
+
+students = [
+    {"name": "Alice", "grade": 92},
+    {"name": "Bob", "grade": 78},
+    {"name": "Charlie", "grade": 85},
+    {"name": "Diana", "grade": 95},
+    {"name": "Eve", "grade": 67},
+]
+
+names = list(map(lambda s: s["name"], students))
+print("Names: " + str(names))
+
+honor_roll = list(filter(lambda s: s["grade"] > 80, students))
+print("Honor Roll: " + str([s["name"] for s in honor_roll]))
+
+curved = list(map(lambda s: {"name": s["name"], "grade": min(100, s["grade"] + 5)}, students))
+print("Curved: " + str([(s["name"], s["grade"]) for s in curved]))
+
+total = reduce(lambda acc, s: acc + s["grade"], students, 0)
+print("Total: " + str(total) + " | Average: " + str(round(total/len(students), 1)))
+
+ranked = sorted(students, key=lambda s: s["grade"], reverse=True)
+print("\n🏆 Rankings:")
+for i, s in enumerate(ranked):
+    print(str(i+1) + ". " + s["name"] + " - " + str(s["grade"]))`,
+    language: "python",
+    category: "Data",
+    categoryZh: "数据",
+    tags: ["project", "area-3", "lambda", "map", "filter"],
+    fromLesson: "3-1",
+  },
+
+  {
+    id: "proj-py-3-2-1",
+    title: "📓 Journal App · 日记应用",
+    description: "Build a journal that writes and reads entries (simulated)! 构建一个写入和读取日记的应用（模拟版）",
+    difficulty: 2,
+    gradeRange: [6, 10],
+    skillLevel: "intermediate",
+    starterCode: `# 📓 Journal App (Simulated File I/O)
+# We simulate file operations with strings since we can't write real files
+
+import json
+
+# Simulate file content
+file_content = ""
+
+# TODO: Write function to add journal entry
+# def add_entry(date, mood, text):
+#   Append formatted entry to file_content
+
+# TODO: Write function to save as JSON
+# def save_journal(entries):
+#   Convert to JSON string
+
+# TODO: Write function to load from JSON
+# def load_journal(json_string):
+#   Parse JSON back to list
+
+# TODO: Write function to search entries
+# def search_entries(entries, keyword):
+
+entries = []
+# Add 3 sample entries
+# Save to "file"
+# Load from "file"
+# Search for a keyword`,
+    hint: "Use json.dumps() to serialize and json.loads() to deserialize. Append entries to a list of dicts.",
+    solution: `import json
+
+entries = []
+
+def add_entry(entries, date, mood, text):
+    entry = {"date": date, "mood": mood, "text": text}
+    entries.append(entry)
+    print("📝 Added entry for " + date)
+    return entries
+
+def save_journal(entries):
+    json_str = json.dumps(entries, indent=2)
+    print("💾 Saved " + str(len(entries)) + " entries")
+    return json_str
+
+def load_journal(json_str):
+    loaded = json.loads(json_str)
+    print("📂 Loaded " + str(len(loaded)) + " entries")
+    return loaded
+
+def search_entries(entries, keyword):
+    found = [e for e in entries if keyword.lower() in e["text"].lower()]
+    print("🔍 Found " + str(len(found)) + " entries with '" + keyword + "'")
+    return found
+
+add_entry(entries, "2024-01-15", "😊", "Had a great day at school! Learned Python.")
+add_entry(entries, "2024-01-16", "😴", "Tired but finished my homework on time.")
+add_entry(entries, "2024-01-17", "🎉", "Got an A on my Python test!")
+
+saved = save_journal(entries)
+print("\nFile content:\n" + saved)
+
+loaded = load_journal(saved)
+results = search_entries(loaded, "Python")
+for r in results:
+    print("  " + r["date"] + " " + r["mood"] + " " + r["text"])`,
+    language: "python",
+    category: "Tools",
+    categoryZh: "工具",
+    tags: ["project", "area-3", "file-io", "json"],
+    fromLesson: "3-2",
+  },
+
+  {
+    id: "proj-py-3-2-2",
+    title: "📊 CSV Data Processor · CSV 数据处理器",
+    description: "Process CSV-formatted data: parse, analyze, and format reports! 处理 CSV 格式数据：解析、分析和格式化报告",
+    difficulty: 2,
+    gradeRange: [6, 10],
+    skillLevel: "intermediate",
+    starterCode: `# 📊 CSV Data Processor (simulated)
+
+csv_data = """name,subject,score
+Alice,Math,92
+Alice,Science,88
+Bob,Math,76
+Bob,Science,82
+Charlie,Math,95
+Charlie,Science,91
+Diana,Math,68
+Diana,Science,73"""
+
+# TODO: Parse CSV string into list of dicts
+# def parse_csv(csv_string):
+
+# TODO: Calculate average by subject
+# def avg_by_subject(records):
+
+# TODO: Find top student per subject
+# def top_student(records, subject):
+
+# TODO: Generate a report string
+# def generate_report(records):`,
+    hint: "Split by newlines, then split first line for headers. Use zip(headers, values) for each row.",
+    solution: `csv_data = """name,subject,score
+Alice,Math,92
+Alice,Science,88
+Bob,Math,76
+Bob,Science,82
+Charlie,Math,95
+Charlie,Science,91
+Diana,Math,68
+Diana,Science,73"""
+
+def parse_csv(csv_string):
+    lines = csv_string.strip().split("\n")
+    headers = lines[0].split(",")
+    records = []
+    for line in lines[1:]:
+        values = line.split(",")
+        record = {}
+        for h, v in zip(headers, values):
+            record[h] = int(v) if v.isdigit() else v
+        records.append(record)
+    return records
+
+def avg_by_subject(records):
+    subjects = {}
+    for r in records:
+        subj = r["subject"]
+        if subj not in subjects:
+            subjects[subj] = []
+        subjects[subj].append(r["score"])
+    return {s: round(sum(sc)/len(sc), 1) for s, sc in subjects.items()}
+
+def top_student(records, subject):
+    filtered = [r for r in records if r["subject"] == subject]
+    return max(filtered, key=lambda r: r["score"])
+
+records = parse_csv(csv_data)
+print("📊 Parsed " + str(len(records)) + " records")
+
+avgs = avg_by_subject(records)
+print("\n📈 Averages:")
+for subj, avg in avgs.items():
+    print("  " + subj + ": " + str(avg))
+
+for subj in ["Math", "Science"]:
+    top = top_student(records, subj)
+    print("🏆 Top in " + subj + ": " + top["name"] + " (" + str(top["score"]) + ")")`,
+    language: "python",
+    category: "Data",
+    categoryZh: "数据",
+    tags: ["project", "area-3", "file-io", "csv", "data"],
+    fromLesson: "3-2",
+  },
+
+  {
+    id: "proj-py-3-3-1",
+    title: "🛡️ Robust Calculator · 健壮计算器",
+    description: "Build a calculator that handles every error gracefully! 构建一个优雅处理所有错误的计算器",
+    difficulty: 2,
+    gradeRange: [6, 10],
+    skillLevel: "intermediate",
+    starterCode: `# 🛡️ Robust Calculator
+# Handle ALL errors gracefully!
+
+# TODO: Create safe_divide(a, b) with ZeroDivisionError handling
+# TODO: Create safe_convert(value) - convert string to number with ValueError handling
+# TODO: Create safe_calculate(expression_str) - parse "5 + 3" strings
+
+# Test with these tricky inputs:
+test_inputs = [
+    ("10", "/", "2"),    # normal
+    ("10", "/", "0"),    # divide by zero!
+    ("abc", "+", "5"),   # not a number!
+    ("10", "%", "3"),    # modulo
+    ("10", "^", "2"),    # unknown operator
+    ("", "+", "5"),      # empty input
+]`,
+    hint: "Wrap risky code in try/except. Catch specific exceptions: ValueError, ZeroDivisionError, then general Exception.",
+    solution: `def safe_convert(value):
+    try:
+        return float(value)
+    except ValueError:
+        print("⚠️ '" + str(value) + "' is not a valid number")
+        return None
+    except Exception as e:
+        print("❌ Unexpected error: " + str(e))
+        return None
+
+def safe_divide(a, b):
+    try:
+        return a / b
+    except ZeroDivisionError:
+        print("⚠️ Cannot divide by zero!")
+        return None
+
+def safe_calculate(a_str, op, b_str):
+    a = safe_convert(a_str)
+    b = safe_convert(b_str)
+    if a is None or b is None:
+        return None
+    try:
+        if op == "+": return a + b
+        elif op == "-": return a - b
+        elif op == "*": return a * b
+        elif op == "/": return safe_divide(a, b)
+        elif op == "%": return a % b
+        else:
+            raise ValueError("Unknown operator: " + op)
+    except ValueError as e:
+        print("⚠️ " + str(e))
+        return None
+
+test_inputs = [
+    ("10", "/", "2"), ("10", "/", "0"), ("abc", "+", "5"),
+    ("10", "%", "3"), ("10", "^", "2"), ("", "+", "5"),
+]
+
+print("🛡️ ROBUST CALCULATOR\n")
+for a, op, b in test_inputs:
+    result = safe_calculate(a, op, b)
+    if result is not None:
+        print(a + " " + op + " " + b + " = " + str(result) + " ✅")
+    else:
+        print(a + " " + op + " " + b + " = ERROR ❌")
+    print()`,
+    language: "python",
+    category: "Tools",
+    categoryZh: "工具",
+    tags: ["project", "area-3", "try-except", "errors"],
+    fromLesson: "3-3",
+  },
+
+  {
+    id: "proj-py-3-3-2",
+    title: "🔒 Input Validator · 输入验证器",
+    description: "Build a form validator with custom exceptions! 构建带自定义异常的表单验证器",
+    difficulty: 2,
+    gradeRange: [6, 10],
+    skillLevel: "intermediate",
+    starterCode: `# 🔒 Input Validator
+
+# TODO: Create custom exception classes
+# class ValidationError(Exception): pass
+# class AgeError(ValidationError): pass
+# class EmailError(ValidationError): pass
+
+# TODO: Validate functions that raise exceptions
+# def validate_age(age_str): raise AgeError if invalid
+# def validate_email(email): raise EmailError if no "@"
+# def validate_name(name): raise ValidationError if empty
+
+# TODO: Process a list of form submissions
+forms = [
+    {"name": "Alice", "age": "16", "email": "alice@test.com"},
+    {"name": "", "age": "16", "email": "bob@test.com"},
+    {"name": "Charlie", "age": "abc", "email": "charlie@test.com"},
+    {"name": "Diana", "age": "-5", "email": "diana"},
+    {"name": "Eve", "age": "200", "email": "eve@school.edu"},
+]`,
+    hint: "Create exception classes inheriting from Exception. Use raise to throw errors. Catch specific types.",
+    solution: `class ValidationError(Exception):
+    pass
+
+class AgeError(ValidationError):
+    pass
+
+class EmailError(ValidationError):
+    pass
+
+def validate_name(name):
+    if not name or not name.strip():
+        raise ValidationError("Name cannot be empty")
+    if len(name) < 2:
+        raise ValidationError("Name too short")
+    return name.strip()
+
+def validate_age(age_str):
+    try:
+        age = int(age_str)
+    except ValueError:
+        raise AgeError("Age must be a number, got: " + age_str)
+    if age < 0 or age > 150:
+        raise AgeError("Age must be 0-150, got: " + str(age))
+    return age
+
+def validate_email(email):
+    if "@" not in email:
+        raise EmailError("Email must contain @: " + email)
+    if "." not in email.split("@")[1]:
+        raise EmailError("Email domain must have a dot: " + email)
+    return email
+
+forms = [
+    {"name": "Alice", "age": "16", "email": "alice@test.com"},
+    {"name": "", "age": "16", "email": "bob@test.com"},
+    {"name": "Charlie", "age": "abc", "email": "charlie@test.com"},
+    {"name": "Diana", "age": "-5", "email": "diana"},
+    {"name": "Eve", "age": "200", "email": "eve@school.edu"},
+]
+
+print("🔒 FORM VALIDATOR\n")
+for i, form in enumerate(forms):
+    print("Form " + str(i+1) + ":")
+    try:
+        name = validate_name(form["name"])
+        age = validate_age(form["age"])
+        email = validate_email(form["email"])
+        print("  ✅ Valid: " + name + ", " + str(age) + ", " + email)
+    except AgeError as e:
+        print("  ❌ Age Error: " + str(e))
+    except EmailError as e:
+        print("  ❌ Email Error: " + str(e))
+    except ValidationError as e:
+        print("  ❌ Validation Error: " + str(e))`,
+    language: "python",
+    category: "Tools",
+    categoryZh: "工具",
+    tags: ["project", "area-3", "try-except", "classes"],
+    fromLesson: "3-3",
+  },
+
+  {
+    id: "proj-py-3-4-1",
+    title: "🐾 Virtual Pet · 虚拟宠物",
+    description: "Create a virtual pet with classes - feed it, play with it, watch it grow! 用类创建虚拟宠物",
+    difficulty: 2,
+    gradeRange: [6, 10],
+    skillLevel: "intermediate",
+    starterCode: `# 🐾 Virtual Pet
+
+# TODO: Create a Pet class with:
+# - __init__(self, name, species): set name, species, hunger=50, happiness=50, energy=50
+# - feed(self): decrease hunger, increase energy
+# - play(self): increase happiness, decrease energy, increase hunger
+# - sleep(self): increase energy, slight hunger increase
+# - status(self): print all stats with emoji bars
+# - is_alive(self): check if any stat hits 0 or 100
+
+# TODO: Create a Tamagotchi simulation
+# Run 10 time steps, choosing actions
+actions = ["feed", "play", "play", "sleep", "feed", "play", "sleep", "feed", "play", "feed"]`,
+    hint: "Use self.attribute to store state. Clamp values with min(100, max(0, value)).",
+    solution: `class Pet:
+    def __init__(self, name, species):
+        self.name = name
+        self.species = species
+        self.hunger = 50
+        self.happiness = 50
+        self.energy = 50
+        self.age = 0
+
+    def clamp(self, val):
+        return min(100, max(0, val))
+
+    def feed(self):
+        self.hunger = self.clamp(self.hunger - 20)
+        self.energy = self.clamp(self.energy + 5)
+        print("🍖 " + self.name + " eats happily!")
+
+    def play(self):
+        self.happiness = self.clamp(self.happiness + 20)
+        self.energy = self.clamp(self.energy - 15)
+        self.hunger = self.clamp(self.hunger + 10)
+        print("🎾 " + self.name + " plays!")
+
+    def sleep(self):
+        self.energy = self.clamp(self.energy + 30)
+        self.hunger = self.clamp(self.hunger + 5)
+        print("💤 " + self.name + " sleeps...")
+
+    def status(self):
+        self.age += 1
+        print("\n" + self.species + " " + self.name + " (Age: " + str(self.age) + ")")
+        for stat, val in [("Hunger", self.hunger), ("Happy", self.happiness), ("Energy", self.energy)]:
+            bar = "█" * (val // 10) + "░" * (10 - val // 10)
+            print("  " + stat + ": [" + bar + "] " + str(val))
+
+    def is_alive(self):
+        return self.hunger < 100 and self.energy > 0
+
+pet = Pet("Pixel", "🐱")
+actions = ["feed", "play", "play", "sleep", "feed", "play", "sleep", "feed", "play", "feed"]
+
+for action in actions:
+    if not pet.is_alive():
+        print("💀 " + pet.name + " fainted!")
+        break
+    getattr(pet, action)()
+    pet.status()`,
+    language: "python",
+    category: "Games",
+    categoryZh: "游戏",
+    tags: ["project", "area-3", "classes", "oop"],
+    fromLesson: "3-4",
+  },
+
+  {
+    id: "proj-py-3-4-2",
+    title: "🏦 Bank Account System · 银行账户系统",
+    description: "Build a banking system with OOP - accounts, transactions, and inheritance! 用OOP构建银行系统",
+    difficulty: 2,
+    gradeRange: [6, 10],
+    skillLevel: "intermediate",
+    starterCode: `# 🏦 Bank Account System
+
+# TODO: Create BankAccount class
+# - __init__(self, owner, balance=0)
+# - deposit(self, amount)
+# - withdraw(self, amount) - check sufficient funds
+# - get_balance(self)
+# - __str__(self) - nice string representation
+
+# TODO: Create SavingsAccount(BankAccount) subclass
+# - Adds interest_rate attribute
+# - apply_interest() method
+# - Override withdraw to require minimum balance of $100
+
+# TODO: Create CheckingAccount(BankAccount) subclass
+# - Adds overdraft_limit attribute
+# - Override withdraw to allow overdraft up to limit
+
+# Test the system with multiple accounts and transactions`,
+    hint: "Use class ChildClass(ParentClass) for inheritance. Call super().__init__() in child __init__.",
+    solution: `class BankAccount:
+    def __init__(self, owner, balance=0):
+        self.owner = owner
+        self.balance = balance
+        self.transactions = []
+
+    def deposit(self, amount):
+        self.balance += amount
+        self.transactions.append(("deposit", amount))
+        print("💵 Deposited $" + str(amount))
+
+    def withdraw(self, amount):
+        if amount > self.balance:
+            print("❌ Insufficient funds")
+            return False
+        self.balance -= amount
+        self.transactions.append(("withdraw", amount))
+        print("💸 Withdrew $" + str(amount))
+        return True
+
+    def get_balance(self):
+        return self.balance
+
+    def __str__(self):
+        return self.owner + "'s Account: $" + str(round(self.balance, 2))
+
+class SavingsAccount(BankAccount):
+    def __init__(self, owner, balance=0, rate=0.02):
+        super().__init__(owner, balance)
+        self.interest_rate = rate
+
+    def apply_interest(self):
+        interest = self.balance * self.interest_rate
+        self.balance += interest
+        print("📈 Interest: +$" + str(round(interest, 2)))
+
+    def withdraw(self, amount):
+        if self.balance - amount < 100:
+            print("❌ Must keep $100 minimum")
+            return False
+        return super().withdraw(amount)
+
+class CheckingAccount(BankAccount):
+    def __init__(self, owner, balance=0, limit=500):
+        super().__init__(owner, balance)
+        self.overdraft_limit = limit
+
+    def withdraw(self, amount):
+        if amount > self.balance + self.overdraft_limit:
+            print("❌ Exceeds overdraft limit")
+            return False
+        self.balance -= amount
+        self.transactions.append(("withdraw", amount))
+        if self.balance < 0:
+            print("⚠️ Overdraft! Withdrew $" + str(amount))
+        else:
+            print("💸 Withdrew $" + str(amount))
+        return True
+
+savings = SavingsAccount("Alice", 1000, 0.05)
+checking = CheckingAccount("Bob", 500, 200)
+
+print("🏦 BANK SYSTEM\n")
+savings.deposit(500)
+savings.apply_interest()
+savings.withdraw(1300)
+savings.withdraw(200)
+print(savings)
+
+print()
+checking.deposit(100)
+checking.withdraw(700)
+print(checking)`,
+    language: "python",
+    category: "Simulations",
+    categoryZh: "模拟",
+    tags: ["project", "area-3", "classes", "oop", "inheritance"],
+    fromLesson: "3-4",
+  },
+
+  {
+    id: "proj-py-3-5-1",
+    title: "📦 Mini Package Manager · 迷你包管理器",
+    description: "Build a module system that imports and uses custom modules! 构建模块导入和使用系统",
+    difficulty: 2,
+    gradeRange: [6, 10],
+    skillLevel: "intermediate",
+    starterCode: `# 📦 Mini Package Manager
+# Simulate a module system
+
+import math
+import random
+import json
+from collections import Counter
+from datetime import datetime
+
+# TODO: Create a "math_tools" module (as dict of functions)
+# - factorial, fibonacci, is_prime, gcd
+
+# TODO: Create a "text_tools" module
+# - word_count, reverse_text, caesar_cipher
+
+# TODO: Create a "data_tools" module using collections
+# - most_common, frequency_table
+
+# TODO: Use all modules together to solve a problem
+# Analyze a text: count words, find most common, encrypt it`,
+    hint: "Store functions in dicts to simulate modules. Use Counter from collections for frequency analysis.",
+    solution: `import math
+import random
+from collections import Counter
+
+# Math tools module
+def factorial(n):
+    return math.factorial(n)
+
+def fibonacci(n):
+    a, b = 0, 1
+    seq = []
+    for _ in range(n):
+        seq.append(a)
+        a, b = b, a + b
+    return seq
+
+def is_prime(n):
+    if n < 2: return False
+    for i in range(2, int(math.sqrt(n)) + 1):
+        if n % i == 0: return False
+    return True
+
+# Text tools module
+def word_count(text):
+    return len(text.split())
+
+def caesar_cipher(text, shift):
+    result = ""
+    for ch in text:
+        if ch.isalpha():
+            base = ord("A") if ch.isupper() else ord("a")
+            result += chr((ord(ch) - base + shift) % 26 + base)
+        else:
+            result += ch
+    return result
+
+# Demo
+print("📦 MODULE SYSTEM DEMO\n")
+
+print("🔢 Math Tools:")
+print("10! = " + str(factorial(10)))
+print("Fibonacci(8): " + str(fibonacci(8)))
+primes = [n for n in range(2, 30) if is_prime(n)]
+print("Primes < 30: " + str(primes))
+
+text = "the quick brown fox jumps over the lazy dog"
+print("\n📝 Text Tools:")
+print("Words: " + str(word_count(text)))
+encrypted = caesar_cipher(text, 3)
+print("Encrypted: " + encrypted)
+print("Decrypted: " + caesar_cipher(encrypted, -3))
+
+print("\n📊 Data Tools:")
+words = text.split()
+freq = Counter(words)
+print("Most common: " + str(freq.most_common(3)))`,
+    language: "python",
+    category: "Tools",
+    categoryZh: "工具",
+    tags: ["project", "area-3", "modules", "libraries"],
+    fromLesson: "3-5",
+  },
+
+  {
+    id: "proj-py-3-5-2",
+    title: "🎨 Random Art Generator · 随机艺术生成器",
+    description: "Use multiple libraries to generate random ASCII art patterns! 使用多个库生成随机 ASCII 艺术图案",
+    difficulty: 2,
+    gradeRange: [6, 10],
+    skillLevel: "intermediate",
+    starterCode: `# 🎨 Random Art Generator
+import random
+import math
+
+# TODO: Create pattern generators using different libraries
+
+# 1. Mandala pattern (math + loops)
+# Use sin/cos to create circular patterns on a grid
+
+# 2. Random landscape (random + strings)
+# Generate mountains, trees, rivers
+
+# 3. Pixel art (random + 2D lists)
+# Random colored blocks using emoji
+
+# TODO: Create a gallery of 3 random art pieces`,
+    hint: "Use math.sin/cos for circular patterns. Use random.choice for selecting characters. Build 2D grids with nested lists.",
+    solution: `import random
+import math
+
+def mandala(size=15):
+    print("🕉️ MANDALA")
+    chars = " .·:+*#@"
+    for y in range(size):
+        row = ""
+        for x in range(size):
+            dx = x - size // 2
+            dy = y - size // 2
+            dist = math.sqrt(dx*dx + dy*dy)
+            angle = math.atan2(dy, dx)
+            val = math.sin(dist * 0.8) + math.cos(angle * 4)
+            idx = int((val + 2) / 4 * (len(chars) - 1))
+            idx = max(0, min(len(chars) - 1, idx))
+            row += chars[idx]
+        print(row)
+
+def landscape(width=30):
+    print("\n🏔️ LANDSCAPE")
+    heights = [int(5 + 3 * math.sin(i * 0.3) + random.uniform(-1, 1)) for i in range(width)]
+    max_h = max(heights) + 2
+    for row in range(max_h, -1, -1):
+        line = ""
+        for col in range(width):
+            if row == 0:
+                line += "~" if random.random() < 0.3 else "_"
+            elif row <= heights[col]:
+                if row == heights[col]:
+                    line += "^"
+                elif row > heights[col] - 2:
+                    line += "/"
+                else:
+                    line += "█"
+            else:
+                line += " "
+        print(line)
+
+def pixel_art(size=8):
+    print("\n🎨 PIXEL ART")
+    palette = ["🟥", "🟧", "🟨", "🟩", "🟦", "🟪", "⬜", "⬛"]
+    for y in range(size):
+        row = ""
+        for x in range(size):
+            if abs(x - size//2) + abs(y - size//2) < size//2:
+                row += random.choice(palette[:4])
+            else:
+                row += random.choice(palette[6:])
+        print(row)
+
+mandala()
+landscape()
+pixel_art()`,
+    language: "python",
+    category: "Art",
+    categoryZh: "艺术",
+    tags: ["project", "area-3", "modules", "math", "random"],
+    fromLesson: "3-5",
+  },
+
+  {
+    id: "proj-py-3-6-1",
+    title: "🌐 API Data Explorer · API 数据探索器",
+    description: "Work with JSON APIs - parse, transform, and display data! 处理 JSON API - 解析、转换和展示数据",
+    difficulty: 2,
+    gradeRange: [6, 10],
+    skillLevel: "intermediate",
+    starterCode: `# 🌐 API Data Explorer (Simulated)
+import json
+
+# Simulated API responses
+weather_api = json.dumps({
+    "city": "San Francisco",
+    "temp_f": 65,
+    "humidity": 72,
+    "conditions": "Partly Cloudy",
+    "forecast": [
+        {"day": "Mon", "high": 68, "low": 55},
+        {"day": "Tue", "high": 72, "low": 58},
+        {"day": "Wed", "high": 60, "low": 52},
+    ]
+})
+
+users_api = json.dumps([
+    {"id": 1, "name": "Alice", "posts": 42, "followers": 1200},
+    {"id": 2, "name": "Bob", "posts": 15, "followers": 800},
+    {"id": 3, "name": "Charlie", "posts": 67, "followers": 3400},
+])
+
+# TODO: Parse the JSON responses
+# TODO: Display weather data nicely
+# TODO: Find the most popular user
+# TODO: Create a combined report`,
+    hint: "Use json.loads() to parse strings. Access nested data with dict keys and list indices.",
+    solution: `import json
+
+weather = json.loads(json.dumps({
+    "city": "San Francisco",
+    "temp_f": 65,
+    "humidity": 72,
+    "conditions": "Partly Cloudy",
+    "forecast": [
+        {"day": "Mon", "high": 68, "low": 55},
+        {"day": "Tue", "high": 72, "low": 58},
+        {"day": "Wed", "high": 60, "low": 52},
+    ]
+}))
+
+users = json.loads(json.dumps([
+    {"id": 1, "name": "Alice", "posts": 42, "followers": 1200},
+    {"id": 2, "name": "Bob", "posts": 15, "followers": 800},
+    {"id": 3, "name": "Charlie", "posts": 67, "followers": 3400},
+]))
+
+print("🌤️ WEATHER API")
+print("City: " + weather["city"])
+print("Temp: " + str(weather["temp_f"]) + "°F")
+print("Humidity: " + str(weather["humidity"]) + "%")
+print("Conditions: " + weather["conditions"])
+print("\n📅 Forecast:")
+for day in weather["forecast"]:
+    print("  " + day["day"] + ": " + str(day["high"]) + "°/" + str(day["low"]) + "°")
+
+print("\n👥 USERS API")
+most_popular = max(users, key=lambda u: u["followers"])
+print("Most popular: " + most_popular["name"] + " (" + str(most_popular["followers"]) + " followers)")
+
+most_active = max(users, key=lambda u: u["posts"])
+print("Most active: " + most_active["name"] + " (" + str(most_active["posts"]) + " posts)")
+
+print("\n📊 Combined Report:")
+report = {"weather": weather["city"] + " " + str(weather["temp_f"]) + "F", "top_user": most_popular["name"]}
+print(json.dumps(report, indent=2))`,
+    language: "python",
+    category: "Data",
+    categoryZh: "数据",
+    tags: ["project", "area-3", "api", "json"],
+    fromLesson: "3-6",
+  },
+
+  {
+    id: "proj-py-3-6-2",
+    title: "🤖 REST API Simulator · REST API 模拟器",
+    description: "Build a simulated REST API with CRUD operations on JSON data! 构建模拟的 REST API，支持 JSON 数据的增删改查",
+    difficulty: 2,
+    gradeRange: [6, 10],
+    skillLevel: "intermediate",
+    starterCode: `# 🤖 REST API Simulator
+import json
+
+# Simulate a database
+db = {"users": [], "next_id": 1}
+
+# TODO: Implement CRUD operations
+# def api_post(endpoint, data): CREATE
+# def api_get(endpoint, id=None): READ
+# def api_put(endpoint, id, data): UPDATE
+# def api_delete(endpoint, id): DELETE
+
+# TODO: Simulate API calls:
+# POST /users {"name": "Alice", "email": "alice@test.com"}
+# POST /users {"name": "Bob", "email": "bob@test.com"}
+# GET /users
+# GET /users/1
+# PUT /users/1 {"name": "Alice Smith"}
+# DELETE /users/2
+# GET /users`,
+    hint: "Store data in a list of dicts. Use next_id for auto-incrementing IDs. Return JSON strings.",
+    solution: `import json
+
+db = {"users": [], "next_id": 1}
+
+def api_post(data):
+    user = {"id": db["next_id"], **data}
+    db["users"].append(user)
+    db["next_id"] += 1
+    print("POST 201: " + json.dumps(user))
+    return user
+
+def api_get(user_id=None):
+    if user_id:
+        for u in db["users"]:
+            if u["id"] == user_id:
+                print("GET 200: " + json.dumps(u))
+                return u
+        print("GET 404: Not found")
+        return None
+    print("GET 200: " + json.dumps(db["users"], indent=2))
+    return db["users"]
+
+def api_put(user_id, data):
+    for u in db["users"]:
+        if u["id"] == user_id:
+            u.update(data)
+            print("PUT 200: " + json.dumps(u))
+            return u
+    print("PUT 404: Not found")
+    return None
+
+def api_delete(user_id):
+    for i, u in enumerate(db["users"]):
+        if u["id"] == user_id:
+            removed = db["users"].pop(i)
+            print("DELETE 200: Removed " + removed["name"])
+            return True
+    print("DELETE 404: Not found")
+    return False
+
+print("🤖 REST API SIMULATOR\n")
+api_post({"name": "Alice", "email": "alice@test.com"})
+api_post({"name": "Bob", "email": "bob@test.com"})
+api_post({"name": "Charlie", "email": "charlie@test.com"})
+print()
+api_get()
+print()
+api_get(1)
+api_put(1, {"name": "Alice Smith"})
+api_delete(2)
+print()
+api_get()`,
+    language: "python",
+    category: "Tools",
+    categoryZh: "工具",
+    tags: ["project", "area-3", "api", "json", "crud"],
+    fromLesson: "3-6",
+  },
+
+  {
+    id: "proj-py-3-7-1",
+    title: "🎮 RPG Battle System · RPG 战斗系统",
+    description: "Build a complete RPG battle system with classes, items, and abilities! 构建完整的 RPG 战斗系统",
+    difficulty: 3,
+    gradeRange: [6, 10],
+    skillLevel: "intermediate",
+    starterCode: `# 🎮 RPG Battle System
+
+# TODO: Create Character class with:
+# - name, hp, attack, defense, abilities list
+# - take_damage(amount), use_ability(ability_name, target)
+
+# TODO: Create Ability class
+# - name, damage, mana_cost, element
+
+# TODO: Create Item class
+# - name, effect, value
+
+# TODO: Create battle loop
+# - Turn-based combat between hero and monster
+# - Each turn: choose ability, calculate damage, apply effects
+# - Battle until one side falls
+
+# TODO: Add elemental weaknesses
+# Fire > Nature > Water > Fire`,
+    hint: "Use classes for Character, Ability, Item. Battle loop uses while both alive. Damage = attack - defense.",
+    solution: `import random
+
+class Ability:
+    def __init__(self, name, damage, mana, element="neutral"):
+        self.name = name
+        self.damage = damage
+        self.mana = mana
+        self.element = element
+
+class Character:
+    def __init__(self, name, hp, attack, defense, mana=50):
+        self.name = name
+        self.hp = hp
+        self.max_hp = hp
+        self.attack = attack
+        self.defense = defense
+        self.mana = mana
+        self.abilities = []
+
+    def add_ability(self, ability):
+        self.abilities.append(ability)
+
+    def take_damage(self, amount):
+        actual = max(1, amount - self.defense)
+        self.hp = max(0, self.hp - actual)
+        print("  " + self.name + " takes " + str(actual) + " damage! HP: " + str(self.hp))
+
+    def use_ability(self, idx, target):
+        if idx >= len(self.abilities):
+            return
+        ab = self.abilities[idx]
+        if self.mana < ab.mana:
+            print("  Not enough mana!")
+            return
+        self.mana -= ab.mana
+        bonus = random.randint(-2, 5)
+        total = self.attack + ab.damage + bonus
+        print("⚔️ " + self.name + " uses " + ab.name + "!")
+        target.take_damage(total)
+
+    def is_alive(self):
+        return self.hp > 0
+
+hero = Character("Hero", 100, 12, 5, 60)
+hero.add_ability(Ability("Slash", 8, 5))
+hero.add_ability(Ability("Fireball", 15, 15, "fire"))
+hero.add_ability(Ability("Heal", -20, 10))
+
+boss = Character("Dragon", 80, 10, 3, 40)
+boss.add_ability(Ability("Claw", 10, 5))
+boss.add_ability(Ability("Breath", 18, 15, "fire"))
+
+print("⚔️ BATTLE START!\n")
+turn = 0
+while hero.is_alive() and boss.is_alive():
+    turn += 1
+    print("--- Turn " + str(turn) + " ---")
+    ab_idx = turn % len(hero.abilities)
+    hero.use_ability(ab_idx, boss)
+    if boss.is_alive():
+        boss.use_ability(random.randint(0, len(boss.abilities)-1), hero)
+    print()
+
+winner = hero.name if hero.is_alive() else boss.name
+print("🏆 " + winner + " wins in " + str(turn) + " turns!")`,
+    language: "python",
+    category: "Games",
+    categoryZh: "游戏",
+    tags: ["project", "area-3", "classes", "oop", "game"],
+    fromLesson: "3-7",
+  },
+
+  {
+    id: "proj-py-4-1-1",
+    title: "🔬 Lab Data Logger · 实验数据记录器",
+    description: "Build a scientific data logging system with statistical analysis! 构建带统计分析的科学数据记录系统",
+    difficulty: 2,
+    gradeRange: [6, 10],
+    skillLevel: "intermediate",
+    starterCode: `# 🔬 Lab Data Logger
+import random
+import math
+
+# TODO: Create a DataLogger class
+# - record(value): add timestamped data point
+# - mean(): calculate average
+# - std_dev(): standard deviation
+# - outliers(): find values > 2 std devs from mean
+# - report(): print full analysis
+
+# Simulate recording temperature readings
+# 20 readings around 22°C with some noise and outliers`,
+    hint: "Standard deviation: sqrt(sum((x-mean)² for x in data) / n). Outlier if |x - mean| > 2*std.",
+    solution: `import random
+import math
+
+class DataLogger:
+    def __init__(self, name, unit):
+        self.name = name
+        self.unit = unit
+        self.data = []
+
+    def record(self, value):
+        self.data.append(round(value, 2))
+
+    def mean(self):
+        return sum(self.data) / len(self.data)
+
+    def std_dev(self):
+        m = self.mean()
+        variance = sum((x - m) ** 2 for x in self.data) / len(self.data)
+        return math.sqrt(variance)
+
+    def outliers(self):
+        m = self.mean()
+        s = self.std_dev()
+        return [x for x in self.data if abs(x - m) > 2 * s]
+
+    def report(self):
+        print("🔬 " + self.name + " Report")
+        print("Points: " + str(len(self.data)))
+        print("Mean: " + str(round(self.mean(), 2)) + " " + self.unit)
+        print("Std Dev: " + str(round(self.std_dev(), 2)))
+        print("Min: " + str(min(self.data)) + " | Max: " + str(max(self.data)))
+        out = self.outliers()
+        if out:
+            print("⚠️ Outliers: " + str(out))
+
+logger = DataLogger("Temperature", "°C")
+for _ in range(18):
+    logger.record(22 + random.gauss(0, 0.5))
+logger.record(28.5)  # outlier
+logger.record(15.2)  # outlier
+
+print("Data: " + str(logger.data[:5]) + "...")
+logger.report()`,
+    language: "python",
+    category: "Science",
+    categoryZh: "科学",
+    tags: ["project", "area-4", "science-lab", "statistics"],
+    fromLesson: "4-1",
+  },
+
+  {
+    id: "proj-py-4-2-1",
+    title: "🎲 Monte Carlo Pi · 蒙特卡洛估算π",
+    description: "Estimate π using Monte Carlo simulation with random points! 使用蒙特卡洛模拟随机点估算π",
+    difficulty: 2,
+    gradeRange: [6, 10],
+    skillLevel: "intermediate",
+    starterCode: `# 🎲 Monte Carlo Pi Estimation
+import random
+import math
+
+# TODO: Throw random darts at a 1x1 square
+# Count how many land inside a quarter circle (radius=1)
+# π/4 ≈ (points inside circle) / (total points)
+# π ≈ 4 * (inside / total)
+
+# Try with increasing numbers of points:
+# 100, 1000, 10000
+# See how accuracy improves!`,
+    hint: "Point (x,y) is inside unit circle if x²+y²≤1. Use random.random() for x and y between 0 and 1.",
+    solution: `import random
+import math
+
+def estimate_pi(num_points):
+    inside = 0
+    for _ in range(num_points):
+        x = random.random()
+        y = random.random()
+        if x*x + y*y <= 1:
+            inside += 1
+    return 4 * inside / num_points
+
+print("🎲 Monte Carlo Pi Estimation\n")
+for n in [100, 1000, 10000, 100000]:
+    pi_est = estimate_pi(n)
+    error = abs(pi_est - math.pi)
+    print(str(n) + " points: π ≈ " + str(round(pi_est, 6)) + " (error: " + str(round(error, 6)) + ")")
+
+print("\nActual π = " + str(round(math.pi, 6)))`,
+    language: "python",
+    category: "Science",
+    categoryZh: "科学",
+    tags: ["project", "area-4", "science-lab", "simulation"],
+    fromLesson: "4-2",
+  },
+
+  {
+    id: "proj-py-4-3-1",
+    title: "🧬 DNA Sequence Analyzer · DNA 序列分析器",
+    description: "Analyze DNA sequences - find patterns, complement, and GC content! 分析 DNA 序列",
+    difficulty: 2,
+    gradeRange: [6, 10],
+    skillLevel: "intermediate",
+    starterCode: `# 🧬 DNA Sequence Analyzer
+import random
+
+# TODO: Generate random DNA sequence
+# def random_dna(length): return string of A, T, G, C
+
+# TODO: Find complement (A↔T, G↔C)
+# TODO: Calculate GC content (percentage of G and C)
+# TODO: Find all occurrences of a pattern
+# TODO: Transcribe DNA to RNA (T → U)`,
+    hint: "Use str.replace() or a dict mapping for complement. Count G and C, divide by total length.",
+    solution: `import random
+
+def random_dna(length):
+    return "".join(random.choice("ATGC") for _ in range(length))
+
+def complement(dna):
+    comp = {"A": "T", "T": "A", "G": "C", "C": "G"}
+    return "".join(comp[base] for base in dna)
+
+def gc_content(dna):
+    gc = sum(1 for b in dna if b in "GC")
+    return round(gc / len(dna) * 100, 1)
+
+def find_pattern(dna, pattern):
+    positions = []
+    for i in range(len(dna) - len(pattern) + 1):
+        if dna[i:i+len(pattern)] == pattern:
+            positions.append(i)
+    return positions
+
+def transcribe(dna):
+    return dna.replace("T", "U")
+
+dna = random_dna(50)
+print("🧬 DNA ANALYZER\n")
+print("Sequence:   " + dna)
+print("Complement: " + complement(dna))
+print("RNA:        " + transcribe(dna))
+print("GC Content: " + str(gc_content(dna)) + "%")
+print("Length:     " + str(len(dna)) + " bases")
+
+pattern = "ATG"
+pos = find_pattern(dna, pattern)
+print("\n'" + pattern + "' found at: " + str(pos))`,
+    language: "python",
+    category: "Science",
+    categoryZh: "科学",
+    tags: ["project", "area-4", "science-lab", "biology"],
+    fromLesson: "4-3",
+  },
+
+  {
+    id: "proj-py-4-4-1",
+    title: "⚡ Circuit Simulator · 电路模拟器",
+    description: "Simulate basic electrical circuits with Ohm's law! 用欧姆定律模拟基本电路",
+    difficulty: 2,
+    gradeRange: [6, 10],
+    skillLevel: "intermediate",
+    starterCode: `# ⚡ Circuit Simulator
+# V = I * R (Ohm's law)
+
+# TODO: Create Resistor class (resistance in ohms)
+# TODO: Series circuit: R_total = R1 + R2 + ...
+# TODO: Parallel circuit: 1/R_total = 1/R1 + 1/R2 + ...
+# TODO: Calculate current and power for given voltage`,
+    hint: "Series: add resistances. Parallel: 1/total = sum(1/r for r in resistors). Power = V * I.",
+    solution: `class Resistor:
+    def __init__(self, ohms, name="R"):
+        self.ohms = ohms
+        self.name = name
+    def __str__(self):
+        return self.name + "=" + str(self.ohms) + "Ω"
+
+def series(*resistors):
+    total = sum(r.ohms for r in resistors)
+    return total
+
+def parallel(*resistors):
+    total = 1 / sum(1/r.ohms for r in resistors)
+    return round(total, 2)
+
+def analyze(voltage, resistance):
+    current = voltage / resistance
+    power = voltage * current
+    print("  V=" + str(voltage) + "V, R=" + str(round(resistance, 2)) + "Ω")
+    print("  I=" + str(round(current, 4)) + "A")
+    print("  P=" + str(round(power, 2)) + "W")
+
+r1 = Resistor(100, "R1")
+r2 = Resistor(200, "R2")
+r3 = Resistor(300, "R3")
+
+print("⚡ CIRCUIT SIMULATOR\n")
+print("Components: " + str(r1) + ", " + str(r2) + ", " + str(r3))
+
+s = series(r1, r2, r3)
+print("\n🔗 Series Circuit:")
+analyze(12, s)
+
+p = parallel(r1, r2, r3)
+print("\n🔀 Parallel Circuit:")
+analyze(12, p)
+
+# Mixed: R1 in series with (R2 parallel R3)
+mixed = r1.ohms + parallel(r2, r3)
+print("\n🔄 Mixed Circuit (R1 + R2||R3):")
+analyze(12, mixed)`,
+    language: "python",
+    category: "Science",
+    categoryZh: "科学",
+    tags: ["project", "area-4", "science-lab", "physics"],
+    fromLesson: "4-4",
+  },
+
+  {
+    id: "proj-py-4-5-1",
+    title: "🌍 Ecosystem Simulator · 生态系统模拟器",
+    description: "Simulate predator-prey population dynamics! 模拟捕食者-猎物种群动态",
+    difficulty: 2,
+    gradeRange: [6, 10],
+    skillLevel: "intermediate",
+    starterCode: `# 🌍 Ecosystem Simulator
+# Lotka-Volterra predator-prey model
+
+# TODO: Simulate rabbit and fox populations
+# Rabbits grow naturally but foxes eat them
+# Foxes die without food
+
+# Parameters:
+# rabbit_growth = 0.1 (10% growth per cycle)
+# predation = 0.005 (fox eating rate)
+# fox_death = 0.1 (10% die per cycle)
+# fox_growth = 0.001 (growth from eating)
+
+# Run for 100 time steps
+# Plot as text graph`,
+    hint: "New rabbits = growth*rabbits - predation*rabbits*foxes. New foxes = fox_growth*rabbits*foxes - death*foxes.",
+    solution: `rabbits = 100
+foxes = 20
+r_growth = 0.1
+predation = 0.005
+f_death = 0.1
+f_growth = 0.001
+
+print("🌍 ECOSYSTEM SIMULATOR\n")
+print("Step | 🐰 Rabbits | 🦊 Foxes")
+print("-" * 40)
+
+for t in range(50):
+    if t % 5 == 0:
+        r_bar = "█" * int(rabbits / 10)
+        f_bar = "▓" * int(foxes / 2)
+        print(str(t).rjust(4) + " | " + str(int(rabbits)).rjust(6) + " " + r_bar)
+        print("     | " + str(int(foxes)).rjust(6) + " " + f_bar)
+    new_r = rabbits + r_growth * rabbits - predation * rabbits * foxes
+    new_f = foxes + f_growth * rabbits * foxes - f_death * foxes
+    rabbits = max(0, new_r)
+    foxes = max(0, new_f)
+
+print("\nFinal: 🐰 " + str(int(rabbits)) + " | 🦊 " + str(int(foxes)))`,
+    language: "python",
+    category: "Simulations",
+    categoryZh: "模拟",
+    tags: ["project", "area-4", "science-lab", "biology"],
+    fromLesson: "4-5",
+  },
+
+  {
+    id: "proj-py-4-6-1",
+    title: "🧪 Chemistry Balancer · 化学方程式配平",
+    description: "Balance simple chemical equations and calculate molar masses! 配平简单化学方程式并计算摩尔质量",
+    difficulty: 3,
+    gradeRange: [8, 12],
+    skillLevel: "advanced",
+    starterCode: `# 🧪 Chemistry Tools
+
+# TODO: Create element database with atomic masses
+# TODO: Parse chemical formula "H2O" → {"H": 2, "O": 1}
+# TODO: Calculate molar mass from formula
+# TODO: Convert between grams and moles`,
+    hint: "Parse formulas character by character. Uppercase = new element, lowercase = continue, digit = count.",
+    solution: `elements = {"H": 1.008, "He": 4.003, "C": 12.011, "N": 14.007, "O": 15.999, "Na": 22.990, "Cl": 35.453, "Fe": 55.845, "S": 32.065}
+
+def parse_formula(formula):
+    result = {}
+    i = 0
+    while i < len(formula):
+        if formula[i].isupper():
+            elem = formula[i]
+            i += 1
+            if i < len(formula) and formula[i].islower():
+                elem += formula[i]
+                i += 1
+            count = ""
+            while i < len(formula) and formula[i].isdigit():
+                count += formula[i]
+                i += 1
+            result[elem] = result.get(elem, 0) + (int(count) if count else 1)
+        else:
+            i += 1
+    return result
+
+def molar_mass(formula):
+    parsed = parse_formula(formula)
+    mass = sum(elements.get(e, 0) * n for e, n in parsed.items())
+    return round(mass, 3)
+
+def grams_to_moles(grams, formula):
+    return round(grams / molar_mass(formula), 4)
+
+formulas = ["H2O", "NaCl", "CO2", "C6H12O6", "Fe2O3"]
+print("🧪 CHEMISTRY TOOLS\n")
+for f in formulas:
+    parsed = parse_formula(f)
+    mm = molar_mass(f)
+    print(f + ": " + str(parsed) + " → " + str(mm) + " g/mol")
+
+print("\n⚖️ Conversions:")
+print("18g H2O = " + str(grams_to_moles(18, "H2O")) + " mol")
+print("100g C6H12O6 = " + str(grams_to_moles(100, "C6H12O6")) + " mol")`,
+    language: "python",
+    category: "Science",
+    categoryZh: "科学",
+    tags: ["project", "area-4", "science-lab", "chemistry"],
+    fromLesson: "4-6",
+  },
+
+  {
+    id: "proj-py-5-1-1",
+    title: "🧠 Neural Network Visualizer · 神经网络可视化",
+    description: "Visualize a simple neural network as ASCII art! 用 ASCII 艺术可视化简单神经网络",
+    difficulty: 3,
+    gradeRange: [8, 12],
+    skillLevel: "advanced",
+    starterCode: `# 🧠 Neural Network Visualizer
+# Draw a network and show forward pass
+
+# TODO: Create layers [3, 4, 2] (input, hidden, output)
+# TODO: Draw network as ASCII art
+# TODO: Simulate forward pass with random weights
+# TODO: Show activation values at each node`,
+    hint: "Use nested loops for layers. Draw connections with / and \\. Random weights between -1 and 1.",
+    solution: `import random
+
+def draw_network(layers):
+    max_nodes = max(layers)
+    print("🧠 NEURAL NETWORK [" + "→".join(str(l) for l in layers) + "]\n")
+    for layer_idx, size in enumerate(layers):
+        padding = " " * ((max_nodes - size) * 3)
+        nodes = ""
+        for n in range(size):
+            val = round(random.random(), 1)
+            nodes += "(" + str(val) + ") "
+        label = ["Input", "Hidden", "Output"][min(layer_idx, 2)]
+        if layer_idx > 0 and layer_idx < len(layers) - 1:
+            label = "Hidden" + str(layer_idx)
+        print(padding + label + ": " + nodes)
+        if layer_idx < len(layers) - 1:
+            print(padding + "  " + " ↘↓↙ " * min(size, 3))
+
+def forward_pass(inputs, weights):
+    output = []
+    for w_row in weights:
+        total = sum(i * w for i, w in zip(inputs, w_row))
+        output.append(round(max(0, total), 3))  # ReLU
+    return output
+
+layers = [3, 4, 2]
+draw_network(layers)
+
+inputs = [0.5, 0.8, 0.3]
+w1 = [[random.uniform(-1,1) for _ in range(3)] for _ in range(4)]
+w2 = [[random.uniform(-1,1) for _ in range(4)] for _ in range(2)]
+
+print("\n⚡ Forward Pass:")
+print("Input: " + str(inputs))
+hidden = forward_pass(inputs, w1)
+print("Hidden: " + str(hidden))
+output = forward_pass(hidden, w2)
+print("Output: " + str(output))
+print("Prediction: Class " + str(output.index(max(output))))`,
+    language: "python",
+    category: "Science",
+    categoryZh: "科学",
+    tags: ["project", "area-5", "ai", "neural-network"],
+    fromLesson: "5-1",
+  },
+
+  {
+    id: "proj-py-5-2-1",
+    title: "🔐 Caesar Cipher Breaker · 凯撒密码破解器",
+    description: "Implement and break Caesar cipher using frequency analysis! 使用频率分析实现和破解凯撒密码",
+    difficulty: 3,
+    gradeRange: [8, 12],
+    skillLevel: "advanced",
+    starterCode: `# 🔐 Caesar Cipher Breaker
+
+# TODO: Implement encrypt(text, shift) and decrypt(text, shift)
+# TODO: Brute force: try all 26 shifts
+# TODO: Frequency analysis: compare letter frequency to English
+# English freq: E=12.7%, T=9.1%, A=8.2%, O=7.5%, I=7.0%
+
+# Break this message:
+encrypted = "WKLV LV D VHFUHW PHVVDJH IURP WKH VSDB"`,
+    hint: "Shift each letter by (26-shift) to decrypt. Score each shift by how close E frequency matches.",
+    solution: `def encrypt(text, shift):
+    result = ""
+    for ch in text:
+        if ch.isalpha():
+            base = ord("A") if ch.isupper() else ord("a")
+            result += chr((ord(ch) - base + shift) % 26 + base)
+        else:
+            result += ch
+    return result
+
+def decrypt(text, shift):
+    return encrypt(text, 26 - shift)
+
+def frequency_score(text):
+    english_freq = {"E": 12.7, "T": 9.1, "A": 8.2, "O": 7.5, "I": 7.0, "N": 6.7, "S": 6.3}
+    text = text.upper()
+    letters = [c for c in text if c.isalpha()]
+    if not letters:
+        return 0
+    score = 0
+    for letter, expected in english_freq.items():
+        actual = letters.count(letter) / len(letters) * 100
+        score -= abs(actual - expected)
+    return score
+
+encrypted = "WKLV LV D VHFUHW PHVVDJH IURP WKH VSDB"
+print("🔐 CAESAR CIPHER BREAKER\n")
+print("Encrypted: " + encrypted)
+
+print("\n🔨 Brute Force:")
+best_score = -999
+best_shift = 0
+for shift in range(26):
+    decrypted = decrypt(encrypted, shift)
+    score = frequency_score(decrypted)
+    if score > best_score:
+        best_score = score
+        best_shift = shift
+    if shift < 5 or shift == best_shift:
+        print("  Shift " + str(shift).rjust(2) + ": " + decrypted)
+
+print("\n🏆 Best guess (shift=" + str(best_shift) + "):")
+print("  " + decrypt(encrypted, best_shift))`,
+    language: "python",
+    category: "Crypto",
+    categoryZh: "加密",
+    tags: ["project", "area-5", "crypto", "cipher"],
+    fromLesson: "5-2",
+  },
+
+  {
+    id: "proj-py-5-3-1",
+    title: "🎲 Game of Life · 生命游戏",
+    description: "Implement Conway's Game of Life cellular automaton! 实现康威生命游戏细胞自动机",
+    difficulty: 3,
+    gradeRange: [8, 12],
+    skillLevel: "advanced",
+    starterCode: `# 🎲 Conway's Game of Life
+
+# Rules:
+# 1. Live cell with 2-3 neighbors survives
+# 2. Dead cell with exactly 3 neighbors becomes alive
+# 3. All other cells die or stay dead
+
+# TODO: Create grid, seed initial pattern
+# TODO: Count neighbors for each cell
+# TODO: Apply rules to generate next generation
+# TODO: Display and run for N generations`,
+    hint: "Count 8 neighbors around each cell. Apply rules simultaneously (compute new grid from old).",
+    solution: `import random
+
+SIZE = 15
+
+def create_grid(size):
+    return [[random.choice([0, 0, 0, 1]) for _ in range(size)] for _ in range(size)]
+
+def count_neighbors(grid, r, c):
+    count = 0
+    for dr in [-1, 0, 1]:
+        for dc in [-1, 0, 1]:
+            if dr == 0 and dc == 0:
+                continue
+            nr, nc = r + dr, c + dc
+            if 0 <= nr < len(grid) and 0 <= nc < len(grid[0]):
+                count += grid[nr][nc]
+    return count
+
+def next_gen(grid):
+    rows, cols = len(grid), len(grid[0])
+    new = [[0]*cols for _ in range(rows)]
+    for r in range(rows):
+        for c in range(cols):
+            n = count_neighbors(grid, r, c)
+            if grid[r][c] == 1:
+                new[r][c] = 1 if n in [2, 3] else 0
+            else:
+                new[r][c] = 1 if n == 3 else 0
+    return new
+
+def display(grid, gen):
+    alive = sum(sum(row) for row in grid)
+    print("Gen " + str(gen) + " (alive: " + str(alive) + ")")
+    for row in grid:
+        print("".join("██" if c else "  " for c in row))
+    print()
+
+grid = create_grid(SIZE)
+for gen in range(6):
+    display(grid, gen)
+    grid = next_gen(grid)`,
+    language: "python",
+    category: "Simulations",
+    categoryZh: "模拟",
+    tags: ["project", "area-5", "simulation", "cellular-automata"],
+    fromLesson: "5-3",
+  },
+
+  {
+    id: "proj-py-5-4-1",
+    title: "📈 Stock Market Sim · 股票市场模拟",
+    description: "Simulate stock price movements with random walks and analysis! 用随机游走模拟股票价格并分析",
+    difficulty: 3,
+    gradeRange: [8, 12],
+    skillLevel: "advanced",
+    starterCode: `# 📈 Stock Market Simulator
+import random
+import math
+
+# TODO: Simulate stock prices using random walk
+# TODO: Calculate moving average
+# TODO: Detect buy/sell signals
+# TODO: Simulate a trading strategy`,
+    hint: "Random walk: price *= (1 + random.gauss(0, 0.02)). Moving average: avg of last N prices.",
+    solution: `import random
+import math
+
+def simulate_stock(days, start=100):
+    prices = [start]
+    for _ in range(days - 1):
+        change = random.gauss(0.001, 0.02)
+        prices.append(round(prices[-1] * (1 + change), 2))
+    return prices
+
+def moving_avg(prices, window):
+    return [round(sum(prices[max(0,i-window+1):i+1]) / min(i+1, window), 2) for i in range(len(prices))]
+
+def trade_strategy(prices, short=5, long_w=20):
+    cash = 10000
+    shares = 0
+    short_ma = moving_avg(prices, short)
+    long_ma = moving_avg(prices, long_w)
+    trades = 0
+    for i in range(long_w, len(prices)):
+        if short_ma[i] > long_ma[i] and shares == 0:
+            shares = int(cash / prices[i])
+            cash -= shares * prices[i]
+            trades += 1
+        elif short_ma[i] < long_ma[i] and shares > 0:
+            cash += shares * prices[i]
+            shares = 0
+            trades += 1
+    final = cash + shares * prices[-1]
+    return round(final, 2), trades
+
+prices = simulate_stock(100)
+print("📈 STOCK SIMULATOR\n")
+print("Day 1: $" + str(prices[0]) + " → Day 100: $" + str(prices[-1]))
+change = round((prices[-1] - prices[0]) / prices[0] * 100, 1)
+print("Change: " + str(change) + "%")
+
+ma5 = moving_avg(prices, 5)
+print("\nMA5 (last 5): " + str(ma5[-5:]))
+
+final, trades = trade_strategy(prices)
+profit = round(final - 10000, 2)
+print("\n💰 Trading Strategy:")
+print("Start: $10000 → End: $" + str(final))
+print("Profit: $" + str(profit) + " (" + str(trades) + " trades)")`,
+    language: "python",
+    category: "Data",
+    categoryZh: "数据",
+    tags: ["project", "area-5", "data", "simulation"],
+    fromLesson: "5-4",
+  },
+
+  {
+    id: "proj-py-5-5-1",
+    title: "🔬 Particle Physics Sim · 粒子物理模拟",
+    description: "Simulate particle collisions and decay! 模拟粒子碰撞和衰变",
+    difficulty: 3,
+    gradeRange: [8, 12],
+    skillLevel: "advanced",
+    starterCode: `# 🔬 Particle Physics Simulator
+import random
+import math
+
+# TODO: Create Particle class with mass, charge, velocity
+# TODO: Simulate particle decay (random half-life)
+# TODO: Simulate elastic collisions
+# TODO: Track energy conservation`,
+    hint: "Elastic collision: conserve momentum (m1*v1 + m2*v2 = const) and energy. Decay: random < decay_prob.",
+    solution: `import random
+import math
+
+class Particle:
+    def __init__(self, name, mass, charge, vx=0, vy=0):
+        self.name = name
+        self.mass = mass
+        self.charge = charge
+        self.vx = vx
+        self.vy = vy
+        self.alive = True
+
+    def energy(self):
+        return 0.5 * self.mass * (self.vx**2 + self.vy**2)
+
+    def momentum(self):
+        return (self.mass * self.vx, self.mass * self.vy)
+
+    def __str__(self):
+        return self.name + " m=" + str(self.mass) + " v=(" + str(round(self.vx,2)) + "," + str(round(self.vy,2)) + ")"
+
+def collide(p1, p2):
+    # 1D elastic collision
+    v1 = (p1.vx*(p1.mass-p2.mass) + 2*p2.mass*p2.vx) / (p1.mass+p2.mass)
+    v2 = (p2.vx*(p2.mass-p1.mass) + 2*p1.mass*p1.vx) / (p1.mass+p2.mass)
+    p1.vx = round(v1, 3)
+    p2.vx = round(v2, 3)
+
+proton = Particle("Proton", 1.0, 1, 5, 0)
+neutron = Particle("Neutron", 1.0, 0, -3, 0)
+electron = Particle("Electron", 0.0005, -1, 10, 0)
+
+particles = [proton, neutron, electron]
+
+print("🔬 PARTICLE PHYSICS SIM\n")
+print("Before collision:")
+e_before = sum(p.energy() for p in particles)
+for p in particles:
+    print("  " + str(p) + " E=" + str(round(p.energy(), 3)))
+print("Total Energy: " + str(round(e_before, 3)))
+
+collide(proton, neutron)
+print("\nAfter proton-neutron collision:")
+e_after = sum(p.energy() for p in particles)
+for p in particles:
+    print("  " + str(p) + " E=" + str(round(p.energy(), 3)))
+print("Total Energy: " + str(round(e_after, 3)))
+print("Energy conserved: " + str(round(abs(e_before - e_after), 6) < 0.001))`,
+    language: "python",
+    category: "Science",
+    categoryZh: "科学",
+    tags: ["project", "area-5", "physics", "simulation"],
+    fromLesson: "5-5",
+  },
+
+  {
+    id: "proj-py-5-6-1",
+    title: "🤖 Markov Chain Text Generator · 马尔可夫链文本生成器",
+    description: "Generate text using Markov chains - a precursor to modern AI! 用马尔可夫链生成文本",
+    difficulty: 3,
+    gradeRange: [8, 12],
+    skillLevel: "advanced",
+    starterCode: `# 🤖 Markov Chain Text Generator
+
+# TODO: Build a Markov chain from sample text
+# - Split text into words
+# - For each word, record what words follow it
+# - Generate new text by following the chain
+
+sample = "the cat sat on the mat the cat ate the fish the dog sat on the log the dog ate the bone"
+
+# TODO: Build chain: {"the": ["cat", "mat", "cat", ...], ...}
+# TODO: Generate 20 words starting from "the"`,
+    hint: "Use a dict where each key maps to a list of possible next words. Use random.choice to pick next word.",
+    solution: `import random
+
+def build_chain(text):
+    words = text.split()
+    chain = {}
+    for i in range(len(words) - 1):
+        word = words[i]
+        next_word = words[i + 1]
+        if word not in chain:
+            chain[word] = []
+        chain[word].append(next_word)
+    return chain
+
+def generate(chain, start, length):
+    current = start
+    result = [current]
+    for _ in range(length - 1):
+        if current not in chain:
+            current = random.choice(list(chain.keys()))
+        current = random.choice(chain[current])
+        result.append(current)
+    return " ".join(result)
+
+sample = "the cat sat on the mat the cat ate the fish the dog sat on the log the dog ate the bone the cat and the dog played in the park the cat chased the dog around the tree"
+
+chain = build_chain(sample)
+print("🤖 MARKOV CHAIN TEXT GENERATOR\n")
+print("Training text: " + sample[:60] + "...")
+print("\nChain entries:")
+for word in sorted(chain.keys())[:5]:
+    print("  '" + word + "' → " + str(chain[word]))
+
+print("\n📝 Generated texts:")
+for i in range(3):
+    text = generate(chain, "the", 15)
+    print(str(i+1) + ". " + text)`,
+    language: "python",
+    category: "Data",
+    categoryZh: "数据",
+    tags: ["project", "area-5", "ai", "markov"],
     fromLesson: "5-6",
   },
 
