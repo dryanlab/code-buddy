@@ -125,6 +125,46 @@ print("Updated:", fruits)
 # Insert at start:  O(n) — must shift everything!
 
 print("\\n📦 Box: Arrays are FAST for access, slower for insertion!")`,
+      codeCpp: `// 📦 Box: "Let me show you how arrays work!"
+// Arrays in C++ = vectors
+
+#include <iostream>
+#include <vector>
+#include <string>
+using namespace std;
+
+int main() {
+    // Creating an array (vector)
+    vector<string> fruits = {"apple", "banana", "cherry", "date", "elderberry"};
+    vector<int> numbers = {10, 20, 30, 40, 50};
+
+    // Indexing: access by position (starts at 0!)
+    // 索引：通过位置访问（从0开始！）
+    cout << "First fruit: " << fruits[0] << endl;    // apple
+    cout << "Third fruit: " << fruits[2] << endl;    // cherry
+    cout << "Last fruit: " << fruits[fruits.size()-1] << endl;  // elderberry
+
+    // Length: how many items?
+    cout << "Total fruits: " << fruits.size() << endl;  // 5
+
+    // Modify an element
+    fruits[1] = "blueberry";  // Replace banana
+    cout << "Updated: [";
+    for (size_t i = 0; i < fruits.size(); i++) {
+        if (i > 0) cout << ", ";
+        cout << "'" << fruits[i] << "'";
+    }
+    cout << "]" << endl;
+
+    // Common operations & their TIME COMPLEXITY:
+    // Access by index:  O(1) — instant! Like going to locker #3
+    // Search for value:  O(n) — must check each one
+    // Append to end:    O(1) — just add to the end
+    // Insert at start:  O(n) — must shift everything!
+
+    cout << "\n📦 Box: Arrays are FAST for access, slower for insertion!" << endl;
+    return 0;
+}`,
     },
     {
       type: "quiz",
@@ -755,6 +795,100 @@ dll.display_backward()  # C ↔ B ↔ A ↔ Z
 dll.delete("A")
 dll.display_forward()   # Z ↔ B ↔ C
 print("\\n🔗 Link: Both directions work perfectly!")`,
+      codeCpp: `// 🔗 Link: "Double the pointers, double the power!"
+
+#include <iostream>
+#include <string>
+using namespace std;
+
+struct DNode {
+    string data;
+    DNode* prev;    // ← pointer to previous 前一个
+    DNode* next;    // → pointer to next 后一个
+    DNode(string d) : data(d), prev(nullptr), next(nullptr) {}
+};
+
+class DoublyLinkedList {
+public:
+    DNode* head;
+    DNode* tail;
+
+    DoublyLinkedList() : head(nullptr), tail(nullptr) {}
+
+    void append(string data) {
+        DNode* newNode = new DNode(data);
+        if (!head) { head = tail = newNode; return; }
+        newNode->prev = tail;
+        tail->next = newNode;
+        tail = newNode;
+    }
+
+    void prepend(string data) {
+        DNode* newNode = new DNode(data);
+        if (!head) { head = tail = newNode; return; }
+        newNode->next = head;
+        head->prev = newNode;
+        head = newNode;
+    }
+
+    bool deleteNode(string data) {
+        // Delete first occurrence of data · 删除第一次出现的值
+        DNode* current = head;
+        while (current) {
+            if (current->data == data) {
+                if (current->prev)
+                    current->prev->next = current->next;
+                else
+                    head = current->next;
+                if (current->next)
+                    current->next->prev = current->prev;
+                else
+                    tail = current->prev;
+                delete current;
+                return true;
+            }
+            current = current->next;
+        }
+        return false;
+    }
+
+    void displayForward() {
+        DNode* current = head;
+        cout << "Forward:  ";
+        while (current) {
+            cout << current->data;
+            if (current->next) cout << " ↔ ";
+            current = current->next;
+        }
+        cout << endl;
+    }
+
+    void displayBackward() {
+        DNode* current = tail;
+        cout << "Backward: ";
+        while (current) {
+            cout << current->data;
+            if (current->prev) cout << " ↔ ";
+            current = current->prev;
+        }
+        cout << endl;
+    }
+};
+
+int main() {
+    DoublyLinkedList dll;
+    dll.append("A");
+    dll.append("B");
+    dll.append("C");
+    dll.prepend("Z");
+    dll.displayForward();   // Z ↔ A ↔ B ↔ C
+    dll.displayBackward();  // C ↔ B ↔ A ↔ Z
+
+    dll.deleteNode("A");
+    dll.displayForward();   // Z ↔ B ↔ C
+    cout << "\n🔗 Link: Both directions work perfectly!" << endl;
+    return 0;
+}`,
     },
     {
       type: "quiz",
@@ -1401,6 +1535,63 @@ editor.undo()        # Remove "!"
 editor.undo()        # Remove " World"
 editor.redo()        # Bring back " World"
 print(f"\\nFinal: '{editor.text}'")`,
+      codeCpp: `// 📦 Box: "Build your own text editor undo!"
+
+#include <iostream>
+#include <stack>
+#include <string>
+using namespace std;
+
+class TextEditor {
+    string text;
+    stack<string> undoStack;
+    stack<string> redoStack;
+public:
+    TextEditor() : text("") {}
+
+    void typeText(string newText) {
+        undoStack.push(text);  // Save current state
+        text += newText;
+        while (!redoStack.empty()) redoStack.pop();
+        cout << "✏️ Typed: '" << newText << "' → Text: '" << text << "'" << endl;
+    }
+
+    void undo() {
+        if (undoStack.empty()) {
+            cout << "❌ Nothing to undo!" << endl;
+            return;
+        }
+        redoStack.push(text);
+        text = undoStack.top();
+        undoStack.pop();
+        cout << "↩️ Undo → Text: '" << text << "'" << endl;
+    }
+
+    void redo() {
+        if (redoStack.empty()) {
+            cout << "❌ Nothing to redo!" << endl;
+            return;
+        }
+        undoStack.push(text);
+        text = redoStack.top();
+        redoStack.pop();
+        cout << "↪️ Redo → Text: '" << text << "'" << endl;
+    }
+
+    string getText() { return text; }
+};
+
+int main() {
+    TextEditor editor;
+    editor.typeText("Hello");
+    editor.typeText(" World");
+    editor.typeText("!");
+    editor.undo();        // Remove "!"
+    editor.undo();        // Remove " World"
+    editor.redo();        // Bring back " World"
+    cout << "\nFinal: '" << editor.getText() << "'" << endl;
+    return 0;
+}`,
     },
     {
       type: "quiz",
@@ -1888,6 +2079,46 @@ while data:
 print()  # 1, 2, 3, 5, 7, 8 — sorted!
 
 print("\\n🌳 Root: Heaps give us efficient sorting for free!")`,
+      codeCpp: `// 🌳 Root: "A heap is a special complete binary tree!"
+// Min-heap property: parent ≤ children
+// 最小堆性质：父节点 ≤ 子节点
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+int main() {
+    vector<int> data = {5, 3, 8, 1, 2, 7};
+    cout << "Original: ";
+    for (int x : data) cout << x << " ";
+    cout << endl;
+
+    // Build a min-heap
+    make_heap(data.begin(), data.end(), greater<int>());
+    cout << "Heapified: ";
+    for (int x : data) cout << x << " ";
+    cout << endl;
+
+    // Visualize the heap as a tree:
+    //        1
+    //      /   \\
+    //     2     7
+    //    / \\   /
+    //   5   3 8
+
+    // Pop elements (always gets minimum!)
+    cout << "\nPopping in order:" << endl;
+    while (!data.empty()) {
+        pop_heap(data.begin(), data.end(), greater<int>());
+        cout << "  " << data.back();
+        data.pop_back();
+    }
+    cout << endl;  // 1, 2, 3, 5, 7, 8 — sorted!
+
+    cout << "\n🌳 Root: Heaps give us efficient sorting for free!" << endl;
+    return 0;
+}`,
     },
     {
       type: "quiz",
@@ -2354,6 +2585,78 @@ print("In-order (sorted!):", bst.inorder())  # [1, 3, 4, 6, 7, 8, 10, 14]
 print("Search 6:", bst.search(6))    # True
 print("Search 5:", bst.search(5))    # False
 print("\\n🌳 Root: In-order traversal of a BST = sorted order!")`,
+      codeCpp: `// 🌳 Root: "Organized trees are FAST trees!"
+
+#include <iostream>
+#include <vector>
+using namespace std;
+
+struct BSTNode {
+    int value;
+    BSTNode* left;
+    BSTNode* right;
+    BSTNode(int v) : value(v), left(nullptr), right(nullptr) {}
+};
+
+class BST {
+    BSTNode* root;
+
+    BSTNode* insertNode(BSTNode* node, int value) {
+        if (!node) return new BSTNode(value);
+        if (value < node->value)
+            node->left = insertNode(node->left, value);
+        else
+            node->right = insertNode(node->right, value);
+        return node;
+    }
+
+    bool searchNode(BSTNode* node, int value) {
+        if (!node) return false;
+        if (value == node->value) return true;
+        if (value < node->value) return searchNode(node->left, value);
+        return searchNode(node->right, value);
+    }
+
+    void inorderHelper(BSTNode* node, vector<int>& result) {
+        if (node) {
+            inorderHelper(node->left, result);
+            result.push_back(node->value);
+            inorderHelper(node->right, result);
+        }
+    }
+
+public:
+    BST() : root(nullptr) {}
+
+    void insert(int value) { root = insertNode(root, value); }
+
+    bool search(int value) { return searchNode(root, value); }
+
+    vector<int> inorder() {
+        vector<int> result;
+        inorderHelper(root, result);
+        return result;
+    }
+};
+
+int main() {
+    BST bst;
+    for (int val : {8, 3, 10, 1, 6, 14, 4, 7})
+        bst.insert(val);
+
+    auto sorted = bst.inorder();
+    cout << "In-order (sorted!): [";
+    for (size_t i = 0; i < sorted.size(); i++) {
+        if (i > 0) cout << ", ";
+        cout << sorted[i];
+    }
+    cout << "]" << endl;
+
+    cout << "Search 6: " << (bst.search(6) ? "True" : "False") << endl;
+    cout << "Search 5: " << (bst.search(5) ? "True" : "False") << endl;
+    cout << "\n🌳 Root: In-order traversal of a BST = sorted order!" << endl;
+    return 0;
+}`,
     },
     {
       type: "quiz",
@@ -2528,6 +2831,59 @@ def count_files(node):
     return count
 
 print(f"\\nTotal files: {count_files(root)}")`,
+      codeCpp: `// 🌳 Root: "Your computer is literally a tree!"
+
+#include <iostream>
+#include <vector>
+#include <string>
+using namespace std;
+
+struct FileNode {
+    string name;
+    bool isFolder;
+    vector<FileNode*> children;
+
+    FileNode(string n, bool folder = false) : name(n), isFolder(folder) {}
+
+    FileNode* add(FileNode* child) {
+        children.push_back(child);
+        return child;
+    }
+
+    void display(int indent = 0) {
+        string icon = isFolder ? "📁" : "📄";
+        for (int i = 0; i < indent; i++) cout << "  ";
+        cout << icon << " " << name << endl;
+        for (auto child : children)
+            child->display(indent + 1);
+    }
+};
+
+int countFiles(FileNode* node) {
+    int count = node->isFolder ? 0 : 1;
+    for (auto child : node->children)
+        count += countFiles(child);
+    return count;
+}
+
+int main() {
+    auto root = new FileNode("/", true);
+    auto home = root->add(new FileNode("home", true));
+    auto user = home->add(new FileNode("student", true));
+    auto docs = user->add(new FileNode("Documents", true));
+    docs->add(new FileNode("homework.pdf"));
+    docs->add(new FileNode("notes.txt"));
+    auto code = user->add(new FileNode("Code", true));
+    code->add(new FileNode("hello.py"));
+    code->add(new FileNode("game.py"));
+    user->add(new FileNode("photo.jpg"));
+
+    cout << "🖥️ File System Tree:" << endl;
+    root->display();
+
+    cout << "\nTotal files: " << countFiles(root) << endl;
+    return 0;
+}`,
     },
     {
       type: "code",
@@ -2803,6 +3159,58 @@ word_count = {}
 for word in text.split():
     word_count[word] = word_count.get(word, 0) + 1
 print(f"\\nWord counts: {word_count}")`,
+      codeCpp: `// 📦 Box: "C++ unordered_map is a hash map!"
+
+#include <iostream>
+#include <unordered_map>
+#include <string>
+#include <sstream>
+using namespace std;
+
+int main() {
+    // Creating a hash map
+    unordered_map<string, string> student;
+    student["name"] = "Alice";
+    student["age"] = "15";
+    student["grade"] = "A";
+
+    // O(1) access by key!
+    cout << "Name: " << student["name"] << endl;
+    cout << "Age: " << student["age"] << endl;
+
+    // Add/update — also O(1)!
+    student["school"] = "Tech Academy";
+    student["age"] = "16";  // Updated!
+
+    // Check if key exists
+    if (student.count("grade"))
+        cout << "Grade: " << student["grade"] << endl;
+
+    // Iterate over key-value pairs
+    cout << "\nAll info:" << endl;
+    for (auto& [key, value] : student)
+        cout << "  " << key << ": " << value << endl;
+
+    // 📦 Box: "Hash maps are the MOST used data structure in real software!"
+
+    // Practical: Count word frequency!
+    string text = "the cat sat on the mat the cat";
+    unordered_map<string, int> wordCount;
+    istringstream iss(text);
+    string word;
+    while (iss >> word)
+        wordCount[word]++;
+
+    cout << "\nWord counts: {";
+    bool first = true;
+    for (auto& [w, c] : wordCount) {
+        if (!first) cout << ", ";
+        cout << "'" << w << "': " << c;
+        first = false;
+    }
+    cout << "}" << endl;
+    return 0;
+}`,
     },
     {
       type: "code",
@@ -4061,6 +4469,73 @@ for r in range(len(maze)):
     print(row_str)
 
 print(f"\\nPath length: {len(path)} steps")`,
+      codeCpp: `#include <iostream>
+#include <vector>
+#include <queue>
+#include <set>
+#include <string>
+using namespace std;
+
+using Point = pair<int,int>;
+
+vector<Point> solveMaze(vector<vector<int>>& maze, Point start, Point end) {
+    // Find shortest path through maze using BFS · 用BFS找迷宫最短路径
+    int rows = maze.size(), cols = maze[0].size();
+    queue<pair<Point, vector<Point>>> q;
+    set<Point> visited;
+    q.push({start, {start}});
+    visited.insert(start);
+    int dirs[][2] = {{0,1},{0,-1},{1,0},{-1,0}};
+
+    while (!q.empty()) {
+        auto [pos, path] = q.front();
+        q.pop();
+        if (pos == end) return path;
+
+        for (auto& d : dirs) {
+            int nr = pos.first + d[0], nc = pos.second + d[1];
+            Point np = {nr, nc};
+            if (nr >= 0 && nr < rows && nc >= 0 && nc < cols
+                && maze[nr][nc] == 0 && !visited.count(np)) {
+                visited.insert(np);
+                auto newPath = path;
+                newPath.push_back(np);
+                q.push({np, newPath});
+            }
+        }
+    }
+    return {};  // No path!
+}
+
+int main() {
+    // 0 = open, 1 = wall
+    vector<vector<int>> maze = {
+        {0, 0, 1, 0, 0},
+        {1, 0, 1, 0, 1},
+        {0, 0, 0, 0, 0},
+        {0, 1, 1, 1, 0},
+        {0, 0, 0, 0, 0}
+    };
+
+    auto path = solveMaze(maze, {0,0}, {4,4});
+
+    // Display maze with path
+    set<Point> pathSet(path.begin(), path.end());
+    cout << "🏰 Maze Solution:" << endl;
+    for (size_t r = 0; r < maze.size(); r++) {
+        for (size_t c = 0; c < maze[0].size(); c++) {
+            if (pathSet.count({(int)r,(int)c}))
+                cout << "⭐";
+            else if (maze[r][c] == 1)
+                cout << "🧱";
+            else
+                cout << "⬜";
+        }
+        cout << endl;
+    }
+    cout << "\nPath length: " << path.size() << " steps" << endl;
+    return 0;
+}`,
     },
     {
       type: "quiz",
@@ -4632,6 +5107,59 @@ print(f"  Binary is {steps1/steps2:.0f}x fewer steps! 🏆")
 _, worst_linear = linear_search(data, 999)
 _, worst_binary = binary_search(data, 999)
 print(f"\\nWorst case: Linear={worst_linear}, Binary={worst_binary}")`,
+      codeCpp: `// 📦 Box: "Feel the difference!"
+
+#include <iostream>
+#include <vector>
+using namespace std;
+
+pair<int,int> linearSearch(vector<int>& arr, int target) {
+    // Linear Search — O(n) · 线性搜索
+    int steps = 0;
+    for (int i = 0; i < (int)arr.size(); i++) {
+        steps++;
+        if (arr[i] == target)
+            return {i, steps};
+    }
+    return {-1, steps};
+}
+
+pair<int,int> binarySearch(vector<int>& arr, int target) {
+    // Binary Search — O(log n) · 二分搜索 (arr must be sorted!)
+    int steps = 0, left = 0, right = (int)arr.size() - 1;
+    while (left <= right) {
+        steps++;
+        int mid = (left + right) / 2;
+        if (arr[mid] == target)
+            return {mid, steps};
+        else if (arr[mid] < target)
+            left = mid + 1;    // Search right half 搜索右半
+        else
+            right = mid - 1;   // Search left half 搜索左半
+    }
+    return {-1, steps};
+}
+
+int main() {
+    // Compare on a sorted list of 1000 elements
+    vector<int> data(1000);
+    for (int i = 0; i < 1000; i++) data[i] = i;
+    int target = 777;
+
+    auto [idx1, steps1] = linearSearch(data, target);
+    auto [idx2, steps2] = binarySearch(data, target);
+
+    cout << "Finding " << target << " in 1000 elements:" << endl;
+    cout << "  🐢 Linear: found at index " << idx1 << ", took " << steps1 << " steps" << endl;
+    cout << "  🚀 Binary: found at index " << idx2 << ", took " << steps2 << " steps" << endl;
+    cout << "  Binary is " << steps1/steps2 << "x fewer steps! 🏆" << endl;
+
+    // Worst case comparison
+    auto [w1idx, worstLinear] = linearSearch(data, 999);
+    auto [w2idx, worstBinary] = binarySearch(data, 999);
+    cout << "\nWorst case: Linear=" << worstLinear << ", Binary=" << worstBinary << endl;
+    return 0;
+}`,
     },
     {
       type: "code",
@@ -5068,6 +5596,231 @@ print(f"Graph BFS from A: {g.bfs('A')}")
 print(f"Graph DFS from A: {g.dfs('A')}")
 
 print("\\n🎉 All data structures working! Your library is ready!")`,
+      codeCpp: `// ═══════════════════════════════════════════
+// 📚 MY DATA STRUCTURES LIBRARY (C++)
+// Author: [Your Name]
+// ═══════════════════════════════════════════
+
+#include <iostream>
+#include <vector>
+#include <deque>
+#include <queue>
+#include <unordered_map>
+#include <unordered_set>
+#include <string>
+#include <algorithm>
+using namespace std;
+
+// ── Stack ──────────────────────────────────
+class Stack {
+    vector<int> items;
+public:
+    void push(int item) { items.push_back(item); }
+    int pop() {
+        if (items.empty()) return -1;
+        int val = items.back(); items.pop_back(); return val;
+    }
+    int peek() { return items.empty() ? -1 : items.back(); }
+    bool isEmpty() { return items.empty(); }
+    int size() { return items.size(); }
+    friend ostream& operator<<(ostream& os, Stack& s) {
+        os << "Stack([";
+        for (size_t i = 0; i < s.items.size(); i++) {
+            if (i > 0) os << ", ";
+            os << s.items[i];
+        }
+        os << "])"; return os;
+    }
+};
+
+// ── Queue ──────────────────────────────────
+class MyQueue {
+    deque<string> items;
+public:
+    void enqueue(string item) { items.push_back(item); }
+    string dequeueItem() {
+        if (items.empty()) return "";
+        string val = items.front(); items.pop_front(); return val;
+    }
+    string front() { return items.empty() ? "" : items.front(); }
+    bool isEmpty() { return items.empty(); }
+    int size() { return items.size(); }
+};
+
+// ── Linked List ────────────────────────────
+struct ListNode {
+    int data;
+    ListNode* next;
+    ListNode(int d) : data(d), next(nullptr) {}
+};
+
+class LinkedList {
+public:
+    ListNode* head;
+    LinkedList() : head(nullptr) {}
+    void append(int data) {
+        auto node = new ListNode(data);
+        if (!head) { head = node; return; }
+        auto cur = head;
+        while (cur->next) cur = cur->next;
+        cur->next = node;
+    }
+    void prepend(int data) {
+        auto node = new ListNode(data);
+        node->next = head;
+        head = node;
+    }
+    bool search(int target) {
+        auto cur = head;
+        while (cur) {
+            if (cur->data == target) return true;
+            cur = cur->next;
+        }
+        return false;
+    }
+    friend ostream& operator<<(ostream& os, LinkedList& ll) {
+        auto cur = ll.head;
+        while (cur) {
+            os << cur->data;
+            if (cur->next) os << " → ";
+            cur = cur->next;
+        }
+        os << " → None"; return os;
+    }
+};
+
+// ── BST ────────────────────────────────────
+struct BSTNode {
+    int val;
+    BSTNode* left;
+    BSTNode* right;
+    BSTNode(int v) : val(v), left(nullptr), right(nullptr) {}
+};
+
+class BST {
+    BSTNode* root;
+    BSTNode* ins(BSTNode* node, int val) {
+        if (!node) return new BSTNode(val);
+        if (val < node->val) node->left = ins(node->left, val);
+        else node->right = ins(node->right, val);
+        return node;
+    }
+    bool srch(BSTNode* node, int val) {
+        if (!node) return false;
+        if (val == node->val) return true;
+        return val < node->val ? srch(node->left, val) : srch(node->right, val);
+    }
+    void inorderHelper(BSTNode* node, vector<int>& result) {
+        if (node) {
+            inorderHelper(node->left, result);
+            result.push_back(node->val);
+            inorderHelper(node->right, result);
+        }
+    }
+public:
+    BST() : root(nullptr) {}
+    void insert(int val) { root = ins(root, val); }
+    bool search(int val) { return srch(root, val); }
+    vector<int> inorder() { vector<int> r; inorderHelper(root, r); return r; }
+};
+
+// ── Graph ──────────────────────────────────
+class Graph {
+    unordered_map<string, vector<string>> adj;
+public:
+    void addEdge(string u, string v) {
+        adj[u].push_back(v);
+        adj[v].push_back(u);
+    }
+    vector<string> bfs(string start) {
+        unordered_set<string> visited = {start};
+        queue<string> q;
+        q.push(start);
+        vector<string> order;
+        while (!q.empty()) {
+            string v = q.front(); q.pop();
+            order.push_back(v);
+            for (auto& n : adj[v]) {
+                if (!visited.count(n)) {
+                    visited.insert(n);
+                    q.push(n);
+                }
+            }
+        }
+        return order;
+    }
+    vector<string> dfs(string start) {
+        unordered_set<string> visited;
+        vector<string> stk = {start}, order;
+        while (!stk.empty()) {
+            string v = stk.back(); stk.pop_back();
+            if (!visited.count(v)) {
+                visited.insert(v);
+                order.push_back(v);
+                auto neighbors = adj[v];
+                reverse(neighbors.begin(), neighbors.end());
+                for (auto& n : neighbors)
+                    if (!visited.count(n)) stk.push_back(n);
+            }
+        }
+        return order;
+    }
+};
+
+// ═══════════════════════════════════════════
+// 🧪 TEST EVERYTHING!
+// ═══════════════════════════════════════════
+int main() {
+    cout << "📚 === Data Structures Library Test ===" << endl << endl;
+
+    // Stack
+    Stack s;
+    s.push(1); s.push(2); s.push(3);
+    cout << s << ", peek=" << s.peek() << ", pop=" << s.pop() << endl;
+
+    // Queue
+    MyQueue q;
+    q.enqueue("A"); q.enqueue("B"); q.enqueue("C");
+    cout << "Queue front=" << q.front() << ", dequeue=" << q.dequeueItem() << endl;
+
+    // Linked List
+    LinkedList ll;
+    ll.append(1); ll.append(2); ll.append(3);
+    cout << "LinkedList: " << ll << endl;
+
+    // BST
+    BST bst;
+    for (int v : {5, 3, 7, 1, 4}) bst.insert(v);
+    auto sorted = bst.inorder();
+    cout << "BST inorder: [";
+    for (size_t i = 0; i < sorted.size(); i++) {
+        if (i > 0) cout << ", ";
+        cout << sorted[i];
+    }
+    cout << "]" << endl;
+
+    // Graph
+    Graph g;
+    g.addEdge("A", "B"); g.addEdge("B", "C"); g.addEdge("A", "C");
+    auto bfsOrder = g.bfs("A");
+    cout << "Graph BFS from A: [";
+    for (size_t i = 0; i < bfsOrder.size(); i++) {
+        if (i > 0) cout << ", ";
+        cout << "'" << bfsOrder[i] << "'";
+    }
+    cout << "]" << endl;
+
+    auto dfsOrder = g.dfs("A");
+    cout << "Graph DFS from A: [";
+    for (size_t i = 0; i < dfsOrder.size(); i++) {
+        if (i > 0) cout << ", ";
+        cout << "'" << dfsOrder[i] << "'";
+    }
+    cout << "]" << endl;
+
+    cout << "\n🎉 All data structures working! Your library is ready!" << endl;
+    return 0;
+}`,
     },
     {
       type: "text",
