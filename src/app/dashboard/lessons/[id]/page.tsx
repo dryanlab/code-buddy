@@ -49,9 +49,10 @@ function TextSection({ section }: { section: LessonSection }) {
       {section.emoji && <div className="text-4xl mb-4">{section.emoji}</div>}
       <div
         className="prose prose-invert prose-sm max-w-none
-          prose-headings:text-green-400 prose-strong:text-cyan-400
+          prose-headings:text-green-400 prose-h1:text-xl prose-h1:mt-4 prose-h1:mb-3 prose-h2:text-lg prose-h2:mt-6 prose-h2:mb-2 prose-h2:border-b prose-h2:border-[var(--theme-border)] prose-h2:pb-1
+          prose-strong:text-cyan-400
           prose-code:text-green-300 prose-code:bg-[var(--theme-card-bg)] prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded
-          prose-pre:bg-[#0d1117] prose-pre:border prose-pre:border-[var(--theme-border)]
+          prose-pre:bg-[#0d1117] prose-pre:border prose-pre:border-[var(--theme-border)] prose-pre:rounded-lg prose-pre:p-3 prose-pre:my-4
           prose-table:border-collapse prose-td:border prose-td:border-[var(--theme-border)] prose-td:px-3 prose-td:py-2
           prose-th:border prose-th:border-[var(--theme-border)] prose-th:px-3 prose-th:py-2 prose-th:bg-[var(--theme-card-bg)]"
         dangerouslySetInnerHTML={{ __html: markdownToHtml(section.content) }}
@@ -70,9 +71,10 @@ function InteractiveSection({ section }: { section: LessonSection }) {
       {section.emoji && <div className="text-4xl mb-4">{section.emoji}</div>}
       <div
         className="prose prose-invert prose-sm max-w-none
-          prose-headings:text-purple-400 prose-strong:text-cyan-400
+          prose-headings:text-purple-400 prose-h1:text-xl prose-h1:mt-4 prose-h1:mb-3 prose-h2:text-lg prose-h2:mt-6 prose-h2:mb-2 prose-h2:border-b prose-h2:border-[var(--theme-border)] prose-h2:pb-1
+          prose-strong:text-cyan-400
           prose-code:text-green-300 prose-code:bg-[var(--theme-card-bg)] prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded
-          prose-pre:bg-[#0d1117] prose-pre:border prose-pre:border-[var(--theme-border)]
+          prose-pre:bg-[#0d1117] prose-pre:border prose-pre:border-[var(--theme-border)] prose-pre:rounded-lg prose-pre:p-3 prose-pre:my-4
           prose-blockquote:border-l-purple-500 prose-blockquote:text-[var(--theme-text-secondary)]"
         dangerouslySetInnerHTML={{ __html: markdownToHtml(section.content) }}
       />
@@ -88,7 +90,10 @@ function CodeSection({ section, language = "python" }: { section: LessonSection;
       className="space-y-4"
     >
       <div
-        className="prose prose-invert prose-sm max-w-none prose-headings:text-green-400"
+        className="prose prose-invert prose-sm max-w-none
+          prose-headings:text-green-400 prose-h1:text-xl prose-h1:mt-4 prose-h1:mb-3 prose-h2:text-lg prose-h2:mt-6 prose-h2:mb-2 prose-h2:border-b prose-h2:border-[var(--theme-border)] prose-h2:pb-1
+          prose-code:text-green-300 prose-code:bg-[var(--theme-card-bg)] prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded
+          prose-pre:bg-[#0d1117] prose-pre:border prose-pre:border-[var(--theme-border)] prose-pre:rounded-lg prose-pre:p-3 prose-pre:my-4"
         dangerouslySetInnerHTML={{ __html: markdownToHtml(section.content) }}
       />
       {section.code && <CodeEditor initialCode={section.code} language={language} />}
