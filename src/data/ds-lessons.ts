@@ -165,6 +165,25 @@ int main() {
     cout << "\\n📦 Box: Arrays are FAST for access, slower for insertion!" << endl;
     return 0;
 }`,
+      exercise: {
+        prompt: "Create a list of 5 numbers, print the third element, replace it with 99, and print the updated list.",
+        promptZh: "创建一个包含5个数字的列表，打印第三个元素，替换为99，并打印更新后的列表。",
+        starterCode: "nums = [10, 20, 30, 40, 50]\n\n# Print the third element (index 2)\n\n# Replace the third element with 99\n\n# Print the updated list\n",
+        expectedOutput: "30\n[10, 20, 99, 40, 50]",
+        hint: "Use nums[2] to access the third element, then nums[2] = 99 to replace it.",
+        hintZh: "用 nums[2] 访问第三个元素，然后 nums[2] = 99 替换它。",
+        solution: "nums = [10, 20, 30, 40, 50]\nprint(nums[2])\nnums[2] = 99\nprint(nums)",
+      },
+      exerciseCpp: {
+        prompt: "Create a vector of 5 numbers, print the third element, replace it with 99, and print the updated vector.",
+        promptZh: "创建一个包含5个数字的向量，打印第三个元素，替换为99，并打印更新后的向量。",
+        starterCode: "#include <iostream>\n#include <vector>\nusing namespace std;\n\nint main() {\n    vector<int> nums = {10, 20, 30, 40, 50};\n    // Print the third element\n\n    // Replace it with 99\n\n    // Print the updated vector\n\n    return 0;\n}",
+        expectedOutput: "30\n[10, 20, 99, 40, 50]",
+        hint: "Use nums[2] to access, then assign nums[2] = 99. Loop to print.",
+        hintZh: "用 nums[2] 访问，然后赋值 nums[2] = 99。循环打印。",
+        solution: "#include <iostream>\n#include <vector>\nusing namespace std;\n\nint main() {\n    vector<int> nums = {10, 20, 30, 40, 50};\n    cout << nums[2] << endl;\n    nums[2] = 99;\n    cout << \"[\" ;\n    for (int i = 0; i < nums.size(); i++) {\n        if (i > 0) cout << \", \";\n        cout << nums[i];\n    }\n    cout << \"]\" << endl;\n    return 0;\n}",
+        language: "cpp",
+      },
     },
     {
       type: "quiz",
@@ -253,6 +272,14 @@ int main() {
         starterCode: "arr = [1, 2, 3, 4, 5]\n\n# Reverse arr without using .reverse() or [::-1]\n# Hint: use a loop and swap elements\n# 提示：用循环和交换元素\n\nprint(arr)  # Should print: [5, 4, 3, 2, 1]",
         hint: "Swap first↔last, second↔second-to-last, etc. Use two pointers! 交换首尾元素，用双指针！",
         solution: "arr = [1, 2, 3, 4, 5]\nleft = 0\nright = len(arr) - 1\nwhile left < right:\n    arr[left], arr[right] = arr[right], arr[left]\n    left += 1\n    right -= 1\nprint(arr)",
+        expectedOutput: "[5, 4, 3, 2, 1]",
+      },
+      challengeCpp: {
+        title: "🔄 Reverse an Array · 反转数组",
+        description: "Reverse the given array WITHOUT using built-in reverse!\n不使用内置 reverse 反转数组！",
+        starterCode: "#include <iostream>\n#include <vector>\nusing namespace std;\nint main() {\n    vector<int> arr = {1, 2, 3, 4, 5};\n    // Reverse without using reverse()\n    for (int x : arr) cout << x << \" \";\n    cout << endl;\n    return 0;\n}",
+        hint: "Two pointers: swap left and right, move inward. 双指针从两端向中间交换。",
+        solution: "#include <iostream>\n#include <vector>\nusing namespace std;\nint main() {\n    vector<int> arr = {1,2,3,4,5};\n    int l=0,r=arr.size()-1;\n    while(l<r){swap(arr[l],arr[r]);l++;r--;}\n    cout<<\"[\"; for(int i=0;i<arr.size();i++){if(i)cout<<\", \";cout<<arr[i];} cout<<\"]\"<<endl;\n    return 0;\n}",
         expectedOutput: "[5, 4, 3, 2, 1]",
       },
     },
@@ -426,6 +453,25 @@ int main() {
     // 📦 Box: "Unlike arrays, no shifting needed for inserts!"
     return 0;
 }`,
+      exercise: {
+        prompt: "Create a Node class, make 3 nodes (1→2→3), link them, and traverse printing each value.",
+        promptZh: "创建 Node 类，建3个节点 (1→2→3)，链接并遍历打印每个值。",
+        starterCode: "class Node:\n    def __init__(self, data):\n        self.data = data\n        self.next = None\n\n# Create 3 nodes and link them: 1 -> 2 -> 3\n\n# Traverse and print each node's data\n",
+        expectedOutput: "1\n2\n3",
+        hint: "Create n1, n2, n3. Set n1.next = n2, n2.next = n3. Use while loop to traverse.",
+        hintZh: "创建 n1, n2, n3。设置 n1.next = n2, n2.next = n3。用 while 循环遍历。",
+        solution: "class Node:\n    def __init__(self, data):\n        self.data = data\n        self.next = None\n\nn1 = Node(1)\nn2 = Node(2)\nn3 = Node(3)\nn1.next = n2\nn2.next = n3\n\ncurrent = n1\nwhile current:\n    print(current.data)\n    current = current.next",
+      },
+      exerciseCpp: {
+        prompt: "Create a Node struct, make 3 nodes (1→2→3), link them, and traverse printing each.",
+        promptZh: "创建 Node 结构，建3个节点 (1→2→3)，链接并遍历打印。",
+        starterCode: "#include <iostream>\nusing namespace std;\n\nstruct Node {\n    int data;\n    Node* next;\n    Node(int d) : data(d), next(nullptr) {}\n};\n\nint main() {\n    // Create 3 nodes and link them\n\n    // Traverse and print\n\n    return 0;\n}",
+        expectedOutput: "1\n2\n3",
+        hint: "Use new Node(1), etc. Link with n1->next = n2. Traverse with a pointer.",
+        hintZh: "用 new Node(1) 创建。用 n1->next = n2 链接。用指针遍历。",
+        solution: "#include <iostream>\nusing namespace std;\n\nstruct Node {\n    int data;\n    Node* next;\n    Node(int d) : data(d), next(nullptr) {}\n};\n\nint main() {\n    Node* n1 = new Node(1);\n    Node* n2 = new Node(2);\n    Node* n3 = new Node(3);\n    n1->next = n2;\n    n2->next = n3;\n    Node* curr = n1;\n    while (curr) {\n        cout << curr->data << endl;\n        curr = curr->next;\n    }\n    return 0;\n}",
+        language: "cpp",
+      },
     },
     {
       type: "code",
@@ -564,6 +610,25 @@ int main() {
     cout << "Found 20 at position " << pos << endl;  // 2
     return 0;
 }`,
+      exercise: {
+        prompt: "Given a linked list 1→2→4, insert 3 between nodes 2 and 4, then print all values.",
+        promptZh: "给定链表 1→2→4，在节点2和4之间插入3，然后打印所有值。",
+        starterCode: "class Node:\n    def __init__(self, data):\n        self.data = data\n        self.next = None\n\nhead = Node(1)\nhead.next = Node(2)\nhead.next.next = Node(4)\n\n# Insert 3 between 2 and 4\n\n# Print all values\ncurrent = head\nwhile current:\n    print(current.data)\n    current = current.next",
+        expectedOutput: "1\n2\n3\n4",
+        hint: "Create Node(3). Set its next to node 4 (head.next.next), then set node 2's next to the new node.",
+        hintZh: "创建 Node(3)。让它指向节点4，然后将节点2的next指向新节点。",
+        solution: "class Node:\n    def __init__(self, data):\n        self.data = data\n        self.next = None\n\nhead = Node(1)\nhead.next = Node(2)\nhead.next.next = Node(4)\n\nnew_node = Node(3)\nnew_node.next = head.next.next\nhead.next.next = new_node\n\ncurrent = head\nwhile current:\n    print(current.data)\n    current = current.next",
+      },
+      exerciseCpp: {
+        prompt: "Given linked list 1→2→4, insert 3 between 2 and 4, then print all values.",
+        promptZh: "给定链表 1→2→4，在2和4之间插入3，打印所有值。",
+        starterCode: "#include <iostream>\nusing namespace std;\n\nstruct Node {\n    int data;\n    Node* next;\n    Node(int d) : data(d), next(nullptr) {}\n};\n\nint main() {\n    Node* head = new Node(1);\n    head->next = new Node(2);\n    head->next->next = new Node(4);\n\n    // Insert 3 between 2 and 4\n\n    Node* curr = head;\n    while (curr) {\n        cout << curr->data << endl;\n        curr = curr->next;\n    }\n    return 0;\n}",
+        expectedOutput: "1\n2\n3\n4",
+        hint: "Create new Node(3), set next to head->next->next, then head->next->next = new node.",
+        hintZh: "创建 new Node(3)，设next为 head->next->next，然后 head->next->next = 新节点。",
+        solution: "#include <iostream>\nusing namespace std;\n\nstruct Node {\n    int data;\n    Node* next;\n    Node(int d) : data(d), next(nullptr) {}\n};\n\nint main() {\n    Node* head = new Node(1);\n    head->next = new Node(2);\n    head->next->next = new Node(4);\n    Node* n = new Node(3);\n    n->next = head->next->next;\n    head->next->next = n;\n    Node* curr = head;\n    while (curr) { cout << curr->data << endl; curr = curr->next; }\n    return 0;\n}",
+        language: "cpp",
+      },
     },
     {
       type: "quiz",
@@ -662,6 +727,14 @@ int main() {
         hint: "Walk through the list with a while loop, incrementing a counter each step. 用 while 循环遍历，每步计数器加1。",
         solution: "class Node:\n    def __init__(self, data):\n        self.data = data\n        self.next = None\n\ndef count_nodes(head):\n    count = 0\n    current = head\n    while current:\n        count += 1\n        current = current.next\n    return count\n\na = Node(1)\nb = Node(2)\nc = Node(3)\na.next = b\nb.next = c\nprint(count_nodes(a))",
         expectedOutput: "3",
+      },
+      challengeCpp: {
+        title: "📏 Count Nodes · 计算节点数",
+        description: "Count the number of nodes in a linked list.\n计算链表中的节点数。",
+        starterCode: "#include <iostream>\nusing namespace std;\nstruct Node { int data; Node* next; Node(int d):data(d),next(nullptr){} };\nint countNodes(Node* head) {\n    // Your code\n    return 0;\n}\nint main() {\n    Node* h=new Node(1); h->next=new Node(2); h->next->next=new Node(3); h->next->next->next=new Node(4);\n    cout << countNodes(h) << endl; return 0;\n}",
+        hint: "Traverse with pointer, count each node. 用指针遍历，每个节点计数。",
+        solution: "#include <iostream>\nusing namespace std;\nstruct Node { int data; Node* next; Node(int d):data(d),next(nullptr){} };\nint countNodes(Node* h) { int c=0; while(h){c++;h=h->next;} return c; }\nint main() {\n    Node* h=new Node(1); h->next=new Node(2); h->next->next=new Node(3); h->next->next->next=new Node(4);\n    cout<<countNodes(h)<<endl; return 0;\n}",
+        expectedOutput: "4",
       },
     },
   ],
@@ -889,6 +962,25 @@ int main() {
     cout << "\\n🔗 Link: Both directions work perfectly!" << endl;
     return 0;
 }`,
+      exercise: {
+        prompt: "Create a doubly linked list with nodes 10↔20↔30. Print forward then backward.",
+        promptZh: "创建双向链表 10↔20↔30。先正向后反向打印。",
+        starterCode: "class DNode:\n    def __init__(self, data):\n        self.data = data\n        self.prev = None\n        self.next = None\n\n# Create and link: 10 <-> 20 <-> 30\n\n# Print forward\n\n# Print backward\n",
+        expectedOutput: "Forward: 10 20 30\nBackward: 30 20 10",
+        hint: "Link both .next and .prev pointers. Traverse forward with .next, backward with .prev.",
+        hintZh: "链接 .next 和 .prev 指针。用 .next 正向遍历，用 .prev 反向遍历。",
+        solution: "class DNode:\n    def __init__(self, data):\n        self.data = data\n        self.prev = None\n        self.next = None\n\nn1 = DNode(10)\nn2 = DNode(20)\nn3 = DNode(30)\nn1.next = n2; n2.prev = n1\nn2.next = n3; n3.prev = n2\nresult = []\ncurr = n1\nwhile curr:\n    result.append(str(curr.data))\n    curr = curr.next\nprint('Forward:', ' '.join(result))\nresult = []\ncurr = n3\nwhile curr:\n    result.append(str(curr.data))\n    curr = curr.prev\nprint('Backward:', ' '.join(result))",
+      },
+      exerciseCpp: {
+        prompt: "Create doubly linked list 10↔20↔30. Print forward then backward.",
+        promptZh: "创建双向链表 10↔20↔30，正向后反向打印。",
+        starterCode: "#include <iostream>\nusing namespace std;\n\nstruct DNode {\n    int data;\n    DNode* prev;\n    DNode* next;\n    DNode(int d) : data(d), prev(nullptr), next(nullptr) {}\n};\n\nint main() {\n    // Create and link nodes\n\n    // Print forward then backward\n\n    return 0;\n}",
+        expectedOutput: "Forward: 10 20 30\nBackward: 30 20 10",
+        hint: "Set both ->next and ->prev. Traverse from head forward, from tail backward.",
+        hintZh: "设置 ->next 和 ->prev。从头正向遍历，从尾反向遍历。",
+        solution: "#include <iostream>\nusing namespace std;\nstruct DNode {\n    int data; DNode* prev; DNode* next;\n    DNode(int d) : data(d), prev(nullptr), next(nullptr) {}\n};\nint main() {\n    DNode* n1=new DNode(10); DNode* n2=new DNode(20); DNode* n3=new DNode(30);\n    n1->next=n2; n2->prev=n1; n2->next=n3; n3->prev=n2;\n    cout<<\"Forward:\"; DNode* c=n1; while(c){cout<<\" \"<<c->data; c=c->next;} cout<<endl;\n    cout<<\"Backward:\"; c=n3; while(c){cout<<\" \"<<c->data; c=c->prev;} cout<<endl;\n    return 0;\n}",
+        language: "cpp",
+      },
     },
     {
       type: "quiz",
@@ -978,6 +1070,14 @@ int main() {
         hint: "Start at tail, follow .prev until None. 从 tail 开始，沿 .prev 走到 None。",
         solution: "class DNode:\n    def __init__(self, data):\n        self.data = data\n        self.prev = None\n        self.next = None\n\nnodes = [DNode(i) for i in range(1, 6)]\nfor i in range(len(nodes)-1):\n    nodes[i].next = nodes[i+1]\n    nodes[i+1].prev = nodes[i]\n\ntail = nodes[-1]\ncurrent = tail\nwhile current:\n    print(current.data)\n    current = current.prev",
         expectedOutput: "5\n4\n3\n2\n1",
+      },
+      challengeCpp: {
+        title: "🔄 Reverse Traversal · 反向遍历",
+        description: "Traverse a doubly linked list backwards.\n反向遍历双向链表。",
+        starterCode: "#include <iostream>\nusing namespace std;\nstruct DNode { int data; DNode* prev; DNode* next; DNode(int d):data(d),prev(nullptr),next(nullptr){} };\nint main() {\n    DNode* n1=new DNode(10); DNode* n2=new DNode(20); DNode* n3=new DNode(30);\n    n1->next=n2; n2->prev=n1; n2->next=n3; n3->prev=n2;\n    // Print backward from n3\n    return 0;\n}",
+        hint: "Start from tail, follow prev pointers. 从尾部开始沿 prev 遍历。",
+        solution: "#include <iostream>\nusing namespace std;\nstruct DNode { int data; DNode* prev; DNode* next; DNode(int d):data(d),prev(nullptr),next(nullptr){} };\nint main() {\n    DNode* n1=new DNode(10); DNode* n2=new DNode(20); DNode* n3=new DNode(30);\n    n1->next=n2; n2->prev=n1; n2->next=n3; n3->prev=n2;\n    DNode* c=n3; while(c){cout<<c->data<<endl; c=c->prev;} return 0;\n}",
+        expectedOutput: "30\n20\n10",
       },
     },
     {
@@ -1157,6 +1257,25 @@ int main() {
     plates.pop();  // Empty!
     return 0;
 }`,
+      exercise: {
+        prompt: "Implement a stack using a list. Push 10, 20, 30, pop twice printing each, then print remaining stack.",
+        promptZh: "用列表实现栈。压入10、20、30，弹出两次打印，再打印剩余栈。",
+        starterCode: "stack = []\n\n# Push 10, 20, 30\n\n# Pop twice and print each\n\n# Print remaining\n",
+        expectedOutput: "30\n20\n[10]",
+        hint: "Use stack.append() to push, stack.pop() to pop. Pop returns the removed item.",
+        hintZh: "用 stack.append() 压入，stack.pop() 弹出。pop 返回被移除的元素。",
+        solution: "stack = []\nstack.append(10)\nstack.append(20)\nstack.append(30)\nprint(stack.pop())\nprint(stack.pop())\nprint(stack)",
+      },
+      exerciseCpp: {
+        prompt: "Use std::stack to push 10, 20, 30, pop twice printing each, then print remaining top.",
+        promptZh: "用 std::stack 压入10、20、30，弹出两次打印，再打印剩余栈顶。",
+        starterCode: "#include <iostream>\n#include <stack>\nusing namespace std;\n\nint main() {\n    stack<int> s;\n    // Push 10, 20, 30\n\n    // Pop twice and print\n\n    // Print remaining top\n\n    return 0;\n}",
+        expectedOutput: "30\n20\n10",
+        hint: "Use s.push(), s.top() to peek, s.pop() to remove. C++ pop() doesn't return!",
+        hintZh: "用 s.push() 压入，s.top() 查看栈顶，s.pop() 移除。C++ pop() 不返回值！",
+        solution: "#include <iostream>\n#include <stack>\nusing namespace std;\nint main() {\n    stack<int> s;\n    s.push(10); s.push(20); s.push(30);\n    cout << s.top() << endl; s.pop();\n    cout << s.top() << endl; s.pop();\n    cout << s.top() << endl;\n    return 0;\n}",
+        language: "cpp",
+      },
     },
     {
       type: "code",
@@ -1269,6 +1388,25 @@ int main() {
     browser.forward();    // youtube.com
     return 0;
 }`,
+      exercise: {
+        prompt: "Simulate browser history: visit pages A, B, C, then go back twice. Print current page after each back.",
+        promptZh: "模拟浏览器历史：访问 A、B、C，然后后退两次。每次后退后打印当前页面。",
+        starterCode: "history = []\n\n# Visit A, B, C\n\n# Go back twice and print current page each time\n",
+        expectedOutput: "Back to: B\nBack to: A",
+        hint: "Push each page. Pop removes current page, then top of stack is where you go back to.",
+        hintZh: "压入每个页面。弹出移除当前页面，栈顶就是回退到的页面。",
+        solution: "history = []\nhistory.append('A')\nhistory.append('B')\nhistory.append('C')\nhistory.pop()\nprint('Back to:', history[-1])\nhistory.pop()\nprint('Back to:', history[-1])",
+      },
+      exerciseCpp: {
+        prompt: "Simulate browser history: visit A, B, C, go back twice, print current after each.",
+        promptZh: "模拟浏览器历史：访问 A、B、C，后退两次，每次打印当前页面。",
+        starterCode: "#include <iostream>\n#include <stack>\n#include <string>\nusing namespace std;\n\nint main() {\n    stack<string> history;\n    // Visit A, B, C then go back twice\n\n    return 0;\n}",
+        expectedOutput: "Back to: B\nBack to: A",
+        hint: "Push pages, pop current, top() gives previous page.",
+        hintZh: "压入页面，弹出当前，top() 给出上一页面。",
+        solution: "#include <iostream>\n#include <stack>\n#include <string>\nusing namespace std;\nint main() {\n    stack<string> history;\n    history.push(\"A\"); history.push(\"B\"); history.push(\"C\");\n    history.pop(); cout << \"Back to: \" << history.top() << endl;\n    history.pop(); cout << \"Back to: \" << history.top() << endl;\n    return 0;\n}",
+        language: "cpp",
+      },
     },
     {
       type: "quiz",
@@ -1351,6 +1489,14 @@ int main() {
         starterCode: "def reverse_string(s):\n    stack = []\n    # Push each character\n    # 压入每个字符\n    \n    # Pop all characters to build reversed string\n    # 弹出所有字符构建反转字符串\n    result = \"\"\n    \n    return result\n\nprint(reverse_string(\"hello\"))  # Should print: olleh",
         hint: "Loop through string to push, then while stack is not empty, pop and add to result. 循环字符串压入，然后循环弹出拼接结果。",
         solution: "def reverse_string(s):\n    stack = []\n    for char in s:\n        stack.append(char)\n    result = \"\"\n    while stack:\n        result += stack.pop()\n    return result\n\nprint(reverse_string(\"hello\"))",
+        expectedOutput: "olleh",
+      },
+      challengeCpp: {
+        title: "🔤 Reverse a String with a Stack · 用栈反转字符串",
+        description: "Use a stack to reverse the string 'hello'.\n用栈反转字符串 'hello'。",
+        starterCode: "#include <iostream>\n#include <stack>\n#include <string>\nusing namespace std;\nint main() {\n    string s = \"hello\";\n    stack<char> st;\n    // Push all chars, pop to reverse\n    return 0;\n}",
+        hint: "Push each char, pop all to build reversed string. 压入所有字符，全部弹出。",
+        solution: "#include <iostream>\n#include <stack>\n#include <string>\nusing namespace std;\nint main() {\n    string s=\"hello\"; stack<char> st;\n    for(char c:s) st.push(c);\n    string r; while(!st.empty()){r+=st.top();st.pop();}\n    cout<<r<<endl; return 0;\n}",
         expectedOutput: "olleh",
       },
     },
@@ -1478,6 +1624,25 @@ int main() {
     }
     return 0;
 }`,
+      exercise: {
+        prompt: "Write a function to check if parentheses are balanced. Test with '(())' and '(()'.",
+        promptZh: "写函数检查括号是否匹配。用 '(())' 和 '(()' 测试。",
+        starterCode: "def is_balanced(s):\n    stack = []\n    for char in s:\n        pass  # Your code here\n    return len(stack) == 0\n\nprint(is_balanced('(())'))\nprint(is_balanced('(()'))",
+        expectedOutput: "True\nFalse",
+        hint: "Push '(' onto stack. On ')', pop from stack. If empty when popping, it's unbalanced.",
+        hintZh: "遇到'('压入栈，遇到')'弹出。弹出时栈为空则不匹配。",
+        solution: "def is_balanced(s):\n    stack = []\n    for char in s:\n        if char == '(':\n            stack.append(char)\n        elif char == ')':\n            if not stack:\n                return False\n            stack.pop()\n    return len(stack) == 0\n\nprint(is_balanced('(())'))\nprint(is_balanced('(()'))",
+      },
+      exerciseCpp: {
+        prompt: "Check if parentheses are balanced. Test with '(())' and '(()'.",
+        promptZh: "检查括号是否匹配。用 '(())' 和 '(()' 测试。",
+        starterCode: "#include <iostream>\n#include <stack>\n#include <string>\nusing namespace std;\n\nbool isBalanced(string s) {\n    stack<char> st;\n    // Your code\n    return st.empty();\n}\n\nint main() {\n    cout << (isBalanced(\"(())\") ? \"True\" : \"False\") << endl;\n    cout << (isBalanced(\"((\") ? \"True\" : \"False\") << endl;\n    return 0;\n}",
+        expectedOutput: "True\nFalse",
+        hint: "Push '(' chars, pop on ')'. If stack empty when seeing ')', return false.",
+        hintZh: "遇到'('压入，遇到')'弹出。弹出时栈为空则返回 false。",
+        solution: "#include <iostream>\n#include <stack>\n#include <string>\nusing namespace std;\nbool isBalanced(string s) {\n    stack<char> st;\n    for (char c : s) {\n        if (c=='(') st.push(c);\n        else if (c==')') { if (st.empty()) return false; st.pop(); }\n    }\n    return st.empty();\n}\nint main() {\n    cout << (isBalanced(\"(())\") ? \"True\" : \"False\") << endl;\n    cout << (isBalanced(\"((\") ? \"True\" : \"False\") << endl;\n    return 0;\n}",
+        language: "cpp",
+      },
     },
     {
       type: "code",
@@ -1592,6 +1757,25 @@ int main() {
     cout << "\\nFinal: '" << editor.getText() << "'" << endl;
     return 0;
 }`,
+      exercise: {
+        prompt: "Simulate undo/redo: perform actions A, B, C. Undo twice, redo once. Print the state after each operation.",
+        promptZh: "模拟撤销/重做：执行操作 A、B、C。撤销两次，重做一次。每次操作后打印状态。",
+        starterCode: "undo_stack = []\nredo_stack = []\n\n# Perform A, B, C\n\n# Undo twice\n\n# Redo once\n",
+        expectedOutput: "Undo: C\nUndo: B\nRedo: B\nCurrent: ['A', 'B']",
+        hint: "Undo: pop from undo_stack, push to redo_stack. Redo: reverse.",
+        hintZh: "撤销：从 undo_stack 弹出，压入 redo_stack。重做：反向操作。",
+        solution: "undo_stack = []\nredo_stack = []\nundo_stack.append('A')\nundo_stack.append('B')\nundo_stack.append('C')\nitem = undo_stack.pop(); redo_stack.append(item); print(f'Undo: {item}')\nitem = undo_stack.pop(); redo_stack.append(item); print(f'Undo: {item}')\nitem = redo_stack.pop(); undo_stack.append(item); print(f'Redo: {item}')\nprint(f'Current: {undo_stack}')",
+      },
+      exerciseCpp: {
+        prompt: "Simulate undo/redo with two stacks. Actions A, B, C, undo twice, redo once.",
+        promptZh: "用两个栈模拟撤销/重做。操作 A、B、C，撤销两次，重做一次。",
+        starterCode: "#include <iostream>\n#include <stack>\n#include <string>\nusing namespace std;\n\nint main() {\n    stack<string> undoStack, redoStack;\n    // Perform actions, undo, redo\n\n    return 0;\n}",
+        expectedOutput: "Undo: C\nUndo: B\nRedo: B",
+        hint: "Pop from undo, push to redo. For redo, reverse the operation.",
+        hintZh: "从 undo 弹出压入 redo。重做时反向操作。",
+        solution: "#include <iostream>\n#include <stack>\n#include <string>\nusing namespace std;\nint main() {\n    stack<string> u, r;\n    u.push(\"A\"); u.push(\"B\"); u.push(\"C\");\n    string item = u.top(); u.pop(); r.push(item); cout<<\"Undo: \"<<item<<endl;\n    item = u.top(); u.pop(); r.push(item); cout<<\"Undo: \"<<item<<endl;\n    item = r.top(); r.pop(); u.push(item); cout<<\"Redo: \"<<item<<endl;\n    return 0;\n}",
+        language: "cpp",
+      },
     },
     {
       type: "quiz",
@@ -1675,6 +1859,14 @@ int main() {
         hint: "Keep a parallel stack that always has the current minimum on top. When pushing, push min(val, current_min). 维护一个平行栈，栈顶始终是当前最小值。",
         solution: "class MinStack:\n    def __init__(self):\n        self.stack = []\n        self.min_stack = []\n\n    def push(self, val):\n        self.stack.append(val)\n        if not self.min_stack or val <= self.min_stack[-1]:\n            self.min_stack.append(val)\n        else:\n            self.min_stack.append(self.min_stack[-1])\n\n    def pop(self):\n        self.stack.pop()\n        self.min_stack.pop()\n\n    def get_min(self):\n        return self.min_stack[-1]\n\ns = MinStack()\ns.push(5)\ns.push(3)\ns.push(7)\nprint(s.get_min())\ns.pop()\nprint(s.get_min())\ns.pop()\nprint(s.get_min())",
         expectedOutput: "3\n3\n5",
+      },
+      challengeCpp: {
+        title: "🔢 Min Stack · 最小值栈",
+        description: "Implement a stack that supports getMin() in O(1).\n实现 O(1) getMin() 的栈。",
+        starterCode: "#include <iostream>\n#include <stack>\nusing namespace std;\nclass MinStack {\n    stack<int> s, minS;\npublic:\n    void push(int v) { /* Your code */ }\n    int pop() { return 0; }\n    int getMin() { return minS.top(); }\n};\nint main() {\n    MinStack ms;\n    ms.push(5); ms.push(2); ms.push(7); ms.push(1);\n    cout << ms.getMin() << endl;\n    ms.pop();\n    cout << ms.getMin() << endl;\n    return 0;\n}",
+        hint: "Keep parallel min stack. Push to minS when val<=minS.top(). 维护平行最小值栈。",
+        solution: "#include <iostream>\n#include <stack>\nusing namespace std;\nclass MinStack {\n    stack<int> s, minS;\npublic:\n    void push(int v){s.push(v);if(minS.empty()||v<=minS.top())minS.push(v);}\n    int pop(){int v=s.top();s.pop();if(v==minS.top())minS.pop();return v;}\n    int getMin(){return minS.top();}\n};\nint main(){MinStack ms; ms.push(5);ms.push(2);ms.push(7);ms.push(1);\n    cout<<ms.getMin()<<endl; ms.pop(); cout<<ms.getMin()<<endl; return 0;}",
+        expectedOutput: "1\n2",
       },
     },
   ],
@@ -1843,6 +2035,25 @@ int main() {
     line.dequeueItem();  // Diana
     return 0;
 }`,
+      exercise: {
+        prompt: "Use a deque as a queue. Enqueue A, B, C. Dequeue twice printing each. Print remaining.",
+        promptZh: "用 deque 作队列。入队 A、B、C。出队两次打印。打印剩余。",
+        starterCode: "from collections import deque\nqueue = deque()\n\n# Enqueue A, B, C\n\n# Dequeue twice and print\n\n# Print remaining\n",
+        expectedOutput: "A\nB\n['C']",
+        hint: "Use queue.append() to enqueue, queue.popleft() to dequeue.",
+        hintZh: "用 queue.append() 入队，queue.popleft() 出队。",
+        solution: "from collections import deque\nqueue = deque()\nqueue.append('A')\nqueue.append('B')\nqueue.append('C')\nprint(queue.popleft())\nprint(queue.popleft())\nprint(list(queue))",
+      },
+      exerciseCpp: {
+        prompt: "Use std::queue. Enqueue A, B, C, dequeue twice printing each, print remaining.",
+        promptZh: "用 std::queue。入队 A、B、C，出队两次打印，打印剩余。",
+        starterCode: "#include <iostream>\n#include <queue>\n#include <string>\nusing namespace std;\n\nint main() {\n    queue<string> q;\n    // Enqueue A, B, C\n\n    // Dequeue twice and print\n\n    // Print remaining\n\n    return 0;\n}",
+        expectedOutput: "A\nB\nC",
+        hint: "Use q.push(), q.front() to peek, q.pop() to remove.",
+        hintZh: "用 q.push() 入队，q.front() 查看队首，q.pop() 出队。",
+        solution: "#include <iostream>\n#include <queue>\n#include <string>\nusing namespace std;\nint main() {\n    queue<string> q;\n    q.push(\"A\"); q.push(\"B\"); q.push(\"C\");\n    cout << q.front() << endl; q.pop();\n    cout << q.front() << endl; q.pop();\n    cout << q.front() << endl;\n    return 0;\n}",
+        language: "cpp",
+      },
     },
     {
       type: "quiz",
@@ -1925,6 +2136,14 @@ int main() {
         starterCode: "from collections import deque\n\ndef hot_potato(names, num):\n    q = deque(names)\n    while len(q) > 1:\n        # Pass the potato 'num' times\n        # (rotate the queue)\n        # Then eliminate the holder\n        pass\n    return q[0]\n\nplayers = [\"Alice\", \"Bob\", \"Charlie\", \"Diana\", \"Eve\"]\nwinner = hot_potato(players, 3)\nprint(f\"Winner: {winner}\")",
         hint: "To 'pass', dequeue from front and enqueue to back. After num passes, dequeue and don't re-add! 传递=从前取出放到后面。传完后取出不放回！",
         solution: "from collections import deque\n\ndef hot_potato(names, num):\n    q = deque(names)\n    while len(q) > 1:\n        for _ in range(num):\n            q.append(q.popleft())\n        eliminated = q.popleft()\n        print(f\"Eliminated: {eliminated}\")\n    return q[0]\n\nplayers = [\"Alice\", \"Bob\", \"Charlie\", \"Diana\", \"Eve\"]\nwinner = hot_potato(players, 3)\nprint(f\"Winner: {winner}\")",
+      },
+      challengeCpp: {
+        title: "🔥 Hot Potato Game · 烫手山芋游戏",
+        description: "Simulate hot potato with a queue. Eliminate every 3rd person.\n用队列模拟烫手山芋。",
+        starterCode: "#include <iostream>\n#include <queue>\n#include <string>\nusing namespace std;\nint main() {\n    queue<string> q;\n    for(string n:{\"Alice\",\"Bob\",\"Carol\",\"Dave\",\"Eve\"}) q.push(n);\n    // Eliminate every 3rd person\n    cout << \"Winner: \" << q.front() << endl;\n    return 0;\n}",
+        hint: "Rotate (dequeue+enqueue) passes-1 times, then dequeue to eliminate. 循环传递后淘汰。",
+        solution: "#include <iostream>\n#include <queue>\n#include <string>\nusing namespace std;\nint main(){\n    queue<string> q; for(string n:{\"Alice\",\"Bob\",\"Carol\",\"Dave\",\"Eve\"}) q.push(n);\n    while(q.size()>1){for(int i=0;i<2;i++){q.push(q.front());q.pop();} q.pop();}\n    cout<<\"Winner: \"<<q.front()<<endl; return 0;\n}",
+        expectedOutput: "Winner: Dave",
       },
     },
   ],
@@ -2033,6 +2252,25 @@ int main() {
     // 📦 Box: "The heap always gives us the highest-priority item!"
     return 0;
 }`,
+      exercise: {
+        prompt: "Use heapq to create a min-heap. Push 5, 1, 3, 7, 2. Pop all and print in order.",
+        promptZh: "用 heapq 创建最小堆。压入 5、1、3、7、2。按顺序弹出并打印。",
+        starterCode: "import heapq\nheap = []\n\n# Push 5, 1, 3, 7, 2\n\n# Pop all and print\n",
+        expectedOutput: "1\n2\n3\n5\n7",
+        hint: "Use heapq.heappush() to add and heapq.heappop() to remove the smallest.",
+        hintZh: "用 heapq.heappush() 添加，heapq.heappop() 移除最小值。",
+        solution: "import heapq\nheap = []\nfor v in [5, 1, 3, 7, 2]:\n    heapq.heappush(heap, v)\nwhile heap:\n    print(heapq.heappop(heap))",
+      },
+      exerciseCpp: {
+        prompt: "Use std::priority_queue (max-heap). Push 5, 1, 3, 7, 2. Pop all and print.",
+        promptZh: "用 std::priority_queue（最大堆）。压入 5、1、3、7、2。弹出并打印。",
+        starterCode: "#include <iostream>\n#include <queue>\nusing namespace std;\n\nint main() {\n    priority_queue<int> pq;\n    // Push and pop all\n\n    return 0;\n}",
+        expectedOutput: "7\n5\n3\n2\n1",
+        hint: "C++ priority_queue is a MAX-heap by default. Use pq.push(), pq.top(), pq.pop().",
+        hintZh: "C++ priority_queue 默认是最大堆。用 pq.push()、pq.top()、pq.pop()。",
+        solution: "#include <iostream>\n#include <queue>\nusing namespace std;\nint main() {\n    priority_queue<int> pq;\n    for (int v : {5,1,3,7,2}) pq.push(v);\n    while (!pq.empty()) { cout << pq.top() << endl; pq.pop(); }\n    return 0;\n}",
+        language: "cpp",
+      },
     },
     {
       type: "code",
@@ -2119,6 +2357,25 @@ int main() {
     cout << "\\n🌳 Root: Heaps give us efficient sorting for free!" << endl;
     return 0;
 }`,
+      exercise: {
+        prompt: "Given max-heap [90,70,80,30,50,60], print parent, left child, and right child of index 1 (value 70).",
+        promptZh: "给定最大堆 [90,70,80,30,50,60]，打印索引1（值70）的父、左子、右子。",
+        starterCode: "heap = [90, 70, 80, 30, 50, 60]\ni = 1\n\n# parent = (i-1)//2, left = 2*i+1, right = 2*i+2\n# Print parent, left child, right child values\n",
+        expectedOutput: "Parent: 90\nLeft child: 50\nRight child: 60",
+        hint: "Parent = (i-1)//2, Left = 2*i+1, Right = 2*i+2.",
+        hintZh: "父 = (i-1)//2，左子 = 2*i+1，右子 = 2*i+2。",
+        solution: "heap = [90, 70, 80, 30, 50, 60]\ni = 1\nprint(f'Parent: {heap[(i-1)//2]}')\nprint(f'Left child: {heap[2*i+1]}')\nprint(f'Right child: {heap[2*i+2]}')",
+      },
+      exerciseCpp: {
+        prompt: "Given heap {90,70,80,30,50,60}, print parent, left child, right child of index 1.",
+        promptZh: "给定堆 {90,70,80,30,50,60}，打印索引1的父、左子、右子。",
+        starterCode: "#include <iostream>\n#include <vector>\nusing namespace std;\n\nint main() {\n    vector<int> heap = {90, 70, 80, 30, 50, 60};\n    int i = 1;\n    // Print parent, left child, right child\n\n    return 0;\n}",
+        expectedOutput: "Parent: 90\nLeft child: 50\nRight child: 60",
+        hint: "Parent = (i-1)/2, Left = 2*i+1, Right = 2*i+2.",
+        hintZh: "父 = (i-1)/2，左子 = 2*i+1，右子 = 2*i+2。",
+        solution: "#include <iostream>\n#include <vector>\nusing namespace std;\nint main() {\n    vector<int> heap = {90,70,80,30,50,60};\n    int i = 1;\n    cout << \"Parent: \" << heap[(i-1)/2] << endl;\n    cout << \"Left child: \" << heap[2*i+1] << endl;\n    cout << \"Right child: \" << heap[2*i+2] << endl;\n    return 0;\n}",
+        language: "cpp",
+      },
     },
     {
       type: "quiz",
@@ -2202,6 +2459,14 @@ int main() {
         hint: "Use heapq.nlargest(3, nums) 用 heapq.nlargest(3, nums)",
         solution: "import heapq\n\nnums = [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5]\nresult = heapq.nlargest(3, nums)\nprint(result)",
         expectedOutput: "[9, 6, 5]",
+      },
+      challengeCpp: {
+        title: "🏆 Top K Elements · 前K个最大元素",
+        description: "Find the top 3 largest elements using a heap.\n用堆找最大的3个元素。",
+        starterCode: "#include <iostream>\n#include <vector>\n#include <queue>\nusing namespace std;\nint main() {\n    vector<int> nums={3,1,5,12,2,11,7}; int k=3;\n    // Find top k\n    return 0;\n}",
+        hint: "Use min-heap of size k. If size > k, pop smallest. 用大小k的最小堆。",
+        solution: "#include <iostream>\n#include <vector>\n#include <queue>\nusing namespace std;\nint main(){\n    vector<int> nums={3,1,5,12,2,11,7}; int k=3;\n    priority_queue<int,vector<int>,greater<int>> pq;\n    for(int n:nums){pq.push(n);if(pq.size()>k)pq.pop();}\n    vector<int> r; while(!pq.empty()){r.push_back(pq.top());pq.pop();}\n    for(int x:r) cout<<x<<\" \"; cout<<endl; return 0;\n}",
+        expectedOutput: "7 11 12",
       },
     },
   ],
@@ -2380,6 +2645,25 @@ int main() {
     cout << endl;
     return 0;
 }`,
+      exercise: {
+        prompt: "Build a binary tree: root=1, left=2, right=3, left.left=4, left.right=5. Print inorder traversal.",
+        promptZh: "构建二叉树：根=1，左=2，右=3，左左=4，左右=5。打印中序遍历。",
+        starterCode: "class TreeNode:\n    def __init__(self, val):\n        self.val = val\n        self.left = None\n        self.right = None\n\ndef inorder(node):\n    if node is None:\n        return\n    # left, print, right\n\nroot = TreeNode(1)\n# Build tree and call inorder\n\ninorder(root)",
+        expectedOutput: "4\n2\n5\n1\n3",
+        hint: "Inorder = recurse left, print current, recurse right.",
+        hintZh: "中序 = 递归左子树，打印当前，递归右子树。",
+        solution: "class TreeNode:\n    def __init__(self, val):\n        self.val = val\n        self.left = None\n        self.right = None\n\ndef inorder(node):\n    if node is None: return\n    inorder(node.left)\n    print(node.val)\n    inorder(node.right)\n\nroot = TreeNode(1)\nroot.left = TreeNode(2)\nroot.right = TreeNode(3)\nroot.left.left = TreeNode(4)\nroot.left.right = TreeNode(5)\ninorder(root)",
+      },
+      exerciseCpp: {
+        prompt: "Build the same binary tree and print inorder traversal.",
+        promptZh: "构建同样的二叉树并打印中序遍历。",
+        starterCode: "#include <iostream>\nusing namespace std;\nstruct TreeNode {\n    int val; TreeNode* left; TreeNode* right;\n    TreeNode(int v) : val(v), left(nullptr), right(nullptr) {}\n};\nvoid inorder(TreeNode* node) {\n    // Your code\n}\nint main() {\n    // Build tree and call inorder\n    return 0;\n}",
+        expectedOutput: "4\n2\n5\n1\n3",
+        hint: "If null return, recurse left, print, recurse right.",
+        hintZh: "空则返回，递归左，打印，递归右。",
+        solution: "#include <iostream>\nusing namespace std;\nstruct TreeNode {\n    int val; TreeNode* left; TreeNode* right;\n    TreeNode(int v) : val(v), left(nullptr), right(nullptr) {}\n};\nvoid inorder(TreeNode* n) {\n    if(!n) return;\n    inorder(n->left); cout<<n->val<<endl; inorder(n->right);\n}\nint main() {\n    TreeNode* r=new TreeNode(1);\n    r->left=new TreeNode(2); r->right=new TreeNode(3);\n    r->left->left=new TreeNode(4); r->left->right=new TreeNode(5);\n    inorder(r); return 0;\n}",
+        language: "cpp",
+      },
     },
     {
       type: "quiz",
@@ -2463,6 +2747,14 @@ int main() {
         hint: "Height = 1 + max(height of left, height of right). Base case: None → -1. 高度 = 1 + max(左高度, 右高度)。",
         solution: "class TreeNode:\n    def __init__(self, val):\n        self.value = val\n        self.left = None\n        self.right = None\n\ndef tree_height(node):\n    if not node:\n        return -1\n    return 1 + max(tree_height(node.left), tree_height(node.right))\n\nroot = TreeNode(1)\nroot.left = TreeNode(2)\nroot.right = TreeNode(3)\nroot.left.left = TreeNode(4)\nprint(tree_height(root))",
         expectedOutput: "2",
+      },
+      challengeCpp: {
+        title: "📏 Tree Height · 树的高度",
+        description: "Calculate the height of a binary tree.\n计算二叉树高度。",
+        starterCode: "#include <iostream>\n#include <algorithm>\nusing namespace std;\nstruct TreeNode { int val; TreeNode* left; TreeNode* right; TreeNode(int v):val(v),left(nullptr),right(nullptr){} };\nint height(TreeNode* node) { return 0; /* Your code */ }\nint main() {\n    TreeNode* r=new TreeNode(1); r->left=new TreeNode(2); r->right=new TreeNode(3);\n    r->left->left=new TreeNode(4); r->left->right=new TreeNode(5);\n    cout << height(r) << endl; return 0;\n}",
+        hint: "height = 1 + max(height(left), height(right)). Base: null = 0. 高度=1+max(左,右)。",
+        solution: "#include <iostream>\n#include <algorithm>\nusing namespace std;\nstruct TreeNode { int val; TreeNode* left; TreeNode* right; TreeNode(int v):val(v),left(nullptr),right(nullptr){} };\nint height(TreeNode* n){if(!n)return 0;return 1+max(height(n->left),height(n->right));}\nint main(){TreeNode* r=new TreeNode(1);r->left=new TreeNode(2);r->right=new TreeNode(3);\nr->left->left=new TreeNode(4);r->left->right=new TreeNode(5);cout<<height(r)<<endl;return 0;}",
+        expectedOutput: "3",
       },
     },
   ],
@@ -2657,6 +2949,25 @@ int main() {
     cout << "\\n🌳 Root: In-order traversal of a BST = sorted order!" << endl;
     return 0;
 }`,
+      exercise: {
+        prompt: "Insert [50,30,70,20,40] into a BST. Search for 40 (found) and 60 (not found).",
+        promptZh: "将 [50,30,70,20,40] 插入BST。搜索40（找到）和60（未找到）。",
+        starterCode: "class BSTNode:\n    def __init__(self, val):\n        self.val = val\n        self.left = None\n        self.right = None\n\ndef insert(root, val):\n    if root is None: return BSTNode(val)\n    if val < root.val: root.left = insert(root.left, val)\n    else: root.right = insert(root.right, val)\n    return root\n\ndef search(root, val):\n    pass  # Your code\n\nroot = None\nfor v in [50,30,70,20,40]: root = insert(root, v)\nprint(search(root, 40))\nprint(search(root, 60))",
+        expectedOutput: "True\nFalse",
+        hint: "If None return False. If found return True. Else recurse left or right.",
+        hintZh: "为空返回False，找到返回True，否则递归左或右。",
+        solution: "class BSTNode:\n    def __init__(self, val):\n        self.val = val\n        self.left = None\n        self.right = None\n\ndef insert(root, val):\n    if root is None: return BSTNode(val)\n    if val < root.val: root.left = insert(root.left, val)\n    else: root.right = insert(root.right, val)\n    return root\n\ndef search(root, val):\n    if root is None: return False\n    if root.val == val: return True\n    if val < root.val: return search(root.left, val)\n    return search(root.right, val)\n\nroot = None\nfor v in [50,30,70,20,40]: root = insert(root, v)\nprint(search(root, 40))\nprint(search(root, 60))",
+      },
+      exerciseCpp: {
+        prompt: "Insert [50,30,70,20,40] into BST. Search for 40 and 60.",
+        promptZh: "将 [50,30,70,20,40] 插入BST，搜索40和60。",
+        starterCode: "#include <iostream>\nusing namespace std;\nstruct BSTNode {\n    int val; BSTNode* left; BSTNode* right;\n    BSTNode(int v) : val(v), left(nullptr), right(nullptr) {}\n};\nBSTNode* insert(BSTNode* root, int val) {\n    if (!root) return new BSTNode(val);\n    if (val < root->val) root->left = insert(root->left, val);\n    else root->right = insert(root->right, val);\n    return root;\n}\nbool search(BSTNode* root, int val) {\n    // Your code\n    return false;\n}\nint main() {\n    BSTNode* root = nullptr;\n    for (int v : {50,30,70,20,40}) root = insert(root, v);\n    cout << (search(root,40)?\"True\":\"False\") << endl;\n    cout << (search(root,60)?\"True\":\"False\") << endl;\n    return 0;\n}",
+        expectedOutput: "True\nFalse",
+        hint: "If null return false, if found return true, else recurse left/right.",
+        hintZh: "空返回false，找到返回true，否则递归左/右。",
+        solution: "#include <iostream>\nusing namespace std;\nstruct BSTNode {\n    int val; BSTNode* left; BSTNode* right;\n    BSTNode(int v) : val(v), left(nullptr), right(nullptr) {}\n};\nBSTNode* insert(BSTNode* r, int v) {\n    if(!r) return new BSTNode(v);\n    if(v<r->val) r->left=insert(r->left,v); else r->right=insert(r->right,v);\n    return r;\n}\nbool search(BSTNode* r, int v) {\n    if(!r) return false; if(r->val==v) return true;\n    return v<r->val ? search(r->left,v) : search(r->right,v);\n}\nint main() {\n    BSTNode* root=nullptr;\n    for(int v:{50,30,70,20,40}) root=insert(root,v);\n    cout<<(search(root,40)?\"True\":\"False\")<<endl;\n    cout<<(search(root,60)?\"True\":\"False\")<<endl;\n    return 0;\n}",
+        language: "cpp",
+      },
     },
     {
       type: "quiz",
@@ -2740,6 +3051,14 @@ int main() {
         hint: "Min: keep going left. Max: keep going right. 最小值：一直往左。最大值：一直往右。",
         solution: "class BSTNode:\n    def __init__(self, value):\n        self.value = value\n        self.left = None\n        self.right = None\n\ndef find_min(node):\n    while node.left:\n        node = node.left\n    return node.value\n\ndef find_max(node):\n    while node.right:\n        node = node.right\n    return node.value\n\nroot = BSTNode(8)\nroot.left = BSTNode(3)\nroot.right = BSTNode(10)\nroot.left.left = BSTNode(1)\nroot.left.right = BSTNode(6)\nroot.right.right = BSTNode(14)\nprint(find_min(root))\nprint(find_max(root))",
         expectedOutput: "1\n14",
+      },
+      challengeCpp: {
+        title: "🔎 Find Min & Max in BST · 在BST中找最小最大值",
+        description: "Find minimum and maximum values in a BST.\n在BST中找最小和最大值。",
+        starterCode: "#include <iostream>\nusing namespace std;\nstruct BSTNode { int val; BSTNode* left; BSTNode* right; BSTNode(int v):val(v),left(nullptr),right(nullptr){} };\nBSTNode* insert(BSTNode* r,int v){if(!r)return new BSTNode(v);if(v<r->val)r->left=insert(r->left,v);else r->right=insert(r->right,v);return r;}\nint findMin(BSTNode* r){return 0;}\nint findMax(BSTNode* r){return 0;}\nint main(){BSTNode* r=nullptr; for(int v:{50,30,70,20,40,60,80})r=insert(r,v);\n    cout<<\"Min: \"<<findMin(r)<<endl<<\"Max: \"<<findMax(r)<<endl; return 0;}",
+        hint: "Min = leftmost, Max = rightmost in BST. 最小在最左，最大在最右。",
+        solution: "#include <iostream>\nusing namespace std;\nstruct BSTNode{int val;BSTNode*left;BSTNode*right;BSTNode(int v):val(v),left(nullptr),right(nullptr){}};\nBSTNode*insert(BSTNode*r,int v){if(!r)return new BSTNode(v);if(v<r->val)r->left=insert(r->left,v);else r->right=insert(r->right,v);return r;}\nint findMin(BSTNode*r){while(r->left)r=r->left;return r->val;}\nint findMax(BSTNode*r){while(r->right)r=r->right;return r->val;}\nint main(){BSTNode*r=nullptr;for(int v:{50,30,70,20,40,60,80})r=insert(r,v);\ncout<<\"Min: \"<<findMin(r)<<endl<<\"Max: \"<<findMax(r)<<endl;return 0;}",
+        expectedOutput: "Min: 20\nMax: 80",
       },
     },
   ],
@@ -2884,6 +3203,25 @@ int main() {
     cout << "\\nTotal files: " << countFiles(root) << endl;
     return 0;
 }`,
+      exercise: {
+        prompt: "Build a file system tree: root '/', children 'home' and 'etc', 'home' has child 'user'. Print the tree.",
+        promptZh: "构建文件系统树：根'/'，子'home'和'etc'，'home'有子'user'。打印树。",
+        starterCode: "class FSNode:\n    def __init__(self, name):\n        self.name = name\n        self.children = []\n\ndef print_tree(node, indent=0):\n    pass  # Your code\n\nroot = FSNode('/')\n# Build and print\nprint_tree(root)",
+        expectedOutput: "/\n  home\n    user\n  etc",
+        hint: "Print with indentation, then recurse on children with increased indent.",
+        hintZh: "带缩进打印，然后对子节点增加缩进递归。",
+        solution: "class FSNode:\n    def __init__(self, name):\n        self.name = name\n        self.children = []\n\ndef print_tree(node, indent=0):\n    print('  ' * indent + node.name)\n    for child in node.children:\n        print_tree(child, indent + 1)\n\nroot = FSNode('/')\nhome = FSNode('home')\netc = FSNode('etc')\nuser = FSNode('user')\nroot.children = [home, etc]\nhome.children = [user]\nprint_tree(root)",
+      },
+      exerciseCpp: {
+        prompt: "Build file system tree: root '/', children 'home' and 'etc', home has 'user'. Print tree.",
+        promptZh: "构建文件系统树并打印。",
+        starterCode: "#include <iostream>\n#include <vector>\n#include <string>\nusing namespace std;\nstruct FSNode {\n    string name;\n    vector<FSNode*> children;\n    FSNode(string n) : name(n) {}\n};\nvoid printTree(FSNode* node, int indent=0) {\n    // Your code\n}\nint main() {\n    // Build tree and print\n    return 0;\n}",
+        expectedOutput: "/\n  home\n    user\n  etc",
+        hint: "Print name with indent spaces, recurse on children with indent+1.",
+        hintZh: "带缩进打印名称，对子节点用 indent+1 递归。",
+        solution: "#include <iostream>\n#include <vector>\n#include <string>\nusing namespace std;\nstruct FSNode {\n    string name; vector<FSNode*> children;\n    FSNode(string n) : name(n) {}\n};\nvoid printTree(FSNode* node, int indent=0) {\n    for(int i=0;i<indent;i++) cout<<\"  \";\n    cout<<node->name<<endl;\n    for(auto c:node->children) printTree(c,indent+1);\n}\nint main() {\n    FSNode* root=new FSNode(\"/\");\n    FSNode* home=new FSNode(\"home\");\n    FSNode* etc=new FSNode(\"etc\");\n    FSNode* user=new FSNode(\"user\");\n    root->children={home,etc}; home->children={user};\n    printTree(root); return 0;\n}",
+        language: "cpp",
+      },
     },
     {
       type: "code",
@@ -2983,6 +3321,25 @@ int main() {
     // 🌳 Root: "Compilers build expression trees to evaluate your code!"
     return 0;
 }`,
+      exercise: {
+        prompt: "Build an expression tree for (3+4)*2. Evaluate it and print the result.",
+        promptZh: "为 (3+4)*2 构建表达式树，求值并打印结果。",
+        starterCode: "class ExprNode:\n    def __init__(self, val):\n        self.val = val\n        self.left = None\n        self.right = None\n\ndef evaluate(node):\n    pass  # Your code\n\n# Build tree: * at root, + on left, 2 on right\n# + has children 3 and 4\n\nprint(evaluate(root))",
+        expectedOutput: "14",
+        hint: "Leaf = return int(val). Operator = evaluate children, apply op.",
+        hintZh: "叶节点返回数值。运算符节点计算子节点并运算。",
+        solution: "class ExprNode:\n    def __init__(self, val):\n        self.val = val\n        self.left = None\n        self.right = None\n\ndef evaluate(node):\n    if not node.left and not node.right: return int(node.val)\n    l, r = evaluate(node.left), evaluate(node.right)\n    if node.val == '+': return l + r\n    if node.val == '*': return l * r\n\nroot = ExprNode('*')\nroot.left = ExprNode('+')\nroot.right = ExprNode('2')\nroot.left.left = ExprNode('3')\nroot.left.right = ExprNode('4')\nprint(evaluate(root))",
+      },
+      exerciseCpp: {
+        prompt: "Build expression tree for (3+4)*2, evaluate it.",
+        promptZh: "为 (3+4)*2 构建表达式树并求值。",
+        starterCode: "#include <iostream>\n#include <string>\nusing namespace std;\nstruct ExprNode {\n    string val; ExprNode* left; ExprNode* right;\n    ExprNode(string v) : val(v), left(nullptr), right(nullptr) {}\n};\nint evaluate(ExprNode* node) {\n    // Your code\n    return 0;\n}\nint main() {\n    // Build and evaluate\n    return 0;\n}",
+        expectedOutput: "14",
+        hint: "Leaf: stoi(val). Operator: evaluate children, apply op.",
+        hintZh: "叶节点用 stoi(val)。运算符节点求子节点值并运算。",
+        solution: "#include <iostream>\n#include <string>\nusing namespace std;\nstruct ExprNode {\n    string val; ExprNode* left; ExprNode* right;\n    ExprNode(string v) : val(v), left(nullptr), right(nullptr) {}\n};\nint evaluate(ExprNode* n) {\n    if(!n->left&&!n->right) return stoi(n->val);\n    int l=evaluate(n->left), r=evaluate(n->right);\n    if(n->val==\"+\") return l+r;\n    if(n->val==\"*\") return l*r;\n    return 0;\n}\nint main() {\n    ExprNode* root=new ExprNode(\"*\");\n    root->left=new ExprNode(\"+\"); root->right=new ExprNode(\"2\");\n    root->left->left=new ExprNode(\"3\"); root->left->right=new ExprNode(\"4\");\n    cout<<evaluate(root)<<endl; return 0;\n}",
+        language: "cpp",
+      },
     },
     {
       type: "quiz",
@@ -3066,6 +3423,14 @@ int main() {
         hint: "Base case: None→0, leaf (no children)→1. Otherwise add left+right. 空→0，叶→1，否则左+右。",
         solution: "class TreeNode:\n    def __init__(self, val):\n        self.value = val\n        self.left = None\n        self.right = None\n\ndef count_leaves(node):\n    if not node:\n        return 0\n    if not node.left and not node.right:\n        return 1\n    return count_leaves(node.left) + count_leaves(node.right)\n\nroot = TreeNode(1)\nroot.left = TreeNode(2)\nroot.right = TreeNode(3)\nroot.left.left = TreeNode(4)\nroot.right.right = TreeNode(5)\nprint(count_leaves(root))",
         expectedOutput: "2",
+      },
+      challengeCpp: {
+        title: "🔢 Count Leaves · 计算叶节点数",
+        description: "Count leaf nodes in a binary tree.\n计算二叉树叶节点数。",
+        starterCode: "#include <iostream>\nusing namespace std;\nstruct TreeNode{int val;TreeNode*left;TreeNode*right;TreeNode(int v):val(v),left(nullptr),right(nullptr){}};\nint countLeaves(TreeNode* n){return 0;}\nint main(){TreeNode*r=new TreeNode(1);r->left=new TreeNode(2);r->right=new TreeNode(3);\nr->left->left=new TreeNode(4);r->left->right=new TreeNode(5);cout<<countLeaves(r)<<endl;return 0;}",
+        hint: "Leaf = no children → return 1. Else sum left+right. 无子节点=叶节点。",
+        solution: "#include <iostream>\nusing namespace std;\nstruct TreeNode{int val;TreeNode*left;TreeNode*right;TreeNode(int v):val(v),left(nullptr),right(nullptr){}};\nint countLeaves(TreeNode*n){if(!n)return 0;if(!n->left&&!n->right)return 1;return countLeaves(n->left)+countLeaves(n->right);}\nint main(){TreeNode*r=new TreeNode(1);r->left=new TreeNode(2);r->right=new TreeNode(3);\nr->left->left=new TreeNode(4);r->left->right=new TreeNode(5);cout<<countLeaves(r)<<endl;return 0;}",
+        expectedOutput: "3",
       },
     },
   ],
@@ -3211,6 +3576,25 @@ int main() {
     cout << "}" << endl;
     return 0;
 }`,
+      exercise: {
+        prompt: "Create a dictionary mapping fruits to prices. Add 3 fruits, look up banana, check if grape exists.",
+        promptZh: "创建水果到价格的字典。添加3种水果，查找banana，检查grape是否存在。",
+        starterCode: "prices = {}\n\n# Add apple: 1.5, banana: 0.5, cherry: 3.0\n\n# Look up banana's price\n\n# Check if 'grape' exists\n",
+        expectedOutput: "0.5\nFalse",
+        hint: "Use prices['apple'] = 1.5. Check with 'grape' in prices.",
+        hintZh: "用 prices['apple'] = 1.5。用 'grape' in prices 检查。",
+        solution: "prices = {}\nprices['apple'] = 1.5\nprices['banana'] = 0.5\nprices['cherry'] = 3.0\nprint(prices['banana'])\nprint('grape' in prices)",
+      },
+      exerciseCpp: {
+        prompt: "Use unordered_map for fruit prices. Add 3 fruits, look up banana, check grape.",
+        promptZh: "用 unordered_map 存水果价格。添加3种，查找banana，检查grape。",
+        starterCode: "#include <iostream>\n#include <unordered_map>\n#include <string>\nusing namespace std;\n\nint main() {\n    unordered_map<string, double> prices;\n    // Add and query\n\n    return 0;\n}",
+        expectedOutput: "0.5\ngrape not found",
+        hint: "Use prices[\"apple\"] = 1.5. Check with prices.find(\"grape\") == prices.end().",
+        hintZh: "用 prices[\"apple\"] = 1.5。用 find 检查。",
+        solution: "#include <iostream>\n#include <unordered_map>\n#include <string>\nusing namespace std;\nint main() {\n    unordered_map<string,double> prices;\n    prices[\"apple\"]=1.5; prices[\"banana\"]=0.5; prices[\"cherry\"]=3.0;\n    cout<<prices[\"banana\"]<<endl;\n    cout<<(prices.find(\"grape\")==prices.end()?\"grape not found\":\"found\")<<endl;\n    return 0;\n}",
+        language: "cpp",
+      },
     },
     {
       type: "code",
@@ -3289,6 +3673,25 @@ int main() {
     cout << "🔗 Link: Collisions use chaining — each slot has a linked list!" << endl;
     return 0;
 }`,
+      exercise: {
+        prompt: "Implement a simple hash: sum of ASCII values mod 10. Hash 'cat', 'dog', 'act' and show which collide.",
+        promptZh: "实现简单哈希：ASCII值之和 mod 10。对'cat'、'dog'、'act'哈希，看哪些冲突。",
+        starterCode: "def simple_hash(s):\n    pass  # Return sum of ASCII values mod 10\n\nfor word in ['cat', 'dog', 'act']:\n    print(f'{word} -> bucket {simple_hash(word)}')",
+        expectedOutput: "cat -> bucket 2\ndog -> bucket 4\nact -> bucket 2",
+        hint: "Use sum(ord(c) for c in s) % 10. 'cat' and 'act' have same letters!",
+        hintZh: "用 sum(ord(c) for c in s) % 10。'cat'和'act'有相同字母！",
+        solution: "def simple_hash(s):\n    return sum(ord(c) for c in s) % 10\n\nfor word in ['cat', 'dog', 'act']:\n    print(f'{word} -> bucket {simple_hash(word)}')",
+      },
+      exerciseCpp: {
+        prompt: "Hash function: sum ASCII values mod 10. Hash 'cat', 'dog', 'act'.",
+        promptZh: "哈希函数：ASCII值之和 mod 10。哈希'cat'、'dog'、'act'。",
+        starterCode: "#include <iostream>\n#include <string>\nusing namespace std;\nint simpleHash(string s) {\n    // Your code\n    return 0;\n}\nint main() {\n    for (string w : {\"cat\", \"dog\", \"act\"})\n        cout << w << \" -> bucket \" << simpleHash(w) << endl;\n    return 0;\n}",
+        expectedOutput: "cat -> bucket 2\ndog -> bucket 4\nact -> bucket 2",
+        hint: "Sum each char's int value, mod 10.",
+        hintZh: "将每个字符的整数值求和，mod 10。",
+        solution: "#include <iostream>\n#include <string>\nusing namespace std;\nint simpleHash(string s) {\n    int sum=0; for(char c:s) sum+=c; return sum%10;\n}\nint main() {\n    for(string w:{\"cat\",\"dog\",\"act\"})\n        cout<<w<<\" -> bucket \"<<simpleHash(w)<<endl;\n    return 0;\n}",
+        language: "cpp",
+      },
     },
     {
       type: "quiz",
@@ -3372,6 +3775,14 @@ int main() {
         hint: "For each number, check if (target - number) is already in the dict. If yes, return both indices! 对于每个数，检查 target-num 是否已在字典中。",
         solution: "def two_sum(nums, target):\n    seen = {}\n    for i, num in enumerate(nums):\n        complement = target - num\n        if complement in seen:\n            return (seen[complement], i)\n        seen[num] = i\n    return None\n\nresult = two_sum([2, 7, 11, 15], 9)\nprint(result)",
         expectedOutput: "(0, 1)",
+      },
+      challengeCpp: {
+        title: "🔤 Two Sum · 两数之和",
+        description: "Find two numbers that add up to a target using a hash map.\n用哈希表找两数之和等于目标值。",
+        starterCode: "#include <iostream>\n#include <vector>\n#include <unordered_map>\nusing namespace std;\nvector<int> twoSum(vector<int>& nums, int target) {\n    // Your code\n    return {};\n}\nint main() {\n    vector<int> nums={2,7,11,15}; int target=9;\n    auto r=twoSum(nums,target);\n    cout<<\"[\"<<r[0]<<\", \"<<r[1]<<\"]\"<<endl; return 0;\n}",
+        hint: "Store num→index in map. For each num, check if target-num exists. 用map存值到索引映射。",
+        solution: "#include <iostream>\n#include <vector>\n#include <unordered_map>\nusing namespace std;\nvector<int> twoSum(vector<int>&nums,int target){\n    unordered_map<int,int> m;\n    for(int i=0;i<nums.size();i++){int c=target-nums[i];if(m.count(c))return{m[c],i};m[nums[i]]=i;}return{};\n}\nint main(){vector<int> nums={2,7,11,15};auto r=twoSum(nums,9);cout<<\"[\"<<r[0]<<\", \"<<r[1]<<\"]\"<<endl;return 0;}",
+        expectedOutput: "[0, 1]",
       },
     },
   ],
@@ -3533,6 +3944,25 @@ int main() {
     // 📦 Box: "Sets are perfect for removing duplicates and set math!"
     return 0;
 }`,
+      exercise: {
+        prompt: "Create sets A={1,2,3,4,5} and B={4,5,6,7,8}. Print union, intersection, and difference A-B.",
+        promptZh: "创建集合 A={1,2,3,4,5}，B={4,5,6,7,8}。打印并集、交集、差集 A-B。",
+        starterCode: "A = {1, 2, 3, 4, 5}\nB = {4, 5, 6, 7, 8}\n\n# Print union, intersection, difference\n",
+        expectedOutput: "{1, 2, 3, 4, 5, 6, 7, 8}\n{4, 5}\n{1, 2, 3}",
+        hint: "Use A | B for union, A & B for intersection, A - B for difference.",
+        hintZh: "用 A | B 并集，A & B 交集，A - B 差集。",
+        solution: "A = {1, 2, 3, 4, 5}\nB = {4, 5, 6, 7, 8}\nprint(A | B)\nprint(A & B)\nprint(A - B)",
+      },
+      exerciseCpp: {
+        prompt: "Use std::set. A={1,2,3,4,5} B={4,5,6,7,8}. Find and print intersection.",
+        promptZh: "用 std::set。A={1,2,3,4,5} B={4,5,6,7,8}。求交集并打印。",
+        starterCode: "#include <iostream>\n#include <set>\nusing namespace std;\n\nint main() {\n    set<int> A={1,2,3,4,5}, B={4,5,6,7,8};\n    // Find and print intersection\n\n    return 0;\n}",
+        expectedOutput: "4 5",
+        hint: "Loop through A, check if each element is in B with B.count(x).",
+        hintZh: "遍历A，用 B.count(x) 检查每个元素是否在B中。",
+        solution: "#include <iostream>\n#include <set>\nusing namespace std;\nint main() {\n    set<int> A={1,2,3,4,5}, B={4,5,6,7,8};\n    for(int x:A) if(B.count(x)) cout<<x<<\" \";\n    cout<<endl; return 0;\n}",
+        language: "cpp",
+      },
     },
     {
       type: "quiz",
@@ -3616,6 +4046,14 @@ int main() {
         hint: "Convert to sets and use & (intersection). 转成集合用 & 求交集。",
         solution: "alice_friends = [\"Bob\", \"Charlie\", \"Diana\", \"Eve\"]\nbob_friends = [\"Charlie\", \"Eve\", \"Frank\", \"Grace\"]\ncommon = set(alice_friends) & set(bob_friends)\nprint(common)",
         expectedOutput: "{'Charlie', 'Eve'}",
+      },
+      challengeCpp: {
+        title: "👥 Common Friends · 共同好友",
+        description: "Find common friends between two people using sets.\n用集合找两人的共同好友。",
+        starterCode: "#include <iostream>\n#include <set>\n#include <string>\nusing namespace std;\nint main() {\n    set<string> alice={\"Bob\",\"Carol\",\"Dave\"};\n    set<string> eve={\"Bob\",\"Dave\",\"Frank\"};\n    // Find common friends\n    return 0;\n}",
+        hint: "Loop one set, check if element is in the other. 遍历一个集合，检查元素是否在另一个中。",
+        solution: "#include <iostream>\n#include <set>\n#include <string>\nusing namespace std;\nint main(){\n    set<string> alice={\"Bob\",\"Carol\",\"Dave\"}, eve={\"Bob\",\"Dave\",\"Frank\"};\n    for(auto&f:alice) if(eve.count(f)) cout<<f<<\" \"; cout<<endl; return 0;\n}",
+        expectedOutput: "Bob Dave",
       },
     },
   ],
@@ -3771,6 +4209,25 @@ int main() {
     // 🔗 Link: "Graphs model relationships — the web is a giant graph!"
     return 0;
 }`,
+      exercise: {
+        prompt: "Build undirected graph: A-B, A-C, B-D, C-D using adjacency list. Print each node's neighbors.",
+        promptZh: "用邻接表构建无向图：A-B, A-C, B-D, C-D。打印每个节点的邻居。",
+        starterCode: "graph = {}\n\ndef add_edge(g, u, v):\n    pass  # Add undirected edge\n\n# Add edges\n\nfor node in sorted(graph):\n    print(f'{node}: {sorted(graph[node])}')",
+        expectedOutput: "A: ['B', 'C']\nB: ['A', 'D']\nC: ['A', 'D']\nD: ['B', 'C']",
+        hint: "For undirected: add v to g[u] AND u to g[v]. Use setdefault.",
+        hintZh: "无向图：将v加入g[u]，同时将u加入g[v]。用 setdefault。",
+        solution: "graph = {}\ndef add_edge(g, u, v):\n    g.setdefault(u, []).append(v)\n    g.setdefault(v, []).append(u)\nadd_edge(graph,'A','B'); add_edge(graph,'A','C')\nadd_edge(graph,'B','D'); add_edge(graph,'C','D')\nfor node in sorted(graph):\n    print(f'{node}: {sorted(graph[node])}')",
+      },
+      exerciseCpp: {
+        prompt: "Build undirected graph A-B, A-C, B-D, C-D. Print neighbors.",
+        promptZh: "构建无向图 A-B, A-C, B-D, C-D。打印邻居。",
+        starterCode: "#include <iostream>\n#include <map>\n#include <vector>\n#include <string>\n#include <algorithm>\nusing namespace std;\nmap<string,vector<string>> graph;\nvoid addEdge(string u, string v) {\n    // Your code\n}\nint main() {\n    // Add edges and print\n    return 0;\n}",
+        expectedOutput: "A: B C\nB: A D\nC: A D\nD: B C",
+        hint: "Push v into graph[u] and u into graph[v].",
+        hintZh: "将v加入graph[u]，u加入graph[v]。",
+        solution: "#include <iostream>\n#include <map>\n#include <vector>\n#include <string>\n#include <algorithm>\nusing namespace std;\nmap<string,vector<string>> graph;\nvoid addEdge(string u, string v) { graph[u].push_back(v); graph[v].push_back(u); }\nint main() {\n    addEdge(\"A\",\"B\"); addEdge(\"A\",\"C\"); addEdge(\"B\",\"D\"); addEdge(\"C\",\"D\");\n    for(auto&[n,nb]:graph) { sort(nb.begin(),nb.end()); cout<<n<<\":\"; for(auto&x:nb) cout<<\" \"<<x; cout<<endl; }\n    return 0;\n}",
+        language: "cpp",
+      },
     },
     {
       type: "quiz",
@@ -3854,6 +4311,14 @@ int main() {
         hint: "Degree = len(neighbors). 度 = len(邻居列表)。",
         solution: "graph = {\n    'A': ['B', 'C'],\n    'B': ['A', 'C', 'D'],\n    'C': ['A', 'B'],\n    'D': ['B']\n}\n\nfor vertex in sorted(graph.keys()):\n    print(f\"{vertex}: degree {len(graph[vertex])}\")",
         expectedOutput: "A: degree 2\nB: degree 3\nC: degree 2\nD: degree 1",
+      },
+      challengeCpp: {
+        title: "👥 Degree Count · 度数计算",
+        description: "Calculate the degree of each vertex in an undirected graph.\n计算无向图每个顶点的度数。",
+        starterCode: "#include <iostream>\n#include <map>\n#include <vector>\n#include <string>\nusing namespace std;\nint main() {\n    map<string,vector<string>> g;\n    g[\"A\"]={\"B\",\"C\"}; g[\"B\"]={\"A\",\"C\",\"D\"}; g[\"C\"]={\"A\",\"B\"}; g[\"D\"]={\"B\"};\n    // Print degree of each vertex\n    return 0;\n}",
+        hint: "Degree = number of neighbors = size of adjacency list. 度数=邻居数=邻接表大小。",
+        solution: "#include <iostream>\n#include <map>\n#include <vector>\n#include <string>\nusing namespace std;\nint main(){\n    map<string,vector<string>> g;\n    g[\"A\"]={\"B\",\"C\"};g[\"B\"]={\"A\",\"C\",\"D\"};g[\"C\"]={\"A\",\"B\"};g[\"D\"]={\"B\"};\n    for(auto&[v,nb]:g) cout<<v<<\": \"<<nb.size()<<endl; return 0;\n}",
+        expectedOutput: "A: 2\nB: 3\nC: 2\nD: 1",
       },
     },
   ],
@@ -4036,6 +4501,25 @@ int main() {
     cout << endl;
     return 0;
 }`,
+      exercise: {
+        prompt: "Perform BFS on graph {A:[B,C], B:[A,D], C:[A,D], D:[B,C]} from 'A'. Print visit order.",
+        promptZh: "对图从'A'执行BFS。打印访问顺序。",
+        starterCode: "from collections import deque\ngraph = {'A':['B','C'], 'B':['A','D'], 'C':['A','D'], 'D':['B','C']}\n\ndef bfs(graph, start):\n    visited = set()\n    queue = deque([start])\n    # Your code\n\nbfs(graph, 'A')",
+        expectedOutput: "A B C D",
+        hint: "Mark start visited, dequeue node, print, enqueue unvisited neighbors.",
+        hintZh: "标记起点已访问，出队节点，打印，将未访问邻居入队。",
+        solution: "from collections import deque\ngraph = {'A':['B','C'], 'B':['A','D'], 'C':['A','D'], 'D':['B','C']}\ndef bfs(graph, start):\n    visited = {start}\n    queue = deque([start])\n    result = []\n    while queue:\n        node = queue.popleft()\n        result.append(node)\n        for n in graph[node]:\n            if n not in visited:\n                visited.add(n)\n                queue.append(n)\n    print(' '.join(result))\nbfs(graph, 'A')",
+      },
+      exerciseCpp: {
+        prompt: "BFS on graph from 'A'. Print visit order.",
+        promptZh: "从'A'执行BFS，打印访问顺序。",
+        starterCode: "#include <iostream>\n#include <queue>\n#include <map>\n#include <vector>\n#include <set>\n#include <string>\nusing namespace std;\nint main() {\n    map<string,vector<string>> g;\n    g[\"A\"]={\"B\",\"C\"}; g[\"B\"]={\"A\",\"D\"};\n    g[\"C\"]={\"A\",\"D\"}; g[\"D\"]={\"B\",\"C\"};\n    // BFS from A\n    return 0;\n}",
+        expectedOutput: "A B C D",
+        hint: "Use queue<string> and set<string> for visited.",
+        hintZh: "用 queue<string> 和 set<string>。",
+        solution: "#include <iostream>\n#include <queue>\n#include <map>\n#include <vector>\n#include <set>\n#include <string>\nusing namespace std;\nint main() {\n    map<string,vector<string>> g;\n    g[\"A\"]={\"B\",\"C\"}; g[\"B\"]={\"A\",\"D\"};\n    g[\"C\"]={\"A\",\"D\"}; g[\"D\"]={\"B\",\"C\"};\n    set<string> vis; queue<string> q;\n    q.push(\"A\"); vis.insert(\"A\");\n    while(!q.empty()) {\n        string n=q.front(); q.pop(); cout<<n<<\" \";\n        for(auto&nb:g[n]) if(!vis.count(nb)){vis.insert(nb);q.push(nb);}\n    }\n    cout<<endl; return 0;\n}",
+        language: "cpp",
+      },
     },
     {
       type: "code",
@@ -4163,6 +4647,25 @@ int main() {
     cout << endl;
     return 0;
 }`,
+      exercise: {
+        prompt: "Perform DFS on graph {A:[B,C], B:[A,D], C:[A,D], D:[B,C]} from 'A'. Print visit order.",
+        promptZh: "对图从'A'执行DFS。打印访问顺序。",
+        starterCode: "graph = {'A':['B','C'], 'B':['A','D'], 'C':['A','D'], 'D':['B','C']}\n\ndef dfs(graph, node, visited=None):\n    if visited is None: visited = set()\n    # Your code\n\ndfs(graph, 'A')",
+        expectedOutput: "A B D C",
+        hint: "Mark visited, print, recurse on unvisited neighbors.",
+        hintZh: "标记已访问，打印，对未访问邻居递归。",
+        solution: "graph = {'A':['B','C'], 'B':['A','D'], 'C':['A','D'], 'D':['B','C']}\ndef dfs(graph, node, visited=None):\n    if visited is None: visited = set()\n    visited.add(node)\n    print(node, end=' ')\n    for n in graph[node]:\n        if n not in visited: dfs(graph, n, visited)\ndfs(graph, 'A')\nprint()",
+      },
+      exerciseCpp: {
+        prompt: "DFS on graph from 'A'. Print visit order.",
+        promptZh: "从'A'执行DFS，打印访问顺序。",
+        starterCode: "#include <iostream>\n#include <map>\n#include <vector>\n#include <set>\n#include <string>\nusing namespace std;\nmap<string,vector<string>> g;\nset<string> vis;\nvoid dfs(string node) {\n    // Your code\n}\nint main() {\n    g[\"A\"]={\"B\",\"C\"}; g[\"B\"]={\"A\",\"D\"};\n    g[\"C\"]={\"A\",\"D\"}; g[\"D\"]={\"B\",\"C\"};\n    dfs(\"A\"); cout<<endl; return 0;\n}",
+        expectedOutput: "A B D C",
+        hint: "Mark visited, print, recurse on unvisited neighbors.",
+        hintZh: "标记已访问，打印，对未访问邻居递归。",
+        solution: "#include <iostream>\n#include <map>\n#include <vector>\n#include <set>\n#include <string>\nusing namespace std;\nmap<string,vector<string>> g;\nset<string> vis;\nvoid dfs(string node) {\n    vis.insert(node); cout<<node<<\" \";\n    for(auto&n:g[node]) if(!vis.count(n)) dfs(n);\n}\nint main() {\n    g[\"A\"]={\"B\",\"C\"}; g[\"B\"]={\"A\",\"D\"};\n    g[\"C\"]={\"A\",\"D\"}; g[\"D\"]={\"B\",\"C\"};\n    dfs(\"A\"); cout<<endl; return 0;\n}",
+        language: "cpp",
+      },
     },
     {
       type: "quiz",
@@ -4246,6 +4749,14 @@ int main() {
         hint: "Do BFS from any vertex. If len(visited) == len(graph), all connected! 从任一顶点BFS，如果访问数==总顶点数，则连通！",
         solution: "from collections import deque\n\ndef is_connected(graph):\n    if not graph:\n        return True\n    start = next(iter(graph))\n    visited = set()\n    queue = deque([start])\n    visited.add(start)\n    while queue:\n        v = queue.popleft()\n        for n in graph[v]:\n            if n not in visited:\n                visited.add(n)\n                queue.append(n)\n    return len(visited) == len(graph)\n\ng1 = {'A': ['B'], 'B': ['A', 'C'], 'C': ['B']}\nprint(is_connected(g1))\ng2 = {'A': ['B'], 'B': ['A'], 'C': ['D'], 'D': ['C']}\nprint(is_connected(g2))",
         expectedOutput: "True\nFalse",
+      },
+      challengeCpp: {
+        title: "🏝️ Is Connected? · 图是否连通？",
+        description: "Check if an undirected graph is connected using BFS/DFS.\n用BFS/DFS检查图是否连通。",
+        starterCode: "#include <iostream>\n#include <map>\n#include <vector>\n#include <set>\n#include <queue>\n#include <string>\nusing namespace std;\nbool isConnected(map<string,vector<string>>& g) {\n    // Your code\n    return false;\n}\nint main() {\n    map<string,vector<string>> g;\n    g[\"A\"]={\"B\"}; g[\"B\"]={\"A\",\"C\"}; g[\"C\"]={\"B\"};\n    cout<<(isConnected(g)?\"Connected\":\"Not connected\")<<endl; return 0;\n}",
+        hint: "BFS from any node. If visited count == total nodes, connected. 从任意节点BFS，如果访问数=总数则连通。",
+        solution: "#include <iostream>\n#include <map>\n#include <vector>\n#include <set>\n#include <queue>\n#include <string>\nusing namespace std;\nbool isConnected(map<string,vector<string>>&g){\n    set<string> vis; queue<string> q;\n    auto start=g.begin()->first; q.push(start); vis.insert(start);\n    while(!q.empty()){auto n=q.front();q.pop();for(auto&nb:g[n])if(!vis.count(nb)){vis.insert(nb);q.push(nb);}}\n    return vis.size()==g.size();\n}\nint main(){map<string,vector<string>>g;g[\"A\"]={\"B\"};g[\"B\"]={\"A\",\"C\"};g[\"C\"]={\"B\"};\ncout<<(isConnected(g)?\"Connected\":\"Not connected\")<<endl;return 0;}",
+        expectedOutput: "Connected",
       },
     },
   ],
@@ -4402,6 +4913,25 @@ int main() {
     // Diana (2 mutual), Eve (1 mutual), Frank (1 mutual)
     return 0;
 }`,
+      exercise: {
+        prompt: "Find friend suggestions for Alice (friends-of-friends not already friends).",
+        promptZh: "为Alice找朋友推荐（朋友的朋友中不是已有朋友的）。",
+        starterCode: "graph = {\n    'Alice': ['Bob', 'Carol'],\n    'Bob': ['Alice', 'Dave', 'Eve'],\n    'Carol': ['Alice', 'Dave'],\n    'Dave': ['Bob', 'Carol'],\n    'Eve': ['Bob']\n}\n\ndef suggest(graph, person):\n    pass  # Your code\n\nprint(sorted(suggest(graph, 'Alice')))",
+        expectedOutput: "['Dave', 'Eve']",
+        hint: "Get friends. For each friend get their friends. Exclude self and direct friends.",
+        hintZh: "获取朋友。对每个朋友获取其朋友。排除自己和直接朋友。",
+        solution: "graph = {\n    'Alice': ['Bob', 'Carol'],\n    'Bob': ['Alice', 'Dave', 'Eve'],\n    'Carol': ['Alice', 'Dave'],\n    'Dave': ['Bob', 'Carol'],\n    'Eve': ['Bob']\n}\ndef suggest(graph, person):\n    friends = set(graph[person])\n    suggestions = set()\n    for f in friends:\n        for fof in graph[f]:\n            if fof != person and fof not in friends:\n                suggestions.add(fof)\n    return suggestions\nprint(sorted(suggest(graph, 'Alice')))",
+      },
+      exerciseCpp: {
+        prompt: "Find friend suggestions for Alice (friends of friends, excluding existing friends).",
+        promptZh: "为Alice找朋友推荐。",
+        starterCode: "#include <iostream>\n#include <map>\n#include <vector>\n#include <set>\n#include <string>\nusing namespace std;\nint main() {\n    map<string,vector<string>> g;\n    g[\"Alice\"]={\"Bob\",\"Carol\"}; g[\"Bob\"]={\"Alice\",\"Dave\",\"Eve\"};\n    g[\"Carol\"]={\"Alice\",\"Dave\"}; g[\"Dave\"]={\"Bob\",\"Carol\"}; g[\"Eve\"]={\"Bob\"};\n    // Find suggestions\n    return 0;\n}",
+        expectedOutput: "Dave Eve",
+        hint: "Collect friends in set. Loop friends' friends, skip self and direct friends.",
+        hintZh: "将朋友放入集合。遍历朋友的朋友，跳过自己和直接朋友。",
+        solution: "#include <iostream>\n#include <map>\n#include <vector>\n#include <set>\n#include <string>\nusing namespace std;\nint main() {\n    map<string,vector<string>> g;\n    g[\"Alice\"]={\"Bob\",\"Carol\"}; g[\"Bob\"]={\"Alice\",\"Dave\",\"Eve\"};\n    g[\"Carol\"]={\"Alice\",\"Dave\"}; g[\"Dave\"]={\"Bob\",\"Carol\"}; g[\"Eve\"]={\"Bob\"};\n    set<string> friends(g[\"Alice\"].begin(),g[\"Alice\"].end());\n    set<string> sugg;\n    for(auto&f:g[\"Alice\"]) for(auto&fof:g[f]) if(fof!=\"Alice\"&&!friends.count(fof)) sugg.insert(fof);\n    for(auto&s:sugg) cout<<s<<\" \"; cout<<endl; return 0;\n}",
+        language: "cpp",
+      },
     },
     {
       type: "code",
@@ -4536,6 +5066,25 @@ int main() {
     cout << "\\nPath length: " << path.size() << " steps" << endl;
     return 0;
 }`,
+      exercise: {
+        prompt: "Find if path exists from (0,0) to (3,3) in a 4x4 maze using BFS. 0=path, 1=wall.",
+        promptZh: "用BFS判断4x4迷宫中(0,0)到(3,3)是否有路径。0=通路，1=墙。",
+        starterCode: "from collections import deque\nmaze = [\n    [0,0,1,0],\n    [0,1,0,0],\n    [0,0,0,1],\n    [1,0,0,0]\n]\n\ndef has_path(maze, start, end):\n    pass  # BFS\n\nprint('Path found!' if has_path(maze,(0,0),(3,3)) else 'No path!')",
+        expectedOutput: "Path found!",
+        hint: "BFS with (row,col) queue. Check bounds, walls, visited. Try 4 directions.",
+        hintZh: "BFS用(行,列)队列。检查边界、墙、已访问。尝试4方向。",
+        solution: "from collections import deque\nmaze = [\n    [0,0,1,0],\n    [0,1,0,0],\n    [0,0,0,1],\n    [1,0,0,0]\n]\ndef has_path(maze, start, end):\n    rows, cols = len(maze), len(maze[0])\n    queue = deque([start])\n    visited = {start}\n    while queue:\n        r, c = queue.popleft()\n        if (r,c) == end: return True\n        for dr,dc in [(0,1),(0,-1),(1,0),(-1,0)]:\n            nr, nc = r+dr, c+dc\n            if 0<=nr<rows and 0<=nc<cols and maze[nr][nc]==0 and (nr,nc) not in visited:\n                visited.add((nr,nc)); queue.append((nr,nc))\n    return False\nprint('Path found!' if has_path(maze,(0,0),(3,3)) else 'No path!')",
+      },
+      exerciseCpp: {
+        prompt: "BFS maze: find path from (0,0) to (3,3) in 4x4 grid.",
+        promptZh: "BFS迷宫：判断(0,0)到(3,3)是否有路径。",
+        starterCode: "#include <iostream>\n#include <queue>\n#include <set>\nusing namespace std;\nint main() {\n    int maze[4][4]={{0,0,1,0},{0,1,0,0},{0,0,0,1},{1,0,0,0}};\n    // BFS\n    return 0;\n}",
+        expectedOutput: "Path found!",
+        hint: "Queue of pair<int,int>. Check bounds, walls, visited. 4 directions.",
+        hintZh: "用 pair<int,int> 队列。检查边界、墙、已访问。4方向。",
+        solution: "#include <iostream>\n#include <queue>\n#include <set>\nusing namespace std;\nint main() {\n    int maze[4][4]={{0,0,1,0},{0,1,0,0},{0,0,0,1},{1,0,0,0}};\n    queue<pair<int,int>> q; set<pair<int,int>> vis;\n    q.push({0,0}); vis.insert({0,0});\n    int dx[]={0,0,1,-1},dy[]={1,-1,0,0}; bool found=false;\n    while(!q.empty()){\n        auto[r,c]=q.front(); q.pop();\n        if(r==3&&c==3){found=true;break;}\n        for(int i=0;i<4;i++){int nr=r+dx[i],nc=c+dy[i];\n            if(nr>=0&&nr<4&&nc>=0&&nc<4&&maze[nr][nc]==0&&!vis.count({nr,nc})){vis.insert({nr,nc});q.push({nr,nc});}}\n    }\n    cout<<(found?\"Path found!\":\"No path!\")<<endl; return 0;\n}",
+        language: "cpp",
+      },
     },
     {
       type: "quiz",
@@ -4619,6 +5168,14 @@ int main() {
         hint: "BFS from person1, count levels until you reach person2. BFS 从 person1 开始，计数到 person2。",
         solution: "from collections import deque\n\ndef degrees_of_separation(graph, person1, person2):\n    if person1 == person2:\n        return 0\n    queue = deque([(person1, 0)])\n    visited = {person1}\n    while queue:\n        person, dist = queue.popleft()\n        for friend in graph[person]:\n            if friend == person2:\n                return dist + 1\n            if friend not in visited:\n                visited.add(friend)\n                queue.append((friend, dist + 1))\n    return -1\n\nnetwork = {\n    'Alice': ['Bob', 'Charlie'],\n    'Bob': ['Alice', 'Diana'],\n    'Charlie': ['Alice', 'Eve'],\n    'Diana': ['Bob', 'Frank'],\n    'Eve': ['Charlie'],\n    'Frank': ['Diana']\n}\nprint(degrees_of_separation(network, 'Alice', 'Frank'))",
         expectedOutput: "3",
+      },
+      challengeCpp: {
+        title: "🔢 Degrees of Separation · 分离度",
+        description: "Find the shortest path length between two nodes using BFS.\n用BFS找两节点间最短路径长度。",
+        starterCode: "#include <iostream>\n#include <map>\n#include <vector>\n#include <set>\n#include <queue>\n#include <string>\nusing namespace std;\nint degrees(map<string,vector<string>>&g, string s, string t) {\n    // BFS\n    return -1;\n}\nint main() {\n    map<string,vector<string>> g;\n    g[\"A\"]={\"B\",\"C\"}; g[\"B\"]={\"A\",\"D\"}; g[\"C\"]={\"A\"}; g[\"D\"]={\"B\"};\n    cout << degrees(g,\"A\",\"D\") << endl; return 0;\n}",
+        hint: "BFS tracking distance. When target found, return distance. BFS跟踪距离。",
+        solution: "#include <iostream>\n#include <map>\n#include <vector>\n#include <set>\n#include <queue>\n#include <string>\nusing namespace std;\nint degrees(map<string,vector<string>>&g,string s,string t){\n    if(s==t)return 0;\n    set<string> vis; queue<pair<string,int>> q; q.push({s,0}); vis.insert(s);\n    while(!q.empty()){auto[n,d]=q.front();q.pop();for(auto&nb:g[n]){if(nb==t)return d+1;if(!vis.count(nb)){vis.insert(nb);q.push({nb,d+1});}}}return -1;\n}\nint main(){map<string,vector<string>>g;g[\"A\"]={\"B\",\"C\"};g[\"B\"]={\"A\",\"D\"};g[\"C\"]={\"A\"};g[\"D\"]={\"B\"};\ncout<<degrees(g,\"A\",\"D\")<<endl;return 0;}",
+        expectedOutput: "2",
       },
     },
   ],
@@ -4783,6 +5340,25 @@ int main() {
     cout << "  Comparisons: " << c2 << endl;
     return 0;
 }`,
+      exercise: {
+        prompt: "Implement bubble sort on [64, 34, 25, 12, 22, 11, 90]. Print the sorted array.",
+        promptZh: "对 [64, 34, 25, 12, 22, 11, 90] 实现冒泡排序并打印。",
+        starterCode: "arr = [64, 34, 25, 12, 22, 11, 90]\n\n# Bubble sort\n\nprint(arr)",
+        expectedOutput: "[11, 12, 22, 25, 34, 64, 90]",
+        hint: "Nested loops: compare adjacent, swap if out of order. Repeat n-1 times.",
+        hintZh: "嵌套循环：比较相邻元素，乱序则交换。重复n-1次。",
+        solution: "arr = [64, 34, 25, 12, 22, 11, 90]\nn = len(arr)\nfor i in range(n):\n    for j in range(0, n-i-1):\n        if arr[j] > arr[j+1]:\n            arr[j], arr[j+1] = arr[j+1], arr[j]\nprint(arr)",
+      },
+      exerciseCpp: {
+        prompt: "Bubble sort {64, 34, 25, 12, 22, 11, 90}.",
+        promptZh: "冒泡排序 {64, 34, 25, 12, 22, 11, 90}。",
+        starterCode: "#include <iostream>\n#include <vector>\nusing namespace std;\nint main() {\n    vector<int> arr={64,34,25,12,22,11,90};\n    // Bubble sort\n\n    for(int x:arr) cout<<x<<\" \"; cout<<endl;\n    return 0;\n}",
+        expectedOutput: "11 12 22 25 34 64 90",
+        hint: "Nested loops, swap arr[j] and arr[j+1] when arr[j] > arr[j+1].",
+        hintZh: "嵌套循环，arr[j] > arr[j+1] 时交换。",
+        solution: "#include <iostream>\n#include <vector>\nusing namespace std;\nint main() {\n    vector<int> arr={64,34,25,12,22,11,90};\n    int n=arr.size();\n    for(int i=0;i<n;i++) for(int j=0;j<n-i-1;j++) if(arr[j]>arr[j+1]) swap(arr[j],arr[j+1]);\n    for(int x:arr) cout<<x<<\" \"; cout<<endl;\n    return 0;\n}",
+        language: "cpp",
+      },
     },
     {
       type: "code",
@@ -4937,6 +5513,25 @@ int main() {
     cout << "  Merge is " << (int)(bubbleTime / max(mergeTime, 0.0001)) << "x faster! 🚀" << endl;
     return 0;
 }`,
+      exercise: {
+        prompt: "Implement merge sort on [38, 27, 43, 3, 9, 82, 10]. Print the sorted result.",
+        promptZh: "对 [38, 27, 43, 3, 9, 82, 10] 实现归并排序并打印。",
+        starterCode: "def merge_sort(arr):\n    if len(arr) <= 1: return arr\n    mid = len(arr) // 2\n    # Split, sort, merge\n    pass\n\nprint(merge_sort([38, 27, 43, 3, 9, 82, 10]))",
+        expectedOutput: "[3, 9, 10, 27, 38, 43, 82]",
+        hint: "Split halves, recurse, merge by comparing front elements.",
+        hintZh: "分成两半，递归排序，比较前端元素合并。",
+        solution: "def merge_sort(arr):\n    if len(arr) <= 1: return arr\n    mid = len(arr)//2\n    left = merge_sort(arr[:mid])\n    right = merge_sort(arr[mid:])\n    result, i, j = [], 0, 0\n    while i<len(left) and j<len(right):\n        if left[i]<=right[j]: result.append(left[i]); i+=1\n        else: result.append(right[j]); j+=1\n    result.extend(left[i:]); result.extend(right[j:])\n    return result\nprint(merge_sort([38, 27, 43, 3, 9, 82, 10]))",
+      },
+      exerciseCpp: {
+        prompt: "Implement merge sort on {38, 27, 43, 3, 9, 82, 10}.",
+        promptZh: "对 {38, 27, 43, 3, 9, 82, 10} 归并排序。",
+        starterCode: "#include <iostream>\n#include <vector>\nusing namespace std;\nvoid merge(vector<int>&a,int l,int m,int r){/* merge */}\nvoid mergeSort(vector<int>&a,int l,int r){/* sort */}\nint main() {\n    vector<int> arr={38,27,43,3,9,82,10};\n    mergeSort(arr,0,arr.size()-1);\n    for(int x:arr) cout<<x<<\" \"; cout<<endl;\n    return 0;\n}",
+        expectedOutput: "3 9 10 27 38 43 82",
+        hint: "Split at mid, recurse halves, merge comparing elements.",
+        hintZh: "在中点分割，递归两半，比较元素合并。",
+        solution: "#include <iostream>\n#include <vector>\nusing namespace std;\nvoid merge(vector<int>&a,int l,int m,int r){\n    vector<int>L(a.begin()+l,a.begin()+m+1),R(a.begin()+m+1,a.begin()+r+1);\n    int i=0,j=0,k=l;\n    while(i<L.size()&&j<R.size()) a[k++]=(L[i]<=R[j])?L[i++]:R[j++];\n    while(i<L.size()) a[k++]=L[i++]; while(j<R.size()) a[k++]=R[j++];\n}\nvoid mergeSort(vector<int>&a,int l,int r){\n    if(l>=r) return; int m=l+(r-l)/2;\n    mergeSort(a,l,m); mergeSort(a,m+1,r); merge(a,l,m,r);\n}\nint main() {\n    vector<int> arr={38,27,43,3,9,82,10};\n    mergeSort(arr,0,arr.size()-1);\n    for(int x:arr) cout<<x<<\" \"; cout<<endl; return 0;\n}",
+        language: "cpp",
+      },
     },
     {
       type: "quiz",
@@ -5020,6 +5615,14 @@ int main() {
         hint: "For i from 1..n: save arr[i] as key, shift elements > key to the right, insert key. 保存当前元素，将大于它的元素右移，插入。",
         solution: "def insertion_sort(arr):\n    for i in range(1, len(arr)):\n        key = arr[i]\n        j = i - 1\n        while j >= 0 and arr[j] > key:\n            arr[j + 1] = arr[j]\n            j -= 1\n        arr[j + 1] = key\n\ndata = [5, 2, 8, 1, 9, 3]\ninsertion_sort(data)\nprint(data)",
         expectedOutput: "[1, 2, 3, 5, 8, 9]",
+      },
+      challengeCpp: {
+        title: "🃏 Insertion Sort · 插入排序",
+        description: "Implement insertion sort in C++.\n用C++实现插入排序。",
+        starterCode: "#include <iostream>\n#include <vector>\nusing namespace std;\nint main() {\n    vector<int> arr={5,2,4,6,1,3};\n    // Insertion sort\n    for(int x:arr) cout<<x<<\" \"; cout<<endl; return 0;\n}",
+        hint: "For each element, shift larger elements right and insert at correct position. 每个元素插入到正确位置。",
+        solution: "#include <iostream>\n#include <vector>\nusing namespace std;\nint main(){\n    vector<int> arr={5,2,4,6,1,3};\n    for(int i=1;i<arr.size();i++){int key=arr[i],j=i-1;while(j>=0&&arr[j]>key){arr[j+1]=arr[j];j--;}arr[j+1]=key;}\n    for(int x:arr) cout<<x<<\" \"; cout<<endl; return 0;\n}",
+        expectedOutput: "1 2 3 4 5 6",
       },
     },
   ],
@@ -5168,6 +5771,25 @@ int main() {
     cout << "\\nWorst case: Linear=" << worstLinear << ", Binary=" << worstBinary << endl;
     return 0;
 }`,
+      exercise: {
+        prompt: "Implement binary search on sorted [2,5,8,12,16,23,38,56,72,91]. Find index of 23.",
+        promptZh: "对有序数组实现二分搜索。找23的索引。",
+        starterCode: "def binary_search(arr, target):\n    left, right = 0, len(arr)-1\n    while left <= right:\n        pass  # Your code\n    return -1\n\narr = [2,5,8,12,16,23,38,56,72,91]\nprint(binary_search(arr, 23))",
+        expectedOutput: "5",
+        hint: "mid = (left+right)//2. Compare arr[mid] with target. Adjust left or right.",
+        hintZh: "mid = (left+right)//2。比较 arr[mid] 与目标，调整 left 或 right。",
+        solution: "def binary_search(arr, target):\n    left, right = 0, len(arr)-1\n    while left <= right:\n        mid = (left+right)//2\n        if arr[mid] == target: return mid\n        elif arr[mid] < target: left = mid+1\n        else: right = mid-1\n    return -1\narr = [2,5,8,12,16,23,38,56,72,91]\nprint(binary_search(arr, 23))",
+      },
+      exerciseCpp: {
+        prompt: "Binary search for 23 in sorted {2,5,8,12,16,23,38,56,72,91}.",
+        promptZh: "在有序数组中二分搜索23。",
+        starterCode: "#include <iostream>\n#include <vector>\nusing namespace std;\nint binarySearch(vector<int>&arr, int target) {\n    int left=0, right=arr.size()-1;\n    // Your code\n    return -1;\n}\nint main() {\n    vector<int> arr={2,5,8,12,16,23,38,56,72,91};\n    cout<<binarySearch(arr,23)<<endl; return 0;\n}",
+        expectedOutput: "5",
+        hint: "mid = left+(right-left)/2. Compare and adjust.",
+        hintZh: "mid = left+(right-left)/2。比较并调整。",
+        solution: "#include <iostream>\n#include <vector>\nusing namespace std;\nint binarySearch(vector<int>&arr,int target){\n    int l=0,r=arr.size()-1;\n    while(l<=r){int m=l+(r-l)/2; if(arr[m]==target) return m; else if(arr[m]<target) l=m+1; else r=m-1;}\n    return -1;\n}\nint main(){vector<int> a={2,5,8,12,16,23,38,56,72,91}; cout<<binarySearch(a,23)<<endl; return 0;}",
+        language: "cpp",
+      },
     },
     {
       type: "code",
@@ -5315,6 +5937,25 @@ int main() {
     // For uniformly distributed data, interpolation search is even faster!
     return 0;
 }`,
+      exercise: {
+        prompt: "Implement interpolation search on [10,20,30,40,50,60,70,80,90,100]. Find index of 70.",
+        promptZh: "对 [10,20,...,100] 实现插值搜索。找70的索引。",
+        starterCode: "def interp_search(arr, target):\n    low, high = 0, len(arr)-1\n    while low <= high and arr[low] <= target <= arr[high]:\n        pass  # Use interpolation formula\n    return -1\n\narr = [10,20,30,40,50,60,70,80,90,100]\nprint(interp_search(arr, 70))",
+        expectedOutput: "6",
+        hint: "pos = low + ((target-arr[low])*(high-low))//(arr[high]-arr[low])",
+        hintZh: "pos = low + ((target-arr[low])*(high-low))//(arr[high]-arr[low])",
+        solution: "def interp_search(arr, target):\n    low, high = 0, len(arr)-1\n    while low <= high and arr[low] <= target <= arr[high]:\n        if arr[high]==arr[low]:\n            if arr[low]==target: return low\n            break\n        pos = low + ((target-arr[low])*(high-low))//(arr[high]-arr[low])\n        if arr[pos]==target: return pos\n        elif arr[pos]<target: low=pos+1\n        else: high=pos-1\n    return -1\narr = [10,20,30,40,50,60,70,80,90,100]\nprint(interp_search(arr, 70))",
+      },
+      exerciseCpp: {
+        prompt: "Interpolation search for 70 in {10,20,...,100}.",
+        promptZh: "在 {10,20,...,100} 中插值搜索70。",
+        starterCode: "#include <iostream>\n#include <vector>\nusing namespace std;\nint interpSearch(vector<int>&arr,int target){\n    int lo=0,hi=arr.size()-1;\n    // Your code\n    return -1;\n}\nint main(){vector<int> a={10,20,30,40,50,60,70,80,90,100}; cout<<interpSearch(a,70)<<endl; return 0;}",
+        expectedOutput: "6",
+        hint: "pos = lo + ((target-arr[lo])*(hi-lo))/(arr[hi]-arr[lo])",
+        hintZh: "pos = lo + ((target-arr[lo])*(hi-lo))/(arr[hi]-arr[lo])",
+        solution: "#include <iostream>\n#include <vector>\nusing namespace std;\nint interpSearch(vector<int>&a,int t){\n    int lo=0,hi=a.size()-1;\n    while(lo<=hi&&a[lo]<=t&&t<=a[hi]){\n        if(a[hi]==a[lo]){if(a[lo]==t)return lo;break;}\n        int pos=lo+((long long)(t-a[lo])*(hi-lo))/(a[hi]-a[lo]);\n        if(a[pos]==t)return pos; else if(a[pos]<t)lo=pos+1; else hi=pos-1;\n    }return -1;\n}\nint main(){vector<int> a={10,20,30,40,50,60,70,80,90,100}; cout<<interpSearch(a,70)<<endl; return 0;}",
+        language: "cpp",
+      },
     },
     {
       type: "quiz",
@@ -5398,6 +6039,14 @@ int main() {
         hint: "Run binary search twice: once to find the leftmost occurrence, once for the rightmost. 运行两次二分搜索：找最左和最右。",
         solution: "def find_range(arr, target):\n    def find_left():\n        lo, hi, result = 0, len(arr)-1, -1\n        while lo <= hi:\n            mid = (lo+hi)//2\n            if arr[mid] == target:\n                result = mid\n                hi = mid - 1\n            elif arr[mid] < target:\n                lo = mid + 1\n            else:\n                hi = mid - 1\n        return result\n    def find_right():\n        lo, hi, result = 0, len(arr)-1, -1\n        while lo <= hi:\n            mid = (lo+hi)//2\n            if arr[mid] == target:\n                result = mid\n                lo = mid + 1\n            elif arr[mid] < target:\n                lo = mid + 1\n            else:\n                hi = mid - 1\n        return result\n    return (find_left(), find_right())\n\narr = [1, 2, 2, 2, 3, 4, 4, 5]\nprint(find_range(arr, 2))\nprint(find_range(arr, 4))\nprint(find_range(arr, 6))",
         expectedOutput: "(1, 3)\n(5, 6)\n(-1, -1)",
+      },
+      challengeCpp: {
+        title: "🔢 First & Last Position · 第一和最后位置",
+        description: "Find the first and last position of a target in a sorted array.\n在有序数组中找目标的第一和最后位置。",
+        starterCode: "#include <iostream>\n#include <vector>\nusing namespace std;\npair<int,int> findRange(vector<int>&arr, int target) {\n    // Binary search for first and last\n    return {-1,-1};\n}\nint main() {\n    vector<int> arr={1,2,2,2,3,4,5};\n    auto[f,l]=findRange(arr,2);\n    cout<<\"[\"<<f<<\", \"<<l<<\"]\"<<endl; return 0;\n}",
+        hint: "Two binary searches: one for leftmost, one for rightmost occurrence. 两次二分搜索。",
+        solution: "#include <iostream>\n#include <vector>\nusing namespace std;\npair<int,int> findRange(vector<int>&a,int t){\n    int first=-1,last=-1;\n    int l=0,r=a.size()-1;\n    while(l<=r){int m=l+(r-l)/2;if(a[m]==t){first=m;r=m-1;}else if(a[m]<t)l=m+1;else r=m-1;}\n    l=0;r=a.size()-1;\n    while(l<=r){int m=l+(r-l)/2;if(a[m]==t){last=m;l=m+1;}else if(a[m]<t)l=m+1;else r=m-1;}\n    return{first,last};\n}\nint main(){vector<int>a={1,2,2,2,3,4,5};auto[f,l]=findRange(a,2);cout<<\"[\"<<f<<\", \"<<l<<\"]\"<<endl;return 0;}",
+        expectedOutput: "[1, 3]",
       },
     },
   ],
@@ -5853,6 +6502,25 @@ int main() {
     cout << "\\n🎉 All data structures working! Your library is ready!" << endl;
     return 0;
 }`,
+      exercise: {
+        prompt: "Create a Stack class with push, pop, peek, is_empty. Test all methods.",
+        promptZh: "创建 Stack 类，包含 push、pop、peek、is_empty。测试所有方法。",
+        starterCode: "class Stack:\n    def __init__(self):\n        self.items = []\n    # Add methods\n\ns = Stack()\nprint(s.is_empty())\ns.push(10)\ns.push(20)\nprint(s.peek())\nprint(s.pop())\nprint(s.is_empty())",
+        expectedOutput: "True\n20\n20\nFalse",
+        hint: "push: append. pop: pop. peek: items[-1]. is_empty: len==0.",
+        hintZh: "push: append。pop: pop。peek: items[-1]。is_empty: len==0。",
+        solution: "class Stack:\n    def __init__(self): self.items = []\n    def push(self, item): self.items.append(item)\n    def pop(self): return self.items.pop()\n    def peek(self): return self.items[-1]\n    def is_empty(self): return len(self.items) == 0\n\ns = Stack()\nprint(s.is_empty())\ns.push(10); s.push(20)\nprint(s.peek())\nprint(s.pop())\nprint(s.is_empty())",
+      },
+      exerciseCpp: {
+        prompt: "Create a Stack class in C++ with push, pop, top, isEmpty. Test all.",
+        promptZh: "用C++创建 Stack 类。测试所有方法。",
+        starterCode: "#include <iostream>\n#include <vector>\nusing namespace std;\nclass Stack {\n    vector<int> items;\npublic:\n    // Add methods\n};\nint main() {\n    Stack s;\n    cout<<(s.isEmpty()?\"True\":\"False\")<<endl;\n    s.push(10); s.push(20);\n    cout<<s.top()<<endl;\n    cout<<s.pop()<<endl;\n    cout<<(s.isEmpty()?\"True\":\"False\")<<endl;\n    return 0;\n}",
+        expectedOutput: "True\n20\n20\nFalse",
+        hint: "push: push_back. pop: save back, pop_back, return. top: back. isEmpty: empty.",
+        hintZh: "push: push_back。pop: 保存back，pop_back，返回。top: back。isEmpty: empty。",
+        solution: "#include <iostream>\n#include <vector>\nusing namespace std;\nclass Stack {\n    vector<int> items;\npublic:\n    void push(int i){items.push_back(i);}\n    int pop(){int v=items.back();items.pop_back();return v;}\n    int top(){return items.back();}\n    bool isEmpty(){return items.empty();}\n};\nint main(){\n    Stack s;\n    cout<<(s.isEmpty()?\"True\":\"False\")<<endl;\n    s.push(10);s.push(20);\n    cout<<s.top()<<endl;cout<<s.pop()<<endl;\n    cout<<(s.isEmpty()?\"True\":\"False\")<<endl;return 0;\n}",
+        language: "cpp",
+      },
     },
     {
       type: "text",
