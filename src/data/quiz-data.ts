@@ -1418,79 +1418,85 @@ export const QUIZ_DATA: Record<string, QuizQuestion[]> = {
 
   "4-1": [
     {
-      question: "What does the math module provide?",
-      options: ["Game tools", "Mathematical functions and constants", "File I/O tools", "Network tools"],
-      correctIndex: 1,
-      explanation: "math gives you sqrt, pi, sin, cos, ceil, floor, and more! math模块提供数学工具！",
+      question: "What does max([3, 7, 2, 9]) return?",
+      options: ["3", "7", "9", "2"],
+      correctIndex: 2,
+      explanation: "max() finds the largest value in a list. 9 is the biggest! max()找最大值！",
     },
     {
-      question: "What is math.floor(3.7)?",
-      options: ["4", "3", "3.7", "3.0"],
+      question: "What does sum([10, 20, 30]) / len([10, 20, 30]) calculate?",
+      options: ["60", "20.0", "30", "3"],
       correctIndex: 1,
-      explanation: "floor() rounds DOWN to the nearest integer. 3.7 → 3. floor()向下取整！",
+      explanation: "sum=60, len=3, 60/3=20.0. That's the average (mean)! 这就是平均值！",
     },
     {
-      question: "What is math.ceil(3.2)?",
-      options: ["3", "4", "3.2", "3.0"],
-      correctIndex: 1,
-      explanation: "ceil() rounds UP to the nearest integer. 3.2 → 4. ceil()向上取整！",
+      question: "What does enumerate(['a', 'b', 'c']) give you?",
+      options: ["Just the values", "Just the indices", "Both index and value pairs", "The length"],
+      correctIndex: 2,
+      explanation: "enumerate() gives (0,'a'), (1,'b'), (2,'c') — index AND value! 同时给索引和值！",
     },
     {
-      question: "What is abs(-5)?",
-      options: ["-5", "5", "0", "Error"],
+      question: 'What does "█" * 5 produce?',
+      options: ['"█5"', '"█████"', '"5█"', 'Error'],
       correctIndex: 1,
-      explanation: "abs() returns the absolute value — distance from zero, always positive! abs()绝对值！",
+      explanation: "String * number repeats the string. '█' * 5 = '█████'. Great for bar charts! 字符串重复！",
     },
     {
       type: "coding",
-      question: "Circle area",
-      prompt: "🎯 Calculate the area of a circle with radius 5 (use 3.14159 for pi). Print rounded to 2 decimal places.",
-      starterCode: "import math\nradius = 5\n",
-      expectedOutput: "78.54",
-      hint: "area = math.pi * radius ** 2, then print(round(area, 2))",
-      explanation: "π × r² = 3.14159... × 25 ≈ 78.54! 圆面积公式！",
+      question: "Average calculation",
+      prompt: "🎯 Calculate and print the average of [10, 20, 30, 40, 50].",
+      starterCode: "data = [10, 20, 30, 40, 50]\n",
+      expectedOutput: "30.0",
+      hint: "print(sum(data) / len(data))",
+      explanation: "sum=150, len=5, 150/5=30.0! 平均值计算！",
     },
     {
-      question: "What does pow(2, 3) return?",
-      options: ["5", "6", "8", "23"],
-      correctIndex: 2,
-      explanation: "pow(2, 3) = 2³ = 8. Same as 2 ** 3! pow()幂运算！",
+      question: "What does sorted([5, 2, 8, 1], reverse=True) return?",
+      options: ["[1, 2, 5, 8]", "[8, 5, 2, 1]", "[5, 2, 8, 1]", "Error"],
+      correctIndex: 1,
+      explanation: "reverse=True sorts from largest to smallest! 反向排序：从大到小！",
     },
     {
-      question: "What is math.sqrt(144)?",
-      options: ["12.0", "72", "14.4", "144"],
-      correctIndex: 0,
-      explanation: "√144 = 12.0. The square root! sqrt()求平方根！",
+      question: "How would you find the index of the maximum value in a list?",
+      options: ["max(data)", "data.index(max(data))", "data.max()", "data.find(max)"],
+      correctIndex: 1,
+      explanation: "First find max value, then use .index() to find where it is! 先找最大值，再找位置！",
     },
     {
       type: "coding",
-      question: "Temperature conversion",
-      prompt: "🎯 Convert 100 Celsius to Fahrenheit. Print the result. (F = C × 9/5 + 32)",
-      starterCode: "celsius = 100\n",
-      expectedOutput: "212.0",
-      hint: "fahrenheit = celsius * 9/5 + 32",
-      explanation: "100°C × 9/5 + 32 = 212°F. Water's boiling point! 摄氏转华氏！",
+      question: "Find the range",
+      prompt: "🎯 Find and print the range (max - min) of [15, 3, 42, 8, 27].",
+      starterCode: "data = [15, 3, 42, 8, 27]\n",
+      expectedOutput: "39",
+      hint: "print(max(data) - min(data))",
+      explanation: "42 - 3 = 39. Range shows data spread! 范围=最大-最小！",
     },
     {
-      question: "What does the // operator do?",
-      options: ["Comment", "Division", "Floor division (integer result)", "Exponent"],
-      correctIndex: 2,
-      explanation: "// divides and rounds down. 7 // 2 = 3 (not 3.5). 整除！",
-    },
-    {
-      question: "What number system does a computer use internally?",
-      options: ["Decimal (base 10)", "Binary (base 2)", "Hexadecimal (base 16)", "Octal (base 8)"],
+      question: "What is an ASCII bar chart?",
+      options: ["A graphical image", "Text-based visualization using characters like █", "A Python library", "A type of list"],
       correctIndex: 1,
-      explanation: "Computers use binary (0s and 1s) for everything! 计算机用二进制！",
+      explanation: "ASCII bar charts use text characters to represent data visually in the terminal! 用文本字符可视化数据！",
+    },
+    {
+      question: "What does f'{value:.1f}' do?",
+      options: ["Rounds to 1 digit", "Shows 1 decimal place", "Multiplies by 0.1", "Converts to integer"],
+      correctIndex: 1,
+      explanation: ":.1f formats a float to show exactly 1 decimal place! 显示1位小数！",
     },
   ],
 
   "4-2": [
     {
-      question: "What does random.randint(a, b) return?",
-      options: ["A float between a and b", "An integer from a to b inclusive", "Always a or b", "A random string"],
+      question: "What does random.randint(1, 6) return?",
+      options: ["A float between 1 and 6", "An integer from 1 to 6 inclusive", "Always 1 or 6", "A random string"],
       correctIndex: 1,
       explanation: "randint(1, 6) returns 1, 2, 3, 4, 5, or 6 — like rolling a die! randint()随机整数！",
+    },
+    {
+      question: "What is a Monte Carlo simulation?",
+      options: ["A casino game", "Running an experiment many times to estimate probability", "A type of graph", "A random number generator"],
+      correctIndex: 1,
+      explanation: "Monte Carlo = run thousands of random trials to discover real probabilities! 蒙特卡洛模拟！",
     },
     {
       question: "What does random.random() return?",
@@ -1499,389 +1505,328 @@ export const QUIZ_DATA: Record<string, QuizQuestion[]> = {
       explanation: "random.random() gives a float from 0.0 to just under 1.0! random()返回0到1的小数！",
     },
     {
-      question: "What does random.choice(list) do?",
-      options: ["Returns the first item", "Returns a random item from the list", "Sorts the list randomly", "Removes a random item"],
+      question: "What is the Law of Large Numbers?",
+      options: ["Big numbers are always random", "More trials = results closer to true probability", "Random numbers get larger over time", "Computers can't handle large numbers"],
+      correctIndex: 1,
+      explanation: "More trials → more accurate! Flip a coin 10 times might be 60/40, but 10000 times → ~50/50! 大数定律！",
+    },
+    {
+      type: "coding",
+      question: "Coin flip probability",
+      prompt: "🎯 A coin is flipped 10000 times. About how many heads? Print 5000 (approximately half).",
+      starterCode: "# Fair coin: 50% heads\ntotal = 10000\n",
+      expectedOutput: "5000",
+      hint: "50% of 10000 = 5000",
+      explanation: "A fair coin gives ~50% heads. 10000 × 0.5 = 5000! 公平硬币50%正面！",
+    },
+    {
+      question: "What does random.choice(['A', 'B', 'C']) do?",
+      options: ["Returns 'A'", "Returns a random item from the list", "Returns all items", "Sorts the list"],
       correctIndex: 1,
       explanation: "choice() picks one random item from the list! choice()随机选一个！",
     },
     {
-      question: "What does random.shuffle(list) do?",
-      options: ["Sorts the list", "Randomizes the order of items in place", "Reverses the list", "Removes items randomly"],
+      question: "If a game has 40% player win rate, who profits long-term?",
+      options: ["The player", "The casino/house", "Both equally", "Neither"],
       correctIndex: 1,
-      explanation: "shuffle() mixes up the list items randomly, in place! shuffle()打乱顺序！",
-    },
-    {
-      question: "What is a seed in random?",
-      options: ["A plant reference", "A starting value that makes random repeatable", "The first random number", "A type of error"],
-      correctIndex: 1,
-      explanation: "random.seed(42) makes the 'random' numbers reproducible! seed让随机可重复！",
+      explanation: "40% player win = 60% house win. Long term, the house always profits! 庄家永远赢！",
     },
     {
       type: "coding",
-      question: "Simulate a die",
-      prompt: "🎯 Print a number that simulates rolling a 6-sided die (just print 4 for this exercise)",
-      starterCode: "# Simulating a die roll\nresult = 4\n",
-      expectedOutput: "4",
-      hint: "In real code you'd use random.randint(1, 6). Just print(result) here.",
-      explanation: "random.randint(1, 6) simulates a die! Here we used a fixed value. 模拟掷骰子！",
+      question: "Dice sum probability",
+      prompt: "🎯 How many ways can 2 dice sum to 7? (Count all combinations where d1+d2=7, d1 and d2 from 1-6). Print the count.",
+      starterCode: "count = 0\nfor d1 in range(1, 7):\n    for d2 in range(1, 7):\n        if d1 + d2 == 7:\n            count += 1\n",
+      expectedOutput: "6",
+      hint: "Pairs: (1,6)(2,5)(3,4)(4,3)(5,2)(6,1) = 6 ways",
+      explanation: "6 out of 36 total outcomes = 1/6 ≈ 16.7% chance! 掷两个骰子和为7有6种！",
     },
     {
-      question: "How do you generate a random float between 5 and 10?",
-      options: [
-        "random.randint(5, 10)",
-        "random.uniform(5, 10)",
-        "random.float(5, 10)",
-        "random.range(5, 10)"
-      ],
+      question: "Why do casinos always win in the long run?",
+      options: ["They cheat", "Games are designed so house has higher probability", "Players make mistakes", "It's random luck"],
       correctIndex: 1,
-      explanation: "uniform(a, b) returns a random float between a and b! uniform()随机浮点数！",
+      explanation: "Casino games are mathematically designed to give the house an edge! 赌场游戏数学上有庄家优势！",
     },
     {
-      question: "What does random.sample(list, k) return?",
-      options: ["k random items without replacement", "k random items with replacement", "The first k items", "A shuffled list"],
-      correctIndex: 0,
-      explanation: "sample() picks k unique items — no repeats! sample()不重复采样！",
-    },
-    {
-      type: "coding",
-      question: "List length",
-      prompt: '🎯 Print the number of items in ["a", "b", "c", "d", "e"]',
-      starterCode: 'items = ["a", "b", "c", "d", "e"]\n',
-      expectedOutput: "5",
-      hint: "Use len(items)",
-      explanation: "len() counts the items: 5 elements! len()计数！",
-    },
-    {
-      question: "Probability of getting heads in a fair coin flip?",
-      options: ["25%", "50%", "75%", "100%"],
+      question: "What does '_ in for _ in range(n)' mean?",
+      options: ["Error", "The loop variable is unused — we just want n repetitions", "It creates an underscore", "It skips iterations"],
       correctIndex: 1,
-      explanation: "50% — two equally likely outcomes! 公平硬币50%正面！",
+      explanation: "_ means 'I don't need this variable' — just repeat n times! _表示不需要这个变量！",
     },
   ],
 
   "4-3": [
     {
-      question: "What is a physics simulation?",
-      options: [
-        "A physics textbook",
-        "Using code to model physical phenomena",
-        "A physics video game only",
-        "A calculator"
-      ],
+      question: "What does math.radians(180) return?",
+      options: ["180", "3.14159... (π)", "90", "0"],
       correctIndex: 1,
-      explanation: "Simulations use code to model real-world physics — gravity, motion, collisions! 用代码模拟物理现象！",
+      explanation: "180° = π radians ≈ 3.14159. Python trig functions need radians! 180度=π弧度！",
     },
     {
-      question: "What is the formula for distance with constant speed?",
-      options: ["d = s + t", "d = s × t", "d = s / t", "d = s - t"],
+      question: "In projectile motion, what does gravity do?",
+      options: ["Speeds up horizontally", "Pulls the projectile down", "Pushes it up", "Has no effect"],
       correctIndex: 1,
-      explanation: "Distance = speed × time. Simple but fundamental! 距离=速度×时间！",
+      explanation: "Gravity accelerates objects downward at 9.8 m/s² on Earth! 重力向下加速！",
     },
     {
-      question: "What does gravity do to a falling object?",
-      options: ["Keeps it at constant speed", "Accelerates it downward", "Slows it down", "Moves it sideways"],
+      question: "What angle gives maximum range for a projectile (no air resistance)?",
+      options: ["30°", "45°", "60°", "90°"],
       correctIndex: 1,
-      explanation: "Gravity accelerates objects at ~9.8 m/s² on Earth! 重力加速度约9.8！",
+      explanation: "45° perfectly balances horizontal distance and flight time! 45度最远！",
     },
     {
-      question: "In a bouncing ball sim, what happens at the ground?",
-      options: ["Ball stops", "Velocity reverses (with energy loss)", "Ball goes underground", "Simulation ends"],
-      correctIndex: 1,
-      explanation: "The ball bounces — velocity reverses direction, usually with some energy lost! 球反弹，速度反向！",
+      question: "What does math.sin(math.radians(90)) return?",
+      options: ["0", "0.5", "1.0", "90"],
+      correctIndex: 2,
+      explanation: "sin(90°) = 1.0. The maximum value of sine! sin(90°)=1.0！",
     },
     {
       type: "coding",
       question: "Calculate distance",
-      prompt: "🎯 A car goes 60 km/h for 2.5 hours. Print the distance.",
-      starterCode: "speed = 60\ntime = 2.5\n",
-      expectedOutput: "150.0",
-      hint: "distance = speed * time",
-      explanation: "60 × 2.5 = 150.0 km! 距离=速度×时间！",
+      prompt: "🎯 A projectile is launched at 45° with speed 20 m/s, g=10. Calculate distance = speed²×sin(2×angle)/g. Print the result.",
+      starterCode: "import math\nspeed = 20\nangle = 45\ng = 10\n",
+      expectedOutput: "40.0",
+      hint: "distance = (speed**2) * math.sin(2 * math.radians(angle)) / g",
+      explanation: "400 × sin(90°) / 10 = 400 × 1 / 10 = 40.0 meters! 抛体距离公式！",
     },
     {
-      question: "What is acceleration?",
-      options: ["Speed", "Change in speed over time", "Distance", "A type of force"],
-      correctIndex: 1,
-      explanation: "Acceleration = how quickly speed changes. Measured in m/s². 加速度=速度变化率！",
-    },
-    {
-      question: "How do you simulate time steps in code?",
-      options: ["Use time.sleep() only", "Use a loop where each iteration is a small time step", "You can't", "Use import physics"],
-      correctIndex: 1,
-      explanation: "Each loop iteration advances the simulation by a small dt (delta time)! 每次循环是一个时间步！",
-    },
-    {
-      type: "coding",
-      question: "Velocity after falling",
-      prompt: "🎯 An object falls for 3 seconds with gravity = 10 m/s². Print final velocity. (v = g × t)",
-      starterCode: "g = 10\nt = 3\n",
-      expectedOutput: "30",
-      hint: "velocity = g * t",
-      explanation: "v = 10 × 3 = 30 m/s. Velocity increases linearly! 速度=加速度×时间！",
-    },
-    {
-      question: "What is a simulation timestep (dt)?",
-      options: [
-        "The total simulation time",
-        "A small time increment between calculations",
-        "A Python variable type",
-        "A measurement of distance"
-      ],
+      question: "What is dt (delta time) in a simulation?",
+      options: ["Total time", "A small time step between calculations", "A Python variable type", "The end time"],
       correctIndex: 1,
       explanation: "dt is the tiny time slice between updates. Smaller dt = more accurate! dt是时间步长！",
     },
     {
-      question: "Energy conservation in a bouncing ball means:",
-      options: [
-        "The ball bounces higher each time",
-        "The ball bounces to the same height forever",
-        "Each bounce loses some energy, getting lower",
-        "The ball gains speed"
-      ],
-      correctIndex: 2,
-      explanation: "Real bouncing balls lose energy to heat/sound — each bounce is lower! 每次弹跳损失能量！",
+      question: "What does vx = speed × cos(angle) calculate?",
+      options: ["Total speed", "Horizontal velocity component", "Vertical velocity component", "Acceleration"],
+      correctIndex: 1,
+      explanation: "cos() extracts the horizontal part of the launch velocity! cos()提取水平速度！",
+    },
+    {
+      type: "coding",
+      question: "Flight time",
+      prompt: "🎯 A ball is thrown up at vy=30 m/s, g=10. Time to land = 2×vy/g. Print the time.",
+      starterCode: "vy = 30\ng = 10\n",
+      expectedOutput: "6.0",
+      hint: "time = 2 * vy / g",
+      explanation: "2 × 30 / 10 = 6.0 seconds! Up 3s + down 3s! 飞行时间=2×垂直速度/重力！",
+    },
+    {
+      question: "Why does a 30° shot go the same distance as a 60° shot?",
+      options: ["It doesn't", "sin(2×30°) = sin(2×60°) = sin(60°) = sin(120°)", "They have the same speed", "Gravity is different"],
+      correctIndex: 1,
+      explanation: "sin(60°) = sin(120°) ≈ 0.866. Complementary angles have equal range! 互补角等距！",
+    },
+    {
+      question: "What happens if you increase launch speed but keep the angle the same?",
+      options: ["Same distance", "Greater distance", "Less distance", "It depends on gravity"],
+      correctIndex: 1,
+      explanation: "Distance ∝ speed². Double the speed = 4× the distance! 距离与速度平方成正比！",
     },
   ],
 
   "4-4": [
     {
-      question: "What is data analysis?",
-      options: ["Deleting data", "Examining data to find patterns and insights", "Creating data randomly", "Encrypting data"],
+      question: "What does [x for x in data if x > 10] do?",
+      options: ["Removes items > 10", "Creates a new list with only items > 10", "Counts items > 10", "Sorts items > 10"],
       correctIndex: 1,
-      explanation: "Data analysis = exploring data to find patterns, trends, and answers! 数据分析找规律！",
+      explanation: "List comprehension with filter! Keeps only items matching the condition! 列表推导式过滤！",
     },
     {
-      question: "What is the mean (average)?",
-      options: ["The middle value", "Sum of all values ÷ count", "The most common value", "The range"],
-      correctIndex: 1,
-      explanation: "Mean = sum ÷ count. [2,4,6] → (2+4+6)/3 = 4! 平均值=总和÷个数！",
+      question: 'What does "ATC" in "GATCGATCG" return?',
+      options: ["True", "False", "3", "'ATC'"],
+      correctIndex: 0,
+      explanation: "'in' checks if a substring exists — 'ATC' is found in the string! in检查子串是否存在！",
     },
     {
-      question: "What is the median?",
-      options: ["The average", "The middle value when sorted", "The most common value", "The largest value"],
-      correctIndex: 1,
-      explanation: "Median = middle value when sorted. [1,3,7] → median is 3! 中位数是排序后中间的值！",
-    },
-    {
-      question: "What is the mode?",
-      options: ["The average", "The middle value", "The most frequently occurring value", "The range"],
+      question: "What does 'banana'.count('a') return?",
+      options: ["1", "2", "3", "6"],
       correctIndex: 2,
-      explanation: "Mode = most common value. [1,2,2,3] → mode is 2! 众数是出现最多的值！",
+      explanation: ".count() counts how many times 'a' appears: b-a-n-a-n-a → 3 times! count()计数出现次数！",
+    },
+    {
+      question: "What does all([True, True, False]) return?",
+      options: ["True", "False", "[True, True]", "Error"],
+      correctIndex: 1,
+      explanation: "all() returns True only if ALL items are True. One False = result is False! all()要求全部为真！",
     },
     {
       type: "coding",
-      question: "Find the mean",
-      prompt: "🎯 Calculate the mean of [10, 20, 30, 40, 50] and print it",
-      starterCode: "data = [10, 20, 30, 40, 50]\n",
-      expectedOutput: "30.0",
-      hint: "print(sum(data) / len(data))",
-      explanation: "Sum=150, count=5, mean=30.0! 平均值计算！",
+      question: "Filter a list",
+      prompt: "🎯 From [5, 12, 3, 18, 7, 20], print only numbers greater than 10 as a list.",
+      starterCode: "data = [5, 12, 3, 18, 7, 20]\n",
+      expectedOutput: "[12, 18, 20]",
+      hint: "print([x for x in data if x > 10])",
+      explanation: "List comprehension filters: keep 12, 18, 20! 列表推导式过滤！",
     },
     {
-      question: "What is the range of a dataset?",
-      options: ["The average", "Max value - Min value", "The number of items", "The middle value"],
+      question: "What does .find('xyz') return if 'xyz' is NOT in the string?",
+      options: ["0", "-1", "None", "Error"],
       correctIndex: 1,
-      explanation: "Range = max - min. Shows the spread of data! 范围=最大-最小！",
+      explanation: ".find() returns -1 when the substring is not found! 找不到时返回-1！",
     },
     {
-      question: "What is a CSV file?",
-      options: [
-        "A Python script",
-        "Comma Separated Values — a text file with data",
-        "A compressed file",
-        "A database"
-      ],
+      question: "What does any([False, False, True]) return?",
+      options: ["False", "True", "[True]", "1"],
       correctIndex: 1,
-      explanation: "CSV = Comma Separated Values. Simple text format for tabular data! CSV是逗号分隔值文件！",
+      explanation: "any() returns True if at least ONE item is True! any()只需一个为真！",
     },
     {
       type: "coding",
-      question: "Find the range",
-      prompt: "🎯 Find the range of [5, 12, 3, 8, 20] and print it",
-      starterCode: "data = [5, 12, 3, 8, 20]\n",
-      expectedOutput: "17",
-      hint: "print(max(data) - min(data))",
-      explanation: "max=20, min=3, range=17! 最大减最小！",
+      question: "Count pattern",
+      prompt: '🎯 Count how many times "ab" appears in "ababcababd". Print the count.',
+      starterCode: 'text = "ababcababd"\n',
+      expectedOutput: "3",
+      hint: 'print(text.count("ab"))',
+      explanation: '"ab" appears at positions 0, 2, 5 → 3 times! count()统计子串！',
     },
     {
-      question: "Why is data visualization important?",
-      options: ["It's not", "Humans understand pictures better than raw numbers", "It makes data bigger", "It's required by Python"],
+      question: "How do you filter a list of dictionaries by a key value?",
+      options: ["data.filter(key)", "[d for d in data if d['key'] == value]", "data.get(key)", "filter(data, key)"],
       correctIndex: 1,
-      explanation: "Visualizations reveal patterns that are hard to see in raw numbers! 可视化让数据更直观！",
+      explanation: "List comprehension with dict access — the Python way to filter! 用列表推导式过滤字典列表！",
     },
     {
-      question: "What is an outlier?",
-      options: [
-        "A normal data point",
-        "A data point far from the others",
-        "The mean of the data",
-        "A missing value"
-      ],
+      question: "What's the difference between .find() and .index()?",
+      options: ["They're identical", ".find() returns -1 if not found, .index() raises an error", ".index() is faster", ".find() only works on lists"],
       correctIndex: 1,
-      explanation: "Outliers are unusual data points that are far from the rest! 离群值是远离其他数据的点！",
+      explanation: ".find() is safer — returns -1. .index() crashes if not found! find()更安全！",
     },
   ],
 
   "4-5": [
     {
-      question: "What is an algorithm?",
-      options: ["A Python module", "A step-by-step procedure to solve a problem", "A type of error", "A variable"],
+      question: "What does ord('A') return?",
+      options: ["1", "65", "'A'", "Error"],
       correctIndex: 1,
-      explanation: "An algorithm is a clear, step-by-step plan — like a recipe! 算法是解决问题的步骤！",
+      explanation: "ord() returns the ASCII/Unicode number for a character. 'A' = 65! ord()返回字符编码！",
     },
     {
-      question: "What is linear search?",
-      options: ["Searching in a tree", "Checking every item one by one", "Jumping to the middle", "Random searching"],
+      question: "What does chr(97) return?",
+      options: ["'A'", "'a'", "'97'", "97"],
       correctIndex: 1,
-      explanation: "Linear search checks each element from start to end. Simple but slow for big lists! 线性搜索逐个检查！",
+      explanation: "chr() converts a number back to its character. 97 = 'a'! chr()数字转字符！",
     },
     {
-      question: "What is binary search?",
-      options: [
-        "Searching two lists at once",
-        "Cutting the search space in half each step",
-        "Searching backwards",
-        "Random searching"
-      ],
-      correctIndex: 1,
-      explanation: "Binary search halves the list each time. Much faster but list must be sorted! 二分搜索每次减半！",
-    },
-    {
-      question: "Binary search requires the list to be:",
-      options: ["Empty", "Sorted", "Reversed", "Very long"],
-      correctIndex: 1,
-      explanation: "Binary search only works on SORTED lists — that's the tradeoff! 二分搜索要求有序！",
-    },
-    {
-      question: "What is bubble sort?",
-      options: [
-        "Sorting by random bubbles",
-        "Comparing adjacent items and swapping if out of order",
-        "Finding the minimum each time",
-        "Splitting and merging"
-      ],
-      correctIndex: 1,
-      explanation: "Bubble sort compares neighbors and swaps — big values 'bubble' to the top! 冒泡排序比较相邻元素！",
-    },
-    {
-      type: "coding",
-      question: "Linear search",
-      prompt: "🎯 Check if 7 is in the list [3, 5, 7, 9]. Print True or False.",
-      starterCode: "numbers = [3, 5, 7, 9]\n",
-      expectedOutput: "True",
-      hint: "print(7 in numbers)",
-      explanation: "'in' does a linear search! 7 is in the list → True! in做线性搜索！",
-    },
-    {
-      question: "How many checks does linear search need for a list of 100 items (worst case)?",
-      options: ["7", "10", "50", "100"],
-      correctIndex: 3,
-      explanation: "Worst case: check ALL 100 items. That's O(n) — linear time! 最坏检查全部100个！",
-    },
-    {
-      question: "How many checks does binary search need for 100 items (worst case)?",
-      options: ["100", "50", "7", "10"],
+      question: "In a Caesar cipher with shift 3, what does 'A' become?",
+      options: ["'B'", "'C'", "'D'", "'Z'"],
       correctIndex: 2,
-      explanation: "log₂(100) ≈ 7 checks! Binary search is O(log n) — much faster! 二分搜索只需约7次！",
+      explanation: "A→B→C→D. Shift 3 positions forward! 向前移3位！",
+    },
+    {
+      question: "What makes XOR (^) special for encryption?",
+      options: ["It's fast", "Applying it twice returns the original", "It creates random numbers", "It's unbreakable"],
+      correctIndex: 1,
+      explanation: "a ^ key ^ key = a. XOR is its own reverse! That's encryption magic! 异或两次得原文！",
     },
     {
       type: "coding",
-      question: "Find minimum",
-      prompt: "🎯 Find and print the minimum value in [42, 17, 93, 8, 55]",
-      starterCode: "numbers = [42, 17, 93, 8, 55]\n",
-      expectedOutput: "8",
-      hint: "Use min(numbers)",
-      explanation: "min() finds the smallest value by scanning the list! min()找最小值！",
+      question: "Caesar shift",
+      prompt: "🎯 Encrypt the letter 'H' with a Caesar shift of 5. Print the resulting character.",
+      starterCode: "letter = 'H'\nshift = 5\n",
+      expectedOutput: "M",
+      hint: "chr(ord('H') + 5) = chr(72 + 5) = chr(77) = 'M'",
+      explanation: "H(72) + 5 = M(77). Caesar cipher shifts letters! 凯撒密码移位！",
     },
     {
-      question: "What makes an algorithm 'efficient'?",
-      options: [
-        "It uses many lines of code",
-        "It uses fewer steps/resources for the same result",
-        "It's written in Python only",
-        "It's always fast"
-      ],
+      question: "Why is a 4-digit PIN weak?",
+      options: ["PINs are always weak", "Only 10,000 combinations — a computer tries them in milliseconds", "4 is an unlucky number", "PINs can't use letters"],
       correctIndex: 1,
-      explanation: "Efficient = getting the same result with fewer steps/memory! 效率=用更少步骤完成！",
+      explanation: "10,000 combinations is nothing for a computer! Use longer passwords! 10000种太少了！",
+    },
+    {
+      question: "What is a hash function?",
+      options: ["Encryption that can be reversed", "A one-way function that turns data into a fixed-size code", "A random number generator", "A password generator"],
+      correctIndex: 1,
+      explanation: "Hashes are one-way — you can't get the original back! Used for password storage. 哈希是单向的！",
+    },
+    {
+      type: "coding",
+      question: "XOR encrypt/decrypt",
+      prompt: "🎯 Encrypt 'X' with XOR key 10, then decrypt it. Print both the encrypted number and decrypted character.",
+      starterCode: "letter = 'X'\nkey = 10\n",
+      expectedOutput: "82\nX",
+      hint: "encrypted = ord('X') ^ 10. decrypted = chr(encrypted ^ 10).",
+      explanation: "ord('X')=88. 88^10=82. 82^10=88. chr(88)='X'. XOR round-trip! 异或往返！",
+    },
+    {
+      question: "What makes a strong password?",
+      options: ["Your birthday", "Long + mixed case + numbers + symbols", "A common word", "Same as your username"],
+      correctIndex: 1,
+      explanation: "Length and complexity matter! Each character type multiplies the possibilities! 长度+复杂度=安全！",
+    },
+    {
+      question: "How does Morse code work?",
+      options: ["It uses colors", "It encodes letters as sequences of dots and dashes", "It uses numbers only", "It's a programming language"],
+      correctIndex: 1,
+      explanation: "Morse code: A=.-, B=-..., SOS=...---... Dots and dashes! 莫尔斯电码用点和横！",
     },
   ],
 
   "4-6": [
     {
-      question: "What is web scraping?",
-      options: ["Building websites", "Extracting data from websites", "Hacking websites", "Designing web pages"],
+      question: "What does max(0, value) ensure?",
+      options: ["Value is always 0", "Value never goes below 0", "Value is always positive", "Value equals max"],
       correctIndex: 1,
-      explanation: "Web scraping = programmatically extracting data from web pages! 网页爬虫提取数据！",
+      explanation: "max(0, x) clamps to 0 minimum — populations can't be negative! 确保不为负数！",
     },
     {
-      question: "What format do APIs usually return data in?",
-      options: ["HTML", "CSV", "JSON", "XML only"],
-      correctIndex: 2,
-      explanation: "JSON (JavaScript Object Notation) is the most common API data format! API通常返回JSON！",
+      question: "In a predator-prey simulation, what happens when predators increase?",
+      options: ["Prey increase too", "Prey decrease because more are eaten", "Nothing changes", "Predators decrease"],
+      correctIndex: 1,
+      explanation: "More predators = more hunting = fewer prey. Then predators starve too — it's a cycle! 更多捕食者=更多猎杀！",
     },
     {
-      question: "What does JSON look like?",
-      options: ["Like Python code", "Like key-value pairs with { }", "Like a spreadsheet", "Like binary data"],
+      question: "Why do we use .copy() when saving state to history?",
+      options: ["It's faster", "Without copy, all history entries point to the same dict that changes", "It uses less memory", "It's required by Python"],
       correctIndex: 1,
-      explanation: 'JSON uses {key: value} pairs — very similar to Python dictionaries! JSON像Python字典！',
+      explanation: "Dicts are references! Without copy, every history entry shows the CURRENT state, not the past! 字典是引用！",
     },
     {
-      question: "What is an API?",
-      options: [
-        "A type of Python file",
-        "Application Programming Interface — a way for programs to talk to each other",
-        "A web browser",
-        "A database"
-      ],
+      question: "What is a simulation time step?",
+      options: ["Total simulation time", "One iteration of the main loop representing a time unit", "A debugging tool", "A random interval"],
       correctIndex: 1,
-      explanation: "APIs let different programs communicate and share data! API让程序互相通信！",
-    },
-    {
-      question: "What Python module is commonly used for HTTP requests?",
-      options: ["http", "requests", "urllib only", "web"],
-      correctIndex: 1,
-      explanation: "The 'requests' library is the most popular for HTTP in Python! requests库最常用！",
+      explanation: "Each loop iteration = one 'day' or 'turn' in the simulation! 每次循环=一个时间单位！",
     },
     {
       type: "coding",
-      question: "Parse JSON-like data",
-      prompt: '🎯 Given data as a dictionary, print the value of "name"',
-      starterCode: 'data = {"name": "Python", "year": 1991}\n',
-      expectedOutput: "Python",
-      hint: 'print(data["name"])',
-      explanation: 'Access dict values with the key! 用键访问字典值！',
+      question: "Population update",
+      prompt: "🎯 Start with 100 rabbits. Each day: +10% births, -15% eaten. What's the count after 1 day? Print it.",
+      starterCode: "rabbits = 100\n",
+      expectedOutput: "95",
+      hint: "births = int(100 * 0.10) = 10. eaten = int(100 * 0.15) = 15. 100 + 10 - 15 = 95.",
+      explanation: "10 born - 15 eaten = net -5. 100 - 5 = 95 rabbits! 出生-被吃=净变化！",
     },
     {
-      question: "What is rate limiting in APIs?",
-      options: [
-        "How fast the API responds",
-        "Limiting how many requests you can make per time period",
-        "The API's download speed",
-        "A type of error"
-      ],
+      question: "What happens in an ecosystem if all predators disappear?",
+      options: ["Nothing", "Prey population explodes, then crashes due to food shortage", "Prey stay the same", "Prey also disappear"],
       correctIndex: 1,
-      explanation: "Rate limits prevent overloading the server — be respectful! 速率限制防止过载！",
+      explanation: "Without predators, prey overpopulate → eat all food → mass starvation! 没有捕食者→猎物过多→食物耗尽！",
     },
     {
-      question: "What HTTP method gets data?",
-      options: ["POST", "GET", "PUT", "DELETE"],
+      question: "What does history.append(dict(world)) do?",
+      options: ["Adds the world dict directly", "Adds a COPY of the world dict to history", "Deletes the world", "Creates a new world"],
       correctIndex: 1,
-      explanation: "GET retrieves data, POST sends data. Most API reads use GET! GET获取数据！",
+      explanation: "dict(world) creates a new copy, so history preserves past states! dict()创建副本！",
     },
     {
       type: "coding",
-      question: "Access nested data",
-      prompt: '🎯 Given d = {"user": {"name": "Alice"}}, print "Alice"',
-      starterCode: 'd = {"user": {"name": "Alice"}}\n',
-      expectedOutput: "Alice",
-      hint: 'print(d["user"]["name"])',
-      explanation: 'Chain the keys for nested access! 链式访问嵌套数据！',
+      question: "Simple simulation",
+      prompt: "🎯 Start with grass=100. It grows 20% per day but max is 200. After 5 days, print the amount.",
+      starterCode: "grass = 100\nfor day in range(5):\n    grass += int(grass * 0.20)\n    grass = min(grass, 200)\n",
+      expectedOutput: "200",
+      hint: "Day 1: 120, Day 2: 144, Day 3: 172, Day 4: 200 (capped), Day 5: 200 (still capped)",
+      explanation: "100→120→144→172→206→200(capped). Min caps at 200! 增长到上限就停！",
     },
     {
-      question: "What status code means 'OK' in HTTP?",
-      options: ["404", "500", "200", "301"],
-      correctIndex: 2,
-      explanation: "200 = OK, 404 = Not Found, 500 = Server Error. 200表示成功！",
+      question: "Why add random events to a simulation?",
+      options: ["To make it harder to code", "To model real-world unpredictability", "Computers need randomness", "To slow it down"],
+      correctIndex: 1,
+      explanation: "Real ecosystems have droughts, diseases, etc. Random events make simulations realistic! 随机事件让模拟更真实！",
+    },
+    {
+      question: "What programming concepts does this lesson combine?",
+      options: ["Only loops", "Data tracking, randomness, math formulas, and analysis", "Only functions", "Only print statements"],
+      correctIndex: 1,
+      explanation: "Life Simulator combines EVERYTHING: lists, dicts, loops, random, math, analysis! 综合运用所有概念！",
     },
   ],
 
@@ -1891,521 +1836,655 @@ export const QUIZ_DATA: Record<string, QuizQuestion[]> = {
 
   "5-1": [
     {
-      question: "What is Artificial Intelligence?",
+      question: "What is a rule-based AI system?",
       options: [
-        "Robots that think like humans",
-        "Computer programs that can learn and make decisions",
+        "A neural network",
+        "A system that uses if/elif/else rules to make decisions",
+        "A random number generator",
+        "A database"
+      ],
+      correctIndex: 1,
+      explanation: "Rule-based AI uses explicit if/elif/else rules to decide — the simplest form of AI! 基于规则的AI用if/elif/else决策！",
+    },
+    {
+      question: "What does .lower() do to a string?",
+      options: [
+        "Makes it shorter",
+        "Converts all characters to lowercase",
+        "Removes spaces",
+        "Reverses the string"
+      ],
+      correctIndex: 1,
+      explanation: ".lower() converts 'HELLO' → 'hello'. Essential for input normalization! .lower()转换为小写！",
+    },
+    {
+      question: "What is a 'knowledge base' in AI?",
+      options: [
+        "A school library",
+        "A data structure (like a dictionary) storing what the AI knows",
         "The internet",
-        "A programming language"
+        "A type of loop"
       ],
       correctIndex: 1,
-      explanation: "AI = programs that learn from data and make decisions! AI是能学习和决策的程序！",
+      explanation: "A knowledge base stores the AI's knowledge — often as a dictionary of rules/facts! 知识库存储AI所知！",
     },
     {
-      question: "What is machine learning?",
+      question: "Why is input normalization important for AI?",
       options: [
-        "Machines learning to walk",
-        "Programs that improve from experience/data without explicit programming",
-        "Memorizing everything",
-        "A type of hardware"
+        "It makes code run faster",
+        "So 'SIT', 'Sit', and 'sit' are all treated the same way",
+        "It saves memory",
+        "It's not important"
       ],
       correctIndex: 1,
-      explanation: "ML = learning from data patterns rather than being explicitly programmed! 机器学习从数据中学习！",
-    },
-    {
-      question: "What is training data?",
-      options: [
-        "Data used to teach a model",
-        "Data from a gym",
-        "Encrypted data",
-        "Random numbers"
-      ],
-      correctIndex: 0,
-      explanation: "Training data is what the AI learns from — like a textbook! 训练数据是AI学习的材料！",
-    },
-    {
-      question: "What is a chatbot?",
-      options: [
-        "A robot that chats in person",
-        "A program that can have conversations",
-        "A social media app",
-        "A chat room"
-      ],
-      correctIndex: 1,
-      explanation: "Chatbots are AI programs that understand and generate human language! 聊天机器人理解和生成语言！",
-    },
-    {
-      question: "What is a Large Language Model (LLM)?",
-      options: [
-        "A very big dictionary",
-        "An AI trained on massive text data that can understand and generate language",
-        "A language translator only",
-        "A spell checker"
-      ],
-      correctIndex: 1,
-      explanation: "LLMs like GPT are trained on vast text to understand and produce language! LLM是大型语言模型！",
+      explanation: "Normalization ensures different forms of input (SIT, Sit, sit) all match the same rule! 标准化确保匹配！",
     },
     {
       type: "coding",
-      question: "Simple AI logic",
-      prompt: '🎯 Write an if statement: if the word "hello" is found in "hello world", print "Greeting detected!"',
-      starterCode: 'text = "hello world"\n',
-      expectedOutput: "Greeting detected!",
-      hint: 'if "hello" in text: print("Greeting detected!")',
-      explanation: '"in" checks if a substring exists — basic pattern matching! in检查子串！',
+      question: "Pet trick lookup",
+      prompt: "🎯 Create a dictionary tricks = {\"sit\": \"sits down\", \"shake\": \"offers paw\"}. Print tricks[\"sit\"].",
+      starterCode: "# Create tricks dictionary and look up \"sit\"\n",
+      expectedOutput: "sits down",
+      hint: "tricks = {\"sit\": \"sits down\", \"shake\": \"offers paw\"}\nprint(tricks[\"sit\"])",
+      explanation: "Dictionary lookup with tricks[\"sit\"] returns the matching value! 字典查找返回匹配值！",
     },
     {
-      question: "What does 'bias' mean in AI?",
+      question: "What does 'in' check in Python?",
       options: [
-        "The AI is too smart",
-        "The AI's predictions are unfairly skewed due to training data",
-        "The AI is broken",
-        "A Python error"
+        "If a variable exists",
+        "If a value is inside a collection (string, list, dict)",
+        "If a function is defined",
+        "If a file exists"
       ],
       correctIndex: 1,
-      explanation: "AI bias comes from biased training data — garbage in, garbage out! AI偏见来自训练数据！",
+      explanation: "'in' checks membership — 'cat' in 'the cat sat' → True! in检查是否包含！",
     },
     {
-      question: "What is a neural network inspired by?",
-      options: ["The internet", "The human brain", "A spider web", "A computer chip"],
+      question: "How does an AI pet 'learn' new tricks?",
+      options: [
+        "Magic",
+        "By adding new entries to its knowledge base (dictionary)",
+        "By restarting the program",
+        "By connecting to the internet"
+      ],
       correctIndex: 1,
-      explanation: "Neural networks are inspired by how brain neurons connect and fire! 神经网络模仿大脑！",
+      explanation: "Learning = adding new key-value pairs to the dictionary! tricks['new'] = 'response' 学习=添加新键值对！",
     },
     {
       type: "coding",
-      question: "Keyword detection",
-      prompt: '🎯 Check if "python" is in the sentence "I love python programming". Print the result (True/False).',
-      starterCode: 'sentence = "I love python programming"\n',
+      question: "Emotion detection",
+      prompt: "🎯 Check if 'happy' is in the message 'I am so happy today'. Print the result (True/False).",
+      starterCode: "message = \"I am so happy today\"\n",
       expectedOutput: "True",
-      hint: 'print("python" in sentence)',
-      explanation: '"in" returns True if the substring is found! in返回布尔值！',
+      hint: "print(\"happy\" in message)",
+      explanation: "'happy' is found in the message → True! 'happy'在消息中找到！",
     },
     {
-      question: "What is supervised learning?",
+      question: "What is a decision tree?",
       options: [
-        "Learning with a teacher who provides correct answers",
-        "Learning without any data",
-        "Learning from random guesses only",
-        "Learning from videos"
+        "A tree data structure in memory",
+        "A series of if/elif/else questions that lead to a decision",
+        "A machine learning library",
+        "A type of forest"
       ],
-      correctIndex: 0,
-      explanation: "Supervised learning uses labeled data — each example has the correct answer! 有监督学习用标注数据！",
+      correctIndex: 1,
+      explanation: "Decision trees are chains of yes/no questions — the backbone of simple AI! 决策树是一连串判断问题！",
+    },
+    {
+      question: "What happens when the AI pet gets an unknown command?",
+      options: [
+        "It crashes",
+        "It falls into the 'else' branch and gives a default response",
+        "It learns the command automatically",
+        "It ignores it"
+      ],
+      correctIndex: 1,
+      explanation: "The 'else' branch handles unknown inputs — good AI always has a fallback! else处理未知输入！",
     },
   ],
 
   "5-2": [
     {
-      question: "How can AI help you write code?",
+      question: "What is the simplest game AI strategy?",
       options: [
-        "It writes perfect code every time",
-        "It can suggest code, explain errors, and help debug",
-        "It replaces programmers entirely",
-        "It can't help with code"
+        "Always pick the best move",
+        "Random selection — just pick any valid move",
+        "Copy the opponent",
+        "Do nothing"
       ],
       correctIndex: 1,
-      explanation: "AI is a coding assistant — it suggests, explains, and helps debug. But you're the pilot! AI是编程助手！",
+      explanation: "Random AI picks randomly — it's dumb but makes a good baseline to compare against! 随机AI是最简单的基准！",
     },
     {
-      question: "What is a prompt in AI?",
+      question: "What does a smart Tic-Tac-Toe AI check first?",
       options: [
-        "An error message",
-        "The input/instructions you give to an AI",
-        "The AI's response",
-        "A Python command"
+        "Random empty spot",
+        "Can I win this turn? If yes, take the winning move!",
+        "The center",
+        "The corners"
       ],
       correctIndex: 1,
-      explanation: "A prompt is what you ask/tell the AI. Better prompts = better responses! 提示词是给AI的指令！",
+      explanation: "Priority 1: Win if possible! Then block opponent, then strategic positions. 优先级1：能赢就赢！",
     },
     {
-      question: "Should you blindly trust AI-generated code?",
-      options: ["Yes, AI is always right", "No, always review and test it yourself", "Only for simple code", "Only from paid AI"],
-      correctIndex: 1,
-      explanation: "ALWAYS review AI code! AI makes mistakes, generates bugs, and can misunderstand. 永远要审查AI代码！",
-    },
-    {
-      question: "What makes a good prompt for AI coding help?",
+      question: "How can an AI learn your patterns in Rock-Paper-Scissors?",
       options: [
-        "Being vague: 'write some code'",
-        "Being specific: describe the goal, language, constraints, and expected behavior",
-        "Using only one word",
-        "Copying the entire codebase"
+        "Read your mind",
+        "Track your move history and find the most common choice",
+        "Use a camera",
+        "Ask you"
       ],
       correctIndex: 1,
-      explanation: "Specific, clear prompts get better results. Tell AI what, why, and how! 具体清晰的提示更好！",
+      explanation: "By counting your past moves, AI predicts you'll repeat your favorite! 统计历史找你的偏好！",
+    },
+    {
+      question: "What is an evaluation function in game AI?",
+      options: [
+        "A test function",
+        "A function that scores how good a game position is",
+        "A function that evaluates Python code",
+        "A debugging tool"
+      ],
+      correctIndex: 1,
+      explanation: "Evaluation functions score positions: winning = +10, losing = -10, draw = 0. 评估函数给位置打分！",
     },
     {
       type: "coding",
-      question: "Fix AI suggestion",
-      prompt: '🎯 The AI suggested this to print numbers 1-3. It works! Just run it.',
-      starterCode: 'for i in range(1, 4):\n    print(i)\n',
-      expectedOutput: "1\n2\n3",
-      hint: "This code is correct — just run it!",
-      explanation: "Sometimes AI code is right — but you should always verify! 有时AI的代码是对的！",
+      question: "Counter move",
+      prompt: "🎯 Write a function get_counter(move) that returns what beats rock/paper/scissors. Test with get_counter(\"rock\") and print the result.",
+      starterCode: "def get_counter(move):\n    counters = {\"rock\": \"paper\", \"paper\": \"scissors\", \"scissors\": \"rock\"}\n    return counters[move]\n\n",
+      expectedOutput: "paper",
+      hint: "Just call print(get_counter(\"rock\")) — paper beats rock!",
+      explanation: "Dictionary lookup for game strategy! Paper beats rock. 字典查找游戏策略！",
     },
     {
-      question: "What is 'hallucination' in AI?",
+      question: "Why is a strategy AI better than a random AI?",
       options: [
-        "The AI seeing images",
-        "The AI confidently generating incorrect or made-up information",
-        "A hardware problem",
-        "A type of model"
+        "It's faster",
+        "It uses rules/priorities to make smarter decisions",
+        "It uses more memory",
+        "It's always perfect"
       ],
       correctIndex: 1,
-      explanation: "AI hallucination = making up facts confidently. That's why you must verify! AI会编造信息！",
+      explanation: "Strategy AI follows priorities (win > block > position), making smarter choices! 策略AI用优先级决策！",
     },
     {
-      question: "What is pair programming with AI?",
+      question: "What does 'counter' mean in Rock-Paper-Scissors AI?",
       options: [
-        "Two AIs coding together",
-        "You write code while AI assists, suggests, and reviews",
-        "AI writes everything",
-        "You watch AI code"
+        "Count the score",
+        "Play the move that beats the predicted opponent move",
+        "Copy the opponent",
+        "Count to three"
       ],
       correctIndex: 1,
-      explanation: "You're the driver, AI is the navigator. Work together! 你是驾驶员，AI是导航！",
-    },
-    {
-      question: "When should you NOT use AI for coding?",
-      options: [
-        "When learning fundamentals — try yourself first!",
-        "Never, always use AI",
-        "When writing print statements",
-        "When using variables"
-      ],
-      correctIndex: 0,
-      explanation: "When learning, try first! Use AI to check your work, not replace your thinking. 学习时先自己试！",
+      explanation: "If you predict 'rock', counter with 'paper' (which beats rock)! 预测对手出石头就出布！",
     },
     {
       type: "coding",
-      question: "Verify AI output",
-      prompt: "🎯 AI says 3 + 4 * 2 = 14. Is that right? Print the correct answer.",
-      starterCode: "# Check: is 3 + 4 * 2 really 14?\n",
-      expectedOutput: "11",
-      hint: "Remember order of operations: multiplication first! print(3 + 4 * 2)",
-      explanation: "4*2=8, then 3+8=11. AI was WRONG! Always verify. AI说错了！要验证！",
+      question: "Winner check",
+      prompt: "🎯 Given board = ['X','O','X','X','O','X','O','X','O'], count how many 'X' are on the board. Print the count.",
+      starterCode: "board = ['X','O','X','X','O','X','O','X','O']\n",
+      expectedOutput: "5",
+      hint: "Use board.count('X') and print the result!",
+      explanation: ".count() counts occurrences in a list! .count()计算列表中的出现次数！",
     },
     {
-      question: "What's the best approach to using AI tools?",
+      question: "In a game tournament, why run multiple games?",
       options: [
-        "Let AI do everything",
-        "Never use AI",
-        "Use AI as a tool while maintaining your own understanding",
-        "Only use AI for testing"
+        "One game is boring",
+        "To reduce luck — more games show which strategy is truly better",
+        "Computers need warm-up",
+        "To waste time"
       ],
-      correctIndex: 2,
-      explanation: "AI is a powerful tool, but understanding is YOUR responsibility! AI是工具，理解是你的！",
+      correctIndex: 1,
+      explanation: "Multiple games reduce randomness and reveal true strategy strength! 多场比赛减少运气成分！",
+    },
+    {
+      question: "What is the 'Minimax' concept in game AI?",
+      options: [
+        "Minimize code, maximize speed",
+        "Maximize your score while minimizing your opponent's",
+        "Use minimum and maximum functions",
+        "A Python library"
+      ],
+      correctIndex: 1,
+      explanation: "Minimax: pick the move that maximizes your advantage while minimizing opponent's! 极大极小：最大化自己，最小化对手！",
     },
   ],
 
   "5-3": [
     {
-      question: "Can AI make mistakes?",
-      options: ["Never, AI is perfect", "Yes, AI frequently makes errors", "Only in math", "Only in language"],
-      correctIndex: 1,
-      explanation: "AI makes mistakes in code, facts, reasoning, and more. Always verify! AI经常犯错！",
-    },
-    {
-      question: "What is AI bias?",
+      question: "What is 'generative' in generative algorithms?",
       options: [
-        "AI preferring Python over JavaScript",
-        "Systematic unfairness in AI outputs due to training data or design",
-        "AI being too smart",
-        "A programming error"
-      ],
-      correctIndex: 1,
-      explanation: "Bias in AI comes from biased data, design choices, or societal patterns. AI偏见来自数据和设计！",
-    },
-    {
-      question: "What is critical thinking with AI?",
-      options: [
-        "Criticizing AI",
-        "Questioning and verifying AI outputs instead of blindly trusting",
-        "Using AI for criticism",
-        "Making AI think critically"
-      ],
-      correctIndex: 1,
-      explanation: "Critical thinking = question, verify, and think about AI's answers! 批判性思维=质疑和验证！",
-    },
-    {
-      question: "AI trained mostly on English text might:",
-      options: [
-        "Work perfectly in all languages",
-        "Perform worse in other languages",
-        "Only work in English",
-        "Translate perfectly"
-      ],
-      correctIndex: 1,
-      explanation: "AI reflects its training data — less data in a language means worse performance! 训练数据少的语言表现差！",
-    },
-    {
-      question: "What should you do if AI gives you wrong information?",
-      options: [
-        "Report it and move on",
-        "Trust it anyway",
-        "Verify with other sources and correct your understanding",
-        "Stop using AI forever"
-      ],
-      correctIndex: 2,
-      explanation: "Cross-reference with trusted sources. AI is a helper, not an authority! 交叉验证，AI不是权威！",
-    },
-    {
-      type: "coding",
-      question: "Spot the AI mistake",
-      prompt: '🎯 AI claims len("Hi") returns 3. Print the ACTUAL result.',
-      starterCode: '# What does len("Hi") really return?\n',
-      expectedOutput: "2",
-      hint: 'print(len("Hi")) — count the characters!',
-      explanation: '"Hi" has 2 characters, not 3! AI was wrong again. "Hi"只有2个字符！',
-    },
-    {
-      question: "What is a deepfake?",
-      options: [
-        "A deep learning model",
-        "AI-generated fake images, videos, or audio",
+        "A type of battery",
+        "Algorithms that CREATE new content (art, text, music)",
         "A debugging technique",
-        "A type of neural network"
+        "A type of loop"
       ],
       correctIndex: 1,
-      explanation: "Deepfakes are AI-generated fake media that look real. Be aware! 深度伪造是AI生成的假内容！",
+      explanation: "Generative algorithms create new content — art, poetry, music! 生成算法创造新内容！",
     },
     {
-      question: "What is data privacy in AI?",
+      question: "What is controlled randomness?",
       options: [
-        "Making AI private",
-        "Protecting personal information from being misused by AI systems",
-        "Encrypting AI code",
-        "Hiding AI from users"
+        "True random chaos",
+        "Using random.choice() from a curated list — random but within rules",
+        "Not using random at all",
+        "A Python error"
       ],
       correctIndex: 1,
-      explanation: "Data privacy means protecting personal info. Be careful what data you share with AI! 数据隐私保护个人信息！",
+      explanation: "Pick randomly from a carefully chosen set — randomness within structure! 从精心选择的集合中随机挑选！",
     },
     {
-      question: "What ethical consideration is important when building AI?",
+      question: "What is a Markov chain?",
       options: [
-        "Making it as fast as possible",
-        "Fairness, transparency, and accountability",
-        "Using the most data",
-        "Making it profitable"
+        "A blockchain",
+        "Predicting the next word/state based on the current one",
+        "A type of chain necklace",
+        "A linked list"
       ],
       correctIndex: 1,
-      explanation: "Ethical AI should be fair, transparent, and accountable! AI伦理：公平、透明、负责！",
+      explanation: "Markov chains predict what comes NEXT based on what's happening NOW. Like auto-complete! 马尔可夫链预测下一个！",
+    },
+    {
+      question: "How does template-based generation work?",
+      options: [
+        "Copy paste",
+        "Define a structure (template) and fill in random words/parts",
+        "Write everything manually",
+        "Use AI images"
+      ],
+      correctIndex: 1,
+      explanation: "Templates provide structure, random fills provide variety! Like Mad Libs! 模板提供结构，随机填充变化！",
     },
     {
       type: "coding",
-      question: "Check a claim",
-      prompt: '🎯 AI says 10 / 3 = 3.33. Print the actual result of 10 / 3.',
-      starterCode: "# Verify the claim\n",
-      expectedOutput: "3.3333333333333335",
-      hint: "print(10 / 3)",
-      explanation: "10/3 = 3.3333...335 (floating point). AI's rounded answer was close but not exact! 浮点数精度！",
+      question: "Random choice",
+      prompt: "🎯 Use random.choice() to pick a word from ['sun', 'moon', 'star'] with seed 42, and print it.",
+      starterCode: "import random\nrandom.seed(42)\nwords = [\"sun\", \"moon\", \"star\"]\n",
+      expectedOutput: "moon",
+      hint: "print(random.choice(words))",
+      explanation: "random.choice() picks one random element from a list! random.choice()随机选一个！",
+    },
+    {
+      question: "In a Markov chain text generator, what is 'training text'?",
+      options: [
+        "The output text",
+        "The source text the AI learns word patterns from",
+        "A textbook about AI",
+        "A code comment"
+      ],
+      correctIndex: 1,
+      explanation: "Training text teaches the AI which words typically follow which! 训练文本教AI词语规律！",
+    },
+    {
+      question: "What is procedural generation?",
+      options: [
+        "Following a procedure",
+        "Building content step-by-step using algorithms and randomness",
+        "Writing procedures in Python",
+        "A game engine feature only"
+      ],
+      correctIndex: 1,
+      explanation: "Procedural generation builds worlds, art, etc. algorithmically — used in games like Minecraft! 程序化生成用算法创建内容！",
+    },
+    {
+      type: "coding",
+      question: "String formatting",
+      prompt: "🎯 Use .format() to fill in: 'The {adj} {noun}'.format(adj='bright', noun='moon'). Print the result.",
+      starterCode: "",
+      expectedOutput: "The bright moon",
+      hint: "print('The {adj} {noun}'.format(adj='bright', noun='moon'))",
+      explanation: ".format() fills in template placeholders with values! .format()填充模板占位符！",
+    },
+    {
+      question: "Why does each run of a random art generator create different art?",
+      options: [
+        "The code changes itself",
+        "random.choice() picks different values each time",
+        "The computer's mood changes",
+        "It doesn't — always the same"
+      ],
+      correctIndex: 1,
+      explanation: "Random functions return different values each run — that's the 'creative' part! 随机函数每次返回不同值！",
+    },
+    {
+      question: "What does random.seed(42) do?",
+      options: [
+        "Plants a seed",
+        "Makes random results reproducible — same seed = same 'random' results",
+        "Generates 42 random numbers",
+        "Nothing"
+      ],
+      correctIndex: 1,
+      explanation: "Setting a seed makes random() predictable — great for testing! seed让随机可重现！",
     },
   ],
 
   "5-4": [
     {
-      question: "What is classification in AI/programming?",
+      question: "What is a prediction in programming?",
       options: [
-        "Organizing files into folders",
-        "Sorting things into categories based on rules or patterns",
-        "A type of loop",
-        "A Python module"
-      ],
-      correctIndex: 1,
-      explanation: "Classification = assigning items to categories based on features/rules! 分类=按规则归类！",
-    },
-    {
-      question: "What is a simple if/else classifier?",
-      options: [
-        "An AI model",
-        "Using if/elif/else to categorize based on conditions",
-        "A random classifier",
-        "A neural network"
-      ],
-      correctIndex: 1,
-      explanation: "Simple classifiers use rules (if/elif/else) to decide categories! 简单分类器用规则判断！",
-    },
-    {
-      question: "What is a decision tree?",
-      options: [
-        "A tree data structure",
-        "A series of yes/no questions that lead to a classification",
-        "A random forest",
-        "A Python library"
-      ],
-      correctIndex: 1,
-      explanation: "Decision trees ask yes/no questions to narrow down to a category! 决策树问是/否问题来分类！",
-    },
-    {
-      question: "What is a feature in machine learning?",
-      options: [
-        "A Python feature",
-        "A measurable property used to make predictions",
-        "A software update",
-        "A bug fix"
-      ],
-      correctIndex: 1,
-      explanation: "Features are the input attributes (like height, weight, color) used for predictions! 特征是用于预测的属性！",
-    },
-    {
-      type: "coding",
-      question: "Simple classifier",
-      prompt: '🎯 Classify temperature: if temp >= 30, print "hot". Given temp = 35.',
-      starterCode: "temp = 35\n",
-      expectedOutput: "hot",
-      hint: 'if temp >= 30: print("hot")',
-      explanation: "35 >= 30 is True → prints 'hot'! Simple threshold classifier. 简单阈值分类！",
-    },
-    {
-      question: "What is accuracy in classification?",
-      options: [
-        "How fast the classifier is",
-        "Percentage of correct predictions",
-        "The number of categories",
-        "The amount of training data"
-      ],
-      correctIndex: 1,
-      explanation: "Accuracy = correct predictions ÷ total predictions × 100%! 准确率=正确预测/总预测！",
-    },
-    {
-      question: "What is overfitting?",
-      options: [
-        "The model is too big",
-        "The model memorizes training data but fails on new data",
-        "The model is too fast",
-        "The model is perfect"
-      ],
-      correctIndex: 1,
-      explanation: "Overfitting = great on training data, bad on new data. Like memorizing answers! 过拟合=记住答案但不会举一反三！",
-    },
-    {
-      type: "coding",
-      question: "Multi-class classifier",
-      prompt: '🎯 Given score = 85, classify: A(90+), B(80+), C(70+), F(below 70). Print the grade.',
-      starterCode: "score = 85\n# Classify the grade\n",
-      expectedOutput: "B",
-      hint: 'Use if/elif: if score >= 90: print("A") elif score >= 80: print("B") ...',
-      explanation: "85 >= 80 → grade B! Elif chain classifies into ranges. elif链分级！",
-    },
-    {
-      question: "What is unsupervised learning?",
-      options: [
-        "Learning with labeled data",
-        "Finding patterns in data WITHOUT labels",
-        "Learning without a computer",
-        "Random learning"
-      ],
-      correctIndex: 1,
-      explanation: "Unsupervised learning discovers patterns without being told the answers! 无监督学习无标签！",
-    },
-    {
-      question: "K-Nearest Neighbors (KNN) classifies by:",
-      options: [
+        "Magic fortune-telling",
+        "Using data patterns to estimate future or unknown values",
         "Random guessing",
-        "Looking at the K closest data points and voting",
-        "Using a formula",
-        "Asking the user"
+        "Reading a file"
       ],
       correctIndex: 1,
-      explanation: "KNN checks the K nearest neighbors and picks the most common category! KNN看最近的K个邻居投票！",
+      explanation: "Prediction = finding patterns in past data and extending them to new cases! 预测=找规律推测新值！",
+    },
+    {
+      question: "What is a linear trend?",
+      options: [
+        "A straight line",
+        "A pattern where values increase/decrease at a constant rate (y = mx + b)",
+        "A zigzag pattern",
+        "No pattern at all"
+      ],
+      correctIndex: 1,
+      explanation: "Linear trends follow y = mx + b — a straight line relationship! 线性趋势遵循 y = mx + b！",
+    },
+    {
+      question: "What is KNN (K-Nearest Neighbors)?",
+      options: [
+        "A social network",
+        "Predict by finding the K most similar data points and averaging",
+        "A keyboard shortcut",
+        "A type of neural network"
+      ],
+      correctIndex: 1,
+      explanation: "KNN finds the K closest examples and uses their average to predict! KNN找最近的K个点取平均！",
+    },
+    {
+      question: "Why is more data usually better for predictions?",
+      options: [
+        "It makes the code longer",
+        "More data reveals more reliable patterns and reduces noise",
+        "Computers like big numbers",
+        "It's not — less is better"
+      ],
+      correctIndex: 1,
+      explanation: "More data = more reliable patterns. Small datasets can be misleading! 更多数据=更可靠的模式！",
+    },
+    {
+      type: "coding",
+      question: "Simple prediction",
+      prompt: "🎯 Given the pattern score = 10 * hours + 45, predict the score for 6 hours of study. Print the result.",
+      starterCode: "hours = 6\n",
+      expectedOutput: "105",
+      hint: "score = 10 * hours + 45, then print(score)",
+      explanation: "Linear prediction: plug in the value! 10 × 6 + 45 = 105. 线性预测：代入数值！",
+    },
+    {
+      question: "What is the 'average' useful for in prediction?",
+      options: [
+        "Nothing",
+        "It's a simple prediction: future values will be close to the average",
+        "It only works for grades",
+        "It's only for reports"
+      ],
+      correctIndex: 1,
+      explanation: "The average is the simplest prediction — tomorrow will be close to the historical average! 平均值是最简单的预测！",
+    },
+    {
+      question: "What does 'confidence' mean in a prediction?",
+      options: [
+        "The AI is brave",
+        "How sure the system is about its prediction (0-100%)",
+        "The speed of calculation",
+        "The amount of data"
+      ],
+      correctIndex: 1,
+      explanation: "Confidence = how reliable the prediction is. High confidence = very likely correct! 置信度=预测有多可靠！",
+    },
+    {
+      type: "coding",
+      question: "Calculate average",
+      prompt: "🎯 Calculate the average of [70, 80, 90, 85, 75]. Print the result.",
+      starterCode: "data = [70, 80, 90, 85, 75]\n",
+      expectedOutput: "80.0",
+      hint: "avg = sum(data) / len(data), then print(avg)",
+      explanation: "Average = sum / count = 400 / 5 = 80.0. 平均数 = 总和 / 个数！",
+    },
+    {
+      question: "What is a transition pattern in weather prediction?",
+      options: [
+        "A weather forecast app",
+        "What weather typically follows another (sunny → sunny 70%, cloudy 30%)",
+        "A change in temperature",
+        "A Python transition"
+      ],
+      correctIndex: 1,
+      explanation: "Transition patterns track what typically follows — if sunny, next is usually sunny! 转换模式追踪后续规律！",
+    },
+    {
+      question: "Why should predictions be 'clamped' (e.g., 0-100 for scores)?",
+      options: [
+        "For style",
+        "To prevent impossible predictions like 150% or -20 score",
+        "To save memory",
+        "It's not necessary"
+      ],
+      correctIndex: 1,
+      explanation: "Clamping prevents unrealistic values — a score can't be 150 or -20! 夹紧防止不现实的值！",
     },
   ],
 
   "5-5": [
     {
-      question: "What is a graduation project?",
+      question: "What is AI bias?",
       options: [
-        "A final test",
-        "A project that combines everything you've learned",
-        "A Python module",
-        "A type of certificate"
+        "AI preferring certain programming languages",
+        "Systematic unfairness in AI decisions due to training data or design",
+        "AI being too smart",
+        "A Python error"
       ],
       correctIndex: 1,
-      explanation: "Your graduation project combines ALL skills into one real project! 毕业项目综合所有技能！",
+      explanation: "AI bias = unfair treatment of groups due to biased data or design. Garbage in = garbage out! AI偏见=因数据或设计导致不公平！",
     },
     {
-      question: "Which Python concept is used to organize code into reusable pieces?",
-      options: ["Variables", "Functions", "Comments", "Print statements"],
-      correctIndex: 1,
-      explanation: "Functions make code reusable and organized — essential for big projects! 函数让代码可重用！",
-    },
-    {
-      question: "What data structure stores key-value pairs?",
-      options: ["List", "Tuple", "Dictionary", "Set"],
-      correctIndex: 2,
-      explanation: "Dictionaries use key:value pairs — perfect for structured data! 字典存键值对！",
-    },
-    {
-      question: "What should you do before writing a big project?",
+      question: "How can you detect bias in an AI system?",
       options: [
-        "Just start coding",
-        "Plan the structure: what functions, data, and flow you need",
-        "Copy someone else's code",
+        "Look at the code",
+        "Compare approval/rejection rates across different groups",
+        "Ask the AI if it's biased",
+        "You can't"
+      ],
+      correctIndex: 1,
+      explanation: "Compare outcomes across groups — if rates differ significantly, bias exists! 比较各组结果差异来检测偏见！",
+    },
+    {
+      question: "What is 'explainability' in AI?",
+      options: [
+        "Writing good comments",
+        "Being able to explain WHY an AI made a particular decision",
+        "Explaining Python to beginners",
+        "A documentation tool"
+      ],
+      correctIndex: 1,
+      explanation: "Explainable AI shows its reasoning — no black boxes! 可解释AI展示推理过程！",
+    },
+    {
+      question: "Why is ZIP code a biased feature for AI decisions?",
+      options: [
+        "ZIP codes are random",
+        "ZIP codes correlate with race and wealth, creating hidden discrimination",
+        "ZIP codes are too long",
+        "They're not biased"
+      ],
+      correctIndex: 1,
+      explanation: "ZIP codes act as proxies for race/wealth — using them can discriminate! 邮编与种族/财富相关，使用它们可能歧视！",
+    },
+    {
+      type: "coding",
+      question: "Calculate approval rate",
+      prompt: "🎯 Group A: 8 approved out of 10. Group B: 4 approved out of 10. Print both rates as percentages.",
+      starterCode: "approved_a, total_a = 8, 10\napproved_b, total_b = 4, 10\n",
+      expectedOutput: "Group A: 80%\nGroup B: 40%",
+      hint: "rate = approved / total * 100, print with f-string!",
+      explanation: "80% vs 40% is a 40% gap — clear bias! 80%对40%差距=明显偏见！",
+    },
+    {
+      question: "Who is responsible when AI makes unfair decisions?",
+      options: [
+        "Nobody — it's just code",
+        "The developers, companies, and organizations who build and deploy the AI",
+        "The users only",
+        "The AI itself"
+      ],
+      correctIndex: 1,
+      explanation: "Humans who build and deploy AI are accountable for its fairness! 构建和部署AI的人要负责！",
+    },
+    {
+      question: "What is 'fairness metric' in AI?",
+      options: [
+        "A ruler",
+        "A measurement to compare how equally the AI treats different groups",
+        "The AI's speed",
+        "A Python library"
+      ],
+      correctIndex: 1,
+      explanation: "Fairness metrics measure equality of treatment across groups! 公平指标衡量各组受到的平等对待！",
+    },
+    {
+      type: "coding",
+      question: "Check for bias",
+      prompt: "🎯 If rate_a = 90 and rate_b = 40, calculate the difference. If difference > 15, print 'BIAS DETECTED', otherwise print 'FAIR'.",
+      starterCode: "rate_a = 90\nrate_b = 40\ndiff = abs(rate_a - rate_b)\n",
+      expectedOutput: "BIAS DETECTED",
+      hint: "if diff > 15: print('BIAS DETECTED') else: print('FAIR')",
+      explanation: "50% difference is way above 15% threshold — clear bias! 50%差异远超15%阈值！",
+    },
+    {
+      question: "How do you fix AI bias?",
+      options: [
+        "Delete the AI",
+        "Use balanced training data, remove biased features, audit regularly",
+        "Make the AI faster",
+        "Add more code"
+      ],
+      correctIndex: 1,
+      explanation: "Fix bias: balance data, remove proxy features, test regularly! 修复偏见：平衡数据、移除代理特征、定期审计！",
+    },
+    {
+      question: "What is a real-world example of AI bias?",
+      options: [
+        "AI that runs slowly",
+        "Facial recognition working worse for certain skin tones",
+        "AI that can't play games",
+        "AI that doesn't understand Chinese"
+      ],
+      correctIndex: 1,
+      explanation: "Facial recognition has shown bias — working worse for darker skin tones due to unbalanced training data! 面部识别对某些肤色效果差！",
+    },
+  ],
+
+  "5-6": [
+    {
+      question: "What is the first step in planning a big project?",
+      options: [
+        "Start coding immediately",
+        "Plan the structure: functions, data, and flow",
+        "Copy from the internet",
         "Ask AI to write everything"
       ],
       correctIndex: 1,
-      explanation: "Planning = success! Design your functions, data structures, and flow first. 先规划再编码！",
+      explanation: "Planning first! Decide what functions, data structures, and flow you need. 先规划！",
     },
     {
       question: "What is the DRY principle?",
       options: [
         "Don't Run Yet",
         "Don't Repeat Yourself — use functions instead of copy-paste",
-        "Debug, Run, Yell",
-        "Don't Rewrite Yesterday"
+        "Debug Run Yield",
+        "Don't Restart Yesterday"
       ],
       correctIndex: 1,
-      explanation: "DRY = Don't Repeat Yourself. If you copy-paste code, make it a function! DRY=不要重复！",
+      explanation: "DRY = Don't Repeat Yourself. Repeated code → make it a function! DRY=不要重复！",
+    },
+    {
+      question: "Which data structure is best for storing structured records?",
+      options: [
+        "A single variable",
+        "A dictionary or list of dictionaries",
+        "A print statement",
+        "A comment"
+      ],
+      correctIndex: 1,
+      explanation: "Dictionaries store structured data with keys! Lists of dicts = databases! 字典存储结构化数据！",
+    },
+    {
+      question: "Why should you build projects piece by piece?",
+      options: [
+        "It's slower that way",
+        "Easier to test, debug, and understand each part",
+        "Computers prefer it",
+        "It's the only way"
+      ],
+      correctIndex: 1,
+      explanation: "Small pieces are easier to test and debug. Build → test → add more! 小块更容易测试和调试！",
     },
     {
       type: "coding",
-      question: "Final challenge: greeting",
-      prompt: '🎯 Define a function greet(name) that prints "Welcome, {name}!". Call it with "Coder".',
-      starterCode: "# Define and call greet\n",
-      expectedOutput: "Welcome, Coder!",
-      hint: 'def greet(name): print(f"Welcome, {name}!") then greet("Coder")',
-      explanation: "Functions + f-strings + calling = real programming! 函数+f字符串+调用=真正编程！",
+      question: "Password check",
+      prompt: "🎯 Check if the password 'Hello123!' has at least 8 characters AND contains a digit. Print True or False.",
+      starterCode: "password = \"Hello123!\"\n",
+      expectedOutput: "True",
+      hint: "len(password) >= 8 and any(c.isdigit() for c in password)",
+      explanation: "Multiple checks combined: length + digit = True! 多重检查组合！",
     },
     {
-      question: "What is code refactoring?",
+      question: "What makes a good password?",
       options: [
-        "Deleting all code",
-        "Improving code structure without changing what it does",
-        "Adding more features",
-        "Removing all comments"
+        "Short and simple",
+        "Long with mixed uppercase, lowercase, digits, and special characters",
+        "Your name repeated",
+        "Just numbers"
       ],
       correctIndex: 1,
-      explanation: "Refactoring = cleaner, better-organized code that does the same thing! 重构=改善结构不改功能！",
+      explanation: "Strong passwords mix: length + uppercase + lowercase + digits + special chars! 强密码混合多种字符！",
     },
     {
-      question: "What is version control (like Git)?",
+      question: "What is the most important programming skill?",
       options: [
-        "Numbering Python versions",
-        "Tracking changes to code over time",
-        "Controlling who can run code",
-        "A backup tool only"
-      ],
-      correctIndex: 1,
-      explanation: "Git tracks every change — you can go back in time! Version control saves you. Git追踪代码变更！",
-    },
-    {
-      type: "coding",
-      question: "Dictionary access",
-      prompt: '🎯 Create student = {"name": "William", "grade": "A"}. Print the grade.',
-      starterCode: "# Create dict and access it\n",
-      expectedOutput: "A",
-      hint: 'student = {"name": "William", "grade": "A"} then print(student["grade"])',
-      explanation: 'Dictionary access with the key in brackets! 用键访问字典！',
-    },
-    {
-      question: "What's the most important skill for a programmer?",
-      options: [
-        "Memorizing syntax",
+        "Memorizing all syntax",
         "Problem-solving and logical thinking",
         "Typing speed",
         "Knowing every language"
       ],
       correctIndex: 1,
-      explanation: "Problem-solving is #1! Languages and syntax can be looked up. 解决问题能力最重要！",
+      explanation: "Problem-solving is #1! Syntax can be looked up, thinking cannot. 解决问题最重要！",
+    },
+    {
+      type: "coding",
+      question: "Format output",
+      prompt: "🎯 Create stars = '★' * 3 + '☆' * 2. Print the result.",
+      starterCode: "",
+      expectedOutput: "★★★☆☆",
+      hint: "stars = '★' * 3 + '☆' * 2, then print(stars)",
+      explanation: "String multiplication creates repeated patterns — great for ratings! 字符串乘法创建重复模式！",
+    },
+    {
+      question: "What should you do after completing your project?",
+      options: [
+        "Delete it",
+        "Test it, polish the output, and share it with others",
+        "Never look at it again",
+        "Start over from scratch"
+      ],
+      correctIndex: 1,
+      explanation: "Test → polish → share! Every project is worth celebrating! 测试→美化→分享！",
+    },
+    {
+      question: "What comes after Code Buddy? 🚀",
+      options: [
+        "Nothing — programming is done",
+        "Web development, game engines, data science, AI/ML, and endless possibilities!",
+        "More print statements",
+        "Reading books only"
+      ],
+      correctIndex: 1,
+      explanation: "This is just the beginning! Flask, Pygame, TensorFlow, and so much more await! 这只是开始！",
     },
   ],
 };

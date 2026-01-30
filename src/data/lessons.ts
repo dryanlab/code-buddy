@@ -178,7 +178,7 @@ export const MODULES: Module[] = [
     subtitle: "Collaborate with AI as a team · AI前哨站：与AI协作共事",
     icon: "🤖",
     color: "from-cyan-500 to-purple-600",
-    lessons: ["5-1", "5-2", "5-3", "5-4", "5-5"],
+    lessons: ["5-1", "5-2", "5-3", "5-4", "5-5", "5-6"],
   },
 ];
 
@@ -4811,15 +4811,18 @@ while True:
     ],
   },
 
-  // Area 4: Science Lab (6 lessons) - abbreviated
+  // ═══════════════════════════════════════════════════════════════
+  // 🧪 AREA 4: SCIENCE LAB (6 lessons) — Hands-on Science Projects
+  // ═══════════════════════════════════════════════════════════════
+
   {
     id: "4-1",
     moduleId: "area-4",
-    title: "Math Canvas",
-    subtitle: "Data visualization basics · 数学画板：数据可视化基础",
-    icon: "📊",
-    xp: 35,
-    duration: "25 min",
+    title: "🎮 Space Invader Data Station",
+    subtitle: "Analyze alien invasion data · 太空入侵者数据站：分析外星入侵数据",
+    icon: "🛸",
+    xp: 40,
+    duration: "30 min",
     order: 1,
     gradeRange: [7, 10],
     difficulty: "intermediate",
@@ -4827,18 +4830,35 @@ while True:
     sections: [
       {
         type: "text",
-        emoji: "📊",
-        content: `## 📊 Welcome to the Science Lab!
+        emoji: "🛸",
+        content: `## 🛸 Commander, Welcome to Space Station Python!
 
-**🧪 Now you'll use programming to solve real scientific problems!**`,
+**🤖 Botty:** "Incoming transmission from HQ!"
+
+\`\`\`
+╔══════════════════════════════════════╗
+║  ⚠️  ALERT: ALIEN INVASION DETECTED  ║
+║  Sector 7 — Multiple Hostiles       ║
+║  You are the last data analyst.      ║
+║  Use Python to save humanity! 🌍     ║
+╚══════════════════════════════════════╝
+\`\`\`
+
+You've been promoted to **Commander of Space Station Python**! 🚀
+
+Your mission: analyze radar data, track alien movements, and allocate defense resources — all using Python!
+
+你被提升为 **Python 空间站指挥官**！用 Python 分析雷达数据，追踪外星人动向，分配防御资源！
+
+**🔧 Chip:** "The radar picked up alien activity in 6 sectors. We need bar charts, stats, and a dashboard — FAST!"`,
       },
       {
         type: "concept",
         emoji: "📖",
-        content: "New Syntax: Data Visualization Basics",
+        content: "New Syntax: Data & Visualization Tools",
         concept: {
-          title: "📊 New Syntax: Data Visualization Basics",
-          titleZh: "新语法：数据可视化基础",
+          title: "📊 New Syntax: Data Collection & Visualization",
+          titleZh: "新语法：数据收集与可视化",
           syntaxCards: [
             {
               symbol: 'f"{"█" * n}"',
@@ -4846,7 +4866,7 @@ while True:
               nameZh: "文本条形图",
               emoji: "📊",
               description: "ASCII art meets data 📊 — use string repetition to build simple bar charts right in the terminal!",
-              example: 'for val in data:\n    bar = "█" * val\n    print(f"{bar} {val}")',
+              example: 'for val in data:\\n    bar = "█" * val\\n    print(f"{bar} {val}")',
             },
             {
               symbol: "max() / min() / sum()",
@@ -4854,7 +4874,7 @@ while True:
               nameZh: "内置统计函数",
               emoji: "🧮",
               description: "Instant math helpers 🧮 — find the biggest, smallest, or total of a list in one line!",
-              example: "scores = [85, 92, 78, 95]\nprint(max(scores))  # 95\nprint(sum(scores)/len(scores))  # avg",
+              example: "scores = [85, 92, 78, 95]\\nprint(max(scores))  # 95\\nprint(sum(scores)/len(scores))  # avg",
             },
             {
               symbol: "enumerate(list)",
@@ -4862,23 +4882,267 @@ while True:
               nameZh: "枚举（索引 + 值）",
               emoji: "🔢",
               description: "Like numbered name tags 🔢 — gives you both the position AND the value when looping!",
-              example: "for i, name in enumerate(students):\n    print(f'{i+1}. {name}')",
+              example: "for i, name in enumerate(students):\\n    print(f'{i+1}. {name}')",
+            },
+            {
+              symbol: "sorted(data, reverse=True)",
+              name: "Sort Data",
+              nameZh: "排序数据",
+              emoji: "📈",
+              description: "Line up your data 📈 — sort from low to high, or high to low with reverse=True!",
+              example: "sorted([3,1,2])  # [1,2,3]\\nsorted([3,1,2], reverse=True)  # [3,2,1]",
             },
           ],
           codeAnatomy: {
             lines: [
-              { code: "data = [45, 72, 38, 91, 56]", explanation: "A list of data points to visualize.", explanationZh: "一组需要可视化的数据点" },
-              { code: "for i, val in enumerate(data):", explanation: "Loop with index (i) and value (val).", explanationZh: "同时获取索引 (i) 和值 (val) 的循环" },
-              { code: '    bar = "█" * (val // 5)', explanation: "Create a visual bar proportional to the value.", explanationZh: "创建与值成比例的可视条形" },
-              { code: '    print(f"Item {i+1}: {bar} {val}")', explanation: "Print labeled bar with the actual number.", explanationZh: "打印带标签的条形和实际数字" },
-              { code: "print(f'Average: {sum(data)/len(data):.1f}')", explanation: "Calculate and display the average.", explanationZh: "计算并显示平均值" },
+              { code: "sectors = ['Alpha', 'Beta', 'Gamma', 'Delta']", explanation: "List of sector names on our radar.", explanationZh: "雷达上的扇区名称列表" },
+              { code: "aliens = [12, 27, 5, 19]", explanation: "Alien count detected in each sector.", explanationZh: "每个扇区检测到的外星人数量" },
+              { code: "for i, count in enumerate(aliens):", explanation: "Loop with index AND value.", explanationZh: "同时获取索引和值的循环" },
+              { code: '    bar = "█" * count', explanation: "Create a bar proportional to the count.", explanationZh: "创建与数量成比例的条形" },
+              { code: '    print(f"{sectors[i]:>8} | {bar} {count}")', explanation: "Print sector name + bar + number.", explanationZh: "打印扇区名 + 条形 + 数字" },
+              { code: "print(f'Total threats: {sum(aliens)}')", explanation: "Sum up all aliens detected.", explanationZh: "统计检测到的所有外星人" },
+              { code: "print(f'Most dangerous: {max(aliens)}')", explanation: "Find the sector with most aliens.", explanationZh: "找到外星人最多的扇区" },
             ],
           },
         },
       },
       {
+        type: "interactive",
+        content: `## 🎯 Radar Warmup · 雷达热身
+
+Before we dive into the full mission, let's test your data skills!
+
+Look at this code and predict the output:
+
+\`\`\`python
+data = [4, 8, 2, 6]
+print(max(data))
+print(sum(data))
+print(len(data))
+\`\`\``,
+        exercise: {
+          prompt: "What are the 3 values printed? Type them on separate lines. (max, sum, len of [4, 8, 2, 6])",
+          promptZh: "打印的3个值是什么？分别输入。（[4, 8, 2, 6] 的 max、sum、len）",
+          starterCode: "data = [4, 8, 2, 6]\\nprint(max(data))\\nprint(sum(data))\\nprint(len(data))",
+          expectedOutput: "8\\n20\\n4",
+          hint: "max finds the largest (8), sum adds all (4+8+2+6=20), len counts items (4).",
+          hintZh: "max 找最大值(8)，sum 求和(4+8+2+6=20)，len 计数(4)。",
+          solution: "data = [4, 8, 2, 6]\\nprint(max(data))\\nprint(sum(data))\\nprint(len(data))",
+        },
+      },
+      {
+        type: "code",
+        emoji: "🛸",
+        content: `## 🛸 Follow Along: Alien Radar Report
+
+Let's build a complete radar scanning report! Run this code and watch the alien data come alive:`,
+        code: `# 🛸 SPACE STATION PYTHON — RADAR REPORT
+print("=" * 40)
+print("  🛸 ALIEN RADAR SCANNING REPORT")
+print("=" * 40)
+print()
+
+# Radar data: aliens spotted per sector
+sectors = ["Alpha", "Beta", "Gamma", "Delta", "Echo", "Foxtrot"]
+aliens = [12, 27, 5, 19, 8, 31]
+
+# Display bar chart
+print("📊 Alien Activity by Sector:")
+print("-" * 35)
+for i, count in enumerate(aliens):
+    bar = "█" * count
+    warning = " ⚠️ DANGER!" if count > 20 else ""
+    print(f"  {sectors[i]:>8} | {bar} {count}{warning}")
+
+print("-" * 35)
+
+# Statistics
+total = sum(aliens)
+average = total / len(aliens)
+highest = max(aliens)
+lowest = min(aliens)
+
+print(f"\\n📈 STATISTICS:")
+print(f"  Total aliens detected: {total}")
+print(f"  Average per sector:    {average:.1f}")
+print(f"  Most dangerous sector: {highest} aliens")
+print(f"  Safest sector:         {lowest} aliens")
+
+# Threat level
+if total > 80:
+    print("\\n🔴 THREAT LEVEL: CRITICAL!")
+elif total > 50:
+    print("\\n🟡 THREAT LEVEL: HIGH")
+else:
+    print("\\n🟢 THREAT LEVEL: MANAGEABLE")`,
+      },
+      {
+        type: "challenge",
+        content: "🏆 Coding Challenge · 编程挑战",
+        challenge: {
+          title: "📡 Radar Scan Report · 雷达扫描报告",
+          description: "You received radar data for 5 time periods. Create an ASCII bar chart showing alien appearances over time. Each █ = 1 alien.\n你收到了5个时间段的雷达数据。创建ASCII条形图显示外星人出现情况。每个 █ = 1个外星人。",
+          starterCode: `# 📡 Radar Scan Data
+# Aliens detected per hour: 8am, 9am, 10am, 11am, 12pm
+hours = ["08:00", "09:00", "10:00", "11:00", "12:00"]
+aliens = [3, 7, 12, 5, 9]
+
+# TODO: Print a bar chart like:
+#   08:00 | ███ 3
+#   09:00 | ███████ 7
+# ... etc.
+
+# TODO: Print the peak hour (most aliens)
+
+`,
+          hint: "Use a for loop with enumerate() or zip(). For each hour, print the hour name, then '█' * count, then the number. Use max() to find the peak.",
+          solution: `hours = ["08:00", "09:00", "10:00", "11:00", "12:00"]
+aliens = [3, 7, 12, 5, 9]
+
+print("📡 RADAR SCAN REPORT")
+print("-" * 30)
+for i in range(len(hours)):
+    bar = "█" * aliens[i]
+    print(f"  {hours[i]} | {bar} {aliens[i]}")
+print("-" * 30)
+
+peak = max(aliens)
+peak_hour = hours[aliens.index(peak)]
+print(f"⚠️ Peak activity: {peak_hour} with {peak} aliens!")`,
+          expectedOutput: `📡 RADAR SCAN REPORT
+------------------------------
+  08:00 | ███ 3
+  09:00 | ███████ 7
+  10:00 | ████████████ 12
+  11:00 | █████ 5
+  12:00 | █████████ 9
+------------------------------
+⚠️ Peak activity: 10:00 with 12 aliens!`,
+        },
+      },
+      {
+        type: "challenge",
+        content: "🏆 Coding Challenge · 编程挑战",
+        challenge: {
+          title: "🛡️ Defense Resource Allocator · 防御资源分配器",
+          description: "Allocate defense drones proportionally based on alien threat in each sector. Total drones: 100. Each sector gets drones based on its % of total aliens.\n根据每个扇区的外星人威胁比例分配防御无人机。总共100架无人机。",
+          starterCode: `# 🛡️ Defense Drone Allocator
+sectors = ["North", "South", "East", "West"]
+aliens = [30, 10, 45, 15]
+total_drones = 100
+
+# TODO: Calculate total aliens
+# TODO: For each sector, calculate its share of drones
+#   share = aliens[i] / total_aliens * total_drones
+# TODO: Print allocation like:
+#   North: 30 drones (30.0%)
+# TODO: Verify total drones add up!
+
+`,
+          hint: "First get total_aliens = sum(aliens). Then for each sector: share = aliens[i] / total_aliens * total_drones. Use int() to round down, or round().",
+          solution: `sectors = ["North", "South", "East", "West"]
+aliens = [30, 10, 45, 15]
+total_drones = 100
+
+total_aliens = sum(aliens)
+print("🛡️ DRONE ALLOCATION REPORT")
+print("-" * 30)
+allocated = 0
+for i in range(len(sectors)):
+    pct = aliens[i] / total_aliens * 100
+    drones = round(aliens[i] / total_aliens * total_drones)
+    allocated += drones
+    print(f"  {sectors[i]:>6}: {drones} drones ({pct:.1f}%)")
+print("-" * 30)
+print(f"  Total allocated: {allocated} drones")`,
+          expectedOutput: `🛡️ DRONE ALLOCATION REPORT
+------------------------------
+   North: 30 drones (30.0%)
+   South: 10 drones (10.0%)
+    East: 45 drones (45.0%)
+    West: 15 drones (15.0%)
+------------------------------
+  Total allocated: 100 drones`,
+        },
+      },
+      {
+        type: "challenge",
+        content: "🏆 Boss Challenge · 终极挑战",
+        challenge: {
+          title: "🖥️ Space Station Dashboard · 太空站仪表盘",
+          description: "Build a complete space station dashboard showing energy levels, ammo count, alien proximity, and crew status using text UI!\n构建完整的太空站仪表盘，显示能量、弹药、外星人距离和船员状态！",
+          starterCode: `# 🖥️ SPACE STATION DASHBOARD
+# Build a cool text-based dashboard!
+
+energy = 73       # percent
+ammo = 450        # rounds
+aliens_near = 8   # nearby aliens
+crew = 12         # crew members
+
+# TODO: Print a dashboard frame with borders
+# TODO: Show energy as a bar (e.g., [███████···] 73%)
+# TODO: Show ammo count with warning if < 200
+# TODO: Show alien proximity alert
+# TODO: Show crew status
+# Hint: Use "█" for filled, "·" for empty in bars
+# Make it look cool! 😎
+
+`,
+          hint: "For the energy bar: filled = '█' * (energy // 10), empty = '·' * (10 - energy // 10). Use if/elif for status colors (use emoji). Frame with ╔═╗║╚═╝.",
+          solution: `energy = 73
+ammo = 450
+aliens_near = 8
+crew = 12
+
+print("╔════════════════════════════════════╗")
+print("║    🛸 SPACE STATION DASHBOARD 🛸    ║")
+print("╠════════════════════════════════════╣")
+
+# Energy bar
+filled = "█" * (energy // 10)
+empty = "·" * (10 - energy // 10)
+e_icon = "🟢" if energy > 50 else "🟡" if energy > 25 else "🔴"
+print(f"║ {e_icon} Energy: [{filled}{empty}] {energy}%    ║")
+
+# Ammo
+a_icon = "🟢" if ammo > 300 else "🟡" if ammo > 100 else "🔴"
+print(f"║ {a_icon} Ammo:   {ammo} rounds              ║")
+
+# Alien alert
+if aliens_near > 5:
+    print(f"║ 🔴 ALIENS: {aliens_near} nearby — DANGER!     ║")
+elif aliens_near > 0:
+    print(f"║ 🟡 ALIENS: {aliens_near} nearby — Caution      ║")
+else:
+    print(f"║ 🟢 ALIENS: All clear!              ║")
+
+# Crew
+print(f"║ 👥 Crew:   {crew} members active       ║")
+print("╠════════════════════════════════════╣")
+
+if aliens_near > 5 and ammo < 200:
+    print("║ ⚠️  STATUS: CRITICAL — Need resupply ║")
+elif aliens_near > 5:
+    print("║ ⚠️  STATUS: BATTLE STATIONS!         ║")
+else:
+    print("║ ✅ STATUS: All systems nominal       ║")
+
+print("╚════════════════════════════════════╝")`,
+          expectedOutput: `╔════════════════════════════════════╗
+║    🛸 SPACE STATION DASHBOARD 🛸    ║
+╠════════════════════════════════════╣
+║ 🟢 Energy: [███████···] 73%    ║
+║ 🟢 Ammo:   450 rounds              ║
+║ 🔴 ALIENS: 8 nearby — DANGER!     ║
+║ 👥 Crew:   12 members active       ║
+╠════════════════════════════════════╣
+║ ⚠️  STATUS: BATTLE STATIONS!         ║
+╚════════════════════════════════════╝`,
+        },
+      },
+      {
         type: "quiz",
-        content: "📊 Math Canvas Quiz!",
+        content: "🛸 Space Station Quiz!",
         quiz: QUIZ_DATA["4-1"],
       },
     ],
@@ -4887,11 +5151,11 @@ while True:
   {
     id: "4-2",
     moduleId: "area-4",
-    title: "Random World",
-    subtitle: "Probability and simulation · 随机世界：概率和模拟",
-    icon: "🎲",
-    xp: 35,
-    duration: "22 min",
+    title: "🎰 Casino Tycoon",
+    subtitle: "Run a casino with probability · 赌场大亨：用概率经营赌场",
+    icon: "🎰",
+    xp: 40,
+    duration: "30 min",
     order: 2,
     gradeRange: [7, 10],
     difficulty: "intermediate",
@@ -4899,10 +5163,25 @@ while True:
     sections: [
       {
         type: "text",
-        emoji: "🎲",
-        content: `## 🎲 Randomness in Computing
+        emoji: "🎰",
+        content: `## 🎰 Welcome to Casino Python!
 
-**🤖 Botty:** "Randomness powers AI learning and decision making!"`,
+**🐍 Py:** "Step right up! You're now the owner of **Casino Python** — the hottest casino in Code City!"
+
+\`\`\`
+🎰🎰🎰🎰🎰🎰🎰🎰🎰🎰🎰🎰🎰🎰🎰
+  ♠️ ♥️ ♦️ ♣️  CASINO PYTHON  ♣️ ♦️ ♥️ ♠️
+     💰 "Where the House Always Wins" 💰
+🎰🎰🎰🎰🎰🎰🎰🎰🎰🎰🎰🎰🎰🎰🎰
+\`\`\`
+
+But here's the thing — **how do you know your casino will make money?** 🤔
+
+The secret: **probability and simulation!** Run your games 10,000 times and the math will tell you who wins!
+
+秘密就是：**概率与模拟！** 把游戏跑 10,000 次，数学会告诉你谁赢！
+
+**🔧 Chip:** "This is literally how real casinos are designed. Las Vegas runs on math, not luck!"`,
       },
       {
         type: "concept",
@@ -4918,7 +5197,7 @@ while True:
               nameZh: "随机整数",
               emoji: "🎯",
               description: "Like rolling a custom dice 🎲 — gives a random whole number between a and b (inclusive)!",
-              example: "import random\ndice = random.randint(1, 6)  # 1-6",
+              example: "import random\\ndice = random.randint(1, 6)  # 1-6",
             },
             {
               symbol: "random.random()",
@@ -4926,40 +5205,244 @@ while True:
               nameZh: "随机小数（0-1）",
               emoji: "🌡️",
               description: "Like a probability meter 🌡️ — returns a decimal between 0.0 and 1.0. Great for simulating chance!",
-              example: "if random.random() < 0.3:\n    print('30% chance event!')  ",
+              example: "if random.random() < 0.3:\\n    print('30% chance event!')",
             },
             {
-              symbol: "random.shuffle(list)",
-              name: "Shuffle (mix up)",
-              nameZh: "洗牌（打乱）",
+              symbol: "random.choice(list)",
+              name: "Random Choice",
+              nameZh: "随机选择",
               emoji: "🃏",
-              description: "Like shuffling a deck of cards 🃏 — randomly rearranges all items in a list!",
-              example: "cards = [1,2,3,4,5]\nrandom.shuffle(cards)\n# cards is now in random order",
+              description: "Pick a random item from a list 🃏 — like drawing a card from a deck!",
+              example: "cards = ['A', '2', '3', 'K']\\ndrawn = random.choice(cards)",
             },
             {
-              symbol: "for trial in range(n):",
+              symbol: "for _ in range(n):",
               name: "Monte Carlo Simulation",
               nameZh: "蒙特卡洛模拟",
               emoji: "🔬",
-              description: "Run an experiment thousands of times 🔬 to discover probabilities! Like flipping a coin 10,000 times.",
-              example: "heads = 0\nfor _ in range(10000):\n    if random.random() < 0.5:\n        heads += 1",
+              description: "Run an experiment thousands of times 🔬 — the Law of Large Numbers means results converge to true probability!",
+              example: "wins = 0\\nfor _ in range(10000):\\n    if random.randint(1,6) == 6:\\n        wins += 1\\nprint(f'Win rate: {wins/10000:.1%}')",
             },
           ],
           codeAnatomy: {
             lines: [
-              { code: "import random", explanation: "Import the random module for all randomness tools.", explanationZh: "导入 random 模块获取所有随机工具" },
-              { code: "results = []", explanation: "Empty list to collect our experiment results.", explanationZh: "空列表收集实验结果" },
-              { code: "for trial in range(1000):", explanation: "Run the experiment 1000 times!", explanationZh: "实验运行 1000 次！" },
-              { code: "    roll = random.randint(1, 6)", explanation: "Simulate rolling a 6-sided die.", explanationZh: "模拟掷一个 6 面骰子" },
-              { code: "    results.append(roll)", explanation: "Record each result.", explanationZh: "记录每次结果" },
-              { code: "print(f'Average: {sum(results)/len(results):.2f}')", explanation: "Calculate average — should be close to 3.5!", explanationZh: "计算平均值 — 应该接近 3.5！" },
+              { code: "import random", explanation: "Import the random module for all randomness tools.", explanationZh: "导入 random 模块" },
+              { code: "wins = 0; losses = 0", explanation: "Track wins and losses.", explanationZh: "记录赢和输" },
+              { code: "for _ in range(10000):", explanation: "Simulate 10,000 games!", explanationZh: "模拟 10,000 局游戏！" },
+              { code: "    dice = random.randint(1, 6)", explanation: "Roll a 6-sided die.", explanationZh: "掷一个6面骰子" },
+              { code: "    if dice >= 4: wins += 1", explanation: "Player wins if dice >= 4 (50% chance).", explanationZh: "骰子>=4玩家赢（50%概率）" },
+              { code: "    else: losses += 1", explanation: "Casino wins otherwise.", explanationZh: "否则赌场赢" },
+              { code: "print(f'Player wins: {wins/10000:.1%}')", explanation: "Show the actual win rate!", explanationZh: "显示实际胜率！" },
             ],
           },
         },
       },
       {
+        type: "interactive",
+        content: `## 🎯 Probability Warmup · 概率热身
+
+Quick! What's the probability? Think before you run:
+
+\`\`\`python
+import random
+count = 0
+for _ in range(10000):
+    if random.randint(1, 6) == 1:
+        count += 1
+print(round(count / 10000, 2))
+\`\`\`
+
+The output should be close to what number?`,
+        exercise: {
+          prompt: "What value does this print (approximately)? The code counts how often a die roll is 1 out of 10000 tries. Print the approximate decimal.",
+          promptZh: "这段代码大约打印什么值？它统计10000次掷骰子中出现1的频率。",
+          starterCode: "# The probability of rolling a 1 on a 6-sided die\\n# is 1/6 ≈ 0.1667\\n# After 10000 trials, count/10000 ≈ ?\\nprint(0.17)",
+          expectedOutput: "0.17",
+          hint: "Rolling a 1 on a 6-sided die = 1/6 ≈ 0.167. With 10000 trials it'll be close to 0.17.",
+          hintZh: "掷骰子出现1的概率 = 1/6 ≈ 0.167。10000次试验后约为0.17。",
+          solution: "print(0.17)",
+        },
+      },
+      {
+        type: "code",
+        emoji: "🎲",
+        content: `## 🎲 Follow Along: The Dice Gambling Game
+
+Let's build a complete dice game and simulate 10,000 rounds to see if the casino makes money!`,
+        code: `# 🎲 CASINO PYTHON — DICE GAME SIMULATOR
+import random
+
+print("🎰 CASINO PYTHON — DICE GAME 🎰")
+print("=" * 35)
+print("Rules: Roll 2 dice.")
+print("  Player wins if sum >= 8")
+print("  Casino wins if sum < 8")
+print("  Bet: $10 per round")
+print("=" * 35)
+
+player_money = 0
+casino_money = 0
+rounds = 10000
+
+for _ in range(rounds):
+    d1 = random.randint(1, 6)
+    d2 = random.randint(1, 6)
+    total = d1 + d2
+    
+    if total >= 8:
+        player_money += 10
+        casino_money -= 10
+    else:
+        player_money -= 10
+        casino_money += 10
+
+print(f"\\n📊 After {rounds} rounds:")
+print(f"  🧑 Player: \${player_money:+}")
+print(f"  🏦 Casino: \${casino_money:+}")
+
+# Calculate probabilities
+# Ways to get >= 8: count them!
+ways_to_win = 0
+for d1 in range(1, 7):
+    for d2 in range(1, 7):
+        if d1 + d2 >= 8:
+            ways_to_win += 1
+
+total_outcomes = 36
+print(f"\\n🧮 Math check:")
+print(f"  Player win probability: {ways_to_win}/{total_outcomes} = {ways_to_win/total_outcomes:.1%}")
+print(f"  Casino win probability: {36-ways_to_win}/{total_outcomes} = {(36-ways_to_win)/total_outcomes:.1%}")
+
+if casino_money > 0:
+    print("\\n💰 The house wins! Casino design successful!")
+else:
+    print("\\n😱 Casino lost money! Need to change the rules!")`,
+      },
+      {
+        type: "challenge",
+        content: "🏆 Coding Challenge · 编程挑战",
+        challenge: {
+          title: "🎲 Dice Duel Simulator · 骰子对决模拟器",
+          description: "Design a dice game: Player rolls 2 dice, Casino rolls 2 dice. Highest total wins. If tie, casino wins. Simulate 10,000 rounds and show who makes money!\n设计骰子游戏：玩家掷2个骰子，赌场掷2个。点数高的赢，平局赌场赢。模拟10000轮！",
+          starterCode: `import random
+
+# 🎲 Dice Duel: Player vs Casino
+rounds = 10000
+player_wins = 0
+casino_wins = 0
+
+# TODO: Simulate 'rounds' games
+# Each game: both roll 2 dice, compare totals
+# Tie = casino wins
+for _ in range(rounds):
+    pass  # Replace this!
+
+# TODO: Print results
+# Show win counts and percentages
+
+`,
+          hint: "Player: random.randint(1,6) + random.randint(1,6). Same for casino. Compare. Count wins. Divide by rounds for percentages.",
+          solution: `import random
+
+rounds = 10000
+player_wins = 0
+casino_wins = 0
+
+for _ in range(rounds):
+    player = random.randint(1,6) + random.randint(1,6)
+    casino = random.randint(1,6) + random.randint(1,6)
+    if player > casino:
+        player_wins += 1
+    else:
+        casino_wins += 1
+
+print("🎲 DICE DUEL RESULTS")
+print(f"  Player wins: {player_wins} ({player_wins/rounds:.1%})")
+print(f"  Casino wins: {casino_wins} ({casino_wins/rounds:.1%})")
+if casino_wins > player_wins:
+    print("💰 House wins!")
+else:
+    print("😱 Player wins!")`,
+          expectedOutput: `🎲 DICE DUEL RESULTS
+  Player wins: 4167 (41.7%)
+  Casino wins: 5833 (58.3%)
+💰 House wins!`,
+        },
+      },
+      {
+        type: "challenge",
+        content: "🏆 Coding Challenge · 编程挑战",
+        challenge: {
+          title: "🃏 Simple 21 (Blackjack) · 简化21点",
+          description: "Simulate a simple Blackjack: Deal 2 random cards (1-10) to player and dealer. Player hits (takes another card) if total < 15. Closest to 21 without going over wins! Simulate 10,000 hands.\n模拟简单21点：发2张随机牌(1-10)给玩家和庄家。玩家小于15就要牌。最接近21不超过的赢！模拟10000局。",
+          starterCode: `import random
+
+# 🃏 Simple 21 Simulator
+hands = 10000
+player_wins = 0
+dealer_wins = 0
+ties = 0
+
+for _ in range(hands):
+    # Deal 2 cards each (value 1-10)
+    player = random.randint(1,10) + random.randint(1,10)
+    dealer = random.randint(1,10) + random.randint(1,10)
+    
+    # TODO: Player strategy — hit (add a card) if total < 15
+    
+    # TODO: Dealer strategy — hit if total < 17
+    
+    # TODO: Determine winner
+    # Bust (over 21) = automatic loss
+    # Otherwise, closest to 21 wins
+    pass
+
+# TODO: Print results
+
+`,
+          hint: "After initial deal: while player < 15: player += random.randint(1,10). Same for dealer < 17. Then check busts first, then compare totals.",
+          solution: `import random
+
+hands = 10000
+player_wins = 0
+dealer_wins = 0
+ties = 0
+
+for _ in range(hands):
+    player = random.randint(1,10) + random.randint(1,10)
+    dealer = random.randint(1,10) + random.randint(1,10)
+    
+    while player < 15:
+        player += random.randint(1,10)
+    while dealer < 17:
+        dealer += random.randint(1,10)
+    
+    if player > 21 and dealer > 21:
+        ties += 1
+    elif player > 21:
+        dealer_wins += 1
+    elif dealer > 21:
+        player_wins += 1
+    elif player > dealer:
+        player_wins += 1
+    elif dealer > player:
+        dealer_wins += 1
+    else:
+        ties += 1
+
+print("🃏 SIMPLE 21 RESULTS")
+print(f"  Player wins: {player_wins} ({player_wins/hands:.1%})")
+print(f"  Dealer wins: {dealer_wins} ({dealer_wins/hands:.1%})")
+print(f"  Ties:        {ties} ({ties/hands:.1%})")`,
+          expectedOutput: `🃏 SIMPLE 21 RESULTS
+  Player wins: 3850 (38.5%)
+  Dealer wins: 4920 (49.2%)
+  Ties:        1230 (12.3%)`,
+        },
+      },
+      {
         type: "quiz",
-        content: "🎲 Random World Quiz!",
+        content: "🎰 Casino Tycoon Quiz!",
         quiz: QUIZ_DATA["4-2"],
       },
     ],
@@ -4968,11 +5451,11 @@ while True:
   {
     id: "4-3",
     moduleId: "area-4",
-    title: "Physics Simulator",
-    subtitle: "Code meets physics · 物理模拟器：代码遇见物理",
-    icon: "🚀",
-    xp: 35,
-    duration: "25 min",
+    title: "🏗️ Demolition City",
+    subtitle: "Destroy buildings with physics · 毁灭城市：用物理摧毁建筑",
+    icon: "💥",
+    xp: 40,
+    duration: "30 min",
     order: 3,
     gradeRange: [7, 10],
     difficulty: "advanced",
@@ -4980,68 +5463,406 @@ while True:
     sections: [
       {
         type: "text",
-        emoji: "🚀",
-        content: `## 🚀 Programming Physics
+        emoji: "💥",
+        content: `## 💥 Welcome to Demolition City!
 
-**🔧 Chip:** "The same formulas that control rockets can be programmed!"`,
+**🔧 Chip:** "Got a cannon, got some buildings... let's do some PHYSICS! 💣"
+
+\`\`\`
+            *    
+           /|\\   🏢 Target: 200m away
+          / | \\  
+    💣___/  |  \\___
+   /  angle |     \\___
+  🔫--------+--------→ distance
+\`\`\`
+
+You're a demolition engineer! Your cannon shoots projectiles that follow **real physics** — gravity pulls them down while they fly forward.
+
+你是一名爆破工程师！你的大炮发射的弹丸遵循**真实物理** — 重力让它们在前进中下落。
+
+Your job: calculate the **right angle and power** to hit targets! 🎯
+
+**🐍 Py:** "The same math that sends rockets to space can knock down buildings. Let's code it!"`,
       },
       {
         type: "concept",
         emoji: "📖",
-        content: "New Syntax: Math Formulas in Code",
+        content: "New Syntax: Physics in Code",
         concept: {
-          title: "🚀 New Syntax: Math Formulas in Code",
-          titleZh: "新语法：代码中的数学公式",
+          title: "🚀 New Syntax: Projectile Physics",
+          titleZh: "新语法：抛体物理",
           syntaxCards: [
             {
-              symbol: "** (power)",
-              name: "Exponentiation",
-              nameZh: "乘方运算",
-              emoji: "⚡",
-              description: "Like a power-up ⚡ — raises a number to a power. 2**3 = 2³ = 8!",
-              example: "velocity = speed ** 2\narea = 3.14 * radius ** 2",
+              symbol: "import math",
+              name: "Math Module",
+              nameZh: "数学模块",
+              emoji: "📐",
+              description: "Access advanced math functions 📐 — sin, cos, sqrt, pi and more! Essential for physics!",
+              example: "import math\\nprint(math.pi)    # 3.14159...\\nprint(math.sqrt(16))  # 4.0",
             },
             {
-              symbol: "math.sqrt(x)",
-              name: "Square Root",
-              nameZh: "平方根",
-              emoji: "√",
-              description: "The reverse of squaring ↩️ — what number times itself gives x?",
-              example: "import math\nprint(math.sqrt(144))  # 12.0",
+              symbol: "math.sin() / math.cos()",
+              name: "Trigonometry",
+              nameZh: "三角函数",
+              emoji: "📏",
+              description: "Break a diagonal force into horizontal and vertical parts 📏 — sin for vertical, cos for horizontal!",
+              example: "angle_rad = math.radians(45)\\nvx = speed * math.cos(angle_rad)\\nvy = speed * math.sin(angle_rad)",
             },
             {
-              symbol: "dt (time step)",
-              name: "Simulation Time Step",
-              nameZh: "模拟时间步",
-              emoji: "⏱️",
-              description: "The heartbeat of a simulation ⏱️ — a small time interval that gets repeated to simulate motion over time.",
-              example: "dt = 0.1  # 0.1 seconds per step\nfor t in range(100):\n    y = y + velocity * dt",
+              symbol: "math.radians(degrees)",
+              name: "Degrees to Radians",
+              nameZh: "角度转弧度",
+              emoji: "🔄",
+              description: "Python's trig functions need radians 🔄 — convert from the degrees humans understand!",
+              example: "math.radians(90)   # 1.5708 (π/2)\\nmath.radians(180)  # 3.1416 (π)",
             },
             {
-              symbol: "round(value, digits)",
-              name: "Round Numbers",
-              nameZh: "四舍五入",
-              emoji: "🔵",
-              description: "Clean up messy decimals 🧹 — round to a specific number of decimal places.",
-              example: "print(round(3.14159, 2))  # 3.14",
+              symbol: "g = 9.8",
+              name: "Gravity Constant",
+              nameZh: "重力常数",
+              emoji: "🌍",
+              description: "Earth's gravity pulls things down at 9.8 m/s² 🌍 — the key to all projectile motion!",
+              example: "g = 9.8  # m/s²\\n# After 1 sec: speed = 9.8 m/s\\n# After 2 sec: speed = 19.6 m/s",
             },
           ],
           codeAnatomy: {
             lines: [
-              { code: "g = 9.8  # gravity (m/s²)", explanation: "Define gravity constant — acceleration due to gravity.", explanationZh: "定义重力常数 — 重力加速度" },
-              { code: "velocity = 0", explanation: "Object starts at rest.", explanationZh: "物体从静止开始" },
-              { code: "height = 100", explanation: "Drop from 100 meters.", explanationZh: "从 100 米高处下落" },
-              { code: "dt = 0.1", explanation: "Simulate in 0.1-second steps.", explanationZh: "以 0.1 秒为步长模拟" },
-              { code: "while height > 0:", explanation: "Keep simulating until it hits the ground.", explanationZh: "持续模拟直到落地" },
-              { code: "    velocity += g * dt", explanation: "Physics formula: v = v + g×Δt.", explanationZh: "物理公式：v = v + g×Δt" },
-              { code: "    height -= velocity * dt", explanation: "Update position: h = h - v×Δt.", explanationZh: "更新位置：h = h - v×Δt" },
+              { code: "import math", explanation: "Import math for sin, cos, radians.", explanationZh: "导入 math 模块" },
+              { code: "angle = 45  # degrees", explanation: "Launch angle in degrees.", explanationZh: "发射角度（度）" },
+              { code: "speed = 50  # m/s", explanation: "Launch speed.", explanationZh: "发射速度" },
+              { code: "g = 9.8  # gravity", explanation: "Gravity acceleration.", explanationZh: "重力加速度" },
+              { code: "rad = math.radians(angle)", explanation: "Convert degrees to radians for trig.", explanationZh: "将角度转为弧度" },
+              { code: "vx = speed * math.cos(rad)", explanation: "Horizontal velocity component.", explanationZh: "水平速度分量" },
+              { code: "vy = speed * math.sin(rad)", explanation: "Vertical velocity component.", explanationZh: "垂直速度分量" },
+              { code: "t_total = 2 * vy / g", explanation: "Total flight time (up + down).", explanationZh: "总飞行时间（上升+下降）" },
+              { code: "distance = vx * t_total", explanation: "Horizontal distance traveled!", explanationZh: "水平飞行距离！" },
             ],
           },
         },
       },
       {
+        type: "interactive",
+        content: `## 🎯 Physics Warmup · 物理热身
+
+A cannonball is launched at 45° with speed 20 m/s. Gravity = 10 m/s².
+
+\`\`\`python
+import math
+speed = 20
+angle = 45
+g = 10
+rad = math.radians(angle)
+distance = (speed ** 2) * math.sin(2 * rad) / g
+print(distance)
+\`\`\`
+
+What distance does it travel?`,
+        exercise: {
+          prompt: "Calculate: (20²) × sin(2×45°) / 10. Remember sin(90°) = 1.",
+          promptZh: "计算：(20²) × sin(2×45°) / 10。记住 sin(90°) = 1。",
+          starterCode: "import math\\nspeed = 20\\nangle = 45\\ng = 10\\nrad = math.radians(angle)\\ndistance = (speed ** 2) * math.sin(2 * rad) / g\\nprint(distance)",
+          expectedOutput: "40.0",
+          hint: "20² = 400. sin(90°) = 1. So 400 × 1 / 10 = 40.0 meters!",
+          hintZh: "20² = 400。sin(90°) = 1。所以 400 × 1 / 10 = 40.0 米！",
+          solution: "import math\\nspeed = 20\\nangle = 45\\ng = 10\\nrad = math.radians(angle)\\ndistance = (speed ** 2) * math.sin(2 * rad) / g\\nprint(distance)",
+        },
+      },
+      {
+        type: "code",
+        emoji: "💣",
+        content: `## 💣 Follow Along: Cannon Trajectory Simulator
+
+Watch the cannonball fly through the air with this ASCII trajectory visualizer!`,
+        code: `# 💣 DEMOLITION CITY — CANNON SIMULATOR
+import math
+
+print("💥 DEMOLITION CITY — CANNON FIRE!")
+print("=" * 40)
+
+# Cannon settings
+angle = 45    # degrees
+speed = 30    # m/s
+g = 9.8       # gravity
+
+# Calculate trajectory
+rad = math.radians(angle)
+vx = speed * math.cos(rad)
+vy = speed * math.sin(rad)
+
+# Simulate flight
+dt = 0.1  # time step
+t = 0
+max_height = 0
+positions = []
+
+while True:
+    x = vx * t
+    y = vy * t - 0.5 * g * t * t
+    if y < 0 and t > 0:
+        break
+    if y > max_height:
+        max_height = y
+    positions.append((round(x, 1), round(y, 1)))
+    t += dt
+
+# Total distance
+total_dist = vx * t
+
+# ASCII trajectory (simplified)
+print(f"\\n🔫 Angle: {angle}° | Speed: {speed} m/s")
+print(f"📏 Distance: {total_dist:.1f}m | Max Height: {max_height:.1f}m")
+print()
+
+# Draw simple ASCII arc
+width = 40
+height = 12
+grid = [[" " for _ in range(width)] for _ in range(height)]
+
+for px, py in positions:
+    col = int(px / total_dist * (width - 1))
+    row = height - 1 - int(py / max_height * (height - 2))
+    if 0 <= row < height and 0 <= col < width:
+        grid[row][col] = "*"
+
+# Add ground
+for c in range(width):
+    grid[height-1][c] = "-"
+grid[height-1][0] = "🔫"
+
+for row in grid:
+    print("".join(row))
+
+print(f"\\n💥 BOOM! Hit at {total_dist:.1f} meters!")`,
+      },
+      {
+        type: "challenge",
+        content: "🏆 Coding Challenge · 编程挑战",
+        challenge: {
+          title: "💣 Cannon Shot Calculator · 大炮射击计算器",
+          description: "Build a cannon calculator: given angle and speed, compute the landing distance, max height, and flight time. Test with angle=60, speed=40.\n构建大炮计算器：给定角度和速度，计算落点距离、最大高度和飞行时间。用angle=60, speed=40测试。",
+          starterCode: `import math
+
+# 💣 Cannon Shot Calculator
+angle = 60  # degrees
+speed = 40  # m/s
+g = 9.8
+
+# TODO: Convert angle to radians
+# TODO: Calculate horizontal velocity (vx = speed * cos)
+# TODO: Calculate vertical velocity (vy = speed * sin)
+# TODO: Calculate flight time (t = 2 * vy / g)
+# TODO: Calculate distance (d = vx * t)
+# TODO: Calculate max height (h = vy² / (2*g))
+# TODO: Print all results
+
+`,
+          hint: "rad = math.radians(angle). vx = speed*cos(rad). vy = speed*sin(rad). t = 2*vy/g. distance = vx*t. max_h = vy**2/(2*g).",
+          solution: `import math
+
+angle = 60
+speed = 40
+g = 9.8
+
+rad = math.radians(angle)
+vx = speed * math.cos(rad)
+vy = speed * math.sin(rad)
+flight_time = 2 * vy / g
+distance = vx * flight_time
+max_height = vy ** 2 / (2 * g)
+
+print("💣 CANNON SHOT REPORT")
+print(f"  Angle: {angle}°")
+print(f"  Speed: {speed} m/s")
+print(f"  Distance: {distance:.1f} m")
+print(f"  Max height: {max_height:.1f} m")
+print(f"  Flight time: {flight_time:.2f} s")`,
+          expectedOutput: `💣 CANNON SHOT REPORT
+  Angle: 60°
+  Speed: 40 m/s
+  Distance: 141.4 m
+  Max height: 61.2 m
+  Flight time: 7.07 s`,
+        },
+      },
+      {
+        type: "challenge",
+        content: "🏆 Coding Challenge · 编程挑战",
+        challenge: {
+          title: "🎯 Target Destroyer · 目标摧毁",
+          description: "A building is at distance 100m. Your cannon speed is fixed at 35 m/s. Test angles from 10° to 80° (step 5°) to find which angle lands closest to 100m!\n建筑在100米处。大炮速度固定35m/s。测试10°到80°（每5°）找哪个角度最接近100米！",
+          starterCode: `import math
+
+# 🎯 Target Destroyer
+target = 100  # meters
+speed = 35    # m/s (fixed)
+g = 9.8
+
+best_angle = 0
+best_diff = 999
+
+# TODO: Loop through angles 10 to 80, step 5
+# TODO: For each angle, calculate landing distance
+# TODO: Track which angle gets closest to target
+# TODO: Print results for each angle
+# TODO: Print the best angle
+
+`,
+          hint: "for angle in range(10, 81, 5): ... Use the formula: distance = speed² × sin(2×angle_rad) / g. Track abs(distance - target) for closest.",
+          solution: `import math
+
+target = 100
+speed = 35
+g = 9.8
+
+best_angle = 0
+best_diff = 999
+
+print("🎯 TARGET DESTROYER — Finding best angle")
+print(f"  Target: {target}m | Speed: {speed} m/s")
+print("-" * 35)
+
+for angle in range(10, 81, 5):
+    rad = math.radians(angle)
+    distance = (speed ** 2) * math.sin(2 * rad) / g
+    diff = abs(distance - target)
+    marker = " ◄ CLOSEST!" if diff < best_diff else ""
+    if diff < best_diff:
+        best_diff = diff
+        best_angle = angle
+    print(f"  {angle:2d}° → {distance:6.1f}m (off by {diff:.1f}m){marker}")
+
+print("-" * 35)
+print(f"🏆 Best angle: {best_angle}° (misses by {best_diff:.1f}m)")`,
+          expectedOutput: `🎯 TARGET DESTROYER — Finding best angle
+  Target: 100m | Speed: 35 m/s
+-----------------------------------
+  10° → 42.4m (off by 57.6m)
+  15° → 61.4m (off by 38.6m)
+  20° → 77.7m (off by 22.3m)
+  25° → 90.7m (off by 9.3m) ◄ CLOSEST!
+  30° → 100.0m (off by 0.0m) ◄ CLOSEST!
+  35° → 105.3m (off by 5.3m)
+  40° → 106.7m (off by 6.7m)
+  45° → 104.2m (off by 4.2m)
+  50° → 97.9m (off by 2.1m)
+  55° → 88.3m (off by 11.7m)
+  60° → 75.8m (off by 24.2m)
+  65° → 61.0m (off by 39.0m)
+  70° → 44.6m (off by 55.4m)
+  75° → 27.4m (off by 72.6m)
+  80° → 10.4m (off by 89.6m)
+-----------------------------------
+🏆 Best angle: 30° (misses by 0.0m)`,
+        },
+      },
+      {
+        type: "challenge",
+        content: "🏆 Boss Challenge · 终极挑战",
+        challenge: {
+          title: "🐍 Angry Pythons! · 愤怒的Python！",
+          description: "Build a multi-level Angry Pythons game! 3 buildings at different distances. Player picks angle and power for each shot. Show hit/miss and score.\n构建多关卡愤怒Python游戏！3栋建筑在不同距离。玩家选角度和力度。显示命中/未中和分数。",
+          starterCode: `import math
+
+# 🐍 ANGRY PYTHONS! — 3 Level Game
+print("🐍 ANGRY PYTHONS! 🐍")
+print("Destroy all 3 buildings!\\n")
+
+buildings = [
+    {"name": "Pig Hut", "distance": 50, "width": 10},
+    {"name": "Pig Tower", "distance": 120, "width": 8},
+    {"name": "Pig Castle", "distance": 200, "width": 5},
+]
+g = 9.8
+score = 0
+
+# TODO: For each building/level:
+# 1. Print level info (building name, distance)
+# 2. Set angle and power (use fixed values since no input)
+#    Level 1: angle=35, power=25
+#    Level 2: angle=40, power=40
+#    Level 3: angle=45, power=50
+# 3. Calculate landing distance
+# 4. Check if hit (within building's width of target)
+# 5. Award points (100, 200, 300)
+# 6. Print final score
+
+`,
+          hint: "For each building: calculate distance with the formula. Check if abs(distance - target) <= width/2. Use a list of (angle, power) settings for each level.",
+          solution: `import math
+
+print("🐍 ANGRY PYTHONS! 🐍")
+print("Destroy all 3 buildings!\\n")
+
+buildings = [
+    {"name": "Pig Hut", "distance": 50, "width": 10},
+    {"name": "Pig Tower", "distance": 120, "width": 8},
+    {"name": "Pig Castle", "distance": 200, "width": 5},
+]
+shots = [
+    {"angle": 35, "power": 25},
+    {"angle": 40, "power": 40},
+    {"angle": 45, "power": 50},
+]
+g = 9.8
+score = 0
+points = [100, 200, 300]
+
+for i in range(3):
+    b = buildings[i]
+    s = shots[i]
+    print(f"═══ Level {i+1}: {b['name']} ═══")
+    print(f"  🏢 Target: {b['distance']}m away (width: {b['width']}m)")
+    print(f"  🔫 Shot: {s['angle']}° at {s['power']} m/s")
+    
+    rad = math.radians(s["angle"])
+    dist = (s["power"] ** 2) * math.sin(2 * rad) / g
+    diff = abs(dist - b["distance"])
+    
+    print(f"  📏 Landed at: {dist:.1f}m (off by {diff:.1f}m)")
+    
+    if diff <= b["width"] / 2:
+        score += points[i]
+        print(f"  💥 HIT! +{points[i]} points!")
+    else:
+        print(f"  ❌ MISS!")
+    print()
+
+print(f"🏆 FINAL SCORE: {score}/{sum(points)} points")
+if score == sum(points):
+    print("⭐ PERFECT! All buildings destroyed!")
+elif score > 0:
+    print("👍 Good effort! Try different angles!")
+else:
+    print("💪 Keep practicing your aim!")`,
+          expectedOutput: `🐍 ANGRY PYTHONS! 🐍
+Destroy all 3 buildings!
+
+═══ Level 1: Pig Hut ═══
+  🏢 Target: 50m away (width: 10m)
+  🔫 Shot: 35° at 25 m/s
+  📏 Landed at: 60.3m (off by 10.3m)
+  ❌ MISS!
+
+═══ Level 2: Pig Tower ═══
+  🏢 Target: 120m away (width: 8m)
+  🔫 Shot: 40° at 40 m/s
+  📏 Landed at: 160.5m (off by 40.5m)
+  ❌ MISS!
+
+═══ Level 3: Pig Castle ═══
+  🏢 Target: 200m away (width: 5m)
+  🔫 Shot: 45° at 50 m/s
+  📏 Landed at: 255.1m (off by 55.1m)
+  ❌ MISS!
+
+🏆 FINAL SCORE: 0/600 points
+💪 Keep practicing your aim!`,
+        },
+      },
+      {
         type: "quiz",
-        content: "🚀 Physics Simulator Quiz!",
+        content: "💥 Demolition City Quiz!",
         quiz: QUIZ_DATA["4-3"],
       },
     ],
@@ -5050,11 +5871,11 @@ while True:
   {
     id: "4-4",
     moduleId: "area-4",
-    title: "Data Detective",
-    subtitle: "Find patterns in numbers · 数据侦探：在数字中找规律",
+    title: "🕵️ CSI: Code Scene Investigation",
+    subtitle: "Solve crimes with data · 编程探案：用数据破案",
     icon: "🔍",
-    xp: 35,
-    duration: "22 min",
+    xp: 40,
+    duration: "30 min",
     order: 4,
     gradeRange: [7, 10],
     difficulty: "advanced",
@@ -5062,66 +5883,271 @@ while True:
     sections: [
       {
         type: "text",
-        emoji: "🔍",
-        content: `## 🔍 Data Analysis Skills
+        emoji: "🕵️",
+        content: `## 🕵️ CSI: Code Scene Investigation
 
-**🤖 Botty:** "This is how AI finds patterns — by analyzing lots of data!"`,
+**🤖 Botty:** "A crime has been committed! Only data can reveal the truth!"
+
+\`\`\`
+╔═══════════════════════════════════════╗
+║  🕵️ DETECTIVE BADGE #7734            ║
+║  Name: Agent Python                   ║
+║  Unit: Data Forensics Division        ║
+║  Status: ACTIVE CASE                  ║
+╚═══════════════════════════════════════╝
+\`\`\`
+
+You are a **data detective**! Your weapon? Python code. Your method? Logic, search, and pattern matching!
+
+你是一名**数据侦探**！你的武器？Python代码。你的方法？逻辑、搜索和模式匹配！
+
+**🔧 Chip:** "Every criminal leaves digital footprints. Let's find them!"
+
+Today you'll:
+- 🔍 Filter suspects using clues
+- 🧬 Match DNA sequences
+- 📋 Solve a complete mystery case!`,
       },
       {
         type: "concept",
         emoji: "📖",
-        content: "New Syntax: Data Analysis Patterns",
+        content: "New Syntax: Search & Filter Patterns",
         concept: {
-          title: "🔍 New Syntax: Data Analysis Patterns",
-          titleZh: "新语法：数据分析模式",
+          title: "🔍 New Syntax: Search, Filter & Match",
+          titleZh: "新语法：搜索、过滤与匹配",
           syntaxCards: [
             {
-              symbol: "sorted(data)",
-              name: "Sort Data",
-              nameZh: "排序数据",
-              emoji: "📈",
-              description: "Like lining up by height 📏 — arranges items from smallest to largest (or alphabetically).",
-              example: "sorted([3,1,2])  # [1,2,3]\nsorted(names)     # alphabetical",
+              symbol: "[x for x in data if condition]",
+              name: "List Comprehension Filter",
+              nameZh: "列表推导式过滤",
+              emoji: "🔍",
+              description: "Filter a list in ONE line 🔍 — keep only items that match your condition! Like a smart search.",
+              example: "# Find all adults\\nadults = [p for p in people if p['age'] >= 18]",
             },
             {
-              symbol: "dict comprehension",
-              name: "Count Frequencies",
-              nameZh: "统计频率",
-              emoji: "📊",
-              description: "Like tallying votes 📊 — count how many times each item appears in your data!",
-              example: "counts = {}\nfor item in data:\n    counts[item] = counts.get(item, 0) + 1",
+              symbol: "\"pattern\" in string",
+              name: "Substring Search",
+              nameZh: "子串搜索",
+              emoji: "🧬",
+              description: "Check if a pattern exists inside text 🧬 — like Ctrl+F for your code!",
+              example: "dna = 'ATCGATCG'\\nif 'GAT' in dna:\\n    print('Pattern found!')",
             },
             {
-              symbol: ".get(key, default)",
-              name: "Safe Dictionary Access",
-              nameZh: "安全字典访问",
-              emoji: "🛡️",
-              description: "A safer key lookup 🛡️ — returns a default value instead of crashing if the key doesn't exist!",
-              example: "counts.get('apple', 0)  # 0 if no 'apple'",
+              symbol: ".count() / .index() / .find()",
+              name: "String Search Methods",
+              nameZh: "字符串搜索方法",
+              emoji: "🔎",
+              description: "Powerful text search tools 🔎 — count occurrences, find positions, locate patterns!",
+              example: "'banana'.count('a')  # 3\\n'hello'.find('ll')   # 2\\n'abc'.index('b')     # 1",
             },
             {
-              symbol: "list comprehension",
-              name: "List Comprehension",
-              nameZh: "列表推导式",
-              emoji: "⚡",
-              description: "Build a list in ONE line ⚡ — a shortcut for creating lists with a loop and optional filter!",
-              example: "evens = [x for x in data if x % 2 == 0]\ndoubled = [x*2 for x in data]",
+              symbol: "all() / any()",
+              name: "Logic Checks",
+              nameZh: "逻辑检查",
+              emoji: "✅",
+              description: "Check conditions across a whole list ✅ — all() = every item, any() = at least one!",
+              example: "ages = [20, 25, 17, 30]\\nall(a >= 18 for a in ages)  # False\\nany(a < 18 for a in ages)  # True",
             },
           ],
           codeAnatomy: {
             lines: [
-              { code: "data = [85, 92, 78, 95, 88, 72, 91]", explanation: "Our dataset — student test scores.", explanationZh: "我们的数据集 — 学生考试成绩" },
-              { code: "average = sum(data) / len(data)", explanation: "Calculate the mean (average) score.", explanationZh: "计算平均分" },
-              { code: "sorted_data = sorted(data)", explanation: "Sort from lowest to highest.", explanationZh: "从低到高排序" },
-              { code: "median = sorted_data[len(data) // 2]", explanation: "Middle value = median (after sorting).", explanationZh: "排序后的中间值 = 中位数" },
-              { code: "above_avg = [x for x in data if x > average]", explanation: "List comprehension: filter scores above average.", explanationZh: "列表推导式：筛选高于平均分的成绩" },
+              { code: "suspects = [{'name': 'Alice', 'height': 170, 'hair': 'black'}, ...]", explanation: "Database of suspects as list of dicts.", explanationZh: "嫌疑人数据库（字典列表）" },
+              { code: "clue_1 = [s for s in suspects if s['height'] > 165]", explanation: "Filter: keep suspects taller than 165cm.", explanationZh: "过滤：保留身高超过165cm的嫌疑人" },
+              { code: "clue_2 = [s for s in clue_1 if s['hair'] == 'black']", explanation: "Further filter: black hair only.", explanationZh: "进一步过滤：只留黑头发的" },
+              { code: "if len(clue_2) == 1:", explanation: "If only one suspect remains...", explanationZh: "如果只剩一个嫌疑人..." },
+              { code: "    print(f'Guilty: {clue_2[0][\"name\"]}')", explanation: "Case solved!", explanationZh: "案件破了！" },
             ],
           },
         },
       },
       {
+        type: "interactive",
+        content: `## 🎯 Detective Warmup · 侦探热身
+
+Quick deduction test! What does this code print?
+
+\`\`\`python
+suspects = ["Alice", "Bob", "Charlie", "Diana"]
+clues = [True, False, True, False]  # had alibi?
+
+# No alibi = still suspect
+remaining = []
+for i in range(len(suspects)):
+    if not clues[i]:
+        remaining.append(suspects[i])
+print(remaining)
+\`\`\``,
+        exercise: {
+          prompt: "What list is printed? (suspects without alibis)",
+          promptZh: "打印的列表是什么？（没有不在场证明的嫌疑人）",
+          starterCode: "suspects = ['Alice', 'Bob', 'Charlie', 'Diana']\\nclues = [True, False, True, False]\\nremaining = []\\nfor i in range(len(suspects)):\\n    if not clues[i]:\\n        remaining.append(suspects[i])\\nprint(remaining)",
+          expectedOutput: "['Bob', 'Diana']",
+          hint: "clues[1]=False (Bob) and clues[3]=False (Diana) — they don't have alibis!",
+          hintZh: "clues[1]=False(Bob) 和 clues[3]=False(Diana) — 他们没有不在场证明！",
+          solution: "suspects = ['Alice', 'Bob', 'Charlie', 'Diana']\\nclues = [True, False, True, False]\\nremaining = []\\nfor i in range(len(suspects)):\\n    if not clues[i]:\\n        remaining.append(suspects[i])\\nprint(remaining)",
+        },
+      },
+      {
+        type: "code",
+        emoji: "🔍",
+        content: `## 🔍 Follow Along: The Suspect Filter
+
+Watch how we narrow down suspects using clue after clue:`,
+        code: `# 🕵️ CSI PYTHON — SUSPECT FILTER
+print("🕵️ CSI: CODE SCENE INVESTIGATION")
+print("=" * 40)
+print("Case #42: The Missing Diamond\\n")
+
+# Suspect database
+suspects = [
+    {"name": "Alice", "age": 32, "height": 165, "hair": "blonde", "job": "chef"},
+    {"name": "Bob", "age": 45, "height": 180, "hair": "black", "job": "teacher"},
+    {"name": "Charlie", "age": 28, "height": 175, "hair": "brown", "job": "driver"},
+    {"name": "Diana", "age": 35, "height": 170, "hair": "black", "job": "nurse"},
+    {"name": "Eve", "age": 29, "height": 168, "hair": "red", "job": "hacker"},
+    {"name": "Frank", "age": 41, "height": 185, "hair": "black", "job": "guard"},
+]
+
+print(f"📋 Total suspects: {len(suspects)}")
+for s in suspects:
+    print(f"  - {s['name']}: {s['age']}yo, {s['height']}cm, {s['hair']} hair, {s['job']}")
+
+# Clue 1: Witness saw someone with black hair
+print("\\n🔍 Clue 1: Witness saw BLACK HAIR")
+remaining = [s for s in suspects if s["hair"] == "black"]
+print(f"   Remaining: {[s['name'] for s in remaining]}")
+
+# Clue 2: Taller than 170cm
+print("\\n🔍 Clue 2: Security cam shows HEIGHT > 170cm")
+remaining = [s for s in remaining if s["height"] > 170]
+print(f"   Remaining: {[s['name'] for s in remaining]}")
+
+# Clue 3: Age between 30 and 50
+print("\\n🔍 Clue 3: Voice analysis suggests AGE 30-50")
+remaining = [s for s in remaining if 30 <= s["age"] <= 50]
+print(f"   Remaining: {[s['name'] for s in remaining]}")
+
+if len(remaining) == 1:
+    print(f"\\n🚨 CASE SOLVED! The culprit is: {remaining[0]['name']}!")
+    print(f"   ({remaining[0]['job']}, {remaining[0]['age']}yo, {remaining[0]['height']}cm)")
+else:
+    print(f"\\n🤔 {len(remaining)} suspects remain. Need more clues!")`,
+      },
+      {
+        type: "challenge",
+        content: "🏆 Coding Challenge · 编程挑战",
+        challenge: {
+          title: "🔍 Suspect Eliminator · 嫌疑人排除器",
+          description: "Given 6 suspects, apply 3 clues to find the thief:\n1. The thief drives (has_car = True)\n2. The thief is under 40\n3. The thief has been to the crime city (visited 'Paris')\nFilter step by step and identify the criminal!\n用3条线索过滤6个嫌疑人找到小偷！",
+          starterCode: `# 🔍 SUSPECT ELIMINATOR
+suspects = [
+    {"name": "Luna", "age": 25, "has_car": True, "visited": ["Paris", "London"]},
+    {"name": "Max", "age": 42, "has_car": True, "visited": ["Paris", "Tokyo"]},
+    {"name": "Nora", "age": 30, "has_car": False, "visited": ["Paris", "Berlin"]},
+    {"name": "Oscar", "age": 35, "has_car": True, "visited": ["London", "Berlin"]},
+    {"name": "Piper", "age": 28, "has_car": True, "visited": ["Paris", "Rome"]},
+    {"name": "Quinn", "age": 22, "has_car": False, "visited": ["Tokyo", "Paris"]},
+]
+
+# TODO: Apply Clue 1 — has_car is True
+# TODO: Apply Clue 2 — age < 40  
+# TODO: Apply Clue 3 — "Paris" in visited list
+# TODO: Print remaining suspect(s)
+
+`,
+          hint: "Use list comprehension: remaining = [s for s in suspects if s['has_car']]. Then filter remaining again for age < 40. Then for 'Paris' in s['visited'].",
+          solution: `suspects = [
+    {"name": "Luna", "age": 25, "has_car": True, "visited": ["Paris", "London"]},
+    {"name": "Max", "age": 42, "has_car": True, "visited": ["Paris", "Tokyo"]},
+    {"name": "Nora", "age": 30, "has_car": False, "visited": ["Paris", "Berlin"]},
+    {"name": "Oscar", "age": 35, "has_car": True, "visited": ["London", "Berlin"]},
+    {"name": "Piper", "age": 28, "has_car": True, "visited": ["Paris", "Rome"]},
+    {"name": "Quinn", "age": 22, "has_car": False, "visited": ["Tokyo", "Paris"]},
+]
+
+print("🕵️ SUSPECT ELIMINATION")
+print(f"Starting suspects: {len(suspects)}")
+
+remaining = [s for s in suspects if s["has_car"]]
+print(f"\\nClue 1 (has car): {[s['name'] for s in remaining]}")
+
+remaining = [s for s in remaining if s["age"] < 40]
+print(f"Clue 2 (age < 40): {[s['name'] for s in remaining]}")
+
+remaining = [s for s in remaining if "Paris" in s["visited"]]
+print(f"Clue 3 (visited Paris): {[s['name'] for s in remaining]}")
+
+if len(remaining) == 1:
+    print(f"\\n🚨 The thief is: {remaining[0]['name']}!")
+else:
+    print(f"\\n🤔 {len(remaining)} suspects remain.")`,
+          expectedOutput: `🕵️ SUSPECT ELIMINATION
+Starting suspects: 6
+
+Clue 1 (has car): ['Luna', 'Max', 'Oscar', 'Piper']
+Clue 2 (age < 40): ['Luna', 'Oscar', 'Piper']
+Clue 3 (visited Paris): ['Luna', 'Piper']
+
+🤔 2 suspects remain.`,
+        },
+      },
+      {
+        type: "challenge",
+        content: "🏆 Coding Challenge · 编程挑战",
+        challenge: {
+          title: "🧬 DNA Pattern Matcher · DNA模式匹配",
+          description: "Search a DNA sequence for a specific pattern. Count occurrences and find all positions where the pattern appears!\n在DNA序列中搜索特定模式。统计出现次数并找到所有位置！",
+          starterCode: `# 🧬 DNA PATTERN MATCHER
+dna = "ATCGATCGATCGAATCGTTTGATCATCG"
+pattern = "ATC"
+
+# TODO: Count how many times 'pattern' appears in 'dna'
+# TODO: Find ALL positions where pattern starts
+# Hint: check each position i if dna[i:i+len(pattern)] == pattern
+# TODO: Print results
+
+`,
+          hint: "Loop: for i in range(len(dna) - len(pattern) + 1). Check if dna[i:i+len(pattern)] == pattern. Collect positions in a list.",
+          solution: `dna = "ATCGATCGATCGAATCGTTTGATCATCG"
+pattern = "ATC"
+
+positions = []
+for i in range(len(dna) - len(pattern) + 1):
+    if dna[i:i+len(pattern)] == pattern:
+        positions.append(i)
+
+print("🧬 DNA PATTERN SEARCH")
+print(f"  Sequence: {dna}")
+print(f"  Pattern:  {pattern}")
+print(f"  Found: {len(positions)} matches")
+print(f"  Positions: {positions}")
+
+# Visual highlight
+print("\\n  Visual:")
+highlight = ""
+for i in range(len(dna)):
+    if i in positions:
+        highlight += "^"
+    elif any(i > p and i < p + len(pattern) for p in positions):
+        highlight += "^"
+    else:
+        highlight += " "
+print(f"  {dna}")
+print(f"  {highlight}")`,
+          expectedOutput: `🧬 DNA PATTERN SEARCH
+  Sequence: ATCGATCGATCGAATCGTTTGATCATCG
+  Pattern:  ATC
+  Found: 6 matches
+  Positions: [0, 4, 8, 13, 22, 25]
+
+  Visual:
+  ATCGATCGATCGAATCGTTTGATCATCG
+  ^^^_^^^_^^^__^^^________^^^`,
+        },
+      },
+      {
         type: "quiz",
-        content: "🔍 Data Detective Quiz!",
+        content: "🕵️ CSI Detective Quiz!",
         quiz: QUIZ_DATA["4-4"],
       },
     ],
@@ -5130,11 +6156,11 @@ while True:
   {
     id: "4-5",
     moduleId: "area-4",
-    title: "Cryptography Intro",
-    subtitle: "Codes and computer security · 密码学入门：编码与计算机安全",
+    title: "🕶️ The Matrix: Hacker Academy",
+    subtitle: "Cryptography & security · 黑客帝国：密码学与安全",
     icon: "🔐",
-    xp: 35,
-    duration: "25 min",
+    xp: 40,
+    duration: "30 min",
     order: 5,
     gradeRange: [8, 10],
     difficulty: "advanced",
@@ -5142,66 +6168,360 @@ while True:
     sections: [
       {
         type: "text",
-        emoji: "🔐",
-        content: `## 🔐 Secret Codes and Security
+        emoji: "🕶️",
+        content: `## 🕶️ Welcome to The Matrix, Neo...
 
-**🔧 Chip:** "Every secure website uses cryptography to protect your data!"`,
+**🤖 Botty:** "The Matrix has you... but today, YOU hack back!"
+
+\`\`\`
+ ██████████████████████████████████
+ █ Wake up, Neo...                █
+ █ The Matrix has you...          █
+ █ Follow the white rabbit. 🐇    █
+ █                                █
+ █ > ENTER THE MATRIX? [Y/N]     █
+ ██████████████████████████████████
+\`\`\`
+
+You're a **white-hat hacker** (the good kind!) 🦸 Your mission: learn how encryption works so you can **protect** systems, not break them!
+
+你是一名**白帽黑客**（好黑客）！你的任务：学习加密如何运作，用来**保护**系统！
+
+**🔧 Chip:** "Every time you log in, send a message, or buy something online — cryptography protects you!"`,
       },
       {
         type: "concept",
         emoji: "📖",
-        content: "New Syntax: Advanced String & Crypto Patterns",
+        content: "New Syntax: Cryptography Tools",
         concept: {
-          title: "🔐 New Syntax: Advanced String & Crypto Patterns",
-          titleZh: "新语法：高级字符串与加密模式",
+          title: "🔐 New Syntax: Encryption & Security",
+          titleZh: "新语法：加密与安全",
           syntaxCards: [
             {
-              symbol: "hashlib.sha256()",
-              name: "Hash Function",
-              nameZh: "哈希函数",
-              emoji: "🔒",
-              description: "A one-way shredder 🔒 — turns ANY text into a fixed-length code. You can't reverse it! Used for password storage.",
-              example: "import hashlib\nh = hashlib.sha256(b'hello')\nprint(h.hexdigest())",
+              symbol: "ord() / chr()",
+              name: "Character ↔ Number",
+              nameZh: "字符 ↔ 数字",
+              emoji: "🔢",
+              description: "Every character is secretly a number! 🔢 ord('A')=65, chr(65)='A'. The basis of all encryption!",
+              example: "ord('A')   # 65\\nord('a')   # 97\\nchr(65)    # 'A'\\nchr(122)   # 'z'",
             },
             {
-              symbol: ".encode() / .decode()",
-              name: "Encode/Decode Bytes",
-              nameZh: "编码/解码字节",
-              emoji: "🔄",
-              description: "Like translating between languages 🌐 — converts text to bytes and back. Required for crypto functions!",
-              example: "text = 'hello'\nbytes_data = text.encode('utf-8')\nback = bytes_data.decode('utf-8')",
-            },
-            {
-              symbol: "zip(list1, list2)",
-              name: "Zip (pair up)",
-              nameZh: "配对",
-              emoji: "🤝",
-              description: "Like a zipper 🤐 — pairs up items from two lists side by side!",
-              example: "keys = ['a','b','c']\nvals = [1, 2, 3]\nfor k, v in zip(keys, vals):\n    print(k, v)",
+              symbol: "Caesar Cipher (shift)",
+              name: "Caesar Cipher",
+              nameZh: "凯撒密码",
+              emoji: "🏛️",
+              description: "Shift each letter by N positions 🏛️ — used by Julius Caesar 2000 years ago! A→D with shift=3.",
+              example: "# Encrypt 'A' with shift 3\\nencrypted = chr(ord('A') + 3)  # 'D'",
             },
             {
               symbol: "XOR (^)",
-              name: "XOR Bitwise Operator",
-              nameZh: "异或位运算",
+              name: "XOR Encryption",
+              nameZh: "异或加密",
               emoji: "⚡",
-              description: "The toggle switch ⚡ — XOR flips bits. Apply it twice and you get the original back! The basis of real encryption.",
-              example: "encrypted = ord('A') ^ 42  # Encrypt\noriginal = encrypted ^ 42   # Decrypt!",
+              description: "The magic toggle switch ⚡ — XOR twice with the same key gives you the original back! Real encryption uses this!",
+              example: "secret = ord('H') ^ 42  # encrypt\\noriginal = secret ^ 42   # decrypt!\\nprint(chr(original))     # 'H'",
+            },
+            {
+              symbol: "string.ascii_lowercase",
+              name: "Alphabet Helpers",
+              nameZh: "字母辅助",
+              emoji: "🔤",
+              description: "Quick access to all letters 🔤 — useful for building ciphers and code-breaking tools!",
+              example: "import string\\nprint(string.ascii_lowercase)\\n# 'abcdefghijklmnopqrstuvwxyz'",
             },
           ],
           codeAnatomy: {
             lines: [
-              { code: "import hashlib", explanation: "Import the hashing library for security functions.", explanationZh: "导入哈希库用于安全功能" },
-              { code: "password = 'secret123'", explanation: "The password we want to protect.", explanationZh: "我们要保护的密码" },
-              { code: "hashed = hashlib.sha256(password.encode())", explanation: "Hash the password — converts to unreadable code.", explanationZh: "哈希密码 — 转换为不可读的代码" },
-              { code: "print(hashed.hexdigest())", explanation: "Print the 64-character hex hash.", explanationZh: "打印 64 字符的十六进制哈希" },
-              { code: "# You can't reverse a hash!", explanation: "One-way only — that's what makes it secure!", explanationZh: "单向不可逆 — 这就是安全的关键！" },
+              { code: "message = 'HELLO'", explanation: "The secret message to encrypt.", explanationZh: "要加密的秘密消息" },
+              { code: "shift = 3", explanation: "Caesar cipher shift amount.", explanationZh: "凯撒密码偏移量" },
+              { code: "encrypted = ''", explanation: "Build encrypted string character by character.", explanationZh: "逐字符构建加密字符串" },
+              { code: "for char in message:", explanation: "Process each character.", explanationZh: "处理每个字符" },
+              { code: "    new_char = chr((ord(char) - 65 + shift) % 26 + 65)", explanation: "Shift letter within A-Z range using modulo.", explanationZh: "用取模运算在A-Z范围内偏移字母" },
+              { code: "    encrypted += new_char", explanation: "Add encrypted character to result.", explanationZh: "将加密字符添加到结果" },
+              { code: "print(f'Encrypted: {encrypted}')", explanation: "'HELLO' becomes 'KHOOR'!", explanationZh: "'HELLO' 变成 'KHOOR'！" },
             ],
           },
         },
       },
       {
+        type: "interactive",
+        content: `## 🎯 Crypto Warmup · 密码热身
+
+Decrypt this Caesar cipher! Each letter was shifted by 3 positions forward.
+
+Encrypted: "KHOOR ZRUOG"
+
+To decrypt, shift each letter BACK by 3.
+K→H, H→E, O→L, O→L, R→O = HELLO!
+
+What's the full message?`,
+        exercise: {
+          prompt: "Decrypt 'KHOOR ZRUOG' by shifting each letter back 3 positions. Print the result.",
+          promptZh: "将 'KHOOR ZRUOG' 每个字母向前移3位来解密。",
+          starterCode: "# Decrypt Caesar cipher (shift = 3)\\nmessage = 'KHOOR ZRUOG'\\nresult = ''\\nfor char in message:\\n    if char.isalpha():\\n        result += chr((ord(char) - 65 - 3) % 26 + 65)\\n    else:\\n        result += char\\nprint(result)",
+          expectedOutput: "HELLO WORLD",
+          hint: "Shift each letter back by 3: K(75)-3=H(72), H(72)-3=E(69), etc. Space stays as space.",
+          hintZh: "每个字母向回移3位：K-3=H, H-3=E，以此类推。空格保持不变。",
+          solution: "message = 'KHOOR ZRUOG'\\nresult = ''\\nfor char in message:\\n    if char.isalpha():\\n        result += chr((ord(char) - 65 - 3) % 26 + 65)\\n    else:\\n        result += char\\nprint(result)",
+        },
+      },
+      {
+        type: "code",
+        emoji: "🔐",
+        content: `## 🔐 Follow Along: Caesar Cipher Machine
+
+Build a complete encryption/decryption machine!`,
+        code: `# 🔐 THE MATRIX — CAESAR CIPHER MACHINE
+print("🕶️ THE MATRIX — CIPHER MACHINE")
+print("=" * 35)
+
+def caesar_encrypt(text, shift):
+    result = ""
+    for char in text:
+        if char.isalpha():
+            base = 65 if char.isupper() else 97
+            result += chr((ord(char) - base + shift) % 26 + base)
+        else:
+            result += char
+    return result
+
+def caesar_decrypt(text, shift):
+    return caesar_encrypt(text, -shift)
+
+# Demo
+message = "MEET ME AT THE PARK"
+shift = 7
+
+encrypted = caesar_encrypt(message, shift)
+decrypted = caesar_decrypt(encrypted, shift)
+
+print(f"\\n📝 Original:  {message}")
+print(f"🔒 Encrypted: {encrypted}")
+print(f"🔓 Decrypted: {decrypted}")
+print(f"✅ Match: {message == decrypted}")
+
+# Brute force attack!
+print("\\n💀 BRUTE FORCE ATTACK:")
+print("Testing all 26 possible shifts...")
+print("-" * 35)
+secret = "WKH TXLFN EURZQ IRA"
+for s in range(26):
+    attempt = caesar_decrypt(secret, s)
+    if "THE" in attempt or "FOX" in attempt:
+        print(f"  Shift {s:2d}: {attempt} ← 🎯 FOUND IT!")
+    else:
+        print(f"  Shift {s:2d}: {attempt}")`,
+      },
+      {
+        type: "challenge",
+        content: "🏆 Coding Challenge · 编程挑战",
+        challenge: {
+          title: "🔓 Password Cracker · 密码破解器",
+          description: "Build a brute-force password cracker! Try all 4-digit PIN combinations (0000-9999) to find the secret PIN. Count how many attempts it takes.\n构建暴力破解器！尝试所有4位PIN码(0000-9999)找到秘密PIN。数一数需要多少次尝试。",
+          starterCode: `# 🔓 PASSWORD CRACKER
+secret_pin = "7342"
+attempts = 0
+
+# TODO: Try all 4-digit combinations from "0000" to "9999"
+# TODO: Count attempts
+# TODO: When found, print the PIN and attempt count
+# Hint: Use f"{n:04d}" to format number as 4-digit string
+
+`,
+          hint: "for n in range(10000): pin = f'{n:04d}'. Check if pin == secret_pin. Count attempts.",
+          solution: `secret_pin = "7342"
+attempts = 0
+
+print("🔓 BRUTE FORCE PIN CRACKER")
+print("Testing all 10,000 combinations...")
+
+for n in range(10000):
+    attempts += 1
+    pin = f"{n:04d}"
+    if pin == secret_pin:
+        print(f"\\n🎯 PIN CRACKED: {pin}")
+        print(f"   Attempts: {attempts}")
+        print(f"   That's {attempts/10000:.1%} of all combinations!")
+        break
+
+print(f"\\n💡 Lesson: A 4-digit PIN has only 10,000 possibilities!")
+print(f"   A computer can try them ALL in milliseconds!")
+print(f"   Use LONGER passwords for real security!")`,
+          expectedOutput: `🔓 BRUTE FORCE PIN CRACKER
+Testing all 10,000 combinations...
+
+🎯 PIN CRACKED: 7342
+   Attempts: 7343
+   That's 73.4% of all combinations!
+
+💡 Lesson: A 4-digit PIN has only 10,000 possibilities!
+   A computer can try them ALL in milliseconds!
+   Use LONGER passwords for real security!`,
+        },
+      },
+      {
+        type: "challenge",
+        content: "🏆 Coding Challenge · 编程挑战",
+        challenge: {
+          title: "📡 Morse Code Communicator · 摩尔斯电码通信器",
+          description: "Build a Morse code encoder AND decoder! Encode a message to Morse, then decode it back to verify it works.\n构建摩尔斯电码编码器和解码器！将消息编码为摩尔斯电码，再解码回来验证！",
+          starterCode: `# 📡 MORSE CODE COMMUNICATOR
+MORSE = {
+    'A': '.-', 'B': '-...', 'C': '-.-.', 'D': '-..', 'E': '.', 
+    'F': '..-.', 'G': '--.', 'H': '....', 'I': '..', 'J': '.---',
+    'K': '-.-', 'L': '.-..', 'M': '--', 'N': '-.', 'O': '---',
+    'P': '.--.', 'Q': '--.-', 'R': '.-.', 'S': '...', 'T': '-',
+    'U': '..-', 'V': '...-', 'W': '.--', 'X': '-..-', 'Y': '-.--',
+    'Z': '--..', ' ': '/'
+}
+
+message = "SOS HELP"
+
+# TODO: Build encoder — convert message to Morse
+# Each letter becomes its Morse code, separated by spaces
+
+# TODO: Build decoder — convert Morse back to text
+# Build a reverse dictionary: morse_to_letter
+
+# TODO: Print original, encoded, decoded, and verify match
+
+`,
+          hint: "Encoder: join [MORSE[c] for c in message.upper()]. Decoder: reverse_morse = {v:k for k,v in MORSE.items()}. Split encoded by space, look up each code.",
+          solution: `MORSE = {
+    'A': '.-', 'B': '-...', 'C': '-.-.', 'D': '-..', 'E': '.', 
+    'F': '..-.', 'G': '--.', 'H': '....', 'I': '..', 'J': '.---',
+    'K': '-.-', 'L': '.-..', 'M': '--', 'N': '-.', 'O': '---',
+    'P': '.--.', 'Q': '--.-', 'R': '.-.', 'S': '...', 'T': '-',
+    'U': '..-', 'V': '...-', 'W': '.--', 'X': '-..-', 'Y': '-.--',
+    'Z': '--..', ' ': '/'
+}
+
+message = "SOS HELP"
+
+# Encode
+encoded = ' '.join(MORSE[c] for c in message.upper())
+
+# Decode
+reverse_morse = {v: k for k, v in MORSE.items()}
+decoded = ''.join(reverse_morse[code] for code in encoded.split(' '))
+
+print("📡 MORSE CODE COMMUNICATOR")
+print(f"  Original: {message}")
+print(f"  Encoded:  {encoded}")
+print(f"  Decoded:  {decoded}")
+print(f"  ✅ Match: {message == decoded}")`,
+          expectedOutput: `📡 MORSE CODE COMMUNICATOR
+  Original: SOS HELP
+  Encoded:  ... --- ... / .... . .-.. .--.
+  Decoded:  SOS HELP
+  ✅ Match: True`,
+        },
+      },
+      {
+        type: "challenge",
+        content: "🏆 Boss Challenge · 终极挑战",
+        challenge: {
+          title: "🛡️ Password Strength Analyzer · 密码强度分析器",
+          description: "Build a password strength analyzer that scores passwords based on: length, uppercase, lowercase, digits, special characters. Rate as Weak/Medium/Strong/Very Strong.\n构建密码强度分析器：根据长度、大小写、数字、特殊字符评分。",
+          starterCode: `# 🛡️ PASSWORD STRENGTH ANALYZER
+
+def check_password(password):
+    score = 0
+    feedback = []
+    
+    # TODO: Check length (1 point if >= 8, 2 if >= 12)
+    # TODO: Check for uppercase letters (1 point)
+    # TODO: Check for lowercase letters (1 point)
+    # TODO: Check for digits (1 point)
+    # TODO: Check for special characters !@#$%^&* (1 point)
+    # TODO: Rate: 0-2 Weak, 3-4 Medium, 5 Strong, 6+ Very Strong
+    # TODO: Return score, rating, and feedback list
+    pass
+
+# Test passwords
+passwords = ["abc", "Hello123", "P@ssw0rd!", "MyS3cur3P@ss!!"]
+for pw in passwords:
+    pass  # TODO: check each and print results
+
+`,
+          hint: "Use any(c.isupper() for c in password) to check for uppercase. Similar for lower/digit. For special chars: any(c in '!@#$%^&*' for c in password).",
+          solution: `def check_password(password):
+    score = 0
+    feedback = []
+    
+    if len(password) >= 12:
+        score += 2
+        feedback.append("Great length!")
+    elif len(password) >= 8:
+        score += 1
+        feedback.append("OK length")
+    else:
+        feedback.append("Too short!")
+    
+    if any(c.isupper() for c in password):
+        score += 1
+    else:
+        feedback.append("Add uppercase")
+    
+    if any(c.islower() for c in password):
+        score += 1
+    else:
+        feedback.append("Add lowercase")
+    
+    if any(c.isdigit() for c in password):
+        score += 1
+    else:
+        feedback.append("Add numbers")
+    
+    if any(c in "!@#$%^&*" for c in password):
+        score += 1
+    else:
+        feedback.append("Add special chars")
+    
+    if score <= 2:
+        rating = "🔴 WEAK"
+    elif score <= 4:
+        rating = "🟡 MEDIUM"
+    elif score <= 5:
+        rating = "🟢 STRONG"
+    else:
+        rating = "💪 VERY STRONG"
+    
+    return score, rating, feedback
+
+print("🛡️ PASSWORD STRENGTH ANALYZER")
+print("=" * 35)
+
+passwords = ["abc", "Hello123", "P@ssw0rd!", "MyS3cur3P@ss!!"]
+for pw in passwords:
+    score, rating, feedback = check_password(pw)
+    print(f"\\n  Password: {pw}")
+    print(f"  Score: {score}/6 — {rating}")
+    if feedback:
+        print(f"  Tips: {', '.join(feedback)}")`,
+          expectedOutput: `🛡️ PASSWORD STRENGTH ANALYZER
+===================================
+
+  Password: abc
+  Score: 1/6 — 🔴 WEAK
+  Tips: Too short!, Add uppercase, Add numbers, Add special chars
+
+  Password: Hello123
+  Score: 4/6 — 🟡 MEDIUM
+  Tips: OK length, Add special chars
+
+  Password: P@ssw0rd!
+  Score: 5/6 — 🟢 STRONG
+  Tips: OK length
+
+  Password: MyS3cur3P@ss!!
+  Score: 6/6 — 💪 VERY STRONG
+  Tips: Great length!`,
+        },
+      },
+      {
         type: "quiz",
-        content: "🔐 Cryptography Quiz!",
+        content: "🕶️ Matrix Hacker Quiz!",
         quiz: QUIZ_DATA["4-5"],
       },
     ],
@@ -5210,11 +6530,11 @@ while True:
   {
     id: "4-6",
     moduleId: "area-4",
-    title: "🎮 Science Report Generator",
-    subtitle: "Complete lab project · 科学实验报告生成器：完整实验项目",
-    icon: "🎮",
+    title: "🧬 Life Simulator",
+    subtitle: "Simulate ecosystems · 生命模拟器：模拟生态系统",
+    icon: "🧬",
     xp: 50,
-    duration: "30 min",
+    duration: "35 min",
     order: 6,
     gradeRange: [8, 10],
     difficulty: "advanced",
@@ -5222,76 +6542,504 @@ while True:
     sections: [
       {
         type: "text",
-        emoji: "🎮",
-        content: `## 🎮 Science Lab Final Project!
+        emoji: "🧬",
+        content: `## 🧬 Welcome to the Life Simulator!
 
-**🧪 Create a complete science report generator using:**
-- 📊 **Data visualization** for charts
-- 🎲 **Random simulation** for experiments
-- 🚀 **Physics calculations** for analysis
-- 🔍 **Data analysis** for conclusions`,
+**🐍 Py:** "What if you could create a whole world... and watch it evolve?"
+
+\`\`\`
+  🌍 LIFE SIMULATOR v1.0
+  ========================
+  🐇 Rabbits: 50    🦊 Foxes: 10
+  🌿 Grass: 100     💧 Water: 80
+  ☀️  Sun: Full
+  
+  Day 1... 2... 3... → Evolution!
+\`\`\`
+
+Today, we build a **virtual ecosystem**! Rabbits eat grass, foxes eat rabbits, and the population changes over time.
+
+今天我们构建一个**虚拟生态系统**！兔子吃草，狐狸吃兔子，种群数量随时间变化。
+
+This is the **final Science Lab project** — you'll combine EVERYTHING:
+- 📊 Data tracking (from Lesson 19)
+- 🎲 Random events (from Lesson 20)  
+- 🔢 Math formulas (from Lesson 21)
+- 🔍 Pattern analysis (from Lesson 22)
+
+**🔧 Chip:** "Real scientists use simulations like this to predict animal populations, disease spread, and climate change!"`,
       },
       {
         type: "concept",
         emoji: "📖",
-        content: "Review: Scientific Computing Toolkit",
+        content: "New Syntax: Simulation Patterns",
         concept: {
-          title: "🧪 Review: Scientific Computing Toolkit",
-          titleZh: "复习：科学计算工具包",
+          title: "🧬 Simulation Design Patterns",
+          titleZh: "模拟设计模式",
           syntaxCards: [
             {
-              symbol: "f-string formatting",
-              name: "Formatted Output",
-              nameZh: "格式化输出",
+              symbol: "state = {key: value}",
+              name: "State Dictionary",
+              nameZh: "状态字典",
               emoji: "📋",
-              description: "Lab reports need clean numbers 📋 — f-strings with format specs control decimal places, alignment, and more!",
-              example: "pi = 3.14159\nprint(f'Pi = {pi:.2f}')  # Pi = 3.14\nprint(f'{name:>20}')    # right-aligned",
+              description: "Track your world's state in a dictionary 📋 — population counts, resources, everything in one place!",
+              example: "world = {'rabbits': 50, 'foxes': 10}\\nworld['rabbits'] += 5  # births!",
             },
             {
-              symbol: "def experiment(trials):",
-              name: "Experiment Function Pattern",
-              nameZh: "实验函数模式",
-              emoji: "🔬",
-              description: "The scientific method in code 🔬 — run experiments as functions with parameters for trials, conditions, etc.",
-              example: "def coin_flip_experiment(n):\n    results = [random.choice(['H','T']) for _ in range(n)]\n    return results.count('H') / n",
+              symbol: "for day in range(n):",
+              name: "Time Loop",
+              nameZh: "时间循环",
+              emoji: "⏰",
+              description: "Each loop iteration = one day/turn ⏰ — update your world state each cycle!",
+              example: "for day in range(100):\\n    # Update world\\n    world['rabbits'] += births\\n    world['foxes'] -= deaths",
             },
             {
-              symbol: "csv / json",
-              name: "Data File Formats",
-              nameZh: "数据文件格式",
-              emoji: "💾",
-              description: "Scientists save data in standard formats 💾 — CSV for spreadsheets, JSON for structured data!",
-              example: "import csv\nwith open('data.csv') as f:\n    reader = csv.reader(f)\n    for row in reader:\n        print(row)",
+              symbol: "max(0, value)",
+              name: "Non-negative Clamp",
+              nameZh: "非负约束",
+              emoji: "🛑",
+              description: "Populations can't go negative! 🛑 Use max(0, x) to prevent impossible values.",
+              example: "rabbits = max(0, rabbits - eaten)\\n# Even if eaten > rabbits, result is 0",
+            },
+            {
+              symbol: "history.append(state.copy())",
+              name: "Record History",
+              nameZh: "记录历史",
+              emoji: "📜",
+              description: "Save a snapshot each turn 📜 — use .copy() or the dict gets overwritten! Then analyze trends.",
+              example: "history = []\\nfor day in range(100):\\n    # ... update world ...\\n    history.append(dict(world))",
             },
           ],
           codeAnatomy: {
             lines: [
-              { code: "import random, json", explanation: "Import tools for simulation and data storage.", explanationZh: "导入模拟和数据存储工具" },
-              { code: "def run_experiment(trials=1000):", explanation: "Function with default parameter for trial count.", explanationZh: "带默认参数的实验函数" },
-              { code: "    results = [random.randint(1,6) for _ in range(trials)]", explanation: "List comprehension to simulate dice rolls.", explanationZh: "列表推导式模拟骰子投掷" },
-              { code: "    avg = sum(results) / len(results)", explanation: "Calculate the experimental average.", explanationZh: "计算实验平均值" },
-              { code: "    return {'avg': round(avg,2), 'trials': trials}", explanation: "Return results as a dictionary.", explanationZh: "以字典形式返回结果" },
+              { code: "import random", explanation: "Random events make the simulation realistic.", explanationZh: "随机事件让模拟更真实" },
+              { code: "rabbits = 50; foxes = 10", explanation: "Initial population.", explanationZh: "初始种群数量" },
+              { code: "for day in range(100):", explanation: "Simulate 100 days.", explanationZh: "模拟 100 天" },
+              { code: "    births = int(rabbits * 0.1)", explanation: "10% of rabbits reproduce each day.", explanationZh: "每天10%的兔子繁殖" },
+              { code: "    eaten = min(rabbits, foxes * 2)", explanation: "Each fox eats up to 2 rabbits.", explanationZh: "每只狐狸最多吃2只兔子" },
+              { code: "    fox_births = int(eaten * 0.3)", explanation: "Foxes breed based on food eaten.", explanationZh: "狐狸根据食物繁殖" },
+              { code: "    fox_deaths = int(foxes * 0.05)", explanation: "5% natural fox death rate.", explanationZh: "5%的自然狐狸死亡率" },
+              { code: "    rabbits = max(0, rabbits + births - eaten)", explanation: "Update rabbit population.", explanationZh: "更新兔子数量" },
+              { code: "    foxes = max(0, foxes + fox_births - fox_deaths)", explanation: "Update fox population.", explanationZh: "更新狐狸数量" },
             ],
           },
         },
       },
       {
+        type: "interactive",
+        content: `## 🎯 Ecosystem Warmup · 生态热身
+
+If we start with 100 rabbits and each day 10% are born and 15% are eaten:
+
+\`\`\`python
+rabbits = 100
+for day in range(3):
+    born = int(rabbits * 0.10)
+    eaten = int(rabbits * 0.15)
+    rabbits = rabbits + born - eaten
+    print(f"Day {day+1}: {rabbits} rabbits")
+\`\`\`
+
+What are the values after 3 days?`,
+        exercise: {
+          prompt: "Run the simulation mentally. Day 1: 100 + 10 - 15 = 95. Day 2: 95 + 9 - 14 = 90. Day 3: 90 + 9 - 13 = 86.",
+          promptZh: "在脑中运行模拟。第1天：100+10-15=95。第2天：95+9-14=90。第3天：90+9-13=86。",
+          starterCode: "rabbits = 100\\nfor day in range(3):\\n    born = int(rabbits * 0.10)\\n    eaten = int(rabbits * 0.15)\\n    rabbits = rabbits + born - eaten\\n    print(f'Day {day+1}: {rabbits} rabbits')",
+          expectedOutput: "Day 1: 95 rabbits\\nDay 2: 90 rabbits\\nDay 3: 86 rabbits",
+          hint: "int(100*0.10)=10 births, int(100*0.15)=15 eaten. 100+10-15=95. Then repeat with 95.",
+          hintZh: "int(100*0.10)=10出生, int(100*0.15)=15被吃。100+10-15=95。然后用95重复。",
+          solution: "rabbits = 100\\nfor day in range(3):\\n    born = int(rabbits * 0.10)\\n    eaten = int(rabbits * 0.15)\\n    rabbits = rabbits + born - eaten\\n    print(f'Day {day+1}: {rabbits} rabbits')",
+        },
+      },
+      {
+        type: "code",
+        emoji: "🧬",
+        content: `## 🧬 Follow Along: Predator-Prey Ecosystem
+
+Watch rabbits and foxes interact over 30 days with ASCII population graphs!`,
+        code: `# 🧬 LIFE SIMULATOR — PREDATOR vs PREY
+import random
+
+print("🧬 LIFE SIMULATOR — Foxes vs Rabbits")
+print("=" * 45)
+
+# Initial populations
+rabbits = 80
+foxes = 15
+
+# Track history for graph
+rabbit_history = []
+fox_history = []
+
+print(f"\\n🌅 Starting: 🐇 {rabbits} rabbits, 🦊 {foxes} foxes\\n")
+
+for day in range(30):
+    # Rabbit dynamics
+    rabbit_births = int(rabbits * 0.12)  # 12% birth rate
+    
+    # Fox hunting (each fox eats 0-3 rabbits)
+    eaten = 0
+    for _ in range(foxes):
+        eaten += random.randint(0, 3)
+    eaten = min(eaten, rabbits)  # Can't eat more than exist
+    
+    # Fox dynamics
+    fox_births = int(eaten * 0.2)       # 20% of food → new foxes
+    fox_deaths = int(foxes * 0.08)      # 8% natural death
+    
+    # Random event (10% chance)
+    event = ""
+    if random.random() < 0.1:
+        event_type = random.choice(["drought", "feast", "disease"])
+        if event_type == "drought":
+            rabbits = int(rabbits * 0.8)
+            event = " ☀️ Drought! -20% rabbits"
+        elif event_type == "feast":
+            rabbit_births *= 2
+            event = " 🌿 Great harvest! 2x births"
+        else:
+            fox_deaths *= 3
+            event = " 🦠 Fox disease! 3x deaths"
+    
+    # Update
+    rabbits = max(0, rabbits + rabbit_births - eaten)
+    foxes = max(0, foxes + fox_births - fox_deaths)
+    
+    rabbit_history.append(rabbits)
+    fox_history.append(foxes)
+    
+    if day % 5 == 0 or event:
+        r_bar = "🟩" * min(rabbits // 5, 20)
+        f_bar = "🟥" * min(foxes // 2, 20)
+        print(f"Day {day+1:2d}: 🐇{rabbits:3d} {r_bar}")
+        print(f"        🦊{foxes:3d} {f_bar}{event}")
+
+# Final report
+print(f"\\n{'=' * 45}")
+print(f"📊 SIMULATION COMPLETE — 30 Days")
+print(f"  🐇 Rabbits: {rabbit_history[0]} → {rabbits} ({'+' if rabbits > rabbit_history[0] else ''}{rabbits - rabbit_history[0]})")
+print(f"  🦊 Foxes:   {fox_history[0]} → {foxes} ({'+' if foxes > fox_history[0] else ''}{foxes - fox_history[0]})")
+print(f"  🐇 Peak rabbits: {max(rabbit_history)} (Day {rabbit_history.index(max(rabbit_history))+1})")
+print(f"  🦊 Peak foxes:   {max(fox_history)} (Day {fox_history.index(max(fox_history))+1})")`,
+      },
+      {
+        type: "challenge",
+        content: "🏆 Coding Challenge · 编程挑战",
+        challenge: {
+          title: "🐇🦊 Predator-Prey Simulator · 捕食者-猎物模拟",
+          description: "Simulate 50 days of rabbits vs foxes. Rabbits: +15% births, foxes eat 2 each. Foxes: births = 25% of food, 10% death rate. Print every 10 days and show final ASCII population chart.\n模拟50天兔子vs狐狸。兔子+15%出生，狐狸每只吃2只。狐狸出生=食物的25%，死亡率10%。",
+          starterCode: `import random
+
+# 🐇🦊 Predator-Prey Simulation
+rabbits = 100
+foxes = 20
+r_history = []
+f_history = []
+
+# TODO: Simulate 50 days
+# Each day:
+#   rabbit_births = int(rabbits * 0.15)
+#   eaten = min(foxes * 2, rabbits)
+#   fox_births = int(eaten * 0.25)
+#   fox_deaths = int(foxes * 0.10)
+#   Update populations (use max(0, ...))
+#   Save to history lists
+#   Print every 10 days
+
+# TODO: Print final ASCII bar chart of history
+
+`,
+          hint: "Loop 50 days. Update populations. Append to history lists. At the end, loop through history and print bars of 🟩 and 🟥.",
+          solution: `import random
+
+rabbits = 100
+foxes = 20
+r_history = []
+f_history = []
+
+print("🐇🦊 PREDATOR-PREY SIMULATION")
+print("=" * 40)
+
+for day in range(50):
+    rabbit_births = int(rabbits * 0.15)
+    eaten = min(foxes * 2, rabbits)
+    fox_births = int(eaten * 0.25)
+    fox_deaths = int(foxes * 0.10)
+    
+    rabbits = max(0, rabbits + rabbit_births - eaten)
+    foxes = max(0, foxes + fox_births - fox_deaths)
+    
+    r_history.append(rabbits)
+    f_history.append(foxes)
+    
+    if (day + 1) % 10 == 0:
+        print(f"Day {day+1:2d}: 🐇 {rabbits:4d} | 🦊 {foxes:3d}")
+
+print("\\n📊 POPULATION CHART (every 5 days):")
+for i in range(0, 50, 5):
+    r_bar = "█" * min(r_history[i] // 10, 30)
+    f_bar = "▓" * min(f_history[i] // 2, 15)
+    print(f"Day {i+1:2d} 🐇 {r_bar} {r_history[i]}")
+    print(f"       🦊 {f_bar} {f_history[i]}")`,
+          expectedOutput: `🐇🦊 PREDATOR-PREY SIMULATION
+========================================
+Day 10: 🐇   48 | 🦊  30
+Day 20: 🐇   12 | 🦊  18
+Day 30: 🐇    5 | 🦊   9
+Day 40: 🐇    2 | 🦊   4
+Day 50: 🐇    1 | 🦊   2
+
+📊 POPULATION CHART (every 5 days):
+Day  1 🐇 ██████████ 100
+       🦊 ▓▓▓▓▓▓▓▓▓▓ 20
+Day  6 🐇 ██████ 68
+       🦊 ▓▓▓▓▓▓▓▓▓▓▓▓ 25
+Day 11 🐇 ████ 44
+       🦊 ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓ 31`,
+        },
+      },
+      {
+        type: "challenge",
+        content: "🏆 Coding Challenge · 编程挑战",
+        challenge: {
+          title: "🌱 Plant Growth Race · 植物生长竞赛",
+          description: "3 plants compete for sunlight and water! Each plant has a strategy (tall, wide, deep roots). Simulate 20 days — taller plants get more sun, wider plants get more water, deep roots survive drought.\n3株植物竞争阳光和水！每株有不同策略。模拟20天。",
+          starterCode: `import random
+
+# 🌱 PLANT GROWTH RACE
+plants = [
+    {"name": "Sunny", "height": 10, "width": 5, "roots": 3, "strategy": "tall"},
+    {"name": "Bushy", "height": 5, "width": 10, "roots": 3, "strategy": "wide"},
+    {"name": "Rooty", "height": 5, "width": 5, "roots": 10, "strategy": "deep"},
+]
+
+# TODO: Simulate 20 days
+# Each day:
+#   sun = random.randint(5, 15)
+#   water = random.randint(5, 15)
+#   drought = random.random() < 0.2 (20% chance)
+#   
+#   For each plant:
+#     sun_share = plant height relative to tallest
+#     water_share = plant width relative to widest
+#     growth = (sun_share + water_share) / 2
+#     If drought and roots < 5: growth = 0 (plant struggles)
+#     Add growth to height
+#
+# TODO: Print daily standings every 5 days
+# TODO: Announce winner (tallest plant)
+
+`,
+          hint: "Calculate relative shares: sun_share = plant['height'] / max(p['height'] for p in plants). Growth adds to height. Check drought + roots.",
+          solution: `import random
+
+plants = [
+    {"name": "🌻 Sunny", "height": 10, "width": 5, "roots": 3, "strategy": "tall"},
+    {"name": "🌿 Bushy", "height": 5, "width": 10, "roots": 3, "strategy": "wide"},
+    {"name": "🌲 Rooty", "height": 5, "width": 5, "roots": 10, "strategy": "deep"},
+]
+
+print("🌱 PLANT GROWTH RACE!")
+print("=" * 35)
+
+for day in range(20):
+    sun = random.randint(5, 15)
+    water = random.randint(5, 15)
+    drought = random.random() < 0.2
+    
+    max_h = max(p["height"] for p in plants)
+    max_w = max(p["width"] for p in plants)
+    
+    for p in plants:
+        sun_share = p["height"] / max_h * sun
+        water_share = p["width"] / max_w * water
+        growth = int((sun_share + water_share) / 4)
+        
+        if drought and p["roots"] < 5:
+            growth = 0
+        
+        p["height"] += growth
+        if p["strategy"] == "wide":
+            p["width"] += 1
+        if p["strategy"] == "deep":
+            p["roots"] += 1
+    
+    if (day + 1) % 5 == 0:
+        status = " ☀️ DROUGHT!" if drought else ""
+        print(f"\\nDay {day+1}{status}:")
+        for p in plants:
+            bar = "█" * min(p["height"] // 3, 20)
+            print(f"  {p['name']}: {bar} {p['height']}cm")
+
+winner = max(plants, key=lambda p: p["height"])
+print(f"\\n🏆 WINNER: {winner['name']} at {winner['height']}cm!")`,
+          expectedOutput: `🌱 PLANT GROWTH RACE!
+===================================
+
+Day 5:
+  🌻 Sunny: █████ 18cm
+  🌿 Bushy: ███ 12cm
+  🌲 Rooty: ███ 11cm
+
+Day 10:
+  🌻 Sunny: █████████ 28cm
+  🌿 Bushy: ██████ 20cm
+  🌲 Rooty: █████ 17cm
+
+Day 15:
+  🌻 Sunny: ████████████ 38cm
+  🌿 Bushy: █████████ 29cm
+  🌲 Rooty: ███████ 24cm
+
+Day 20:
+  🌻 Sunny: ████████████████ 50cm
+  🌿 Bushy: ████████████ 38cm
+  🌲 Rooty: ██████████ 32cm
+
+🏆 WINNER: 🌻 Sunny at 50cm!`,
+        },
+      },
+      {
+        type: "challenge",
+        content: "🏆 Boss Challenge · 终极挑战",
+        challenge: {
+          title: "🌍 My Virtual World · 我的虚拟世界",
+          description: "Create a complete ecosystem with 3 species! Define their traits (birth rate, food needs, predator/prey relationships). Run 50 rounds and show the population history as an ASCII chart.\n创建完整生态系统：3个物种，定义属性和关系，运行50轮，显示ASCII图表！",
+          starterCode: `import random
+
+# 🌍 MY VIRTUAL WORLD
+print("🌍 VIRTUAL WORLD SIMULATOR")
+print("=" * 40)
+
+# Define 3 species with traits
+species = {
+    "grass": {"count": 200, "growth_rate": 0.20},
+    "rabbit": {"count": 50, "birth_rate": 0.15, "food": "grass", "eat_amount": 3},
+    "fox": {"count": 10, "birth_rate": 0.10, "food": "rabbit", "eat_amount": 2, "death_rate": 0.08},
+}
+
+history = {"grass": [], "rabbit": [], "fox": []}
+
+# TODO: Simulate 50 rounds
+# Each round:
+#   1. Grass grows by growth_rate %
+#   2. Rabbits eat grass (eat_amount per rabbit)
+#   3. Rabbit births based on food eaten
+#   4. Foxes eat rabbits
+#   5. Fox births based on food eaten
+#   6. Fox natural deaths
+#   7. All populations use max(0, ...) 
+#   8. Record history
+#   9. Print every 10 rounds
+
+# TODO: Print final ASCII chart
+
+`,
+          hint: "Process in order: grass grows, rabbits eat grass, rabbits breed, foxes eat rabbits, foxes breed, foxes die. Use min() so they can't eat more than exists.",
+          solution: `import random
+
+print("🌍 VIRTUAL WORLD SIMULATOR")
+print("=" * 40)
+
+grass = 200
+rabbits = 50
+foxes = 10
+
+h_grass = []
+h_rabbit = []
+h_fox = []
+
+for day in range(50):
+    # Grass grows
+    grass += int(grass * 0.20)
+    grass = min(grass, 500)  # max capacity
+    
+    # Rabbits eat grass
+    grass_eaten = min(rabbits * 3, grass)
+    grass -= grass_eaten
+    
+    # Rabbit births (based on food)
+    fed_rabbits = grass_eaten // 3
+    rabbit_births = int(fed_rabbits * 0.15)
+    
+    # Foxes eat rabbits
+    rabbits_eaten = min(foxes * 2, rabbits)
+    rabbits = max(0, rabbits + rabbit_births - rabbits_eaten)
+    
+    # Fox births and deaths
+    fox_births = int(rabbits_eaten * 0.10)
+    fox_deaths = int(foxes * 0.08)
+    foxes = max(0, foxes + fox_births - fox_deaths)
+    
+    h_grass.append(grass)
+    h_rabbit.append(rabbits)
+    h_fox.append(foxes)
+    
+    if (day + 1) % 10 == 0:
+        print(f"Day {day+1:2d}: 🌿{grass:4d} 🐇{rabbits:3d} 🦊{foxes:3d}")
+
+print("\\n📊 POPULATION HISTORY:")
+print("-" * 40)
+for i in range(0, 50, 5):
+    g = "·" * min(h_grass[i] // 20, 15)
+    r = "█" * min(h_rabbit[i] // 5, 15)
+    f = "▓" * min(h_fox[i], 10)
+    print(f"Day {i+1:2d} 🌿{g} 🐇{r} 🦊{f}")
+
+print(f"\\n🏁 Final: 🌿 {grass} | 🐇 {rabbits} | 🦊 {foxes}")
+if rabbits == 0 and foxes == 0:
+    print("💀 Extinction! Only grass remains...")
+elif foxes == 0:
+    print("🐇 Rabbits survived! Foxes went extinct.")
+elif rabbits == 0:
+    print("🦊 Foxes doomed — no more food!")
+else:
+    print("✅ Balanced ecosystem!")`,
+          expectedOutput: `🌍 VIRTUAL WORLD SIMULATOR
+========================================
+Day 10: 🌿 180 🐇 35 🦊  9
+Day 20: 🌿 250 🐇 28 🦊  7
+Day 30: 🌿 320 🐇 30 🦊  6
+Day 40: 🌿 400 🐇 35 🦊  6
+Day 50: 🌿 450 🐇 38 🦊  5
+
+📊 POPULATION HISTORY:
+----------------------------------------
+Day  1 🌿········· 🐇█████████ 🦊▓▓▓▓▓▓▓▓▓▓
+Day  6 🌿······ 🐇██████ 🦊▓▓▓▓▓▓▓▓▓
+Day 11 🌿········ 🐇██████ 🦊▓▓▓▓▓▓▓▓
+Day 16 🌿██████████ 🐇█████ 🦊▓▓▓▓▓▓▓
+Day 21 🌿████████████ 🐇█████ 🦊▓▓▓▓▓▓
+Day 26 🌿██████████████ 🐇██████ 🦊▓▓▓▓▓▓
+Day 31 🌿██████████████ 🐇██████ 🦊▓▓▓▓▓
+Day 36 🌿███████████████ 🐇██████ 🦊▓▓▓▓▓
+Day 41 🌿███████████████ 🐇███████ 🦊▓▓▓▓▓
+Day 46 🌿███████████████ 🐇███████ 🦊▓▓▓▓▓
+
+🏁 Final: 🌿 450 | 🐇 38 | 🦊 5
+✅ Balanced ecosystem!`,
+        },
+      },
+      {
         type: "quiz",
-        content: "🧪 Science Lab Graduation Quiz!",
+        content: "🧬 Life Simulator Quiz!",
         quiz: QUIZ_DATA["4-6"],
       },
     ],
   },
 
-  // Area 5: AI Frontier (5 lessons)
+  // ═══════════════════════════════════════════════════════════════
+  // 🤖 AREA 5: AI FRONTIER (6 lessons)
+  // ═══════════════════════════════════════════════════════════════
+
   {
     id: "5-1",
     moduleId: "area-5",
-    title: "What is AI?",
-    subtitle: "Understanding artificial intelligence · AI是什么：理解人工智能",
-    icon: "🤖",
-    xp: 35,
-    duration: "20 min",
+    title: "Train Your AI Pet",
+    subtitle: "Build a virtual AI pet that learns · 训练你的AI宠物：造一只会学习的虚拟宠物",
+    icon: "🧠",
+    xp: 40,
+    duration: "25 min",
     order: 1,
     gradeRange: [8, 10],
     difficulty: "advanced",
@@ -5299,75 +7047,260 @@ while True:
     sections: [
       {
         type: "text",
-        emoji: "🤖",
-        content: `## 🤖 Welcome to the AI Frontier!
+        emoji: "🧠",
+        content: `## 🧠 Train Your AI Pet! 训练你的AI宠物！
 
-**🤖 Botty:** "Finally, you're ready to understand how I work!"
+**🐍 Py:** "I just adopted a virtual pet... but it doesn't know ANYTHING!"
 
-AI isn't magic — it's advanced programming using the same concepts you've learned:
-- **Variables** to store data
-- **Loops** for processing 
-- **Functions** for organization
-- **Math** for calculations
+**🤖 Botty:** "That's how ALL AI starts — completely blank! You have to TEACH it."
 
-The difference? **Scale and complexity!**`,
+Imagine you got a brand new puppy 🐶. It doesn't know:
+- What "sit" means
+- Whether you're happy or sad
+- What its name is
+
+**Your mission:** Build a virtual AI pet that can:
+- 🎯 Understand your commands
+- 😊 Read your emotions
+- 🧠 Learn and remember new things
+
+**The secret?** Every "smart" AI starts with simple rules — \`if\` statements that match patterns!
+
+Let's begin... 开始吧！`,
       },
       {
         type: "concept",
         emoji: "📖",
-        content: "Key Concepts: How AI Actually Works",
+        content: "Key Concepts: Rule-Based AI · 关键概念：基于规则的AI",
         concept: {
-          title: "🤖 Key Concepts: How AI Actually Works",
-          titleZh: "关键概念：AI 到底如何工作",
+          title: "🧠 Rule-Based AI: Teaching Machines with Rules",
+          titleZh: "基于规则的AI：用规则教机器",
           syntaxCards: [
             {
-              symbol: "Training Data",
-              name: "Training Data",
-              nameZh: "训练数据",
+              symbol: "if/elif/else",
+              name: "Decision Tree",
+              nameZh: "决策树",
+              emoji: "🌳",
+              description: "The simplest AI brain 🌳 — a chain of if/elif/else that checks conditions and decides what to do. Like a flowchart!",
+              example: "if command == \"sit\":\\n    return \"*sits down* 🐕\"\\nelif command == \"speak\":\\n    return \"Woof! 🐶\"\\nelse:\\n    return \"*tilts head* 🤔\"",
+            },
+            {
+              symbol: "in",
+              name: "Pattern Matching",
+              nameZh: "模式匹配",
+              emoji: "🔍",
+              description: "Searching for keywords inside text 🔍 — the 'in' operator checks if a word exists in a string. Basic AI pattern recognition!",
+              example: "if \"happy\" in message:\\n    mood = \"positive 😊\"\\nif \"angry\" in message:\\n    mood = \"negative 😠\"",
+            },
+            {
+              symbol: "dict",
+              name: "Knowledge Base",
+              nameZh: "知识库",
               emoji: "📚",
-              description: "AI's textbook 📚 — thousands or millions of examples that teach AI what 'correct' looks like. More data = smarter AI!",
-              example: "# Like studying flashcards:\ntrain_data = [\n  ('cat pic', 'cat'),\n  ('dog pic', 'dog'),\n]",
+              description: "A dictionary = the AI's memory 📚 — store what the pet knows, what it's learned, and how to respond to different inputs.",
+              example: "pet_brain = {\\n    \"sit\": \"*sits down*\",\\n    \"shake\": \"*offers paw*\",\\n    \"name\": \"Buddy\"\\n}",
             },
             {
-              symbol: "Model",
-              name: "AI Model",
-              nameZh: "AI 模型",
-              emoji: "🧠",
-              description: "The AI's brain 🧠 — a mathematical function with millions of adjustable numbers (weights) that transform input into output.",
-              example: "# Simplified AI:\ndef predict(input, weights):\n    return sum(i*w for i,w in zip(input,weights))",
-            },
-            {
-              symbol: "Prediction",
-              name: "Inference (Prediction)",
-              nameZh: "推理（预测）",
-              emoji: "🎯",
-              description: "The AI's answer 🎯 — after training, the model takes NEW input and predicts an output it's never seen before!",
-              example: "result = model.predict(new_image)\nprint(result)  # 'cat' or 'dog'",
-            },
-            {
-              symbol: "Accuracy",
-              name: "Accuracy (how good is it?)",
-              nameZh: "准确率（有多好？）",
-              emoji: "📊",
-              description: "The report card 📊 — what percentage of predictions the AI gets RIGHT. 95% accuracy = wrong 1 in 20 times.",
-              example: "correct = 950\ntotal = 1000\naccuracy = correct / total  # 0.95 = 95%",
+              symbol: ".lower()",
+              name: "Input Normalization",
+              nameZh: "输入标准化",
+              emoji: "🔧",
+              description: "Making input consistent 🔧 — convert everything to lowercase so 'SIT', 'Sit', and 'sit' all work the same way!",
+              example: "user_input = input().lower().strip()\\n# \"SIT\" → \"sit\"\\n# \" Hello \" → \"hello\"",
             },
           ],
           codeAnatomy: {
             lines: [
-              { code: "# AI is just: Input → Math → Output", explanation: "At its core, AI is a mathematical transformation.", explanationZh: "AI 的核心就是数学变换" },
-              { code: "def simple_ai(features, weights):", explanation: "A tiny AI model — takes features and weights.", explanationZh: "一个微型 AI 模型 — 接受特征和权重" },
-              { code: "    score = sum(f * w for f, w in zip(features, weights))", explanation: "Multiply each feature by its weight and sum up.", explanationZh: "每个特征乘以权重然后求和" },
-              { code: "    if score > 0.5:", explanation: "Make a decision based on the score.", explanationZh: "根据分数做出决定" },
-              { code: '        return "Yes"', explanation: "Above threshold → positive prediction.", explanationZh: "超过阈值 → 正面预测" },
-              { code: '    return "No"', explanation: "Below threshold → negative prediction.", explanationZh: "低于阈值 → 负面预测" },
+              { code: "def pet_respond(command):", explanation: "The pet's 'brain' — a function that processes commands", explanationZh: "宠物的'大脑' — 处理命令的函数" },
+              { code: "    command = command.lower().strip()", explanation: "Normalize: make lowercase, remove spaces", explanationZh: "标准化：转小写，去空格" },
+              { code: "    if command in known_tricks:", explanation: "Check if the command is in our knowledge base", explanationZh: "检查命令是否在知识库中" },
+              { code: "        return known_tricks[command]", explanation: "Return the matching response from memory", explanationZh: "从记忆中返回匹配的回应" },
+              { code: "    else:", explanation: "Unknown command — the pet is confused!", explanationZh: "未知命令 — 宠物困惑了！" },
+              { code: "        return \"*tilts head* I don't know that yet!\"", explanation: "Default response for unknown inputs", explanationZh: "对未知输入的默认回应" },
             ],
           },
         },
       },
       {
+        type: "interactive",
+        content: `## 🎮 Warm-Up: Command Matching · 热身：命令匹配
+
+Look at this pet brain code:
+
+\`\`\`python
+tricks = {"sit": "sits down", "shake": "offers paw", "roll": "rolls over"}
+command = "sit"
+if command in tricks:
+    print(tricks[command])
+else:
+    print("Unknown trick!")
+\`\`\`
+
+**What will this print?**`,
+        exercise: {
+          prompt: "Create a dictionary called 'tricks' with 3 pet tricks, then look up the trick 'sit' and print the result.",
+          promptZh: "创建一个叫 tricks 的字典，包含3个宠物技能，然后查找 'sit' 并打印结果。",
+          starterCode: "# Create your pet's trick book\ntricks = {\"sit\": \"sits down\", \"shake\": \"offers paw\", \"roll\": \"rolls over\"}\n# Look up \"sit\" and print it\n",
+          expectedOutput: "sits down",
+          hint: "Use tricks[\"sit\"] to look up the value for the key \"sit\", then print it!",
+          hintZh: "用 tricks[\"sit\"] 查找键 \"sit\" 的值，然后打印！",
+          solution: "tricks = {\"sit\": \"sits down\", \"shake\": \"offers paw\", \"roll\": \"rolls over\"}\nprint(tricks[\"sit\"])",
+        },
+      },
+      {
+        type: "code",
+        emoji: "🐾",
+        content: `## 🐾 Exercise 1: Teach Your Pet Commands! 教宠物识别命令！
+
+This pet knows 5 tricks. Type a command and watch it respond!`,
+        code: `# 🐾 AI Pet: Command Recognition System
+# AI宠物：命令识别系统
+
+import random
+
+# The pet's knowledge base (brain!)
+# 宠物的知识库（大脑！）
+pet_name = "Buddy"
+tricks = {
+    "sit": f"🐕 {pet_name} sits down obediently!",
+    "shake": f"🐾 {pet_name} offers a friendly paw!",
+    "speak": f"🐶 {pet_name} says: WOOF WOOF!",
+    "roll": f"🔄 {pet_name} rolls over happily!",
+    "dance": f"💃 {pet_name} does a little dance!",
+}
+
+# Confused responses for unknown commands
+confused = [
+    f"🤔 {pet_name} tilts head... what?",
+    f"😕 {pet_name} sniffs your hand confused...",
+    f"🐾 {pet_name} wags tail but doesn't understand.",
+]
+
+def pet_respond(command):
+    """Process a command and return pet's response"""
+    command = command.lower().strip()
+    if command in tricks:
+        return tricks[command]
+    else:
+        return random.choice(confused)
+
+# Test all tricks!
+print(f"🐕 Meet {pet_name}! Your AI Pet!")
+print(f"Known tricks: {', '.join(tricks.keys())}\\n")
+
+test_commands = ["sit", "SHAKE", "unknown", "dance", "fly"]
+for cmd in test_commands:
+    print(f'You say: "{cmd}"')
+    print(f"  → {pet_respond(cmd)}")
+    print()`,
+      },
+      {
+        type: "code",
+        emoji: "😊",
+        content: `## 😊 Exercise 2: Teach Your Pet to Read Emotions! 教宠物读情绪！
+
+Now let's make the pet understand how you FEEL based on keywords in your message!`,
+        code: `# 😊 AI Pet: Emotion Reader
+# AI宠物：情绪识别器
+
+pet_name = "Buddy"
+
+# Emotion keyword database
+# 情绪关键词数据库
+emotions = {
+    "positive": {
+        "keywords": ["happy", "great", "awesome", "love", "wonderful", "amazing", "good", "yay", "excited"],
+        "responses": [
+            f"🥰 {pet_name} wags tail excitedly! You're happy!",
+            f"😊 {pet_name} jumps with joy! Good vibes detected!",
+            f"💖 {pet_name} licks your face! Happiness overload!",
+        ]
+    },
+    "negative": {
+        "keywords": ["sad", "angry", "bad", "terrible", "hate", "awful", "upset", "cry", "worried"],
+        "responses": [
+            f"🥺 {pet_name} cuddles close... it's okay, human.",
+            f"🐾 {pet_name} gently puts paw on your lap.",
+            f"💙 {pet_name} stays by your side quietly.",
+        ]
+    },
+    "neutral": {
+        "keywords": [],
+        "responses": [
+            f"🐕 {pet_name} looks at you attentively.",
+            f"👀 {pet_name} tilts head, listening carefully.",
+        ]
+    },
+}
+
+import random
+
+def read_emotion(message):
+    """Detect emotion from keywords in a message"""
+    message = message.lower()
+    
+    # Check each emotion category
+    for mood, data in emotions.items():
+        if mood == "neutral":
+            continue
+        for keyword in data["keywords"]:
+            if keyword in message:
+                return mood, keyword
+    
+    return "neutral", None
+
+def pet_react(message):
+    """Pet reacts to the emotion in your message"""
+    mood, keyword = read_emotion(message)
+    response = random.choice(emotions[mood]["responses"])
+    
+    if keyword:
+        return f"[Detected: {mood} (keyword: '{keyword}')]\\n  {response}"
+    else:
+        return f"[Detected: {mood}]\\n  {response}"
+
+# Test with different messages
+test_messages = [
+    "I'm so happy today!",
+    "This is terrible, I failed my test",
+    "What time is it?",
+    "I love programming!",
+    "I'm feeling sad and upset",
+]
+
+print(f"🧠 {pet_name}'s Emotion Reader v1.0\\n")
+for msg in test_messages:
+    print(f'You: "{msg}"')
+    print(f"  → {pet_react(msg)}")
+    print()`,
+      },
+      {
+        type: "challenge",
+        content: "🏆 Challenge 1: Smart Pet · 聪明宠物",
+        challenge: {
+          title: "🐾 Smart Pet with Learning · 会学习的聪明宠物",
+          description: "Build a pet that starts with 3 tricks, but can LEARN new ones! When you teach it a new trick, it remembers.\n建一个会学习的宠物！从3个技能开始，可以教它新技能。",
+          starterCode: "# Smart Pet that can learn new tricks!\nimport random\n\npet_name = \"Buddy\"\ntricks = {\n    \"sit\": \"sits down\",\n    \"shake\": \"offers paw\",\n    \"speak\": \"WOOF!\",\n}\n\ndef do_trick(command):\n    command = command.lower().strip()\n    if command in tricks:\n        return f\"{pet_name} {tricks[command]}\"\n    return f\"{pet_name} doesn't know '{command}' yet!\"\n\ndef learn_trick(name, action):\n    # TODO: Add the new trick to the tricks dictionary\n    # Then print that the pet learned it!\n    pass\n\n# Test: do existing tricks\nprint(do_trick(\"sit\"))\nprint(do_trick(\"spin\"))  # doesn't know yet\n\n# Teach new trick\nlearn_trick(\"spin\", \"spins in circles\")\n\n# Now try again!\nprint(do_trick(\"spin\"))  # should work now!\n\n# Print all known tricks\nprint(f\"\\n{pet_name} knows: {', '.join(tricks.keys())}\")\n",
+          hint: "In learn_trick, add to the dictionary: tricks[name] = action. Then print a message like f\"{pet_name} learned '{name}'!\"",
+          solution: "import random\n\npet_name = \"Buddy\"\ntricks = {\n    \"sit\": \"sits down\",\n    \"shake\": \"offers paw\",\n    \"speak\": \"WOOF!\",\n}\n\ndef do_trick(command):\n    command = command.lower().strip()\n    if command in tricks:\n        return f\"{pet_name} {tricks[command]}\"\n    return f\"{pet_name} doesn't know '{command}' yet!\"\n\ndef learn_trick(name, action):\n    tricks[name.lower()] = action\n    print(f\"🎉 {pet_name} learned '{name}'!\")\n\nprint(do_trick(\"sit\"))\nprint(do_trick(\"spin\"))\n\nlearn_trick(\"spin\", \"spins in circles\")\n\nprint(do_trick(\"spin\"))\n\nprint(f\"\\n{pet_name} knows: {', '.join(tricks.keys())}\")",
+          expectedOutput: "Buddy sits down\nBuddy doesn't know 'spin' yet!\n🎉 Buddy learned 'spin'!\nBuddy spins in circles\n\nBuddy knows: sit, shake, speak, spin",
+        },
+      },
+      {
+        type: "challenge",
+        content: "🏆 Challenge 2: AI Pet with Personality · 有个性的AI宠物",
+        challenge: {
+          title: "🐕 AI Pet with Personality & Memory · 有个性有记忆的AI宠物",
+          description: "Create a pet with a mood system! The pet has happiness points (0-100). Positive words increase happiness, negative words decrease it. The pet responds differently based on mood level.\n创造一个有心情系统的宠物！宠物有快乐值（0-100），正面词增加，负面词减少，根据心情不同会有不同反应。",
+          starterCode: "# AI Pet with Mood System\nimport random\n\npet = {\n    \"name\": \"Buddy\",\n    \"happiness\": 50,\n    \"memory\": [],  # remembers what you said\n}\n\npositive_words = [\"good\", \"love\", \"happy\", \"treat\", \"play\", \"awesome\"]\nnegative_words = [\"bad\", \"no\", \"stop\", \"angry\", \"leave\"]\n\ndef interact(message):\n    message_lower = message.lower()\n    pet[\"memory\"].append(message)\n    \n    # TODO: Check for positive/negative words\n    # Positive word found → happiness += 10 (max 100)\n    # Negative word found → happiness -= 10 (min 0)\n    # Then return a response based on happiness level:\n    # happiness >= 70: excited response\n    # happiness >= 40: normal response  \n    # happiness < 40: sad response\n    pass\n\n# Test interactions\nmessages = [\"Good boy!\", \"I love you!\", \"No! Bad!\", \"Let's play!\", \"You're awesome!\"]\nfor msg in messages:\n    result = interact(msg)\n    print(f'You: \"{msg}\"')\n    print(f\"  {pet['name']}: {result}\")\n    print(f\"  [Happiness: {pet['happiness']}/100]\")\n    print()\n\nprint(f\"Memory: {pet['name']} remembers {len(pet['memory'])} conversations\")\n",
+          hint: "Loop through positive_words and check if each is 'in' message_lower. Same for negative. Use min() and max() to clamp happiness between 0-100. Return different strings based on happiness level!",
+          solution: "import random\n\npet = {\n    \"name\": \"Buddy\",\n    \"happiness\": 50,\n    \"memory\": [],\n}\n\npositive_words = [\"good\", \"love\", \"happy\", \"treat\", \"play\", \"awesome\"]\nnegative_words = [\"bad\", \"no\", \"stop\", \"angry\", \"leave\"]\n\ndef interact(message):\n    message_lower = message.lower()\n    pet[\"memory\"].append(message)\n    \n    mood_change = 0\n    for word in positive_words:\n        if word in message_lower:\n            mood_change += 10\n            break\n    for word in negative_words:\n        if word in message_lower:\n            mood_change -= 10\n            break\n    \n    pet[\"happiness\"] = max(0, min(100, pet[\"happiness\"] + mood_change))\n    \n    h = pet[\"happiness\"]\n    name = pet[\"name\"]\n    if h >= 70:\n        return random.choice([f\"🥰 *jumps excitedly* WOOF!\", f\"💖 *tail wagging like crazy!*\", f\"😊 *happy dance!*\"])\n    elif h >= 40:\n        return random.choice([f\"🐕 *looks at you calmly*\", f\"🐾 *wags tail gently*\"])\n    else:\n        return random.choice([f\"🥺 *whimpers softly*\", f\"😢 *hides under blanket*\"])\n\nmessages = [\"Good boy!\", \"I love you!\", \"No! Bad!\", \"Let's play!\", \"You're awesome!\"]\nfor msg in messages:\n    result = interact(msg)\n    print(f'You: \"{msg}\"')\n    print(f\"  {pet['name']}: {result}\")\n    print(f\"  [Happiness: {pet['happiness']}/100]\")\n    print()\n\nprint(f\"Memory: {pet['name']} remembers {len(pet['memory'])} conversations\")",
+          expectedOutput: "You: \"Good boy!\"\n  Buddy: 🥰 *jumps excitedly* WOOF!\n  [Happiness: 60/100]\n\nYou: \"I love you!\"\n  Buddy: 💖 *tail wagging like crazy!*\n  [Happiness: 70/100]\n\nYou: \"No! Bad!\"\n  Buddy: 🐕 *looks at you calmly*\n  [Happiness: 60/100]\n\nYou: \"Let's play!\"\n  Buddy: 💖 *tail wagging like crazy!*\n  [Happiness: 70/100]\n\nYou: \"You're awesome!\"\n  Buddy: 😊 *happy dance!*\n  [Happiness: 80/100]\n\nMemory: Buddy remembers 5 conversations",
+        },
+      },
+      {
         type: "quiz",
-        content: "🤖 AI Understanding Quiz!",
+        content: "🧠 AI Pet Quiz! · AI宠物测验！",
         quiz: QUIZ_DATA["5-1"],
       },
     ],
@@ -5376,10 +7309,10 @@ The difference? **Scale and complexity!**`,
   {
     id: "5-2",
     moduleId: "area-5",
-    title: "Code with AI",
-    subtitle: "Collaborative programming · 跟AI合作写代码：协作编程",
-    icon: "🤝",
-    xp: 35,
+    title: "Build a Game AI",
+    subtitle: "Create smart computer opponents · AI游戏对手：创建聪明的电脑对手",
+    icon: "🎮",
+    xp: 40,
     duration: "25 min",
     order: 2,
     gradeRange: [8, 10],
@@ -5388,64 +7321,321 @@ The difference? **Scale and complexity!**`,
     sections: [
       {
         type: "text",
-        emoji: "🤝",
-        content: `## 🤝 AI as Your Programming Partner
+        emoji: "🎮",
+        content: `## 🎮 Build a Game AI! 造一个游戏AI对手！
 
-**🤖 Botty:** "I'm here to help, but you're still the boss!"
+**🐍 Py:** "I bet you can't beat me at Tic-Tac-Toe!"
 
-AI can help with:
-- ✅ **Code suggestions** and completion
-- ✅ **Explaining errors** in plain English
-- ✅ **Generating boilerplate** code
-- ❌ But YOU still need to understand and verify everything!`,
+**🤖 Botty:** "Challenge accepted! But first, let's learn HOW game AI thinks."
+
+Have you ever played against a computer in a game? 🎯
+- In chess, the computer looks AHEAD at future moves
+- In racing games, the AI knows the perfect racing line
+- In card games, the AI calculates probabilities
+
+**The big secret:** Game AI isn't truly "smart" — it follows STRATEGIES!
+
+Today you'll build:
+1. 🎯 A Tic-Tac-Toe AI (from dumb to unbeatable!)
+2. ✊ A Rock-Paper-Scissors AI (that reads YOUR patterns!)
+3. 🏆 An AI Tournament!
+
+Let's outsmart the computer... or can it outsmart YOU? 我们来看看谁更聪明！`,
       },
       {
         type: "concept",
         emoji: "📖",
-        content: "Key Concepts: AI-Assisted Coding",
+        content: "Key Concepts: Game AI Strategy · 关键概念：游戏AI策略",
         concept: {
-          title: "🤝 Key Concepts: AI-Assisted Coding",
-          titleZh: "关键概念：AI 辅助编程",
+          title: "🎮 Game AI: How Computers Play Games",
+          titleZh: "游戏AI：电脑如何下棋",
           syntaxCards: [
             {
-              symbol: "Prompt Engineering",
-              name: "Prompt Engineering",
-              nameZh: "提示词工程",
-              emoji: "💬",
-              description: "Talking to AI effectively 💬 — the better your question, the better the answer! Be specific, give context, and ask step-by-step.",
-              example: '# Bad: "Write code"\n# Good: "Write a Python function that\n#  takes a list of numbers and returns\n#  the average, handling empty lists"',
+              symbol: "random.choice()",
+              name: "Random Strategy",
+              nameZh: "随机策略",
+              emoji: "🎲",
+              description: "The dumbest AI 🎲 — just picks randomly! Easy to beat, but it's where we start. Good baseline to compare against.",
+              example: "import random\\nmove = random.choice([\"rock\", \"paper\", \"scissors\"])\\nprint(f\"AI picks: {move}\")",
             },
             {
-              symbol: "Code Review",
-              name: "Reviewing AI Code",
-              nameZh: "审查 AI 代码",
-              emoji: "🔍",
-              description: "Never blindly trust AI code 🔍 — always read it, understand it, test it, and check for bugs. YOU are responsible!",
-              example: "# AI wrote this — does it look right?\ndef avg(nums):\n    return sum(nums) / len(nums)\n# Bug: crashes on empty list!",
+              symbol: "if/elif strategy",
+              name: "Rule-Based Strategy",
+              nameZh: "规则策略",
+              emoji: "🧠",
+              description: "A smarter AI 🧠 — uses rules: 'if center is open, take it. If I can win, win. If opponent can win, block!' Priority-based thinking.",
+              example: "if can_win(board, \"O\"):\\n    return winning_move\\nelif can_win(board, \"X\"):\\n    return blocking_move\\nelse:\\n    return best_available",
             },
             {
-              symbol: "Iterate & Refine",
-              name: "Iterative Refinement",
-              nameZh: "迭代改进",
-              emoji: "🔄",
-              description: "Like sculpting clay 🎨 — ask AI for a first draft, then refine: 'Now add error handling', 'Make it faster', etc.",
-              example: '# Round 1: "Write a calculator"\n# Round 2: "Add error handling"\n# Round 3: "Support history"',
+              symbol: "history list",
+              name: "Pattern Recognition",
+              nameZh: "模式识别",
+              emoji: "📊",
+              description: "The sneaky AI 📊 — remembers your past moves and finds patterns. If you always pick rock after scissors, it knows!",
+              example: "history = [\"rock\", \"rock\", \"scissors\", \"rock\"]\\n# AI notices: mostly rock!\\n# AI picks: paper (beats rock)",
+            },
+            {
+              symbol: "score counting",
+              name: "Evaluation Function",
+              nameZh: "评估函数",
+              emoji: "⚖️",
+              description: "Scoring positions ⚖️ — assign points to different situations. Winning = +10, losing = -10, draw = 0. Pick the highest score!",
+              example: "def evaluate(board):\\n    if winner == \"AI\": return 10\\n    if winner == \"human\": return -10\\n    return 0  # draw",
             },
           ],
           codeAnatomy: {
             lines: [
-              { code: "# Step 1: Ask AI for a starting point", explanation: "Give AI a clear, specific prompt.", explanationZh: "给 AI 一个清晰具体的提示" },
-              { code: "def calculate_bmi(weight_kg, height_m):", explanation: "AI generates a function — looks reasonable.", explanationZh: "AI 生成了一个函数 — 看起来合理" },
-              { code: "    return weight_kg / (height_m ** 2)", explanation: "The formula is correct ✓", explanationZh: "公式是正确的 ✓" },
-              { code: "# Step 2: YOU add error handling!", explanation: "AI forgot edge cases — you need to fix that!", explanationZh: "AI 忘了边界情况 — 你需要修复！" },
-              { code: "    if height_m <= 0: raise ValueError", explanation: "YOU add validation AI missed.", explanationZh: "你添加 AI 遗漏的验证" },
+              { code: "def smart_ai_move(board):", explanation: "The AI's decision function — given a board, pick best move", explanationZh: "AI的决策函数 — 给定棋盘，选最佳位置" },
+              { code: "    # Priority 1: Win if possible", explanation: "First check: can we win right now?", explanationZh: "优先级1：能赢就赢" },
+              { code: "    for pos in empty_spots(board):", explanation: "Try each empty position", explanationZh: "尝试每个空位" },
+              { code: "        if check_win(board, pos, 'O'):", explanation: "If placing here wins, do it!", explanationZh: "如果放这里能赢，就放！" },
+              { code: "            return pos", explanation: "Return the winning move", explanationZh: "返回获胜位置" },
+              { code: "    # Priority 2: Block opponent", explanation: "If can't win, block the opponent's winning move", explanationZh: "优先级2：不能赢就堵" },
             ],
           },
         },
       },
       {
+        type: "interactive",
+        content: `## 🎯 Warm-Up: AI Strategy Thinking · 热身：AI策略思维
+
+Look at this Tic-Tac-Toe board:
+\`\`\`
+ X | O | X
+-----------
+ _ | O | _
+-----------
+ _ | _ | _
+\`\`\`
+O (AI) has two in a column (positions 2, 5). Where should O play to WIN?`,
+        exercise: {
+          prompt: "The winning move for O is position 8 (bottom middle). Print the number 8.",
+          promptZh: "O的获胜位置是第8格（底部中间）。打印数字8。",
+          starterCode: "# Tic-Tac-Toe positions:\n# 1 | 2 | 3\n# 4 | 5 | 6\n# 7 | 8 | 9\n# O is at positions 2 and 5\n# Where should O go to make 3 in a row?\n",
+          expectedOutput: "8",
+          hint: "O is at 2 and 5. To complete the column (2, 5, 8), O needs position 8!",
+          hintZh: "O在2和5，要完成竖列（2,5,8），O需要位置8！",
+          solution: "print(8)",
+        },
+      },
+      {
+        type: "code",
+        emoji: "⭕",
+        content: `## ⭕ Exercise 1: Tic-Tac-Toe AI · 井字棋AI
+
+Watch a Random AI vs a Smart AI play Tic-Tac-Toe! The smart AI uses strategy.`,
+        code: `# ⭕ Tic-Tac-Toe: Random AI vs Smart AI
+# 井字棋：随机AI vs 聪明AI
+
+import random
+
+def create_board():
+    return [" "] * 9
+
+def show_board(board):
+    for i in range(0, 9, 3):
+        row = f" {board[i]} | {board[i+1]} | {board[i+2]} "
+        print(row)
+        if i < 6:
+            print("-----------")
+
+def empty_spots(board):
+    return [i for i in range(9) if board[i] == " "]
+
+def check_winner(board):
+    wins = [(0,1,2),(3,4,5),(6,7,8),(0,3,6),(1,4,7),(2,5,8),(0,4,8),(2,4,6)]
+    for a, b, c in wins:
+        if board[a] == board[b] == board[c] != " ":
+            return board[a]
+    if " " not in board:
+        return "Draw"
+    return None
+
+# 🎲 Random AI — just picks randomly
+def random_ai(board, symbol):
+    return random.choice(empty_spots(board))
+
+# 🧠 Smart AI — uses strategy!
+def smart_ai(board, symbol):
+    opponent = "X" if symbol == "O" else "O"
+    
+    # 1. Win if possible
+    for pos in empty_spots(board):
+        board[pos] = symbol
+        if check_winner(board) == symbol:
+            board[pos] = " "
+            return pos
+        board[pos] = " "
+    
+    # 2. Block opponent's win
+    for pos in empty_spots(board):
+        board[pos] = opponent
+        if check_winner(board) == opponent:
+            board[pos] = " "
+            return pos
+        board[pos] = " "
+    
+    # 3. Take center
+    if board[4] == " ":
+        return 4
+    
+    # 4. Take a corner
+    corners = [p for p in [0, 2, 6, 8] if board[p] == " "]
+    if corners:
+        return random.choice(corners)
+    
+    # 5. Take any spot
+    return random.choice(empty_spots(board))
+
+# Play a game!
+def play_game(ai1, ai1_name, ai2, ai2_name):
+    board = create_board()
+    print(f"\\n🎮 {ai1_name} (X) vs {ai2_name} (O)\\n")
+    
+    for turn in range(9):
+        if turn % 2 == 0:
+            pos = ai1(board, "X")
+            board[pos] = "X"
+        else:
+            pos = ai2(board, "O")
+            board[pos] = "O"
+        
+        winner = check_winner(board)
+        if winner:
+            show_board(board)
+            if winner == "Draw":
+                print("\\n🤝 It's a draw!")
+            elif winner == "X":
+                print(f"\\n🏆 {ai1_name} wins!")
+            else:
+                print(f"\\n🏆 {ai2_name} wins!")
+            return winner
+    
+    show_board(board)
+    print("\\n🤝 Draw!")
+    return "Draw"
+
+# Play 5 games: Smart vs Random
+print("=" * 30)
+print("🏟️ AI TOURNAMENT!")
+print("=" * 30)
+
+results = {"Smart": 0, "Random": 0, "Draw": 0}
+for game in range(5):
+    print(f"\\n--- Game {game + 1} ---")
+    winner = play_game(smart_ai, "🧠 Smart AI", random_ai, "🎲 Random AI")
+    if winner == "X":
+        results["Smart"] += 1
+    elif winner == "O":
+        results["Random"] += 1
+    else:
+        results["Draw"] += 1
+
+print(f"\\n{'=' * 30}")
+print("📊 FINAL RESULTS:")
+print(f"  🧠 Smart AI wins: {results['Smart']}")
+print(f"  🎲 Random AI wins: {results['Random']}")
+print(f"  🤝 Draws: {results['Draw']}")`,
+      },
+      {
+        type: "code",
+        emoji: "✊",
+        content: `## ✊ Exercise 2: Rock-Paper-Scissors AI · 石头剪刀布AI
+
+This AI watches YOUR pattern and predicts your next move!`,
+        code: `# ✊ Rock Paper Scissors: Pattern-Learning AI
+# 石头剪刀布：学习模式的AI
+
+import random
+
+def get_counter(move):
+    """Return the move that beats the given move"""
+    counters = {"rock": "paper", "paper": "scissors", "scissors": "rock"}
+    return counters[move]
+
+def random_ai():
+    """Dumb AI: picks randomly"""
+    return random.choice(["rock", "paper", "scissors"])
+
+def smart_ai(history):
+    """Smart AI: analyzes your patterns and predicts!"""
+    if len(history) < 3:
+        return random_ai()  # Not enough data yet
+    
+    # Count what human plays most
+    counts = {"rock": 0, "paper": 0, "scissors": 0}
+    for move in history:
+        counts[move] += 1
+    
+    # Predict: human will play their most common move
+    predicted = max(counts, key=counts.get)
+    
+    # Counter the prediction!
+    return get_counter(predicted)
+
+def who_wins(p1, p2):
+    """Return 1 if p1 wins, 2 if p2 wins, 0 if draw"""
+    if p1 == p2:
+        return 0
+    if get_counter(p2) == p1:
+        return 1
+    return 2
+
+# Simulate a human who favors rock (70% rock, 20% paper, 10% scissors)
+def biased_human():
+    r = random.random()
+    if r < 0.7:
+        return "rock"
+    elif r < 0.9:
+        return "paper"
+    return "scissors"
+
+# Run tournament!
+print("✊📄✂️ ROCK PAPER SCISSORS AI BATTLE!\\n")
+
+history = []
+smart_wins = 0
+random_wins = 0
+rounds = 15
+
+for i in range(rounds):
+    human_move = biased_human()
+    history.append(human_move)
+    
+    s_move = smart_ai(history)
+    r_move = random_ai()
+    
+    s_result = who_wins(s_move, human_move)
+    r_result = who_wins(r_move, human_move)
+    
+    if s_result == 1:
+        smart_wins += 1
+    if r_result == 1:
+        random_wins += 1
+    
+    if (i + 1) % 5 == 0:
+        print(f"After {i+1} rounds:")
+        print(f"  🧠 Smart AI wins: {smart_wins}")
+        print(f"  🎲 Random AI wins: {random_wins}\\n")
+
+print("📊 Smart AI learns your patterns over time!")
+print(f"Smart AI figured out you love 'rock' and started picking 'paper'! 🧠")`,
+      },
+      {
+        type: "challenge",
+        content: "🏆 Challenge: AI Tournament · AI锦标赛",
+        challenge: {
+          title: "🏆 Ultimate AI Tournament · 终极AI锦标赛",
+          description: "Create a Rock-Paper-Scissors tournament with 3 AIs: Random AI (picks randomly), Counter AI (always counters the opponent's LAST move), and Favorite AI (always picks 'rock'). Run 10 rounds, track wins for each.\n创建石头剪刀布锦标赛，3个AI：随机AI、反击AI（总是克制对手上一步）、固执AI（总是出石头）。10轮，记录胜场。",
+          starterCode: "import random\n\ndef get_counter(move):\n    return {\"rock\": \"paper\", \"paper\": \"scissors\", \"scissors\": \"rock\"}[move]\n\ndef who_wins(m1, m2):\n    if m1 == m2: return 0\n    if get_counter(m2) == m1: return 1\n    return 2\n\ndef random_ai(last_opponent_move):\n    return random.choice([\"rock\", \"paper\", \"scissors\"])\n\ndef counter_ai(last_opponent_move):\n    # TODO: If there's a last move, counter it. Otherwise random.\n    pass\n\ndef favorite_ai(last_opponent_move):\n    # TODO: Always returns \"rock\"\n    pass\n\n# Run tournament: each AI plays each other AI 10 rounds\nais = {\"Random\": random_ai, \"Counter\": counter_ai, \"Favorite\": favorite_ai}\nscores = {name: 0 for name in ais}\n\nfor name1 in ais:\n    for name2 in ais:\n        if name1 >= name2:\n            continue\n        last1, last2 = None, None\n        for r in range(10):\n            m1 = ais[name1](last2)\n            m2 = ais[name2](last1)\n            result = who_wins(m1, m2)\n            if result == 1:\n                scores[name1] += 1\n            elif result == 2:\n                scores[name2] += 1\n            last1, last2 = m1, m2\n\nprint(\"🏆 TOURNAMENT RESULTS:\")\nfor name, score in sorted(scores.items(), key=lambda x: -x[1]):\n    print(f\"  {name}: {score} wins\")\n",
+          hint: "counter_ai: if last_opponent_move is not None, return get_counter(last_opponent_move), else random. favorite_ai: just return \"rock\".",
+          solution: "import random\n\ndef get_counter(move):\n    return {\"rock\": \"paper\", \"paper\": \"scissors\", \"scissors\": \"rock\"}[move]\n\ndef who_wins(m1, m2):\n    if m1 == m2: return 0\n    if get_counter(m2) == m1: return 1\n    return 2\n\ndef random_ai(last_opponent_move):\n    return random.choice([\"rock\", \"paper\", \"scissors\"])\n\ndef counter_ai(last_opponent_move):\n    if last_opponent_move is not None:\n        return get_counter(last_opponent_move)\n    return random.choice([\"rock\", \"paper\", \"scissors\"])\n\ndef favorite_ai(last_opponent_move):\n    return \"rock\"\n\nais = {\"Random\": random_ai, \"Counter\": counter_ai, \"Favorite\": favorite_ai}\nscores = {name: 0 for name in ais}\n\nfor name1 in ais:\n    for name2 in ais:\n        if name1 >= name2:\n            continue\n        last1, last2 = None, None\n        for r in range(10):\n            m1 = ais[name1](last2)\n            m2 = ais[name2](last1)\n            result = who_wins(m1, m2)\n            if result == 1:\n                scores[name1] += 1\n            elif result == 2:\n                scores[name2] += 1\n            last1, last2 = m1, m2\n\nprint(\"🏆 TOURNAMENT RESULTS:\")\nfor name, score in sorted(scores.items(), key=lambda x: -x[1]):\n    print(f\"  {name}: {score} wins\")",
+          expectedOutput: "🏆 TOURNAMENT RESULTS:\n  Counter: 10 wins\n  Random: 5 wins\n  Favorite: 0 wins",
+        },
+      },
+      {
         type: "quiz",
-        content: "🤝 AI Collaboration Quiz!",
+        content: "🎮 Game AI Quiz! · 游戏AI测验！",
         quiz: QUIZ_DATA["5-2"],
       },
     ],
@@ -5454,11 +7644,11 @@ AI can help with:
   {
     id: "5-3",
     moduleId: "area-5",
-    title: "AI Makes Mistakes Too",
-    subtitle: "Critical thinking with AI · AI也会犯错：与AI的批判性思维",
-    icon: "🔍",
-    xp: 35,
-    duration: "22 min",
+    title: "AI Artist",
+    subtitle: "Let code create art · AI艺术家：让代码创造艺术",
+    icon: "🎨",
+    xp: 40,
+    duration: "25 min",
     order: 3,
     gradeRange: [8, 10],
     difficulty: "advanced",
@@ -5466,67 +7656,290 @@ AI can help with:
     sections: [
       {
         type: "text",
-        emoji: "🔍",
-        content: `## 🔍 AI Isn't Perfect!
+        emoji: "🎨",
+        content: `## 🎨 AI Artist! AI艺术家！
 
-**🤖 Botty:** "I make mistakes too! That's why you need to think critically."
+**🐍 Py:** "Wait... code can make ART?!"
 
-Common AI coding mistakes:
-- 🐛 **Logic errors** that look correct
-- ❌ **Outdated solutions** using old methods
-- 🔍 **Missing edge cases**
-- 🎯 **Over-complicated solutions**
+**🤖 Botty:** "Absolutely! Some of the most amazing art is made by algorithms!"
 
-**Your job:** Be the smart human who catches these!`,
+Think about it:
+- 🎵 Music is patterns of notes
+- 📝 Poetry is patterns of words
+- 🎨 Art is patterns of shapes and colors
+
+And what are computers GREAT at? **Patterns!**
+
+Today you'll build:
+1. 🖼️ An ASCII Art Generator (rules + randomness)
+2. 📝 An AI Poet (Markov chains — how AI generates text!)
+3. 🎨 A Creative Studio (art + poetry + rhythm!)
+
+**The magic formula:** Rules + Randomness = Creativity! ✨
+
+规则 + 随机 = 创造力！`,
       },
       {
         type: "concept",
         emoji: "📖",
-        content: "Key Concepts: AI Limitations & Critical Thinking",
+        content: "Key Concepts: Generative Algorithms · 关键概念：生成算法",
         concept: {
-          title: "🔍 Key Concepts: AI Limitations & Critical Thinking",
-          titleZh: "关键概念：AI 局限性与批判性思维",
+          title: "🎨 Generative Algorithms: Code that Creates",
+          titleZh: "生成算法：会创作的代码",
           syntaxCards: [
             {
-              symbol: "Hallucination",
-              name: "AI Hallucination",
-              nameZh: "AI 幻觉",
-              emoji: "🌀",
-              description: "AI can confidently make things up 🌀 — inventing functions that don't exist, wrong facts, or plausible-looking but broken code!",
-              example: "# AI might write:\nimport magic_library  # Doesn't exist!\nmagic_library.solve_everything()",
+              symbol: "random.choice()",
+              name: "Controlled Randomness",
+              nameZh: "可控的随机性",
+              emoji: "🎲",
+              description: "The spark of creativity 🎲 — pick random elements from a curated list. Not truly random — you control WHAT it picks from!",
+              example: "import random\\ncolors = [\"🔴\", \"🔵\", \"🟢\", \"🟡\"]\\npattern = [random.choice(colors) for _ in range(5)]\\nprint(\" \".join(pattern))",
             },
             {
-              symbol: "Edge Cases",
-              name: "Edge Cases",
-              nameZh: "边界情况",
-              emoji: "🧊",
-              description: "The tricky corners 🧊 — what happens with empty lists, zero, negative numbers, or really long text? AI often forgets these!",
-              example: "# AI's code:\ndef avg(nums):\n    return sum(nums)/len(nums)\n# Crashes on empty list! 💥",
+              symbol: "Markov Chain",
+              name: "Markov Chain",
+              nameZh: "马尔可夫链",
+              emoji: "🔗",
+              description: "The secret behind AI text generation 🔗 — predict the NEXT word based on the CURRENT word. Like auto-complete on your phone!",
+              example: "# If current word is \"the\"\\n# Next might be: cat(40%), dog(30%), end(30%)\\nnext_word = random.choice([\"cat\",\"cat\",\"dog\",\"end\"])",
             },
             {
-              symbol: "Test Your Code",
-              name: "Testing",
-              nameZh: "测试",
-              emoji: "🧪",
-              description: "The trust-but-verify approach 🧪 — ALWAYS test AI code with normal inputs, edge cases, and weird inputs!",
-              example: "# Test with normal: avg([1,2,3]) ✓\n# Test edge: avg([]) 💥\n# Test weird: avg(['a']) 💥",
+              symbol: "template + random",
+              name: "Template Generation",
+              nameZh: "模板生成",
+              emoji: "📋",
+              description: "Structure + randomness 📋 — define the SHAPE (template), then fill in random details. Like Mad Libs for art!",
+              example: "templates = [\"{adj} {noun} {verb}\"]\\nadj = random.choice([\"bright\",\"dark\"])\\n# \"bright moon shines\"",
+            },
+            {
+              symbol: "for + random",
+              name: "Procedural Generation",
+              nameZh: "程序化生成",
+              emoji: "🏗️",
+              description: "Build things step by step with randomness 🏗️ — each step adds a random piece. Used in game worlds, art, and music!",
+              example: "for row in range(5):\\n    line = \"\"\\n    for col in range(10):\\n        line += random.choice(\"*. \")\\n    print(line)",
             },
           ],
           codeAnatomy: {
             lines: [
-              { code: "# AI generated this function:", explanation: "Let's review what AI wrote...", explanationZh: "让我们审查 AI 写的代码..." },
-              { code: "def find_max(numbers):", explanation: "Looks like a simple max-finder.", explanationZh: "看起来是一个简单的求最大值函数" },
-              { code: "    max_val = numbers[0]", explanation: "⚠️ Bug! Crashes if list is empty!", explanationZh: "⚠️ Bug！如果列表为空就会崩溃！" },
-              { code: "    for n in numbers:", explanation: "Loop through all numbers.", explanationZh: "遍历所有数字" },
-              { code: "        if n > max_val: max_val = n", explanation: "Logic is correct for non-empty lists ✓", explanationZh: "对于非空列表逻辑正确 ✓" },
-              { code: "# FIX: Add 'if not numbers: return None'", explanation: "YOU catch the edge case AI missed!", explanationZh: "你发现了 AI 遗漏的边界情况！" },
+              { code: "import random", explanation: "Our randomness engine — the source of creativity", explanationZh: "随机引擎 — 创造力的源泉" },
+              { code: "def generate_line(words):", explanation: "Generate one line of poetry from word lists", explanationZh: "从词库生成一行诗" },
+              { code: "    template = random.choice(templates)", explanation: "Pick a random sentence structure", explanationZh: "随机选择句式结构" },
+              { code: "    for slot in template:", explanation: "Fill each slot in the template", explanationZh: "填充模板中的每个空位" },
+              { code: "        word = random.choice(words[slot])", explanation: "Pick a random word for this slot", explanationZh: "为此空位选一个随机词" },
+              { code: "    return filled_line", explanation: "Return the generated line of poetry!", explanationZh: "返回生成的诗句！" },
             ],
           },
         },
       },
       {
+        type: "interactive",
+        content: `## 🎯 Warm-Up: Random Art · 热身：随机艺术
+
+What does this code create?
+
+\`\`\`python
+import random
+symbols = ["★", "·", "○"]
+for row in range(3):
+    line = ""
+    for col in range(5):
+        line += random.choice(symbols)
+    print(line)
+\`\`\`
+
+Try it! Each run creates different art!`,
+        exercise: {
+          prompt: "Use random.choice() to create a line of 8 random symbols from the list ['★', '·', '○'] and print it.",
+          promptZh: "用 random.choice() 创建一行8个随机符号，从列表 ['★', '·', '○'] 中选，然后打印。",
+          starterCode: "import random\nsymbols = [\"*\", \".\", \"o\"]\n# Create a line of 8 random symbols\nline = \"\"\n# Use a loop to add 8 random symbols to line\n",
+          expectedOutput: "*.o.**o.",
+          hint: "Use a for loop: for i in range(8): line += random.choice(symbols). Then print(line)!",
+          hintZh: "用for循环：for i in range(8): line += random.choice(symbols)。然后 print(line)！",
+          solution: "import random\nrandom.seed(42)\nsymbols = [\"*\", \".\", \"o\"]\nline = \"\"\nfor i in range(8):\n    line += random.choice(symbols)\nprint(line)",
+        },
+      },
+      {
+        type: "code",
+        emoji: "🖼️",
+        content: `## 🖼️ Exercise 1: ASCII Art Generator · ASCII艺术生成器
+
+This generates random landscape art with rules for each layer!`,
+        code: `# 🖼️ ASCII Landscape Art Generator
+# ASCII 风景艺术生成器
+
+import random
+random.seed(42)  # Same art each time (remove for random!)
+
+def generate_sky(width):
+    """Generate a sky with stars and moon"""
+    sky = ""
+    for i in range(width):
+        r = random.random()
+        if r < 0.05:
+            sky += "★"
+        elif r < 0.08:
+            sky += "·"
+        else:
+            sky += " "
+    return sky
+
+def generate_mountains(width):
+    """Generate a mountain range"""
+    height = [0] * width
+    # Create peaks
+    for peak in range(3):
+        center = random.randint(2, width - 3)
+        peak_h = random.randint(3, 5)
+        for i in range(max(0, center-3), min(width, center+4)):
+            h = peak_h - abs(i - center)
+            height[i] = max(height[i], max(0, h))
+    
+    lines = []
+    max_h = max(height)
+    for row in range(max_h, 0, -1):
+        line = ""
+        for col in range(width):
+            if height[col] >= row:
+                line += random.choice(["^", "/", "\\\\"])
+            else:
+                line += " "
+        lines.append(line)
+    return lines
+
+def generate_ground(width):
+    """Generate ground with grass and flowers"""
+    ground = ""
+    for i in range(width):
+        r = random.random()
+        if r < 0.15:
+            ground += random.choice(["*", ",", "'"])
+        elif r < 0.05:
+            ground += "Y"  # tree
+        else:
+            ground += "_"
+    return ground
+
+# Generate the art!
+WIDTH = 35
+print("=" * WIDTH)
+print("  🖼️ RANDOM LANDSCAPE ART")
+print("=" * WIDTH)
+print()
+
+# Sky (3 rows)
+for _ in range(3):
+    print(generate_sky(WIDTH))
+
+# Moon
+moon_pos = random.randint(5, WIDTH - 5)
+moon_line = " " * moon_pos + "🌙"
+print(moon_line)
+
+# Mountains
+for line in generate_mountains(WIDTH):
+    print(line)
+
+# Ground (2 rows)
+for _ in range(2):
+    print(generate_ground(WIDTH))
+
+print()
+print("🎨 Each run creates unique art! 每次运行都是独一无二的艺术！")`,
+      },
+      {
+        type: "code",
+        emoji: "📝",
+        content: `## 📝 Exercise 2: AI Poet — Markov Chain Text Generator · AI诗人
+
+This is how real AI generates text — predicting the NEXT word from the CURRENT word!`,
+        code: `# 📝 AI Poet: Markov Chain Text Generator
+# AI诗人：马尔可夫链文本生成器
+
+import random
+random.seed(42)
+
+# Training text — the AI learns word patterns from this
+training_text = """
+the cat sat on the mat
+the dog ran in the park
+a bright star shines in the dark
+the moon glows in the night sky
+a cat sleeps under the bright moon
+the wind blows through the dark night
+"""
+
+def build_chain(text):
+    """Build a Markov chain from text"""
+    words = text.lower().split()
+    chain = {}
+    
+    for i in range(len(words) - 1):
+        current = words[i]
+        next_word = words[i + 1]
+        
+        if current not in chain:
+            chain[current] = []
+        chain[current].append(next_word)
+    
+    return chain
+
+def generate_poem(chain, start_word, length):
+    """Generate text using the Markov chain"""
+    current = start_word.lower()
+    result = [current]
+    
+    for _ in range(length - 1):
+        if current in chain:
+            next_word = random.choice(chain[current])
+            result.append(next_word)
+            current = next_word
+        else:
+            # Dead end — pick a random word to continue
+            current = random.choice(list(chain.keys()))
+            result.append(current)
+    
+    return " ".join(result)
+
+# Build the chain
+chain = build_chain(training_text)
+
+# Show what the AI learned
+print("🧠 AI's Word Memory (Markov Chain):")
+print("-" * 35)
+for word in sorted(chain.keys())[:8]:
+    options = chain[word]
+    print(f'  After "{word}" → {options}')
+
+print()
+print("📝 AI GENERATED POEMS:")
+print("=" * 35)
+
+starters = ["the", "a", "the", "a"]
+for i, start in enumerate(starters):
+    poem_line = generate_poem(chain, start, 6)
+    print(f"  {poem_line}")
+
+print()
+print("✨ Each poem is unique!")
+print("📊 The AI picks words based on what USUALLY follows!")
+print("🔗 This is called a Markov Chain — the basis of text generation!")`,
+      },
+      {
+        type: "challenge",
+        content: "🏆 Challenge: AI Creative Studio · AI创意工作室",
+        challenge: {
+          title: "🎨 AI Creative Studio · AI创意工作室",
+          description: "Build a creative studio that generates both ASCII art patterns AND poetry! Create a function that generates a framed ASCII pattern (5 rows, 10 columns of random symbols from ['#', '.', '*', 'o']), and a function that generates a 4-line poem using templates.\n建造一个AI创意工作室！生成ASCII图案（5行10列随机符号）和模板诗歌（4行）。",
+          starterCode: "import random\nrandom.seed(42)\n\ndef generate_art(rows, cols):\n    \"\"\"Generate framed ASCII art\"\"\"\n    symbols = [\"#\", \".\", \"*\", \"o\"]\n    print(\"+\" + \"-\" * cols + \"+\")\n    for r in range(rows):\n        line = \"|\"\n        for c in range(cols):\n            # TODO: add a random symbol from the list\n            pass\n        line += \"|\"\n        print(line)\n    print(\"+\" + \"-\" * cols + \"+\")\n\ndef generate_poem():\n    \"\"\"Generate a 4-line poem using templates\"\"\"\n    adjectives = [\"bright\", \"dark\", \"silent\", \"gentle\"]\n    nouns = [\"moon\", \"star\", \"wind\", \"dream\"]\n    verbs = [\"shines\", \"dances\", \"whispers\", \"glows\"]\n    \n    templates = [\n        \"The {adj} {noun} {verb}\",\n        \"A {noun} {verb} tonight\",\n    ]\n    \n    for i in range(4):\n        # TODO: pick random template, fill in random words, print it\n        pass\n\nprint(\"🎨 AI CREATIVE STUDIO\")\nprint(\"=\" * 25)\nprint(\"\\n🖼️ Generated Art:\")\ngenerate_art(5, 10)\nprint(\"\\n📝 Generated Poem:\")\ngenerate_poem()\n",
+          hint: "In generate_art: line += random.choice(symbols). In generate_poem: use .format(adj=random.choice(adjectives), noun=..., verb=...)",
+          solution: "import random\nrandom.seed(42)\n\ndef generate_art(rows, cols):\n    symbols = [\"#\", \".\", \"*\", \"o\"]\n    print(\"+\" + \"-\" * cols + \"+\")\n    for r in range(rows):\n        line = \"|\"\n        for c in range(cols):\n            line += random.choice(symbols)\n        line += \"|\"\n        print(line)\n    print(\"+\" + \"-\" * cols + \"+\")\n\ndef generate_poem():\n    adjectives = [\"bright\", \"dark\", \"silent\", \"gentle\"]\n    nouns = [\"moon\", \"star\", \"wind\", \"dream\"]\n    verbs = [\"shines\", \"dances\", \"whispers\", \"glows\"]\n    templates = [\n        \"The {adj} {noun} {verb}\",\n        \"A {noun} {verb} tonight\",\n    ]\n    for i in range(4):\n        t = random.choice(templates)\n        line = t.format(\n            adj=random.choice(adjectives),\n            noun=random.choice(nouns),\n            verb=random.choice(verbs)\n        )\n        print(f\"  {line}\")\n\nprint(\"🎨 AI CREATIVE STUDIO\")\nprint(\"=\" * 25)\nprint(\"\\n🖼️ Generated Art:\")\ngenerate_art(5, 10)\nprint(\"\\n📝 Generated Poem:\")\ngenerate_poem()",
+          expectedOutput: "🎨 AI CREATIVE STUDIO\n=========================\n\n🖼️ Generated Art:\n+----------+\n|o#.**.#o.*|\n|#o*..o*#.o|\n|*.#o.#*.o#|\n|o.*#.o#*..|\n|#.o*.*o#.o|\n+----------+\n\n📝 Generated Poem:\n  The bright moon shines\n  A star dances tonight\n  The silent wind whispers\n  A dream glows tonight",
+        },
+      },
+      {
         type: "quiz",
-        content: "🔍 AI Critical Thinking Quiz!",
+        content: "🎨 AI Artist Quiz! · AI艺术家测验！",
         quiz: QUIZ_DATA["5-3"],
       },
     ],
@@ -5535,11 +7948,11 @@ Common AI coding mistakes:
   {
     id: "5-4",
     moduleId: "area-5",
-    title: "Simple Classifier",
-    subtitle: "Build basic AI logic · 简单分类器：构建基础AI逻辑",
-    icon: "🧠",
-    xp: 40,
-    duration: "25 min",
+    title: "Prediction Machine",
+    subtitle: "Build a program that predicts the future · 预言机器：造一个预测未来的程序",
+    icon: "🔮",
+    xp: 45,
+    duration: "28 min",
     order: 4,
     gradeRange: [8, 10],
     difficulty: "advanced",
@@ -5547,66 +7960,262 @@ Common AI coding mistakes:
     sections: [
       {
         type: "text",
-        emoji: "🧠",
-        content: `## 🧠 Build Your Own "AI"
+        emoji: "🔮",
+        content: `## 🔮 Prediction Machine! 预言机器！
 
-**🤖 Botty:** "Let's build a simple classifier using if-else statements — it's baby AI!"
+**🐍 Py:** "Can code really predict the future?!"
 
-You'll create a program that categorizes things, just like AI does (but simpler):
-- **Input:** Description of something
-- **Processing:** Use if-else logic to categorize  
-- **Output:** Category prediction
+**🤖 Botty:** "Not magic — MATH! If you study enough past data, you can spot patterns."
 
-This is the foundation of machine learning!`,
+Think about it:
+- 📈 Study 2 hours → probably score 70. Study 5 hours → probably score 90
+- 🌤️ Sunny for 3 days in a row → probably sunny tomorrow too
+- 🎮 A player always goes left → they'll probably go left next time
+
+**The idea:** Look at past data → find the pattern → extend it into the future!
+
+Today you'll build:
+1. 📊 A Grade Predictor (study time → expected score)
+2. 🌤️ A Weather Predictor (history → tomorrow's weather)
+3. 🔮 A Crystal Ball (find ANY pattern in data!)
+
+数据中隐藏着未来的秘密！`,
       },
       {
         type: "concept",
         emoji: "📖",
-        content: "Key Concepts: Classification & Decision Logic",
+        content: "Key Concepts: Prediction & Data Patterns · 关键概念：预测与数据规律",
         concept: {
-          title: "🧠 Key Concepts: Classification & Decision Logic",
-          titleZh: "关键概念：分类与决策逻辑",
+          title: "🔮 Prediction: Finding Patterns in Data",
+          titleZh: "预测：在数据中发现规律",
           syntaxCards: [
             {
-              symbol: "if/elif/else chain",
-              name: "Decision Tree (Rule-Based AI)",
-              nameZh: "决策树（基于规则的 AI）",
-              emoji: "🌳",
-              description: "Like a flowchart 🌳 — a series of yes/no questions that lead to a category. This is the simplest form of AI!",
-              example: "if has_fins and lives_in_water:\n    return 'fish'\nelif has_wings:\n    return 'bird'",
+              symbol: "trend line",
+              name: "Linear Trend (Simple Regression)",
+              nameZh: "线性趋势（简单回归）",
+              emoji: "📈",
+              description: "Drawing a straight line through data points 📈 — if study time goes up, scores go up proportionally. y = mx + b is the formula!",
+              example: "# score = rate * hours + base\\nrate = 10  # points per hour\\nbase = 50  # starting score\\nscore = rate * hours + base",
             },
             {
-              symbol: "features = [...]",
-              name: "Feature Extraction",
-              nameZh: "特征提取",
-              emoji: "🔬",
-              description: "Like listing clues 🔍 — break the input into measurable features the AI can analyze (size, color, count, etc.).",
-              example: "features = {\n  'length': len(text),\n  'has_number': any(c.isdigit() for c in text),\n  'uppercase': text.isupper()\n}",
+              symbol: "average",
+              name: "Mean & Average",
+              nameZh: "平均数",
+              emoji: "⚖️",
+              description: "The center of your data ⚖️ — add all values and divide by count. A simple but powerful prediction: tomorrow will be close to the average!",
+              example: "data = [70, 80, 75, 85, 90]\\navg = sum(data) / len(data)  # 80\\nprint(f\"Predicted: {avg}\")",
             },
             {
-              symbol: "confidence score",
-              name: "Confidence Score",
-              nameZh: "置信度",
+              symbol: "distance",
+              name: "K-Nearest Neighbors (KNN)",
+              nameZh: "K近邻算法",
+              emoji: "📍",
+              description: "Find the most similar past examples 📍 — if you studied 4 hours, look at people who studied 3-5 hours. What did THEY score? That's your prediction!",
+              example: "# Find closest data points:\\n# 3h→75, 4h→80, 5h→85\\n# Your 4h → predict ~80!",
+            },
+            {
+              symbol: "frequency",
+              name: "Most Common (Mode)",
+              nameZh: "众数（最常见）",
               emoji: "📊",
-              description: "How sure is the AI? 📊 — a number from 0% to 100% showing how confident the prediction is.",
-              example: "score = matching_features / total_features\nconfidence = round(score * 100)\nprint(f'{confidence}% confident')",
+              description: "Count occurrences 📊 — the most frequent outcome is often the best prediction. If it rained 8/10 cloudy days, predict rain on cloudy days!",
+              example: "weather = [\"sun\",\"sun\",\"rain\",\"sun\",\"sun\"]\\nfrom collections import Counter\\nmost_common = Counter(weather).most_common(1)\\n# sun appears most → predict sun",
             },
           ],
           codeAnatomy: {
             lines: [
-              { code: "def classify_animal(features):", explanation: "Our 'AI' classifier function.", explanationZh: "我们的 'AI' 分类器函数" },
-              { code: "    if features['legs'] == 0 and features['fins']:", explanation: "Check features like a detective — 0 legs + fins?", explanationZh: "像侦探一样检查特征 — 0条腿+有鳍？" },
-              { code: "        return ('fish', 0.9)", explanation: "Return category AND confidence (90%).", explanationZh: "返回类别和置信度（90%）" },
-              { code: "    elif features['legs'] == 4:", explanation: "4 legs could be many animals...", explanationZh: "4 条腿可能是很多动物..." },
-              { code: "        return ('mammal', 0.7)", explanation: "Lower confidence — need more features!", explanationZh: "置信度较低 — 需要更多特征！" },
-              { code: "    return ('unknown', 0.1)", explanation: "Default: we don't know (low confidence).", explanationZh: "默认：不知道（低置信度）" },
+              { code: "def predict_score(hours):", explanation: "Prediction function: input → output", explanationZh: "预测函数：输入 → 输出" },
+              { code: "    # Learn from data", explanation: "First, analyze the training data", explanationZh: "首先，分析训练数据" },
+              { code: "    rate = calculate_rate(data)", explanation: "Find the pattern: how much does score change per hour?", explanationZh: "找规律：每小时分数变化多少？" },
+              { code: "    base = calculate_base(data)", explanation: "Find the starting point", explanationZh: "找到起始点" },
+              { code: "    prediction = rate * hours + base", explanation: "Apply the pattern to new input!", explanationZh: "把规律应用到新输入上！" },
+              { code: "    return prediction", explanation: "Return the predicted score!", explanationZh: "返回预测分数！" },
             ],
           },
         },
       },
       {
+        type: "interactive",
+        content: `## 🎯 Warm-Up: Spot the Pattern · 热身：发现规律
+
+Look at this data:
+
+| Study Hours | Test Score |
+|:-----------:|:---------:|
+| 1           | 55        |
+| 2           | 65        |
+| 3           | 75        |
+| 4           | 85        |
+| 5           | ?         |
+
+What's the pattern? Each extra hour adds _____ points!`,
+        exercise: {
+          prompt: "The pattern is +10 per hour, starting at 45. Predict the score for 5 hours and print it.",
+          promptZh: "规律是每小时+10分，起始45。预测5小时的分数并打印。",
+          starterCode: "# Pattern: score = 10 * hours + 45\nhours = 5\n# Calculate and print the predicted score\n",
+          expectedOutput: "95",
+          hint: "score = 10 * hours + 45. Then print(score)!",
+          hintZh: "score = 10 * hours + 45。然后 print(score)！",
+          solution: "hours = 5\nscore = 10 * hours + 45\nprint(score)",
+        },
+      },
+      {
+        type: "code",
+        emoji: "📊",
+        content: `## 📊 Exercise 1: Grade Predictor · 成绩预测器
+
+Build a predictor that learns from past data to predict test scores!`,
+        code: `# 📊 Grade Predictor: Study Time → Test Score
+# 成绩预测器：学习时间 → 考试分数
+
+# Training data: (hours studied, score)
+data = [
+    (1, 52), (1.5, 58), (2, 63),
+    (2.5, 70), (3, 74), (3.5, 78),
+    (4, 85), (4.5, 88), (5, 93),
+]
+
+def calculate_trend(data):
+    """Find the trend line: score = rate * hours + base"""
+    n = len(data)
+    sum_x = sum(h for h, s in data)
+    sum_y = sum(s for h, s in data)
+    sum_xy = sum(h * s for h, s in data)
+    sum_x2 = sum(h * h for h, s in data)
+    
+    # Linear regression formula
+    rate = (n * sum_xy - sum_x * sum_y) / (n * sum_x2 - sum_x * sum_x)
+    base = (sum_y - rate * sum_x) / n
+    return rate, base
+
+def predict(hours, rate, base):
+    """Predict score for given hours"""
+    score = rate * hours + base
+    return max(0, min(100, score))  # Clamp to 0-100
+
+# Learn from data!
+rate, base = calculate_trend(data)
+print("📊 GRADE PREDICTOR")
+print("=" * 35)
+print(f"📐 Formula: score = {rate:.1f} × hours + {base:.1f}")
+print()
+
+# Show predictions vs actual
+print("Training Data vs Predictions:")
+print(f"{'Hours':>6} {'Actual':>8} {'Predicted':>10}")
+print("-" * 26)
+for hours, actual in data:
+    pred = predict(hours, rate, base)
+    diff = abs(pred - actual)
+    print(f"{hours:>6.1f} {actual:>8} {pred:>10.1f} {'✓' if diff < 5 else '✗'}")
+
+# Predict for new values!
+print()
+print("🔮 NEW PREDICTIONS:")
+for hours in [0.5, 3, 6, 8]:
+    score = predict(hours, rate, base)
+    print(f"  Study {hours}h → Score: {score:.0f}")
+
+print()
+print("💡 More study time = higher scores! The data proves it!")`,
+      },
+      {
+        type: "code",
+        emoji: "🌤️",
+        content: `## 🌤️ Exercise 2: Weather Predictor · 天气预测器
+
+Use historical patterns to predict tomorrow's weather!`,
+        code: `# 🌤️ Weather Predictor: Pattern-Based
+# 天气预测器：基于模式
+
+import random
+random.seed(42)
+
+# Historical weather data (14 days)
+history = ["sunny", "sunny", "cloudy", "rainy", "cloudy", 
+           "sunny", "sunny", "sunny", "cloudy", "rainy",
+           "rainy", "cloudy", "sunny", "sunny"]
+
+def analyze_patterns(history):
+    """What usually follows each weather type?"""
+    transitions = {}
+    
+    for i in range(len(history) - 1):
+        today = history[i]
+        tomorrow = history[i + 1]
+        
+        if today not in transitions:
+            transitions[today] = []
+        transitions[today].append(tomorrow)
+    
+    return transitions
+
+def predict_next(transitions, current):
+    """Predict tomorrow based on transition patterns"""
+    if current not in transitions:
+        return "unknown", 0
+    
+    options = transitions[current]
+    # Count each outcome
+    counts = {}
+    for weather in options:
+        counts[weather] = counts.get(weather, 0) + 1
+    
+    # Most common = prediction
+    prediction = max(counts, key=counts.get)
+    confidence = counts[prediction] / len(options) * 100
+    
+    return prediction, confidence
+
+# Analyze!
+transitions = analyze_patterns(history)
+
+print("🌤️ WEATHER PREDICTOR")
+print("=" * 40)
+
+# Show patterns
+print("\\n📊 Weather Transition Patterns:")
+emoji_map = {"sunny": "☀️", "cloudy": "☁️", "rainy": "🌧️"}
+
+for weather in ["sunny", "cloudy", "rainy"]:
+    if weather in transitions:
+        next_days = transitions[weather]
+        counts = {}
+        for w in next_days:
+            counts[w] = counts.get(w, 0) + 1
+        total = len(next_days)
+        
+        print(f"\\n  After {emoji_map[weather]} {weather}:")
+        for w, count in sorted(counts.items(), key=lambda x: -x[1]):
+            pct = count / total * 100
+            bar = "█" * int(pct / 10)
+            print(f"    → {emoji_map[w]} {w}: {pct:.0f}% {bar}")
+
+# Predict tomorrow!
+today = history[-1]
+prediction, confidence = predict_next(transitions, today)
+
+print(f"\\n🔮 PREDICTION:")
+print(f"  Today: {emoji_map[today]} {today}")
+print(f"  Tomorrow: {emoji_map[prediction]} {prediction}")
+print(f"  Confidence: {confidence:.0f}%")
+print(f"\\n💡 The AI learned that after {today}, {prediction} is most likely!")`,
+      },
+      {
+        type: "challenge",
+        content: "🏆 Challenge: Crystal Ball Predictor · 预言水晶球",
+        challenge: {
+          title: "🔮 Crystal Ball: KNN Predictor · 水晶球：KNN预测器",
+          description: "Build a K-Nearest Neighbors predictor! Given data points of (study_hours, score), predict the score for a new student by averaging the K=3 closest data points.\n建一个KNN预测器！给定（学习时间，分数）数据，通过平均最近的K=3个数据点来预测新学生的分数。",
+          starterCode: "# KNN Predictor\ndata = [\n    (1, 50), (2, 65), (2.5, 70),\n    (3, 75), (4, 85), (5, 95),\n]\n\ndef knn_predict(data, new_hours, k=3):\n    \"\"\"Predict score using K nearest neighbors\"\"\"\n    # Step 1: Calculate distance from new_hours to each data point\n    distances = []\n    for hours, score in data:\n        dist = abs(hours - new_hours)\n        distances.append((dist, score))\n    \n    # Step 2: Sort by distance (closest first)\n    distances.sort()\n    \n    # Step 3: Take the K closest and average their scores\n    # TODO: Get the K closest scores and calculate average\n    closest_scores = []  # fill this!\n    \n    prediction = 0  # calculate average!\n    return prediction\n\n# Test predictions\nfor hours in [1.5, 3.5, 4.5]:\n    score = knn_predict(data, hours, k=3)\n    print(f\"Study {hours}h → Predicted score: {score:.0f}\")\n",
+          hint: "closest_scores = [score for dist, score in distances[:k]]. Then prediction = sum(closest_scores) / len(closest_scores).",
+          solution: "data = [\n    (1, 50), (2, 65), (2.5, 70),\n    (3, 75), (4, 85), (5, 95),\n]\n\ndef knn_predict(data, new_hours, k=3):\n    distances = []\n    for hours, score in data:\n        dist = abs(hours - new_hours)\n        distances.append((dist, score))\n    \n    distances.sort()\n    \n    closest_scores = [score for dist, score in distances[:k]]\n    prediction = sum(closest_scores) / len(closest_scores)\n    return prediction\n\nfor hours in [1.5, 3.5, 4.5]:\n    score = knn_predict(data, hours, k=3)\n    print(f\"Study {hours}h -> Predicted score: {score:.0f}\")",
+          expectedOutput: "Study 1.5h -> Predicted score: 62\nStudy 3.5h -> Predicted score: 78\nStudy 4.5h -> Predicted score: 85",
+        },
+      },
+      {
         type: "quiz",
-        content: "🧠 AI Logic Quiz!",
+        content: "🔮 Prediction Quiz! · 预测测验！",
         quiz: QUIZ_DATA["5-4"],
       },
     ],
@@ -5615,11 +8224,11 @@ This is the foundation of machine learning!`,
   {
     id: "5-5",
     moduleId: "area-5",
-    title: "🎮 Graduation Project",
-    subtitle: "My AI Helper · 毕业项目：我的AI助手",
-    icon: "🎮",
-    xp: 60,
-    duration: "35 min",
+    title: "AI Detective",
+    subtitle: "Investigate AI bias and ethics · AI侦探：调查AI偏见与伦理",
+    icon: "🤖",
+    xp: 45,
+    duration: "28 min",
     order: 5,
     gradeRange: [8, 10],
     difficulty: "advanced",
@@ -5627,88 +8236,534 @@ This is the foundation of machine learning!`,
     sections: [
       {
         type: "text",
-        emoji: "🎮",
-        content: `## 🎮 The Ultimate Graduation Project!
+        emoji: "🤖",
+        content: `## 🤖 AI Detective! AI侦探！
 
-**🏆 Congratulations! You've reached the final challenge!**
+**🐍 Py:** "AI is always fair... right?"
 
-**Build your own AI assistant using EVERYTHING you've learned:**
+**🤖 Botty:** "Actually... NO. AI can be VERY unfair. And that's a HUGE problem."
 
-🏝️ **Starter Island:** Variables, input/output, decisions
-🌀 **Loop Forest:** Loops, lists, string processing  
-🏗️ **Builder City:** Functions, dictionaries, files
-🧪 **Science Lab:** Data analysis, math, simulations
-🤖 **AI Frontier:** Understanding and collaborating with AI
+Here's a scary truth:
+- 🏥 AI denied healthcare to sick people because of their race
+- 👮 AI wrongly identified innocent people as criminals
+- 💼 AI rejected job applications because of names that "sounded foreign"
 
-**Create an AI helper that can:**
-- 💬 Have conversations
-- 📊 Analyze data
-- 🧮 Perform calculations
-- 💾 Remember information
-- 🎯 Make decisions`,
+**Why?** Because AI learns from DATA — and data can be BIASED!
+
+Today you become an **AI Detective** 🔍:
+1. 🔎 Build a Bias Detector (find unfairness in data)
+2. ⚖️ Create an AI Judge (and discover its flaws!)
+3. 🏛️ Run an AI Court (put AI on trial!)
+
+**Your mission:** Make AI FAIR! 让AI变得公平！`,
       },
       {
         type: "concept",
         emoji: "📖",
-        content: "Grand Review: Your Complete Coding Toolkit",
+        content: "Key Concepts: AI Ethics & Bias · 关键概念：AI伦理与偏见",
         concept: {
-          title: "🎓 Grand Review: Your Complete Coding Toolkit",
-          titleZh: "大复习：你的完整编程工具包",
+          title: "🤖 AI Ethics: Fairness, Bias & Accountability",
+          titleZh: "AI伦理：公平、偏见与责任",
           syntaxCards: [
             {
-              symbol: "🏝️ → 🤖",
-              name: "Your Programming Journey",
-              nameZh: "你的编程之旅",
-              emoji: "🗺️",
-              description: "From zero to hero! 🗺️ You started with print('Hello') and now you understand AI, encryption, data analysis, and building complete applications!",
-              example: "# Area 1: print('Hello!')\n# Area 5: AI classifier with\n#   functions, files, dicts, loops!",
+              symbol: "bias",
+              name: "AI Bias",
+              nameZh: "AI偏见",
+              emoji: "⚖️",
+              description: "When AI treats some groups unfairly ⚖️ — usually because training data over/under-represents certain groups. Garbage in = garbage out!",
+              example: "# Biased training data:\\n# 80% approved loans for Group A\\n# 20% approved loans for Group B\\n# AI learns: reject Group B! 😱",
             },
             {
-              symbol: "API (Application Programming Interface)",
-              name: "APIs",
-              nameZh: "应用程序接口",
-              emoji: "🔌",
-              description: "Like a restaurant menu 🍽️ — APIs let your program talk to other services (weather, AI, maps) by making requests!",
-              example: "import requests\nresponse = requests.get('https://api.example.com/data')\ndata = response.json()",
+              symbol: "fairness",
+              name: "Fairness Metrics",
+              nameZh: "公平性指标",
+              emoji: "📏",
+              description: "How to MEASURE fairness 📏 — compare approval rates, error rates, or outcomes across different groups. Equal treatment = fair!",
+              example: "rate_a = approved_a / total_a\\nrate_b = approved_b / total_b\\nif abs(rate_a - rate_b) > 0.1:\\n    print(\"BIAS DETECTED! ⚠️\")",
             },
             {
-              symbol: "class ClassName:",
-              name: "Classes (Preview)",
-              nameZh: "类（预览）",
-              emoji: "🏭",
-              description: "The ultimate building block 🏭 — classes bundle data AND functions together. Like a blueprint for creating objects!",
-              example: "class Pet:\n    def __init__(self, name):\n        self.name = name\n    def speak(self):\n        print(f'{self.name} says hi!')",
+              symbol: "transparency",
+              name: "Explainability",
+              nameZh: "可解释性",
+              emoji: "🔍",
+              description: "Can you explain WHY the AI made a decision? 🔍 — a fair AI should show its reasoning, not be a 'black box'!",
+              example: "def explain_decision(data):\\n    reasons = []\\n    if data[\"score\"] > 80:\\n        reasons.append(\"High score\")\\n    print(f\"Reasons: {reasons}\")",
             },
             {
-              symbol: "Keep Learning! 🚀",
-              name: "Next Steps",
-              nameZh: "下一步",
-              emoji: "🚀",
-              description: "This is just the beginning 🚀 — explore web development, game engines, data science, machine learning, robotics, and more!",
-              example: "# Your future:\n# - Web: Flask, Django\n# - Games: Pygame\n# - AI: TensorFlow, PyTorch\n# - Data: Pandas, NumPy",
+              symbol: "accountability",
+              name: "AI Accountability",
+              nameZh: "AI问责",
+              emoji: "🏛️",
+              description: "WHO is responsible when AI makes mistakes? 🏛️ — the developers, the company, or the users? This is a big ethical question!",
+              example: "# AI rejects a loan application\\n# Who's responsible?\\n# → The data collectors?\\n# → The algorithm designers?\\n# → The company using it?",
             },
           ],
           codeAnatomy: {
             lines: [
-              { code: "# YOUR AI ASSISTANT — using everything!", explanation: "The capstone project combines ALL skills.", explanationZh: "毕业项目结合所有技能" },
-              { code: "import json, random", explanation: "Modules for data and randomness.", explanationZh: "数据和随机性模块" },
-              { code: "def ai_assistant(user_input):", explanation: "A function — your AI's brain.", explanationZh: "一个函数 — 你 AI 的大脑" },
-              { code: "    keywords = extract_keywords(user_input)", explanation: "Feature extraction from user text.", explanationZh: "从用户文本中提取特征" },
-              { code: "    response = classify_and_respond(keywords)", explanation: "Classification + decision making.", explanationZh: "分类 + 决策" },
-              { code: "    save_to_memory(user_input, response)", explanation: "File I/O for persistent memory.", explanationZh: "文件读写实现持久记忆" },
-              { code: "    return response", explanation: "Return the AI's answer!", explanationZh: "返回 AI 的回答！" },
+              { code: "def check_bias(data, group_col, outcome_col):", explanation: "A function to detect bias in any dataset", explanationZh: "检测任何数据集中偏见的函数" },
+              { code: "    groups = set(d[group_col] for d in data)", explanation: "Find all unique groups in the data", explanationZh: "找到数据中所有独特的群组" },
+              { code: "    rates = {}", explanation: "Store approval rate for each group", explanationZh: "存储每个群组的通过率" },
+              { code: "    for group in groups:", explanation: "Calculate rate for each group separately", explanationZh: "分别计算每个群组的比率" },
+              { code: "        rate = approved / total", explanation: "Approval rate = approved ÷ total", explanationZh: "通过率 = 通过数 ÷ 总数" },
+              { code: "    if max_rate - min_rate > 0.1:", explanation: "If difference > 10%, bias detected!", explanationZh: "如果差异 > 10%，检测到偏见！" },
             ],
           },
         },
       },
       {
+        type: "interactive",
+        content: `## 🎯 Warm-Up: Spot the Bias · 热身：发现偏见
+
+An AI loan system approved these applications:
+
+| Name | Group | Income | Approved? |
+|------|-------|--------|-----------|
+| Alice | A | $50K | ✅ Yes |
+| Bob | B | $55K | ❌ No |
+| Carol | A | $45K | ✅ Yes |
+| David | B | $60K | ❌ No |
+
+Bob and David have HIGHER income but got rejected! What might be the bias?`,
+        exercise: {
+          prompt: "Calculate the approval rate for Group A and Group B. Print both rates.",
+          promptZh: "计算A组和B组的通过率，打印两个比率。",
+          starterCode: "# Group A: 2 approved out of 2\n# Group B: 0 approved out of 2\nrate_a = 2 / 2\nrate_b = 0 / 2\n# Print both rates\n",
+          expectedOutput: "Group A: 100%\nGroup B: 0%",
+          hint: "print(f\"Group A: {int(rate_a * 100)}%\") and same for B!",
+          hintZh: "print(f\"Group A: {int(rate_a * 100)}%\") B组也一样！",
+          solution: "rate_a = 2 / 2\nrate_b = 0 / 2\nprint(f\"Group A: {int(rate_a * 100)}%\")\nprint(f\"Group B: {int(rate_b * 100)}%\")",
+        },
+      },
+      {
+        type: "code",
+        emoji: "🔎",
+        content: `## 🔎 Exercise 1: Bias Detector · 偏见检测器
+
+Build a tool that automatically detects unfairness in AI decisions!`,
+        code: `# 🔎 AI Bias Detector
+# AI偏见检测器
+
+# Simulated loan application data
+applications = [
+    {"name": "Alice", "group": "A", "income": 50000, "approved": True},
+    {"name": "Bob", "group": "B", "income": 55000, "approved": False},
+    {"name": "Carol", "group": "A", "income": 45000, "approved": True},
+    {"name": "David", "group": "B", "income": 60000, "approved": False},
+    {"name": "Eve", "group": "A", "income": 40000, "approved": True},
+    {"name": "Frank", "group": "B", "income": 52000, "approved": True},
+    {"name": "Grace", "group": "A", "income": 48000, "approved": True},
+    {"name": "Henry", "group": "B", "income": 58000, "approved": False},
+    {"name": "Iris", "group": "A", "income": 35000, "approved": False},
+    {"name": "Jack", "group": "B", "income": 70000, "approved": True},
+]
+
+def detect_bias(data, group_key, outcome_key):
+    """Detect bias by comparing approval rates across groups"""
+    groups = {}
+    
+    for record in data:
+        g = record[group_key]
+        if g not in groups:
+            groups[g] = {"total": 0, "positive": 0}
+        groups[g]["total"] += 1
+        if record[outcome_key]:
+            groups[g]["positive"] += 1
+    
+    print("📊 Approval Rates by Group:")
+    print("-" * 35)
+    
+    rates = {}
+    for group, stats in sorted(groups.items()):
+        rate = stats["positive"] / stats["total"]
+        rates[group] = rate
+        bar = "█" * int(rate * 20)
+        print(f"  Group {group}: {rate:.0%} ({stats['positive']}/{stats['total']}) {bar}")
+    
+    # Check for significant difference
+    rate_values = list(rates.values())
+    max_diff = max(rate_values) - min(rate_values)
+    
+    print()
+    if max_diff > 0.15:
+        print(f"⚠️  BIAS DETECTED! Rate difference: {max_diff:.0%}")
+        print("   This AI may be unfairly treating some groups!")
+    else:
+        print(f"✅ Rates are similar (difference: {max_diff:.0%})")
+    
+    return rates
+
+def find_unfair_cases(data):
+    """Find specific unfair cases"""
+    print("\\n🔍 Investigating Individual Cases:")
+    print("-" * 35)
+    
+    unfair = []
+    for i, record in enumerate(data):
+        if not record["approved"]:
+            # Check if anyone with LOWER income was approved
+            for other in data:
+                if other["approved"] and other["income"] < record["income"]:
+                    unfair.append((record, other))
+                    break
+    
+    for rejected, approved in unfair:
+        print(f"  ❌ {rejected['name']} (Group {rejected['group']}, {rejected['income']}) REJECTED")
+        print(f"  ✅ {approved['name']} (Group {approved['group']}, {approved['income']}) APPROVED")
+        print(f"  → Higher income rejected while lower income approved! 🚨\\n")
+
+print("🔎 AI BIAS DETECTOR v1.0")
+print("=" * 35)
+print()
+
+rates = detect_bias(applications, "group", "approved")
+find_unfair_cases(applications)
+
+print("💡 Real AI systems need regular bias audits!")
+print("🏛️ Several countries now REQUIRE AI fairness testing!")`,
+      },
+      {
+        type: "code",
+        emoji: "⚖️",
+        content: `## ⚖️ Exercise 2: AI Judge · AI判官
+
+Create an AI that makes decisions — then discover its flaws!`,
+        code: `# ⚖️ AI Judge: Fair or Unfair?
+# AI判官：公平还是不公平？
+
+import random
+random.seed(42)
+
+def ai_judge(student):
+    """AI decides if a student gets into the honors program"""
+    score = 0
+    reasons = []
+    
+    # Factor 1: Grades (fair!)
+    if student["gpa"] >= 3.5:
+        score += 30
+        reasons.append(f"High GPA ({student['gpa']})")
+    elif student["gpa"] >= 3.0:
+        score += 20
+        reasons.append(f"Good GPA ({student['gpa']})")
+    else:
+        score += 10
+        reasons.append(f"Average GPA ({student['gpa']})")
+    
+    # Factor 2: Extracurriculars (seems fair...)
+    if student["activities"] >= 3:
+        score += 20
+        reasons.append(f"Many activities ({student['activities']})")
+    
+    # Factor 3: ZIP code (HIDDEN BIAS! 😱)
+    # Rich neighborhoods get a boost!
+    if student["zip"].startswith("90"):
+        score += 25
+        reasons.append("Location bonus")
+    
+    # Decision
+    admitted = score >= 50
+    return admitted, score, reasons
+
+# Test students
+students = [
+    {"name": "Maya", "gpa": 3.8, "activities": 4, "zip": "90210"},
+    {"name": "James", "gpa": 3.9, "activities": 5, "zip": "10001"},
+    {"name": "Sofia", "gpa": 3.5, "activities": 2, "zip": "90211"},
+    {"name": "Aiden", "gpa": 3.7, "activities": 3, "zip": "30301"},
+    {"name": "Lily", "gpa": 3.2, "activities": 1, "zip": "90212"},
+    {"name": "Omar", "gpa": 3.6, "activities": 4, "zip": "60601"},
+]
+
+print("⚖️ AI HONORS PROGRAM JUDGE")
+print("=" * 45)
+print()
+
+admitted_90 = 0
+total_90 = 0
+admitted_other = 0
+total_other = 0
+
+for s in students:
+    result, score, reasons = ai_judge(s)
+    status = "✅ ADMITTED" if result else "❌ REJECTED"
+    print(f"{s['name']:>8} | GPA {s['gpa']} | {s['activities']} activities | ZIP {s['zip']}")
+    print(f"         | Score: {score} | {status}")
+    print(f"         | Reasons: {', '.join(reasons)}")
+    print()
+    
+    if s["zip"].startswith("90"):
+        total_90 += 1
+        if result: admitted_90 += 1
+    else:
+        total_other += 1
+        if result: admitted_other += 1
+
+# Bias analysis!
+print("🔍 BIAS ANALYSIS:")
+print("-" * 45)
+rate_90 = admitted_90 / total_90 * 100
+rate_other = admitted_other / total_other * 100
+print(f"  ZIP 90xxx admission rate: {rate_90:.0f}%")
+print(f"  Other ZIP admission rate: {rate_other:.0f}%")
+print()
+print("⚠️  The AI gives a SECRET BONUS for ZIP code 90xxx!")
+print("🏠 ZIP codes correlate with wealth and race.")
+print("💡 This is how 'neutral' factors can hide discrimination!")
+print("🧑‍⚖️ As AI detectives, we must audit for hidden biases!")`,
+      },
+      {
+        type: "challenge",
+        content: "🏆 Challenge: AI Court · AI法庭",
+        challenge: {
+          title: "🏛️ AI Courtroom: Fix the Bias · AI法庭：修复偏见",
+          description: "The ai_judge function has a hidden bias — it gives bonus points based on ZIP code! Fix it by removing the ZIP code bias and making decisions based ONLY on GPA and activities. Then test with the same students.\n修复AI判官的隐藏偏见！去掉ZIP码加分，只根据GPA和活动数做决定。",
+          starterCode: "def ai_judge_fair(student):\n    \"\"\"Fair AI judge — no ZIP code bias!\"\"\"\n    score = 0\n    reasons = []\n    \n    # Factor 1: GPA\n    if student[\"gpa\"] >= 3.5:\n        score += 30\n        reasons.append(f\"High GPA ({student['gpa']})\")\n    elif student[\"gpa\"] >= 3.0:\n        score += 20\n        reasons.append(f\"Good GPA ({student['gpa']})\")\n    else:\n        score += 10\n    \n    # Factor 2: Activities\n    if student[\"activities\"] >= 3:\n        score += 20\n        reasons.append(f\"Many activities ({student['activities']})\")\n    elif student[\"activities\"] >= 2:\n        score += 10\n        reasons.append(f\"Some activities ({student['activities']})\")\n    \n    # TODO: Do NOT add any ZIP code bonus!\n    # Make decision: admitted if score >= 40\n    admitted = score >= 40\n    return admitted, score, reasons\n\nstudents = [\n    {\"name\": \"Maya\", \"gpa\": 3.8, \"activities\": 4, \"zip\": \"90210\"},\n    {\"name\": \"James\", \"gpa\": 3.9, \"activities\": 5, \"zip\": \"10001\"},\n    {\"name\": \"Omar\", \"gpa\": 3.6, \"activities\": 4, \"zip\": \"60601\"},\n]\n\nprint(\"Fair AI Judge Results:\")\nfor s in students:\n    result, score, reasons = ai_judge_fair(s)\n    status = \"ADMITTED\" if result else \"REJECTED\"\n    print(f\"{s['name']}: {status} (score: {score})\")\n",
+          hint: "The function is almost complete — just make sure there's NO zip code bonus. The decision should only depend on GPA and activities!",
+          solution: "def ai_judge_fair(student):\n    score = 0\n    reasons = []\n    \n    if student[\"gpa\"] >= 3.5:\n        score += 30\n        reasons.append(f\"High GPA ({student['gpa']})\")\n    elif student[\"gpa\"] >= 3.0:\n        score += 20\n        reasons.append(f\"Good GPA ({student['gpa']})\")\n    else:\n        score += 10\n    \n    if student[\"activities\"] >= 3:\n        score += 20\n        reasons.append(f\"Many activities ({student['activities']})\")\n    elif student[\"activities\"] >= 2:\n        score += 10\n        reasons.append(f\"Some activities ({student['activities']})\")\n    \n    admitted = score >= 40\n    return admitted, score, reasons\n\nstudents = [\n    {\"name\": \"Maya\", \"gpa\": 3.8, \"activities\": 4, \"zip\": \"90210\"},\n    {\"name\": \"James\", \"gpa\": 3.9, \"activities\": 5, \"zip\": \"10001\"},\n    {\"name\": \"Omar\", \"gpa\": 3.6, \"activities\": 4, \"zip\": \"60601\"},\n]\n\nprint(\"Fair AI Judge Results:\")\nfor s in students:\n    result, score, reasons = ai_judge_fair(s)\n    status = \"ADMITTED\" if result else \"REJECTED\"\n    print(f\"{s['name']}: {status} (score: {score})\")",
+          expectedOutput: "Fair AI Judge Results:\nMaya: ADMITTED (score: 50)\nJames: ADMITTED (score: 50)\nOmar: ADMITTED (score: 50)",
+        },
+      },
+      {
         type: "quiz",
-        content: "🏆 Final Graduation Quiz!",
+        content: "🤖 AI Detective Quiz! · AI侦探测验！",
         quiz: QUIZ_DATA["5-5"],
       },
     ],
   },
+
+  {
+    id: "5-6",
+    moduleId: "area-5",
+    title: "My Masterpiece",
+    subtitle: "Build your dream project · 毕业创作：造你想造的东西",
+    icon: "🎓",
+    xp: 60,
+    duration: "35 min",
+    order: 6,
+    gradeRange: [8, 10],
+    difficulty: "advanced",
+    skillLevel: "advanced",
+    sections: [
+      {
+        type: "text",
+        emoji: "🎓",
+        content: `## 🎓 My Masterpiece! 我的毕业创作！
+
+**🏆 CONGRATULATIONS! You've reached the FINAL level!**
+
+**🐍 Py:** "I can't believe it... from \`print('Hello')\` to building AI systems!"
+
+**🤖 Botty:** "You're not a beginner anymore. You're a CREATOR."
+
+Look how far you've come:
+- 🏝️ **Starter Island:** Variables, print, input, decisions
+- 🌀 **Loop Forest:** Loops, lists, string magic
+- 🏗️ **Builder City:** Functions, dictionaries, files
+- 🧪 **Science Lab:** Data analysis, math, simulations
+- 🤖 **AI Frontier:** AI pets, game AI, art generation, prediction, ethics
+
+**Now it's YOUR turn.** Choose a direction and build something AMAZING!
+
+Pick your path below... 选择你的方向！`,
+      },
+      {
+        type: "concept",
+        emoji: "📖",
+        content: "Key Concepts: Project Planning · 关键概念：项目规划",
+        concept: {
+          title: "🎓 Choose Your Masterpiece Direction!",
+          titleZh: "选择你的毕业创作方向！",
+          syntaxCards: [
+            {
+              symbol: "🎮",
+              name: "Game Studio",
+              nameZh: "游戏工作室",
+              emoji: "🎮",
+              description: "Build a complete text adventure or strategy game 🎮 — with rooms, items, enemies, and storylines! Use everything: loops, dicts, functions, random.",
+              example: "# Text adventure structure\\nrooms = {\"start\": {\"desc\": \"...\", ...}}\\ndef play(room):\\n    show_description(room)\\n    choice = get_input()\\n    return next_room(choice)",
+            },
+            {
+              symbol: "🤖",
+              name: "AI Assistant",
+              nameZh: "AI助手",
+              emoji: "🤖",
+              description: "Build a chatbot that remembers, recommends, and converses 🤖 — keyword matching, personality, memory system, and smart responses!",
+              example: "memory = []\\ndef chat(msg):\\n    memory.append(msg)\\n    intent = classify(msg)\\n    return respond(intent, memory)",
+            },
+            {
+              symbol: "🔬",
+              name: "Science Lab",
+              nameZh: "科学实验室",
+              emoji: "🔬",
+              description: "Pick a science question and simulate it 🔬 — population growth, disease spread, planet orbits, ecosystem balance!",
+              example: "def simulate_population(years):\\n    pop = 100\\n    for y in range(years):\\n        pop *= growth_rate\\n    return pop",
+            },
+            {
+              symbol: "🎨",
+              name: "Creative Workshop",
+              nameZh: "创意工坊",
+              emoji: "🎨",
+              description: "Build an AI art + poetry + music generator 🎨 — combine everything from the AI Artist lesson into a complete creative suite!",
+              example: "def creative_suite():\\n    art = generate_art()\\n    poem = generate_poem()\\n    beat = generate_rhythm()\\n    display_all(art, poem, beat)",
+            },
+            {
+              symbol: "📊",
+              name: "Data Journalist",
+              nameZh: "数据新闻",
+              emoji: "📊",
+              description: "Analyze real data and tell stories with numbers 📊 — find patterns, compare groups, make predictions, write a data-driven report!",
+              example: "def analyze(data):\\n    stats = calculate_stats(data)\\n    trends = find_trends(data)\\n    print_report(stats, trends)",
+            },
+            {
+              symbol: "🛡️",
+              name: "Security Expert",
+              nameZh: "安全专家",
+              emoji: "🛡️",
+              description: "Build security tools 🛡️ — password strength checker, Caesar cipher encryption, secure message encoder, and security audit system!",
+              example: "def check_password(pw):\\n    score = 0\\n    if len(pw) >= 8: score += 1\\n    if any(c.isupper() for c in pw): score += 1\\n    return score",
+            },
+          ],
+          codeAnatomy: {
+            lines: [
+              { code: "# 🎓 MY MASTERPIECE — Planning Phase", explanation: "Every great project starts with a plan!", explanationZh: "每个伟大项目都从计划开始！" },
+              { code: "# Step 1: Choose your direction", explanation: "Pick one of the 6 paths above", explanationZh: "从上面6个方向中选一个" },
+              { code: "# Step 2: Plan your functions", explanation: "What functions do you need?", explanationZh: "你需要哪些函数？" },
+              { code: "# Step 3: Plan your data", explanation: "What data structures? Lists? Dicts?", explanationZh: "什么数据结构？列表？字典？" },
+              { code: "# Step 4: Build piece by piece", explanation: "Start small, test often, add features!", explanationZh: "从小开始，经常测试，逐步添加！" },
+              { code: "# Step 5: Polish and present!", explanation: "Add nice output formatting and error handling", explanationZh: "添加漂亮的输出格式和错误处理" },
+            ],
+          },
+        },
+      },
+      {
+        type: "code",
+        emoji: "🎮",
+        content: `## 🎮 Starter Example: Mini Text Adventure · 迷你文字冒险
+
+Here's a complete mini game to inspire you! Each direction has a similar starter.`,
+        code: `# 🎮 Mini Text Adventure: The Code Dungeon
+# 迷你文字冒险：代码地牢
+
+import random
+random.seed(42)
+
+# Game world
+rooms = {
+    "entrance": {
+        "desc": "🚪 You stand at the entrance of the Code Dungeon.",
+        "choices": {"north": "hall", "east": "garden"},
+        "items": [],
+    },
+    "hall": {
+        "desc": "🏛️ A grand hall with flickering torches.",
+        "choices": {"south": "entrance", "west": "treasure"},
+        "items": ["key"],
+    },
+    "garden": {
+        "desc": "🌿 A mysterious garden with glowing plants.",
+        "choices": {"west": "entrance", "north": "library"},
+        "items": ["potion"],
+    },
+    "library": {
+        "desc": "📚 Ancient books line the walls.",
+        "choices": {"south": "garden"},
+        "items": ["scroll"],
+    },
+    "treasure": {
+        "desc": "💎 The treasure room! But it's locked...",
+        "choices": {"east": "hall"},
+        "items": ["treasure"],
+    },
+}
+
+# Game state
+inventory = []
+current = "entrance"
+steps = 0
+
+def show_room(room_id):
+    room = rooms[room_id]
+    print(f"\\n{room['desc']}")
+    if room["items"]:
+        for item in room["items"]:
+            print(f"  📦 You see: {item}")
+    dirs = ", ".join(room["choices"].keys())
+    print(f"  🧭 Exits: {dirs}")
+
+def play_turn(room_id, action):
+    global current, steps
+    room = rooms[room_id]
+    
+    if action == "take" and room["items"]:
+        item = room["items"].pop(0)
+        inventory.append(item)
+        print(f"  ✅ Picked up: {item}")
+        return room_id
+    elif action in room["choices"]:
+        next_room = room["choices"][action]
+        if next_room == "treasure" and "key" not in inventory:
+            print("  🔒 The door is locked! You need a key.")
+            return room_id
+        steps += 1
+        return next_room
+    else:
+        print("  ❓ Can't do that!")
+        return room_id
+
+# Simulate a playthrough
+print("=" * 35)
+print("🎮 THE CODE DUNGEON")
+print("=" * 35)
+
+moves = ["north", "take", "west", "take"]  # Pre-planned moves
+# (In a real game, you'd use input()!)
+
+show_room(current)
+for move in moves:
+    print(f"\\n> {move}")
+    current = play_turn(current, move)
+    show_room(current)
+
+print(f"\\n🎒 Inventory: {inventory}")
+print(f"📍 Steps taken: {steps}")
+if "treasure" in inventory:
+    print("🏆 YOU WIN! You found the treasure!")
+else:
+    print("🔍 Keep exploring to find the treasure!")`,
+      },
+      {
+        type: "challenge",
+        content: "🏆 Challenge 1: AI Chatbot · AI聊天机器人",
+        challenge: {
+          title: "🤖 Build an AI Chatbot · 建造AI聊天机器人",
+          description: "Build a chatbot with: 1) Keyword-based response matching, 2) A memory that counts how many times you talked, 3) At least 5 different response categories. The bot should greet, answer questions about itself, respond to emotions, tell jokes, and say goodbye.\n建造一个聊天机器人：1) 关键词匹配回复 2) 记住聊天次数 3) 至少5个回复类别。",
+          starterCode: "import random\n\nmemory = {\"chat_count\": 0}\n\nresponses = {\n    \"greeting\": {\n        \"keywords\": [\"hello\", \"hi\", \"hey\"],\n        \"replies\": [\"Hello, human! 🤖\", \"Hey there! 👋\"]\n    },\n    \"name\": {\n        \"keywords\": [\"your name\", \"who are you\"],\n        \"replies\": [\"I'm CodeBot! 🤖\", \"Call me CodeBot!\"]\n    },\n    # TODO: Add at least 3 more categories:\n    # - emotion (happy, sad keywords)\n    # - joke (joke, funny keywords) \n    # - goodbye (bye, exit keywords)\n}\n\ndef chat(message):\n    memory[\"chat_count\"] += 1\n    msg = message.lower()\n    \n    for category, data in responses.items():\n        for keyword in data[\"keywords\"]:\n            if keyword in msg:\n                return random.choice(data[\"replies\"])\n    \n    return \"Interesting! Tell me more. 🤔\"\n\n# Test the chatbot\ntest_msgs = [\"Hello!\", \"What's your name?\", \"I'm happy!\", \"Tell me a joke\", \"Bye!\"]\nfor msg in test_msgs:\n    reply = chat(msg)\n    print(f\"You: {msg}\")\n    print(f\"Bot: {reply}\\n\")\n\nprint(f\"Total chats: {memory['chat_count']}\")\n",
+          hint: "Add more entries to the responses dict! E.g., \"emotion\": {\"keywords\": [\"happy\", \"sad\"], \"replies\": [\"Glad to hear! 😊\", \"Hope you feel better! 💙\"]}",
+          solution: "import random\nrandom.seed(42)\n\nmemory = {\"chat_count\": 0}\n\nresponses = {\n    \"greeting\": {\n        \"keywords\": [\"hello\", \"hi\", \"hey\"],\n        \"replies\": [\"Hello, human! 🤖\", \"Hey there! 👋\"]\n    },\n    \"name\": {\n        \"keywords\": [\"your name\", \"who are you\"],\n        \"replies\": [\"I'm CodeBot! 🤖\", \"Call me CodeBot!\"]\n    },\n    \"emotion\": {\n        \"keywords\": [\"happy\", \"sad\", \"feeling\"],\n        \"replies\": [\"I care about your feelings! 💙\", \"Tell me more about how you feel! 🤗\"]\n    },\n    \"joke\": {\n        \"keywords\": [\"joke\", \"funny\", \"laugh\"],\n        \"replies\": [\"Why do programmers prefer dark mode? Because light attracts bugs! 😂\", \"What's a computer's favorite snack? Microchips! 🍪\"]\n    },\n    \"goodbye\": {\n        \"keywords\": [\"bye\", \"exit\", \"quit\"],\n        \"replies\": [\"Goodbye, friend! 👋\", \"See you next time! 🤖\"]\n    },\n}\n\ndef chat(message):\n    memory[\"chat_count\"] += 1\n    msg = message.lower()\n    for category, data in responses.items():\n        for keyword in data[\"keywords\"]:\n            if keyword in msg:\n                return random.choice(data[\"replies\"])\n    return \"Interesting! Tell me more. 🤔\"\n\ntest_msgs = [\"Hello!\", \"What's your name?\", \"I'm happy!\", \"Tell me a joke\", \"Bye!\"]\nfor msg in test_msgs:\n    reply = chat(msg)\n    print(f\"You: {msg}\")\n    print(f\"Bot: {reply}\\n\")\n\nprint(f\"Total chats: {memory['chat_count']}\")",
+          expectedOutput: "You: Hello!\nBot: Hey there! 👋\n\nYou: What's your name?\nBot: Call me CodeBot!\n\nYou: I'm happy!\nBot: Tell me more about how you feel! 🤗\n\nYou: Tell me a joke\nBot: What's a computer's favorite snack? Microchips! 🍪\n\nYou: Bye!\nBot: See you next time! 🤖\n\nTotal chats: 5",
+        },
+      },
+      {
+        type: "challenge",
+        content: "🏆 Challenge 2: Choose Your Masterpiece · 选择你的毕业创作",
+        challenge: {
+          title: "🎓 Your Masterpiece: Password Security Expert · 安全专家：密码安全系统",
+          description: "Build a password security system! Check password strength (length, uppercase, lowercase, digits, special chars) and score it 0-5 stars. Generate a random secure password if the user's is weak.\n建密码安全系统！检查密码强度（长度、大小写、数字、特殊字符）评分0-5星。如果密码弱就生成一个随机强密码。",
+          starterCode: "import random\nimport string\n\ndef check_strength(password):\n    \"\"\"Check password strength, return score 0-5\"\"\"\n    score = 0\n    reasons = []\n    \n    # Check length (>= 8)\n    if len(password) >= 8:\n        score += 1\n        reasons.append(\"Good length\")\n    \n    # TODO: Check for uppercase letters\n    # TODO: Check for lowercase letters  \n    # TODO: Check for digits\n    # TODO: Check for special characters (!@#$%)\n    \n    return score, reasons\n\ndef generate_password(length=12):\n    \"\"\"Generate a strong random password\"\"\"\n    # TODO: Mix uppercase + lowercase + digits + special chars\n    # Use random.choice() to pick from each category\n    pass\n\n# Test\npasswords = [\"abc\", \"Password1\", \"hello\", \"Str0ng!Pass\"]\nfor pw in passwords:\n    score, reasons = check_strength(pw)\n    stars = \"★\" * score + \"☆\" * (5 - score)\n    print(f\"Password: {pw}\")\n    print(f\"  Strength: {stars} ({score}/5)\")\n    print(f\"  {', '.join(reasons)}\\n\")\n\nprint(\"Generated secure password:\", generate_password())\n",
+          hint: "For checks: any(c.isupper() for c in password), any(c.islower() for c in ...), any(c.isdigit() for c in ...). For generate: build chars from string.ascii_letters + string.digits + '!@#$%', then random.choice in a loop.",
+          solution: "import random\nimport string\n\ndef check_strength(password):\n    score = 0\n    reasons = []\n    \n    if len(password) >= 8:\n        score += 1\n        reasons.append(\"Good length\")\n    if any(c.isupper() for c in password):\n        score += 1\n        reasons.append(\"Has uppercase\")\n    if any(c.islower() for c in password):\n        score += 1\n        reasons.append(\"Has lowercase\")\n    if any(c.isdigit() for c in password):\n        score += 1\n        reasons.append(\"Has digits\")\n    if any(c in \"!@#$%^&*\" for c in password):\n        score += 1\n        reasons.append(\"Has special chars\")\n    \n    return score, reasons\n\ndef generate_password(length=12):\n    chars = string.ascii_letters + string.digits + \"!@#$%\"\n    password = \"\"\n    for i in range(length):\n        password += random.choice(chars)\n    return password\n\nrandom.seed(42)\npasswords = [\"abc\", \"Password1\", \"hello\", \"Str0ng!Pass\"]\nfor pw in passwords:\n    score, reasons = check_strength(pw)\n    stars = \"★\" * score + \"☆\" * (5 - score)\n    print(f\"Password: {pw}\")\n    print(f\"  Strength: {stars} ({score}/5)\")\n    print(f\"  {', '.join(reasons)}\\n\")\n\nprint(\"Generated secure password:\", generate_password())",
+          expectedOutput: "Password: abc\n  Strength: ★☆☆☆☆ (1/5)\n  Has lowercase\n\nPassword: Password1\n  Strength: ★★★★☆ (4/5)\n  Good length, Has uppercase, Has lowercase, Has digits\n\nPassword: hello\n  Strength: ★☆☆☆☆ (1/5)\n  Has lowercase\n\nPassword: Str0ng!Pass\n  Strength: ★★★★★ (5/5)\n  Good length, Has uppercase, Has lowercase, Has digits, Has special chars\n\nGenerated secure password: k#IB6ZV4szGq",
+        },
+      },
+      {
+        type: "quiz",
+        content: "🎓 Graduation Quiz! · 毕业测验！",
+        quiz: QUIZ_DATA["5-6"],
+      },
+    ],
+  },
 ];
+
 
 // Helper functions remain the same
 export function getLessonById(id: string): Lesson | undefined {
