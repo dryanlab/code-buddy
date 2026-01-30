@@ -46,7 +46,7 @@ export default function DataStructuresPage() {
     <div className="min-h-screen p-4 pt-16 max-w-4xl mx-auto">
       <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }}>
         <div className="flex items-center gap-2 mb-2">
-          <span className="text-xs font-semibold px-2 py-1 rounded-full" style={{ backgroundColor: "rgba(234,179,8,0.15)", color: "#eab308" }}>
+          <span className="text-xs font-semibold px-2 py-1 rounded-full" style={{ backgroundColor: "rgba(202,138,4,0.15)", color: "#a16207" }}>
             🔜 Coming Soon Track · 即将推出
           </span>
           <span className="text-xs px-2 py-1 rounded-full" style={{ backgroundColor: "rgba(59,130,246,0.15)", color: "#3b82f6" }}>

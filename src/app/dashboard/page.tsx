@@ -172,9 +172,9 @@ function CourseTrackCards({ progress }: { progress: UserProgress }) {
   const sorted = [...TRACKS].sort((a, b) => statusOrder[a.status] - statusOrder[b.status]);
   const diffIcon = (d: string) => d === "beginner" ? "🟢" : d === "intermediate" ? "🟡" : "🔴";
   const statusBadge = (s: string) =>
-    s === "available" ? { text: "✅ Available", bg: "rgba(34,197,94,0.15)", color: "#22c55e" }
-    : s === "coming-soon" ? { text: "🔜 Coming Soon", bg: "rgba(234,179,8,0.15)", color: "#eab308" }
-    : { text: "🔮 Future", bg: "rgba(168,85,247,0.15)", color: "#a855f7" };
+    s === "available" ? { text: "✅ Available", bg: "rgba(22,163,74,0.15)", color: "#15803d" }
+    : s === "coming-soon" ? { text: "🔜 Coming Soon", bg: "rgba(202,138,4,0.15)", color: "#a16207" }
+    : { text: "🔮 Future", bg: "rgba(126,34,206,0.15)", color: "#7e22ce" };
 
   const getHref = (id: string) =>
     id === "python" ? "/dashboard/lessons"
