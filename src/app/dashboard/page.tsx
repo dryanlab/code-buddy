@@ -10,6 +10,7 @@ import { mergeSkillsFromCloud } from "@/lib/skill-store";
 import { MODULES, LESSONS } from "@/data/lessons";
 import { CPP_MODULES, CPP_LESSONS } from "@/data/cpp-lessons";
 import { DS_MODULES, DS_LESSONS } from "@/data/ds-lessons";
+import { ALG_MODULES, ALG_LESSONS } from "@/data/alg-lessons";
 import { getUser, getSessionUser, type UserProfile } from "@/lib/auth-store";
 import { isSupabaseConfigured } from "@/lib/supabase";
 import { useUserProfile, getSkillGreeting } from "@/lib/useUserProfile";
@@ -19,8 +20,8 @@ import AdventureMap from "@/components/AdventureMap";
 import { TRACKS } from "@/data/tracks";
 
 // All modules combined
-const ALL_MODULES = [...MODULES, ...CPP_MODULES, ...DS_MODULES];
-const ALL_LESSONS = [...LESSONS, ...CPP_LESSONS, ...DS_LESSONS];
+const ALL_MODULES = [...MODULES, ...CPP_MODULES, ...DS_MODULES, ...ALG_MODULES];
+const ALL_LESSONS = [...LESSONS, ...CPP_LESSONS, ...DS_LESSONS, ...ALG_LESSONS];
 
 function XPBar({ xp, level }: { xp: number; level: number }) {
   const info = getLevelInfo(xp);
@@ -435,10 +436,15 @@ function CourseTrackCards({ progress }: { progress: UserProgress }) {
   const dsDone = progress.completedLessons.filter((id) => DS_LESSONS.some((l) => l.id === id)).length;
   const dsPct = dsTotal > 0 ? (dsDone / dsTotal) * 100 : 0;
 
+  const algTotal = ALG_LESSONS.length;
+  const algDone = progress.completedLessons.filter((id) => ALG_LESSONS.some((l) => l.id === id)).length;
+  const algPct = algTotal > 0 ? (algDone / algTotal) * 100 : 0;
+
   function getTrackProgress(id: string) {
     if (id === "python") return { done: pythonDone, total: pythonTotal, pct: pythonPct };
     if (id === "cpp") return { done: cppDone, total: cppTotal, pct: cppPct };
     if (id === "data-structures") return { done: dsDone, total: dsTotal, pct: dsPct };
+    if (id === "algorithms") return { done: algDone, total: algTotal, pct: algPct };
     return null;
   }
 
@@ -592,9 +598,15 @@ export default function DashboardPage() {
     ? DS_LESSONS.filter((l) => !completedSet.has(l.id)).slice(0, 2)
     : [];
 
+  // ALG recommendations
+  const hasAlg = progress.completedLessons.some((id) => id.startsWith("alg-"));
+  const algNext = hasAlg
+    ? ALG_LESSONS.filter((l) => !completedSet.has(l.id)).slice(0, 2)
+    : [];
+
   // Mix recommendations: prioritize courses student has started, up to 4
   const recommendedLessons: typeof LESSONS = [];
-  const sources = [pythonNext, cppNext, dsNext].filter((s) => s.length > 0);
+  const sources = [pythonNext, cppNext, dsNext, algNext].filter((s) => s.length > 0);
   let idx = 0;
   while (recommendedLessons.length < 4 && sources.some((s) => s.length > idx)) {
     for (const src of sources) {

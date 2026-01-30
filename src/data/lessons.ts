@@ -9992,7 +9992,13 @@ export function getLessonById(id: string): Lesson | undefined {
   // Lazy-load DS lessons
   try {
     const { DS_LESSONS } = require("./ds-lessons");
-    return (DS_LESSONS as Lesson[]).find((l) => l.id === id);
+    const ds = (DS_LESSONS as Lesson[]).find((l) => l.id === id);
+    if (ds) return ds;
+  } catch { /* ignore */ }
+  // Lazy-load ALG lessons
+  try {
+    const { ALG_LESSONS } = require("./alg-lessons");
+    return (ALG_LESSONS as Lesson[]).find((l) => l.id === id);
   } catch { return undefined; }
 }
 
@@ -10034,6 +10040,12 @@ export function getAdjacentLessons(lessonId: string): { prev: Lesson | null; nex
       const ds = require("./ds-lessons");
       trackModules = ds.DS_MODULES;
       trackLessons = ds.DS_LESSONS;
+    } catch { /* fall through */ }
+  } else if (lessonId.startsWith("alg-")) {
+    try {
+      const alg = require("./alg-lessons");
+      trackModules = alg.ALG_MODULES;
+      trackLessons = alg.ALG_LESSONS;
     } catch { /* fall through */ }
   }
 

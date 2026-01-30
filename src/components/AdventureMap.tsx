@@ -8,6 +8,7 @@ import { TRACKS, type Track } from "@/data/tracks";
 import { LESSONS } from "@/data/lessons";
 import { CPP_LESSONS } from "@/data/cpp-lessons";
 import { DS_LESSONS } from "@/data/ds-lessons";
+import { ALG_LESSONS } from "@/data/alg-lessons";
 import type { UserProgress } from "@/lib/progress-store";
 
 // ═══════════════════════════════════════════════════
