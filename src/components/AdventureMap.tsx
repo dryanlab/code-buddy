@@ -16,12 +16,14 @@ interface MapHotspot {
   trackId: string;
   x: number;
   y: number;
+  cloudOffsetX?: number; // % shift for cloud overlay
+  cloudOffsetY?: number;
 }
 
 const MAP_HOTSPOTS: MapHotspot[] = [
   { trackId: "python", x: 15, y: 88 },
   { trackId: "data-structures", x: 22, y: 65 },
-  { trackId: "algorithms", x: 52, y: 62 },
+  { trackId: "algorithms", x: 52, y: 62, cloudOffsetY: 12 },
   { trackId: "ai-ml", x: 80, y: 65 },
   { trackId: "web-dev", x: 32, y: 42 },
   { trackId: "databases", x: 52, y: 42 },
@@ -29,7 +31,7 @@ const MAP_HOTSPOTS: MapHotspot[] = [
   { trackId: "computer-architecture", x: 30, y: 20 },
   { trackId: "software-engineering", x: 52, y: 20 },
   { trackId: "app-dev", x: 72, y: 20 },
-  { trackId: "game-dev", x: 90, y: 20 },
+  { trackId: "game-dev", x: 90, y: 20, cloudOffsetX: -10 },
 ];
 
 function ProgressRing({ pct, color, size = 48 }: { pct: number; color: string; size?: number }) {
@@ -88,7 +90,7 @@ function HotspotOverlay({
       }}
     >
       {(isFuture || isComingSoon) && (
-        <div className="absolute pointer-events-none" style={{ inset: "-90%", zIndex: 5 }}>
+        <div className="absolute pointer-events-none" style={{ inset: "-90%", zIndex: 5, transform: `translate(${spot.cloudOffsetX || 0}%, ${spot.cloudOffsetY || 0}%)` }}>
           <svg viewBox="0 0 200 200" className="w-full h-full">
             <defs>
               <filter id={`cloud-blur-${spot.trackId}`} x="-80%" y="-80%" width="260%" height="260%">
