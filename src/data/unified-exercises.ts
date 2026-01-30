@@ -2,6 +2,8 @@
 
 import { ALL_PYTHON_EXERCISES, type PythonExercise } from './python-exercises-all';
 import { ALL_CPP_EXERCISES, type CppExercise } from './cpp-exercises-all';
+import { DS_EXTRACTED_EXERCISES } from './ds-exercises-extracted';
+import { ALG_EXTRACTED_EXERCISES } from './alg-exercises-extracted';
 
 export type ExerciseLanguage = 'python' | 'cpp';
 export type ExerciseDifficulty = 'easy' | 'medium' | 'hard';
@@ -37,6 +39,8 @@ function fromCpp(ex: CppExercise): UnifiedExercise {
 export const ALL_EXERCISES: UnifiedExercise[] = [
   ...ALL_PYTHON_EXERCISES.map(fromPython),
   ...ALL_CPP_EXERCISES.map(fromCpp),
+  ...DS_EXTRACTED_EXERCISES,
+  ...ALG_EXTRACTED_EXERCISES,
 ];
 
 export const PYTHON_COUNT = ALL_PYTHON_EXERCISES.length;
