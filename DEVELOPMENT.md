@@ -526,6 +526,17 @@ Linear search isn't just for numbers! Let's try different uses.
 > 🚨 **教训记录**: 2026-01-30 算法课初版只生成了代码和简短描述，缺少详细教学讲解、练习、项目。
 > 必须参考 Python/DS 课的质量标准，不能降低要求。生成课程时必须一步到位，不能分多次补。
 
+### 双语言练习要求（DS + Algorithms）
+
+DS 和 Algorithms 课程的 **所有练习和项目** 必须提供 Python 和 C++ 两个版本：
+- `exercise` = Python 版本（默认）
+- `exerciseCpp` = C++ 版本
+- `challenge` / `challengeCpp` 同理
+- Code Lab 项目：同一题目两个 entry（`language: "python"` 和 `language: "cpp"`）
+- UI 提供语言切换 toggle，学生可自由选择
+
+> 原因：DS 和算法是语言无关的知识，学 Python 或 C++ 的学生都需要练习。
+
 ---
 
 ## 已知问题
