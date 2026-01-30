@@ -190,7 +190,7 @@ function markdownToHtml(md: string): string {
       if (cells.every(c => /^-+$/.test(c))) return '';
       return '<tr>' + cells.map(c => `<td>${c}</td>`).join('') + '</tr>';
     })
-    .replace(/\n\n/g, '</p><p>')
+    .replace(/\n\n/g, '</p><div style="margin-top:1rem"></div><p>')
     .replace(/\n/g, '<br/>');
 
   if (!html.startsWith('<')) html = '<p>' + html + '</p>';
