@@ -5284,13 +5284,20 @@ const cpp_4_2: Lesson = {
 
 ⚡ **Volt says:** "Structs are like classes where everything is public by default. For competitive programming, structs are super common!"
 
-\`\`\`
-Python:                    C++:
-class Point:               struct Point {
-    def __init__(self,         int x;
-                 x, y):        int y;
-        self.x = x        };
+🐍 **Python:**
+\`\`\`python
+class Point:
+    def __init__(self, x, y):
+        self.x = x
         self.y = y
+\`\`\`
+
+⚡ **C++:**
+\`\`\`cpp
+struct Point {
+    int x;
+    int y;
+};
 \`\`\``,
     },
     {
@@ -6115,21 +6122,32 @@ const cpp_4_4: Lesson = {
 
 🐍 **Py says:** "Inheritance works similarly! A child class extends a parent class."
 
+🐍 **Python:**
+\`\`\`python
+class Animal:
+    def speak(self):
+        print("...")
+
+class Dog(Animal):
+    def speak(self):
+        print("Woof!")
 \`\`\`
-Python:                          C++:
-class Animal:                    class Animal {
-    def speak(self):             public:
-        print("...")                 virtual void speak() {
-                                         cout << "..." << endl;
-class Dog(Animal):                   }
-    def speak(self):             };
-        print("Woof!")           
-                                 class Dog : public Animal {
-                                 public:
-                                     void speak() override {
-                                         cout << "Woof!" << endl;
-                                     }
-                                 };
+
+⚡ **C++:**
+\`\`\`cpp
+class Animal {
+public:
+    virtual void speak() {
+        cout << "..." << endl;
+    }
+};
+
+class Dog : public Animal {
+public:
+    void speak() override {
+        cout << "Woof!" << endl;
+    }
+};
 \`\`\`
 
 ⚡ **Volt says:** "The \`virtual\` keyword enables polymorphism — calling the right method based on the actual object type, not the pointer type."`,
