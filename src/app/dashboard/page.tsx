@@ -13,6 +13,7 @@ import { isSupabaseConfigured } from "@/lib/supabase";
 import { useUserProfile, getSkillGreeting } from "@/lib/useUserProfile";
 import { SKILL_LABELS, type SkillLevel, getNextLessonId, getStartingIndex, CURRICULUM_PATH } from "@/lib/skill-store";
 import SkillQuiz from "@/components/SkillQuiz";
+import AdventureMap from "@/components/AdventureMap";
 
 function XPBar({ xp, level }: { xp: number; level: number }) {
   const info = getLevelInfo(xp);
@@ -20,20 +21,20 @@ function XPBar({ xp, level }: { xp: number; level: number }) {
   const nextLevel = LEVELS[level] || null;
 
   return (
-    <div className="rounded-xl p-6" style={{ backgroundColor: "var(--theme-card-bg)", border: "1px solid var(--theme-border)" }}>
-      <div className="flex items-center justify-between mb-3">
-        <div>
-          <div className="text-2xl font-bold">{currentLevel.name}</div>
-          <div className="text-sm" style={{ color: "var(--theme-text-secondary)" }}>Level {level}</div>
+    <div className="rounded-xl p-4" style={{ backgroundColor: "var(--theme-card-bg)", border: "1px solid var(--theme-border)" }}>
+      <div className="flex items-center justify-between mb-2">
+        <div className="flex items-center gap-2">
+          <div className="text-lg font-bold">{currentLevel.name}</div>
+          <div className="text-xs" style={{ color: "var(--theme-text-secondary)" }}>Lv.{level}</div>
         </div>
-        <div className="text-right">
-          <div className="text-2xl font-bold" style={{ color: "var(--color-primary)" }}>{xp} XP</div>
+        <div className="flex items-center gap-2">
+          <div className="text-lg font-bold" style={{ color: "var(--color-primary)" }}>{xp} XP</div>
           {nextLevel && (
-            <div className="text-xs" style={{ color: "var(--theme-text-muted)" }}>{nextLevel.xp - xp} XP to next level · 距下一级还差 {nextLevel.xp - xp} XP</div>
+            <div className="text-[10px]" style={{ color: "var(--theme-text-muted)" }}>({nextLevel.xp - xp} to next)</div>
           )}
         </div>
       </div>
-      <div className="h-3 rounded-full overflow-hidden" style={{ backgroundColor: "var(--theme-border)" }}>
+      <div className="h-2.5 rounded-full overflow-hidden" style={{ backgroundColor: "var(--theme-border)" }}>
         <motion.div
           initial={{ width: 0 }}
           animate={{ width: `${info.progressToNext * 100}%` }}
@@ -94,32 +95,26 @@ function SkillTree({ progress }: { progress: UserProgress }) {
 
 function QuickActions({ continueHref }: { continueHref: string }) {
   return (
-    <div className="space-y-4">
-      <div>
-        <h2 className="text-xl font-bold">⚡ Quick Actions</h2>
-        <p className="text-sm" style={{ color: "var(--theme-text-muted)" }}>快捷入口</p>
-      </div>
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-        {[
-          { href: continueHref, icon: "📚", label: "Continue Learning", labelCn: "继续学习" },
-          { href: "/dashboard/code-lab", icon: "💻", label: "Code Lab", labelCn: "代码实验室" },
-          { href: "/dashboard/courses", icon: "🗺️", label: "Course Map", labelCn: "课程地图" },
-          { href: "/dashboard/ai-chat", icon: "🤖", label: "Ask AI Buddy", labelCn: "问 AI 助手" },
-        ].map((action) => (
-          <Link key={action.href} href={action.href}>
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="rounded-xl p-4 text-center cursor-pointer"
-              style={{ backgroundColor: "var(--theme-card-bg)", border: "1px solid var(--theme-border)" }}
-            >
-              <div className="text-3xl mb-2">{action.icon}</div>
-              <div className="text-xs font-medium">{action.label}</div>
-              <div className="text-[10px]" style={{ color: "var(--theme-text-muted)" }}>{action.labelCn}</div>
-            </motion.div>
-          </Link>
-        ))}
-      </div>
+    <div className="grid grid-cols-4 gap-2">
+      {[
+        { href: continueHref, icon: "📚", label: "Learn", labelCn: "学习" },
+        { href: "/dashboard/code-lab", icon: "💻", label: "Code Lab", labelCn: "实验室" },
+        { href: "/dashboard/courses", icon: "🗺️", label: "Full Map", labelCn: "地图" },
+        { href: "/dashboard/ai-chat", icon: "🤖", label: "AI Buddy", labelCn: "AI 助手" },
+      ].map((action) => (
+        <Link key={action.href} href={action.href}>
+          <motion.div
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="rounded-xl p-3 text-center cursor-pointer"
+            style={{ backgroundColor: "var(--theme-card-bg)", border: "1px solid var(--theme-border)" }}
+          >
+            <div className="text-2xl mb-1">{action.icon}</div>
+            <div className="text-[11px] font-medium">{action.label}</div>
+            <div className="text-[9px]" style={{ color: "var(--theme-text-muted)" }}>{action.labelCn}</div>
+          </motion.div>
+        </Link>
+      ))}
     </div>
   );
 }
@@ -154,7 +149,6 @@ function StreakFlame({ streakDays }: { streakDays: number }) {
         <div className="font-bold text-lg">{streakDays}-Day Streak!</div>
         <div className="text-xs" style={{ color: "var(--theme-text-secondary)" }}>{message}</div>
       </div>
-      {/* Weekly dots */}
       <div className="ml-auto flex gap-1">
         {Array.from({ length: 7 }, (_, i) => (
           <div
@@ -172,21 +166,22 @@ function StreakFlame({ streakDays }: { streakDays: number }) {
   );
 }
 
-function StatsBar({ progress }: { progress: UserProgress }) {
+function StatsRow({ progress }: { progress: UserProgress }) {
+  const stats = [
+    { label: "Lessons", labelCn: "课程", value: progress.completedLessons.length, icon: "📖" },
+    { label: "Streak", labelCn: "连续", value: `${progress.streakDays}d`, icon: "🔥" },
+    { label: "Runs", labelCn: "运行", value: progress.codeRunCount, icon: "▶️" },
+    { label: "Coins", labelCn: "金币", value: getCoinState().coins, icon: "🪙" },
+    { label: "Badges", labelCn: "徽章", value: progress.earnedBadges.length, icon: "🏅" },
+  ];
+
   return (
-    <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-      {[
-        { label: "Lessons Done", labelCn: "已完成课程", value: progress.completedLessons.length, icon: "📖" },
-        { label: "Streak", labelCn: "连续天数", value: `${progress.streakDays} days`, icon: "🔥" },
-        { label: "Code Runs", labelCn: "运行次数", value: progress.codeRunCount, icon: "▶️" },
-        { label: "Coins", labelCn: "金币", value: getCoinState().coins, icon: "🪙" },
-        { label: "Badges", labelCn: "徽章", value: progress.earnedBadges.length, icon: "🏅" },
-      ].map((stat) => (
-        <div key={stat.label} className="rounded-lg p-4 text-center" style={{ backgroundColor: "var(--theme-card-bg)", border: "1px solid var(--theme-border)" }}>
-          <div className="text-2xl mb-1">{stat.icon}</div>
-          <div className="text-xl font-bold">{stat.value}</div>
-          <div className="text-xs" style={{ color: "var(--theme-text-secondary)" }}>{stat.label}</div>
-          <div className="text-[10px]" style={{ color: "var(--theme-text-muted)" }}>{stat.labelCn}</div>
+    <div className="grid grid-cols-5 gap-2">
+      {stats.map((stat) => (
+        <div key={stat.label} className="rounded-lg p-3 text-center" style={{ backgroundColor: "var(--theme-card-bg)", border: "1px solid var(--theme-border)" }}>
+          <div className="text-lg">{stat.icon}</div>
+          <div className="text-base font-bold">{stat.value}</div>
+          <div className="text-[10px]" style={{ color: "var(--theme-text-secondary)" }}>{stat.label}</div>
         </div>
       ))}
     </div>
@@ -200,7 +195,6 @@ export default function DashboardPage() {
 
   useEffect(() => {
     async function load() {
-      // Load cloud data first (merge into localStorage), then load progress
       if (isSupabaseConfigured) {
         try {
           const cloudData = await loadAllFromCloud();
@@ -231,7 +225,6 @@ export default function DashboardPage() {
   const greeting = getSkillGreeting(skillLevel);
   const skillLabel = skillLevel ? SKILL_LABELS[skillLevel] : null;
 
-  // One path, different starting points
   const effectiveSkill: SkillLevel = skillLevel || "beginner";
   const startIdx = getStartingIndex(effectiveSkill);
   const nextLessonId = getNextLessonId(effectiveSkill, progress.completedLessons);
@@ -240,24 +233,48 @@ export default function DashboardPage() {
     ? `/dashboard/lessons/${lastLesson}`
     : `/dashboard/lessons/${nextLessonId}`;
 
-  // Recommended: next incomplete lessons from starting point onward
   const recommendedLessons = CURRICULUM_PATH
     .slice(startIdx)
     .map((id) => LESSONS.find((l) => l.id === id)!)
     .filter((l) => l && !progress.completedLessons.includes(l.id))
     .slice(0, 4);
 
+  const continueLesson = lastLesson ? LESSONS.find(l => l.id === lastLesson) : null;
+
   return (
-    <div className="p-6 md:p-8 max-w-7xl mx-auto space-y-8">
-      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-        <h1 className="text-3xl font-bold mb-1">
-          {greeting.en} {displayName}! {userAvatar}
-        </h1>
-        <p style={{ color: "var(--theme-text-secondary)" }}>{greeting.cn}</p>
-        {skillLabel && (
-          <p className="text-sm" style={{ color: "var(--theme-text-muted)" }}>
-            {skillLabel.emoji} {skillLabel.en} · {skillLabel.cn} · 准备好升级了吗？
-          </p>
+    <div className="p-4 md:p-8 max-w-7xl mx-auto space-y-5">
+      {/* Top: Greeting + Continue Learning (compact, same row) */}
+      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+        <div>
+          <h1 className="text-2xl font-bold">
+            {greeting.en} {displayName}! {userAvatar}
+          </h1>
+          <p className="text-sm" style={{ color: "var(--theme-text-secondary)" }}>{greeting.cn}</p>
+          {skillLabel && (
+            <p className="text-xs" style={{ color: "var(--theme-text-muted)" }}>
+              {skillLabel.emoji} {skillLabel.en} · {skillLabel.cn}
+            </p>
+          )}
+        </div>
+        {continueLesson && (
+          <a href={continueHref}>
+            <motion.div
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.97 }}
+              className="rounded-xl px-5 py-3 flex items-center gap-3 shrink-0"
+              style={{
+                background: "linear-gradient(135deg, color-mix(in srgb, var(--color-primary) 15%, var(--theme-card-bg)), color-mix(in srgb, var(--color-primary-light, var(--color-primary)) 10%, var(--theme-card-bg)))",
+                border: "1px solid color-mix(in srgb, var(--color-primary) 30%, transparent)",
+              }}
+            >
+              <span className="text-2xl">{continueLesson.icon}</span>
+              <div className="min-w-0">
+                <div className="text-[10px] font-semibold" style={{ color: "var(--color-primary)" }}>▶ Continue · 继续</div>
+                <div className="text-sm font-bold truncate max-w-[200px]">{continueLesson.title}</div>
+              </div>
+              <span className="text-xl">→</span>
+            </motion.div>
+          </a>
         )}
       </motion.div>
 
@@ -268,53 +285,40 @@ export default function DashboardPage() {
         </motion.div>
       )}
 
-      {/* Continue Learning */}
-      {lastLesson && (() => {
-        const lesson = LESSONS.find(l => l.id === lastLesson);
-        return lesson ? (
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.08 }}>
-            <a href={continueHref} className="block">
-              <motion.div
-                whileHover={{ scale: 1.01 }}
-                className="rounded-xl p-5 flex items-center gap-4"
-                style={{
-                  background: "linear-gradient(135deg, color-mix(in srgb, var(--color-primary) 12%, var(--theme-card-bg)), color-mix(in srgb, var(--color-primary-light, var(--color-primary)) 8%, var(--theme-card-bg)))",
-                  border: "1px solid color-mix(in srgb, var(--color-primary) 25%, transparent)",
-                }}
-              >
-                <span className="text-4xl">{lesson.icon}</span>
-                <div className="flex-1 min-w-0">
-                  <div className="text-xs font-semibold" style={{ color: "var(--color-primary)" }}>
-                    ▶ Continue Learning · 继续学习
-                  </div>
-                  <div className="font-bold truncate">{lesson.title}</div>
-                  <div className="text-xs truncate" style={{ color: "var(--theme-text-secondary)" }}>{lesson.subtitle}</div>
-                </div>
-                <span className="text-2xl">→</span>
-              </motion.div>
-            </a>
-          </motion.div>
-        ) : null;
-      })()}
-
+      {/* 🗺️ Adventure Map — Hero Element */}
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
+        <div className="space-y-2">
+          <div className="flex items-center justify-between">
+            <div>
+              <h2 className="text-lg font-bold">🗺️ World of Code</h2>
+              <p className="text-xs" style={{ color: "var(--theme-text-muted)" }}>代码世界冒险地图 — 点击探索！</p>
+            </div>
+            <Link href="/dashboard/courses" className="text-xs px-3 py-1 rounded-full" style={{ backgroundColor: "color-mix(in srgb, var(--color-primary) 12%, transparent)", color: "var(--color-primary)" }}>
+              Full Screen · 全屏 →
+            </Link>
+          </div>
+          <AdventureMap progress={progress} />
+        </div>
+      </motion.div>
+
+      {/* Stats Row: XP bar + stats compact */}
+      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="space-y-3">
         <XPBar xp={progress.xp} level={progress.level} />
+        <StatsRow progress={progress} />
       </motion.div>
 
-      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
-        <StatsBar progress={progress} />
-      </motion.div>
-
+      {/* Quick Actions — compact single row */}
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}>
         <QuickActions continueHref={continueHref} />
       </motion.div>
 
+      {/* Recommended Lessons */}
       {recommendedLessons.length > 0 && (
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.35 }}>
-          <div className="space-y-4">
+          <div className="space-y-3">
             <div>
-              <h2 className="text-xl font-bold">🎯 Your Next Lessons {skillLabel ? skillLabel.emoji : ""}</h2>
-              <p className="text-sm" style={{ color: "var(--theme-text-muted)" }}>接下来的课程</p>
+              <h2 className="text-lg font-bold">🎯 Your Next Lessons {skillLabel ? skillLabel.emoji : ""}</h2>
+              <p className="text-xs" style={{ color: "var(--theme-text-muted)" }}>接下来的课程</p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               {recommendedLessons.map((lesson) => (
@@ -342,44 +346,9 @@ export default function DashboardPage() {
         </motion.div>
       )}
 
+      {/* Skill Tree */}
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }}>
         <SkillTree progress={progress} />
-      </motion.div>
-
-      {/* Course Map Teaser */}
-      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }}>
-        <div className="space-y-4">
-          <div>
-            <h2 className="text-xl font-bold">🗺️ Course Map</h2>
-            <p className="text-sm" style={{ color: "var(--theme-text-muted)" }}>课程地图 — 更多学习路径即将开放！</p>
-          </div>
-          <Link href="/dashboard/courses">
-            <motion.div
-              whileHover={{ scale: 1.02 }}
-              className="rounded-xl p-5 cursor-pointer"
-              style={{
-                background: "linear-gradient(135deg, rgba(34,197,94,0.1), rgba(59,130,246,0.1), rgba(168,85,247,0.1))",
-                border: "1px solid var(--theme-border)",
-              }}
-            >
-              <div className="flex items-center gap-4 flex-wrap">
-                <div className="flex -space-x-2 text-3xl">
-                  <span>🐍</span><span>📦</span><span>⚡</span><span>🤖</span><span>🌐</span>
-                </div>
-                <div className="flex-1 min-w-0">
-                  <div className="font-bold">11 Tracks · 200+ Lessons Planned</div>
-                  <div className="text-sm" style={{ color: "var(--theme-text-secondary)" }}>
-                    Python → Data Structures → Algorithms → AI/ML → and more!
-                  </div>
-                  <div className="text-xs" style={{ color: "var(--theme-text-muted)" }}>
-                    从 Python 到人工智能，完整的计算机科学学习路径 🚀
-                  </div>
-                </div>
-                <span className="text-2xl">→</span>
-              </div>
-            </motion.div>
-          </Link>
-        </div>
       </motion.div>
     </div>
   );
