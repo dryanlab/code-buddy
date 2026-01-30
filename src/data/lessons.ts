@@ -2416,7 +2416,7 @@ pattern_height = int(input("🔢 How tall should your pattern be (1-10)? "))
 pattern_char = input("✨ What character/emoji to use? ")
 pattern_type = input("📐 Pattern type (square/triangle/diamond)? ").lower()
 
-print(f"\n🎨 Creating your {pattern_type} pattern with {pattern_char}!")
+print(f"\\n🎨 Creating your {pattern_type} pattern with {pattern_char}!")
 print("-" * 30)
 
 if pattern_type == "square":
@@ -2456,7 +2456,7 @@ elif pattern_type == "diamond":
 else:
     print("🤔 I don't know that pattern yet! Try square, triangle, or diamond.")
 
-print(f"\n🎉 Your custom {pattern_type} pattern is complete!")
+print(f"\\n🎉 Your custom {pattern_type} pattern is complete!")
 print("🔧 You just used nested loops like a pro programmer!")
 
 # 🐍 Py: "You're thinking like a computer graphics programmer now!"`,
@@ -2623,7 +2623,7 @@ print("═" * 42)
 secret_message = input("🤫 Enter your secret message: ").upper()
 shift = int(input("🔢 Enter shift amount (1-25): "))
 
-print(f"\n🔒 Encrypting '{secret_message}' with Caesar cipher...")
+print(f"\\n🔒 Encrypting '{secret_message}' with Caesar cipher...")
 print("=" * 40)
 
 # Encrypt the message!
@@ -2647,7 +2647,7 @@ for letter in secret_message:
         encrypted += letter
         print(f"💭 '{letter}' → '{letter}' (unchanged)")
 
-print(f"\n🔐 ENCRYPTED MESSAGE: {encrypted}")
+print(f"\\n🔐 ENCRYPTED MESSAGE: {encrypted}")
 print(f"🎯 Original: {secret_message}")
 print(f"✨ Encrypted: {encrypted}")
 
@@ -2682,7 +2682,7 @@ for i, (encrypted, shift, method) in enumerate(secret_messages):
 print("\\n🔍 Attempting to decode...")
 
 for i, (encrypted_msg, shift, method) in enumerate(secret_messages):
-    print(f"\n📨 Decoding Message {i+1}: {encrypted_msg}")
+    print(f"\\n📨 Decoding Message {i+1}: {encrypted_msg}")
     
     # Decode by shifting BACKWARD
     decoded = ""
@@ -2712,7 +2712,7 @@ for letter in user_encrypted:
     else:
         decoded_message += letter
 
-print(f"\n✨ YOUR DECODED MESSAGE: {decoded_message}")
+print(f"\\n✨ YOUR DECODED MESSAGE: {decoded_message}")
 
 # Real-world connection
 print("\\n🌐 REAL WORLD CONNECTION:")
@@ -2735,7 +2735,7 @@ print("=" * 40)
 # Get user's text
 text = input("✨ Enter text to transform: ")
 
-print(f"\n🎨 Creating art from: '{text}'")
+print(f"\\n🎨 Creating art from: '{text}'")
 print("-" * 30)
 
 # Transformation 1: Mirror Text
@@ -2787,7 +2787,7 @@ else:
     print(f"Sorry, I only know how to draw A, B, and C in big letters!")
     print(f"But {text[0]} is still awesome! ✨")
 
-print(f"\n🎉 String art complete for '{text}'!")
+print(f"\\n🎉 String art complete for '{text}'!")
 
 # 🐍 Py: "String manipulation is the foundation of all text processing!"`,
       },
@@ -2959,19 +2959,19 @@ choices = {
 
 choice_list = ['rock', 'paper', 'scissors']
 
-print(f"\n🎯 Championship Rules:")
+print(f"\\n🎯 Championship Rules:")
 print("🏅 First to 3 wins becomes champion!")
 print("💫 Type your choice or 'quit' to exit")
 print("🎨 Available moves: rock, paper, scissors")
 
 # Main game loop!
 while True:
-    print(f"\n📊 SCOREBOARD:")
+    print(f"\\n📊 SCOREBOARD:")
     print(f"🏆 {player_name}: {player_wins} | 🤖 Computer: {computer_wins} | 🤝 Ties: {ties}")
     
     # Check for championship victory!
     if player_wins == 3:
-        print(f"\n🎉 CHAMPIONSHIP VICTORY! {player_name} wins!")
+        print(f"\\n🎉 CHAMPIONSHIP VICTORY! {player_name} wins!")
         print("🏆 You are the ULTIMATE CHAMPION!")
         break
     elif computer_wins == 3:
@@ -2980,7 +2980,7 @@ while True:
         break
     
     # Get player choice
-    player_choice = input(f"\n🎯 Round {len(game_history) + 1} - Your move: ").lower()
+    player_choice = input(f"\\n🎯 Round {len(game_history) + 1} - Your move: ").lower()
     
     if player_choice == 'quit':
         print("👋 Thanks for playing! See you in the arena!")
@@ -2993,7 +2993,7 @@ while True:
     # Computer makes its choice
     computer_choice = random.choice(choice_list)
     
-    print(f"\n⚔️ BATTLE!")
+    print(f"\\n⚔️ BATTLE!")
     print(f"👤 {player_name}: {choices[player_choice]} {player_choice}")
     print(f"🤖 Computer: {choices[computer_choice]} {computer_choice}")
     
@@ -3025,14 +3025,14 @@ while True:
     game_history.append(battle_record)
 
 # Final championship ceremony!
-print(f"\n🎪 CHAMPIONSHIP CEREMONY!")
+print(f"\\n🎪 CHAMPIONSHIP CEREMONY!")
 print("=" * 30)
 print(f"🏆 Final Score: {player_name} {player_wins} - {computer_wins} Computer")
 print(f"📊 Total rounds: {len(game_history)}")
 print(f"🤝 Ties: {ties}")
 
 if len(game_history) > 0:
-    print(f"\n📚 BATTLE HISTORY:")
+    print(f"\\n📚 BATTLE HISTORY:")
     for battle in game_history:
         print(f"Round {battle['round']}: {choices[battle['player']]} vs {choices[battle['computer']]} → {battle['result']}")
 
@@ -3093,13 +3093,13 @@ print("🎪 Welcome to Tournament Mode!")
 player_name = input("🏅 Enter your tournament name: ")
 
 while True:
-    print(f"\n📈 LIFETIME STATISTICS:")
+    print(f"\\n📈 LIFETIME STATISTICS:")
     print(f"🎮 Games played: {total_games}")
     print(f"📊 Win rate: {calculate_win_rate()}%")
     print(f"🔥 Current streak: {win_streak}")
     print(f"🏆 Best streak: {best_streak}")
     
-    play_again = input("\n🎯 Play a round? (yes/no): ").lower()
+    play_again = input("\\n🎯 Play a round? (yes/no): ").lower()
     if play_again != 'yes':
         break
     
@@ -3140,7 +3140,7 @@ while True:
         win_streak = 0
 
 # Final tournament report
-print(f"\n🏆 TOURNAMENT COMPLETE!")
+print(f"\\n🏆 TOURNAMENT COMPLETE!")
 print(f"👤 {player_name}'s Final Stats:")
 print(f"🎮 Total games: {total_games}")
 print(f"🏅 Wins: {lifetime_wins}")
@@ -3491,7 +3491,7 @@ create_art_gallery()
 
 # Use return value from function!
 final_score = calculate_art_score(3, 10)
-print(f"\n🏅 Your art scored {final_score} points!")
+print(f"\\n🏅 Your art scored {final_score} points!")
 
 if final_score > 800:
     print("🥇 MASTER ARTIST! You're a function genius!")
@@ -3546,7 +3546,7 @@ def calculate_circle_area(radius):
 # BUILDING BLOCK: Comparison function
 def compare_areas(area1, area2, shape1, shape2):
     """Compare two areas and announce the winner!"""
-    print(f"\n🥊 AREA SHOWDOWN!")
+    print(f"\\n🥊 AREA SHOWDOWN!")
     print(f"🔵 {shape1} area: {area1}")
     print(f"🔴 {shape2} area: {area2}")
     
@@ -3584,7 +3584,7 @@ winner = compare_areas(rectangle_area, circle_area, "Rectangle", "Circle")
 # BUILDING BLOCK: Report generator function
 def generate_report(rect_area, circ_area, winner):
     """Generate a final report using all our calculations!"""
-    print(f"\n📊 CALCULATION REPORT:")
+    print(f"\\n📊 CALCULATION REPORT:")
     print(f"📐 Rectangle area: {rect_area}")
     print(f"⭕ Circle area: {circ_area:.2f}")
     print(f"🏆 Area champion: {winner}")
@@ -3597,7 +3597,7 @@ def generate_report(rect_area, circ_area, winner):
 # Generate final report
 total = generate_report(rectangle_area, circle_area, winner)
 
-print(f"\n🎉 Calculator complete! Total area processed: {total:.2f}")
+print(f"\\n🎉 Calculator complete! Total area processed: {total:.2f}")
 
 # 🔧 Chip: "Calculators and computers use functions exactly like this!"
 # 🤖 Botty: "AI math models are just millions of functions like these!"`,
@@ -3825,7 +3825,7 @@ def display_agent_profile(codename):
     """Display classified agent information"""
     if codename in agent_database:
         agent = agent_database[codename]
-        print(f"\n🔍 AGENT PROFILE: {agent['codename']}")
+        print(f"\\n🔍 AGENT PROFILE: {agent['codename']}")
         print("=" * 30)
         print(f"👤 Real Name: {agent['real_name']}")
         print(f"🎖️ Rank: {agent['rank']}")
@@ -3936,7 +3936,7 @@ def find_suitable_agents(mission_key):
     mission = missions[mission_key]
     suitable_agents = []
     
-    print(f"\n🎯 ANALYZING: {mission['mission_name']}")
+    print(f"\\n🎯 ANALYZING: {mission['mission_name']}")
     print(f"📍 Location: {mission['location']}")
     print(f"🔒 Required Clearance: Level {mission['required_clearance']}")
     print(f"💼 Required Skills: {', '.join(mission['required_specialties'])}")
@@ -3988,7 +3988,7 @@ def assign_mission(agent_code, mission_key):
     agents[agent_code]['status'] = 'On Mission'
     agents[agent_code]['current_mission'] = mission_key
     
-    print(f"\n📋 MISSION ASSIGNED!")
+    print(f"\\n📋 MISSION ASSIGNED!")
     print(f"🕵️ Agent: {agent_name}")
     print(f"🎯 Mission: {mission_name}")
     print(f"⏰ Deadline: {missions[mission_key]['deadline']}")
@@ -4009,7 +4009,7 @@ for mission_key in missions:
         print(f"⚠️ No suitable agents found for {missions[mission_key]['mission_name']}")
 
 # Final status report
-print(f"\n📊 FINAL STATUS REPORT:")
+print(f"\\n📊 FINAL STATUS REPORT:")
 print("AGENT STATUS:")
 for agent_code, agent_data in agents.items():
     print(f"🕵️ Agent {agent_code}: {agent_data['status']}")
