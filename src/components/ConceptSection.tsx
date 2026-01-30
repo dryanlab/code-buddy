@@ -91,11 +91,11 @@ function CodeAnatomyComponent({ anatomy }: { anatomy: CodeAnatomy }) {
                 <motion.div
                   initial={{ opacity: 0, x: -10 }}
                   animate={{ opacity: 1, x: 0 }}
-                  className="mt-1 ml-4 text-cyan-300 text-xs"
+                  className="mt-1 ml-4 text-cyan-300 text-xs whitespace-normal break-words"
                 >
-                  💡 {line.explanation}
+                  <span className="block">💡 {line.explanation}</span>
                   {line.explanationZh && (
-                    <span className="text-[var(--theme-text-secondary)] ml-2">· {line.explanationZh}</span>
+                    <span className="block text-[var(--theme-text-secondary)] mt-0.5">· {line.explanationZh}</span>
                   )}
                 </motion.div>
               )}
