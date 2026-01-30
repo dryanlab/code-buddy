@@ -4640,7 +4640,7 @@ while True:
           ],
           codeAnatomy: {
             lines: [
-              { code: "try:", explanation: "Start the 'protected' zone — code that might fail.", explanationZh: "开始"保护区" — 可能失败的代码" },
+              { code: "try:", explanation: "Start the 'protected' zone — code that might fail.", explanationZh: "开始「保护区」— 可能失败的代码" },
               { code: "    age = int(input('Age: '))", explanation: "This could crash if user types 'hello' instead of a number!", explanationZh: "如果用户输入 'hello' 而不是数字就会崩溃！" },
               { code: "    print(f'You are {age}')", explanation: "Only runs if the conversion worked.", explanationZh: "只有转换成功才会执行" },
               { code: "except ValueError:", explanation: "Catch the ValueError (bad number conversion).", explanationZh: "捕获 ValueError（数字转换失败）" },
@@ -4935,6 +4935,59 @@ while True:
 **🤖 Botty:** "Randomness powers AI learning and decision making!"`,
       },
       {
+        type: "concept",
+        emoji: "📖",
+        content: "New Syntax: Probability & Simulation",
+        concept: {
+          title: "🎲 New Syntax: Probability & Simulation",
+          titleZh: "新语法：概率与模拟",
+          syntaxCards: [
+            {
+              symbol: "random.randint(a, b)",
+              name: "Random Integer",
+              nameZh: "随机整数",
+              emoji: "🎯",
+              description: "Like rolling a custom dice 🎲 — gives a random whole number between a and b (inclusive)!",
+              example: "import random\ndice = random.randint(1, 6)  # 1-6",
+            },
+            {
+              symbol: "random.random()",
+              name: "Random Float (0-1)",
+              nameZh: "随机小数（0-1）",
+              emoji: "🌡️",
+              description: "Like a probability meter 🌡️ — returns a decimal between 0.0 and 1.0. Great for simulating chance!",
+              example: "if random.random() < 0.3:\n    print('30% chance event!')  ",
+            },
+            {
+              symbol: "random.shuffle(list)",
+              name: "Shuffle (mix up)",
+              nameZh: "洗牌（打乱）",
+              emoji: "🃏",
+              description: "Like shuffling a deck of cards 🃏 — randomly rearranges all items in a list!",
+              example: "cards = [1,2,3,4,5]\nrandom.shuffle(cards)\n# cards is now in random order",
+            },
+            {
+              symbol: "for trial in range(n):",
+              name: "Monte Carlo Simulation",
+              nameZh: "蒙特卡洛模拟",
+              emoji: "🔬",
+              description: "Run an experiment thousands of times 🔬 to discover probabilities! Like flipping a coin 10,000 times.",
+              example: "heads = 0\nfor _ in range(10000):\n    if random.random() < 0.5:\n        heads += 1",
+            },
+          ],
+          codeAnatomy: {
+            lines: [
+              { code: "import random", explanation: "Import the random module for all randomness tools.", explanationZh: "导入 random 模块获取所有随机工具" },
+              { code: "results = []", explanation: "Empty list to collect our experiment results.", explanationZh: "空列表收集实验结果" },
+              { code: "for trial in range(1000):", explanation: "Run the experiment 1000 times!", explanationZh: "实验运行 1000 次！" },
+              { code: "    roll = random.randint(1, 6)", explanation: "Simulate rolling a 6-sided die.", explanationZh: "模拟掷一个 6 面骰子" },
+              { code: "    results.append(roll)", explanation: "Record each result.", explanationZh: "记录每次结果" },
+              { code: "print(f'Average: {sum(results)/len(results):.2f}')", explanation: "Calculate average — should be close to 3.5!", explanationZh: "计算平均值 — 应该接近 3.5！" },
+            ],
+          },
+        },
+      },
+      {
         type: "quiz",
         content: "🎲 Random World Quiz!",
         quiz: [
@@ -4968,6 +5021,60 @@ while True:
         content: `## 🚀 Programming Physics
 
 **🔧 Chip:** "The same formulas that control rockets can be programmed!"`,
+      },
+      {
+        type: "concept",
+        emoji: "📖",
+        content: "New Syntax: Math Formulas in Code",
+        concept: {
+          title: "🚀 New Syntax: Math Formulas in Code",
+          titleZh: "新语法：代码中的数学公式",
+          syntaxCards: [
+            {
+              symbol: "** (power)",
+              name: "Exponentiation",
+              nameZh: "乘方运算",
+              emoji: "⚡",
+              description: "Like a power-up ⚡ — raises a number to a power. 2**3 = 2³ = 8!",
+              example: "velocity = speed ** 2\narea = 3.14 * radius ** 2",
+            },
+            {
+              symbol: "math.sqrt(x)",
+              name: "Square Root",
+              nameZh: "平方根",
+              emoji: "√",
+              description: "The reverse of squaring ↩️ — what number times itself gives x?",
+              example: "import math\nprint(math.sqrt(144))  # 12.0",
+            },
+            {
+              symbol: "dt (time step)",
+              name: "Simulation Time Step",
+              nameZh: "模拟时间步",
+              emoji: "⏱️",
+              description: "The heartbeat of a simulation ⏱️ — a small time interval that gets repeated to simulate motion over time.",
+              example: "dt = 0.1  # 0.1 seconds per step\nfor t in range(100):\n    y = y + velocity * dt",
+            },
+            {
+              symbol: "round(value, digits)",
+              name: "Round Numbers",
+              nameZh: "四舍五入",
+              emoji: "🔵",
+              description: "Clean up messy decimals 🧹 — round to a specific number of decimal places.",
+              example: "print(round(3.14159, 2))  # 3.14",
+            },
+          ],
+          codeAnatomy: {
+            lines: [
+              { code: "g = 9.8  # gravity (m/s²)", explanation: "Define gravity constant — acceleration due to gravity.", explanationZh: "定义重力常数 — 重力加速度" },
+              { code: "velocity = 0", explanation: "Object starts at rest.", explanationZh: "物体从静止开始" },
+              { code: "height = 100", explanation: "Drop from 100 meters.", explanationZh: "从 100 米高处下落" },
+              { code: "dt = 0.1", explanation: "Simulate in 0.1-second steps.", explanationZh: "以 0.1 秒为步长模拟" },
+              { code: "while height > 0:", explanation: "Keep simulating until it hits the ground.", explanationZh: "持续模拟直到落地" },
+              { code: "    velocity += g * dt", explanation: "Physics formula: v = v + g×Δt.", explanationZh: "物理公式：v = v + g×Δt" },
+              { code: "    height -= velocity * dt", explanation: "Update position: h = h - v×Δt.", explanationZh: "更新位置：h = h - v×Δt" },
+            ],
+          },
+        },
       },
       {
         type: "quiz",
@@ -5005,6 +5112,58 @@ while True:
 **🤖 Botty:** "This is how AI finds patterns — by analyzing lots of data!"`,
       },
       {
+        type: "concept",
+        emoji: "📖",
+        content: "New Syntax: Data Analysis Patterns",
+        concept: {
+          title: "🔍 New Syntax: Data Analysis Patterns",
+          titleZh: "新语法：数据分析模式",
+          syntaxCards: [
+            {
+              symbol: "sorted(data)",
+              name: "Sort Data",
+              nameZh: "排序数据",
+              emoji: "📈",
+              description: "Like lining up by height 📏 — arranges items from smallest to largest (or alphabetically).",
+              example: "sorted([3,1,2])  # [1,2,3]\nsorted(names)     # alphabetical",
+            },
+            {
+              symbol: "dict comprehension",
+              name: "Count Frequencies",
+              nameZh: "统计频率",
+              emoji: "📊",
+              description: "Like tallying votes 📊 — count how many times each item appears in your data!",
+              example: "counts = {}\nfor item in data:\n    counts[item] = counts.get(item, 0) + 1",
+            },
+            {
+              symbol: ".get(key, default)",
+              name: "Safe Dictionary Access",
+              nameZh: "安全字典访问",
+              emoji: "🛡️",
+              description: "A safer key lookup 🛡️ — returns a default value instead of crashing if the key doesn't exist!",
+              example: "counts.get('apple', 0)  # 0 if no 'apple'",
+            },
+            {
+              symbol: "list comprehension",
+              name: "List Comprehension",
+              nameZh: "列表推导式",
+              emoji: "⚡",
+              description: "Build a list in ONE line ⚡ — a shortcut for creating lists with a loop and optional filter!",
+              example: "evens = [x for x in data if x % 2 == 0]\ndoubled = [x*2 for x in data]",
+            },
+          ],
+          codeAnatomy: {
+            lines: [
+              { code: "data = [85, 92, 78, 95, 88, 72, 91]", explanation: "Our dataset — student test scores.", explanationZh: "我们的数据集 — 学生考试成绩" },
+              { code: "average = sum(data) / len(data)", explanation: "Calculate the mean (average) score.", explanationZh: "计算平均分" },
+              { code: "sorted_data = sorted(data)", explanation: "Sort from lowest to highest.", explanationZh: "从低到高排序" },
+              { code: "median = sorted_data[len(data) // 2]", explanation: "Middle value = median (after sorting).", explanationZh: "排序后的中间值 = 中位数" },
+              { code: "above_avg = [x for x in data if x > average]", explanation: "List comprehension: filter scores above average.", explanationZh: "列表推导式：筛选高于平均分的成绩" },
+            ],
+          },
+        },
+      },
+      {
         type: "quiz",
         content: "🔍 Data Detective Quiz!",
         quiz: [
@@ -5038,6 +5197,58 @@ while True:
         content: `## 🔐 Secret Codes and Security
 
 **🔧 Chip:** "Every secure website uses cryptography to protect your data!"`,
+      },
+      {
+        type: "concept",
+        emoji: "📖",
+        content: "New Syntax: Advanced String & Crypto Patterns",
+        concept: {
+          title: "🔐 New Syntax: Advanced String & Crypto Patterns",
+          titleZh: "新语法：高级字符串与加密模式",
+          syntaxCards: [
+            {
+              symbol: "hashlib.sha256()",
+              name: "Hash Function",
+              nameZh: "哈希函数",
+              emoji: "🔒",
+              description: "A one-way shredder 🔒 — turns ANY text into a fixed-length code. You can't reverse it! Used for password storage.",
+              example: "import hashlib\nh = hashlib.sha256(b'hello')\nprint(h.hexdigest())",
+            },
+            {
+              symbol: ".encode() / .decode()",
+              name: "Encode/Decode Bytes",
+              nameZh: "编码/解码字节",
+              emoji: "🔄",
+              description: "Like translating between languages 🌐 — converts text to bytes and back. Required for crypto functions!",
+              example: "text = 'hello'\nbytes_data = text.encode('utf-8')\nback = bytes_data.decode('utf-8')",
+            },
+            {
+              symbol: "zip(list1, list2)",
+              name: "Zip (pair up)",
+              nameZh: "配对",
+              emoji: "🤝",
+              description: "Like a zipper 🤐 — pairs up items from two lists side by side!",
+              example: "keys = ['a','b','c']\nvals = [1, 2, 3]\nfor k, v in zip(keys, vals):\n    print(k, v)",
+            },
+            {
+              symbol: "XOR (^)",
+              name: "XOR Bitwise Operator",
+              nameZh: "异或位运算",
+              emoji: "⚡",
+              description: "The toggle switch ⚡ — XOR flips bits. Apply it twice and you get the original back! The basis of real encryption.",
+              example: "encrypted = ord('A') ^ 42  # Encrypt\noriginal = encrypted ^ 42   # Decrypt!",
+            },
+          ],
+          codeAnatomy: {
+            lines: [
+              { code: "import hashlib", explanation: "Import the hashing library for security functions.", explanationZh: "导入哈希库用于安全功能" },
+              { code: "password = 'secret123'", explanation: "The password we want to protect.", explanationZh: "我们要保护的密码" },
+              { code: "hashed = hashlib.sha256(password.encode())", explanation: "Hash the password — converts to unreadable code.", explanationZh: "哈希密码 — 转换为不可读的代码" },
+              { code: "print(hashed.hexdigest())", explanation: "Print the 64-character hex hash.", explanationZh: "打印 64 字符的十六进制哈希" },
+              { code: "# You can't reverse a hash!", explanation: "One-way only — that's what makes it secure!", explanationZh: "单向不可逆 — 这就是安全的关键！" },
+            ],
+          },
+        },
       },
       {
         type: "quiz",
