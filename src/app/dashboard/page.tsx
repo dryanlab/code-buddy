@@ -103,7 +103,7 @@ function QuickActions({ continueHref }: { continueHref: string }) {
         {[
           { href: continueHref, icon: "📚", label: "Continue Learning", labelCn: "继续学习" },
           { href: "/dashboard/code-lab", icon: "💻", label: "Code Lab", labelCn: "代码实验室" },
-          { href: "/dashboard/explore", icon: "🔬", label: "Explore CS", labelCn: "计算机探秘" },
+          { href: "/dashboard/courses", icon: "🗺️", label: "Course Map", labelCn: "课程地图" },
           { href: "/dashboard/ai-chat", icon: "🤖", label: "Ask AI Buddy", labelCn: "问 AI 助手" },
         ].map((action) => (
           <Link key={action.href} href={action.href}>
@@ -121,6 +121,54 @@ function QuickActions({ continueHref }: { continueHref: string }) {
         ))}
       </div>
     </div>
+  );
+}
+
+function StreakFlame({ streakDays }: { streakDays: number }) {
+  if (streakDays === 0) return null;
+  const flames = streakDays >= 7 ? "🔥🔥🔥" : streakDays >= 3 ? "🔥🔥" : "🔥";
+  const message = streakDays >= 7
+    ? "On fire! Keep going! · 火力全开！继续！"
+    : streakDays >= 3
+    ? "Great streak! · 连续学习中！"
+    : "Keep it up! · 继续加油！";
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, scale: 0.9 }}
+      animate={{ opacity: 1, scale: 1 }}
+      className="rounded-xl p-4 flex items-center gap-4"
+      style={{
+        background: `linear-gradient(135deg, rgba(249,115,22,0.15), rgba(239,68,68,0.1))`,
+        border: "1px solid rgba(249,115,22,0.3)",
+      }}
+    >
+      <motion.div
+        animate={{ scale: [1, 1.15, 1] }}
+        transition={{ repeat: Infinity, duration: 1.5 }}
+        className="text-4xl"
+      >
+        {flames}
+      </motion.div>
+      <div>
+        <div className="font-bold text-lg">{streakDays}-Day Streak!</div>
+        <div className="text-xs" style={{ color: "var(--theme-text-secondary)" }}>{message}</div>
+      </div>
+      {/* Weekly dots */}
+      <div className="ml-auto flex gap-1">
+        {Array.from({ length: 7 }, (_, i) => (
+          <div
+            key={i}
+            className="w-3 h-3 rounded-full"
+            style={{
+              backgroundColor: i < streakDays
+                ? "rgba(249,115,22,0.8)"
+                : "var(--theme-border)",
+            }}
+          />
+        ))}
+      </div>
+    </motion.div>
   );
 }
 
@@ -213,6 +261,42 @@ export default function DashboardPage() {
         )}
       </motion.div>
 
+      {/* Streak Flame */}
+      {progress.streakDays > 0 && (
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.05 }}>
+          <StreakFlame streakDays={progress.streakDays} />
+        </motion.div>
+      )}
+
+      {/* Continue Learning */}
+      {lastLesson && (() => {
+        const lesson = LESSONS.find(l => l.id === lastLesson);
+        return lesson ? (
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.08 }}>
+            <a href={continueHref} className="block">
+              <motion.div
+                whileHover={{ scale: 1.01 }}
+                className="rounded-xl p-5 flex items-center gap-4"
+                style={{
+                  background: "linear-gradient(135deg, color-mix(in srgb, var(--color-primary) 12%, var(--theme-card-bg)), color-mix(in srgb, var(--color-primary-light, var(--color-primary)) 8%, var(--theme-card-bg)))",
+                  border: "1px solid color-mix(in srgb, var(--color-primary) 25%, transparent)",
+                }}
+              >
+                <span className="text-4xl">{lesson.icon}</span>
+                <div className="flex-1 min-w-0">
+                  <div className="text-xs font-semibold" style={{ color: "var(--color-primary)" }}>
+                    ▶ Continue Learning · 继续学习
+                  </div>
+                  <div className="font-bold truncate">{lesson.title}</div>
+                  <div className="text-xs truncate" style={{ color: "var(--theme-text-secondary)" }}>{lesson.subtitle}</div>
+                </div>
+                <span className="text-2xl">→</span>
+              </motion.div>
+            </a>
+          </motion.div>
+        ) : null;
+      })()}
+
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
         <XPBar xp={progress.xp} level={progress.level} />
       </motion.div>
@@ -260,6 +344,42 @@ export default function DashboardPage() {
 
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }}>
         <SkillTree progress={progress} />
+      </motion.div>
+
+      {/* Course Map Teaser */}
+      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }}>
+        <div className="space-y-4">
+          <div>
+            <h2 className="text-xl font-bold">🗺️ Course Map</h2>
+            <p className="text-sm" style={{ color: "var(--theme-text-muted)" }}>课程地图 — 更多学习路径即将开放！</p>
+          </div>
+          <Link href="/dashboard/courses">
+            <motion.div
+              whileHover={{ scale: 1.02 }}
+              className="rounded-xl p-5 cursor-pointer"
+              style={{
+                background: "linear-gradient(135deg, rgba(34,197,94,0.1), rgba(59,130,246,0.1), rgba(168,85,247,0.1))",
+                border: "1px solid var(--theme-border)",
+              }}
+            >
+              <div className="flex items-center gap-4 flex-wrap">
+                <div className="flex -space-x-2 text-3xl">
+                  <span>🐍</span><span>📦</span><span>⚡</span><span>🤖</span><span>🌐</span>
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="font-bold">11 Tracks · 200+ Lessons Planned</div>
+                  <div className="text-sm" style={{ color: "var(--theme-text-secondary)" }}>
+                    Python → Data Structures → Algorithms → AI/ML → and more!
+                  </div>
+                  <div className="text-xs" style={{ color: "var(--theme-text-muted)" }}>
+                    从 Python 到人工智能，完整的计算机科学学习路径 🚀
+                  </div>
+                </div>
+                <span className="text-2xl">→</span>
+              </div>
+            </motion.div>
+          </Link>
+        </div>
       </motion.div>
     </div>
   );

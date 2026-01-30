@@ -1261,7 +1261,10 @@ Congratulations! You've learned the fundamental building blocks of programming:
 **🔧 Chip:** "This will show you how complex software is built from simple pieces!"  
 **🤖 Botty:** "Game AI uses the same logic you're learning!"
 
-Let's build a **Text Adventure Game** — the same genre that inspired modern AI!`,
+Let's build a **Text Adventure Game** — the same genre that inspired modern AI!
+
+> 💡 **This lesson's project is available in Code Lab!** You can build it there with full IDE features.
+> 💡 **这节课的项目可以在代码实验室中完成！** 那里有完整的 IDE 功能。`,
       },
       {
         type: "concept",
@@ -2919,7 +2922,10 @@ Time to prove your skills with the ULTIMATE project that combines everything:
 - Used in computer science competitions
 - Great for learning game AI concepts
 
-🤖 Botty says: "This project teaches the same logic used in gaming AI!"`,
+🤖 Botty says: "This project teaches the same logic used in gaming AI!"
+
+> 💡 **This lesson's project is available in Code Lab!** You can build it there with full IDE features.
+> 💡 **这节课的项目可以在代码实验室中完成！** 那里有完整的 IDE 功能。`,
       },
       {
         type: "concept",
@@ -4757,7 +4763,10 @@ while True:
 - 🏭 **Functions** for reusable operations
 - 📚 **Dictionaries** for student data
 - 💾 **Files** for data persistence
-- 🛡️ **Error handling** for robust operation`,
+- 🛡️ **Error handling** for robust operation
+
+> 💡 **This lesson's project is available in Code Lab!** You can build it there with full IDE features.
+> 💡 **这节课的项目可以在代码实验室中完成！** 那里有完整的 IDE 功能。`,
       },
       {
         type: "concept",

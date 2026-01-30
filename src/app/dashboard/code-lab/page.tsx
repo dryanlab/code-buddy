@@ -2,6 +2,7 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useCallback, useEffect, useRef, useMemo } from "react";
+import { useSearchParams } from "next/navigation";
 import dynamic from "next/dynamic";
 import { loadPyodideEngine, runPython, isPyodideLoaded, traceExecution } from "@/lib/pyodide-engine";
 import type { VariableDetail, TraceStep } from "@/lib/pyodide-engine";
@@ -165,6 +166,11 @@ function ExerciseCard({
           {diffBadge} {exercise.title}
         </span>
       </div>
+      {exercise.fromLesson && (
+        <span className="inline-block text-[9px] px-1.5 py-0.5 rounded-full mb-1" style={{ backgroundColor: "color-mix(in srgb, var(--color-primary) 15%, transparent)", color: "var(--color-primary)" }}>
+          📚 From Lesson {exercise.fromLesson}
+        </span>
+      )}
       <p className="text-[10px] line-clamp-1" style={{ color: "var(--theme-text-secondary)" }}>
         {exercise.description}
       </p>
@@ -328,10 +334,29 @@ export default function CodeLabPage() {
   // Preview mode
   const [preview, setPreview] = useState(false);
   const [showSignUpModal, setShowSignUpModal] = useState(false);
+  const searchParams = useSearchParams();
 
   useEffect(() => {
     setPreview(isPreviewMode());
   }, []);
+
+  // Handle ?project=proj-1-6 query param
+  const projectParamHandled = useRef(false);
+  useEffect(() => {
+    if (projectParamHandled.current) return;
+    const projectId = searchParams.get("project");
+    if (projectId) {
+      const ex = CODE_EXERCISES.find((e) => e.id === projectId);
+      if (ex) {
+        projectParamHandled.current = true;
+        // Switch to exercises tab and open the exercise
+        setSidebarTab("exercises");
+        setFilterTag("projects");
+        setTimeout(() => openExercise(ex), 100);
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchParams]);
 
   // Sidebar
   const [sidebarTab, setSidebarTab] = useState<"projects" | "exercises">("projects");
@@ -379,12 +404,23 @@ export default function CodeLabPage() {
   const SKILL_ORDER = ["beginner", "intermediate", "advanced"];
   const userSkillIdx = SKILL_ORDER.indexOf(skillLevel);
 
+  const [filterTag, setFilterTag] = useState<string>("all");
+
   const sortedExercises = useMemo(() => {
-    const recommended = CODE_EXERCISES.filter((ex) => SKILL_ORDER.indexOf(ex.skillLevel) <= userSkillIdx);
-    const advanced = CODE_EXERCISES.filter((ex) => SKILL_ORDER.indexOf(ex.skillLevel) > userSkillIdx);
-    return [...recommended, ...advanced];
+    let exercises = CODE_EXERCISES;
+    if (filterTag === "projects") {
+      exercises = exercises.filter((ex) => ex.tags.includes("project"));
+    } else if (filterTag !== "all") {
+      exercises = exercises.filter((ex) => ex.tags.includes(filterTag));
+    }
+    // Projects first, then by skill level
+    const projects = exercises.filter((ex) => ex.tags.includes("project"));
+    const nonProjects = exercises.filter((ex) => !ex.tags.includes("project"));
+    const recommended = nonProjects.filter((ex) => SKILL_ORDER.indexOf(ex.skillLevel) <= userSkillIdx);
+    const advanced = nonProjects.filter((ex) => SKILL_ORDER.indexOf(ex.skillLevel) > userSkillIdx);
+    return [...projects, ...recommended, ...advanced];
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userSkillIdx]);
+  }, [userSkillIdx, filterTag]);
 
   // ─── Load projects ────────────────────────────────────────
   useEffect(() => {
@@ -845,6 +881,22 @@ export default function CodeLabPage() {
               </>
             ) : (
               <>
+                <div className="flex gap-1 flex-wrap mb-1">
+                  {["all", "projects", "beginner", "intermediate", "advanced"].map((tag) => (
+                    <button
+                      key={tag}
+                      onClick={() => setFilterTag(tag)}
+                      className="px-2 py-0.5 rounded-full text-[10px] font-bold transition-colors"
+                      style={{
+                        backgroundColor: filterTag === tag ? "color-mix(in srgb, var(--color-primary) 20%, transparent)" : "transparent",
+                        color: filterTag === tag ? "var(--color-primary)" : "var(--theme-text-muted)",
+                        border: filterTag === tag ? "1px solid var(--color-primary)" : "1px solid var(--theme-border)",
+                      }}
+                    >
+                      {tag === "all" ? "All" : tag === "projects" ? "🚀 Projects" : tag.charAt(0).toUpperCase() + tag.slice(1)}
+                    </button>
+                  ))}
+                </div>
                 {sortedExercises.map((ex, idx) => {
                   const isRecommended = SKILL_ORDER.indexOf(ex.skillLevel) <= userSkillIdx;
                   const exerciseLocked = preview && idx >= PREVIEW_MAX_EXERCISES;

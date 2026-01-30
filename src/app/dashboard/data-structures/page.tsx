@@ -13,6 +13,7 @@ const StackVisualizer = dynamic(() => import("@/components/data-structures/Stack
 const QueueVisualizer = dynamic(() => import("@/components/data-structures/QueueVisualizer"), { ssr: false });
 const HashMapVisualizer = dynamic(() => import("@/components/data-structures/HashMapVisualizer"), { ssr: false });
 const BSTVisualizer = dynamic(() => import("@/components/data-structures/BSTVisualizer"), { ssr: false });
+const GraphVisualizer = dynamic(() => import("@/components/data-structures/GraphVisualizer"), { ssr: false });
 const SortingArena = dynamic(() => import("@/components/data-structures/SortingArena"), { ssr: false });
 
 const TABS = [
@@ -23,6 +24,7 @@ const TABS = [
   { id: "queue", icon: "🎟️", label: "Queue", labelCn: "队列" },
   { id: "hashmap", icon: "📖", label: "HashMap", labelCn: "哈希表" },
   { id: "bst", icon: "🌳", label: "BST", labelCn: "二叉搜索树" },
+  { id: "graph", icon: "🕸️", label: "Graph", labelCn: "图" },
   { id: "sorting", icon: "🏆", label: "Sorting", labelCn: "排序" },
 ];
 
@@ -38,12 +40,38 @@ export default function DataStructuresPage() {
   return (
     <div className="min-h-screen p-4 pt-16 max-w-4xl mx-auto">
       <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }}>
+        <div className="flex items-center gap-2 mb-2">
+          <span className="text-xs font-semibold px-2 py-1 rounded-full" style={{ backgroundColor: "rgba(234,179,8,0.15)", color: "#eab308" }}>
+            🔜 Coming Soon Track · 即将推出
+          </span>
+          <span className="text-xs px-2 py-1 rounded-full" style={{ backgroundColor: "rgba(59,130,246,0.15)", color: "#3b82f6" }}>
+            Wave 1 · 第一期
+          </span>
+        </div>
         <h1 className="text-2xl font-bold mb-1">
           📦 Data Structure Playground
         </h1>
-        <p className="text-sm text-[var(--theme-text-muted)] mb-4">
+        <p className="text-sm text-[var(--theme-text-muted)] mb-2">
           Interactive visualizations — click, explore, learn! 互动可视化——点击、探索、学习！
         </p>
+
+        {/* Track info banner */}
+        <div className="rounded-xl p-4 mb-4" style={{ background: "linear-gradient(135deg, rgba(59,130,246,0.1), rgba(6,182,212,0.1))", border: "1px solid var(--theme-border)" }}>
+          <div className="flex items-center gap-3 flex-wrap">
+            <div className="flex-1 min-w-0">
+              <p className="text-sm" style={{ color: "var(--theme-text-secondary)" }}>
+                📖 <strong>18 lessons</strong> planned across 4 modules: Lists & Stacks, Queues & Trees, Graphs & Maps, Projects
+              </p>
+              <p className="text-xs mt-1" style={{ color: "var(--theme-text-muted)" }}>
+                🔗 Prerequisite: Python Areas 1-3 · 前置要求：Python 前三个领域
+              </p>
+            </div>
+            <span className="text-3xl">📦</span>
+          </div>
+          <p className="text-xs mt-2" style={{ color: "var(--theme-text-muted)" }}>
+            🎮 Meanwhile, explore the interactive playground below! 先来体验互动可视化吧！
+          </p>
+        </div>
       </motion.div>
 
       {/* Tab Navigation */}
@@ -88,6 +116,7 @@ export default function DataStructuresPage() {
           {activeTab === "queue" && <QueueVisualizer />}
           {activeTab === "hashmap" && <HashMapVisualizer />}
           {activeTab === "bst" && <BSTVisualizer />}
+          {activeTab === "graph" && <GraphVisualizer />}
           {activeTab === "sorting" && <SortingArena />}
         </motion.div>
       </AnimatePresence>

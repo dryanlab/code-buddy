@@ -1,0 +1,209 @@
+// Track definitions for all CS curriculum tracks
+// Defines the full roadmap across Wave 1, 2, and 3
+
+export interface Track {
+  id: string;
+  title: string;
+  titleZh: string;
+  icon: string;
+  description: string;
+  descriptionZh: string;
+  difficulty: "beginner" | "intermediate" | "advanced";
+  lessonCount: number;
+  status: "available" | "coming-soon" | "future";
+  wave: 1 | 2 | 3;
+  prerequisites: string[]; // track IDs
+  color: string; // tailwind gradient classes
+  colorHex: string; // hex for inline styles
+  modules?: string[];
+}
+
+export const TRACKS: Track[] = [
+  {
+    id: "python",
+    title: "Python Programming",
+    titleZh: "Python 编程",
+    icon: "🐍",
+    description: "Start your coding journey! Learn programming fundamentals with Python — variables, loops, functions, and more.",
+    descriptionZh: "开启编程之旅！学习 Python 基础——变量、循环、函数等。",
+    difficulty: "beginner",
+    lessonCount: 31,
+    status: "available",
+    wave: 1,
+    prerequisites: [],
+    color: "from-green-500 to-emerald-600",
+    colorHex: "#22c55e",
+    modules: ["area1", "area2", "area3", "area4", "area5"],
+  },
+  {
+    id: "data-structures",
+    title: "Data Structures",
+    titleZh: "数据结构",
+    icon: "📦",
+    description: "Visualize how data is organized! Arrays, linked lists, trees, graphs — with interactive animations.",
+    descriptionZh: "可视化数据组织方式！数组、链表、树、图——配互动动画。",
+    difficulty: "intermediate",
+    lessonCount: 18,
+    status: "coming-soon",
+    wave: 1,
+    prerequisites: ["python"],
+    color: "from-blue-500 to-cyan-500",
+    colorHex: "#3b82f6",
+    modules: ["ds-1-lists-stacks", "ds-2-queues-trees", "ds-3-graphs-maps", "ds-4-projects"],
+  },
+  {
+    id: "algorithms",
+    title: "Algorithms",
+    titleZh: "算法",
+    icon: "⚡",
+    description: "Master problem-solving! Searching, sorting, recursion, dynamic programming — with visual race comparisons.",
+    descriptionZh: "掌握问题解决！搜索、排序、递归、动态规划——可视化对比。",
+    difficulty: "intermediate",
+    lessonCount: 20,
+    status: "coming-soon",
+    wave: 1,
+    prerequisites: ["python", "data-structures"],
+    color: "from-yellow-500 to-orange-500",
+    colorHex: "#eab308",
+    modules: ["alg-1-searching", "alg-2-sorting", "alg-3-recursion", "alg-4-dp", "alg-5-graphs"],
+  },
+  {
+    id: "ai-ml",
+    title: "AI & Machine Learning",
+    titleZh: "人工智能与机器学习",
+    icon: "🤖",
+    description: "Teach computers to learn! Data patterns, neural networks, NLP — train models right in your browser.",
+    descriptionZh: "教计算机学习！数据模式、神经网络、NLP——在浏览器中训练模型。",
+    difficulty: "intermediate",
+    lessonCount: 20,
+    status: "coming-soon",
+    wave: 1,
+    prerequisites: ["python"],
+    color: "from-purple-500 to-pink-500",
+    colorHex: "#a855f7",
+    modules: ["ai-1-intro", "ai-2-data", "ai-3-ml", "ai-4-nn", "ai-5-nlp-vision", "ai-6-projects"],
+  },
+  {
+    id: "web-dev",
+    title: "Web Development",
+    titleZh: "网页开发",
+    icon: "🌐",
+    description: "Build your own websites! HTML, CSS, JavaScript, React — create your portfolio and interactive web apps.",
+    descriptionZh: "建造自己的网站！HTML、CSS、JavaScript、React——创建作品集和互动应用。",
+    difficulty: "intermediate",
+    lessonCount: 24,
+    status: "future",
+    wave: 2,
+    prerequisites: ["python"],
+    color: "from-sky-500 to-blue-600",
+    colorHex: "#0ea5e9",
+  },
+  {
+    id: "databases",
+    title: "Databases & SQL",
+    titleZh: "数据库与 SQL",
+    icon: "🗄️",
+    description: "Manage and query data! SQL, data modeling, analysis — with a built-in SQL playground.",
+    descriptionZh: "管理与查询数据！SQL、数据建模、分析——内置 SQL 练习环境。",
+    difficulty: "intermediate",
+    lessonCount: 16,
+    status: "future",
+    wave: 2,
+    prerequisites: ["python"],
+    color: "from-teal-500 to-emerald-600",
+    colorHex: "#14b8a6",
+  },
+  {
+    id: "cybersecurity",
+    title: "Cybersecurity",
+    titleZh: "网络安全",
+    icon: "🔒",
+    description: "Defend and attack! Cryptography, network security, CTF challenges — gamified hacking adventures.",
+    descriptionZh: "攻防实战！密码学、网络安全、CTF 闯关——游戏化黑客冒险。",
+    difficulty: "advanced",
+    lessonCount: 18,
+    status: "future",
+    wave: 2,
+    prerequisites: ["python", "web-dev"],
+    color: "from-red-500 to-rose-600",
+    colorHex: "#ef4444",
+  },
+  {
+    id: "computer-architecture",
+    title: "Computer Architecture",
+    titleZh: "计算机体系结构",
+    icon: "🖥️",
+    description: "How computers really work! Binary, logic gates, CPU design — build a simple CPU simulator.",
+    descriptionZh: "计算机的真正工作原理！二进制、逻辑门、CPU 设计——构建简易 CPU 模拟器。",
+    difficulty: "advanced",
+    lessonCount: 16,
+    status: "future",
+    wave: 3,
+    prerequisites: ["python"],
+    color: "from-slate-500 to-gray-600",
+    colorHex: "#64748b",
+  },
+  {
+    id: "software-engineering",
+    title: "Software Engineering",
+    titleZh: "软件工程",
+    icon: "👥",
+    description: "Build like a pro! Git, teamwork, design patterns, project management — real-world dev skills.",
+    descriptionZh: "专业开发！Git、团队协作、设计模式、项目管理——真实开发技能。",
+    difficulty: "advanced",
+    lessonCount: 14,
+    status: "future",
+    wave: 3,
+    prerequisites: ["python"],
+    color: "from-indigo-500 to-violet-600",
+    colorHex: "#6366f1",
+  },
+  {
+    id: "app-dev",
+    title: "App Development",
+    titleZh: "移动应用开发",
+    icon: "📱",
+    description: "Create mobile apps! React Native basics — design and build apps for phones and tablets.",
+    descriptionZh: "创建移动应用！React Native 基础——设计和构建手机/平板应用。",
+    difficulty: "advanced",
+    lessonCount: 16,
+    status: "future",
+    wave: 3,
+    prerequisites: ["web-dev"],
+    color: "from-fuchsia-500 to-pink-600",
+    colorHex: "#d946ef",
+  },
+  {
+    id: "game-dev",
+    title: "Game Development",
+    titleZh: "游戏开发",
+    icon: "🎮",
+    description: "Make your own games! Pygame, game engines, physics — from Pong to platformers.",
+    descriptionZh: "制作自己的游戏！Pygame、游戏引擎、物理——从 Pong 到平台游戏。",
+    difficulty: "advanced",
+    lessonCount: 18,
+    status: "future",
+    wave: 3,
+    prerequisites: ["python", "data-structures"],
+    color: "from-amber-500 to-orange-600",
+    colorHex: "#f59e0b",
+  },
+];
+
+// Prerequisite edges for drawing connections on the course map
+export const TRACK_EDGES: [string, string][] = [
+  ["python", "data-structures"],
+  ["python", "ai-ml"],
+  ["python", "web-dev"],
+  ["python", "databases"],
+  ["python", "computer-architecture"],
+  ["python", "software-engineering"],
+  ["data-structures", "algorithms"],
+  ["data-structures", "game-dev"],
+  ["web-dev", "cybersecurity"],
+  ["web-dev", "app-dev"],
+];
+
+export function getTrackById(id: string): Track | undefined {
+  return TRACKS.find((t) => t.id === id);
+}

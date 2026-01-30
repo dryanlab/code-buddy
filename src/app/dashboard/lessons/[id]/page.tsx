@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
 import { getLessonById, getAdjacentLessons, type LessonSection } from "@/data/lessons";
 import InlineCodeExercise from "@/components/InlineCodeExercise";
+import { CODE_EXERCISES } from "@/data/code-challenges";
 import { completeLesson, getProgress, saveLessonPosition, getLessonPosition } from "@/lib/progress-store";
 import { isPreviewMode, isLessonUnlocked } from "@/lib/preview-mode";
 import CodeEditor from "@/components/CodeEditor";
@@ -77,10 +78,13 @@ function CodeSection({ section }: { section: LessonSection }) {
   );
 }
 
-function ChallengeSection({ section }: { section: LessonSection }) {
+function ChallengeSection({ section, lessonId }: { section: LessonSection; lessonId?: string }) {
   const [showHint, setShowHint] = useState(false);
   const [showSolution, setShowSolution] = useState(false);
   const challenge = section.challenge!;
+
+  // Check if there's a Code Lab project for this lesson
+  const linkedProject = lessonId ? CODE_EXERCISES.find((ex) => ex.fromLesson === lessonId) : null;
 
   return (
     <motion.div
@@ -90,6 +94,19 @@ function ChallengeSection({ section }: { section: LessonSection }) {
     >
       <h3 className="text-xl font-bold text-yellow-400">{challenge.title}</h3>
       <p className="text-[var(--theme-text-secondary)]">{challenge.description}</p>
+
+      {linkedProject && (
+        <a
+          href={`/dashboard/code-lab?project=${linkedProject.id}`}
+          className="inline-flex items-center gap-2 px-4 py-2 text-sm font-bold rounded-lg transition-colors hover:opacity-90"
+          style={{
+            background: "linear-gradient(135deg, #22c55e, #06b6d4)",
+            color: "#000",
+          }}
+        >
+          🚀 Open Project in Code Lab · 在代码实验室中打开
+        </a>
+      )}
 
       <CodeEditor initialCode={challenge.starterCode} />
 
@@ -261,7 +278,7 @@ export default function LessonPage() {
           {section.type === "text" && <TextSection section={section} />}
           {section.type === "interactive" && <InteractiveSection section={section} />}
           {section.type === "code" && <CodeSection section={section} />}
-          {section.type === "challenge" && <ChallengeSection section={section} />}
+          {section.type === "challenge" && <ChallengeSection section={section} lessonId={lessonId} />}
           {section.type === "quiz" && (
             <TurtleQuiz
               section={section}
