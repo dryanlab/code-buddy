@@ -331,56 +331,33 @@ _vars_detail_json = _json.dumps(_user_vars_detail)
  * Returns array of { startLine, endLine, code } where lines are 0-indexed.
  */
 export function parseCodeIntoSteps(code: string): { startLine: number; endLine: number; code: string }[] {
+  // Line-by-line stepping: each non-empty, non-comment line is a step.
+  // The "code" for each step is ALL lines from the start up to and including this line,
+  // so Python can evaluate the full context (it needs the if: to know about the body, etc.)
+  // But we only HIGHLIGHT the current line.
+  //
+  // Strategy: We execute ALL code up to and including the current step's line.
+  // Python will naturally skip branches not taken (else when if is true, etc.)
+  
   const lines = code.split("\n");
   const steps: { startLine: number; endLine: number; code: string }[] = [];
-  let i = 0;
 
-  while (i < lines.length) {
-    const line = lines[i];
-    const trimmed = line.trimStart();
-
-    // Skip empty/comment lines — attach to next real line
-    if (trimmed === "" || trimmed.startsWith("#")) {
-      i++;
-      continue;
+  // First pass: find all "meaningful" lines (non-empty, non-comment-only)
+  const meaningfulLines: number[] = [];
+  for (let i = 0; i < lines.length; i++) {
+    const trimmed = lines[i].trim();
+    if (trimmed !== "" && !trimmed.startsWith("#")) {
+      meaningfulLines.push(i);
     }
+  }
 
-    // Check if this is a block header (if/for/while/def/class/elif/else/try/except/finally/with)
-    const isBlockHeader = /^(if |elif |else:|for |while |def |class |try:|except|finally:|with )/.test(trimmed);
-
-    if (isBlockHeader) {
-      // Collect the block header + all indented lines beneath it
-      const headerIndent = line.length - line.trimStart().length;
-      const startLine = i;
-      i++;
-      // Collect body: lines more indented than header, or continuation block keywords at same indent
-      while (i < lines.length) {
-        const nextTrimmed = lines[i].trimStart();
-        const nextIndent = lines[i].length - nextTrimmed.length;
-        if (nextTrimmed === "" || nextTrimmed.startsWith("#")) {
-          i++;
-          continue;
-        }
-        // Continuation keywords at same indent level (elif, else, except, finally)
-        if (nextIndent === headerIndent && /^(elif |else:|except|finally:)/.test(nextTrimmed)) {
-          i++;
-          continue;
-        }
-        if (nextIndent > headerIndent) {
-          i++;
-          continue;
-        }
-        break;
-      }
-      steps.push({
-        startLine,
-        endLine: i - 1,
-        code: lines.slice(startLine, i).join("\n"),
-      });
-    } else {
-      steps.push({ startLine: i, endLine: i, code: line });
-      i++;
-    }
+  // Each step executes all code from line 0 through meaningfulLines[stepIndex]
+  for (const lineIdx of meaningfulLines) {
+    steps.push({
+      startLine: lineIdx,
+      endLine: lineIdx,
+      code: lines.slice(0, lineIdx + 1).join("\n"),
+    });
   }
 
   return steps;

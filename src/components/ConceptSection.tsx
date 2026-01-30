@@ -153,8 +153,8 @@ function CodeAnatomyComponent({ anatomy }: { anatomy: CodeAnatomy }) {
     setStepIndex(nextIdx);
     setHighlightLineIdx(steps[nextIdx].startLine);
 
-    const codeToRun = steps.slice(0, nextIdx + 1).map(s => s.code).join("\n");
-    const result = await runPython(codeToRun);
+    // Each step.code already includes all lines from 0..N, so just run the current step's code
+    const result = await runPython(steps[nextIdx].code);
     if (result.error) { setOutput(result.error); setHasError(true); }
     else { setOutput(result.output || ""); setHasError(false); }
     setVariableDetails(result.variableDetails || []);

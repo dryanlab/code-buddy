@@ -165,9 +165,8 @@ export default function CodeEditor({
     setStepIndex(nextIdx);
     setHighlightLines({ start: steps[nextIdx].startLine, end: steps[nextIdx].endLine });
 
-    // Execute all code up to and including this step
-    const codeToRun = steps.slice(0, nextIdx + 1).map((s) => s.code).join("\n");
-    const result = await runPython(codeToRun);
+    // Each step.code already includes all lines from 0..N
+    const result = await runPython(steps[nextIdx].code);
     if (result.error) {
       setOutput(result.error);
       setHasError(true);
