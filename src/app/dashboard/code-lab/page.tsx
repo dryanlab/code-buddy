@@ -1175,67 +1175,6 @@ export default function CodeLabPage() {
               <span className="text-xs font-bold">🆓 Free Code · 自由编程</span>
             </button>
 
-            {/* Lesson Projects */}
-            {(() => {
-              const lessonProjects = CODE_EXERCISES.filter(ex => ex.tags.includes("project") && ex.fromLesson);
-              if (lessonProjects.length === 0) return null;
-              return (
-                <>
-                  <div className="text-[10px] font-bold pt-2 pb-1 px-1" style={{ color: "var(--theme-text-muted)" }}>
-                    📚 Lesson Projects · 课程项目
-                  </div>
-                  {lessonProjects.map((ex) => {
-                    const diffBadge = ex.difficulty === 1 ? "🟢" : ex.difficulty === 2 ? "🟡" : "🔴";
-                    const isSelected = activeTabId === `ex_${ex.id}`;
-                    return (
-                      <motion.button
-                        key={ex.id}
-                        whileHover={{ scale: 1.02 }}
-                        onClick={() => {
-                          setSelectedExercise(null);
-                          setCode(ex.starterCode);
-                          setShowHint(false);
-                          setShowSolution(false);
-                          const tabId = `ex_${ex.id}`;
-                          const existing = openTabs.find((t) => t.id === tabId);
-                          if (!existing) {
-                            setOpenTabs((prev) => [...prev, { type: "exercise" as const, id: tabId, name: ex.title }]);
-                          }
-                          setActiveTabId(tabId);
-                          if (isMobile) setMobileSidebarOpen(false);
-                        }}
-                        className="w-full text-left p-3 rounded-xl border transition-colors"
-                        style={{
-                          backgroundColor: isSelected
-                            ? "color-mix(in srgb, var(--color-primary) 10%, var(--theme-card-bg))"
-                            : "var(--theme-card-bg)",
-                          borderColor: isSelected
-                            ? "color-mix(in srgb, var(--color-primary) 30%, transparent)"
-                            : "var(--theme-border)",
-                        }}
-                      >
-                        <div className="flex items-center justify-between mb-0.5">
-                          <span className="font-bold text-xs truncate">🚀 {ex.title}</span>
-                          <span
-                            className="text-[9px] px-1.5 py-0.5 rounded-full flex-shrink-0 ml-1"
-                            style={{ backgroundColor: "color-mix(in srgb, var(--color-primary) 12%, transparent)", color: "var(--color-primary)" }}
-                          >
-                            {diffBadge}
-                          </span>
-                        </div>
-                        <p className="text-[10px] line-clamp-1" style={{ color: "var(--theme-text-secondary)" }}>
-                          {ex.description}
-                        </p>
-                        <p className="text-[9px]" style={{ color: "var(--theme-text-muted)" }}>
-                          📚 From Lesson {ex.fromLesson}
-                        </p>
-                      </motion.button>
-                    );
-                  })}
-                </>
-              );
-            })()}
-
             <div className="text-[10px] font-bold pt-2 pb-1 px-1" style={{ color: "var(--theme-text-muted)" }}>
               📁 My Projects · 我的项目
             </div>
@@ -1251,10 +1190,108 @@ export default function CodeLabPage() {
               />
             ))}
             {projects.length === 0 && (
-              <p className="text-[10px] text-center py-4" style={{ color: "var(--theme-text-muted)" }}>
+              <p className="text-[10px] text-center py-2" style={{ color: "var(--theme-text-muted)" }}>
                 No projects yet · 还没有项目
               </p>
             )}
+
+            {/* Lesson Projects — grouped by area */}
+            {(() => {
+              const lessonProjects = CODE_EXERCISES.filter(ex => ex.tags.includes("project") && ex.fromLesson);
+              if (lessonProjects.length === 0) return null;
+              // Group by area tag (area-1, area-2, etc.)
+              const areaNames: Record<string, string> = {
+                "area-1": "🏝️ Starter Island",
+                "area-2": "🌲 Loop Forest",
+                "area-3": "🏙️ Builder City",
+                "area-4": "🔬 Science Lab",
+                "area-5": "🤖 AI Frontier",
+              };
+              const groups: Record<string, typeof lessonProjects> = {};
+              lessonProjects.forEach((ex) => {
+                const areaTag = ex.tags.find(t => t.startsWith("area-")) || "other";
+                if (!groups[areaTag]) groups[areaTag] = [];
+                groups[areaTag].push(ex);
+              });
+              return (
+                <>
+                  <div className="text-[10px] font-bold pt-3 pb-1 px-1" style={{ color: "var(--theme-text-muted)" }}>
+                    📚 Lesson Projects · 课程项目
+                  </div>
+                  {Object.entries(groups).map(([area, exs]) => {
+                    const areaLabel = areaNames[area] || area;
+                    const isCollapsed = collapsedCategories === "all" || (collapsedCategories instanceof Set && collapsedCategories.has(`lp_${area}`));
+                    return (
+                      <div key={area}>
+                        <button
+                          onClick={() => {
+                            if (collapsedCategories === "all") {
+                              const allKeys = Object.keys(groups).map(a => `lp_${a}`);
+                              const s = new Set(allKeys);
+                              s.delete(`lp_${area}`);
+                              setCollapsedCategories(s);
+                            } else {
+                              const next = new Set(collapsedCategories);
+                              const key = `lp_${area}`;
+                              if (next.has(key)) next.delete(key); else next.add(key);
+                              setCollapsedCategories(next);
+                            }
+                          }}
+                          className="w-full text-left py-1.5 px-1 text-[11px] font-bold flex items-center gap-1"
+                          style={{ color: "var(--theme-text-secondary)" }}
+                        >
+                          <span>{isCollapsed ? "▸" : "▾"}</span>
+                          <span>{areaLabel}</span>
+                          <span className="ml-auto text-[9px] font-normal" style={{ color: "var(--theme-text-muted)" }}>
+                            {exs.length}
+                          </span>
+                        </button>
+                        {!isCollapsed && exs.map((ex) => {
+                          const diffBadge = ex.difficulty === 1 ? "🟢" : ex.difficulty === 2 ? "🟡" : "🔴";
+                          const isSelected = activeTabId === `ex_${ex.id}`;
+                          return (
+                            <motion.button
+                              key={ex.id}
+                              whileHover={{ scale: 1.02 }}
+                              onClick={() => {
+                                setSelectedExercise(null);
+                                setCode(ex.starterCode);
+                                setShowHint(false);
+                                setShowSolution(false);
+                                const tabId = `ex_${ex.id}`;
+                                const existing = openTabs.find((t) => t.id === tabId);
+                                if (!existing) {
+                                  setOpenTabs((prev) => [...prev, { type: "exercise" as const, id: tabId, name: ex.title }]);
+                                }
+                                setActiveTabId(tabId);
+                                if (isMobile) setMobileSidebarOpen(false);
+                              }}
+                              className="w-full text-left p-2.5 rounded-xl border transition-colors mb-1"
+                              style={{
+                                backgroundColor: isSelected
+                                  ? "color-mix(in srgb, var(--color-primary) 10%, var(--theme-card-bg))"
+                                  : "var(--theme-card-bg)",
+                                borderColor: isSelected
+                                  ? "color-mix(in srgb, var(--color-primary) 30%, transparent)"
+                                  : "var(--theme-border)",
+                              }}
+                            >
+                              <div className="flex items-center justify-between mb-0.5">
+                                <span className="font-bold text-xs truncate">🚀 {ex.title}</span>
+                                <span className="text-[9px] flex-shrink-0 ml-1">{diffBadge}</span>
+                              </div>
+                              <p className="text-[10px] line-clamp-1" style={{ color: "var(--theme-text-secondary)" }}>
+                                {ex.description}
+                              </p>
+                            </motion.button>
+                          );
+                        })}
+                      </div>
+                    );
+                  })}
+                </>
+              );
+            })()}
           </>
         ) : (
           <>
