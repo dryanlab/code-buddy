@@ -2202,6 +2202,57 @@ for row in range(5):        # Outer: 5 rows
 **🤖 Botty says:** "AI image generators use nested loops to create every pixel of their amazing art!"`,
       },
       {
+        type: "concept",
+        emoji: "📖",
+        content: "New Syntax: Nested Loops & print() Tricks",
+        concept: {
+          title: "🎨 New Syntax: Nested Loops & print() Tricks",
+          titleZh: "新语法：嵌套循环与 print() 技巧",
+          syntaxCards: [
+            {
+              symbol: "for row in ...:\n  for col in ...:",
+              name: "Nested Loops",
+              nameZh: "嵌套循环",
+              emoji: "🔄",
+              description: "A loop inside a loop 🎡 — the inner loop runs COMPLETELY for each step of the outer loop. Like a clock: minutes inside hours!",
+              example: "for row in range(3):\n    for col in range(3):\n        print('⭐', end='')\n    print()",
+            },
+            {
+              symbol: 'print(..., end="")',
+              name: "Print without newline",
+              nameZh: "不换行打印",
+              emoji: "➡️",
+              description: "Normally print() adds a new line at the end. end='' tells it: stay on the same line! Perfect for building patterns.",
+              example: 'print("⭐", end="")\nprint("⭐", end="")\n# Output: ⭐⭐ (same line!)',
+            },
+            {
+              symbol: '"x" * n',
+              name: "String Repetition",
+              nameZh: "字符串重复",
+              emoji: "✖️",
+              description: "Like a copy machine 🖨️ — repeats a string n times! Super handy for building patterns.",
+              example: 'print("⭐" * 5)\n# Output: ⭐⭐⭐⭐⭐',
+            },
+            {
+              symbol: "range(start, stop, step)",
+              name: "Range with Step",
+              nameZh: "带步长的范围",
+              emoji: "👣",
+              description: "Skip-counting 🦘 — count by 2s, 3s, or even backwards! step controls the jump size.",
+              example: "for i in range(10, 0, -1):\n    print(i)  # Countdown!",
+            },
+          ],
+          codeAnatomy: {
+            lines: [
+              { code: "for row in range(5):", explanation: "Outer loop: controls how many rows (5 rows).", explanationZh: "外循环：控制行数（5 行）" },
+              { code: "    for col in range(row + 1):", explanation: "Inner loop: row 0→1 star, row 1→2 stars, etc.", explanationZh: "内循环：第 0 行→1 颗星，第 1 行→2 颗星，以此类推" },
+              { code: '        print("⭐", end="")', explanation: "Print a star WITHOUT moving to next line.", explanationZh: "打印星星但不换行" },
+              { code: "    print()", explanation: "After inner loop, move to the next line.", explanationZh: "内循环结束后换行" },
+            ],
+          },
+        },
+      },
+      {
         type: "interactive",
         content: `## 🧠 Pattern Designer Challenge!
 
@@ -2469,6 +2520,66 @@ Every great secret agent needs to know cryptography! Today you'll learn:
 🔧 Chip says: "Every website uses encryption to protect passwords and credit cards!"`,
       },
       {
+        type: "concept",
+        emoji: "📖",
+        content: "New Syntax: String Superpowers",
+        concept: {
+          title: "🔤 New Syntax: String Superpowers",
+          titleZh: "新语法：字符串超能力",
+          syntaxCards: [
+            {
+              symbol: ".upper() / .lower()",
+              name: "Case Conversion",
+              nameZh: "大小写转换",
+              emoji: "🔠",
+              description: "Like a volume knob 🔊 — .upper() SHOUTS (all caps), .lower() whispers (all lowercase).",
+              example: '"hello".upper()  # "HELLO"\n"HELLO".lower()  # "hello"',
+            },
+            {
+              symbol: "ord(char)",
+              name: "Character to Number",
+              nameZh: "字符转数字",
+              emoji: "🔢",
+              description: "Every letter has a secret number 🔢 — ord() reveals it! A=65, B=66, a=97, etc.",
+              example: "ord('A')  # 65\nord('B')  # 66",
+            },
+            {
+              symbol: "chr(num)",
+              name: "Number to Character",
+              nameZh: "数字转字符",
+              emoji: "🔤",
+              description: "The reverse spell 🪄 — turns a number back into its letter. The decoder ring!",
+              example: "chr(65)  # 'A'\nchr(66)  # 'B'",
+            },
+            {
+              symbol: ".isalpha()",
+              name: "Is it a letter?",
+              nameZh: "是否为字母",
+              emoji: "❓",
+              description: "A letter detector 🔍 — returns True if the character is a letter (not space, number, or symbol).",
+              example: '"A".isalpha()   # True\n"5".isalpha()   # False\n" ".isalpha()   # False',
+            },
+            {
+              symbol: "% (modulo)",
+              name: "Modulo (remainder)",
+              nameZh: "取余（模运算）",
+              emoji: "🔃",
+              description: "The wraparound trick 🔃 — gives the remainder after division. Perfect for cycling through 26 letters!",
+              example: "27 % 26  # 1 (wraps around!)\n5 % 3    # 2",
+            },
+          ],
+          codeAnatomy: {
+            lines: [
+              { code: 'message = "HELLO"', explanation: "The secret message to encrypt.", explanationZh: "要加密的秘密消息" },
+              { code: "for letter in message:", explanation: "Loop through each character one by one.", explanationZh: "逐个遍历每个字符" },
+              { code: "    pos = ord(letter) - ord('A')", explanation: "Convert letter to position: A=0, B=1, C=2...", explanationZh: "把字母转成位置：A=0, B=1, C=2..." },
+              { code: "    new_pos = (pos + 3) % 26", explanation: "Shift by 3, wrap around with % 26.", explanationZh: "偏移 3 位，用 % 26 实现环绕" },
+              { code: "    encrypted += chr(new_pos + ord('A'))", explanation: "Convert back to letter and add to result.", explanationZh: "转回字母并添加到结果中" },
+            ],
+          },
+        },
+      },
+      {
         type: "interactive",
         content: `## 🕵️ Spy Training Challenge!
 
@@ -2733,6 +2844,59 @@ Time to prove your skills with the ULTIMATE project that combines everything:
 - Great for learning game AI concepts
 
 🤖 Botty says: "This project teaches the same logic used in gaming AI!"`,
+      },
+      {
+        type: "concept",
+        emoji: "📖",
+        content: "Review: Combining All Loop Skills",
+        concept: {
+          title: "🏆 Review: Combining All Loop Skills",
+          titleZh: "复习：组合所有循环技能",
+          syntaxCards: [
+            {
+              symbol: "while True:",
+              name: "Infinite Loop (with break)",
+              nameZh: "无限循环（配合 break）",
+              emoji: "♾️",
+              description: "A loop that runs FOREVER ♾️ — until you use break to escape. Perfect for 'play again?' game loops!",
+              example: "while True:\n    play_round()\n    if quit:\n        break",
+            },
+            {
+              symbol: "random.choice(list)",
+              name: "Random Choice",
+              nameZh: "随机选择",
+              emoji: "🎰",
+              description: "Like spinning a wheel 🎰 — picks one random item from a list. Great for computer opponents!",
+              example: "import random\nmove = random.choice(['rock', 'paper', 'scissors'])",
+            },
+            {
+              symbol: "dict[key] = value",
+              name: "Dictionary Update",
+              nameZh: "字典更新",
+              emoji: "📝",
+              description: "Like writing in a scoreboard 📝 — stores or updates a value with a named key.",
+              example: "score = {'player': 0, 'cpu': 0}\nscore['player'] += 1",
+            },
+            {
+              symbol: "list.append(dict)",
+              name: "Record History",
+              nameZh: "记录历史",
+              emoji: "📚",
+              description: "Like a game replay log 📚 — add each round's data (as a dictionary) to a history list.",
+              example: "history.append({'round': 1, 'result': 'win'})",
+            },
+          ],
+          codeAnatomy: {
+            lines: [
+              { code: "import random", explanation: "Import random for the computer's unpredictable choices.", explanationZh: "导入随机模块让电脑做出不可预测的选择" },
+              { code: "wins = 0; history = []", explanation: "Track score (variable) and game history (list).", explanationZh: "用变量追踪分数，用列表追踪历史" },
+              { code: "while True:", explanation: "Game loop — keep playing until the player quits.", explanationZh: "游戏循环 — 一直玩到玩家退出" },
+              { code: "    choice = input('Your move: ')", explanation: "Get the player's choice each round.", explanationZh: "每轮获取玩家的选择" },
+              { code: "    cpu = random.choice(['rock','paper','scissors'])", explanation: "Computer picks randomly.", explanationZh: "电脑随机选择" },
+              { code: "    history.append({'player': choice, 'cpu': cpu})", explanation: "Save this round to the history log.", explanationZh: "将本轮记录到历史日志" },
+            ],
+          },
+        },
       },
       {
         type: "interactive",
@@ -3056,6 +3220,59 @@ You've been USING tools (print, input, if, loops). Now you'll start BUILDING too
 - File functions → Database operations
 
 🤖 Botty says: "AI models are made of millions of functions working together!"`,
+      },
+      {
+        type: "concept",
+        emoji: "📖",
+        content: "New Syntax: Functions — Your Code Building Blocks",
+        concept: {
+          title: "🧱 New Syntax: Functions — Your Code Building Blocks",
+          titleZh: "新语法：函数 — 你的代码积木",
+          syntaxCards: [
+            {
+              symbol: "def name(params):",
+              name: "Define a Function",
+              nameZh: "定义函数",
+              emoji: "🏭",
+              description: "Like building a LEGO block 🧱 — def creates a reusable code block. Name it, give it inputs (parameters), and it's ready to use!",
+              example: "def greet(name):\n    print(f'Hello, {name}!')",
+            },
+            {
+              symbol: "return value",
+              name: "Return (send back result)",
+              nameZh: "返回值",
+              emoji: "📤",
+              description: "Like a vending machine 🏧 — you put inputs in, and return sends the result back out!",
+              example: "def add(a, b):\n    return a + b\nresult = add(3, 5)  # 8",
+            },
+            {
+              symbol: "function_name(args)",
+              name: "Call a Function",
+              nameZh: "调用函数",
+              emoji: "📞",
+              description: "Like pressing a button 🔘 — calling a function runs the code inside it. You can call it as many times as you want!",
+              example: "greet('Alice')  # Hello, Alice!\ngreet('Bob')    # Hello, Bob!",
+            },
+            {
+              symbol: '"""docstring"""',
+              name: "Docstring (function description)",
+              nameZh: "文档字符串（函数说明）",
+              emoji: "📝",
+              description: "An instruction manual 📖 — the first string in a function describes what it does. Helps you and others understand your code!",
+              example: 'def draw_star(size):\n    """Draw a star of given size"""',
+            },
+          ],
+          codeAnatomy: {
+            lines: [
+              { code: "def draw_square(size):", explanation: "Define a function named 'draw_square' that takes a size parameter.", explanationZh: "定义一个名为 'draw_square' 的函数，接受 size 参数" },
+              { code: '    """Draw a perfect square"""', explanation: "Docstring — describes what this function does.", explanationZh: "文档字符串 — 描述这个函数的功能" },
+              { code: "    for side in range(4):", explanation: "Loop 4 times (a square has 4 sides).", explanationZh: "循环 4 次（正方形有 4 条边）" },
+              { code: "        t.forward(size)", explanation: "Draw one side using the size parameter.", explanationZh: "用 size 参数画一条边" },
+              { code: "        t.right(90)", explanation: "Turn 90° for the next side.", explanationZh: "转 90° 准备画下一条边" },
+              { code: "draw_square(100)", explanation: "CALL the function — this actually runs it!", explanationZh: "调用函数 — 这才真正执行它！" },
+            ],
+          },
+        },
       },
       {
         type: "interactive",
@@ -3448,6 +3665,67 @@ print(f"\n🎉 Calculator complete! Total area processed: {total:.2f}")
 - 🌐 **Real-world data:** Just like JSON, databases, APIs
 
 🤖 Botty says: "Every web API returns data as dictionaries (JSON format)!"`,
+      },
+      {
+        type: "concept",
+        emoji: "📖",
+        content: "New Syntax: Dictionaries — Labeled Data Storage",
+        concept: {
+          title: "📋 New Syntax: Dictionaries — Labeled Data Storage",
+          titleZh: "新语法：字典 — 带标签的数据存储",
+          syntaxCards: [
+            {
+              symbol: "{key: value}",
+              name: "Dictionary (key-value pairs)",
+              nameZh: "字典（键值对）",
+              emoji: "🗂️",
+              description: "Like a filing cabinet with labels 🗂️ — instead of numbered slots, each piece of data has a NAME. Way easier to find things!",
+              example: 'agent = {"name": "Bond", "rank": "007"}',
+            },
+            {
+              symbol: "dict[key]",
+              name: "Access by Key",
+              nameZh: "通过键访问",
+              emoji: "🔑",
+              description: "Use the label name 🔑 to instantly find the value. Like looking up a word in a real dictionary!",
+              example: 'print(agent["name"])  # "Bond"',
+            },
+            {
+              symbol: "dict[key] = value",
+              name: "Add/Update Entry",
+              nameZh: "添加/更新条目",
+              emoji: "✏️",
+              description: "Write a new label or update an existing one ✏️ — dictionaries are flexible!",
+              example: 'agent["status"] = "Active"\nagent["rank"] = "Commander"',
+            },
+            {
+              symbol: "key in dict",
+              name: "Check Key Exists",
+              nameZh: "检查键是否存在",
+              emoji: "🔍",
+              description: "Check if a label exists 🔍 before trying to read it. Prevents crashes!",
+              example: 'if "weapon" in agent:\n    print(agent["weapon"])',
+            },
+            {
+              symbol: "for k, v in dict.items():",
+              name: "Loop Through Dictionary",
+              nameZh: "遍历字典",
+              emoji: "🔄",
+              description: "Open every folder 📂 — loops through ALL key-value pairs in the dictionary.",
+              example: 'for key, val in agent.items():\n    print(f"{key}: {val}")',
+            },
+          ],
+          codeAnatomy: {
+            lines: [
+              { code: 'agent = {', explanation: "Start creating a dictionary with curly braces { }.", explanationZh: "用花括号 { } 开始创建字典" },
+              { code: '    "codename": "007",', explanation: "Key 'codename' maps to value '007'.", explanationZh: "键 'codename' 对应值 '007'" },
+              { code: '    "specialties": ["Combat", "Gadgets"]', explanation: "Values can be lists too! Nested data structures.", explanationZh: "值也可以是列表！嵌套数据结构" },
+              { code: "}", explanation: "Close the dictionary.", explanationZh: "关闭字典" },
+              { code: 'print(agent["codename"])', explanation: "Access the value using its key — prints '007'.", explanationZh: "用键访问值 — 打印 '007'" },
+              { code: 'agent["status"] = "Active"', explanation: "Add a new key-value pair to the dictionary.", explanationZh: "向字典添加新的键值对" },
+            ],
+          },
+        },
       },
       {
         type: "interactive",

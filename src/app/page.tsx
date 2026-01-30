@@ -168,7 +168,7 @@ export default function LandingPage() {
           className="flex flex-col sm:flex-row gap-4"
         >
           <Link
-            href="/dashboard"
+            href="/login"
             className="px-8 py-4 font-bold text-lg rounded-xl hover:scale-105 transition-transform glow-green"
             style={{ background: `linear-gradient(to right, var(--color-primary), var(--color-primary-light))`, color: "var(--theme-bg)" }}
           >
@@ -176,7 +176,7 @@ export default function LandingPage() {
             <span className="block text-xs font-normal opacity-80">开始冒险</span>
           </Link>
           <Link
-            href="/dashboard/code-lab"
+            href="/login"
             className="px-8 py-4 font-bold text-lg rounded-xl transition-colors"
             style={{ border: "1px solid var(--color-secondary)", color: "var(--color-secondary)" }}
           >
