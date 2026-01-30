@@ -52,7 +52,7 @@ export default function Celebration({ type = "lesson", xp, badgeName, badgeIcon,
       >
         <div className="text-8xl mb-4">{badgeIcon || msg.emoji}</div>
         <div className={`text-3xl font-bold ${msg.color}`}>{msg.title}</div>
-        <div className="text-sm text-gray-400">{msg.subtitle}</div>
+        <div className="text-sm text-[var(--theme-text-muted)]">{msg.subtitle}</div>
         {badgeName && (
           <motion.div
             initial={{ opacity: 0, y: 10 }}

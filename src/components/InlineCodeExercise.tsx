@@ -162,7 +162,7 @@ export default function InlineCodeExercise({ exercise, onComplete }: Props) {
           <p className="text-sm font-medium" style={{ color: "var(--theme-text)" }}>
             {exercise.prompt}
           </p>
-          <p className="text-xs text-slate-400">{exercise.promptZh}</p>
+          <p className="text-xs text-[var(--theme-text-secondary)]">{exercise.promptZh}</p>
         </div>
 
         {/* Code Editor */}
@@ -211,7 +211,7 @@ export default function InlineCodeExercise({ exercise, onComplete }: Props) {
 
           <button
             onClick={() => setShowSolution(!showSolution)}
-            className="px-4 py-2 text-sm rounded-lg bg-slate-700/50 text-slate-400 hover:bg-slate-700 transition-colors"
+            className="px-4 py-2 text-sm rounded-lg bg-[var(--theme-card-bg)] text-[var(--theme-text-secondary)] hover:bg-[var(--theme-card-bg)] transition-colors"
           >
             👀 {showSolution ? "Hide · 隐藏" : "Solution · 看答案"}
           </button>
@@ -222,7 +222,7 @@ export default function InlineCodeExercise({ exercise, onComplete }: Props) {
               setOutput("");
               setIsCorrect(false);
             }}
-            className="px-4 py-2 text-sm rounded-lg bg-slate-700/30 text-slate-500 hover:bg-slate-700/50 transition-colors"
+            className="px-4 py-2 text-sm rounded-lg bg-[var(--theme-card-bg)] text-[var(--theme-text-muted)] hover:bg-[var(--theme-card-bg)] transition-colors"
           >
             🔄 Reset · 重置
           </button>
@@ -255,7 +255,7 @@ export default function InlineCodeExercise({ exercise, onComplete }: Props) {
                 <div className="px-3 py-1.5 text-xs font-bold bg-green-500/20 text-green-400">
                   Solution · 答案
                 </div>
-                <pre className="p-3 text-sm font-mono bg-[#0d1117] border border-slate-700 rounded-b-lg overflow-x-auto">
+                <pre className="p-3 text-sm font-mono bg-[#0d1117] border border-[var(--theme-border)] rounded-b-lg overflow-x-auto">
                   <code className="text-green-300">{exercise.solution}</code>
                 </pre>
               </div>
@@ -270,7 +270,7 @@ export default function InlineCodeExercise({ exercise, onComplete }: Props) {
             animate={{ opacity: 1, y: 0 }}
             className="rounded-lg overflow-hidden"
           >
-            <div className="px-3 py-1.5 text-xs font-bold bg-slate-800 text-slate-400 flex items-center gap-2">
+            <div className="px-3 py-1.5 text-xs font-bold bg-[var(--theme-card-bg)] text-[var(--theme-text-secondary)] flex items-center gap-2">
               <span>📺 Output · 输出</span>
               {isCorrect && <span className="text-green-400 ml-auto">✅ Correct! 正确！</span>}
               {attempted && !isCorrect && output && !output.startsWith("❌") && (

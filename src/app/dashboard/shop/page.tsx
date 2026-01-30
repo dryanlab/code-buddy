@@ -64,7 +64,7 @@ function RewardCard({
       {/* Name */}
       <div className="text-center mb-1">
         <div className="text-sm font-bold">{item.name}</div>
-        <div className="text-[10px] text-gray-500">{item.nameCn}</div>
+        <div className="text-[10px] text-[var(--theme-text-muted)]">{item.nameCn}</div>
       </div>
 
       {/* Price or status */}
@@ -78,7 +78,7 @@ function RewardCard({
                 className={`text-[10px] px-3 py-1 rounded-full transition-colors ${
                   isEquipped
                     ? "bg-green-500/20 text-green-400"
-                    : "bg-slate-700/50 text-slate-400 hover:bg-slate-600/50"
+                    : "bg-[var(--theme-card-bg)] text-[var(--theme-text-secondary)] hover:bg-[var(--theme-card-bg)]"
                 }`}
               >
                 {isEquipped ? "🏷️ Equipped · 已装备" : "Equip · 装备"}
@@ -92,7 +92,7 @@ function RewardCard({
             className={`flex items-center justify-center gap-1 mx-auto px-4 py-1.5 rounded-lg text-sm font-medium transition-all ${
               canAfford
                 ? "bg-yellow-500/20 text-yellow-400 hover:bg-yellow-500/30 cursor-pointer"
-                : "bg-slate-800/50 text-slate-600 cursor-not-allowed"
+                : "bg-[var(--theme-card-bg)] text-[var(--theme-text-muted)] cursor-not-allowed"
             }`}
           >
             <span>🪙</span>

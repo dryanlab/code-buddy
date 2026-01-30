@@ -71,9 +71,9 @@ export default function LoginPage() {
             <div className="mb-6 space-y-4">
               <GoogleSignInButton mode="signin" />
               <div className="flex items-center gap-3">
-                <div className="flex-1 h-px bg-slate-600/50" />
-                <span className="text-sm text-slate-500">or / 或</span>
-                <div className="flex-1 h-px bg-slate-600/50" />
+                <div className="flex-1 h-px bg-[var(--theme-card-bg)]" />
+                <span className="text-sm text-[var(--theme-text-muted)]">or / 或</span>
+                <div className="flex-1 h-px bg-[var(--theme-card-bg)]" />
               </div>
             </div>
           )}
@@ -82,20 +82,20 @@ export default function LoginPage() {
             {useSupabase ? (
               <>
                 <div>
-                  <label className="block text-sm font-medium text-slate-300 mb-2">
-                    Email <span className="text-gray-500 text-xs">邮箱</span>
+                  <label className="block text-sm font-medium text-[var(--theme-text-secondary)] mb-2">
+                    Email <span className="text-[var(--theme-text-muted)] text-xs">邮箱</span>
                   </label>
                   <input
                     type="email"
                     value={email}
                     onChange={(e) => { setEmail(e.target.value); setError(""); }}
                     placeholder="your@email.com"
-                    className="w-full px-4 py-3 bg-slate-900/50 border border-slate-600/50 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-green-500/50 focus:ring-1 focus:ring-green-500/25 transition-colors"
+                    className="w-full px-4 py-3 bg-[var(--theme-input-bg)] border border-[var(--theme-border)] rounded-xl text-white placeholder-[var(--theme-text-muted)] focus:outline-none focus:border-green-500/50 focus:ring-1 focus:ring-green-500/25 transition-colors"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-slate-300 mb-2">
-                    Password <span className="text-gray-500 text-xs">密码</span>
+                  <label className="block text-sm font-medium text-[var(--theme-text-secondary)] mb-2">
+                    Password <span className="text-[var(--theme-text-muted)] text-xs">密码</span>
                   </label>
                   <input
                     type="password"
@@ -103,14 +103,14 @@ export default function LoginPage() {
                     onChange={(e) => { setPassword(e.target.value); setError(""); }}
                     onKeyDown={(e) => e.key === "Enter" && handleLogin()}
                     placeholder="Enter password..."
-                    className="w-full px-4 py-3 bg-slate-900/50 border border-slate-600/50 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-green-500/50 focus:ring-1 focus:ring-green-500/25 transition-colors"
+                    className="w-full px-4 py-3 bg-[var(--theme-input-bg)] border border-[var(--theme-border)] rounded-xl text-white placeholder-[var(--theme-text-muted)] focus:outline-none focus:border-green-500/50 focus:ring-1 focus:ring-green-500/25 transition-colors"
                   />
                 </div>
               </>
             ) : (
               <div>
-                <label className="block text-sm font-medium text-slate-300 mb-2">
-                  Your Name <span className="text-gray-500 text-xs">你的名字</span>
+                <label className="block text-sm font-medium text-[var(--theme-text-secondary)] mb-2">
+                  Your Name <span className="text-[var(--theme-text-muted)] text-xs">你的名字</span>
                 </label>
                 <input
                   type="text"
@@ -118,7 +118,7 @@ export default function LoginPage() {
                   onChange={(e) => { setName(e.target.value); setError(""); }}
                   onKeyDown={(e) => e.key === "Enter" && handleLogin()}
                   placeholder="Enter your name..."
-                  className="w-full px-4 py-3 bg-slate-900/50 border border-slate-600/50 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-green-500/50 focus:ring-1 focus:ring-green-500/25 transition-colors"
+                  className="w-full px-4 py-3 bg-[var(--theme-input-bg)] border border-[var(--theme-border)] rounded-xl text-white placeholder-[var(--theme-text-muted)] focus:outline-none focus:border-green-500/50 focus:ring-1 focus:ring-green-500/25 transition-colors"
                 />
               </div>
             )}
@@ -141,13 +141,13 @@ export default function LoginPage() {
           </div>
 
           <div className="mt-6 text-center">
-            <p className="text-sm text-slate-400">
+            <p className="text-sm text-[var(--theme-text-secondary)]">
               New pilot?{" "}
               <Link href="/register" className="text-green-400 hover:text-green-300 font-medium">
                 Create Profile
               </Link>
             </p>
-            <p className="text-xs text-gray-500">
+            <p className="text-xs text-[var(--theme-text-muted)]">
               新飞行员？<Link href="/register" className="text-green-400/70 hover:text-green-300">创建档案</Link>
             </p>
           </div>

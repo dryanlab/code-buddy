@@ -81,27 +81,27 @@ export default function RegisterPage() {
           <h1 className="text-3xl font-bold bg-gradient-to-r from-green-400 to-cyan-400 bg-clip-text text-transparent">
             Create Your Pilot Profile
           </h1>
-          <p className="text-sm text-gray-400 mt-2">创建你的飞行员档案</p>
+          <p className="text-sm text-[var(--theme-text-muted)] mt-2">创建你的飞行员档案</p>
         </div>
 
         {/* Registration Card */}
-        <div className="bg-slate-800/50 border border-slate-700/50 rounded-2xl p-8 backdrop-blur space-y-6">
+        <div className="bg-[var(--theme-card-bg)] border border-[var(--theme-border)] rounded-2xl p-8 backdrop-blur space-y-6">
           {/* Google Sign Up */}
           {useSupabase && (
             <>
               <GoogleSignInButton mode="signup" />
               <div className="flex items-center gap-3">
-                <div className="flex-1 h-px bg-slate-600/50" />
-                <span className="text-sm text-slate-500">or / 或</span>
-                <div className="flex-1 h-px bg-slate-600/50" />
+                <div className="flex-1 h-px bg-[var(--theme-card-bg)]" />
+                <span className="text-sm text-[var(--theme-text-muted)]">or / 或</span>
+                <div className="flex-1 h-px bg-[var(--theme-card-bg)]" />
               </div>
             </>
           )}
 
           {/* Name */}
           <div>
-            <label className="block text-sm font-medium text-slate-300 mb-2">
-              Pilot Name <span className="text-gray-500 text-xs">飞行员代号</span>
+            <label className="block text-sm font-medium text-[var(--theme-text-secondary)] mb-2">
+              Pilot Name <span className="text-[var(--theme-text-muted)] text-xs">飞行员代号</span>
             </label>
             <input
               type="text"
@@ -109,7 +109,7 @@ export default function RegisterPage() {
               onChange={(e) => { setName(e.target.value); setError(""); }}
               placeholder="Enter your name..."
               maxLength={20}
-              className="w-full px-4 py-3 bg-slate-900/50 border border-slate-600/50 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-green-500/50 focus:ring-1 focus:ring-green-500/25 transition-colors"
+              className="w-full px-4 py-3 bg-[var(--theme-input-bg)] border border-[var(--theme-border)] rounded-xl text-white placeholder-[var(--theme-text-muted)] focus:outline-none focus:border-green-500/50 focus:ring-1 focus:ring-green-500/25 transition-colors"
             />
           </div>
 
@@ -117,27 +117,27 @@ export default function RegisterPage() {
           {useSupabase && (
             <>
               <div>
-                <label className="block text-sm font-medium text-slate-300 mb-2">
-                  Email <span className="text-gray-500 text-xs">邮箱</span>
+                <label className="block text-sm font-medium text-[var(--theme-text-secondary)] mb-2">
+                  Email <span className="text-[var(--theme-text-muted)] text-xs">邮箱</span>
                 </label>
                 <input
                   type="email"
                   value={email}
                   onChange={(e) => { setEmail(e.target.value); setError(""); }}
                   placeholder="your@email.com"
-                  className="w-full px-4 py-3 bg-slate-900/50 border border-slate-600/50 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-green-500/50 focus:ring-1 focus:ring-green-500/25 transition-colors"
+                  className="w-full px-4 py-3 bg-[var(--theme-input-bg)] border border-[var(--theme-border)] rounded-xl text-white placeholder-[var(--theme-text-muted)] focus:outline-none focus:border-green-500/50 focus:ring-1 focus:ring-green-500/25 transition-colors"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-slate-300 mb-2">
-                  Password <span className="text-gray-500 text-xs">密码（至少6位）</span>
+                <label className="block text-sm font-medium text-[var(--theme-text-secondary)] mb-2">
+                  Password <span className="text-[var(--theme-text-muted)] text-xs">密码（至少6位）</span>
                 </label>
                 <input
                   type="password"
                   value={password}
                   onChange={(e) => { setPassword(e.target.value); setError(""); }}
                   placeholder="Create a password..."
-                  className="w-full px-4 py-3 bg-slate-900/50 border border-slate-600/50 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-green-500/50 focus:ring-1 focus:ring-green-500/25 transition-colors"
+                  className="w-full px-4 py-3 bg-[var(--theme-input-bg)] border border-[var(--theme-border)] rounded-xl text-white placeholder-[var(--theme-text-muted)] focus:outline-none focus:border-green-500/50 focus:ring-1 focus:ring-green-500/25 transition-colors"
                 />
               </div>
             </>
@@ -145,8 +145,8 @@ export default function RegisterPage() {
 
           {/* Grade */}
           <div>
-            <label className="block text-sm font-medium text-slate-300 mb-2">
-              Grade Level <span className="text-gray-500 text-xs">年级</span>
+            <label className="block text-sm font-medium text-[var(--theme-text-secondary)] mb-2">
+              Grade Level <span className="text-[var(--theme-text-muted)] text-xs">年级</span>
             </label>
             <div className="grid grid-cols-4 gap-2">
               {GRADES.map((g) => (
@@ -158,7 +158,7 @@ export default function RegisterPage() {
                   className={`py-2 px-3 rounded-lg text-sm font-medium transition-colors ${
                     grade === g.value
                       ? "bg-green-500/20 border border-green-500/50 text-green-400"
-                      : "bg-slate-900/50 border border-slate-600/30 text-slate-400 hover:border-slate-500"
+                      : "bg-[var(--theme-input-bg)] border border-[var(--theme-border)] text-[var(--theme-text-secondary)] hover:border-[var(--theme-border)]"
                   }`}
                 >
                   {g.label}
@@ -169,8 +169,8 @@ export default function RegisterPage() {
 
           {/* Avatar */}
           <div>
-            <label className="block text-sm font-medium text-slate-300 mb-2">
-              Choose Your Avatar <span className="text-gray-500 text-xs">选择头像</span>
+            <label className="block text-sm font-medium text-[var(--theme-text-secondary)] mb-2">
+              Choose Your Avatar <span className="text-[var(--theme-text-muted)] text-xs">选择头像</span>
             </label>
             <div className="grid grid-cols-6 gap-3">
               {avatars.map((a) => (
@@ -182,7 +182,7 @@ export default function RegisterPage() {
                   className={`text-3xl p-2 rounded-xl transition-colors ${
                     avatar === a
                       ? "bg-green-500/20 border-2 border-green-500/50 shadow-lg shadow-green-500/10"
-                      : "bg-slate-900/50 border-2 border-transparent hover:border-slate-600"
+                      : "bg-[var(--theme-input-bg)] border-2 border-transparent hover:border-[var(--theme-border)]"
                   }`}
                 >
                   {a}
@@ -192,10 +192,10 @@ export default function RegisterPage() {
           </div>
 
           {/* Preview */}
-          <div className="bg-slate-900/50 border border-slate-700/30 rounded-xl p-4 text-center">
+          <div className="bg-[var(--theme-input-bg)] border border-[var(--theme-border)] rounded-xl p-4 text-center">
             <div className="text-4xl mb-2">{avatar}</div>
             <div className="font-bold text-lg">{name || "????"}</div>
-            <div className="text-xs text-slate-400">Grade {grade} Pilot</div>
+            <div className="text-xs text-[var(--theme-text-secondary)]">Grade {grade} Pilot</div>
           </div>
 
           {error && (
@@ -216,13 +216,13 @@ export default function RegisterPage() {
           </motion.button>
 
           <div className="text-center">
-            <p className="text-sm text-slate-400">
+            <p className="text-sm text-[var(--theme-text-secondary)]">
               Already have a profile?{" "}
               <Link href="/login" className="text-green-400 hover:text-green-300 font-medium">
                 Sign In
               </Link>
             </p>
-            <p className="text-xs text-gray-500">
+            <p className="text-xs text-[var(--theme-text-muted)]">
               已有档案？<Link href="/login" className="text-green-400/70">登录</Link>
             </p>
           </div>

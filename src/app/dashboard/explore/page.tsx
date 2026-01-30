@@ -36,8 +36,8 @@ function CPUAnimation() {
 
   return (
     <div className="space-y-4">
-      <div className="bg-slate-900 rounded-xl p-6 border border-slate-700">
-        <div className="text-center text-xs text-slate-500 mb-4">
+      <div className="bg-[var(--theme-card-bg)] rounded-xl p-6 border border-[var(--theme-border)]">
+        <div className="text-center text-xs text-[var(--theme-text-muted)] mb-4">
           CPU Cycle #{cycleCount + 1} — Fetch → Decode → Execute → Store
         </div>
         <div className="grid grid-cols-3 gap-4 mb-6">
@@ -48,18 +48,18 @@ function CPUAnimation() {
               scale: currentStep.highlight === "memory" ? 1.05 : 1,
               boxShadow: currentStep.highlight === "memory" ? "0 0 20px rgba(0,191,255,0.3)" : "none",
             }}
-            className="bg-slate-800 rounded-lg p-4 border-2 text-center"
+            className="bg-[var(--theme-card-bg)] rounded-lg p-4 border-2 text-center"
           >
             <div className="text-2xl mb-2">🧠</div>
             <div className="text-xs font-bold">MEMORY (RAM)</div>
-            <div className="text-[10px] text-gray-500">内存</div>
-            <div className="text-[10px] text-slate-400 mt-1 terminal-text">
+            <div className="text-[10px] text-[var(--theme-text-muted)]">内存</div>
+            <div className="text-[10px] text-[var(--theme-text-secondary)] mt-1 terminal-text">
               ADD x, 5<br />MOV y, x<br />PRINT y
             </div>
           </motion.div>
 
           {/* CPU */}
-          <div className="col-span-2 bg-slate-800 rounded-lg p-4 border-2 border-slate-600">
+          <div className="col-span-2 bg-[var(--theme-card-bg)] rounded-lg p-4 border-2 border-[var(--theme-border)]">
             <div className="text-center text-xs font-bold mb-3">🖥️ CPU</div>
             <div className="grid grid-cols-2 gap-3">
               <motion.div
@@ -68,11 +68,11 @@ function CPUAnimation() {
                   scale: currentStep.highlight === "cu" ? 1.05 : 1,
                   boxShadow: currentStep.highlight === "cu" ? "0 0 20px rgba(234,179,8,0.3)" : "none",
                 }}
-                className="bg-slate-700 rounded p-3 border-2 text-center"
+                className="bg-[var(--theme-card-bg)] rounded p-3 border-2 text-center"
               >
                 <div className="text-lg">🎛️</div>
                 <div className="text-[10px] font-bold">Control Unit</div>
-                <div className="text-[10px] text-gray-500">控制单元</div>
+                <div className="text-[10px] text-[var(--theme-text-muted)]">控制单元</div>
               </motion.div>
               <motion.div
                 animate={{
@@ -80,11 +80,11 @@ function CPUAnimation() {
                   scale: currentStep.highlight === "alu" ? 1.05 : 1,
                   boxShadow: currentStep.highlight === "alu" ? "0 0 20px rgba(34,197,94,0.3)" : "none",
                 }}
-                className="bg-slate-700 rounded p-3 border-2 text-center"
+                className="bg-[var(--theme-card-bg)] rounded p-3 border-2 text-center"
               >
                 <div className="text-lg">🔢</div>
                 <div className="text-[10px] font-bold">ALU</div>
-                <div className="text-[10px] text-gray-500">算术逻辑单元</div>
+                <div className="text-[10px] text-[var(--theme-text-muted)]">算术逻辑单元</div>
               </motion.div>
               <motion.div
                 animate={{
@@ -92,12 +92,12 @@ function CPUAnimation() {
                   scale: currentStep.highlight === "register" ? 1.05 : 1,
                   boxShadow: currentStep.highlight === "register" ? "0 0 20px rgba(168,85,247,0.3)" : "none",
                 }}
-                className="col-span-2 bg-slate-700 rounded p-3 border-2 text-center"
+                className="col-span-2 bg-[var(--theme-card-bg)] rounded p-3 border-2 text-center"
               >
                 <div className="text-lg">📦</div>
                 <div className="text-[10px] font-bold">Registers</div>
-                <div className="text-[10px] text-gray-500">寄存器</div>
-                <div className="text-[10px] text-slate-400 terminal-text">x=5, y=5</div>
+                <div className="text-[10px] text-[var(--theme-text-muted)]">寄存器</div>
+                <div className="text-[10px] text-[var(--theme-text-secondary)] terminal-text">x=5, y=5</div>
               </motion.div>
             </div>
           </div>
@@ -112,8 +112,8 @@ function CPUAnimation() {
             className="text-center"
           >
             <div className={`text-lg font-bold ${currentStep.color}`}>{currentStep.label}</div>
-            <div className="text-sm text-slate-300">{currentStep.desc}</div>
-            <div className="text-xs text-gray-500">{currentStep.descCn}</div>
+            <div className="text-sm text-[var(--theme-text-secondary)]">{currentStep.desc}</div>
+            <div className="text-xs text-[var(--theme-text-muted)]">{currentStep.descCn}</div>
           </motion.div>
         </AnimatePresence>
 
@@ -122,7 +122,7 @@ function CPUAnimation() {
             <motion.div
               key={i}
               animate={{ scale: i === step ? 1.3 : 1 }}
-              className={`w-3 h-3 rounded-full transition-colors ${i <= step ? "bg-green-500" : "bg-slate-700"}`}
+              className={`w-3 h-3 rounded-full transition-colors ${i <= step ? "bg-green-500" : "bg-[var(--theme-card-bg)]"}`}
             />
           ))}
         </div>
@@ -173,9 +173,9 @@ function MemoryVisualization() {
 
   return (
     <div className="space-y-4">
-      <div className="bg-slate-900 rounded-xl p-6 border border-slate-700">
-        <div className="text-center text-sm text-slate-300 mb-1">📦 RAM — Variables in Memory</div>
-        <div className="text-center text-xs text-gray-500 mb-4">内存中的变量</div>
+      <div className="bg-[var(--theme-card-bg)] rounded-xl p-6 border border-[var(--theme-border)]">
+        <div className="text-center text-sm text-[var(--theme-text-secondary)] mb-1">📦 RAM — Variables in Memory</div>
+        <div className="text-center text-xs text-[var(--theme-text-muted)] mb-4">内存中的变量</div>
         <div className="space-y-2">
           {variables.map((v, i) => (
             <motion.div
@@ -189,10 +189,10 @@ function MemoryVisualization() {
               transition={{ delay: i * 0.1 }}
               className={`flex items-center gap-3 p-3 rounded-lg border ${typeColors[v.type]}`}
             >
-              <div className="text-[10px] terminal-text text-slate-500 w-12">{v.address}</div>
+              <div className="text-[10px] terminal-text text-[var(--theme-text-muted)] w-12">{v.address}</div>
               <div className="font-bold text-sm flex-1">{v.name}</div>
               <div className="terminal-text text-sm">{v.value}</div>
-              <div className="text-[10px] px-2 py-0.5 bg-slate-700/50 rounded">{v.type}</div>
+              <div className="text-[10px] px-2 py-0.5 bg-[var(--theme-card-bg)] rounded">{v.type}</div>
             </motion.div>
           ))}
         </div>
@@ -204,13 +204,13 @@ function MemoryVisualization() {
           value={newVarName}
           onChange={(e) => setNewVarName(e.target.value)}
           placeholder="Variable name · 变量名"
-          className="flex-1 px-3 py-2 bg-slate-800 border border-slate-700 rounded-lg text-sm focus:outline-none focus:border-green-500 terminal-text"
+          className="flex-1 px-3 py-2 bg-[var(--theme-card-bg)] border border-[var(--theme-border)] rounded-lg text-sm focus:outline-none focus:border-green-500 terminal-text"
         />
         <input
           value={newVarValue}
           onChange={(e) => setNewVarValue(e.target.value)}
           placeholder="Value · 值"
-          className="flex-1 px-3 py-2 bg-slate-800 border border-slate-700 rounded-lg text-sm focus:outline-none focus:border-green-500 terminal-text"
+          className="flex-1 px-3 py-2 bg-[var(--theme-card-bg)] border border-[var(--theme-border)] rounded-lg text-sm focus:outline-none focus:border-green-500 terminal-text"
         />
         <button
           onClick={addVariable}
@@ -258,18 +258,18 @@ function SpeedComparison() {
 
   return (
     <div className="space-y-4">
-      <div className="bg-slate-900 rounded-xl p-6 border border-slate-700">
-        <div className="text-center text-sm text-slate-300 mb-1">⚡ Speed Race</div>
-        <div className="text-center text-xs text-gray-500 mb-4">速度大比拼 — 看看不同存储设备的速度差异！</div>
+      <div className="bg-[var(--theme-card-bg)] rounded-xl p-6 border border-[var(--theme-border)]">
+        <div className="text-center text-sm text-[var(--theme-text-secondary)] mb-1">⚡ Speed Race</div>
+        <div className="text-center text-xs text-[var(--theme-text-muted)] mb-4">速度大比拼 — 看看不同存储设备的速度差异！</div>
 
         <div className="space-y-3">
           {components.map((comp) => (
             <div key={comp.name} className="space-y-1">
               <div className="flex justify-between text-xs">
-                <span className="text-slate-300">{comp.name}</span>
-                <span className="text-slate-500">{comp.label}</span>
+                <span className="text-[var(--theme-text-secondary)]">{comp.name}</span>
+                <span className="text-[var(--theme-text-muted)]">{comp.label}</span>
               </div>
-              <div className="h-6 bg-slate-800 rounded-full overflow-hidden relative">
+              <div className="h-6 bg-[var(--theme-card-bg)] rounded-full overflow-hidden relative">
                 <motion.div
                   className={`h-full ${comp.color} rounded-full`}
                   style={{ width: `${progress[comp.name] || 0}%` }}
@@ -278,7 +278,7 @@ function SpeedComparison() {
                   <span className="absolute right-2 top-0.5 text-xs">🏁</span>
                 )}
               </div>
-              <div className="text-[10px] text-gray-500">{comp.labelCn}</div>
+              <div className="text-[10px] text-[var(--theme-text-muted)]">{comp.labelCn}</div>
             </div>
           ))}
         </div>
@@ -340,9 +340,9 @@ function ProcessScheduler() {
 
   return (
     <div className="space-y-4">
-      <div className="bg-slate-900 rounded-xl p-6 border border-slate-700">
-        <div className="text-center text-sm text-slate-300 mb-1">⏱️ Process Scheduling</div>
-        <div className="text-center text-xs text-gray-500 mb-4">进程调度 — CPU 如何在多个程序间快速切换（时间片轮转）</div>
+      <div className="bg-[var(--theme-card-bg)] rounded-xl p-6 border border-[var(--theme-border)]">
+        <div className="text-center text-sm text-[var(--theme-text-secondary)] mb-1">⏱️ Process Scheduling</div>
+        <div className="text-center text-xs text-[var(--theme-text-muted)] mb-4">进程调度 — CPU 如何在多个程序间快速切换（时间片轮转）</div>
 
         {/* Processes */}
         <div className="grid grid-cols-4 gap-2 mb-4">
@@ -353,7 +353,7 @@ function ProcessScheduler() {
                 scale: currentProcess === i && running ? 1.1 : 1,
                 borderColor: currentProcess === i && running ? "#00ff88" : "#374151",
               }}
-              className="text-center p-3 bg-slate-800 rounded-lg border-2"
+              className="text-center p-3 bg-[var(--theme-card-bg)] rounded-lg border-2"
             >
               <div className="text-2xl">{p.name.split(" ")[0]}</div>
               <div className="text-xs mt-1">{p.name.split(" ")[1]}</div>
@@ -365,7 +365,7 @@ function ProcessScheduler() {
         </div>
 
         {/* Timeline */}
-        <div className="text-xs text-slate-500 mb-1">CPU Timeline:</div>
+        <div className="text-xs text-[var(--theme-text-muted)] mb-1">CPU Timeline:</div>
         <div className="flex gap-1 flex-wrap">
           {schedule.map((s, i) => (
             <motion.div
@@ -378,7 +378,7 @@ function ProcessScheduler() {
             </motion.div>
           ))}
           {schedule.length === 0 && (
-            <div className="text-slate-600 text-sm">Click start to see scheduling... 点击开始查看调度</div>
+            <div className="text-[var(--theme-text-muted)] text-sm">Click start to see scheduling... 点击开始查看调度</div>
           )}
         </div>
       </div>
@@ -446,8 +446,8 @@ export default function ExplorePage() {
     <div className="p-6 md:p-8 max-w-4xl mx-auto">
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
         <h1 className="text-3xl font-bold mb-1">🔬 Computer Explorer</h1>
-        <p className="text-sm text-gray-400 mb-1">计算机探秘</p>
-        <p className="text-slate-400 mb-6">Explore how computers work! 探索计算机的奥秘 🧪</p>
+        <p className="text-sm text-[var(--theme-text-muted)] mb-1">计算机探秘</p>
+        <p className="text-[var(--theme-text-secondary)] mb-6">Explore how computers work! 探索计算机的奥秘 🧪</p>
       </motion.div>
 
       {/* Tabs */}
@@ -459,11 +459,11 @@ export default function ExplorePage() {
             className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
               activeTab === tab.id
                 ? "bg-green-500/20 text-green-400 border border-green-500/30"
-                : "bg-slate-800/50 text-slate-400 border border-slate-700/50 hover:border-slate-600"
+                : "bg-[var(--theme-card-bg)] text-[var(--theme-text-secondary)] border border-[var(--theme-border)] hover:border-[var(--theme-border)]"
             }`}
           >
             <span>{tab.icon} {tab.label}</span>
-            <span className="block text-[10px] text-gray-500">{tab.labelCn}</span>
+            <span className="block text-[10px] text-[var(--theme-text-muted)]">{tab.labelCn}</span>
           </button>
         ))}
       </div>
@@ -482,19 +482,19 @@ export default function ExplorePage() {
               >
                 <div className="text-4xl mb-3">{card.icon}</div>
                 <h3 className="text-lg font-bold mb-1">{card.title}</h3>
-                <p className="text-xs text-gray-400 mb-3">{card.subtitle}</p>
-                <p className="text-sm text-slate-300">{card.content}</p>
-                <p className="text-xs text-gray-500 mt-1">{card.contentCn}</p>
+                <p className="text-xs text-[var(--theme-text-muted)] mb-3">{card.subtitle}</p>
+                <p className="text-sm text-[var(--theme-text-secondary)]">{card.content}</p>
+                <p className="text-xs text-[var(--theme-text-muted)] mt-1">{card.contentCn}</p>
                 <AnimatePresence>
                   {activeCard === card.id && (
                     <motion.div
                       initial={{ opacity: 0, height: 0 }}
                       animate={{ opacity: 1, height: "auto" }}
                       exit={{ opacity: 0, height: 0 }}
-                      className="mt-3 pt-3 border-t border-slate-600/50"
+                      className="mt-3 pt-3 border-t border-[var(--theme-border)]"
                     >
                       <p className="text-sm">{card.funFact}</p>
-                      <p className="text-xs text-gray-500 mt-1">{card.funFactCn}</p>
+                      <p className="text-xs text-[var(--theme-text-muted)] mt-1">{card.funFactCn}</p>
                     </motion.div>
                   )}
                 </AnimatePresence>

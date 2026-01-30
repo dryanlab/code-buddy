@@ -103,14 +103,14 @@ export default function CodeEditor({
   }, [code, detectInputPrompts, executeCode, inputValues]);
 
   return (
-    <div className="rounded-xl overflow-hidden border border-slate-700/50">
+    <div className="rounded-xl overflow-hidden border border-[var(--theme-border)]">
       {/* Editor header */}
-      <div className="flex items-center justify-between bg-[#1e1e1e] px-4 py-2 border-b border-slate-700/50">
+      <div className="flex items-center justify-between bg-[#1e1e1e] px-4 py-2 border-b border-[var(--theme-border)]">
         <div className="flex items-center gap-2">
           <div className="w-3 h-3 rounded-full bg-red-500" />
           <div className="w-3 h-3 rounded-full bg-yellow-500" />
           <div className="w-3 h-3 rounded-full bg-green-500" />
-          <span className="text-xs text-slate-400 ml-2 terminal-text">main.py</span>
+          <span className="text-xs text-[var(--theme-text-secondary)] ml-2 terminal-text">main.py</span>
         </div>
         <div className="flex items-center gap-2">
           {isLoading && (
@@ -147,9 +147,9 @@ export default function CodeEditor({
       />
 
       {/* Output panel */}
-      <div className="bg-[#0d1117] border-t border-slate-700/50 p-4">
+      <div className="bg-[#0d1117] border-t border-[var(--theme-border)] p-4">
         <div className="flex items-center gap-2 mb-2">
-          <span className="text-xs text-slate-500 terminal-text">OUTPUT</span>
+          <span className="text-xs text-[var(--theme-text-muted)] terminal-text">OUTPUT</span>
           {isRunning && (
             <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
           )}
@@ -170,13 +170,13 @@ export default function CodeEditor({
         <div id="turtle-output" data-turtle-mount="true" />
         
         <pre className="text-sm text-green-400 terminal-text whitespace-pre-wrap min-h-[2rem]">
-          {output || <span className="text-slate-600">Click &quot;Run&quot; to execute code... 点击 &quot;Run&quot; 运行代码</span>}
+          {output || <span className="text-[var(--theme-text-muted)]">Click &quot;Run&quot; to execute code... 点击 &quot;Run&quot; 运行代码</span>}
         </pre>
 
         {/* Variables panel */}
         {Object.keys(variables).length > 0 && (
-          <div className="mt-3 pt-3 border-t border-slate-700/30">
-            <div className="text-xs text-slate-500 terminal-text mb-2">VARIABLES · 变量</div>
+          <div className="mt-3 pt-3 border-t border-[var(--theme-border)]">
+            <div className="text-xs text-[var(--theme-text-muted)] terminal-text mb-2">VARIABLES · 变量</div>
             <div className="flex flex-wrap gap-2">
               {Object.entries(variables).map(([name, value]) => (
                 <motion.div
@@ -186,7 +186,7 @@ export default function CodeEditor({
                   className="px-2 py-1 bg-purple-500/10 border border-purple-500/20 rounded text-xs terminal-text"
                 >
                   <span className="text-purple-400">{name}</span>
-                  <span className="text-slate-500"> = </span>
+                  <span className="text-[var(--theme-text-muted)]"> = </span>
                   <span className="text-cyan-400">{value}</span>
                 </motion.div>
               ))}

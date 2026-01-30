@@ -28,10 +28,10 @@ function TextSection({ section }: { section: LessonSection }) {
       <div
         className="prose prose-invert prose-sm max-w-none
           prose-headings:text-green-400 prose-strong:text-cyan-400
-          prose-code:text-green-300 prose-code:bg-slate-700/50 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded
-          prose-pre:bg-[#0d1117] prose-pre:border prose-pre:border-slate-700
-          prose-table:border-collapse prose-td:border prose-td:border-slate-700 prose-td:px-3 prose-td:py-2
-          prose-th:border prose-th:border-slate-700 prose-th:px-3 prose-th:py-2 prose-th:bg-slate-800"
+          prose-code:text-green-300 prose-code:bg-[var(--theme-card-bg)] prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded
+          prose-pre:bg-[#0d1117] prose-pre:border prose-pre:border-[var(--theme-border)]
+          prose-table:border-collapse prose-td:border prose-td:border-[var(--theme-border)] prose-td:px-3 prose-td:py-2
+          prose-th:border prose-th:border-[var(--theme-border)] prose-th:px-3 prose-th:py-2 prose-th:bg-[var(--theme-card-bg)]"
         dangerouslySetInnerHTML={{ __html: markdownToHtml(section.content) }}
       />
     </motion.div>
@@ -49,9 +49,9 @@ function InteractiveSection({ section }: { section: LessonSection }) {
       <div
         className="prose prose-invert prose-sm max-w-none
           prose-headings:text-purple-400 prose-strong:text-cyan-400
-          prose-code:text-green-300 prose-code:bg-slate-700/50 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded
-          prose-pre:bg-[#0d1117] prose-pre:border prose-pre:border-slate-700
-          prose-blockquote:border-l-purple-500 prose-blockquote:text-slate-300"
+          prose-code:text-green-300 prose-code:bg-[var(--theme-card-bg)] prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded
+          prose-pre:bg-[#0d1117] prose-pre:border prose-pre:border-[var(--theme-border)]
+          prose-blockquote:border-l-purple-500 prose-blockquote:text-[var(--theme-text-secondary)]"
         dangerouslySetInnerHTML={{ __html: markdownToHtml(section.content) }}
       />
     </motion.div>
@@ -86,7 +86,7 @@ function ChallengeSection({ section }: { section: LessonSection }) {
       className="bg-gradient-to-br from-yellow-500/10 to-orange-500/10 border border-yellow-500/30 rounded-xl p-6 space-y-4"
     >
       <h3 className="text-xl font-bold text-yellow-400">{challenge.title}</h3>
-      <p className="text-slate-300">{challenge.description}</p>
+      <p className="text-[var(--theme-text-secondary)]">{challenge.description}</p>
 
       <CodeEditor initialCode={challenge.starterCode} />
 
@@ -99,7 +99,7 @@ function ChallengeSection({ section }: { section: LessonSection }) {
         </button>
         <button
           onClick={() => setShowSolution(!showSolution)}
-          className="px-4 py-2 text-sm bg-slate-700/50 text-slate-400 rounded-lg hover:bg-slate-700 transition-colors"
+          className="px-4 py-2 text-sm bg-[var(--theme-card-bg)] text-[var(--theme-text-secondary)] rounded-lg hover:bg-[var(--theme-card-bg)] transition-colors"
         >
           👀 {showSolution ? "Hide Solution · 隐藏答案" : "Show Solution · 显示答案"}
         </button>
@@ -171,13 +171,13 @@ function QuizSection({ section, onComplete }: { section: LessonSection; onComple
         <div className="text-2xl font-bold mb-1">
           {score >= 80 ? "Awesome!" : score >= 50 ? "Good job!" : "Keep practicing!"}
         </div>
-        <div className="text-sm text-gray-400 mb-2">
+        <div className="text-sm text-[var(--theme-text-muted)] mb-2">
           {score >= 80 ? "太棒了！" : score >= 50 ? "做得不错！" : "继续加油！"}
         </div>
-        <div className="text-lg text-slate-300">
+        <div className="text-lg text-[var(--theme-text-secondary)]">
           Score: {correct}/{questions.length} ({score}%)
         </div>
-        <div className="text-sm text-gray-500">得分</div>
+        <div className="text-sm text-[var(--theme-text-muted)]">得分</div>
       </motion.div>
     );
   }
@@ -186,11 +186,11 @@ function QuizSection({ section, onComplete }: { section: LessonSection; onComple
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="bg-slate-800/50 border border-slate-700/50 rounded-xl p-6"
+      className="bg-[var(--theme-card-bg)] border border-[var(--theme-border)] rounded-xl p-6"
     >
       <div className="flex items-center justify-between mb-4">
         <h3 className="text-lg font-bold text-cyan-400">🧠 Quiz Time! · 测验时间！</h3>
-        <span className="text-sm text-slate-400">{currentQ + 1}/{questions.length}</span>
+        <span className="text-sm text-[var(--theme-text-secondary)]">{currentQ + 1}/{questions.length}</span>
       </div>
 
       <p className="text-lg mb-4">{q.question}</p>
@@ -207,10 +207,10 @@ function QuizSection({ section, onComplete }: { section: LessonSection; onComple
                   ? "bg-green-500/20 border-green-500/50 text-green-400"
                   : i === selected
                   ? "bg-red-500/20 border-red-500/50 text-red-400"
-                  : "bg-slate-800/30 border-slate-700/30 text-slate-500"
+                  : "bg-[var(--theme-card-bg)] border-[var(--theme-border)] text-[var(--theme-text-muted)]"
                 : selected === i
                 ? "bg-cyan-500/20 border-cyan-500/50"
-                : "bg-slate-800/30 border-slate-700/50 hover:border-cyan-500/30"
+                : "bg-[var(--theme-card-bg)] border-[var(--theme-border)] hover:border-cyan-500/30"
             }`}
           >
             <span className="font-mono text-sm mr-2">{String.fromCharCode(65 + i)}.</span>
@@ -295,7 +295,7 @@ export default function LessonPage() {
       <div className="p-8 text-center">
         <div className="text-6xl mb-4">🤔</div>
         <h1 className="text-2xl font-bold mb-2">Lesson not found</h1>
-        <p className="text-sm text-gray-400 mb-2">找不到这节课</p>
+        <p className="text-sm text-[var(--theme-text-muted)] mb-2">找不到这节课</p>
         <button onClick={() => router.push("/dashboard/lessons")} className="text-cyan-400 hover:underline">
           ← Back to lessons · 返回课程
         </button>
@@ -325,7 +325,7 @@ export default function LessonPage() {
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="mb-6">
         <button
           onClick={() => router.push("/dashboard/lessons")}
-          className="text-sm text-slate-400 hover:text-slate-200 mb-4 inline-block"
+          className="text-sm text-[var(--theme-text-secondary)] hover:text-[var(--theme-text-primary)] mb-4 inline-block"
         >
           ← Back to lessons · 返回课程
         </button>
@@ -333,7 +333,7 @@ export default function LessonPage() {
           <span className="text-4xl">{lesson.icon}</span>
           <div>
             <h1 className="text-2xl font-bold">{lesson.title}</h1>
-            <p className="text-slate-400">{lesson.subtitle}</p>
+            <p className="text-[var(--theme-text-secondary)]">{lesson.subtitle}</p>
           </div>
           <div className="ml-auto text-sm text-green-400">+{lesson.xp} XP</div>
         </div>
@@ -350,7 +350,7 @@ export default function LessonPage() {
                 ? "w-8 bg-green-500"
                 : i < currentSection
                 ? "w-2 bg-green-500/50"
-                : "w-2 bg-slate-700"
+                : "w-2 bg-[var(--theme-card-bg)]"
             }`}
           />
         ))}
@@ -373,11 +373,11 @@ export default function LessonPage() {
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              className="bg-slate-800/50 border border-cyan-500/30 rounded-xl p-6 text-center"
+              className="bg-[var(--theme-card-bg)] border border-cyan-500/30 rounded-xl p-6 text-center"
             >
               <div className="text-4xl mb-4">🎬</div>
-              <p className="text-slate-300">{section.content}</p>
-              <p className="text-sm text-slate-500 mt-2">(Animation coming soon · 动画组件开发中)</p>
+              <p className="text-[var(--theme-text-secondary)]">{section.content}</p>
+              <p className="text-sm text-[var(--theme-text-muted)] mt-2">(Animation coming soon · 动画组件开发中)</p>
             </motion.div>
           )}
 
@@ -393,7 +393,7 @@ export default function LessonPage() {
         <button
           onClick={() => setCurrentSection(Math.max(0, currentSection - 1))}
           disabled={currentSection === 0}
-          className="px-4 py-2 text-sm bg-slate-800 text-slate-300 rounded-lg disabled:opacity-30 hover:bg-slate-700 transition-colors"
+          className="px-4 py-2 text-sm bg-[var(--theme-card-bg)] text-[var(--theme-text-secondary)] rounded-lg disabled:opacity-30 hover:bg-[var(--theme-card-bg)] transition-colors"
         >
           ← Previous · 上一页
         </button>
@@ -443,7 +443,7 @@ function LessonNavigation({ lessonId, isCompleted }: { lessonId: string; isCompl
       <div className="text-center mb-4">
         <button
           onClick={() => router.push("/dashboard/lessons")}
-          className="text-sm text-slate-400 hover:text-slate-200 transition-colors"
+          className="text-sm text-[var(--theme-text-secondary)] hover:text-[var(--theme-text-primary)] transition-colors"
         >
           📚 Back to Lessons · 返回课程列表
         </button>
@@ -472,7 +472,7 @@ function LessonNavigation({ lessonId, isCompleted }: { lessonId: string; isCompl
           <h3 className="text-xl font-bold text-green-400">Module Complete!</h3>
           <p className="text-sm text-green-200/70 mt-1">模块完成！</p>
           {nextModuleTitle && (
-            <p className="text-sm text-slate-300 mt-2">Next up: {nextModuleTitle}</p>
+            <p className="text-sm text-[var(--theme-text-secondary)] mt-2">Next up: {nextModuleTitle}</p>
           )}
         </motion.div>
       )}
@@ -490,7 +490,7 @@ function LessonNavigation({ lessonId, isCompleted }: { lessonId: string; isCompl
               border: "1px solid var(--theme-border)",
             }}
           >
-            <div className="text-xs text-slate-400 mb-1">← Previous Lesson · 上一课</div>
+            <div className="text-xs text-[var(--theme-text-secondary)] mb-1">← Previous Lesson · 上一课</div>
             <div className="font-bold text-sm">{prev.icon} {prev.title}</div>
           </motion.button>
         ) : (

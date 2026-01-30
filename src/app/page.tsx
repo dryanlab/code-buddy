@@ -90,13 +90,13 @@ function TypewriterCode() {
       <div ref={scrollRef} className="h-32 overflow-y-auto space-y-1 scrollbar-thin scrollbar-thumb-slate-700">
         {displayed.map((line, i) => (
           <div key={i} className="text-green-400">
-            <span className="text-gray-500">{">>> "}</span>
+            <span className="text-[var(--theme-text-muted)]">{">>> "}</span>
             {line}
           </div>
         ))}
         {lineIndex < CODE_LINES.length && (
           <div className="text-green-400">
-            <span className="text-gray-500">{">>> "}</span>
+            <span className="text-[var(--theme-text-muted)]">{">>> "}</span>
             {currentLine}
             <span className="animate-pulse">▌</span>
           </div>

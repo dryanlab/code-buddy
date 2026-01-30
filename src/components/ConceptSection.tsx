@@ -19,29 +19,29 @@ function SyntaxCardComponent({ card, index }: { card: SyntaxCard; index: number 
         className={`rounded-xl p-4 border-2 transition-all duration-300 ${
           flipped
             ? "bg-green-900/30 border-green-500/50"
-            : "bg-slate-800/80 border-slate-600/50 hover:border-cyan-500/50"
+            : "bg-[var(--theme-card-bg)] border-[var(--theme-border)] hover:border-cyan-500/50"
         }`}
       >
         <div className="flex items-start gap-3">
           <span className="text-2xl flex-shrink-0">{card.emoji}</span>
           <div className="flex-1 min-w-0">
-            <code className="text-green-300 text-lg font-bold bg-slate-900/50 px-2 py-0.5 rounded">
+            <code className="text-green-300 text-lg font-bold bg-[var(--theme-input-bg)] px-2 py-0.5 rounded">
               {card.symbol}
             </code>
             <div className="mt-2 text-cyan-300 font-medium text-sm">
               {card.name}
             </div>
-            <div className="text-slate-400 text-xs mt-0.5">{card.nameZh}</div>
+            <div className="text-[var(--theme-text-secondary)] text-xs mt-0.5">{card.nameZh}</div>
 
             {flipped && (
               <motion.div
                 initial={{ opacity: 0, height: 0 }}
                 animate={{ opacity: 1, height: "auto" }}
-                className="mt-3 pt-3 border-t border-slate-700"
+                className="mt-3 pt-3 border-t border-[var(--theme-border)]"
               >
-                <p className="text-slate-300 text-sm">{card.description}</p>
+                <p className="text-[var(--theme-text-secondary)] text-sm">{card.description}</p>
                 {card.example && (
-                  <pre className="mt-2 bg-slate-900/80 rounded-lg p-2 text-green-300 text-xs overflow-x-auto">
+                  <pre className="mt-2 bg-[var(--theme-card-bg)] rounded-lg p-2 text-green-300 text-xs overflow-x-auto">
                     <code>{card.example}</code>
                   </pre>
                 )}
@@ -49,7 +49,7 @@ function SyntaxCardComponent({ card, index }: { card: SyntaxCard; index: number 
             )}
 
             {!flipped && (
-              <div className="mt-2 text-slate-500 text-xs italic">
+              <div className="mt-2 text-[var(--theme-text-muted)] text-xs italic">
                 👆 Tap to learn more · 点击了解更多
               </div>
             )}
@@ -65,14 +65,14 @@ function CodeAnatomyComponent({ anatomy }: { anatomy: CodeAnatomy }) {
 
   return (
     <div className="rounded-xl overflow-hidden border border-cyan-500/30">
-      <div className="bg-slate-900 px-4 py-2 border-b border-slate-700 flex items-center gap-2">
+      <div className="bg-[var(--theme-card-bg)] px-4 py-2 border-b border-[var(--theme-border)] flex items-center gap-2">
         <span className="text-lg">🔬</span>
         <span className="text-cyan-400 font-medium text-sm">
           Code Anatomy · 代码解剖
         </span>
       </div>
 
-      <div className="bg-slate-900/80 p-4">
+      <div className="bg-[var(--theme-card-bg)] p-4">
         <pre className="text-sm leading-relaxed">
           {anatomy.lines.map((line, i) => (
             <div
@@ -83,7 +83,7 @@ function CodeAnatomyComponent({ anatomy }: { anatomy: CodeAnatomy }) {
               className={`px-2 py-1 rounded cursor-pointer transition-all ${
                 activeLine === i
                   ? "bg-cyan-500/20 border-l-2 border-cyan-400"
-                  : "hover:bg-slate-800 border-l-2 border-transparent"
+                  : "hover:bg-[var(--theme-card-bg)] border-l-2 border-transparent"
               }`}
             >
               <code className="text-green-300">{line.code}</code>
@@ -95,7 +95,7 @@ function CodeAnatomyComponent({ anatomy }: { anatomy: CodeAnatomy }) {
                 >
                   💡 {line.explanation}
                   {line.explanationZh && (
-                    <span className="text-slate-400 ml-2">· {line.explanationZh}</span>
+                    <span className="text-[var(--theme-text-secondary)] ml-2">· {line.explanationZh}</span>
                   )}
                 </motion.div>
               )}
@@ -104,7 +104,7 @@ function CodeAnatomyComponent({ anatomy }: { anatomy: CodeAnatomy }) {
         </pre>
       </div>
 
-      <div className="bg-slate-800/50 px-4 py-2 text-xs text-slate-500">
+      <div className="bg-[var(--theme-card-bg)] px-4 py-2 text-xs text-[var(--theme-text-muted)]">
         👆 Hover or tap each line to see what it does · 悬停或点击每一行查看解释
       </div>
     </div>
@@ -130,10 +130,10 @@ export default function ConceptSection({ section }: { section: LessonSection }) 
           <span className="text-3xl">📖</span>
           <div>
             <h2 className="text-xl font-bold text-green-400">{title}</h2>
-            {titleZh && <p className="text-sm text-slate-400">{titleZh}</p>}
+            {titleZh && <p className="text-sm text-[var(--theme-text-secondary)]">{titleZh}</p>}
           </div>
         </div>
-        <p className="text-slate-400 text-sm mt-2">
+        <p className="text-[var(--theme-text-secondary)] text-sm mt-2">
           Learn these new tools before we code! · 先学会这些新工具，再开始写代码！
         </p>
       </div>

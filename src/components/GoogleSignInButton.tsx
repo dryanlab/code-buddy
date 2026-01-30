@@ -40,7 +40,7 @@ export default function GoogleSignInButton({ mode = "signin" }: { mode?: "signin
         whileTap={{ scale: 0.98 }}
         onClick={handleClick}
         disabled={loading}
-        className="w-full flex items-center justify-center gap-3 py-3 bg-white hover:bg-gray-50 text-gray-700 font-medium rounded-xl border border-gray-300 transition-all disabled:opacity-50"
+        className="w-full flex items-center justify-center gap-3 py-3 bg-[var(--theme-card-bg)] hover:bg-[var(--theme-bg)] text-[var(--theme-text-primary)] font-medium rounded-xl border border-[var(--theme-border)] transition-all disabled:opacity-50"
       >
         <GoogleLogo />
         {loading ? "Redirecting..." : label}

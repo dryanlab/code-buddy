@@ -165,8 +165,8 @@ function PuzzleCard({ puzzle, onSelect }: { puzzle: DebugPuzzle; onSelect: () =>
         <span className="text-[10px] font-bold uppercase">{diffLabels[puzzle.difficulty]}</span>
       </div>
       <h3 className="font-bold text-sm">{puzzle.title}</h3>
-      <p className="text-[10px] text-gray-500">{puzzle.titleCn}</p>
-      <p className="text-xs text-slate-400 mt-2">{puzzle.description}</p>
+      <p className="text-[10px] text-[var(--theme-text-muted)]">{puzzle.titleCn}</p>
+      <p className="text-xs text-[var(--theme-text-secondary)] mt-2">{puzzle.description}</p>
     </motion.div>
   );
 }
@@ -186,21 +186,21 @@ function PuzzleSolver({ puzzle, onBack }: { puzzle: DebugPuzzle; onBack: () => v
 
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-6">
-      <button onClick={onBack} className="text-sm text-slate-400 hover:text-slate-200">
+      <button onClick={onBack} className="text-sm text-[var(--theme-text-secondary)] hover:text-[var(--theme-text-primary)]">
         ← Back to puzzles · 返回谜题
       </button>
 
       <div>
         <h2 className="text-2xl font-bold">🐛 {puzzle.title}</h2>
-        <p className="text-sm text-gray-500">{puzzle.titleCn}</p>
-        <p className="text-slate-300 mt-2">{puzzle.description}</p>
-        <p className="text-xs text-gray-500">{puzzle.descriptionCn}</p>
+        <p className="text-sm text-[var(--theme-text-muted)]">{puzzle.titleCn}</p>
+        <p className="text-[var(--theme-text-secondary)] mt-2">{puzzle.description}</p>
+        <p className="text-xs text-[var(--theme-text-muted)]">{puzzle.descriptionCn}</p>
       </div>
 
       {/* Buggy code — click to find the bug */}
       <div>
         <h3 className="text-sm font-bold text-red-400 mb-2">🔍 Click the buggy line! · 点击有 Bug 的那一行！</h3>
-        <div className="bg-[#0d1117] rounded-xl p-4 border border-slate-700">
+        <div className="bg-[#0d1117] rounded-xl p-4 border border-[var(--theme-border)]">
           {lines.map((line, i) => (
             <button
               key={i}
@@ -208,10 +208,10 @@ function PuzzleSolver({ puzzle, onBack }: { puzzle: DebugPuzzle; onBack: () => v
               className={`w-full text-left flex items-center gap-3 px-2 py-1.5 rounded transition-colors ${
                 selectedLine === i + 1
                   ? found ? "bg-green-500/20" : "bg-red-500/20"
-                  : "hover:bg-slate-800"
+                  : "hover:bg-[var(--theme-card-bg)]"
               }`}
             >
-              <span className="text-xs text-slate-600 w-6 text-right font-mono">{i + 1}</span>
+              <span className="text-xs text-[var(--theme-text-muted)] w-6 text-right font-mono">{i + 1}</span>
               <span className="text-sm text-green-400 font-mono">{line}</span>
               {selectedLine === i + 1 && (
                 <span className="ml-auto">{i + 1 === puzzle.bugLine ? "🐛 Found it!" : "❌"}</span>
@@ -227,9 +227,9 @@ function PuzzleSolver({ puzzle, onBack }: { puzzle: DebugPuzzle; onBack: () => v
           <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-4">
             <div className="bg-green-500/10 border border-green-500/30 rounded-xl p-4">
               <div className="font-bold text-green-400 mb-2">🎉 You found the bug! · 找到 Bug 了！</div>
-              <div className="text-sm text-slate-300 mb-1"><strong>Why? · 为什么？</strong></div>
-              <div className="text-sm text-slate-300">{puzzle.explanation}</div>
-              <div className="text-xs text-gray-500 mt-1">{puzzle.explanationCn}</div>
+              <div className="text-sm text-[var(--theme-text-secondary)] mb-1"><strong>Why? · 为什么？</strong></div>
+              <div className="text-sm text-[var(--theme-text-secondary)]">{puzzle.explanation}</div>
+              <div className="text-xs text-[var(--theme-text-muted)] mt-1">{puzzle.explanationCn}</div>
             </div>
             <div>
               <h3 className="text-sm font-bold text-green-400 mb-2">✅ Fixed code · 修复后的代码：</h3>
@@ -254,7 +254,7 @@ function PuzzleSolver({ puzzle, onBack }: { puzzle: DebugPuzzle; onBack: () => v
           💡 {showHint ? "Hide Hint" : "Show Hint"} · {showHint ? "隐藏提示" : "显示提示"}
         </button>
         <button onClick={() => setShowAnswer(!showAnswer)}
-          className="px-4 py-2 text-sm bg-slate-700/50 text-slate-400 rounded-lg hover:bg-slate-700"
+          className="px-4 py-2 text-sm bg-[var(--theme-card-bg)] text-[var(--theme-text-secondary)] rounded-lg hover:bg-[var(--theme-card-bg)]"
         >
           👀 {showAnswer ? "Hide Answer" : "Show Answer"} · {showAnswer ? "隐藏答案" : "显示答案"}
         </button>
@@ -271,10 +271,10 @@ function PuzzleSolver({ puzzle, onBack }: { puzzle: DebugPuzzle; onBack: () => v
         )}
         {showAnswer && (
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-2">
-            <div className="bg-slate-800/50 rounded-lg p-4 text-sm text-slate-300">
+            <div className="bg-[var(--theme-card-bg)] rounded-lg p-4 text-sm text-[var(--theme-text-secondary)]">
               <div className="font-bold mb-1">Bug is on line {puzzle.bugLine}:</div>
               <div>{puzzle.explanation}</div>
-              <div className="text-xs text-gray-500 mt-1">{puzzle.explanationCn}</div>
+              <div className="text-xs text-[var(--theme-text-muted)] mt-1">{puzzle.explanationCn}</div>
             </div>
             <CodeEditor initialCode={puzzle.fixedCode} readOnly />
           </motion.div>
@@ -295,11 +295,11 @@ export default function DebugPage() {
         <>
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
             <h1 className="text-3xl font-bold">🐛 Debug Detective</h1>
-            <p className="text-sm text-gray-500">Debug 侦探 — 找出隐藏的 Bug！</p>
-            <p className="text-slate-400 mt-2 text-sm">
+            <p className="text-sm text-[var(--theme-text-muted)]">Debug 侦探 — 找出隐藏的 Bug！</p>
+            <p className="text-[var(--theme-text-secondary)] mt-2 text-sm">
               Every program has bugs. A great coder is a great debugger! Click a puzzle to start hunting. 🔍
             </p>
-            <p className="text-xs text-gray-500">
+            <p className="text-xs text-[var(--theme-text-muted)]">
               每个程序都有 Bug。优秀的程序员就是优秀的 Debug 侦探！点击谜题开始寻找 Bug。
             </p>
           </motion.div>
@@ -312,12 +312,12 @@ export default function DebugPage() {
             ))}
           </div>
 
-          <div className="bg-slate-800/30 border border-slate-700/30 rounded-xl p-5">
+          <div className="bg-[var(--theme-card-bg)] border border-[var(--theme-border)] rounded-xl p-5">
             <h3 className="font-bold mb-2">📚 Want more? · 想要更多挑战？</h3>
-            <p className="text-sm text-slate-400 mb-3">
+            <p className="text-sm text-[var(--theme-text-secondary)] mb-3">
               Check out the full Debug Detective lessons for more puzzles and techniques!
             </p>
-            <p className="text-xs text-gray-500 mb-3">去课程里的 Debug 侦探模块看更多谜题和技巧！</p>
+            <p className="text-xs text-[var(--theme-text-muted)] mb-3">去课程里的 Debug 侦探模块看更多谜题和技巧！</p>
             <Link href="/dashboard/lessons" className="text-sm text-cyan-400 hover:underline">
               → Go to Lessons · 去课程
             </Link>

@@ -50,14 +50,14 @@ export default function CompleteProfilePage() {
           <h1 className="text-3xl font-bold bg-gradient-to-r from-green-400 to-cyan-400 bg-clip-text text-transparent">
             Complete Your Profile
           </h1>
-          <p className="text-sm text-gray-400 mt-2">完善你的飞行员档案</p>
+          <p className="text-sm text-[var(--theme-text-muted)] mt-2">完善你的飞行员档案</p>
         </div>
 
-        <div className="bg-slate-800/50 border border-slate-700/50 rounded-2xl p-8 backdrop-blur space-y-6">
+        <div className="bg-[var(--theme-card-bg)] border border-[var(--theme-border)] rounded-2xl p-8 backdrop-blur space-y-6">
           {/* Grade */}
           <div>
-            <label className="block text-sm font-medium text-slate-300 mb-2">
-              Grade Level <span className="text-gray-500 text-xs">年级</span>
+            <label className="block text-sm font-medium text-[var(--theme-text-secondary)] mb-2">
+              Grade Level <span className="text-[var(--theme-text-muted)] text-xs">年级</span>
             </label>
             <div className="grid grid-cols-4 gap-2">
               {GRADES.map((g) => (
@@ -69,7 +69,7 @@ export default function CompleteProfilePage() {
                   className={`py-2 px-3 rounded-lg text-sm font-medium transition-colors ${
                     grade === g.value
                       ? "bg-green-500/20 border border-green-500/50 text-green-400"
-                      : "bg-slate-900/50 border border-slate-600/30 text-slate-400 hover:border-slate-500"
+                      : "bg-[var(--theme-input-bg)] border border-[var(--theme-border)] text-[var(--theme-text-secondary)] hover:border-[var(--theme-border)]"
                   }`}
                 >
                   {g.label}
@@ -80,8 +80,8 @@ export default function CompleteProfilePage() {
 
           {/* Avatar */}
           <div>
-            <label className="block text-sm font-medium text-slate-300 mb-2">
-              Choose Your Avatar <span className="text-gray-500 text-xs">选择头像</span>
+            <label className="block text-sm font-medium text-[var(--theme-text-secondary)] mb-2">
+              Choose Your Avatar <span className="text-[var(--theme-text-muted)] text-xs">选择头像</span>
             </label>
             <div className="grid grid-cols-6 gap-3">
               {avatars.map((a) => (
@@ -93,7 +93,7 @@ export default function CompleteProfilePage() {
                   className={`text-3xl p-2 rounded-xl transition-colors ${
                     avatar === a
                       ? "bg-green-500/20 border-2 border-green-500/50 shadow-lg shadow-green-500/10"
-                      : "bg-slate-900/50 border-2 border-transparent hover:border-slate-600"
+                      : "bg-[var(--theme-input-bg)] border-2 border-transparent hover:border-[var(--theme-border)]"
                   }`}
                 >
                   {a}
