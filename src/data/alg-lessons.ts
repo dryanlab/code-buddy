@@ -98,8 +98,20 @@ Hi there! I'm **Detective** 🔍, your search algorithm guide! My job is to help
       emoji: "💻",
       content: `## 💻 Linear Search in Python
 
-Let's implement linear search step by step!
-让我们一步步实现线性搜索！`,
+🎯 **What you'll learn:** How to implement linear search — the simplest search algorithm that checks every element one by one.
+学习目标：实现线性搜索——最简单的搜索算法，逐个检查每个元素。
+
+Imagine you're looking for your friend in a movie theater 🎬 — you walk down each row, checking every seat from left to right. You can't skip ahead because the seats aren't labeled by name!
+类比：想象你在电影院找朋友 🎬 — 你沿着每一排走，从左到右检查每个座位。你不能跳过，因为座位没按名字标！
+
+🔑 **Key things to notice:**
+- We check EVERY element from index 0 to n-1
+- We return immediately when found (early exit)
+- If not found after checking all, return -1
+- Best case O(1) — first element; Worst case O(n) — last or missing
+- 最好 O(1)——第一个就是；最坏 O(n)——最后一个或不存在
+
+👀 **Run the code and watch** how it checks each element and prints ✅ or ❌!`,
       code: `# 🔍 Detective: "Watch me search one by one!"
 
 def linear_search(arr, target):
@@ -161,8 +173,20 @@ print(f"Average: {len(numbers)//2} comparisons")`,
       emoji: "🎮",
       content: `## 🎮 Linear Search Variations
 
-Linear search isn't just for numbers! Let's try different uses.
-线性搜索不只能搜数字！`,
+🎯 **What you'll learn:** How linear search adapts to different data types and problems — strings, finding all matches, and finding minimums.
+学习目标：线性搜索如何适用于不同数据类型和问题——字符串、查找所有匹配项、查找最小值。
+
+Linear search is like a Swiss Army knife 🔪 — simple but incredibly versatile! You can use it to search text, find every copy of something, or track the best item you've seen. Same idea, many applications!
+类比：线性搜索就像瑞士军刀 🔪 — 简单但用途广泛！你可以搜索文本、找到所有副本、或追踪见过的最佳选项。同一思想，多种应用！
+
+🔑 **Key things to notice:**
+- \`enumerate()\` gives both index and value — perfect for searching
+- Finding ALL occurrences means we never return early
+- Finding minimum requires tracking the best-so-far
+- The core pattern (loop + compare) stays the same across all variations
+- 核心模式（循环+比较）在所有变体中保持不变
+
+👀 **Run the code and observe** how each variation tweaks the basic linear search pattern!`,
       code: `# Variation 1: Search in strings
 def find_char(text, char):
     for i, c in enumerate(text):
@@ -374,8 +398,20 @@ Remember linear search? Checking one by one? That's like reading every page of a
       emoji: "💻",
       content: `## 💻 Binary Search — Step by Step
 
-Watch binary search find a number in a sorted array!
-观察二分搜索在排序数组中找数！`,
+🎯 **What you'll learn:** How binary search eliminates half the remaining elements with each comparison, achieving O(log n) speed.
+学习目标：二分搜索如何每次比较淘汰一半剩余元素，达到 O(log n) 的速度。
+
+Think of guessing a number between 1-100 🎯 — a smart player always guesses the MIDDLE! If told "too high", they ignore the upper half. If "too low", ignore the lower half. Each guess cuts possibilities in half!
+类比：想象猜 1-100 的数字 🎯 — 聪明的玩家总是猜中间！如果说"太大"，忽略上半部分。如果"太小"，忽略下半部分。每次猜测都将可能性减半！
+
+🔑 **Key things to notice:**
+- The array MUST be sorted for binary search to work
+- We maintain \`left\` and \`right\` pointers to track the search range
+- \`mid = (left + right) // 2\` calculates the middle index
+- Each step halves the search space — that's why it's O(log n)
+- 每步将搜索空间减半——这就是 O(log n) 的原因
+
+👀 **Run the code and watch** how the search range shrinks with each step!`,
       code: `# 🔍 Detective: "Watch me cut the search space in HALF each time!"
 
 def binary_search(arr, target):
@@ -454,8 +490,20 @@ print(f"  That's {len(nums) // math.ceil(math.log2(len(nums)))}x faster!")`,
       emoji: "🔄",
       content: `## 🔄 Recursive Binary Search
 
-Binary search can also be written recursively!
-二分搜索也可以用递归来写！`,
+🎯 **What you'll learn:** How to express binary search using recursion — the function calls itself with a smaller range each time.
+学习目标：如何用递归来表达二分搜索——函数每次用更小的范围调用自己。
+
+It's like a boss delegating work 👔 — "Is it in the middle? No? OK, I'll hand the left half to Mini-Me, and Mini-Me will do the same thing!" Each Mini-Me handles a smaller and smaller piece until someone finds it (or gives up).
+类比：就像老板分配工作 👔 — "在中间吗？不在？好的，把左半边交给小我来处理，小我也做同样的事！"每个小我处理越来越小的部分，直到找到（或放弃）。
+
+🔑 **Key things to notice:**
+- Base case: \`left > right\` means the range is empty — not found
+- We calculate \`mid\` the same way as iterative version
+- Instead of updating \`left\`/\`right\`, we make a recursive call with new bounds
+- Same O(log n) time, but uses O(log n) stack space too
+- 同样 O(log n) 时间，但也用 O(log n) 的栈空间
+
+👀 **Run the code and compare** the recursive version's output with the iterative one!`,
       code: `def binary_search_recursive(arr, target, left=0, right=None):
     if right is None:
         right = len(arr) - 1
@@ -666,8 +714,20 @@ So far we've searched in 1D arrays. But what about 2D grids? Think spreadsheets,
       emoji: "💻",
       content: `## 💻 Brute Force: Search Every Cell
 
-The simplest approach — check every cell.
-最简单的方法——检查每个单元格。`,
+🎯 **What you'll learn:** How brute force searches a 2D matrix by checking every single cell — simple but slow.
+学习目标：暴力搜索如何检查二维矩阵的每一个单元格——简单但缓慢。
+
+Imagine searching for a specific book in a library with no catalog 📚 — you'd have to check every shelf, every row, one book at a time. That's brute force in 2D!
+类比：想象在没有目录的图书馆找一本特定的书 📚 — 你得一个书架一个书架、一排一排地检查。这就是二维暴力搜索！
+
+🔑 **Key things to notice:**
+- Nested loops: outer for rows, inner for columns
+- Time complexity is O(m × n) — checks every cell
+- Works on ANY 2D matrix, sorted or not
+- We count comparisons to see the cost
+- 我们计算比较次数来看代价
+
+👀 **Run the code and count** how many comparisons are needed — then compare with the smart approach next!`,
       code: `# 🔍 Brute force 2D search
 def search_2d_brute(matrix, target):
     """Search every cell: O(m × n)"""
@@ -711,8 +771,20 @@ search_2d_brute(matrix, 15)`,
       emoji: "⚡",
       content: `## ⚡ Staircase Search: The Smart Way
 
-For a matrix where rows AND columns are sorted, we can start from the **top-right corner** and move like a staircase!
-对于行和列都排好序的矩阵，我们可以从**右上角**开始，像楼梯一样移动！`,
+🎯 **What you'll learn:** How staircase search exploits the sorted structure of a matrix to skip entire rows and columns.
+学习目标：阶梯搜索如何利用矩阵的有序结构跳过整行和整列。
+
+Picture standing at the top-right corner of a grid 🏔️ — if the current number is too big, step LEFT (smaller numbers). If too small, step DOWN (bigger numbers). You walk a staircase path to your target!
+类比：想象站在网格的右上角 🏔️ — 如果当前数字太大，向左走（更小的数）。如果太小，向下走（更大的数）。你走出一条阶梯路径到达目标！
+
+🔑 **Key things to notice:**
+- Start at top-right (or bottom-left) — the "magic corner"
+- Each step eliminates an entire row OR column
+- Time complexity is O(m + n) — much better than O(m × n)!
+- Works because rows are sorted left→right AND columns sorted top→bottom
+- 因为行从左到右有序，列从上到下有序
+
+👀 **Run the code and compare** the number of steps vs brute force — the difference is dramatic!`,
       code: `# ⚡ Staircase search: O(m + n)
 def staircase_search(matrix, target):
     """Start from top-right corner. Go left if too big, down if too small."""
@@ -938,8 +1010,20 @@ Search algorithms aren't just academic — they're used everywhere in the real w
       emoji: "💻",
       content: `## 💻 Finding Boundaries with Binary Search
 
-One of the most powerful patterns: find the FIRST position where a condition becomes True!
-最强大的模式之一：找到条件变为 True 的第一个位置！`,
+🎯 **What you'll learn:** How to use binary search to find the FIRST position where a condition changes — the most powerful binary search pattern.
+学习目标：如何用二分搜索找到条件变化的第一个位置——最强大的二分搜索模式。
+
+Think of a row of light switches 💡 — all OFF on the left, all ON on the right. You want to find exactly WHERE they switch from OFF to ON. Check the middle: if ON, the boundary is to the left; if OFF, it's to the right!
+类比：想象一排灯开关 💡 — 左边全关，右边全开。你想找到从关到开的精确位置。检查中间：如果开着，边界在左边；如果关着，在右边！
+
+🔑 **Key things to notice:**
+- This is the "boundary search" or "bisect" pattern
+- Instead of finding an exact value, we find where a condition flips
+- Used for: first occurrence, last occurrence, insertion point
+- The template works for ANY monotonic condition
+- 这个模板适用于任何单调条件
+
+👀 **Run the code and observe** how it finds exact boundaries in sorted data!`,
       code: `# Pattern: Find first True in [False, False, ..., True, True, ...]
 def find_first_true(arr):
     """Find index of first True value using binary search"""
@@ -1002,8 +1086,20 @@ print(f"sqrt(100) = {int_sqrt(100)}")`,
       emoji: "🔄",
       content: `## 🔄 Search in a Rotated Array
 
-A classic interview problem! The array was sorted but then rotated.
-经典面试题！数组排好序后被旋转了。`,
+🎯 **What you'll learn:** How to adapt binary search for a sorted array that has been rotated — a classic interview favorite.
+学习目标：如何将二分搜索适用于被旋转过的排序数组——经典面试最爱。
+
+Imagine a clock where someone grabbed the 12 and spun it 🕐 — the numbers are still in order, but they don't start at 1 anymore! You can still use the structure to search efficiently by figuring out which "half" is normally sorted.
+类比：想象有人抓住时钟的12点转了一下 🕐 — 数字仍然有序，但不再从1开始！你仍可以利用结构来高效搜索，只需判断哪"半边"是正常排序的。
+
+🔑 **Key things to notice:**
+- At least ONE half of the array is always properly sorted
+- Check which half is sorted, then decide if target is in that half
+- If target is in the sorted half, search there; otherwise search the other half
+- Still O(log n) — we still eliminate half each time!
+- 仍然 O(log n)——我们每次仍淘汰一半！
+
+👀 **Run the code and trace** how it handles the rotation point!`,
       code: `# Rotated sorted array: [4, 5, 6, 7, 0, 1, 2]
 # Originally: [0, 1, 2, 4, 5, 6, 7], rotated at index 4
 
@@ -1053,8 +1149,20 @@ print(f"Found at index: {search_rotated(rotated, 6)}")`,
       emoji: "🎮",
       content: `## 🎮 Fun Application: Guess the Number Game
 
-Binary search makes you unbeatable at number guessing!
-二分搜索让你在猜数字游戏中立于不败之地！`,
+🎯 **What you'll learn:** How binary search strategy makes you unbeatable at number guessing games — guaranteed to win in ≤7 guesses for 1-100!
+学习目标：二分搜索策略如何让你在猜数字游戏中无敌——1-100 保证 ≤7 次猜中！
+
+You're playing "guess my number" with a friend 🎲 — they pick a secret number, you guess, they say "higher" or "lower." Random guessing might take 100 tries. Binary search? Maximum 7. Every. Single. Time.
+类比：你和朋友玩"猜数字" 🎲 — 他选一个秘密数字，你猜，他说"高了"或"低了"。随机猜可能要100次。二分搜索？最多7次。每次都是。
+
+🔑 **Key things to notice:**
+- Always guess the middle of the remaining range
+- Each guess eliminates half the possibilities
+- log₂(100) ≈ 6.6, so at most 7 guesses needed
+- This is binary search applied to real life!
+- 这是二分搜索在现实生活中的应用！
+
+👀 **Run the code and play** the game — see how binary search wins every time!`,
       code: `import random
 
 def guess_number_game(secret, low=1, high=100):
@@ -1261,8 +1369,20 @@ All three are O(n²) — simple but slow for big data!
       emoji: "🫧",
       content: `## 🫧 Bubble Sort — Bubbling Up!
 
-The lightest elements "bubble" to the top, like bubbles in water!
-最轻的元素"冒泡"到顶部，像水中的气泡！`,
+🎯 **What you'll learn:** How Bubble Sort works by repeatedly swapping adjacent elements, like bubbles rising to the surface.
+学习目标：冒泡排序如何通过反复交换相邻元素来工作，就像气泡浮到水面。
+
+Imagine students lining up by height 👧👦 — you walk down the line comparing neighbors. If the taller one is in front, they swap! After one pass, the tallest is at the end. Repeat until everyone's in order.
+类比：想象学生按身高排队 👧👦 — 你沿着队伍走，比较相邻的人。如果高的在前面，他们交换！一趟之后，最高的在最后。重复直到所有人排好序。
+
+🔑 **Key things to notice:**
+- Each pass "bubbles" the largest unsorted element to its correct position
+- We can optimize: if no swaps in a pass, the array is already sorted!
+- Inner loop shrinks each time (last i elements are already sorted)
+- Time: O(n²) worst/average, O(n) best (already sorted with optimization)
+- 时间：最坏/平均 O(n²)，最好 O(n)（已排序时使用优化）
+
+👀 **Run the code and watch** each pass push the next largest element into place!`,
       code: `def bubble_sort(arr):
     """Bubble Sort: repeatedly swap adjacent elements"""
     n = len(arr)
@@ -1305,8 +1425,20 @@ bubble_sort(data.copy())`,
       emoji: "👆",
       content: `## 👆 Selection Sort — Pick the Smallest!
 
-Find the minimum, swap it to the front. Repeat!
-找到最小值，交换到前面。重复！`,
+🎯 **What you'll learn:** How Selection Sort finds the minimum element and places it at the front, building the sorted portion one element at a time.
+学习目标：选择排序如何找到最小元素并放到前面，每次一个元素地构建有序部分。
+
+Think of picking players for a team 🏀 — you scan everyone and pick the BEST player first, then the next best, and so on. Each round you select the best remaining person.
+类比：想象选球队队员 🏀 — 你扫视所有人，先挑最好的，然后是次好的，依此类推。每轮你选剩余中最好的。
+
+🔑 **Key things to notice:**
+- Two regions: sorted (left) and unsorted (right)
+- Each pass finds the minimum in the unsorted region
+- Swaps it to the end of the sorted region
+- Always O(n²) — doesn't benefit from partially sorted input
+- 总是 O(n²) — 不能利用部分有序的输入
+
+👀 **Run the code and observe** how the sorted region grows from left to right!`,
       code: `def selection_sort(arr):
     """Selection Sort: find min, swap to front"""
     n = len(arr)
@@ -1345,8 +1477,20 @@ selection_sort(data.copy())`,
       emoji: "🃏",
       content: `## 🃏 Insertion Sort — Like Sorting Cards!
 
-Pick each element and INSERT it into the correct position.
-拿起每个元素，插入到正确的位置。`,
+🎯 **What you'll learn:** How Insertion Sort works like sorting playing cards — pick each card and slide it into the right position in your hand.
+学习目标：插入排序如何像整理扑克牌一样工作——拿起每张牌，滑入手中的正确位置。
+
+You're playing cards 🃏 — you pick up one card at a time from the table and insert it into the right spot in your hand. Your hand is always sorted! That's exactly insertion sort.
+类比：你在打牌 🃏 — 你从桌上一次拿起一张牌，插入手中的正确位置。你手里的牌始终是有序的！这正是插入排序。
+
+🔑 **Key things to notice:**
+- Start from index 1 (index 0 is "already sorted")
+- Shift larger elements RIGHT to make room
+- The key element slides into its correct position
+- Best for small or nearly-sorted arrays — O(n) best case!
+- 最适合小数组或接近有序的数组——最好 O(n)！
+
+👀 **Run the code and watch** how each element finds its place by shifting others aside!`,
       code: `def insertion_sort(arr):
     """Insertion Sort: insert each element into sorted portion"""
     shifts = 0
@@ -1548,8 +1692,20 @@ Simple sorts are O(n²). Can we do better? YES! Welcome to **Merge Sort** — th
       emoji: "💻",
       content: `## 💻 Merge Sort — Full Implementation
 
-Watch the split, sort, and merge process!
-观察分裂、排序和合并的过程！`,
+🎯 **What you'll learn:** How Merge Sort uses divide-and-conquer to split, sort halves, and merge them back — guaranteed O(n log n).
+学习目标：归并排序如何使用分治法来拆分、排序两半、再合并——保证 O(n log n)。
+
+Imagine sorting a deck of cards with a friend 🃏🃏 — you split the deck in half, each person sorts their half, then you merge the two sorted halves together by comparing top cards. Sorting a half? Just split again and repeat!
+类比：想象和朋友一起排序一副扑克牌 🃏🃏 — 你把牌分成两半，每人排自己的半副，然后通过比较顶牌把两个有序的半副合并。排一半怎么排？再分再重复！
+
+🔑 **Key things to notice:**
+- Base case: array of length ≤ 1 is already sorted
+- Split in the middle, recursively sort each half
+- The \`merge\` step combines two sorted arrays into one
+- Always O(n log n) — no worst-case blowup like Quick Sort
+- 总是 O(n log n)——不像快速排序有最坏情况退化
+
+👀 **Run the code and trace** the depth of recursion and how halves merge back together!`,
       code: `def merge_sort(arr, depth=0):
     """Merge Sort: divide, sort halves, merge"""
     indent = "  " * depth
@@ -1627,8 +1783,20 @@ print(f"\\nResult: {sorted_data}")`,
       emoji: "📊",
       content: `## 📊 Why O(n log n)?
 
-Let's understand the time complexity visually!
-让我们直观地理解时间复杂度！`,
+🎯 **What you'll learn:** The mathematical intuition behind WHY merge sort is O(n log n) — understanding the recursion tree.
+学习目标：归并排序为什么是 O(n log n) 的数学直觉——理解递归树。
+
+Think of a tournament bracket 🏆 — there are log₂(n) rounds, and in each round, EVERY player (element) participates in exactly one comparison. So it's n work × log n rounds = n log n total!
+类比：想象淘汰赛赛程 🏆 — 共 log₂(n) 轮，每轮每个选手（元素）都恰好参与一次比较。所以是 n 的工作量 × log n 轮 = n log n 总量！
+
+🔑 **Key things to notice:**
+- Splitting creates log₂(n) levels of recursion
+- At each level, ALL n elements get merged (total work = O(n) per level)
+- log n levels × n work per level = O(n log n) total
+- This is proven to be the BEST possible for comparison-based sorting!
+- 这被证明是基于比较的排序的最优下界！
+
+👀 **Run the code and see** the level-by-level breakdown of work done!`,
       code: `import math
 
 # Visualize the recursion levels
@@ -1835,8 +2003,20 @@ Quick Sort is the **most widely used** sorting algorithm in practice. It's fast,
       emoji: "💻",
       content: `## 💻 Quick Sort — The Classic
 
-Watch how partition places the pivot in its correct position!
-观察分区如何将基准放到正确位置！`,
+🎯 **What you'll learn:** How Quick Sort uses a pivot to partition elements — smaller go left, larger go right — then recursively sorts each side.
+学习目标：快速排序如何用基准值分区——小的去左边，大的去右边——然后递归排序每边。
+
+Imagine organizing students by height using a "pivot" student 📏 — everyone shorter stands left, everyone taller stands right. Now the pivot is in the PERFECT spot! Repeat for each group.
+类比：想象用一个"基准"学生按身高组织队伍 📏 — 所有矮的站左边，高的站右边。现在基准在完美的位置！对每组重复。
+
+🔑 **Key things to notice:**
+- Choose a pivot, then partition: elements < pivot go left, > pivot go right
+- After partition, pivot is in its FINAL correct position
+- Recursively sort the left and right partitions
+- Average O(n log n), but worst case O(n²) if pivot is always min/max
+- 平均 O(n log n)，但如果基准总是最小/最大值则最坏 O(n²)
+
+👀 **Run the code and watch** how the pivot finds its correct position each time!`,
       code: `def quicksort(arr, depth=0):
     """Quick Sort with visualization"""
     indent = "  " * depth
@@ -1879,8 +2059,20 @@ print(f"\\nSorted: {result}")`,
       emoji: "🔧",
       content: `## 🔧 In-Place Quick Sort (Lomuto Partition)
 
-The real quick sort modifies the array in-place!
-真正的快速排序原地修改数组！`,
+🎯 **What you'll learn:** How real-world Quick Sort works IN-PLACE without creating new arrays — using the Lomuto partition scheme.
+学习目标：现实中的快速排序如何原地工作，不创建新数组——使用 Lomuto 分区方案。
+
+Think of rearranging books on a shelf 📚 — instead of taking them all off and putting them back, you use a "boundary marker" and swap books across it. Everything to the left of the marker is smaller than the pivot!
+类比：想象重新排列书架上的书 📚 — 不是全拿下来重放，而是用一个"分界标记"在原地交换。标记左边的都比基准小！
+
+🔑 **Key things to notice:**
+- \`i\` tracks the boundary between "small" and "large" elements
+- We scan with \`j\` and swap elements ≤ pivot to the left side
+- Final swap puts pivot in its correct position
+- No extra arrays needed — O(1) extra space!
+- 不需要额外数组——O(1) 额外空间！
+
+👀 **Run the code and trace** how the \`i\` pointer builds the "small" partition!`,
       code: `def quicksort_inplace(arr, low=0, high=None):
     if high is None:
         high = len(arr) - 1
@@ -2110,8 +2302,20 @@ Now that you know 5 sorting algorithms, let's compare them all! When should you 
       emoji: "🏁",
       content: `## 🏁 Sorting Race!
 
-Let's race all the sorts against each other!
-让我们让所有排序比赛！`,
+🎯 **What you'll learn:** How different sorting algorithms compare in actual running time — seeing theory come alive with real benchmarks.
+学习目标：不同排序算法在实际运行时间上如何比较——用真实基准测试看到理论变为现实。
+
+It's race day at the Algorithm Olympics 🏅! Bubble Sort, Selection Sort, Insertion Sort, Merge Sort, and Quick Sort line up at the starting line. Who will finish first? Place your bets!
+类比：算法奥运会比赛日 🏅！冒泡排序、选择排序、插入排序、归并排序和快速排序在起跑线上排好。谁先到终点？下注吧！
+
+🔑 **Key things to notice:**
+- O(n²) sorts (Bubble, Selection, Insertion) are MUCH slower at larger sizes
+- O(n log n) sorts (Merge, Quick) dominate as input grows
+- Insertion sort can surprise on small or nearly-sorted data
+- Python's built-in \`sorted()\` uses Timsort — a hybrid of merge + insertion
+- Python 内置 \`sorted()\` 用 Timsort——归并+插入的混合算法
+
+👀 **Run the code and see** the dramatic speed difference between O(n²) and O(n log n)!`,
       code: `import time
 import random
 
@@ -2192,8 +2396,20 @@ for n in sizes:
       emoji: "📊",
       content: `## 📊 The Complete Comparison Table
 
-Let's build an interactive comparison!
-让我们来做一个全面对比！`,
+🎯 **What you'll learn:** A comprehensive side-by-side comparison of all sorting algorithms — time, space, stability, and best use cases.
+学习目标：所有排序算法的全面对比——时间、空间、稳定性和最佳使用场景。
+
+Think of a "Consumer Reports" review for sorting algorithms 📋 — each algorithm has strengths and weaknesses, and the best choice depends on your specific situation. There's no single winner!
+类比：想象排序算法的"消费者报告"评测 📋 — 每个算法有优缺点，最佳选择取决于具体情况。没有单一的赢家！
+
+🔑 **Key things to notice:**
+- Stability matters: stable sorts preserve the order of equal elements
+- Space complexity: in-place (O(1)) vs needs extra memory (O(n))
+- Best/worst/average cases can differ dramatically
+- Real-world choice depends on data size, structure, and constraints
+- 实际选择取决于数据大小、结构和约束条件
+
+👀 **Run the code and study** the comprehensive comparison to understand when to use each sort!`,
       code: `# Comprehensive sorting comparison
 sorts = {
     "Bubble Sort": {
@@ -2413,8 +2629,20 @@ I'm **Spiral** 🌀, your recursion guide! Recursion is when a function **calls 
       emoji: "💻",
       content: `## 💻 Your First Recursive Function
 
-The classic example: countdown!
-经典例子：倒计时！`,
+🎯 **What you'll learn:** How recursion works — a function calling ITSELF with a smaller problem until reaching a base case.
+学习目标：递归如何工作——函数用更小的问题调用自己，直到到达基本情况。
+
+Imagine Russian nesting dolls 🪆 — open one, there's a smaller one inside. Open that, there's an even smaller one. Eventually you reach the tiniest doll that doesn't open (the base case!).
+类比：想象俄罗斯套娃 🪆 — 打开一个，里面有个更小的。再打开，还有更小的。最终你到达最小的、打不开的娃娃（基本情况！）。
+
+🔑 **Key things to notice:**
+- Every recursive function needs a BASE CASE to stop
+- Each call makes the problem SMALLER (countdown goes n → n-1 → ... → 0)
+- The function "pauses" while waiting for its recursive call to return
+- Without a base case → infinite recursion → stack overflow!
+- 没有基本情况→无限递归→栈溢出！
+
+👀 **Run the code and watch** the indentation show how deep the recursion goes!`,
       code: `# 🌀 Spiral: "Watch me call myself!"
 
 def countdown(n):
@@ -2477,8 +2705,20 @@ print(f"5! = {factorial(5)}")`,
       emoji: "📚",
       content: `## 📚 The Call Stack — How Recursion Works Inside
 
-Every function call goes on a "stack". Let's see it!
-每次函数调用都放在"栈"上。让我们看看！`,
+🎯 **What you'll learn:** How the computer manages recursive calls using a call stack — each call gets its own "frame" with its own variables.
+学习目标：计算机如何用调用栈管理递归调用——每次调用都有自己的"帧"和自己的变量。
+
+Think of a stack of cafeteria trays 🍽️ — each function call adds a tray (frame) on top. When a call finishes, its tray is removed. The stack grows as we go deeper and shrinks as results return!
+类比：想象自助餐厅的托盘堆 🍽️ — 每次函数调用在顶部加一个托盘（帧）。调用结束时，托盘被移走。栈随深入而增长，随结果返回而缩小！
+
+🔑 **Key things to notice:**
+- Each call has its OWN copy of \`n\` — they don't share!
+- PUSH happens when a new call starts, POP when it returns
+- The stack shows the "chain" of waiting calls
+- Stack depth = recursion depth = risk of overflow for large inputs
+- 栈深度 = 递归深度 = 大输入时栈溢出的风险
+
+👀 **Run the code and trace** the PUSH/POP pattern to see the call stack in action!`,
       code: `# Visualize the call stack
 def factorial_visual(n, depth=0):
     indent = "│  " * depth + "├─ "
@@ -2518,8 +2758,20 @@ print(f"# Python's default limit: {__import__('sys').getrecursionlimit()}")`,
       emoji: "🔢",
       content: `## 🔢 More Recursive Examples
 
-Let's practice with different problems!
-让我们用不同的问题来练习！`,
+🎯 **What you'll learn:** How to apply recursive thinking to different problems — sum, length, and reversing strings.
+学习目标：如何对不同问题应用递归思维——求和、长度和反转字符串。
+
+Recursion is like peeling an onion 🧅 — at each layer you handle the outer piece, then hand the rest to someone else to peel. Sum? Handle the first number, recurse on the rest. Reverse? Handle the last character, recurse on the rest!
+类比：递归就像剥洋葱 🧅 — 每层你处理外面的一片，然后把剩下的交给别人剥。求和？处理第一个数，对剩余递归。反转？处理最后一个字符，对剩余递归！
+
+🔑 **Key things to notice:**
+- Each problem follows the pattern: solve a tiny piece + recurse on the rest
+- Base case is always the simplest input (empty list, empty string)
+- \`recursive_sum([1,2,3])\` = 1 + \`recursive_sum([2,3])\`
+- These build intuition for more complex recursion later
+- 这些为后面更复杂的递归建立直觉
+
+👀 **Run the code and match** the output to the recursive formula in your head!`,
       code: `# Sum of list — recursively
 def recursive_sum(arr):
     if len(arr) == 0:    # Base case: empty list
@@ -2693,8 +2945,20 @@ Now that you understand the basics, let's learn the common PATTERNS you'll see a
       emoji: "📏",
       content: `## 📏 Pattern 1: Linear Recursion
 
-Process one element, recurse on the rest.
-处理一个元素，对其余递归。`,
+🎯 **What you'll learn:** The linear recursion pattern — process one element, then recurse on the rest. One call per level.
+学习目标：线性递归模式——处理一个元素，然后对剩余递归。每层一次调用。
+
+Think of a conga line 💃 — each person does their move, then taps the next person. One person at a time, in a straight line. Simple, predictable, easy to follow!
+类比：想象康加舞队列 💃 — 每个人做动作，然后拍下一个人。一次一人，直线排列。简单、可预测、容易跟踪！
+
+🔑 **Key things to notice:**
+- Pattern: \`f(list) = do_something(first) + f(rest)\`
+- Only ONE recursive call per function invocation
+- Creates a linear chain of calls (not a tree)
+- Stack depth = O(n) — one frame per element
+- 栈深度 = O(n)——每个元素一个帧
+
+👀 **Run the code and observe** the linear call chain — each call leads to exactly one more!`,
       code: `# Pattern: f(list) = do_something(first) + f(rest)
 
 # Example 1: Check if palindrome
@@ -2741,8 +3005,20 @@ print(f"Max of [3,7,2,9,4]: {find_max([3,7,2,9,4])}")`,
       emoji: "🌳",
       content: `## 🌳 Pattern 2: Tree Recursion
 
-Split into MULTIPLE subproblems — creates a tree of calls!
-分成多个子问题——创建调用树！`,
+🎯 **What you'll learn:** Tree recursion — when each call makes MULTIPLE recursive calls, creating a tree of computations.
+学习目标：树形递归——每次调用产生多个递归调用，创建计算树。
+
+Imagine a phone tree ☎️🌳 — you call 2 people, each of them calls 2 more, and so on. The number of calls EXPLODES! That's why naive Fibonacci is so slow — it creates a massive tree of redundant work.
+类比：想象电话树 ☎️🌳 — 你打给2个人，每人再打给2个人，依此类推。调用次数爆炸增长！这就是朴素 Fibonacci 慢的原因——它创建了大量冗余工作的树。
+
+🔑 **Key things to notice:**
+- Fibonacci makes TWO recursive calls: \`fib(n-1) + fib(n-2)\`
+- This creates 2^n calls — exponential blowup!
+- The same values get computed over and over (fib(3) calculated many times)
+- This motivates memoization (Dynamic Programming!)
+- 这就是记忆化（动态规划）的动机！
+
+👀 **Run the code and watch** the call count explode as n grows — then compare with memoized version!`,
       code: `# Fibonacci — classic tree recursion
 # fib(n) = fib(n-1) + fib(n-2)
 
@@ -2791,8 +3067,20 @@ print("   Solution: Dynamic Programming (coming up!) 🧩")`,
       emoji: "🔧",
       content: `## 🔧 Pattern 3: Helper Function & Accumulator
 
-Use a helper with an "accumulator" to avoid rebuilding results.
-用带"累加器"的辅助函数避免重建结果。`,
+🎯 **What you'll learn:** The accumulator pattern — use a helper function to carry partial results, avoiding redundant work and enabling tail recursion.
+学习目标：累加器模式——用辅助函数携带部分结果，避免冗余工作并实现尾递归。
+
+Think of a relay race 🏃‍♂️ — each runner carries a baton (the accumulator) and passes it to the next. The baton carries all the progress so far! No need to go back to the start.
+类比：想象接力赛 🏃‍♂️ — 每个跑者携带接力棒（累加器）传给下一位。接力棒承载了所有已有的进展！不需要回到起点。
+
+🔑 **Key things to notice:**
+- Without accumulator: result is built on the way BACK (return values)
+- With accumulator: result is built on the way DOWN (carried forward)
+- Tail recursion: the recursive call is the LAST operation
+- Some languages optimize tail calls to use O(1) space (Python doesn't, sadly)
+- 有些语言优化尾调用为 O(1) 空间（Python 遗憾地不行）
+
+👀 **Run the code and compare** the two approaches — same result, different process!`,
       code: `# Without accumulator (builds result on return)
 def factorial_v1(n):
     if n <= 1: return 1
@@ -2995,8 +3283,20 @@ const alg_3_3: Lesson = {
       emoji: "💻",
       content: `## 💻 Backtracking Template
 
-The universal template for backtracking problems!
-回溯问题的通用模板！`,
+🎯 **What you'll learn:** The universal backtracking template — try a choice, recurse, and undo if it doesn't work. The foundation for solving constraint problems.
+学习目标：通用回溯模板——尝试一个选择、递归、不行就撤销。解决约束问题的基础。
+
+Think of navigating a maze 🏰 — at each fork, you pick a path. If you hit a dead end, you BACKTRACK to the last fork and try another path. You systematically explore ALL possibilities!
+类比：想象走迷宫 🏰 — 在每个岔路口选一条路。如果走到死胡同，回退到上一个岔路口试另一条。你系统地探索所有可能性！
+
+🔑 **Key things to notice:**
+- Three steps: CHOOSE (make a decision), EXPLORE (recurse), UNCHOOSE (undo)
+- Base case: found a solution OR exhausted all options
+- \`is_valid()\` prunes bad branches early — huge performance boost
+- This template solves: permutations, N-Queens, Sudoku, and more!
+- 这个模板能解：排列、N皇后、数独等等！
+
+👀 **Run the code and trace** the choose → explore → unchoose pattern in the output!`,
       code: `# 🌀 The Backtracking Template
 # def backtrack(state):
 #     if is_solution(state):
@@ -3042,8 +3342,20 @@ print(f"\\nTotal: {len(result)} subsets")`,
       emoji: "🔢",
       content: `## 🔢 Permutations — All Arrangements
 
-Generate all orderings of a list!
-生成列表的所有排列！`,
+🎯 **What you'll learn:** How backtracking generates all possible orderings of a list — the classic permutation problem.
+学习目标：回溯如何生成列表的所有可能排列——经典排列问题。
+
+Imagine arranging 3 friends for a photo 📸 — Alice can be first, second, or third. For each choice of first person, you arrange the remaining two. That's 3 × 2 × 1 = 6 arrangements (3 factorial)!
+类比：想象给3个朋友拍照排位 📸 — Alice可以在第一、第二或第三个位置。每次选定第一个人后，安排剩余两人。这就是 3 × 2 × 1 = 6 种排列（3的阶乘）！
+
+🔑 **Key things to notice:**
+- We build the permutation one element at a time
+- "Used" tracking prevents picking the same element twice
+- n! permutations total — grows VERY fast (10! = 3,628,800!)
+- The recursion tree has n levels, branching factor decreases each level
+- 递归树有 n 层，每层的分支因子递减
+
+👀 **Run the code and watch** how the tree explores every possible arrangement!`,
       code: `def permutations(nums):
     result = []
     used = [False] * len(nums)
@@ -3092,8 +3404,20 @@ for p in str_perms:
       emoji: "👑",
       content: `## 👑 N-Queens: The Classic Backtracking Problem
 
-Place N queens on an N×N board so no two attack each other!
-在 N×N 棋盘上放 N 个皇后，使它们互不攻击！`,
+🎯 **What you'll learn:** How to place N queens on an N×N chessboard so no two attack each other — the crown jewel of backtracking!
+学习目标：如何在 N×N 棋盘上放 N 个皇后使它们互不攻击——回溯的皇冠明珠！
+
+You're seating N royal queens at a fancy dinner table 👑 — but queens are very particular: none wants to see another queen in her row, column, or diagonal! You try placing them one by one, and if you get stuck, rearrange.
+类比：你要在豪华宴会桌上安排 N 位女王 👑 — 但女王很挑剔：没人想在同一行、列或对角线上看到另一位女王！你逐个安排，卡住就重新安排。
+
+🔑 **Key things to notice:**
+- Place queens row by row — one queen per row guaranteed
+- Check columns and diagonals for conflicts before placing
+- If no valid column exists in a row, BACKTRACK to previous row
+- 4-Queens has 2 solutions; 8-Queens has 92 solutions!
+- 4皇后有2个解；8皇后有92个解！
+
+👀 **Run the code and see** all solutions printed as visual chessboards!`,
       code: `def solve_n_queens(n):
     solutions = []
     board = [['.' for _ in range(n)] for _ in range(n)]
@@ -3303,8 +3627,20 @@ const alg_3_4: Lesson = {
       emoji: "💻",
       content: `## 💻 D&C Example: Maximum Subarray Sum
 
-Find the contiguous subarray with the largest sum!
-找到连续子数组的最大和！`,
+🎯 **What you'll learn:** How divide-and-conquer finds the maximum subarray sum by splitting the problem and handling the cross-boundary case.
+学习目标：分治法如何通过拆分问题和处理跨边界情况来找到最大子数组和。
+
+Imagine a long stock chart 📈 — you want to find the best consecutive days to invest. Split the chart in half: the best stretch is either entirely in the left half, entirely in the right half, or it CROSSES the middle!
+类比：想象一个长长的股票图 📈 — 你想找到最佳的连续投资天数。把图一分为二：最佳区间要么完全在左半，要么完全在右半，要么横跨中间！
+
+🔑 **Key things to notice:**
+- Three cases: max in left half, max in right half, max crossing middle
+- The "crossing" case scans outward from the middle in both directions
+- Combines in O(n) per level × O(log n) levels = O(n log n) total
+- Kadane's algorithm does it in O(n), but D&C teaches the pattern!
+- Kadane 算法用 O(n)，但分治法教会了模式！
+
+👀 **Run the code and trace** how the three cases combine at each recursion level!`,
       code: `# Kadane's is O(n), but let's see the D&C approach!
 # It teaches the pattern beautifully.
 
@@ -3369,8 +3705,20 @@ print(f"Kadane's answer: {kadane(arr)}")`,
       emoji: "🔢",
       content: `## 🔢 D&C: Counting Inversions
 
-Count how "unsorted" an array is. Used in recommendation systems!
-计算数组有多"无序"。用于推荐系统！`,
+🎯 **What you'll learn:** How to count inversions (out-of-order pairs) using a modified merge sort — a beautiful D&C application.
+学习目标：如何用改良归并排序计算逆序对（乱序对）——一个优美的分治应用。
+
+Imagine a class ranking 📊 — inversions count how "jumbled" the list is compared to sorted order. If a student ranked #1 is in position #5, that creates inversions. Music streaming uses this to compare your taste with friends!
+类比：想象班级排名 📊 — 逆序对计算列表比排好序的版本"乱"了多少。如果排名第1的学生在第5个位置，就产生逆序对。音乐流媒体用这个来比较你和朋友的品味！
+
+🔑 **Key things to notice:**
+- Brute force counts inversions in O(n²) — check every pair
+- Modified merge sort counts them in O(n log n)!
+- Inversions across the split are counted during the MERGE step
+- When left element > right element during merge, ALL remaining left elements form inversions
+- 归并时左元素>右元素，所有剩余左元素都构成逆序对
+
+👀 **Run the code and compare** brute force vs D&C inversion counts — same answer, way faster!`,
       code: `# An inversion is a pair (i,j) where i < j but arr[i] > arr[j]
 # Brute force: O(n²). D&C: O(n log n)!
 
@@ -3431,8 +3779,20 @@ print(f"\\nMax inversions for {n} elements: {n*(n-1)//2}")`,
       emoji: "⚡",
       content: `## ⚡ Fast Exponentiation — D&C Style
 
-Compute x^n in O(log n) instead of O(n)!
-用 O(log n) 而非 O(n) 计算 x^n！`,
+🎯 **What you'll learn:** How to compute x^n in O(log n) multiplications instead of O(n) — by squaring instead of repeated multiplication.
+学习目标：如何用 O(log n) 次乘法而非 O(n) 计算 x^n——通过平方而非重复乘法。
+
+Instead of multiplying 2 × 2 × 2 × 2 × 2 × 2 × 2 × 2 (8 times) 🐢, compute 2² = 4, 4² = 16, 16² = 256 (only 3 steps!) 🚀. Doubling the exponent with each square is the key!
+类比：不用 2 × 2 × 2 × 2 × 2 × 2 × 2 × 2（8次） 🐢，而是算 2² = 4, 4² = 16, 16² = 256（只要3步！） 🚀。每次平方使指数翻倍是关键！
+
+🔑 **Key things to notice:**
+- If n is even: x^n = (x^(n/2))² — one recursive call + one multiply
+- If n is odd: x^n = x × x^(n-1) — reduce to even case
+- This takes O(log n) multiplications — huge savings for large n
+- Used in cryptography (RSA) where n can be thousands of digits!
+- 用于密码学（RSA），其中 n 可以有数千位！
+
+👀 **Run the code and compare** the number of multiplications: naive vs fast exponentiation!`,
       code: `# D&C: x^n = (x^(n/2))^2 if n even
 #       x^n = x * x^(n-1) if n odd
 
@@ -3648,8 +4008,20 @@ I'm **Puzzle** 🧩, your DP strategist! Dynamic Programming is all about **not 
       emoji: "🐌",
       content: `## 🐌 The Problem: Slow Fibonacci
 
-Naive recursive Fibonacci is EXPONENTIALLY slow. Let's see why!
-朴素递归 Fibonacci 指数级慢。让我们看看为什么！`,
+🎯 **What you'll learn:** WHY naive recursive Fibonacci is painfully slow — it redundantly recomputes the same values exponentially many times.
+学习目标：为什么朴素递归 Fibonacci 极其缓慢——它以指数次数冗余地重复计算相同的值。
+
+Imagine asking "What's 10+7?" and instead of remembering 17, you recalculate it from scratch every single time 🤦. Now imagine doing that for EVERY sub-calculation. That's naive Fibonacci!
+类比：想象每次问"10+7等于多少？"你都从头算，而不是记住17 🤦。现在想象对每个子计算都这样做。这就是朴素 Fibonacci！
+
+🔑 **Key things to notice:**
+- fib(5) calls fib(3) TWICE, fib(2) THREE times, fib(1) FIVE times
+- Total calls grow exponentially: O(2^n) — fib(40) makes billions of calls!
+- The call tree is full of duplicate work
+- This screams for optimization → Dynamic Programming!
+- 这大声呼唤优化→动态规划！
+
+👀 **Run the code and watch** the timing — notice how each increase in n DOUBLES the time!`,
       code: `import time
 
 # 🐌 Naive Fibonacci — O(2^n)
@@ -3689,8 +4061,20 @@ print("   fib(5) calls fib(3) TWICE, fib(2) THREE times, etc.")`,
       emoji: "⚡",
       content: `## ⚡ The Fix: Memoization!
 
-Cache every result. Never compute the same thing twice!
-缓存每个结果。永远不重复计算！`,
+🎯 **What you'll learn:** How memoization (top-down DP) caches results to eliminate ALL redundant computation — turning O(2^n) into O(n)!
+学习目标：记忆化（自顶向下DP）如何缓存结果消除所有冗余计算——将 O(2^n) 变成 O(n)！
+
+It's like writing answers on sticky notes 📝 — the first time you solve fib(5), write "fib(5) = 5" on a sticky note. Next time someone asks for fib(5)? Just read the note! No recalculation needed.
+类比：就像把答案写在便利贴上 📝 — 第一次算出 fib(5)，写上"fib(5) = 5"。下次再问 fib(5)？直接看便利贴！不需要重新计算。
+
+🔑 **Key things to notice:**
+- Only ONE line changes: check the cache before computing!
+- Goes from O(2^n) to O(n) — exponential to linear!
+- Each unique value computed exactly ONCE, then cached
+- Python's \`@lru_cache\` does this automatically
+- Python 的 \`@lru_cache\` 自动实现这个功能
+
+👀 **Run the code and compare** the speed — memoized fib(40) is INSTANT vs minutes for naive!`,
       code: `import time
 
 # ⚡ Memoized Fibonacci — O(n)
@@ -3761,8 +4145,20 @@ print(f"  Cache info: {fib_cached.cache_info()}")`,
       emoji: "🪜",
       content: `## 🪜 Classic DP: Climbing Stairs
 
-How many ways to climb n stairs, taking 1 or 2 steps at a time?
-每次走 1 或 2 步，爬 n 级台阶有多少种方法？`,
+🎯 **What you'll learn:** How the climbing stairs problem is secretly Fibonacci — and how to solve it with DP thinking.
+学习目标：爬楼梯问题其实是 Fibonacci 的变装——以及如何用 DP 思维解决它。
+
+You're climbing stairs and can take 1 or 2 steps at a time 🪜 — to reach step 5, you either came from step 4 (one step) or step 3 (two steps). So ways(5) = ways(4) + ways(3). Sound familiar? It's Fibonacci!
+类比：你爬楼梯，每次可以走1步或2步 🪜 — 到第5级，你要么从第4级来（一步）要么从第3级来（两步）。所以 ways(5) = ways(4) + ways(3)。听起来熟悉吗？这就是 Fibonacci！
+
+🔑 **Key things to notice:**
+- The recurrence is identical to Fibonacci: ways(n) = ways(n-1) + ways(n-2)
+- Base cases: ways(0) = 1 (stay), ways(1) = 1 (one step)
+- We can use memo (top-down) or table (bottom-up)
+- This pattern generalizes to many step-counting problems
+- 这个模式可以推广到许多步数计算问题
+
+👀 **Run the code and compare** how all three approaches (naive, memo, table) give the same answers!`,
       code: `# This is Fibonacci in disguise!
 # ways(n) = ways(n-1) + ways(n-2)
 # (either take 1 step from n-1, or 2 steps from n-2)
@@ -3935,8 +4331,20 @@ Memoization is top-down (start big, cache as you go). **Tabulation** is bottom-u
       emoji: "💻",
       content: `## 💻 Fibonacci: Three Ways
 
-Compare naive, memoized (top-down), and tabulated (bottom-up)!
-比较朴素、记忆化（自顶向下）和制表法（自底向上）！`,
+🎯 **What you'll learn:** The three paradigms of DP — naive recursion, memoization (top-down), and tabulation (bottom-up) — side by side.
+学习目标：DP 的三种范式——朴素递归、记忆化（自顶向下）和制表法（自底向上）——并排比较。
+
+Three chefs cooking the same dish 👨‍🍳 — Chef Naive starts from scratch every time. Chef Memo writes recipes as they go. Chef Table pre-makes everything in order from simplest to complex. Same result, wildly different efficiency!
+类比：三个厨师做同一道菜 👨‍🍳 — 朴素厨师每次从头做。记忆化厨师边做边记菜谱。制表厨师从最简单到最复杂按顺序预先做好一切。结果相同，效率天差地别！
+
+🔑 **Key things to notice:**
+- Naive: O(2^n) — recalculates everything, exponentially slow
+- Memoized: O(n) time, O(n) space — top-down with cache
+- Tabulated: O(n) time, O(1) space possible — bottom-up, no recursion overhead
+- In practice, tabulation is often preferred for cleaner iterative code
+- 实践中，制表法通常因更简洁的迭代代码而被偏好
+
+👀 **Run the code and benchmark** all three to see the dramatic performance difference!`,
       code: `# Method 1: Naive recursion — O(2^n)
 def fib_naive(n):
     if n <= 1: return n
@@ -3993,8 +4401,20 @@ for i in range(2, 11):
       emoji: "🪙",
       content: `## 🪙 Classic DP: Coin Change
 
-Minimum coins to make a target amount!
-用最少的硬币凑出目标金额！`,
+🎯 **What you'll learn:** How to find the minimum number of coins to make a target amount — a foundational DP problem with real-world applications.
+学习目标：如何找到凑出目标金额的最少硬币数——有现实应用的基础 DP 问题。
+
+You're at an arcade with coins of different values 🎰 — you need exactly 11 tokens. You have 1s, 5s, and 6s. Taking two 5s + one 1 = 11 with 3 coins. But greedy (take biggest first) would try 6+5 = 11 with 2 coins. DP finds the TRUE minimum!
+类比：你在游戏厅有不同面值的硬币 🎰 — 你需要恰好11个代币。你有1、5和6。两个5+一个1=11用3个硬币。但贪心（先拿最大的）会试6+5=11只用2个。DP找到真正的最少！
+
+🔑 **Key things to notice:**
+- State: \`dp[amount]\` = minimum coins needed for that amount
+- Transition: \`dp[amount] = min(dp[amount - coin] + 1)\` for each coin
+- Build from dp[0]=0 upward — each amount depends on smaller amounts
+- Greedy doesn't always work — DP considers ALL combinations!
+- 贪心并不总是有效——DP 考虑所有组合！
+
+👀 **Run the code and trace** how dp fills in from amount 0 to the target!`,
       code: `def coin_change(coins, amount):
     """Minimum coins needed to make 'amount'"""
     # dp[i] = minimum coins to make amount i
@@ -4215,8 +4635,20 @@ Time for the classics! These problems appear in interviews, competitions, and re
       emoji: "🎒",
       content: `## 🎒 0/1 Knapsack Problem
 
-You have a bag with weight limit W. Pick items to maximize total value!
-你有一个重量限制为 W 的背包。选物品使总价值最大！`,
+🎯 **What you'll learn:** How to maximize value in a weight-limited knapsack — the classic DP optimization problem.
+学习目标：如何在重量有限的背包中最大化价值——经典 DP 优化问题。
+
+You're packing for a hiking trip 🎒 — your backpack holds 10kg. A tent (4kg, value 6), sleeping bag (3kg, value 5), food (5kg, value 4), camera (2kg, value 3). You can't take everything! Which combo gives max value?
+类比：你在收拾行李去远足 🎒 — 背包能装10kg。帐篷（4kg，价值6）、睡袋（3kg，价值5）、食物（5kg，价值4）、相机（2kg，价值3）。装不下所有的！哪个组合价值最大？
+
+🔑 **Key things to notice:**
+- For each item: include it (add value, subtract weight) or skip it
+- \`dp[i][w]\` = max value using first i items with capacity w
+- If item too heavy, skip. Otherwise, max(skip, take)
+- Build the table bottom-up, then trace back to find which items to take
+- 自底向上建表，然后回溯找出选了哪些物品
+
+👀 **Run the code and see** both the max value AND which items are selected!`,
       code: `def knapsack(weights, values, W):
     """0/1 Knapsack: each item used at most once"""
     n = len(weights)
@@ -4267,8 +4699,20 @@ print(f"\\n🏆 Maximum value: {result}")`,
       emoji: "📝",
       content: `## 📝 Longest Common Subsequence (LCS)
 
-Find the longest sequence that appears in both strings!
-找到两个字符串中都出现的最长序列！`,
+🎯 **What you'll learn:** How to find the longest sequence common to two strings — fundamental for diff tools, DNA analysis, and version control.
+学习目标：如何找到两个字符串的最长公共子序列——diff 工具、DNA 分析和版本控制的基础。
+
+Comparing two essays for similarity 📄✏️ — you highlight letters that appear in BOTH, in the same ORDER (but not necessarily adjacent). The longest highlighted sequence is the LCS! "ABCDE" and "ACE" share "ACE" (length 3).
+类比：比较两篇文章的相似性 📄✏️ — 你高亮两篇中都出现的、顺序相同的字母（不必相邻）。最长的高亮序列就是 LCS！"ABCDE" 和 "ACE" 共享 "ACE"（长度3）。
+
+🔑 **Key things to notice:**
+- If characters match: LCS includes it + LCS of remaining parts
+- If they don't: try skipping from each string, take the better result
+- 2D table: \`dp[i][j]\` = LCS length for first i chars of s1 and first j of s2
+- Trace back through the table to reconstruct the actual subsequence
+- 通过表回溯来重建实际的子序列
+
+👀 **Run the code and see** both the LCS length and the actual common subsequence!`,
       code: `def lcs(s1, s2):
     """Longest Common Subsequence"""
     m, n = len(s1), len(s2)
@@ -4327,8 +4771,20 @@ print("\\n💡 LCS is used in 'git diff' to find common lines between file versi
       emoji: "📈",
       content: `## 📈 Longest Increasing Subsequence (LIS)
 
-Find the longest strictly increasing subsequence!
-找到最长严格递增子序列！`,
+🎯 **What you'll learn:** How to find the longest strictly increasing subsequence — a key problem in optimization and patience sorting.
+学习目标：如何找到最长严格递增子序列——优化和耐心排序中的关键问题。
+
+Imagine picking students from a line to form the longest "staircase" by height 📶 — each student you pick must be TALLER than the previous one. You can skip people, but you want the longest possible ascending sequence!
+类比：想象从队伍中选学生组成最长的身高"阶梯" 📶 — 每个选的学生必须比前一个高。你可以跳过人，但想要最长的上升序列！
+
+🔑 **Key things to notice:**
+- \`dp[i]\` = length of longest increasing subsequence ending at index i
+- For each i, check ALL previous j: if arr[j] < arr[i], extend that subsequence
+- O(n²) DP solution — there's also an O(n log n) solution using binary search!
+- Trace back to find the actual subsequence, not just the length
+- 回溯找到实际子序列，不只是长度
+
+👀 **Run the code and trace** how each element looks back to find the best subsequence to extend!`,
       code: `def lis(arr):
     """Longest Increasing Subsequence: O(n²)"""
     n = len(arr)
@@ -4535,8 +4991,20 @@ Many DP problems happen on grids: counting paths, finding minimum costs, navigat
       emoji: "💻",
       content: `## 💻 Grid Paths: Count All Paths
 
-How many ways to go from top-left to bottom-right?
-从左上到右下有多少种走法？`,
+🎯 **What you'll learn:** How to count all paths from top-left to bottom-right in a grid — moving only right or down.
+学习目标：如何计算网格中从左上到右下的所有路径数——只能向右或向下移动。
+
+Imagine navigating city blocks 🏙️ — you're at the northwest corner and want to reach the southeast corner. You can only go east or south. How many different routes exist? Each cell's answer = routes from above + routes from the left!
+类比：想象在城市街区导航 🏙️ — 你在西北角，要到达东南角。只能向东或向南走。有多少条不同的路线？每个格子的答案 = 上方路线数 + 左方路线数！
+
+🔑 **Key things to notice:**
+- First row and first column all have exactly 1 path (straight line)
+- \`dp[i][j] = dp[i-1][j] + dp[i][j-1]\` — paths from above + from left
+- This is related to Pascal's Triangle and combinations!
+- The answer for m×n grid is C(m+n-2, m-1)
+- m×n 网格的答案是 C(m+n-2, m-1)
+
+👀 **Run the code and see** how the path counts grow as the grid gets bigger!`,
       code: `def count_paths(m, n):
     """Count paths in m×n grid (right or down only)"""
     dp = [[0] * n for _ in range(m)]
@@ -4583,8 +5051,20 @@ print(f"Math: C(18, 9) = {comb(18, 9)} paths (10×10)")`,
       emoji: "🚧",
       content: `## 🚧 Grid with Obstacles
 
-Some cells are blocked! Can we still count paths?
-有些格子被堵了！还能数路径吗？`,
+🎯 **What you'll learn:** How to adapt grid path counting when some cells are blocked — a common interview variation.
+学习目标：当某些格子被堵住时如何调整网格路径计数——常见面试变体。
+
+Same city blocks, but now some intersections are under construction 🚧 — you can't pass through them! If a blocked cell is on your only path, you're forced to go around. Blocked cells get 0 paths; everything else uses the same formula.
+类比：同样的城市街区，但有些路口在施工 🚧 — 你不能通过！如果堵住的格子在你唯一的路径上，你必须绕道。堵住的格子路径数为0；其他仍用相同公式。
+
+🔑 **Key things to notice:**
+- Obstacles get \`dp[i][j] = 0\` — no paths through blocked cells
+- If start or end is blocked, answer is 0!
+- A blocked cell in the first row/column cuts off everything after it
+- Same recurrence otherwise: \`dp[i][j] = dp[i-1][j] + dp[i][j-1]\`
+- 其他情况相同的递推：\`dp[i][j] = dp[i-1][j] + dp[i][j-1]\`
+
+👀 **Run the code and see** how obstacles dramatically change the path count!`,
       code: `def count_paths_obstacles(grid):
     """Count paths avoiding obstacles (1 = obstacle)"""
     m, n = len(grid), len(grid[0])
@@ -4645,8 +5125,20 @@ print(f"\\n🏁 Paths avoiding obstacles: {result}")`,
       emoji: "💰",
       content: `## 💰 Minimum Path Sum
 
-Find the path with minimum total cost!
-找到总代价最小的路径！`,
+🎯 **What you'll learn:** How to find the path with minimum total cost through a grid — combining path counting with optimization.
+学习目标：如何找到网格中总代价最小的路径——结合路径计数和优化。
+
+You're delivering pizza through a city 🍕 — each block has a toll fee. You want to reach the destination spending the LEAST money. At each intersection, you pick the cheaper route (from above or from the left) and add the current toll.
+类比：你在城市里送披萨 🍕 — 每个街区有过路费。你想花最少的钱到达目的地。在每个路口，选择更便宜的路线（从上方或左方来）再加上当前的过路费。
+
+🔑 **Key things to notice:**
+- \`dp[i][j] = grid[i][j] + min(dp[i-1][j], dp[i][j-1])\`
+- First row/column: only one direction possible, so cumulative sum
+- We can trace back from bottom-right to find the actual path
+- This pattern applies to many "optimal path" problems
+- 这个模式适用于许多"最优路径"问题
+
+👀 **Run the code and trace** the minimum cost path through the grid!`,
       code: `def min_path_sum(grid):
     """Minimum cost path from top-left to bottom-right"""
     m, n = len(grid), len(grid[0])
@@ -4880,8 +5372,20 @@ I'm **Web** 🕸️, your graph navigator! Graphs are everywhere: social network
       emoji: "🌊",
       content: `## 🌊 BFS — Breadth-First Search
 
-Explore nodes level by level using a queue!
-用队列逐层探索节点！`,
+🎯 **What you'll learn:** How BFS explores a graph level by level using a queue — perfect for finding shortest paths in unweighted graphs.
+学习目标：BFS 如何用队列逐层探索图——在无权图中找最短路径的完美选择。
+
+Imagine dropping a stone in a pond 🌊 — ripples spread outward in circles, reaching nearby points first before distant ones. BFS works the same way: visit all neighbors first, then their neighbors, then theirs...
+类比：想象向池塘扔石头 🌊 — 波纹向外扩散成圆圈，先到达近处再到远处。BFS 同理：先访问所有邻居，再访问邻居的邻居，依此类推...
+
+🔑 **Key things to notice:**
+- Uses a QUEUE (FIFO) — first in, first out
+- Visited set prevents revisiting nodes (avoiding infinite loops)
+- Explores nodes in order of distance from the start
+- Guarantees shortest path in unweighted graphs!
+- 保证无权图中的最短路径！
+
+👀 **Run the code and observe** the level-by-level exploration order!`,
       code: `from collections import deque
 
 def bfs(graph, start):
@@ -4943,8 +5447,20 @@ print(f"Visit order: {' → '.join(result)}")`,
       emoji: "🏔️",
       content: `## 🏔️ DFS — Depth-First Search
 
-Go as deep as possible, then backtrack!
-尽可能深入，然后回溯！`,
+🎯 **What you'll learn:** How DFS explores a graph by going as deep as possible before backtracking — using recursion or a stack.
+学习目标：DFS 如何通过尽可能深入然后回溯来探索图——使用递归或栈。
+
+Imagine exploring a cave system 🏔️ — you pick a tunnel and go as DEEP as you can until you hit a dead end. Then you backtrack to the last fork and try another tunnel. You eventually explore everything!
+类比：想象探索洞穴系统 🏔️ — 你选一条隧道尽可能深入，直到走到死胡同。然后回退到上一个岔路口试另一条。最终你会探索完所有地方！
+
+🔑 **Key things to notice:**
+- Recursive DFS uses the CALL STACK implicitly
+- Iterative DFS uses an explicit STACK (LIFO)
+- DFS doesn't guarantee shortest path (unlike BFS)
+- Great for: cycle detection, topological sort, connected components
+- 适用于：环检测、拓扑排序、连通分量
+
+👀 **Run the code and compare** DFS traversal order vs BFS — notice the difference!`,
       code: `# DFS with recursion
 def dfs_recursive(graph, node, visited=None):
     if visited is None:
@@ -5046,8 +5562,20 @@ print(f"  DFS order: {' → '.join(dfs_iterative(graph, 'A'))}")`,
       emoji: "🎮",
       content: `## 🎮 Application: Shortest Path in Unweighted Graph
 
-BFS finds the shortest path in unweighted graphs!
-BFS 在无权图中找最短路径！`,
+🎯 **What you'll learn:** How BFS finds the shortest path AND reconstructs it by tracking parent nodes — essential for navigation.
+学习目标：BFS 如何通过跟踪父节点来找到最短路径并重建路径——对导航至关重要。
+
+Think of a GPS finding the route with fewest turns 🗺️ — BFS explores all 1-hop destinations first, then 2-hops, then 3-hops. The first time it reaches the target is guaranteed to be via the shortest route!
+类比：想象 GPS 找最少转弯的路线 🗺️ — BFS 先探索所有1跳目的地，然后2跳，然后3跳。第一次到达目标保证是最短路线！
+
+🔑 **Key things to notice:**
+- Track \`parent[node]\` to remember HOW we reached each node
+- Distance = number of edges (hops) from start to each node
+- Reconstruct path by following parent pointers backward
+- BFS guarantees this is the shortest path in unweighted graphs
+- BFS 保证这是无权图中的最短路径
+
+👀 **Run the code and trace** the parent chain to see how the path is reconstructed!`,
       code: `from collections import deque
 
 def shortest_path(graph, start, end):
@@ -5254,8 +5782,20 @@ BFS 在所有边相等时找最短路径。但**加权**图呢——像有不同
       emoji: "💻",
       content: `## 💻 Dijkstra's Algorithm
 
-Find shortest paths from a source to all other nodes!
-从源点找到到所有其他节点的最短路径！`,
+🎯 **What you'll learn:** How Dijkstra's finds the shortest path in weighted graphs — using a priority queue to always process the cheapest node next.
+学习目标：Dijkstra 如何在加权图中找最短路径——用优先队列总是处理下一个最便宜的节点。
+
+Imagine you're a delivery driver 🚗 with a map showing travel times between cities. You always drive to the CLOSEST unvisited city first, then update your estimates for its neighbors. Greedy locally, but optimal globally!
+类比：想象你是送货司机 🚗，地图显示城市间的行车时间。你总是先开到最近的未访问城市，然后更新其邻居的估计。局部贪心，全局最优！
+
+🔑 **Key things to notice:**
+- Priority queue (min-heap) always gives us the closest unprocessed node
+- "Relaxation": if going through node u makes v cheaper, update v's distance
+- Once a node is processed, its distance is FINAL (greedy correctness)
+- Doesn't work with negative edge weights — use Bellman-Ford instead
+- 不适用于负权边——用 Bellman-Ford 代替
+
+👀 **Run the code and watch** how distances get "relaxed" (improved) as nodes are processed!`,
       code: `import heapq
 
 def dijkstra(graph, start):
@@ -5349,8 +5889,20 @@ for node, dist in sorted(distances.items()):
       emoji: "🎮",
       content: `## 🎮 Dijkstra in a City Map
 
-A practical example with a city road network!
-一个城市道路网络的实际例子！`,
+🎯 **What you'll learn:** How Dijkstra's algorithm works on a realistic city road network — seeing theory applied to practice.
+学习目标：Dijkstra 算法如何在真实城市道路网络上工作——理论应用于实践。
+
+You're a taxi dispatcher 🚕 — a customer wants to go from the Airport to Downtown. The city has many routes with different travel times. Dijkstra helps you find the FASTEST route, not just any route!
+类比：你是出租车调度员 🚕 — 乘客要从机场到市中心。城市有许多不同行驶时间的路线。Dijkstra 帮你找到最快的路线，而不是任意路线！
+
+🔑 **Key things to notice:**
+- Weighted edges represent realistic travel times between locations
+- The algorithm explores nearby locations before distant ones
+- The final shortest-path tree shows optimal routes to ALL destinations
+- Path reconstruction shows the actual route, not just the cost
+- 路径重建显示实际路线，而不只是代价
+
+👀 **Run the code and explore** the city map — find the fastest route between different locations!`,
       code: `import heapq
 
 def dijkstra_city(roads, start, end):
@@ -5573,8 +6125,20 @@ Some things must come BEFORE others. Topological sort figures out the right orde
       emoji: "💻",
       content: `## 💻 Kahn's Algorithm (BFS-based)
 
-Start with nodes that have no prerequisites!
-从没有先修要求的节点开始！`,
+🎯 **What you'll learn:** How Kahn's algorithm finds a topological ordering using BFS — starting from nodes with no prerequisites.
+学习目标：Kahn 算法如何用 BFS 找拓扑排序——从没有先修要求的节点开始。
+
+Think of planning your semester courses 📚 — some courses have prerequisites. You start with courses that have NO prerequisites, complete them, then "unlock" courses that only needed those. Repeat until all courses are done!
+类比：想象规划学期课程 📚 — 有些课有先修要求。你先选没有先修要求的课，完成后"解锁"只需要这些先修课的课程。重复直到所有课都完成！
+
+🔑 **Key things to notice:**
+- Start with all nodes of in-degree 0 (no incoming edges)
+- Processing a node decreases its neighbors' in-degrees
+- When a neighbor's in-degree reaches 0, add it to the queue
+- If result has fewer nodes than total → cycle detected!
+- 如果结果节点数少于总数→检测到环！
+
+👀 **Run the code and see** how courses get "unlocked" one by one as prerequisites are completed!`,
       code: `from collections import deque
 
 def topological_sort_kahn(graph, nodes):
@@ -5656,8 +6220,20 @@ print(f"\\n✅ Valid order: {' → '.join(order)}")`,
       emoji: "🔄",
       content: `## 🔄 DFS-based Topological Sort
 
-Alternative: use DFS post-order and reverse!
-替代方法：用 DFS 后序遍历再反转！`,
+🎯 **What you'll learn:** An alternative topological sort using DFS post-order — process each node AFTER all its dependencies.
+学习目标：用 DFS 后序遍历的替代拓扑排序——在所有依赖之后处理每个节点。
+
+Imagine getting dressed in the morning 👔 — you can't put on shoes before socks, or a jacket before a shirt. DFS explores to the "deepest" dependency first (socks → shoes), records the finish order, then reverses it!
+类比：想象早上穿衣服 👔 — 你不能在袜子之前穿鞋，或在衬衫之前穿外套。DFS 先探索到最"深"的依赖（袜子→鞋），记录完成顺序，然后反转！
+
+🔑 **Key things to notice:**
+- DFS goes deep first, recording nodes in POST-ORDER (after all descendants)
+- Reverse the post-order to get topological order
+- Uses a "visited" set to avoid reprocessing
+- Both Kahn's and DFS approaches give valid orderings (may differ!)
+- 两种方法都给出有效排序（可能不同！）
+
+👀 **Run the code and compare** the DFS result with Kahn's — both are valid topological orderings!`,
       code: `def topological_sort_dfs(graph, nodes):
     """DFS-based topological sort"""
     visited = set()
@@ -5885,8 +6461,20 @@ Graphs aren't just academic — they power the modern world!
       emoji: "🔴",
       content: `## 🔴 Cycle Detection
 
-Does a directed graph have a cycle?
-有向图有环吗？`,
+🎯 **What you'll learn:** How to detect cycles in a directed graph using DFS with three-state coloring — white, gray, and black.
+学习目标：如何用三色标记的 DFS 在有向图中检测环——白色、灰色和黑色。
+
+Imagine following a treasure map 🗺️ — if you follow the arrows and end up back where you started, that's a cycle! DFS uses colors: WHITE (unvisited), GRAY (currently exploring), BLACK (fully explored). If you reach a GRAY node → cycle found!
+类比：想象跟着藏宝图走 🗺️ — 如果你跟着箭头走最终回到起点，那就是环！DFS 用颜色：白色（未访问）、灰色（正在探索）、黑色（完全探索完）。如果到达灰色节点→发现环！
+
+🔑 **Key things to notice:**
+- Gray nodes are on the current DFS path — hitting one means a back edge (cycle!)
+- Black nodes are fully explored — safe to revisit
+- A DAG (Directed Acyclic Graph) has NO cycles
+- Cycle detection is essential before topological sort
+- 拓扑排序前必须检测环
+
+👀 **Run the code and see** how the algorithm catches the cycle with its three-color system!`,
       code: `def has_cycle(graph, nodes):
     """Detect cycle in directed graph using DFS"""
     WHITE, GRAY, BLACK = 0, 1, 2
@@ -5955,8 +6543,20 @@ print(f"  Deadlock: {has_cycle(processes, ['P1','R1','P2','R2'])}")`,
       emoji: "🎨",
       content: `## 🎨 Bipartite Graph Check
 
-Can we color a graph with 2 colors so no adjacent nodes share a color?
-能用 2 种颜色给图染色使得相邻节点颜色不同吗？`,
+🎯 **What you'll learn:** How to check if a graph can be colored with 2 colors so no adjacent nodes share a color — using BFS.
+学习目标：如何检查图能否用2种颜色着色使相邻节点颜色不同——使用 BFS。
+
+Think of dividing kids into two teams for dodgeball 🔴🔵 — friends can be on different teams, but enemies (edges) MUST be on different teams. If you can split everyone this way, the graph is bipartite!
+类比：想象把孩子分成两队打躲避球 🔴🔵 — 朋友可以在不同队，但敌人（边）必须在不同队。如果能这样分开所有人，图就是二部图！
+
+🔑 **Key things to notice:**
+- Try to color each node with alternating colors (0 and 1)
+- BFS assigns opposite color to all neighbors
+- If a neighbor already has the SAME color → not bipartite!
+- Bipartite graphs have many applications: matching, scheduling, etc.
+- 二部图有很多应用：匹配、调度等
+
+👀 **Run the code and see** which graphs are bipartite and which aren't — and why!`,
       code: `from collections import deque
 
 def is_bipartite(graph):
@@ -6025,8 +6625,20 @@ print(f"  Bipartite: {result}")`,
       emoji: "🌍",
       content: `## 🌍 Graph Applications Showcase
 
-Graphs solve real problems across many domains!
-图解决各个领域的实际问题！`,
+🎯 **What you'll learn:** How graph algorithms solve diverse real-world problems — from social networks to maze solving to web crawling.
+学习目标：图算法如何解决多样的现实问题——从社交网络到迷宫求解到网页爬虫。
+
+Graphs are EVERYWHERE in the real world 🌍 — social media friends, GPS navigation, internet routing, game maps, airline routes, even your brain's neurons! Every time things are connected, there's a graph hiding underneath.
+类比：图在现实世界中无处不在 🌍 — 社交媒体好友、GPS导航、互联网路由、游戏地图、航线，甚至你大脑的神经元！只要事物相互连接，底下就藏着一个图。
+
+🔑 **Key things to notice:**
+- BFS solves maze shortest paths — treating each cell as a graph node
+- Social networks use BFS for "degrees of separation"
+- PageRank (Google) models the web as a directed graph
+- Each application maps a real problem to a graph abstraction
+- 每个应用都把现实问题映射到图的抽象
+
+👀 **Run the code and explore** these diverse applications — see graphs in action across domains!`,
       code: `from collections import deque
 
 # 1. Island counting (connected components in a grid)

@@ -230,6 +230,16 @@ Try adding and removing elements from an array!`,
         hintZh: "用 nums.append(40) 然后 print(nums)",
         solution: "nums = [10, 20, 30]\nnums.append(40)\nprint(nums)",
       },
+      exerciseCpp: {
+        prompt: "Create a vector {10, 20, 30}, push_back 40, then print the vector.",
+        promptZh: "创建向量 {10, 20, 30}，添加 40，然后打印向量。",
+        starterCode: "// Create and modify a vector\n#include <iostream>\n#include <vector>\nusing namespace std;\n\nint main() {\n    vector<int> nums = {10, 20, 30};\n    // Push back 40\n\n    // Print the result\n\n    return 0;\n}",
+        expectedOutput: "[10, 20, 30, 40]",
+        hint: "Use nums.push_back(40) then loop to print",
+        hintZh: "用 nums.push_back(40) 然后循环打印",
+        solution: "#include <iostream>\n#include <vector>\nusing namespace std;\n\nint main() {\n    vector<int> nums = {10, 20, 30};\n    nums.push_back(40);\n    cout << \"[\" ;\n    for (int i = 0; i < nums.size(); i++) {\n        if (i > 0) cout << \", \";\n        cout << nums[i];\n    }\n    cout << \"]\\n\";\n    return 0;\n}",
+        language: "cpp",
+      },
     },
   ],
 };
@@ -327,7 +337,55 @@ my_list.append("C")
 my_list.display()  # A → B → C → None
 
 # 🔗 Link: "See? Each node points to the next one!"
-# 📦 Box: "Unlike arrays, no shifting needed for inserts!"`,
+# 📦 Box: "Unlike arrays, no shifting needed for inserts!"`
+      codeCpp: `// 🔗 Link: "Let's build a linked list step by step!"
+
+#include <iostream>
+#include <string>
+using namespace std;
+
+struct Node {
+    string data;    // The value stored 存储的值
+    Node* next;     // Pointer to next node 指向下一个节点
+    Node(string d) : data(d), next(nullptr) {}
+};
+
+class LinkedList {
+public:
+    Node* head;     // First node 第一个节点
+    LinkedList() : head(nullptr) {}
+
+    void append(string data) {
+        Node* newNode = new Node(data);
+        if (!head) { head = newNode; return; }
+        Node* current = head;
+        while (current->next)    // Walk to the end 走到末尾
+            current = current->next;
+        current->next = newNode;
+    }
+
+    void display() {
+        Node* current = head;
+        while (current) {
+            cout << current->data;
+            if (current->next) cout << " → ";
+            current = current->next;
+        }
+        cout << " → None" << endl;
+    }
+};
+
+int main() {
+    LinkedList myList;
+    myList.append("A");
+    myList.append("B");
+    myList.append("C");
+    myList.display();  // A → B → C → None
+
+    // 🔗 Link: "See? Each node points to the next one!"
+    // 📦 Box: "Unlike arrays, no shifting needed for inserts!"
+    return 0;
+}`,,
     },
     {
       type: "code",
@@ -399,7 +457,73 @@ ll.prepend(5)   # Fast insert at start!
 ll.display()     # 5 → 10 → 20 → 30 → None
 
 pos = ll.search(20)
-print(f"Found 20 at position {pos}")  # 2`,
+print(f"Found 20 at position {pos}")  # 2`
+      codeCpp: `#include <iostream>
+using namespace std;
+
+struct Node {
+    int data;
+    Node* next;
+    Node(int d) : data(d), next(nullptr) {}
+};
+
+class LinkedList {
+public:
+    Node* head;
+    LinkedList() : head(nullptr) {}
+
+    void prepend(int data) {
+        // Insert at the beginning — O(1)! · 在开头插入——O(1)！
+        Node* newNode = new Node(data);
+        newNode->next = head;
+        head = newNode;
+    }
+
+    void append(int data) {
+        Node* newNode = new Node(data);
+        if (!head) { head = newNode; return; }
+        Node* current = head;
+        while (current->next)
+            current = current->next;
+        current->next = newNode;
+    }
+
+    int search(int target) {
+        // Find a value — O(n) · 查找值——O(n)
+        Node* current = head;
+        int position = 0;
+        while (current) {
+            if (current->data == target)
+                return position;
+            current = current->next;
+            position++;
+        }
+        return -1;
+    }
+
+    void display() {
+        Node* current = head;
+        while (current) {
+            cout << current->data;
+            if (current->next) cout << " → ";
+            current = current->next;
+        }
+        cout << " → None" << endl;
+    }
+};
+
+int main() {
+    LinkedList ll;
+    ll.append(10);
+    ll.append(20);
+    ll.append(30);
+    ll.prepend(5);   // Fast insert at start!
+    ll.display();     // 5 → 10 → 20 → 30 → None
+
+    int pos = ll.search(20);
+    cout << "Found 20 at position " << pos << endl;  // 2
+    return 0;
+}`,,
     },
     {
       type: "quiz",
@@ -835,7 +959,70 @@ print("\\nRemoving plates:")
 plates.pop()  # Green (last in, first out!)
 plates.pop()  # Blue
 plates.pop()  # Red
-plates.pop()  # Empty!`,
+plates.pop()  # Empty!`
+      codeCpp: `// 📦 Box: "Let's build a stack!"
+
+#include <iostream>
+#include <vector>
+#include <string>
+using namespace std;
+
+class Stack {
+    vector<string> items;
+public:
+    void push(string item) {
+        items.push_back(item);
+        cout << "  Pushed: " << item << " → Stack: [";
+        for (int i = 0; i < items.size(); i++) {
+            if (i > 0) cout << ", ";
+            cout << "'" << items[i] << "'";
+        }
+        cout << "]" << endl;
+    }
+
+    string pop() {
+        if (isEmpty()) {
+            cout << "  Stack is empty! 栈是空的！" << endl;
+            return "";
+        }
+        string item = items.back();
+        items.pop_back();
+        cout << "  Popped: " << item << " → Stack: [";
+        for (int i = 0; i < items.size(); i++) {
+            if (i > 0) cout << ", ";
+            cout << "'" << items[i] << "'";
+        }
+        cout << "]" << endl;
+        return item;
+    }
+
+    string peek() {
+        if (isEmpty()) return "";
+        return items.back();
+    }
+
+    bool isEmpty() { return items.empty(); }
+    int size() { return items.size(); }
+};
+
+int main() {
+    // Demo: Stack of plates! 🍽️
+    cout << "🍽️ Stack of Plates Demo:" << endl;
+    Stack plates;
+    plates.push("Red Plate");
+    plates.push("Blue Plate");
+    plates.push("Green Plate");
+
+    cout << "\nTop plate: " << plates.peek() << endl;  // Green
+    cout << "Stack size: " << plates.size() << endl;     // 3
+
+    cout << "\nRemoving plates:" << endl;
+    plates.pop();  // Green (last in, first out!)
+    plates.pop();  // Blue
+    plates.pop();  // Red
+    plates.pop();  // Empty!
+    return 0;
+}`,,
     },
     {
       type: "code",
@@ -892,7 +1079,62 @@ browser.visit("youtube.com")
 browser.visit("github.com")
 browser.back()       # youtube.com
 browser.back()       # google.com
-browser.forward()    # youtube.com`,
+browser.forward()    # youtube.com`
+      codeCpp: `// Simulate a browser's back/forward with stacks!
+// 用栈模拟浏览器的前进/后退！
+
+#include <iostream>
+#include <stack>
+#include <string>
+using namespace std;
+
+class BrowserHistory {
+    stack<string> backStack;
+    stack<string> forwardStack;
+    string current;
+public:
+    BrowserHistory() : current("Home") {}
+
+    void visit(string url) {
+        backStack.push(current);
+        current = url;
+        while (!forwardStack.empty()) forwardStack.pop();
+        cout << "📄 Visiting: " << current << endl;
+    }
+
+    void back() {
+        if (backStack.empty()) {
+            cout << "❌ No pages to go back to!" << endl;
+            return;
+        }
+        forwardStack.push(current);
+        current = backStack.top();
+        backStack.pop();
+        cout << "⬅️ Back to: " << current << endl;
+    }
+
+    void forward() {
+        if (forwardStack.empty()) {
+            cout << "❌ No pages to go forward to!" << endl;
+            return;
+        }
+        backStack.push(current);
+        current = forwardStack.top();
+        forwardStack.pop();
+        cout << "➡️ Forward to: " << current << endl;
+    }
+};
+
+int main() {
+    BrowserHistory browser;
+    browser.visit("google.com");
+    browser.visit("youtube.com");
+    browser.visit("github.com");
+    browser.back();       // youtube.com
+    browser.back();       // google.com
+    browser.forward();    // youtube.com
+    return 0;
+}`,,
     },
     {
       type: "quiz",
@@ -1059,7 +1301,49 @@ tests = [
 for expr, expected in tests:
     result = is_balanced(expr)
     status = "✅" if result == expected else "❌"
-    print(f'{status} "{expr}" → {result}')`,
+    print(f'{status} "{expr}" → {result}')`
+      codeCpp: `// 📦 Box: "This is a CLASSIC interview question!"
+
+#include <iostream>
+#include <stack>
+#include <string>
+#include <vector>
+#include <map>
+using namespace std;
+
+bool isBalanced(string expression) {
+    // Check if parentheses are balanced · 检查括号是否匹配
+    stack<char> stk;
+    map<char, char> pairs = {{')', '('}, {']', '['}, {'}', '{'}};
+
+    for (char c : expression) {
+        if (c == '(' || c == '[' || c == '{') {
+            stk.push(c);    // Push opening brackets 压入左括号
+        } else if (c == ')' || c == ']' || c == '}') {
+            if (stk.empty()) return false;     // No matching opener!
+            if (stk.top() != pairs[c]) return false;  // Wrong type!
+            stk.pop();       // Match found, pop! 匹配成功，弹出！
+        }
+    }
+    return stk.empty();     // Stack should be empty 栈应该为空
+}
+
+int main() {
+    vector<pair<string, bool>> tests = {
+        {"{[()]}", true},
+        {"((()))", true},
+        {"{[(])}", false},   // Mismatched! 不匹配！
+        {"(()", false},      // Missing closer 缺少右括号
+        {"", true},          // Empty is balanced 空字符串是平衡的
+    };
+
+    for (auto& [expr, expected] : tests) {
+        bool result = isBalanced(expr);
+        string status = (result == expected) ? "✅" : "❌";
+        cout << status << " \"" << expr << "\" → " << (result ? "true" : "false") << endl;
+    }
+    return 0;
+}`,,
     },
     {
       type: "code",
@@ -1308,7 +1592,66 @@ line.dequeue()  # Alice served first!
 line.dequeue()  # Then Bob
 line.enqueue("Diana")  # Diana joins
 line.dequeue()  # Charlie (was before Diana)
-line.dequeue()  # Diana`,
+line.dequeue()  # Diana`
+      codeCpp: `// 📦 Box: "First come, first served!"
+#include <iostream>
+#include <deque>
+#include <string>
+using namespace std;
+
+class Queue {
+    deque<string> items;
+public:
+    void enqueue(string item) {
+        items.push_back(item);
+        cout << "  ➕ Enqueued: " << item << " → Queue: [";
+        for (int i = 0; i < items.size(); i++) {
+            if (i > 0) cout << ", ";
+            cout << "'" << items[i] << "'";
+        }
+        cout << "]" << endl;
+    }
+
+    string dequeueItem() {
+        if (isEmpty()) {
+            cout << "  Queue is empty! 队列为空！" << endl;
+            return "";
+        }
+        string item = items.front();
+        items.pop_front();
+        cout << "  ➖ Dequeued: " << item << " → Queue: [";
+        for (int i = 0; i < items.size(); i++) {
+            if (i > 0) cout << ", ";
+            cout << "'" << items[i] << "'";
+        }
+        cout << "]" << endl;
+        return item;
+    }
+
+    string front() { return items.empty() ? "" : items.front(); }
+    bool isEmpty() { return items.empty(); }
+    int size() { return items.size(); }
+};
+
+int main() {
+    // Demo: Coffee shop line! ☕
+    cout << "☕ Coffee Shop Queue:" << endl;
+    Queue line;
+    line.enqueue("Alice");
+    line.enqueue("Bob");
+    line.enqueue("Charlie");
+
+    cout << "\nNext customer: " << line.front() << endl;  // Alice
+    cout << "People waiting: " << line.size() << endl;     // 3
+
+    cout << "\nServing customers:" << endl;
+    line.dequeueItem();  // Alice served first!
+    line.dequeueItem();  // Then Bob
+    line.enqueue("Diana");  // Diana joins
+    line.dequeueItem();  // Charlie (was before Diana)
+    line.dequeueItem();  // Diana
+    return 0;
+}`,,
     },
     {
       type: "quiz",
@@ -1466,7 +1809,39 @@ while er_queue:
     order += 1
 
 # Output order: Bob (heart attack), Diana (stroke), Charlie (arm), Alice (cold)
-# 📦 Box: "The heap always gives us the highest-priority item!"`,
+# 📦 Box: "The heap always gives us the highest-priority item!"`
+      codeCpp: `#include <iostream>
+#include <queue>
+#include <vector>
+#include <string>
+#include <tuple>
+using namespace std;
+
+int main() {
+    // 🏥 Emergency Room Priority Queue
+    // Lower number = higher priority (1 = critical!)
+    // 数字越小优先级越高
+
+    // min-heap: (priority, arrival_order, patient_name)
+    using Patient = tuple<int, int, string>;
+    priority_queue<Patient, vector<Patient>, greater<Patient>> erQueue;
+
+    erQueue.push({3, 1, "Alice - Cold"});
+    erQueue.push({1, 2, "Bob - Heart Attack"});
+    erQueue.push({2, 3, "Charlie - Broken Arm"});
+    erQueue.push({1, 4, "Diana - Stroke"});
+
+    cout << "🏥 ER Treatment Order:" << endl;
+    int order = 1;
+    while (!erQueue.empty()) {
+        auto [priority, _, patient] = erQueue.top();
+        erQueue.pop();
+        cout << "  " << order << ". [Priority " << priority << "] " << patient << endl;
+        order++;
+    }
+    // 📦 Box: "The heap always gives us the highest-priority item!"
+    return 0;
+}`,,
     },
     {
       type: "code",
@@ -1710,7 +2085,70 @@ print("\\n\\nPre-order (Root→Left→Right):")
 preorder(root)   # 1 2 4 5 3 6
 print("\\n\\nPost-order (Left→Right→Root):")
 postorder(root)  # 4 5 2 6 3 1
-print()`,
+print()`
+      codeCpp: `// 🌳 Root: "Let's grow a tree!"
+
+#include <iostream>
+using namespace std;
+
+struct TreeNode {
+    int value;
+    TreeNode* left;
+    TreeNode* right;
+    TreeNode(int v) : value(v), left(nullptr), right(nullptr) {}
+};
+
+// Three types of traversal! 三种遍历方式！
+void inorder(TreeNode* node) {
+    // Left → Root → Right · 左→根→右
+    if (node) {
+        inorder(node->left);
+        cout << node->value << " ";
+        inorder(node->right);
+    }
+}
+
+void preorder(TreeNode* node) {
+    // Root → Left → Right · 根→左→右
+    if (node) {
+        cout << node->value << " ";
+        preorder(node->left);
+        preorder(node->right);
+    }
+}
+
+void postorder(TreeNode* node) {
+    // Left → Right → Root · 左→右→根
+    if (node) {
+        postorder(node->left);
+        postorder(node->right);
+        cout << node->value << " ";
+    }
+}
+
+int main() {
+    // Build this tree:
+    //        1
+    //       / \\
+    //      2   3
+    //     / \\   \\
+    //    4   5   6
+    TreeNode* root = new TreeNode(1);
+    root->left = new TreeNode(2);
+    root->right = new TreeNode(3);
+    root->left->left = new TreeNode(4);
+    root->left->right = new TreeNode(5);
+    root->right->right = new TreeNode(6);
+
+    cout << "In-order (Left→Root→Right):" << endl;
+    inorder(root);    // 4 2 5 1 3 6
+    cout << "\n\nPre-order (Root→Left→Right):" << endl;
+    preorder(root);   // 1 2 4 5 3 6
+    cout << "\n\nPost-order (Left→Right→Root):" << endl;
+    postorder(root);  // 4 5 2 6 3 1
+    cout << endl;
+    return 0;
+}`,,
     },
     {
       type: "quiz",
@@ -2145,7 +2583,50 @@ root.left.right = ExprNode('5')
 result = evaluate(root)
 print(f"(3 + 5) * 2 = {result}")  # 16
 
-# 🌳 Root: "Compilers build expression trees to evaluate your code!"`,
+# 🌳 Root: "Compilers build expression trees to evaluate your code!"`
+      codeCpp: `// 🌳 Root: "Calculators use trees to parse math!"
+// Expression: (3 + 5) * 2
+
+#include <iostream>
+#include <string>
+using namespace std;
+
+struct ExprNode {
+    string value;
+    ExprNode* left;
+    ExprNode* right;
+    ExprNode(string v) : value(v), left(nullptr), right(nullptr) {}
+};
+
+int evaluate(ExprNode* node) {
+    // Evaluate an expression tree · 计算表达式树
+    if (!node->left && !node->right)
+        return stoi(node->value);  // Leaf = number 叶节点=数字
+
+    int leftVal = evaluate(node->left);
+    int rightVal = evaluate(node->right);
+
+    if (node->value == "+") return leftVal + rightVal;
+    if (node->value == "-") return leftVal - rightVal;
+    if (node->value == "*") return leftVal * rightVal;
+    if (node->value == "/") return leftVal / rightVal;
+    return 0;
+}
+
+int main() {
+    // Build (3 + 5) * 2
+    ExprNode* root = new ExprNode("*");
+    root->left = new ExprNode("+");
+    root->right = new ExprNode("2");
+    root->left->left = new ExprNode("3");
+    root->left->right = new ExprNode("5");
+
+    int result = evaluate(root);
+    cout << "(3 + 5) * 2 = " << result << endl;  // 16
+
+    // 🌳 Root: "Compilers build expression trees to evaluate your code!"
+    return 0;
+}`,,
     },
     {
       type: "quiz",
@@ -2364,7 +2845,42 @@ for word in words:
 # Solution 2: Open addressing (find next empty slot)
 
 print("\\n📦 Box: Python's dict handles collisions automatically!")
-print("🔗 Link: Collisions use chaining — each slot has a linked list!")`,
+print("🔗 Link: Collisions use chaining — each slot has a linked list!")`
+      codeCpp: `// 📦 Box: "What happens when two keys hash to the same spot?"
+
+#include <iostream>
+#include <string>
+#include <vector>
+using namespace std;
+
+int simpleHash(string key, int size) {
+    // Sum of character codes mod table size · 字符编码和 mod 表大小
+    int sum = 0;
+    for (char c : key) sum += (int)c;
+    return sum % size;
+}
+
+int main() {
+    int tableSize = 5;
+    vector<string> words = {"cat", "dog", "act", "god", "bat"};
+
+    cout << "Hash table size: " << tableSize << endl;
+    cout << "Hashing words:" << endl;
+    for (auto& word : words) {
+        int h = simpleHash(word, tableSize);
+        cout << "  '" << word << "' → slot " << h << endl;
+    }
+
+    // Notice: "cat" and "act" have the same hash! (same letters!)
+    // This is a COLLISION 碰撞！
+
+    // Solution 1: Chaining (linked lists at each slot)
+    // Solution 2: Open addressing (find next empty slot)
+
+    cout << "\n📦 Box: C++ unordered_map handles collisions automatically!" << endl;
+    cout << "🔗 Link: Collisions use chaining — each slot has a linked list!" << endl;
+    return 0;
+}`,,
     },
     {
       type: "quiz",
@@ -2532,7 +3048,83 @@ nums = [1, 2, 2, 3, 3, 3, 4, 4, 4, 4]
 unique = list(set(nums))
 print(f"\\nDeduplicated: {unique}")
 
-# 📦 Box: "Sets are perfect for removing duplicates and set math!"`,
+# 📦 Box: "Sets are perfect for removing duplicates and set math!"`
+      codeCpp: `// 📦 Box: "Sets are like hash maps without values!"
+
+#include <iostream>
+#include <set>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+int main() {
+    set<string> fruits = {"apple", "banana", "cherry"};
+    set<string> citrus = {"orange", "lemon", "banana", "cherry"};
+
+    cout << "Fruits: {";
+    for (auto it = fruits.begin(); it != fruits.end(); ++it) {
+        if (it != fruits.begin()) cout << ", ";
+        cout << *it;
+    }
+    cout << "}" << endl;
+
+    cout << "Citrus: {";
+    for (auto it = citrus.begin(); it != citrus.end(); ++it) {
+        if (it != citrus.begin()) cout << ", ";
+        cout << *it;
+    }
+    cout << "}" << endl;
+
+    // Union 并集
+    set<string> unionSet;
+    set_union(fruits.begin(), fruits.end(), citrus.begin(), citrus.end(),
+              inserter(unionSet, unionSet.begin()));
+    cout << "\n∪ Union: {";
+    for (auto it = unionSet.begin(); it != unionSet.end(); ++it) {
+        if (it != unionSet.begin()) cout << ", ";
+        cout << *it;
+    }
+    cout << "}" << endl;
+
+    // Intersection 交集
+    set<string> interSet;
+    set_intersection(fruits.begin(), fruits.end(), citrus.begin(), citrus.end(),
+                     inserter(interSet, interSet.begin()));
+    cout << "∩ Intersection: {";
+    for (auto it = interSet.begin(); it != interSet.end(); ++it) {
+        if (it != interSet.begin()) cout << ", ";
+        cout << *it;
+    }
+    cout << "}" << endl;
+
+    // Difference 差集
+    set<string> diffSet;
+    set_difference(fruits.begin(), fruits.end(), citrus.begin(), citrus.end(),
+                   inserter(diffSet, diffSet.begin()));
+    cout << "- Difference (fruits-citrus): {";
+    for (auto it = diffSet.begin(); it != diffSet.end(); ++it) {
+        if (it != diffSet.begin()) cout << ", ";
+        cout << *it;
+    }
+    cout << "}" << endl;
+
+    // Membership test — O(log n) for std::set
+    cout << "\n'apple' in fruits? " << (fruits.count("apple") ? "true" : "false") << endl;
+
+    // Remove duplicates from a vector!
+    vector<int> nums = {1, 2, 2, 3, 3, 3, 4, 4, 4, 4};
+    set<int> uniqueSet(nums.begin(), nums.end());
+    vector<int> unique(uniqueSet.begin(), uniqueSet.end());
+    cout << "\nDeduplicated: [";
+    for (int i = 0; i < unique.size(); i++) {
+        if (i > 0) cout << ", ";
+        cout << unique[i];
+    }
+    cout << "]" << endl;
+
+    // 📦 Box: "Sets are perfect for removing duplicates and set math!"
+    return 0;
+}`,,
     },
     {
       type: "quiz",
@@ -2711,7 +3303,66 @@ social.display()
 print(f"\\nAlice connected to Bob? {social.has_edge('Alice', 'Bob')}")
 print(f"Alice connected to Eve? {social.has_edge('Alice', 'Eve')}")
 
-# 🔗 Link: "Graphs model relationships — the web is a giant graph!"`,
+# 🔗 Link: "Graphs model relationships — the web is a giant graph!"`
+      codeCpp: `// 🔗 Link: "Let me show you how to build a graph!"
+
+#include <iostream>
+#include <unordered_map>
+#include <vector>
+#include <string>
+using namespace std;
+
+class Graph {
+    unordered_map<string, vector<string>> adjList;
+public:
+    void addVertex(string vertex) {
+        if (!adjList.count(vertex))
+            adjList[vertex] = {};
+    }
+
+    void addEdge(string v1, string v2) {
+        addVertex(v1);
+        addVertex(v2);
+        adjList[v1].push_back(v2);
+        adjList[v2].push_back(v1);
+    }
+
+    void display() {
+        for (auto& [vertex, neighbors] : adjList) {
+            cout << "  " << vertex << " → [";
+            for (int i = 0; i < neighbors.size(); i++) {
+                if (i > 0) cout << ", ";
+                cout << "'" << neighbors[i] << "'";
+            }
+            cout << "]" << endl;
+        }
+    }
+
+    bool hasEdge(string v1, string v2) {
+        if (!adjList.count(v1)) return false;
+        for (auto& n : adjList[v1])
+            if (n == v2) return true;
+        return false;
+    }
+};
+
+int main() {
+    Graph social;
+    social.addEdge("Alice", "Bob");
+    social.addEdge("Alice", "Charlie");
+    social.addEdge("Bob", "Diana");
+    social.addEdge("Charlie", "Diana");
+    social.addEdge("Diana", "Eve");
+
+    cout << "🌐 Social Network Graph:" << endl;
+    social.display();
+
+    cout << "\nAlice connected to Bob? " << (social.hasEdge("Alice", "Bob") ? "True" : "False") << endl;
+    cout << "Alice connected to Eve? " << (social.hasEdge("Alice", "Eve") ? "True" : "False") << endl;
+
+    // 🔗 Link: "Graphs model relationships — the web is a giant graph!"
+    return 0;
+}`,,
     },
     {
       type: "quiz",
@@ -2897,7 +3548,86 @@ def bfs_shortest_path(graph, start, end):
     return None
 
 path = bfs_shortest_path(graph, 'A', 'E')
-print(f"Shortest A→E: {' → '.join(path)}")`,
+print(f"Shortest A→E: {' → '.join(path)}")`
+      codeCpp: `#include <iostream>
+#include <unordered_map>
+#include <unordered_set>
+#include <vector>
+#include <queue>
+#include <string>
+using namespace std;
+
+vector<string> bfs(unordered_map<string, vector<string>>& graph, string start) {
+    // Breadth-First Search · 广度优先搜索
+    unordered_set<string> visited;
+    queue<string> q;
+    q.push(start);
+    visited.insert(start);
+    vector<string> order;
+
+    while (!q.empty()) {
+        string vertex = q.front();
+        q.pop();
+        order.push_back(vertex);
+
+        for (auto& neighbor : graph[vertex]) {
+            if (!visited.count(neighbor)) {
+                visited.insert(neighbor);
+                q.push(neighbor);
+            }
+        }
+    }
+    return order;
+}
+
+vector<string> bfsShortestPath(unordered_map<string, vector<string>>& graph,
+                                string start, string end) {
+    queue<pair<string, vector<string>>> q;
+    unordered_set<string> visited;
+    q.push({start, {start}});
+    visited.insert(start);
+    while (!q.empty()) {
+        auto [vertex, path] = q.front();
+        q.pop();
+        if (vertex == end) return path;
+        for (auto& neighbor : graph[vertex]) {
+            if (!visited.count(neighbor)) {
+                visited.insert(neighbor);
+                auto newPath = path;
+                newPath.push_back(neighbor);
+                q.push({neighbor, newPath});
+            }
+        }
+    }
+    return {};
+}
+
+int main() {
+    unordered_map<string, vector<string>> graph = {
+        {"A", {"B", "C"}},
+        {"B", {"A", "C", "D"}},
+        {"C", {"A", "B"}},
+        {"D", {"B", "E"}},
+        {"E", {"D"}}
+    };
+
+    auto order = bfs(graph, "A");
+    cout << "🌊 BFS from A: [";
+    for (int i = 0; i < order.size(); i++) {
+        if (i > 0) cout << ", ";
+        cout << "'" << order[i] << "'";
+    }
+    cout << "]" << endl;
+
+    auto path = bfsShortestPath(graph, "A", "E");
+    cout << "Shortest A→E: ";
+    for (int i = 0; i < path.size(); i++) {
+        if (i > 0) cout << " → ";
+        cout << path[i];
+    }
+    cout << endl;
+    return 0;
+}`,,
     },
     {
       type: "code",
@@ -2957,7 +3687,74 @@ print("🏊 DFS from A:", dfs(graph, 'A'))
 
 print("\\n🏊 DFS recursive from A:", end=" ")
 dfs_recursive(graph, 'A')
-print()`,
+print()`
+      codeCpp: `#include <iostream>
+#include <unordered_map>
+#include <unordered_set>
+#include <vector>
+#include <stack>
+#include <string>
+#include <algorithm>
+using namespace std;
+
+vector<string> dfs(unordered_map<string, vector<string>>& graph, string start) {
+    // Depth-First Search (iterative with stack) · 深度优先搜索
+    unordered_set<string> visited;
+    stack<string> stk;
+    stk.push(start);
+    vector<string> order;
+
+    while (!stk.empty()) {
+        string vertex = stk.top();
+        stk.pop();
+        if (!visited.count(vertex)) {
+            visited.insert(vertex);
+            order.push_back(vertex);
+            auto neighbors = graph[vertex];
+            reverse(neighbors.begin(), neighbors.end());
+            for (auto& n : neighbors) {
+                if (!visited.count(n))
+                    stk.push(n);
+            }
+        }
+    }
+    return order;
+}
+
+void dfsRecursive(unordered_map<string, vector<string>>& graph,
+                  string vertex, unordered_set<string>& visited) {
+    // DFS using recursion · 递归DFS
+    visited.insert(vertex);
+    cout << vertex << " ";
+    for (auto& neighbor : graph[vertex]) {
+        if (!visited.count(neighbor))
+            dfsRecursive(graph, neighbor, visited);
+    }
+}
+
+int main() {
+    unordered_map<string, vector<string>> graph = {
+        {"A", {"B", "C"}},
+        {"B", {"A", "C", "D"}},
+        {"C", {"A", "B"}},
+        {"D", {"B", "E"}},
+        {"E", {"D"}}
+    };
+
+    auto order = dfs(graph, "A");
+    cout << "🏊 DFS from A: [";
+    for (int i = 0; i < order.size(); i++) {
+        if (i > 0) cout << ", ";
+        cout << "'" << order[i] << "'";
+    }
+    cout << "]" << endl;
+
+    cout << "\n🏊 DFS recursive from A: ";
+    unordered_set<string> visited;
+    dfsRecursive(graph, "A", visited);
+    cout << endl;
+    return 0;
+}`,,
     },
     {
       type: "quiz",
@@ -3135,7 +3932,68 @@ net.add_friendship("Charlie", "Frank")
 print("👥 Friend suggestions for Alice:")
 for person, mutuals in net.suggest_friends("Alice"):
     print(f"  {person} ({mutuals} mutual friends)")
-# Diana (2 mutual), Eve (1 mutual), Frank (1 mutual)`,
+# Diana (2 mutual), Eve (1 mutual), Frank (1 mutual)`
+      codeCpp: `// 🔗 Link: "Who should you be friends with?"
+
+#include <iostream>
+#include <unordered_map>
+#include <unordered_set>
+#include <vector>
+#include <string>
+#include <algorithm>
+using namespace std;
+
+class SocialNetwork {
+    unordered_map<string, unordered_set<string>> friends;
+public:
+    void addUser(string name) {
+        if (!friends.count(name))
+            friends[name] = {};
+    }
+
+    void addFriendship(string a, string b) {
+        addUser(a);
+        addUser(b);
+        friends[a].insert(b);
+        friends[b].insert(a);
+    }
+
+    vector<pair<string, int>> suggestFriends(string user) {
+        // Suggest friends-of-friends · 推荐朋友的朋友
+        if (!friends.count(user)) return {};
+
+        unordered_map<string, int> suggestions;
+        auto& myFriends = friends[user];
+
+        for (auto& fr : myFriends) {
+            for (auto& fof : friends[fr]) {
+                if (fof != user && !myFriends.count(fof))
+                    suggestions[fof]++;
+            }
+        }
+
+        vector<pair<string, int>> result(suggestions.begin(), suggestions.end());
+        sort(result.begin(), result.end(),
+             [](auto& a, auto& b) { return a.second > b.second; });
+        return result;
+    }
+};
+
+int main() {
+    SocialNetwork net;
+    net.addFriendship("Alice", "Bob");
+    net.addFriendship("Alice", "Charlie");
+    net.addFriendship("Bob", "Diana");
+    net.addFriendship("Bob", "Eve");
+    net.addFriendship("Charlie", "Diana");
+    net.addFriendship("Charlie", "Frank");
+
+    cout << "👥 Friend suggestions for Alice:" << endl;
+    for (auto& [person, mutuals] : net.suggestFriends("Alice"))
+        cout << "  " << person << " (" << mutuals << " mutual friends)" << endl;
+    // Diana (2 mutual), Eve (1 mutual), Frank (1 mutual)
+    return 0;
+}`,,
     },
     {
       type: "code",
@@ -3385,7 +4243,71 @@ print(f"  Result: {data1}")
 print(f"  Comparisons: {c1}")
 print(f"\\n🎯 Selection Sort:")
 print(f"  Result: {data2}")
-print(f"  Comparisons: {c2}")`,
+print(f"  Comparisons: {c2}")`
+      codeCpp: `// 📦 Box: "Start with the simple ones!"
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <random>
+using namespace std;
+
+int bubbleSort(vector<int>& arr) {
+    // Bubble Sort — O(n²) · 冒泡排序
+    int n = arr.size(), comparisons = 0;
+    for (int i = 0; i < n; i++)
+        for (int j = 0; j < n-i-1; j++) {
+            comparisons++;
+            if (arr[j] > arr[j+1])
+                swap(arr[j], arr[j+1]);  // Swap! 交换！
+        }
+    return comparisons;
+}
+
+int selectionSort(vector<int>& arr) {
+    // Selection Sort — O(n²) · 选择排序
+    int n = arr.size(), comparisons = 0;
+    for (int i = 0; i < n; i++) {
+        int minIdx = i;
+        for (int j = i+1; j < n; j++) {
+            comparisons++;
+            if (arr[j] < arr[minIdx])
+                minIdx = j;
+        }
+        swap(arr[i], arr[minIdx]);
+    }
+    return comparisons;
+}
+
+int main() {
+    // Generate random data
+    vector<int> data1(20);
+    iota(data1.begin(), data1.end(), 0);
+    shuffle(data1.begin(), data1.end(), mt19937{42});
+    vector<int> data2 = data1;
+
+    int c1 = bubbleSort(data1);
+    int c2 = selectionSort(data2);
+
+    cout << "🫧 Bubble Sort:" << endl;
+    cout << "  Result: [";
+    for (int i = 0; i < data1.size(); i++) {
+        if (i > 0) cout << ", ";
+        cout << data1[i];
+    }
+    cout << "]" << endl;
+    cout << "  Comparisons: " << c1 << endl;
+
+    cout << "\n🎯 Selection Sort:" << endl;
+    cout << "  Result: [";
+    for (int i = 0; i < data2.size(); i++) {
+        if (i > 0) cout << ", ";
+        cout << data2[i];
+    }
+    cout << "]" << endl;
+    cout << "  Comparisons: " << c2 << endl;
+    return 0;
+}`,,
     },
     {
       type: "code",
@@ -3452,7 +4374,86 @@ merge_time = time.time() - start
 print(f"\\n⏱️ 1000 elements (worst case):")
 print(f"  Bubble Sort: {bubble_time:.4f}s")
 print(f"  Merge Sort:  {merge_time:.4f}s")
-print(f"  Merge is {bubble_time/max(merge_time, 0.0001):.0f}x faster! 🚀")`,
+print(f"  Merge is {bubble_time/max(merge_time, 0.0001):.0f}x faster! 🚀")`
+      codeCpp: `// 📦 Box: "Divide and conquer — split, sort, merge!"
+
+#include <iostream>
+#include <vector>
+#include <chrono>
+using namespace std;
+
+vector<int> merge(vector<int>& left, vector<int>& right) {
+    // Merge two sorted arrays · 合并两个有序数组
+    vector<int> result;
+    int i = 0, j = 0;
+    while (i < left.size() && j < right.size()) {
+        if (left[i] <= right[j])
+            result.push_back(left[i++]);
+        else
+            result.push_back(right[j++]);
+    }
+    while (i < left.size()) result.push_back(left[i++]);
+    while (j < right.size()) result.push_back(right[j++]);
+    return result;
+}
+
+vector<int> mergeSort(vector<int> arr) {
+    // Merge Sort — O(n log n) · 归并排序
+    if (arr.size() <= 1) return arr;
+    int mid = arr.size() / 2;
+    vector<int> left(arr.begin(), arr.begin() + mid);
+    vector<int> right(arr.begin() + mid, arr.end());
+    left = mergeSort(left);    // Sort left half 排序左半
+    right = mergeSort(right);  // Sort right half 排序右半
+    return merge(left, right); // Merge them 合并
+}
+
+int bubbleSort(vector<int> arr) {
+    int n = arr.size();
+    for (int i = 0; i < n; i++)
+        for (int j = 0; j < n-i-1; j++)
+            if (arr[j] > arr[j+1])
+                swap(arr[j], arr[j+1]);
+    return 0;
+}
+
+int main() {
+    vector<int> data = {38, 27, 43, 3, 9, 82, 10};
+    cout << "Original: [";
+    for (int i = 0; i < data.size(); i++) {
+        if (i > 0) cout << ", ";
+        cout << data[i];
+    }
+    cout << "]" << endl;
+
+    auto sortedData = mergeSort(data);
+    cout << "Sorted:   [";
+    for (int i = 0; i < sortedData.size(); i++) {
+        if (i > 0) cout << ", ";
+        cout << sortedData[i];
+    }
+    cout << "]" << endl;
+
+    // Compare speed
+    vector<int> bigData(1000);
+    for (int i = 0; i < 1000; i++) bigData[i] = 1000 - i;
+
+    auto t1 = chrono::high_resolution_clock::now();
+    bubbleSort(bigData);
+    auto t2 = chrono::high_resolution_clock::now();
+    double bubbleTime = chrono::duration<double>(t2-t1).count();
+
+    t1 = chrono::high_resolution_clock::now();
+    mergeSort(bigData);
+    t2 = chrono::high_resolution_clock::now();
+    double mergeTime = chrono::duration<double>(t2-t1).count();
+
+    cout << "\n⏱️ 1000 elements (worst case):" << endl;
+    cout << "  Bubble Sort: " << bubbleTime << "s" << endl;
+    cout << "  Merge Sort:  " << mergeTime << "s" << endl;
+    cout << "  Merge is " << (int)(bubbleTime / max(mergeTime, 0.0001)) << "x faster! 🚀" << endl;
+    return 0;
+}`,,
     },
     {
       type: "quiz",
@@ -3689,7 +4690,71 @@ print(f"  🐢 Linear:        {s1} steps")
 print(f"  🚀 Binary:        {s2} steps")
 print(f"  ⚡ Interpolation: {s3} steps")
 
-# For uniformly distributed data, interpolation search is even faster!`,
+# For uniformly distributed data, interpolation search is even faster!`
+      codeCpp: `// 📦 Box: "An even smarter search for uniform data!"
+
+#include <iostream>
+#include <vector>
+using namespace std;
+
+pair<int,int> linearSearch(vector<int>& arr, int target) {
+    int steps = 0;
+    for (int i = 0; i < arr.size(); i++) {
+        steps++;
+        if (arr[i] == target) return {i, steps};
+    }
+    return {-1, steps};
+}
+
+pair<int,int> binarySearch(vector<int>& arr, int target) {
+    int steps = 0, left = 0, right = arr.size() - 1;
+    while (left <= right) {
+        steps++;
+        int mid = (left + right) / 2;
+        if (arr[mid] == target) return {mid, steps};
+        else if (arr[mid] < target) left = mid + 1;
+        else right = mid - 1;
+    }
+    return {-1, steps};
+}
+
+pair<int,int> interpolationSearch(vector<int>& arr, int target) {
+    // Interpolation Search — O(log log n) for uniform data · 插值搜索
+    int low = 0, high = arr.size() - 1, steps = 0;
+
+    while (low <= high && arr[low] <= target && target <= arr[high]) {
+        steps++;
+        if (low == high) {
+            if (arr[low] == target) return {low, steps};
+            return {-1, steps};
+        }
+        // Estimate position based on value
+        int pos = low + (int)(((long long)(target - arr[low]) * (high - low)) / (arr[high] - arr[low]));
+        if (arr[pos] == target) return {pos, steps};
+        else if (arr[pos] < target) low = pos + 1;
+        else high = pos - 1;
+    }
+    return {-1, steps};
+}
+
+int main() {
+    // Compare all three on uniform data
+    vector<int> data;
+    for (int i = 0; i < 10000; i += 2) data.push_back(i);  // [0, 2, 4, ..., 9998]
+    int target = 7654;
+
+    auto [_, s1] = linearSearch(data, target);
+    auto [__, s2] = binarySearch(data, target);
+    auto [idx, s3] = interpolationSearch(data, target);
+
+    cout << "Finding " << target << " in " << data.size() << " elements:" << endl;
+    cout << "  🐢 Linear:        " << s1 << " steps" << endl;
+    cout << "  🚀 Binary:        " << s2 << " steps" << endl;
+    cout << "  ⚡ Interpolation: " << s3 << " steps" << endl;
+
+    // For uniformly distributed data, interpolation search is even faster!
+    return 0;
+}`,,
     },
     {
       type: "quiz",
