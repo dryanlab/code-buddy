@@ -14,6 +14,7 @@ import { useUserProfile, getSkillGreeting } from "@/lib/useUserProfile";
 import { SKILL_LABELS, type SkillLevel, getNextLessonId, getStartingIndex, CURRICULUM_PATH } from "@/lib/skill-store";
 import SkillQuiz from "@/components/SkillQuiz";
 import AdventureMap from "@/components/AdventureMap";
+import { TRACKS } from "@/data/tracks";
 
 function XPBar({ xp, level }: { xp: number; level: number }) {
   const info = getLevelInfo(xp);
@@ -166,6 +167,85 @@ function StreakFlame({ streakDays }: { streakDays: number }) {
   );
 }
 
+function CourseTrackCards({ progress }: { progress: UserProgress }) {
+  const statusOrder = { available: 0, "coming-soon": 1, future: 2 } as const;
+  const sorted = [...TRACKS].sort((a, b) => statusOrder[a.status] - statusOrder[b.status]);
+  const diffIcon = (d: string) => d === "beginner" ? "🟢" : d === "intermediate" ? "🟡" : "🔴";
+  const statusBadge = (s: string) =>
+    s === "available" ? { text: "✅ Available", bg: "rgba(34,197,94,0.15)", color: "#22c55e" }
+    : s === "coming-soon" ? { text: "🔜 Coming Soon", bg: "rgba(234,179,8,0.15)", color: "#eab308" }
+    : { text: "🔮 Future", bg: "rgba(168,85,247,0.15)", color: "#a855f7" };
+
+  const getHref = (id: string) =>
+    id === "python" ? "/dashboard/lessons"
+    : id === "data-structures" ? "/dashboard/data-structures"
+    : "/dashboard/courses";
+
+  const pythonTotal = LESSONS.length;
+  const pythonDone = progress.completedLessons.length;
+  const pythonPct = pythonTotal > 0 ? (pythonDone / pythonTotal) * 100 : 0;
+
+  return (
+    <div className="space-y-3">
+      <div>
+        <h2 className="text-lg font-bold">📚 All Courses</h2>
+        <p className="text-xs" style={{ color: "var(--theme-text-muted)" }}>全部课程</p>
+      </div>
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+        {sorted.map((track) => {
+          const badge = statusBadge(track.status);
+          return (
+            <Link key={track.id} href={getHref(track.id)}>
+              <motion.div
+                whileHover={{ scale: 1.03, y: -2 }}
+                whileTap={{ scale: 0.97 }}
+                className="rounded-xl p-4 h-full flex flex-col gap-2 cursor-pointer transition-shadow"
+                style={{
+                  backgroundColor: "var(--theme-card-bg)",
+                  border: `1.5px solid ${track.colorHex}33`,
+                  backgroundImage: `linear-gradient(135deg, ${track.colorHex}08, transparent)`,
+                }}
+              >
+                <div className="flex items-start justify-between">
+                  <span className="text-2xl">{track.icon}</span>
+                  <span className="text-[9px] px-1.5 py-0.5 rounded-full font-medium" style={{ backgroundColor: badge.bg, color: badge.color }}>
+                    {badge.text}
+                  </span>
+                </div>
+                <div>
+                  <div className="font-bold text-sm leading-tight">{track.title}</div>
+                  <div className="text-[11px]" style={{ color: "var(--theme-text-secondary)" }}>{track.titleZh}</div>
+                </div>
+                <p className="text-[10px] leading-snug flex-1" style={{ color: "var(--theme-text-muted)" }}>
+                  {track.description}
+                </p>
+                <div className="flex items-center gap-2 text-[10px]" style={{ color: "var(--theme-text-secondary)" }}>
+                  <span>{diffIcon(track.difficulty)}</span>
+                  <span>{track.lessonCount} lessons</span>
+                </div>
+                {track.id === "python" && (
+                  <div className="mt-auto">
+                    <div className="h-1.5 rounded-full overflow-hidden" style={{ backgroundColor: "var(--theme-border)" }}>
+                      <motion.div
+                        initial={{ width: 0 }}
+                        animate={{ width: `${pythonPct}%` }}
+                        transition={{ duration: 0.8 }}
+                        className="h-full rounded-full"
+                        style={{ backgroundColor: track.colorHex }}
+                      />
+                    </div>
+                    <div className="text-[9px] mt-0.5" style={{ color: "var(--theme-text-muted)" }}>{pythonDone}/{pythonTotal} done</div>
+                  </div>
+                )}
+              </motion.div>
+            </Link>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
 function StatsRow({ progress }: { progress: UserProgress }) {
   const stats = [
     { label: "Lessons", labelCn: "课程", value: progress.completedLessons.length, icon: "📖" },
@@ -299,6 +379,11 @@ export default function DashboardPage() {
           </div>
           <AdventureMap progress={progress} />
         </div>
+      </motion.div>
+
+      {/* 📚 All Courses */}
+      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }}>
+        <CourseTrackCards progress={progress} />
       </motion.div>
 
       {/* Stats Row: XP bar + stats compact */}
