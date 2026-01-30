@@ -160,13 +160,13 @@ int linear_search(vector<int>& arr, int target) {
 int main() {
     vector<int> numbers = {4, 2, 7, 1, 9, 3, 8, 5};
     cout << "Array: [4, 2, 7, 1, 9, 3, 8, 5]" << endl;
-    cout << "\nSearching for 9:" << endl;
+    cout << "\\nSearching for 9:" << endl;
     int result = linear_search(numbers, 9);
     cout << "Found at index: " << result << endl;
-    cout << "\nSearching for 6:" << endl;
+    cout << "\\nSearching for 6:" << endl;
     result = linear_search(numbers, 6);
     cout << "Result: " << result << " (not found)" << endl;
-    cout << "\n📊 Array size: " << numbers.size() << endl;
+    cout << "\\n📊 Array size: " << numbers.size() << endl;
     cout << "Best case: 1 comparison (first element)" << endl;
     cout << "Worst case: " << numbers.size() << " comparisons (last or not found)" << endl;
     cout << "Average: " << numbers.size()/2 << " comparisons" << endl;
@@ -294,7 +294,7 @@ int main() {
 
     vector<int> data = {3,1,4,1,5,9,2,6,5,3,5};
     auto pos5 = find_all(data, 5);
-    cout << "\nAll positions of 5: [";
+    cout << "\\nAll positions of 5: [";
     for (int i = 0; i < (int)pos5.size(); i++) { if (i) cout << ", "; cout << pos5[i]; }
     cout << "]" << endl;
     auto pos1 = find_all(data, 1);
@@ -303,7 +303,7 @@ int main() {
     cout << "]" << endl;
 
     auto [idx, val] = find_min(data);
-    cout << "\nMinimum value: " << val << " at index " << idx << endl;
+    cout << "\\nMinimum value: " << val << " at index " << idx << endl;
     return 0;
 }`,
       exercise: {
@@ -573,15 +573,15 @@ int binary_search(vector<int>& arr, int target) {
 int main() {
     vector<int> nums = {2,5,8,12,16,23,38,42,55,67,78,91};
     cout << "Sorted array: [2,5,8,12,16,23,38,42,55,67,78,91]" << endl;
-    cout << "Size: " << nums.size() << " elements\n" << endl;
+    cout << "Size: " << nums.size() << " elements\\n" << endl;
     cout << "Searching for 23:" << endl;
     int idx = binary_search(nums, 23);
-    cout << "Result: index " << idx << "\n" << endl;
+    cout << "Result: index " << idx << "\\n" << endl;
     cout << "Searching for 50:" << endl;
     idx = binary_search(nums, 50);
     cout << "Result: " << idx << endl;
     int n = nums.size(), logn = (int)ceil(log2(n));
-    cout << "\n📊 For " << n << " elements:" << endl;
+    cout << "\\n📊 For " << n << " elements:" << endl;
     cout << "  Linear search: up to " << n << " steps" << endl;
     cout << "  Binary search: up to " << logn << " steps" << endl;
     cout << "  That's " << n/logn << "x faster!" << endl;
@@ -708,7 +708,7 @@ int main() {
     vector<int> nums = {2,5,8,12,16,23,38,42,55,67,78,91};
     cout << "Searching for 23:" << endl;
     cout << "Result: " << binary_search_recursive(nums, 23, 0, nums.size()-1) << endl;
-    cout << "\nSearching for 50:" << endl;
+    cout << "\\nSearching for 50:" << endl;
     cout << "Result: " << binary_search_recursive(nums, 50, 0, nums.size()-1) << endl;
     return 0;
 }`,
@@ -2253,7 +2253,7 @@ vector<int> merge_sort(vector<int> arr, int depth=0) {
 
 int main() {
     auto sorted = merge_sort({38, 27, 43, 3, 9, 82, 10});
-    cout << "\nResult: "; printVec(sorted); cout << endl;
+    cout << "\\nResult: "; printVec(sorted); cout << endl;
     return 0;
 }`,
       exercise: {
@@ -2626,7 +2626,7 @@ vector<int> quicksort(vector<int> arr, int depth=0) {
 
 int main() {
     auto sorted = quicksort({38, 27, 43, 3, 9, 82, 10});
-    cout << "\nResult: "; printVec(sorted); cout << endl;
+    cout << "\\nResult: "; printVec(sorted); cout << endl;
     return 0;
 }`,
       exercise: {
@@ -3045,7 +3045,7 @@ int main() {
     for (int n : {100, 500, 1000}) {
         vector<int> arr(n);
         for (int i=0;i<n;i++) arr[i]=rand()%10000;
-        cout << "\nSize " << n << ":" << endl;
+        cout << "\\nSize " << n << ":" << endl;
         auto t=[&](auto fn, string name){
             auto s=chrono::high_resolution_clock::now();
             fn(arr);
@@ -3155,7 +3155,7 @@ int main() {
     cout << "Merge Sort      O(nlogn) O(nlogn) O(nlogn) O(n)   Yes" << endl;
     cout << "Quick Sort      O(nlogn) O(nlogn) O(n^2)   O(logn) No" << endl;
     cout << "=============================================" << endl;
-    cout << "\nC++ STL sort() uses IntroSort (Quick+Heap+Insertion)" << endl;
+    cout << "\\nC++ STL sort() uses IntroSort (Quick+Heap+Insertion)" << endl;
     return 0;
 }`,
       exercise: {
@@ -3392,10 +3392,10 @@ long long factorial(int n) {
 }
 
 int main() {
-    cout << "🌀 Recursion Basics:\n" << endl;
+    cout << "🌀 Recursion Basics:\\n" << endl;
     cout << "Countdown:" << endl;
     countdown(5);
-    cout << "\nFactorials:" << endl;
+    cout << "\\nFactorials:" << endl;
     for (int i = 1; i <= 7; i++)
         cout << "  " << i << "! = " << factorial(i) << endl;
     return 0;
@@ -3497,7 +3497,7 @@ long long factorial_visual(int n, int depth=0) {
 int main() {
     cout << "🌳 Recursion Tree:" << endl;
     long long r = factorial_visual(5);
-    cout << "\nFinal result: " << r << endl;
+    cout << "\\nFinal result: " << r << endl;
     return 0;
 }`,
       exercise: {
@@ -3817,7 +3817,7 @@ bool is_power_of_2(int n) {
 int main() {
     for (auto& w : vector<string>{"racecar","hello","madam","world"})
         cout << "  '" << w << "': " << (is_palindrome(w) ? "✅ palindrome" : "❌ not palindrome") << endl;
-    cout << "\nPower of 2:" << endl;
+    cout << "\\nPower of 2:" << endl;
     for (int n : {1,2,3,4,16,15,64})
         cout << "  " << n << ": " << (is_power_of_2(n) ? "✅" : "❌") << endl;
     return 0;
@@ -3910,7 +3910,7 @@ int main() {
         int r = fib(n);
         cout << "fib(" << n << ") = " << r << " [" << call_count << " calls]" << endl;
     }
-    cout << "\n⚠️ Calls grow EXPONENTIALLY!" << endl;
+    cout << "\\n⚠️ Calls grow EXPONENTIALLY!" << endl;
     call_count = 0; fib(20);
     cout << "fib(20): " << call_count << " calls" << endl;
     call_count = 0; fib(30);
@@ -4012,9 +4012,9 @@ int sum_iter(int n, int acc=0) {
 int main() {
     cout << "Without accumulator:" << endl;
     for (int i=1;i<=6;i++) cout << "  " << i << "! = " << factorial_v1(i) << endl;
-    cout << "\nWith accumulator:" << endl;
+    cout << "\\nWith accumulator:" << endl;
     for (int i=1;i<=6;i++) cout << "  " << i << "! = " << factorial_v2(i) << endl;
-    cout << "\nAccumulator sum(5): " << sum_iter(5) << endl;
+    cout << "\\nAccumulator sum(5): " << sum_iter(5) << endl;
     return 0;
 }`,
       exercise: {
@@ -4994,7 +4994,7 @@ long long fast_pow(long long x, int n, int depth=0) {
 int main() {
     cout << "2^10:" << endl;
     cout << "Result: " << fast_pow(2, 10) << endl;
-    cout << "\n3^7:" << endl;
+    cout << "\\n3^7:" << endl;
     cout << "Result: " << fast_pow(3, 7) << endl;
     return 0;
 }`,
@@ -5350,7 +5350,7 @@ int main() {
         cout << "  fib(" << n << ") = " << r << " | calls: " << call_count
              << " | " << chrono::duration<double,milli>(e-s).count() << " ms" << endl;
     }
-    cout << "\nTabulation:" << endl;
+    cout << "\\nTabulation:" << endl;
     for (int n = 10; n <= 40; n += 10)
         cout << "  fib(" << n << ") = " << fib_tab(n) << endl;
     return 0;
@@ -5707,7 +5707,7 @@ int main() {
     cout << "Memo:   fib(10) = " << fib_memo(10) << endl;
     cout << "Table:  fib(10) = " << fib_tab(10) << endl;
     cout << "Opt:    fib(10) = " << fib_opt(10) << endl;
-    cout << "\nLarger:" << endl;
+    cout << "\\nLarger:" << endl;
     memo.clear(); cout << "  fib(30) = " << fib_memo(30) << endl;
     cout << "  fib(40) = " << fib_tab(40) << endl;
     cout << "  fib(50) = " << fib_opt(50) << endl;
@@ -5797,7 +5797,7 @@ int coin_change(vector<int>& coins, int amount) {
                 dp[i] = min(dp[i], dp[i-c]+1);
     cout << "Amount: ";
     for (int i=0;i<=min(amount,15);i++) cout << i << "\t";
-    cout << "\nCoins:  ";
+    cout << "\\nCoins:  ";
     for (int i=0;i<=min(amount,15);i++) cout << (dp[i]==INT_MAX?-1:dp[i]) << "\t";
     cout << endl;
     return dp[amount]==INT_MAX ? -1 : dp[amount];
@@ -5805,9 +5805,9 @@ int coin_change(vector<int>& coins, int amount) {
 
 int main() {
     vector<int> coins = {1,5,10,25};
-    cout << "Coins: [1,5,10,25]\n" << endl;
+    cout << "Coins: [1,5,10,25]\\n" << endl;
     cout << "Min coins for 36: " << coin_change(coins, 36) << endl;
-    cout << "\nMin coins for 30: " << coin_change(coins, 30) << endl;
+    cout << "\\nMin coins for 30: " << coin_change(coins, 30) << endl;
     return 0;
 }`,
       exercise: {
@@ -6303,7 +6303,7 @@ int lis(vector<int>& arr) {
     reverse(seq.begin(), seq.end());
     cout << "dp: [";
     for (int i=0;i<n;i++){if(i)cout<<", ";cout<<dp[i];}
-    cout << "]\nLIS length: " << mx << "\nLIS: [";
+    cout << "]\\nLIS length: " << mx << "\\nLIS: [";
     for (int i=0;i<(int)seq.size();i++){if(i)cout<<", ";cout<<seq[i];}
     cout << "]" << endl;
     return mx;
@@ -6550,7 +6550,7 @@ int count_paths(int m, int n) {
 int main() {
     cout << "3x3 grid:" << endl;
     cout << "Paths: " << count_paths(3,3) << endl;
-    cout << "\n3x7 grid:" << endl;
+    cout << "\\n3x7 grid:" << endl;
     cout << "Paths: " << count_paths(3,7) << endl;
     return 0;
 }`,
@@ -6778,9 +6778,9 @@ int min_path_sum(vector<vector<int>>& grid) {
             dp[i][j]=min(dp[i-1][j],dp[i][j-1])+grid[i][j];
     cout << "Cost grid:" << endl;
     for (int i=0;i<m;i++){cout<<"  ";for(int j=0;j<n;j++)cout<<grid[i][j]<<"\t";cout<<endl;}
-    cout << "\nDP table:" << endl;
+    cout << "\\nDP table:" << endl;
     for (int i=0;i<m;i++){cout<<"  ";for(int j=0;j<n;j++)cout<<dp[i][j]<<"\t";cout<<endl;}
-    cout << "\nMinimum path sum: " << dp[m-1][n-1] << endl;
+    cout << "\\nMinimum path sum: " << dp[m-1][n-1] << endl;
     return dp[m-1][n-1];
 }
 
@@ -7193,7 +7193,7 @@ void dfs_iterative(unordered_map<string,vector<string>>& g, const string& start)
     unordered_set<string> visited;
     stack<string> stk;
     stk.push(start);
-    cout << "\nIterative DFS:" << endl;
+    cout << "\\nIterative DFS:" << endl;
     while (!stk.empty()) {
         string node = stk.top(); stk.pop();
         if (visited.count(node)) continue;
@@ -7625,7 +7625,7 @@ void dijkstra(unordered_map<string,vector<pair<string,int>>>& g, const string& s
             if (nd < dist[nbr]) { dist[nbr] = nd; pq.push({nd, nbr}); }
         }
     }
-    cout << "\nShortest distances from " << start << ":" << endl;
+    cout << "\\nShortest distances from " << start << ":" << endl;
     for (auto& [n, d] : dist) cout << "  " << start << " → " << n << ": " << d << endl;
 }
 
@@ -7783,7 +7783,7 @@ int main() {
         {"Library",{{"Cafe",6},{"Park",2},{"School",1}}}
     };
     auto [d, p] = dijkstra_city(roads, "Home", "Library");
-    cout << "Distance: " << d << "\nPath: ";
+    cout << "Distance: " << d << "\\nPath: ";
     for (int i=0;i<(int)p.size();i++){if(i)cout<<" → ";cout<<p[i];}
     cout << endl;
     return 0;
@@ -8082,7 +8082,7 @@ int main() {
     };
     vector<string> nodes = {"Math","Physics","CS","AI","Web","English"};
     auto order = topo_sort_kahn(g, nodes);
-    cout << "\nOrder: ";
+    cout << "\\nOrder: ";
     for (auto& n : order) cout << n << " → ";
     cout << "Done!" << endl;
     return 0;
@@ -8500,7 +8500,7 @@ int main() {
     cout << "Graph 1: " << (has_cycle(g1,n1)?"Has cycle":"No cycle") << endl;
     unordered_map<string,vector<string>> g2 = {{"A",{"B"}},{"B",{"C"}},{"C",{"A"}}};
     vector<string> n2 = {"A","B","C"};
-    cout << "\nGraph 2: " << (has_cycle(g2,n2)?"Has cycle":"No cycle") << endl;
+    cout << "\\nGraph 2: " << (has_cycle(g2,n2)?"Has cycle":"No cycle") << endl;
     return 0;
 }`,
       exercise: {

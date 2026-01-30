@@ -162,7 +162,7 @@ int main() {
     // Append to end:    O(1) — just add to the end
     // Insert at start:  O(n) — must shift everything!
 
-    cout << "\n📦 Box: Arrays are FAST for access, slower for insertion!" << endl;
+    cout << "\\n📦 Box: Arrays are FAST for access, slower for insertion!" << endl;
     return 0;
 }`,
     },
@@ -886,7 +886,7 @@ int main() {
 
     dll.deleteNode("A");
     dll.displayForward();   // Z ↔ B ↔ C
-    cout << "\n🔗 Link: Both directions work perfectly!" << endl;
+    cout << "\\n🔗 Link: Both directions work perfectly!" << endl;
     return 0;
 }`,
     },
@@ -1147,10 +1147,10 @@ int main() {
     plates.push("Blue Plate");
     plates.push("Green Plate");
 
-    cout << "\nTop plate: " << plates.peek() << endl;  // Green
+    cout << "\\nTop plate: " << plates.peek() << endl;  // Green
     cout << "Stack size: " << plates.size() << endl;     // 3
 
-    cout << "\nRemoving plates:" << endl;
+    cout << "\\nRemoving plates:" << endl;
     plates.pop();  // Green (last in, first out!)
     plates.pop();  // Blue
     plates.pop();  // Red
@@ -1589,7 +1589,7 @@ int main() {
     editor.undo();        // Remove "!"
     editor.undo();        // Remove " World"
     editor.redo();        // Bring back " World"
-    cout << "\nFinal: '" << editor.getText() << "'" << endl;
+    cout << "\\nFinal: '" << editor.getText() << "'" << endl;
     return 0;
 }`,
     },
@@ -1832,10 +1832,10 @@ int main() {
     line.enqueue("Bob");
     line.enqueue("Charlie");
 
-    cout << "\nNext customer: " << line.front() << endl;  // Alice
+    cout << "\\nNext customer: " << line.front() << endl;  // Alice
     cout << "People waiting: " << line.size() << endl;     // 3
 
-    cout << "\nServing customers:" << endl;
+    cout << "\\nServing customers:" << endl;
     line.dequeueItem();  // Alice served first!
     line.dequeueItem();  // Then Bob
     line.enqueue("Diana");  // Diana joins
@@ -2108,7 +2108,7 @@ int main() {
     //   5   3 8
 
     // Pop elements (always gets minimum!)
-    cout << "\nPopping in order:" << endl;
+    cout << "\\nPopping in order:" << endl;
     while (!data.empty()) {
         pop_heap(data.begin(), data.end(), greater<int>());
         cout << "  " << data.back();
@@ -2116,7 +2116,7 @@ int main() {
     }
     cout << endl;  // 1, 2, 3, 5, 7, 8 — sorted!
 
-    cout << "\n🌳 Root: Heaps give us efficient sorting for free!" << endl;
+    cout << "\\n🌳 Root: Heaps give us efficient sorting for free!" << endl;
     return 0;
 }`,
     },
@@ -2373,9 +2373,9 @@ int main() {
 
     cout << "In-order (Left→Root→Right):" << endl;
     inorder(root);    // 4 2 5 1 3 6
-    cout << "\n\nPre-order (Root→Left→Right):" << endl;
+    cout << "\\n\\nPre-order (Root->Left->Right):" << endl;
     preorder(root);   // 1 2 4 5 3 6
-    cout << "\n\nPost-order (Left→Right→Root):" << endl;
+    cout << "\\n\\nPost-order (Left->Right->Root):" << endl;
     postorder(root);  // 4 5 2 6 3 1
     cout << endl;
     return 0;
@@ -2654,7 +2654,7 @@ int main() {
 
     cout << "Search 6: " << (bst.search(6) ? "True" : "False") << endl;
     cout << "Search 5: " << (bst.search(5) ? "True" : "False") << endl;
-    cout << "\n🌳 Root: In-order traversal of a BST = sorted order!" << endl;
+    cout << "\\n🌳 Root: In-order traversal of a BST = sorted order!" << endl;
     return 0;
 }`,
     },
@@ -2881,7 +2881,7 @@ int main() {
     cout << "🖥️ File System Tree:" << endl;
     root->display();
 
-    cout << "\nTotal files: " << countFiles(root) << endl;
+    cout << "\\nTotal files: " << countFiles(root) << endl;
     return 0;
 }`,
     },
@@ -3187,7 +3187,7 @@ int main() {
         cout << "Grade: " << student["grade"] << endl;
 
     // Iterate over key-value pairs
-    cout << "\nAll info:" << endl;
+    cout << "\\nAll info:" << endl;
     for (auto& [key, value] : student)
         cout << "  " << key << ": " << value << endl;
 
@@ -3201,7 +3201,7 @@ int main() {
     while (iss >> word)
         wordCount[word]++;
 
-    cout << "\nWord counts: {";
+    cout << "\\nWord counts: {";
     bool first = true;
     for (auto& [w, c] : wordCount) {
         if (!first) cout << ", ";
@@ -3285,7 +3285,7 @@ int main() {
     // Solution 1: Chaining (linked lists at each slot)
     // Solution 2: Open addressing (find next empty slot)
 
-    cout << "\n📦 Box: C++ unordered_map handles collisions automatically!" << endl;
+    cout << "\\n📦 Box: C++ unordered_map handles collisions automatically!" << endl;
     cout << "🔗 Link: Collisions use chaining — each slot has a linked list!" << endl;
     return 0;
 }`,
@@ -3487,7 +3487,7 @@ int main() {
     set<string> unionSet;
     set_union(fruits.begin(), fruits.end(), citrus.begin(), citrus.end(),
               inserter(unionSet, unionSet.begin()));
-    cout << "\n∪ Union: {";
+    cout << "\\n∪ Union: {";
     for (auto it = unionSet.begin(); it != unionSet.end(); ++it) {
         if (it != unionSet.begin()) cout << ", ";
         cout << *it;
@@ -3517,13 +3517,13 @@ int main() {
     cout << "}" << endl;
 
     // Membership test — O(log n) for std::set
-    cout << "\n'apple' in fruits? " << (fruits.count("apple") ? "true" : "false") << endl;
+    cout << "\\n'apple' in fruits? " << (fruits.count("apple") ? "true" : "false") << endl;
 
     // Remove duplicates from a vector!
     vector<int> nums = {1, 2, 2, 3, 3, 3, 4, 4, 4, 4};
     set<int> uniqueSet(nums.begin(), nums.end());
     vector<int> unique(uniqueSet.begin(), uniqueSet.end());
-    cout << "\nDeduplicated: [";
+    cout << "\\nDeduplicated: [";
     for (int i = 0; i < unique.size(); i++) {
         if (i > 0) cout << ", ";
         cout << unique[i];
@@ -3765,7 +3765,7 @@ int main() {
     cout << "🌐 Social Network Graph:" << endl;
     social.display();
 
-    cout << "\nAlice connected to Bob? " << (social.hasEdge("Alice", "Bob") ? "True" : "False") << endl;
+    cout << "\\nAlice connected to Bob? " << (social.hasEdge("Alice", "Bob") ? "True" : "False") << endl;
     cout << "Alice connected to Eve? " << (social.hasEdge("Alice", "Eve") ? "True" : "False") << endl;
 
     // 🔗 Link: "Graphs model relationships — the web is a giant graph!"
@@ -4157,7 +4157,7 @@ int main() {
     }
     cout << "]" << endl;
 
-    cout << "\n🏊 DFS recursive from A: ";
+    cout << "\\n🏊 DFS recursive from A: ";
     unordered_set<string> visited;
     dfsRecursive(graph, "A", visited);
     cout << endl;
@@ -4533,7 +4533,7 @@ int main() {
         }
         cout << endl;
     }
-    cout << "\nPath length: " << path.size() << " steps" << endl;
+    cout << "\\nPath length: " << path.size() << " steps" << endl;
     return 0;
 }`,
     },
@@ -4773,7 +4773,7 @@ int main() {
     cout << "]" << endl;
     cout << "  Comparisons: " << c1 << endl;
 
-    cout << "\n🎯 Selection Sort:" << endl;
+    cout << "\\n🎯 Selection Sort:" << endl;
     cout << "  Result: [";
     for (int i = 0; i < data2.size(); i++) {
         if (i > 0) cout << ", ";
@@ -4923,7 +4923,7 @@ int main() {
     t2 = chrono::high_resolution_clock::now();
     double mergeTime = chrono::duration<double>(t2-t1).count();
 
-    cout << "\n⏱️ 1000 elements (worst case):" << endl;
+    cout << "\\n⏱️ 1000 elements (worst case):" << endl;
     cout << "  Bubble Sort: " << bubbleTime << "s" << endl;
     cout << "  Merge Sort:  " << mergeTime << "s" << endl;
     cout << "  Merge is " << (int)(bubbleTime / max(mergeTime, 0.0001)) << "x faster! 🚀" << endl;
@@ -5157,7 +5157,7 @@ int main() {
     // Worst case comparison
     auto [w1idx, worstLinear] = linearSearch(data, 999);
     auto [w2idx, worstBinary] = binarySearch(data, 999);
-    cout << "\nWorst case: Linear=" << worstLinear << ", Binary=" << worstBinary << endl;
+    cout << "\\nWorst case: Linear=" << worstLinear << ", Binary=" << worstBinary << endl;
     return 0;
 }`,
     },
@@ -5818,7 +5818,7 @@ int main() {
     }
     cout << "]" << endl;
 
-    cout << "\n🎉 All data structures working! Your library is ready!" << endl;
+    cout << "\\n🎉 All data structures working! Your library is ready!" << endl;
     return 0;
 }`,
     },
