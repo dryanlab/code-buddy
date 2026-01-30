@@ -1230,7 +1230,7 @@ export default function CodeLabPage() {
               return (
                 <>
                   <div className="text-[10px] font-bold pt-3 pb-1 px-1" style={{ color: "var(--theme-text-muted)" }}>
-                    📚 Lesson Projects · 课程项目
+                    📚 Lesson Projects · 课程项目 ({lessonProjects.length})
                   </div>
                   {Object.entries(groups).map(([area, exs]) => {
                     const areaLabel = isCpp ? (cppCategoryNames[area] || area) : (areaNames[area] || area);
