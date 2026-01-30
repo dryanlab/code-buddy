@@ -12,6 +12,7 @@ export interface CodeExercise {
   solution: string;
   expectedOutput?: string;
   tags: string[];
+  fromLesson?: string; // lesson id this project belongs to (e.g. "1-6")
 }
 
 export const CODE_EXERCISES: CodeExercise[] = [

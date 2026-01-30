@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import dynamic from "next/dynamic";
 import { isPreviewMode, PREVIEW_ALLOWED_EXPLORE_TABS } from "@/lib/preview-mode";
 import SignUpModal from "@/components/SignUpModal";
@@ -308,6 +308,7 @@ function ProcessScheduler() {
   const [running, setRunning] = useState(false);
   const [currentProcess, setCurrentProcess] = useState(0);
   const [timeSlice, setTimeSlice] = useState(0);
+  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   const processes = [
     { name: "🎮 Game", color: "bg-red-500", slices: 3 },
@@ -317,6 +318,11 @@ function ProcessScheduler() {
   ];
 
   const [schedule, setSchedule] = useState<{ proc: number; slice: number }[]>([]);
+
+  // Cleanup on unmount
+  useEffect(() => {
+    return () => { if (intervalRef.current) clearInterval(intervalRef.current); };
+  }, []);
 
   const runScheduler = () => {
     setRunning(true);
@@ -333,14 +339,18 @@ function ProcessScheduler() {
     }
 
     let i = 0;
-    const interval = setInterval(() => {
+    if (intervalRef.current) clearInterval(intervalRef.current);
+    intervalRef.current = setInterval(() => {
       if (i >= sched.length) {
-        clearInterval(interval);
+        if (intervalRef.current) clearInterval(intervalRef.current);
+        intervalRef.current = null;
         setRunning(false);
         return;
       }
-      setSchedule((prev) => [...prev, sched[i]]);
-      setCurrentProcess(sched[i].proc);
+      const current = sched[i];
+      if (!current) { if (intervalRef.current) clearInterval(intervalRef.current); intervalRef.current = null; setRunning(false); return; }
+      setSchedule((prev) => [...prev, current]);
+      setCurrentProcess(current.proc);
       setTimeSlice(i);
       i++;
     }, 500);
