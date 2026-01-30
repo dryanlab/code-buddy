@@ -4,6 +4,7 @@ import { useState, useCallback, useEffect, useRef } from "react";
 import dynamic from "next/dynamic";
 import { loadPyodideEngine, runPython, isPyodideLoaded, traceExecution } from "@/lib/pyodide-engine";
 import type { VariableDetail, TraceStep } from "@/lib/pyodide-engine";
+import { executeCpp } from "@/lib/cpp-engine";
 import { incrementCodeRun, addXP } from "@/lib/progress-store";
 import { motion, AnimatePresence } from "framer-motion";
 import MemoryModel from "./MemoryModel";
@@ -15,6 +16,7 @@ interface CodeEditorProps {
   height?: string;
   readOnly?: boolean;
   onRunSuccess?: () => void;
+  language?: "python" | "cpp";
 }
 
 export default function CodeEditor({
@@ -22,6 +24,7 @@ export default function CodeEditor({
   height: heightProp,
   readOnly = false,
   onRunSuccess,
+  language = "python",
 }: CodeEditorProps) {
   const [code, setCode] = useState(initialCode);
   
@@ -97,6 +100,29 @@ export default function CodeEditor({
     setShowSuccess(false);
     setHasTurtle(false);
 
+    if (language === "cpp") {
+      try {
+        const result = await executeCpp(code, inputs?.join("\n"));
+        if (result.error) {
+          setOutput(result.error);
+          setHasError(true);
+        } else {
+          setOutput(result.output || "(No output · 没有输出)");
+          setHasError(false);
+          setShowSuccess(true);
+          setTimeout(() => setShowSuccess(false), 2000);
+          onRunSuccess?.();
+        }
+      } catch (err) {
+        setOutput(String(err));
+        setHasError(true);
+      }
+      setIsRunning(false);
+      incrementCodeRun();
+      addXP(5);
+      return;
+    }
+
     const ready = await ensurePyodide();
     if (!ready) { setIsRunning(false); return; }
 
@@ -118,7 +144,7 @@ export default function CodeEditor({
     setIsRunning(false);
     incrementCodeRun();
     addXP(5);
-  }, [code, ensurePyodide, onRunSuccess]);
+  }, [code, ensurePyodide, onRunSuccess, language]);
 
   const runCode = useCallback(async () => {
     setStepMode(false);
@@ -278,7 +304,7 @@ export default function CodeEditor({
         {/* Monaco Editor */}
         <MonacoEditor
           height={height}
-          language="python"
+          language={language === "cpp" ? "cpp" : "python"}
           theme="vs-dark"
           value={code}
           onChange={(v) => setCode(v || "")}

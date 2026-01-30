@@ -80,7 +80,7 @@ function InteractiveSection({ section }: { section: LessonSection }) {
   );
 }
 
-function CodeSection({ section }: { section: LessonSection }) {
+function CodeSection({ section, language = "python" }: { section: LessonSection; language?: "python" | "cpp" }) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -91,12 +91,12 @@ function CodeSection({ section }: { section: LessonSection }) {
         className="prose prose-invert prose-sm max-w-none prose-headings:text-green-400"
         dangerouslySetInnerHTML={{ __html: markdownToHtml(section.content) }}
       />
-      {section.code && <CodeEditor initialCode={section.code} />}
+      {section.code && <CodeEditor initialCode={section.code} language={language} />}
     </motion.div>
   );
 }
 
-function ChallengeSection({ section, lessonId }: { section: LessonSection; lessonId?: string }) {
+function ChallengeSection({ section, lessonId, language = "python" }: { section: LessonSection; lessonId?: string; language?: "python" | "cpp" }) {
   const [showHint, setShowHint] = useState(false);
   const [showSolution, setShowSolution] = useState(false);
   const challenge = section.challenge!;
@@ -126,7 +126,7 @@ function ChallengeSection({ section, lessonId }: { section: LessonSection; lesso
         </a>
       )}
 
-      <CodeEditor initialCode={challenge.starterCode} />
+      <CodeEditor initialCode={challenge.starterCode} language={language} />
 
       <div className="flex gap-3">
         <button
@@ -160,7 +160,7 @@ function ChallengeSection({ section, lessonId }: { section: LessonSection; lesso
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
           >
-            <CodeEditor initialCode={challenge.solution} readOnly />
+            <CodeEditor initialCode={challenge.solution} readOnly language={language} />
           </motion.div>
         )}
       </AnimatePresence>
@@ -306,11 +306,11 @@ export default function LessonPage() {
       {/* Section content */}
       <AnimatePresence mode="wait">
         <div key={currentSection} className="space-y-6">
-          {section.type === "concept" && <ConceptSection section={section} />}
+          {section.type === "concept" && <ConceptSection section={section} language={lessonId.startsWith("cpp-") ? "cpp" : "python"} />}
           {section.type === "text" && <TextSection section={section} />}
           {section.type === "interactive" && <InteractiveSection section={section} />}
-          {section.type === "code" && <CodeSection section={section} />}
-          {section.type === "challenge" && <ChallengeSection section={section} lessonId={lessonId} />}
+          {section.type === "code" && <CodeSection section={section} language={lessonId.startsWith("cpp-") ? "cpp" : "python"} />}
+          {section.type === "challenge" && <ChallengeSection section={section} lessonId={lessonId} language={lessonId.startsWith("cpp-") ? "cpp" : "python"} />}
           {section.type === "quiz" && (
             <TurtleQuiz
               section={section}

@@ -6,6 +6,7 @@ import dynamic from "next/dynamic";
 import type { LessonSection, SyntaxCard, CodeAnatomy } from "@/data/lessons";
 import { loadPyodideEngine, runPython, isPyodideLoaded, traceExecution } from "@/lib/pyodide-engine";
 import type { VariableDetail, TraceStep } from "@/lib/pyodide-engine";
+import { executeCpp } from "@/lib/cpp-engine";
 import MemoryModel from "./MemoryModel";
 
 const MonacoEditor = dynamic(() => import("@monaco-editor/react"), { ssr: false });
@@ -66,7 +67,8 @@ function SyntaxCardComponent({ card, index }: { card: SyntaxCard; index: number 
   );
 }
 
-function CodeAnatomyComponent({ anatomy }: { anatomy: CodeAnatomy }) {
+function CodeAnatomyComponent({ anatomy, language = "python" }: { anatomy: CodeAnatomy; language?: "python" | "cpp" }) {
+  const isCpp = language === "cpp";
   const [activeLine, setActiveLine] = useState<number | null>(null);
   const [output, setOutput] = useState("");
   const [hasError, setHasError] = useState(false);
@@ -106,6 +108,23 @@ function CodeAnatomyComponent({ anatomy }: { anatomy: CodeAnatomy }) {
     setStepMode(false);
     setHighlightRange(null);
 
+    if (isCpp) {
+      try {
+        const result = await executeCpp(runnableCode);
+        if (result.error) {
+          setOutput(result.error);
+          setHasError(true);
+        } else {
+          setOutput(result.output || "(No output · 没有输出)");
+        }
+      } catch (err) {
+        setOutput(String(err));
+        setHasError(true);
+      }
+      setIsRunning(false);
+      return;
+    }
+
     const ready = await ensurePyodide();
     if (!ready) { setIsRunning(false); return; }
 
@@ -120,7 +139,7 @@ function CodeAnatomyComponent({ anatomy }: { anatomy: CodeAnatomy }) {
     }
     setVariableDetails(result.variableDetails || []);
     setIsRunning(false);
-  }, [runnableCode, ensurePyodide]);
+  }, [runnableCode, ensurePyodide, isCpp]);
 
   const [traceSteps, setTraceSteps] = useState<TraceStep[]>([]);
 
@@ -310,7 +329,7 @@ function CodeAnatomyComponent({ anatomy }: { anatomy: CodeAnatomy }) {
   );
 }
 
-export default function ConceptSection({ section }: { section: LessonSection }) {
+export default function ConceptSection({ section, language = "python" }: { section: LessonSection; language?: "python" | "cpp" }) {
   if (!section.concept) return null;
   const { title, titleZh, syntaxCards, codeAnatomy } = section.concept;
 
@@ -362,7 +381,7 @@ export default function ConceptSection({ section }: { section: LessonSection }) 
               Code Anatomy · 代码解剖
             </h3>
           </div>
-          <CodeAnatomyComponent anatomy={codeAnatomy} />
+          <CodeAnatomyComponent anatomy={codeAnatomy} language={language} />
         </div>
       )}
     </motion.div>

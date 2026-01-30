@@ -4549,6 +4549,101 @@ int main() {
       },
     },
     {
+      type: "text",
+      emoji: "🧮",
+      content: `# Pointer Arithmetic · 指针运算
+
+🔧 **Chip says:** "Pointers aren't just addresses — you can do math on them! When you add 1 to a pointer, it moves forward by the size of the type it points to."
+
+## How Pointer Arithmetic Works:
+\`\`\`cpp
+int arr[] = {10, 20, 30, 40, 50};
+int* p = arr;       // points to arr[0]
+p + 1               // points to arr[1] (moves 4 bytes for int)
+*(p + 2)            // value at arr[2] = 30
+\`\`\`
+
+## Key Rules:
+- \`ptr + n\` moves forward by n elements
+- \`ptr2 - ptr1\` gives the number of elements between two pointers
+- You can compare pointers with <, >, ==`,
+    },
+    {
+      type: "code",
+      emoji: "🔢",
+      content: `# Pointer Arithmetic in Action · 指针运算实战`,
+      code: `#include <iostream>
+using namespace std;
+
+int main() {
+    int arr[] = {10, 20, 30, 40, 50};
+    int* p = arr;
+    
+    cout << "p points to: " << *p << endl;       // 10
+    cout << "p+1 points to: " << *(p+1) << endl; // 20
+    cout << "p+4 points to: " << *(p+4) << endl; // 50
+    
+    // Walking through array with pointer
+    cout << "Array via pointer: ";
+    for (int* q = arr; q < arr + 5; q++) {
+        cout << *q << " ";
+    }
+    cout << endl;
+    
+    // Pointer difference = number of elements
+    int* start = &arr[1];
+    int* end = &arr[4];
+    cout << "Elements between: " << (end - start) << endl;  // 3
+    
+    return 0;
+}`,
+    },
+    {
+      type: "text",
+      emoji: "🆚",
+      content: `# References vs Pointers · 引用vs指针
+
+| Feature | Pointer (int*) | Reference (int&) |
+|---------|----------------|-------------------|
+| Can be null? | Yes (nullptr) | No |
+| Can be reassigned? | Yes | No — bound at creation |
+| Syntax | *ptr to use | Just the name |
+| For arrays? | Common | Not typical |
+
+**When to use which?**
+- **Reference**: Default for function params — cleaner syntax
+- **Pointer**: Need nullptr, pointer arithmetic, or dynamic memory
+- **const reference**: Read-only access to big objects
+
+\`\`\`cpp
+int x = 42;
+int& ref = x;   // ref IS x (alias)
+int* ptr = &x;  // ptr POINTS TO x (address)
+ref = 100;       // x is now 100
+*ptr = 200;      // x is now 200
+\`\`\``,
+    },
+    {
+      type: "quiz",
+      emoji: "🧪",
+      content: "# Pointer Arithmetic Quiz · 指针运算测验",
+      quiz: [
+        {
+          question: "If int* p = arr; and arr = {10,20,30}, what is *(p+2)?\n如果 int* p = arr; 且 arr = {10,20,30}，*(p+2)是什么？",
+          options: ["10", "20", "30", "Undefined"],
+          correctIndex: 2,
+          explanation: "p+2 moves the pointer 2 int positions forward, pointing to arr[2] which is 30. · p+2将指针向前移动2个int位置。",
+        },
+        {
+          question: "Which CANNOT be null?\n哪个不能为null？",
+          options: ["int* ptr", "int& ref", "int** pptr", "int* arr"],
+          correctIndex: 1,
+          explanation: "References must always refer to a valid object. Pointers can be nullptr. · 引用必须始终引用有效对象。",
+        },
+      ],
+    },
+    
+    {
       type: "quiz",
       emoji: "🧪",
       content: "# Quiz · 测验",
@@ -4861,6 +4956,167 @@ int main() {
       },
     },
     {
+      type: "text",
+      emoji: "🔐",
+      content: `# Encapsulation: Why Private Matters · 封装的重要性
+
+🔧 **Chip says:** "Encapsulation is like a car dashboard — you see the steering wheel (public interface), but the engine is hidden (private). You don't need to know how fuel injection works to drive!"
+
+## Benefits of Encapsulation:
+1. **Data Protection** — Prevent invalid states (negative balance, age = -5)
+2. **Easy to Change** — Internal implementation can change without affecting users
+3. **Easier Debugging** — Only class methods modify data, so bugs are isolated
+4. **Self-documenting** — Public methods show what the class CAN do
+
+## Getter/Setter Pattern:
+\`\`\`cpp
+class Student {
+private:
+    string name;
+    int grade;  // 0-100
+public:
+    string getName() const { return name; }
+    int getGrade() const { return grade; }
+    void setGrade(int g) {
+        if (g >= 0 && g <= 100) grade = g;
+        else cout << "Invalid grade!" << endl;
+    }
+};
+\`\`\``,
+    },
+    {
+      type: "code",
+      emoji: "🎓",
+      content: `# Student Grade System · 学生成绩系统`,
+      code: `#include <iostream>
+#include <string>
+#include <vector>
+using namespace std;
+
+class Student {
+private:
+    string name;
+    vector<int> grades;
+public:
+    Student(string n) : name(n) {}
+    
+    void addGrade(int g) {
+        if (g >= 0 && g <= 100) grades.push_back(g);
+        else cout << "Invalid grade: " << g << endl;
+    }
+    
+    double getAverage() const {
+        if (grades.empty()) return 0.0;
+        int sum = 0;
+        for (int g : grades) sum += g;
+        return (double)sum / grades.size();
+    }
+    
+    char getLetterGrade() const {
+        double avg = getAverage();
+        if (avg >= 90) return 'A';
+        if (avg >= 80) return 'B';
+        if (avg >= 70) return 'C';
+        if (avg >= 60) return 'D';
+        return 'F';
+    }
+    
+    void display() const {
+        cout << name << " | Avg: " << getAverage()
+             << " | Grade: " << getLetterGrade() << endl;
+    }
+};
+
+int main() {
+    Student s("Alice");
+    s.addGrade(95);
+    s.addGrade(87);
+    s.addGrade(92);
+    s.addGrade(-5);   // Rejected!
+    s.display();
+    
+    vector<Student> roster;
+    roster.push_back(Student("Bob"));
+    roster.back().addGrade(78);
+    roster.back().addGrade(85);
+    roster.push_back(Student("Charlie"));
+    roster.back().addGrade(96);
+    
+    for (const auto& st : roster) st.display();
+    return 0;
+}`,
+    },
+    {
+      type: "code",
+      emoji: "⚡",
+      content: `# Static Members & Operator Overloading · 静态成员和运算符重载`,
+      code: `#include <iostream>
+using namespace std;
+
+class Vector2D {
+public:
+    double x, y;
+    static int count;
+    
+    Vector2D(double x = 0, double y = 0) : x(x), y(y) { count++; }
+    
+    Vector2D operator+(const Vector2D& other) const {
+        return Vector2D(x + other.x, y + other.y);
+    }
+    
+    bool operator==(const Vector2D& other) const {
+        return x == other.x && y == other.y;
+    }
+    
+    friend ostream& operator<<(ostream& os, const Vector2D& v) {
+        os << "(" << v.x << ", " << v.y << ")";
+        return os;
+    }
+};
+
+int Vector2D::count = 0;
+
+int main() {
+    Vector2D a(3, 4), b(1, 2);
+    Vector2D c = a + b;
+    
+    cout << a << " + " << b << " = " << c << endl;
+    cout << "Vectors created: " << Vector2D::count << endl;
+    cout << "a == b? " << (a == b) << endl;
+    return 0;
+}`,
+    },
+    {
+      type: "quiz",
+      emoji: "🧪",
+      content: "# OOP Concepts Quiz · OOP概念测验",
+      quiz: [
+        {
+          question: "What does static int count; in a class mean?\n类中的static int count;是什么意思？",
+          options: [
+            "Each object has its own count · 每个对象有自己的count",
+            "count is shared across all objects of the class · count被该类所有对象共享",
+            "count cannot be changed · count不能修改",
+            "count is only accessible in main() · count只能在main()中访问",
+          ],
+          correctIndex: 1,
+          explanation: "Static members belong to the class itself, not individual objects. All instances share the same static variable. · 静态成员属于类本身。",
+        },
+        {
+          question: "What does operator+ let you do?\noperator+让你能做什么？",
+          options: [
+            "Add integers faster · 更快地加整数",
+            "Use + with your custom class objects · 对自定义类对象使用+",
+            "Override the = operator · 重载=运算符",
+            "Create a new class · 创建新类",
+          ],
+          correctIndex: 1,
+          explanation: "Operator overloading lets you define how operators like +, -, == work with your custom types. · 运算符重载定义自定义类型的运算符行为。",
+        },
+      ],
+    },
+    
+    {
       type: "quiz",
       emoji: "🧪",
       content: "# Quiz · 测验",
@@ -5101,6 +5357,135 @@ int main() {
     return 0;
 }`,
     },
+    {
+      type: "text",
+      emoji: "📊",
+      content: `# Stack vs Heap: A Visual Guide · 栈vs堆
+
+🏢 **Stack** (Auto-managed):
+- Variables inside functions live here
+- **Fast** allocation, **automatic** cleanup
+- **Limited** size (~1-8 MB)
+- Like a stack of plates: last on, first off
+
+🏗️ **Heap** (You manage):
+- new allocates memory here
+- **Slower** allocation, **manual** cleanup with delete
+- **Huge** size (GBs available)
+- Like a warehouse: you rent and return space
+
+\`\`\`
+STACK (auto)          HEAP (manual)
+┌──────────┐          ┌──────────────┐
+│ int x=5  │          │ new int(42)  │ ← ptr
+│ int y=10 │          │              │
+│ int* ptr │──────────│ new int[100] │ ← arr
+│ int* arr │──────────│              │
+└──────────┘          └──────────────┘
+ auto cleanup          YOU must delete!
+\`\`\``,
+    },
+    {
+      type: "code",
+      emoji: "💀",
+      content: `# Memory Leaks Demo · 内存泄漏演示`,
+      code: `#include <iostream>
+using namespace std;
+
+void leak1() {
+    int* p = new int(42);
+    // Function returns, p is gone, memory stays allocated = LEAK!
+}
+
+void leak2() {
+    int* p = new int(10);
+    p = new int(20);  // Lost first allocation!
+    delete p;          // Only frees the second one
+}
+
+void noLeak() {
+    int* p = new int(10);
+    delete p;
+    p = new int(20);
+    delete p;
+    p = nullptr;  // Good practice
+}
+
+int main() {
+    // GOOD: clean up each iteration
+    for (int i = 0; i < 5; i++) {
+        int* p = new int(i);
+        cout << *p << " ";
+        delete p;
+    }
+    cout << endl;
+    return 0;
+}`,
+    },
+    {
+      type: "code",
+      emoji: "🛡️",
+      content: `# Smart Pointers: Modern C++ Memory Safety · 智能指针`,
+      code: `#include <iostream>
+#include <memory>
+#include <string>
+using namespace std;
+
+class Player {
+public:
+    string name;
+    Player(string n) : name(n) { cout << name << " created" << endl; }
+    ~Player() { cout << name << " destroyed" << endl; }
+};
+
+int main() {
+    // unique_ptr — ONE owner, auto-deletes
+    {
+        unique_ptr<Player> p1 = make_unique<Player>("Alice");
+        cout << "Playing as " << p1->name << endl;
+    }  // Alice auto-destroyed here
+    
+    cout << "---" << endl;
+    
+    // shared_ptr — MULTIPLE owners
+    shared_ptr<Player> p2;
+    {
+        shared_ptr<Player> p3 = make_shared<Player>("Bob");
+        p2 = p3;  // Both own Bob
+        cout << "Owners: " << p3.use_count() << endl;  // 2
+    }  // p3 gone, p2 still owns Bob
+    cout << "Bob alive! Owners: " << p2.use_count() << endl;  // 1
+    
+    // When to use which?
+    // unique_ptr: Default (90%). Single ownership.
+    // shared_ptr: Multiple things need the same resource.
+    // raw pointer: Non-owning, legacy code, competitions.
+    
+    return 0;
+}`,
+    },
+    {
+      type: "text",
+      emoji: "📏",
+      content: `# Rule of Three/Five · 三/五法则
+
+If your class manages a resource (memory, file), you likely need:
+
+## Rule of Three (C++98):
+1. **Destructor** ~MyClass()
+2. **Copy Constructor** MyClass(const MyClass& other)
+3. **Copy Assignment** MyClass& operator=(const MyClass& other)
+
+## Rule of Five (C++11) — add:
+4. **Move Constructor** MyClass(MyClass&& other)
+5. **Move Assignment** MyClass& operator=(MyClass&& other)
+
+## Rule of Zero (Best!):
+Use vector, string, unique_ptr — they handle memory FOR you. Then you don't need any of the five!
+
+⚡ **Volt says:** "For competitions, use vectors and smart pointers. Know Rule of Five for interviews!"`,
+    },
+    
     {
       type: "quiz",
       emoji: "🧪",
@@ -5428,6 +5813,197 @@ int main() {
       },
     },
     {
+      type: "text",
+      emoji: "🎭",
+      content: `# Abstract Classes & Interfaces · 抽象类和接口
+
+A class with a **pure virtual function** (= 0) is abstract — can't be instantiated.
+
+\`\`\`cpp
+class Shape {  // ABSTRACT
+public:
+    virtual double area() = 0;      // Pure virtual
+    virtual string name() = 0;
+    void display() {                 // Regular method
+        cout << name() << ": area = " << area() << endl;
+    }
+};
+\`\`\`
+
+## Interface Pattern:
+An abstract class with ONLY pure virtual functions:
+\`\`\`cpp
+class Printable {
+public:
+    virtual void print() const = 0;
+    virtual ~Printable() = default;
+};
+
+class Serializable {
+public:
+    virtual string serialize() const = 0;
+    virtual ~Serializable() = default;
+};
+
+// Implement multiple interfaces!
+class Document : public Printable, public Serializable { ... };
+\`\`\``,
+    },
+    {
+      type: "text",
+      emoji: "⚠️",
+      content: `# Virtual Destructor — Critical Rule! · 虚析构函数
+
+If a class has virtual methods, give it a **virtual destructor**.
+
+## Without virtual destructor:
+\`\`\`cpp
+class Base {
+public:
+    ~Base() { }  // NOT virtual!
+};
+class Derived : public Base {
+    int* data;
+public:
+    Derived() : data(new int[100]) {}
+    ~Derived() { delete[] data; }
+};
+
+Base* obj = new Derived();
+delete obj;  // ONLY calls ~Base()! data LEAKED!
+\`\`\`
+
+## Fix:
+\`\`\`cpp
+class Base {
+public:
+    virtual ~Base() = default;  // VIRTUAL!
+};
+// Now delete obj calls ~Derived() then ~Base(). No leak!
+\`\`\``,
+    },
+    {
+      type: "code",
+      emoji: "⚔️",
+      content: `# RPG Character Hierarchy · RPG角色层次结构`,
+      code: `#include <iostream>
+#include <string>
+#include <vector>
+#include <memory>
+using namespace std;
+
+class Character {
+protected:
+    string name;
+    int hp, maxHp, atk;
+public:
+    Character(string n, int h, int a) : name(n), hp(h), maxHp(h), atk(a) {}
+    virtual ~Character() = default;
+    
+    virtual void specialAbility() = 0;
+    virtual string className() const = 0;
+    
+    void takeDamage(int dmg) {
+        hp = max(0, hp - dmg);
+        cout << name << " takes " << dmg << " dmg! HP: " << hp << "/" << maxHp << endl;
+    }
+    
+    bool isAlive() const { return hp > 0; }
+    string getName() const { return name; }
+    
+    void status() const {
+        cout << "[" << className() << "] " << name
+             << " HP:" << hp << "/" << maxHp << " ATK:" << atk << endl;
+    }
+};
+
+class Warrior : public Character {
+public:
+    Warrior(string n) : Character(n, 120, 15) {}
+    string className() const override { return "Warrior"; }
+    void specialAbility() override {
+        cout << name << " uses SHIELD WALL!" << endl;
+    }
+};
+
+class Mage : public Character {
+public:
+    Mage(string n) : Character(n, 70, 30) {}
+    string className() const override { return "Mage"; }
+    void specialAbility() override {
+        cout << name << " casts METEOR!" << endl;
+    }
+};
+
+int main() {
+    vector<unique_ptr<Character>> party;
+    party.push_back(make_unique<Warrior>("Thor"));
+    party.push_back(make_unique<Mage>("Gandalf"));
+    
+    for (auto& c : party) {
+        c->status();
+        c->specialAbility();
+    }
+    
+    party[0]->takeDamage(25);
+    return 0;
+}`,
+    },
+    {
+      type: "text",
+      emoji: "💎",
+      content: `# Multiple Inheritance Warning · 多重继承警告
+
+C++ allows inheriting from multiple classes, but beware!
+
+\`\`\`cpp
+class A { public: void hello() { cout << "A"; } };
+class B { public: void hello() { cout << "B"; } };
+class C : public A, public B {};
+
+C obj;
+// obj.hello();  // AMBIGUOUS! Which hello()?
+obj.A::hello();   // Must specify
+\`\`\`
+
+## Diamond Problem:
+\`\`\`
+    Base
+   /    \\
+  A      B
+   \\    /
+    C       ← TWO copies of Base!
+\`\`\`
+**Fix:** virtual inheritance: class A : virtual public Base {}
+
+⚡ **Volt says:** "Avoid multiple inheritance of data classes. It's fine for interfaces (pure virtual classes)."`,
+    },
+    {
+      type: "quiz",
+      emoji: "🧪",
+      content: "# Inheritance Quiz · 继承测验",
+      quiz: [
+        {
+          question: "What happens if a base class destructor is NOT virtual and you delete through a base pointer?\n基类析构函数不是virtual通过基类指针delete会怎样？",
+          options: [
+            "Works fine · 正常运行",
+            "Compilation error · 编译错误",
+            "Only base destructor runs — derived resources leak! · 只运行基类析构函数！",
+            "Program crashes · 程序崩溃",
+          ],
+          correctIndex: 2,
+          explanation: "Without virtual destructor, only ~Base() is called. ~Derived() is skipped, causing resource leaks. · 没有虚析构函数只调用~Base()。",
+        },
+        {
+          question: "Which keyword prevents overriding a virtual function? (C++11)\n哪个关键字阻止重写虚函数？",
+          options: ["const", "static", "final", "private"],
+          correctIndex: 2,
+          explanation: "The 'final' keyword prevents further overriding. · 'final'阻止进一步重写。",
+        },
+      ],
+    },
+    
+    {
       type: "quiz",
       emoji: "🧪",
       content: "# Quiz · 测验",
@@ -5728,6 +6304,147 @@ int main() {
 }`,
     },
     {
+      type: "text",
+      emoji: "🔄",
+      content: `# Iterator Categories · 迭代器类别
+
+Iterators are the "glue" between containers and algorithms — like generalized pointers.
+
+| Category | Can do | Example containers |
+|----------|--------|--------------------|
+| **Input** | Read forward once | istream_iterator |
+| **Forward** | Read/write forward, multiple passes | unordered_set |
+| **Bidirectional** | + backward | set, map, list |
+| **Random Access** | Any position O(1) | vector, deque, array |
+
+\`\`\`cpp
+auto it = v.begin();  // First element
+auto end = v.end();   // PAST last element
+*it                    // Get value
+++it                   // Move forward
+--it                   // Backward (bidirectional+)
+it + n                 // Jump (random access only)
+\`\`\``,
+    },
+    {
+      type: "code",
+      emoji: "📇",
+      content: `# multimap & multiset: Allowing Duplicates · 允许重复`,
+      code: `#include <iostream>
+#include <map>
+#include <set>
+#include <string>
+using namespace std;
+
+int main() {
+    // multiset — sorted, allows duplicates
+    multiset<int> ms = {3, 1, 4, 1, 5, 9, 2, 6, 5};
+    cout << "multiset: ";
+    for (int x : ms) cout << x << " ";  // 1 1 2 3 4 5 5 6 9
+    cout << endl;
+    cout << "Count of 5: " << ms.count(5) << endl;  // 2
+    
+    // multimap — duplicate keys allowed
+    multimap<string, int> grades;
+    grades.insert({"Alice", 95});
+    grades.insert({"Alice", 87});
+    grades.insert({"Bob", 92});
+    
+    cout << "\nAll grades:" << endl;
+    for (auto& [name, grade] : grades) {
+        cout << name << ": " << grade << endl;
+    }
+    
+    // Find all entries for "Alice"
+    auto range = grades.equal_range("Alice");
+    cout << "\nAlice's grades: ";
+    for (auto it = range.first; it != range.second; ++it) {
+        cout << it->second << " ";
+    }
+    cout << endl;
+    return 0;
+}`,
+    },
+    {
+      type: "text",
+      emoji: "🤔",
+      content: `# When to Use Which Container? · 选择容器指南
+
+**Need key-value pairs?**
+- Sorted keys? → map (O(log n))
+- Fastest access? → unordered_map (O(1) avg)
+- Duplicate keys? → multimap
+
+**Need unique elements?**
+- Sorted? → set
+- Fastest? → unordered_set
+
+**Need ordered sequence?**
+- Default → vector (random access, fast end ops)
+- Both ends → deque
+- Middle insert/delete → list
+
+**Restricted access?**
+- LIFO → stack
+- FIFO → queue
+- By priority → priority_queue
+
+⚡ **Competition Tips:**
+- Default to vector
+- map/set for sorted data or log-time ops
+- unordered_map for O(1) lookups
+- priority_queue for greedy & Dijkstra's`,
+    },
+    {
+      type: "challenge",
+      emoji: "🏆",
+      content: `# Challenge: Contact Book · 挑战：通讯录`,
+      challenge: {
+        title: "Implement a contact book with map",
+        description: "用map实现通讯录",
+        starterCode: `#include <iostream>
+#include <map>
+#include <string>
+using namespace std;
+
+int main() {
+    map<string, string> contacts;
+    contacts["Alice"] = "555-0101";
+    contacts["Bob"] = "555-0102";
+    contacts["Charlie"] = "555-0103";
+    
+    // TODO: Print all contacts, search for Bob, check Dave
+    
+    return 0;
+}`,
+        expectedOutput: "Alice: 555-0101\nBob: 555-0102\nCharlie: 555-0103\nBob: 555-0102\nDave not found",
+        hint: "range-for to list, [] to access, count() to check",
+        solution: `#include <iostream>
+#include <map>
+#include <string>
+using namespace std;
+
+int main() {
+    map<string, string> contacts;
+    contacts["Alice"] = "555-0101";
+    contacts["Bob"] = "555-0102";
+    contacts["Charlie"] = "555-0103";
+    
+    for (auto& [name, num] : contacts)
+        cout << name << ": " << num << endl;
+    
+    cout << "Bob: " << contacts["Bob"] << endl;
+    
+    if (contacts.count("Dave"))
+        cout << "Dave: " << contacts["Dave"] << endl;
+    else
+        cout << "Dave not found" << endl;
+    return 0;
+}`,
+      },
+    },
+    
+    {
       type: "quiz",
       emoji: "🧪",
       content: "# Quiz · 测验",
@@ -6000,6 +6717,191 @@ int main() {
 }`,
       },
     },
+    {
+      type: "text",
+      emoji: "🔥",
+      content: `# Lambda Functions Deep Dive · Lambda函数详解
+
+Lambdas are anonymous functions — essential for STL algorithms!
+
+## Syntax:
+\`\`\`cpp
+[capture](parameters) -> return_type { body }
+\`\`\`
+
+## Capture Modes:
+| Capture | Meaning |
+|---------|---------|
+| [] | Nothing |
+| [x] | x by value (copy) |
+| [&x] | x by reference |
+| [=] | ALL by value |
+| [&] | ALL by reference |
+| [=, &x] | All by value, x by reference |
+
+🐍 **Py says:** "Python lambdas are one expression only. C++ lambdas can have full function bodies — way more powerful!"`,
+    },
+    {
+      type: "code",
+      emoji: "🎯",
+      content: `# Lambdas with STL Algorithms · Lambda和STL算法`,
+      code: `#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <numeric>
+using namespace std;
+
+int main() {
+    vector<int> v = {3, 1, 4, 1, 5, 9, 2, 6};
+    
+    // sort descending
+    sort(v.begin(), v.end(), [](int a, int b) { return a > b; });
+    cout << "Desc: ";
+    for (int x : v) cout << x << " ";
+    cout << endl;
+    
+    // count_if
+    int evens = count_if(v.begin(), v.end(), [](int x) { return x % 2 == 0; });
+    cout << "Evens: " << evens << endl;
+    
+    // find_if
+    auto it = find_if(v.begin(), v.end(), [](int x) { return x > 5; });
+    if (it != v.end()) cout << "First > 5: " << *it << endl;
+    
+    // transform (like Python's map())
+    vector<int> doubled(v.size());
+    transform(v.begin(), v.end(), doubled.begin(), [](int x) { return x * 2; });
+    
+    // accumulate with lambda
+    int product = accumulate(v.begin(), v.end(), 1, [](int a, int b) { return a * b; });
+    cout << "Product: " << product << endl;
+    
+    // Capture example
+    int threshold = 4;
+    auto above = count_if(v.begin(), v.end(), [threshold](int x) { return x > threshold; });
+    cout << "Above " << threshold << ": " << above << endl;
+    
+    return 0;
+}`,
+    },
+    {
+      type: "code",
+      emoji: "🧹",
+      content: `# More Essential Algorithms · 更多必备算法`,
+      code: `#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <numeric>
+using namespace std;
+
+int main() {
+    vector<int> v = {3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5};
+    
+    // erase-remove idiom
+    v.erase(remove_if(v.begin(), v.end(), [](int x) { return x < 3; }), v.end());
+    cout << "After removing < 3: ";
+    for (int x : v) cout << x << " ";
+    cout << endl;
+    
+    // unique (sort first!)
+    sort(v.begin(), v.end());
+    v.erase(unique(v.begin(), v.end()), v.end());
+    cout << "Unique: ";
+    for (int x : v) cout << x << " ";
+    cout << endl;
+    
+    // partial_sort — only sort first K
+    vector<int> w = {9, 3, 7, 1, 5, 8, 2};
+    partial_sort(w.begin(), w.begin() + 3, w.end());
+    cout << "Top 3 smallest: " << w[0] << " " << w[1] << " " << w[2] << endl;
+    
+    // nth_element — O(n) to find nth
+    vector<int> z = {9, 3, 7, 1, 5, 8, 2, 4, 6};
+    nth_element(z.begin(), z.begin() + 4, z.end());
+    cout << "Median: " << z[4] << endl;
+    
+    // all_of, any_of, none_of
+    vector<int> pos = {1, 2, 3, 4, 5};
+    cout << "All positive? " << all_of(pos.begin(), pos.end(), [](int x){ return x > 0; }) << endl;
+    
+    return 0;
+}`,
+    },
+    {
+      type: "challenge",
+      emoji: "🏆",
+      content: `# Challenge: Word Frequency Counter · 挑战：词频统计`,
+      challenge: {
+        title: "Count word frequencies and sort by count",
+        description: "统计词频并按频率排序",
+        starterCode: `#include <iostream>
+#include <map>
+#include <vector>
+#include <algorithm>
+#include <string>
+using namespace std;
+
+int main() {
+    string words[] = {"the", "cat", "sat", "on", "the", "mat", "the", "cat"};
+    int n = 8;
+    // TODO: Count and sort by frequency
+    
+    return 0;
+}`,
+        expectedOutput: "the: 3\ncat: 2\nmat: 1\non: 1\nsat: 1",
+        hint: "map for counting, vector<pair> for sorting",
+        solution: `#include <iostream>
+#include <map>
+#include <vector>
+#include <algorithm>
+#include <string>
+using namespace std;
+
+int main() {
+    string words[] = {"the", "cat", "sat", "on", "the", "mat", "the", "cat"};
+    int n = 8;
+    map<string, int> freq;
+    for (int i = 0; i < n; i++) freq[words[i]]++;
+    
+    vector<pair<string, int>> sorted_freq(freq.begin(), freq.end());
+    sort(sorted_freq.begin(), sorted_freq.end(),
+         [](auto& a, auto& b) { return a.second > b.second; });
+    
+    for (auto& [w, c] : sorted_freq) cout << w << ": " << c << endl;
+    return 0;
+}`,
+      },
+    },
+    {
+      type: "quiz",
+      emoji: "🧪",
+      content: "# Algorithm Quiz · 算法测验",
+      quiz: [
+        {
+          question: "What does [&] mean in a lambda capture?\nlambda中[&]是什么意思？",
+          options: [
+            "Capture nothing · 不捕获",
+            "All by value · 按值捕获全部",
+            "All by reference · 按引用捕获全部",
+            "Syntax error · 语法错误",
+          ],
+          correctIndex: 2,
+          explanation: "[&] captures all variables by reference. Changes inside the lambda affect originals. · [&]按引用捕获所有外部变量。",
+        },
+        {
+          question: "What's the erase-remove idiom for?\nerase-remove惯用法做什么？",
+          options: [
+            "Sorting · 排序",
+            "Actually removing elements from a container · 真正删除元素",
+            "Finding elements · 查找",
+            "Copying · 复制",
+          ],
+          correctIndex: 1,
+          explanation: "remove_if moves unwanted elements to the end. erase actually removes them. · remove_if移到末尾，erase真正删除。",
+        },
+      ],
+    },
+    
     {
       type: "quiz",
       emoji: "🧪",
@@ -6300,6 +7202,163 @@ int main() {
 }`,
       },
     },
+    {
+      type: "text",
+      emoji: "📐",
+      content: `# Templates: Write Once, Use for Any Type · 模板
+
+🐍 **Py says:** "Python is dynamic — functions work with any type automatically. C++ templates achieve the same at compile time!"
+
+## Function Templates:
+\`\`\`cpp
+// Without: separate functions for each type
+int maxInt(int a, int b) { return a > b ? a : b; }
+double maxDbl(double a, double b) { return a > b ? a : b; }
+
+// With templates: ONE function for ALL types!
+template<typename T>
+T myMax(T a, T b) { return a > b ? a : b; }
+
+myMax(3, 5);       // T = int
+myMax(3.14, 2.71); // T = double
+\`\`\`
+
+⚡ **Volt says:** "Templates are THE secret behind the entire STL. vector<int>, map<string, int> — the angle brackets ARE templates!"`,
+    },
+    {
+      type: "code",
+      emoji: "🔧",
+      content: `# Template Functions & Classes · 模板函数和类`,
+      code: `#include <iostream>
+#include <string>
+#include <vector>
+using namespace std;
+
+template<typename T>
+T findMax(const vector<T>& v) {
+    T maxVal = v[0];
+    for (const T& x : v) {
+        if (x > maxVal) maxVal = x;
+    }
+    return maxVal;
+}
+
+template<typename T, typename U>
+void printPair(T first, U second) {
+    cout << "(" << first << ", " << second << ")" << endl;
+}
+
+// Class template
+template<typename T>
+class SimpleStack {
+    T data[100];
+    int topIdx = -1;
+public:
+    void push(const T& val) { data[++topIdx] = val; }
+    T pop() { return data[topIdx--]; }
+    T top() const { return data[topIdx]; }
+    bool empty() const { return topIdx < 0; }
+};
+
+int main() {
+    vector<int> nums = {3, 7, 1, 9, 4};
+    cout << "Max int: " << findMax(nums) << endl;
+    
+    vector<string> words = {"banana", "apple", "cherry"};
+    cout << "Max string: " << findMax(words) << endl;
+    
+    printPair(42, "hello");
+    
+    SimpleStack<int> intStack;
+    intStack.push(10);
+    intStack.push(20);
+    cout << "Stack top: " << intStack.top() << endl;
+    
+    SimpleStack<string> strStack;
+    strStack.push("world");
+    cout << "String top: " << strStack.top() << endl;
+    
+    return 0;
+}`,
+    },
+    {
+      type: "text",
+      emoji: "🌟",
+      content: `# Template Specialization & C++20 Concepts · 模板特化与概念
+
+## Template Specialization:
+Make a template behave differently for specific types:
+\`\`\`cpp
+template<typename T>
+void print(T val) { cout << val << endl; }
+
+template<>
+void print<bool>(bool val) {
+    cout << (val ? "true" : "false") << endl;
+}
+
+print(42);      // "42"
+print(true);    // "true" (not "1"!)
+\`\`\`
+
+## C++20 Concepts (Preview):
+Constrain what types a template accepts:
+\`\`\`cpp
+template<typename T>
+concept Addable = requires(T a, T b) { a + b; };
+
+template<Addable T>
+T add(T a, T b) { return a + b; }
+\`\`\`
+
+⚡ **Volt says:** "Concepts make template errors readable. Without them, errors can be 200 lines of gibberish!"`,
+    },
+    {
+      type: "challenge",
+      emoji: "🏆",
+      content: `# Challenge: Template Pair · 挑战：模板Pair`,
+      challenge: {
+        title: "Create template Pair<T, U> class",
+        description: "创建模板Pair<T, U>类",
+        starterCode: `#include <iostream>
+#include <string>
+using namespace std;
+
+// TODO: Create Pair<T, U> with first, second, and print()
+
+
+int main() {
+    Pair<int, string> p1(1, "hello");
+    Pair<double, bool> p2(3.14, true);
+    p1.print();  // (1, hello)
+    p2.print();  // (3.14, 1)
+    return 0;
+}`,
+        expectedOutput: "(1, hello)\n(3.14, 1)",
+        hint: "template<typename T, typename U> class Pair { ... };",
+        solution: `#include <iostream>
+#include <string>
+using namespace std;
+
+template<typename T, typename U>
+class Pair {
+public:
+    T first;
+    U second;
+    Pair(T f, U s) : first(f), second(s) {}
+    void print() { cout << "(" << first << ", " << second << ")" << endl; }
+};
+
+int main() {
+    Pair<int, string> p1(1, "hello");
+    Pair<double, bool> p2(3.14, true);
+    p1.print();
+    p2.print();
+    return 0;
+}`,
+      },
+    },
+    
     {
       type: "quiz",
       emoji: "🧪",
