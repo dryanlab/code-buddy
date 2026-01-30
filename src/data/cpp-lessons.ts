@@ -428,6 +428,68 @@ int main() {
           correctIndex: 2,
           explanation: "return 0 tells the operating system that the program completed without errors. Non-zero values indicate errors. · return 0 告诉操作系统程序无错误完成。",
         },
+        {
+                  "question": "What is the purpose of `int main()` in a C++ program?\n`int main()` 在C++程序中有什么作用？",
+                  "options": [
+                            "It creates a variable called main · 创建一个叫main的变量",
+                            "It imports libraries · 导入库",
+                            "It's the entry point where the program starts running · 程序开始运行的入口",
+                            "It prints output · 打印输出"
+                  ],
+                  "correctIndex": 2,
+                  "explanation": "Every C++ program starts executing from main(). It's the entry point, like the front door of your program! · 每个C++程序从main()开始执行。"
+        },
+        {
+                  "question": "What does `using namespace std;` do?\n`using namespace std;` 做什么？",
+                  "options": [
+                            "Lets you write cout instead of std::cout · 让你写cout而不是std::cout",
+                            "Creates a new namespace · 创建新命名空间",
+                            "Imports the math library · 导入数学库",
+                            "Ends the program · 结束程序"
+                  ],
+                  "correctIndex": 0,
+                  "explanation": "using namespace std; allows you to use cout, cin, endl etc. without the std:: prefix. · 它让你可以不写std::前缀直接使用cout等。"
+        },
+        {
+                  "question": "What is the difference between a compiled and interpreted language?\n编译型和解释型语言的区别是什么？",
+                  "options": [
+                            "Compiled runs line by line; interpreted converts all at once · 编译逐行运行；解释一次性转换",
+                            "Compiled is slower · 编译更慢",
+                            "There is no difference · 没有区别",
+                            "Compiled converts to machine code first, then runs; interpreted runs line by line · 编译先转机器码再运行；解释逐行运行"
+                  ],
+                  "correctIndex": 3,
+                  "explanation": "C++ is compiled: the compiler translates your entire program to machine code first. Python is interpreted: it runs line by line. · C++先编译再运行，Python逐行运行。"
+        },
+        {
+                  "question": "Which is the correct way to print in C++?\nC++中正确的打印方式是？",
+                  "options": [
+                            "cout << \"Hello\" << endl;",
+                            "print(\"Hello\")",
+                            "System.out.println(\"Hello\")",
+                            "printf << \"Hello\""
+                  ],
+                  "correctIndex": 0,
+                  "explanation": "cout << is the C++ way to print. print() is Python, System.out.println is Java! · cout <<是C++的打印方式。"
+        },
+        {
+                  "type": "coding",
+                  "question": "Write a C++ program that prints 'Hello, C++!' on one line and 'Goodbye, Python!' on the next.\n编写一个C++程序，第一行打印'Hello, C++!'，第二行打印'Goodbye, Python!'",
+                  "prompt": "Print two lines: Hello, C++! and Goodbye, Python!",
+                  "starterCode": "#include <iostream>\nusing namespace std;\n\nint main() {\n    // Your code here\n    \n    return 0;\n}",
+                  "expectedOutput": "Hello, C++!\nGoodbye, Python!",
+                  "hint": "Use cout << \"text\" << endl; for each line · 每行使用 cout << \"文字\" << endl;",
+                  "explanation": "Use two cout statements with endl to print on separate lines. · 使用两个cout语句加endl来分行打印。"
+        },
+        {
+                  "type": "coding",
+                  "question": "Write a program that prints the numbers 1, 2, 3 each on a separate line.\n编写程序，每行打印一个数字：1、2、3",
+                  "prompt": "Print 1, 2, 3 on separate lines",
+                  "starterCode": "#include <iostream>\nusing namespace std;\n\nint main() {\n    // Print 1, 2, 3 on separate lines\n    \n    return 0;\n}",
+                  "expectedOutput": "1\n2\n3",
+                  "hint": "You can print numbers directly: cout << 1 << endl; · 可以直接打印数字：cout << 1 << endl;",
+                  "explanation": "cout can print numbers directly without quotes. Each endl creates a new line. · cout可以直接打印数字，endl换行。"
+        },
       ],
     },
   ],
@@ -836,6 +898,68 @@ int main() {
           correctIndex: 1,
           explanation: "In C++, single quotes 'A' are for char (one character). Double quotes \"A\" create a string. · 单引号用于char，双引号用于string。",
         },
+        {
+                  "question": "What value does `bool isHappy = true;` print when you do `cout << isHappy;`?\n`bool isHappy = true;` 用cout打印时显示什么？",
+                  "options": [
+                            "true",
+                            "1",
+                            "yes",
+                            "TRUE"
+                  ],
+                  "correctIndex": 1,
+                  "explanation": "In C++, bool prints as 1 (true) or 0 (false) by default, unlike Python which prints True/False. · C++中bool默认打印1或0。"
+        },
+        {
+                  "question": "What happens if you declare `int x;` without initializing it?\n如果声明 `int x;` 但不初始化会怎样？",
+                  "options": [
+                            "x is 0 · x为0",
+                            "x has a garbage/random value · x有垃圾值",
+                            "Compilation error · 编译错误",
+                            "x is null · x为null"
+                  ],
+                  "correctIndex": 1,
+                  "explanation": "Uninitialized local variables in C++ contain garbage values — whatever was in that memory before! Always initialize! · 未初始化的变量有垃圾值！"
+        },
+        {
+                  "question": "Which requires `#include <string>`?\n哪个需要 `#include <string>`？",
+                  "options": [
+                            "int x = 5;",
+                            "double pi = 3.14;",
+                            "char c = 'A';",
+                            "string name = \"Volt\";"
+                  ],
+                  "correctIndex": 3,
+                  "explanation": "The string type needs #include <string>. Basic types like int, double, char, bool are built-in. · string类型需要#include <string>。"
+        },
+        {
+                  "question": "What does `const int MAX = 100;` mean?\n`const int MAX = 100;` 是什么意思？",
+                  "options": [
+                            "MAX can be changed later · MAX以后可以修改",
+                            "MAX is a constant that cannot be changed · MAX是不能修改的常量",
+                            "MAX is deleted after use · MAX使用后被删除",
+                            "It creates 100 variables · 创建100个变量"
+                  ],
+                  "correctIndex": 1,
+                  "explanation": "const makes a variable read-only. Trying to modify it causes a compilation error. · const使变量只读，修改会编译报错。"
+        },
+        {
+                  "type": "coding",
+                  "question": "Declare an int, a double, and a string, then print them.\n声明一个int、一个double和一个string，然后打印它们。",
+                  "prompt": "Declare age=15, height=1.68, name=\"Coder\" and print each on a separate line",
+                  "starterCode": "#include <iostream>\n#include <string>\nusing namespace std;\n\nint main() {\n    // Declare variables here\n    \n    // Print them\n    \n    return 0;\n}",
+                  "expectedOutput": "15\n1.68\nCoder",
+                  "hint": "Use int age = 15; double height = 1.68; string name = \"Coder\"; · 分别用int、double、string声明",
+                  "explanation": "Each type must be declared explicitly in C++. Use cout << variable << endl to print. · C++中每个类型必须显式声明。"
+        },
+        {
+                  "type": "coding",
+                  "question": "Convert a double to int and print both values.\n将double转换为int并打印两个值。",
+                  "prompt": "Create double pi = 3.14159, convert to int, print both",
+                  "starterCode": "#include <iostream>\nusing namespace std;\n\nint main() {\n    double pi = 3.14159;\n    // Convert to int and print both\n    \n    return 0;\n}",
+                  "expectedOutput": "3.14159\n3",
+                  "hint": "Use int intPi = (int)pi; or static_cast<int>(pi) · 使用(int)pi或static_cast<int>(pi)",
+                  "explanation": "Casting double to int truncates the decimal part. 3.14159 becomes 3, not 4! · double转int截断小数部分。"
+        },
       ],
     },
   ],
@@ -1177,6 +1301,68 @@ int main() {
           correctIndex: 1,
           explanation: "cin.ignore() clears the leftover newline after cin >> so that getline() works correctly. · cin.ignore()清除cin >>后残留的换行符。",
         },
+        {
+                  "question": "What header is needed for setprecision()?\nsetprecision()需要什么头文件？",
+                  "options": [
+                            "<iostream>",
+                            "<string>",
+                            "<iomanip>",
+                            "<cmath>"
+                  ],
+                  "correctIndex": 2,
+                  "explanation": "setprecision() and other formatting functions are in <iomanip> (input/output manipulation). · setprecision()在<iomanip>头文件中。"
+        },
+        {
+                  "question": "What does `cout << fixed << setprecision(2) << 3.14159;` output?\n这行代码输出什么？",
+                  "options": [
+                            "3.14159",
+                            "3.14",
+                            "3.1",
+                            "3"
+                  ],
+                  "correctIndex": 1,
+                  "explanation": "fixed + setprecision(2) formats the number to exactly 2 decimal places: 3.14. · fixed加setprecision(2)保留2位小数。"
+        },
+        {
+                  "question": "Which reads an entire line including spaces?\n哪个能读取包含空格的整行？",
+                  "options": [
+                            "cin >> name",
+                            "scanf(name)",
+                            "getline(cin, name)",
+                            "cin.read(name)"
+                  ],
+                  "correctIndex": 2,
+                  "explanation": "getline(cin, name) reads the entire line. cin >> stops at the first space! · getline读整行，cin >>在空格处停止。"
+        },
+        {
+                  "question": "After `cin >> age;`, why do we need `cin.ignore();` before `getline()`?\n为什么cin >>之后需要cin.ignore()？",
+                  "options": [
+                            "To clear the screen · 清屏",
+                            "To reset the variable · 重置变量",
+                            "To remove the leftover newline from the buffer · 清除缓冲区中残留的换行符",
+                            "It's optional · 可选的"
+                  ],
+                  "correctIndex": 2,
+                  "explanation": "cin >> leaves a '\\n' in the buffer. Without cin.ignore(), getline() reads that empty line! · cin >>留下换行符，getline会读到空行。"
+        },
+        {
+                  "type": "coding",
+                  "question": "Read two integers and print their sum.\n读取两个整数并打印它们的和。",
+                  "prompt": "Read a and b, print 'Sum: ' followed by their sum",
+                  "starterCode": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int a, b;\n    cin >> a >> b;\n    // Print the sum\n    \n    return 0;\n}",
+                  "expectedOutput": "Sum: 15",
+                  "hint": "Use cout << \"Sum: \" << a + b << endl; · 使用cout打印Sum:加上a+b",
+                  "explanation": "cin >> a >> b reads two integers. Then cout << a + b prints their sum. · cin读取两个整数，cout打印它们的和。"
+        },
+        {
+                  "type": "coding",
+                  "question": "Read a decimal number and print it with exactly 3 decimal places.\n读取一个小数并保留3位小数打印。",
+                  "prompt": "Read a double, print with 3 decimal places",
+                  "starterCode": "#include <iostream>\n#include <iomanip>\nusing namespace std;\n\nint main() {\n    double x;\n    cin >> x;\n    // Print x with 3 decimal places\n    \n    return 0;\n}",
+                  "expectedOutput": "3.142",
+                  "hint": "Use cout << fixed << setprecision(3) << x; · 使用fixed和setprecision(3)",
+                  "explanation": "fixed << setprecision(3) formats the output to exactly 3 decimal places. · fixed和setprecision(3)保留3位小数。"
+        },
       ],
     },
   ],
@@ -1494,6 +1680,68 @@ Same as Python (and math class!):
           options: ["Adds 2 to x · 给x加2", "Adds 1 to x · 给x加1", "Doubles x · x翻倍", "Error · 报错"],
           correctIndex: 1,
           explanation: "x++ increments x by 1. It's equivalent to x = x + 1 or x += 1. · x++相当于x = x + 1。",
+        },
+        {
+                  "question": "What does `10 % 3` evaluate to?\n`10 % 3` 的结果是？",
+                  "options": [
+                            "3.33",
+                            "3",
+                            "1",
+                            "0"
+                  ],
+                  "correctIndex": 2,
+                  "explanation": "% gives the remainder. 10 ÷ 3 = 3 remainder 1, so 10 % 3 = 1. · %取余数，10÷3余1。"
+        },
+        {
+                  "question": "What's the output of `cout << 5 / 2 * 2;`?\n输出是什么？",
+                  "options": [
+                            "5",
+                            "4",
+                            "5.0",
+                            "2.5"
+                  ],
+                  "correctIndex": 1,
+                  "explanation": "5/2 = 2 (integer division), then 2*2 = 4. Integer division truncates! · 5/2=2（整数除法），2*2=4。"
+        },
+        {
+                  "question": "Which header provides pow() and sqrt()?\n哪个头文件提供pow()和sqrt()？",
+                  "options": [
+                            "<iostream>",
+                            "<string>",
+                            "<algorithm>",
+                            "<cmath>"
+                  ],
+                  "correctIndex": 3,
+                  "explanation": "<cmath> provides math functions like pow(), sqrt(), abs(), ceil(), floor(). · <cmath>提供数学函数。"
+        },
+        {
+                  "question": "What does `int a = 5; cout << a++;` print?\n输出是什么？",
+                  "options": [
+                            "5",
+                            "6",
+                            "4",
+                            "Error"
+                  ],
+                  "correctIndex": 0,
+                  "explanation": "Post-increment (a++) returns the OLD value (5), THEN increments a to 6. · 后置++返回旧值5，然后a变为6。"
+        },
+        {
+                  "type": "coding",
+                  "question": "Calculate the area of a circle given its radius.\n给定半径计算圆的面积。",
+                  "prompt": "Read radius, print area with 2 decimal places. Use pi = 3.14159",
+                  "starterCode": "#include <iostream>\n#include <iomanip>\n#include <cmath>\nusing namespace std;\n\nint main() {\n    double r;\n    cin >> r;\n    // Calculate area = pi * r * r and print with 2 decimal places\n    \n    return 0;\n}",
+                  "expectedOutput": "78.54",
+                  "hint": "Area = 3.14159 * r * r. Use fixed << setprecision(2). · 面积=3.14159*r*r",
+                  "explanation": "Use the formula pi*r*r and format with fixed << setprecision(2). · 圆面积公式π*r²。"
+        },
+        {
+                  "type": "coding",
+                  "question": "Given total cents, find how many dollars and remaining cents.\n给定总分数，求美元数和剩余分数。",
+                  "prompt": "Read total cents, print dollars and cents. E.g., 365 → 3 dollars and 65 cents",
+                  "starterCode": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int totalCents;\n    cin >> totalCents;\n    // Calculate dollars and cents\n    \n    return 0;\n}",
+                  "expectedOutput": "3 dollars and 65 cents",
+                  "hint": "Use / for dollars and % for remaining cents · 用/求美元数，%求余数",
+                  "explanation": "Integer division (/) gives dollars, modulo (%) gives remaining cents. 365/100=3, 365%100=65. · 整除得美元，取余得分。"
         },
       ],
     },
@@ -1860,6 +2108,68 @@ int main() {
           correctIndex: 3,
           explanation: "Unlike Python, C++ strings ARE mutable! You can change individual characters. · 与Python不同，C++字符串是可变的！",
         },
+        {
+                  "question": "How do you get the length of a string in C++?\nC++中怎么获取字符串长度？",
+                  "options": [
+                            "len(s)",
+                            "s.length() or s.size()",
+                            "strlen(s)",
+                            "s.count()"
+                  ],
+                  "correctIndex": 1,
+                  "explanation": "C++ strings use .length() or .size() method. len() is Python, strlen() is for C-strings. · C++用.length()或.size()。"
+        },
+        {
+                  "question": "What does `s.substr(2, 3)` return if s = \"Hello\"?\ns=\"Hello\"时，s.substr(2,3)返回什么？",
+                  "options": [
+                            "\"He\"",
+                            "\"llo\"",
+                            "\"Hel\"",
+                            "\"lo\""
+                  ],
+                  "correctIndex": 1,
+                  "explanation": "substr(2, 3) means starting at index 2, take 3 characters: 'l', 'l', 'o' → \"llo\". · 从索引2开始取3个字符。"
+        },
+        {
+                  "question": "How do you concatenate strings in C++?\nC++中如何连接字符串？",
+                  "options": [
+                            "s1.join(s2)",
+                            "s1 & s2",
+                            "s1 + s2",
+                            "concat(s1, s2)"
+                  ],
+                  "correctIndex": 2,
+                  "explanation": "Just like Python, C++ uses + to concatenate strings. \"Hello\" + \" World\" = \"Hello World\". · 和Python一样用+连接字符串。"
+        },
+        {
+                  "question": "What's the difference between 'A' and \"A\" in C++?\nC++中'A'和\"A\"有什么区别？",
+                  "options": [
+                            "No difference · 没区别",
+                            "'A' is char, \"A\" is string · 'A'是字符，\"A\"是字符串",
+                            "'A' is string, \"A\" is char · 反过来",
+                            "Both are strings · 都是字符串"
+                  ],
+                  "correctIndex": 1,
+                  "explanation": "Single quotes = char (one character). Double quotes = string. This matters in C++! · 单引号=字符，双引号=字符串。"
+        },
+        {
+                  "type": "coding",
+                  "question": "Read a string and print its length and first character.\n读取字符串，打印长度和第一个字符。",
+                  "prompt": "Read a word, print its length and first character",
+                  "starterCode": "#include <iostream>\n#include <string>\nusing namespace std;\n\nint main() {\n    string word;\n    cin >> word;\n    // Print length and first character\n    \n    return 0;\n}",
+                  "expectedOutput": "Length: 5\nFirst: H",
+                  "hint": "Use word.length() and word[0] · 使用word.length()和word[0]",
+                  "explanation": "string.length() gives the size, and [0] accesses the first character, just like Python! · .length()取长度，[0]取首字符。"
+        },
+        {
+                  "type": "coding",
+                  "question": "Concatenate two strings with a space between them.\n用空格连接两个字符串。",
+                  "prompt": "Read two words, print them joined with a space",
+                  "starterCode": "#include <iostream>\n#include <string>\nusing namespace std;\n\nint main() {\n    string first, second;\n    cin >> first >> second;\n    // Print them joined with a space\n    \n    return 0;\n}",
+                  "expectedOutput": "Hello World",
+                  "hint": "Use first + \" \" + second · 使用first + \" \" + second",
+                  "explanation": "String concatenation with + works the same as Python. · 字符串用+连接，和Python一样。"
+        },
       ],
     },
   ],
@@ -2179,6 +2489,68 @@ int main() {
           correctIndex: 2,
           explanation: "Both 10 and 3 are integers, so integer division gives 3 (truncated). · 两个都是整数，整数除法得3。",
         },
+        {
+                  "question": "What is the correct order to build a C++ project?\n构建C++项目的正确顺序是？",
+                  "options": [
+                            "Run → Compile → Write · 运行→编译→编写",
+                            "Compile → Write → Run · 编译→编写→运行",
+                            "Write → Compile → Run · 编写→编译→运行",
+                            "Write → Run → Compile · 编写→运行→编译"
+                  ],
+                  "correctIndex": 2,
+                  "explanation": "Write code first, compile with g++, then run the executable. · 先写代码，再编译，最后运行。"
+        },
+        {
+                  "question": "What does `g++ -o myprogram main.cpp` do?\n这个命令做什么？",
+                  "options": [
+                            "Runs the program · 运行程序",
+                            "Compiles main.cpp into an executable called myprogram · 编译main.cpp为可执行文件myprogram",
+                            "Deletes main.cpp · 删除main.cpp",
+                            "Opens the file · 打开文件"
+                  ],
+                  "correctIndex": 1,
+                  "explanation": "g++ is the C++ compiler. -o names the output executable. · g++是编译器，-o指定输出文件名。"
+        },
+        {
+                  "question": "Which is good C++ coding practice?\n哪个是好的C++编程习惯？",
+                  "options": [
+                            "Never use comments · 从不写注释",
+                            "Use meaningful variable names and add comments · 使用有意义的变量名并添加注释",
+                            "Put everything on one line · 所有代码写一行",
+                            "Avoid using functions · 避免使用函数"
+                  ],
+                  "correctIndex": 1,
+                  "explanation": "Good code is readable! Use meaningful names, comments, and proper indentation. · 好代码要可读！"
+        },
+        {
+                  "question": "What file extension do C++ source files use?\nC++源文件用什么扩展名？",
+                  "options": [
+                            ".py",
+                            ".java",
+                            ".cpp",
+                            ".js"
+                  ],
+                  "correctIndex": 2,
+                  "explanation": "C++ source files use .cpp (or sometimes .cc, .cxx). .py is Python, .java is Java. · C++用.cpp扩展名。"
+        },
+        {
+                  "type": "coding",
+                  "question": "Write a simple calculator that reads two numbers and an operator (+), and prints the result.\n编写简单计算器：读取两个数和运算符(+)，打印结果。",
+                  "prompt": "Read two doubles and print their sum in format: a + b = result",
+                  "starterCode": "#include <iostream>\nusing namespace std;\n\nint main() {\n    double a, b;\n    cin >> a >> b;\n    // Print: a + b = result\n    \n    return 0;\n}",
+                  "expectedOutput": "3 + 5 = 8",
+                  "hint": "Use cout << a << \" + \" << b << \" = \" << a+b << endl; · 用cout格式化输出",
+                  "explanation": "Chain multiple items with << to format the output nicely. · 用<<连接多项来格式化输出。"
+        },
+        {
+                  "type": "coding",
+                  "question": "Convert temperature from Celsius to Fahrenheit.\n将摄氏温度转换为华氏温度。",
+                  "prompt": "Read Celsius, print Fahrenheit (F = C * 9/5 + 32) with 1 decimal place",
+                  "starterCode": "#include <iostream>\n#include <iomanip>\nusing namespace std;\n\nint main() {\n    double celsius;\n    cin >> celsius;\n    // Convert and print Fahrenheit\n    \n    return 0;\n}",
+                  "expectedOutput": "212.0",
+                  "hint": "F = celsius * 9.0 / 5.0 + 32. Use fixed << setprecision(1) · 公式：F = C * 9/5 + 32",
+                  "explanation": "Use 9.0/5.0 to avoid integer division. Format with setprecision(1). · 用9.0/5.0避免整数除法。"
+        },
       ],
     },
   ],
@@ -2473,6 +2845,68 @@ int main() {
           correctIndex: 0,
           explanation: "Python uses `and`, C++ uses `&&`. Similarly: `or` → `||`, `not` → `!`. · Python用and，C++用&&。",
         },
+        {
+                  "question": "What replaces Python's `elif` in C++?\nC++中什么替代Python的elif？",
+                  "options": [
+                            "elseif",
+                            "else if",
+                            "elif",
+                            "elsif"
+                  ],
+                  "correctIndex": 1,
+                  "explanation": "C++ uses 'else if' (two words) instead of Python's 'elif'. · C++用else if（两个词）。"
+        },
+        {
+                  "question": "What are the braces {} used for in if statements?\nif语句中花括号{}的作用是什么？",
+                  "options": [
+                            "Decoration · 装饰",
+                            "They define the code block to execute · 定义要执行的代码块",
+                            "They end the program · 结束程序",
+                            "They create variables · 创建变量"
+                  ],
+                  "correctIndex": 1,
+                  "explanation": "Braces {} define code blocks in C++, replacing Python's indentation. · 花括号定义代码块，替代Python的缩进。"
+        },
+        {
+                  "question": "What is the C++ equality operator?\nC++的相等运算符是什么？",
+                  "options": [
+                            "=",
+                            "==",
+                            "===",
+                            "equals()"
+                  ],
+                  "correctIndex": 1,
+                  "explanation": "== checks equality (comparison). = is assignment. Don't mix them up! · ==比较，=赋值，别搞混！"
+        },
+        {
+                  "question": "What do && and || mean in C++?\nC++中&&和||是什么意思？",
+                  "options": [
+                            "Add and subtract · 加和减",
+                            "AND and OR · 与和或",
+                            "Bitwise shift · 位移",
+                            "Pointer operations · 指针操作"
+                  ],
+                  "correctIndex": 1,
+                  "explanation": "&&  is logical AND (Python's 'and'), || is logical OR (Python's 'or'). · &&是与，||是或。"
+        },
+        {
+                  "type": "coding",
+                  "question": "Write a program that reads an integer and prints whether it's positive, negative, or zero.\n读取整数，判断正数、负数还是零。",
+                  "prompt": "Read n, print 'positive', 'negative', or 'zero'",
+                  "starterCode": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int n;\n    cin >> n;\n    // Use if/else if/else to check\n    \n    return 0;\n}",
+                  "expectedOutput": "positive",
+                  "hint": "Use if (n > 0), else if (n < 0), else · 用if/else if/else判断",
+                  "explanation": "Use if/else if/else chain to check conditions. Remember braces {}! · 用if/else if/else链判断条件。"
+        },
+        {
+                  "type": "coding",
+                  "question": "Check if a number is even or odd.\n判断一个数是奇数还是偶数。",
+                  "prompt": "Read n, print 'even' or 'odd'",
+                  "starterCode": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int n;\n    cin >> n;\n    // Check even or odd\n    \n    return 0;\n}",
+                  "expectedOutput": "even",
+                  "hint": "Use n % 2 == 0 to check if even · 用n%2==0判断偶数",
+                  "explanation": "If n % 2 equals 0, the number is even; otherwise it's odd. · n%2==0则为偶数。"
+        },
       ],
     },
   ],
@@ -2742,6 +3176,68 @@ int main() {
           correctIndex: 3,
           explanation: "Without break, execution 'falls through' and continues into the next case(s). This is a common source of bugs! · 没有break会继续执行下一个case。",
         },
+        {
+                  "question": "What happens if you forget `break;` in a switch case?\n如果switch中忘记break会怎样？",
+                  "options": [
+                            "Compilation error · 编译错误",
+                            "Only that case runs · 只运行该case",
+                            "It falls through to the next case · 会继续执行下一个case",
+                            "The program crashes · 程序崩溃"
+                  ],
+                  "correctIndex": 2,
+                  "explanation": "Without break, execution 'falls through' to the next case. This is a common bug! · 没有break会穿透到下一个case。"
+        },
+        {
+                  "question": "What does the ternary operator `a ? b : c` do?\n三元运算符 `a ? b : c` 做什么？",
+                  "options": [
+                            "Adds a, b, and c · 将a、b、c相加",
+                            "If a is true, returns b; otherwise returns c · 如果a为真返回b，否则返回c",
+                            "Compares all three values · 比较三个值",
+                            "Creates three variables · 创建三个变量"
+                  ],
+                  "correctIndex": 1,
+                  "explanation": "condition ? valueIfTrue : valueIfFalse — it's a shorthand for simple if/else! · 条件?真值:假值，是if/else的简写。"
+        },
+        {
+                  "question": "Which types can switch operate on in C++?\nC++中switch能操作哪些类型？",
+                  "options": [
+                            "Any type · 任何类型",
+                            "Only int and char (integral types) · 只有int和char（整数类型）",
+                            "Only strings · 只有字符串",
+                            "Only bool · 只有布尔"
+                  ],
+                  "correctIndex": 1,
+                  "explanation": "switch works with integral types (int, char, enum). You cannot switch on strings in C++! · switch只能用于整数类型。"
+        },
+        {
+                  "question": "What does `default:` do in a switch?\nswitch中的default做什么？",
+                  "options": [
+                            "Runs first · 最先运行",
+                            "Runs when no case matches · 没有case匹配时运行",
+                            "Resets the variable · 重置变量",
+                            "Causes an error · 导致错误"
+                  ],
+                  "correctIndex": 1,
+                  "explanation": "default is like the else in an if/else chain — it handles all unmatched cases. · default像else，处理所有未匹配的情况。"
+        },
+        {
+                  "type": "coding",
+                  "question": "Use the ternary operator to print 'adult' if age >= 18, else 'minor'.\n用三元运算符判断成年或未成年。",
+                  "prompt": "Read age, use ternary to print 'adult' or 'minor'",
+                  "starterCode": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int age;\n    cin >> age;\n    // Use ternary operator\n    \n    return 0;\n}",
+                  "expectedOutput": "adult",
+                  "hint": "cout << (age >= 18 ? \"adult\" : \"minor\") << endl; · 使用三元运算符",
+                  "explanation": "The ternary operator is a concise way to choose between two values based on a condition. · 三元运算符简洁地根据条件选值。"
+        },
+        {
+                  "type": "coding",
+                  "question": "Write a switch statement that prints the day name for numbers 1-7.\n用switch语句根据数字1-7打印星期名。",
+                  "prompt": "Read day number (1=Monday), print day name. Print 'Invalid' for other numbers.",
+                  "starterCode": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int day;\n    cin >> day;\n    // Use switch to print day name\n    \n    return 0;\n}",
+                  "expectedOutput": "Monday",
+                  "hint": "switch(day) { case 1: cout << \"Monday\"; break; ... } · 用switch/case/break",
+                  "explanation": "Switch maps each case value to an action. Don't forget break after each case! · switch将每个case映射到操作，别忘break！"
+        },
       ],
     },
   ],
@@ -2999,6 +3495,68 @@ int main() {
           correctIndex: 0,
           explanation: "do-while checks the condition AFTER running the body, so it always runs at least once. · do-while先执行再检查条件，所以至少执行一次。",
         },
+        {
+                  "question": "What are the 3 parts of a C++ for loop?\nC++ for循环的3个部分是什么？",
+                  "options": [
+                            "start, stop, step",
+                            "init; condition; update (e.g., int i=0; i<n; i++)",
+                            "begin, end, next",
+                            "for, in, range"
+                  ],
+                  "correctIndex": 1,
+                  "explanation": "C++ for loop: for(init; condition; update). Python's range(start,stop,step) maps to this! · for(初始化;条件;更新)。"
+        },
+        {
+                  "question": "What does `do { } while(condition);` guarantee?\ndo-while循环保证什么？",
+                  "options": [
+                            "Runs exactly twice · 运行两次",
+                            "Never runs · 从不运行",
+                            "Runs at least once · 至少运行一次",
+                            "Runs forever · 永远运行"
+                  ],
+                  "correctIndex": 2,
+                  "explanation": "do-while checks the condition AFTER running the body, so it always executes at least once. · do-while先执行再判断。"
+        },
+        {
+                  "question": "How do you write Python's `for i in range(10):` in C++?\n如何用C++写Python的for i in range(10)?",
+                  "options": [
+                            "for i in range(10)",
+                            "for(int i=0; i<10; i++)",
+                            "for(i, 10)",
+                            "loop(10)"
+                  ],
+                  "correctIndex": 1,
+                  "explanation": "for(int i=0; i<10; i++) is the C++ equivalent of range(10). · for(int i=0;i<10;i++)等价于range(10)。"
+        },
+        {
+                  "question": "What does `break;` do inside a loop?\nbreak在循环中做什么？",
+                  "options": [
+                            "Skips to next iteration · 跳到下一次迭代",
+                            "Exits the loop immediately · 立即退出循环",
+                            "Pauses the program · 暂停程序",
+                            "Restarts the loop · 重启循环"
+                  ],
+                  "correctIndex": 1,
+                  "explanation": "break immediately exits the innermost loop. continue skips to the next iteration. · break退出循环，continue跳过当前迭代。"
+        },
+        {
+                  "type": "coding",
+                  "question": "Print numbers from 1 to 5 using a for loop.\n用for循环打印1到5。",
+                  "prompt": "Print 1 2 3 4 5 each on a new line",
+                  "starterCode": "#include <iostream>\nusing namespace std;\n\nint main() {\n    // Use a for loop to print 1 to 5\n    \n    return 0;\n}",
+                  "expectedOutput": "1\n2\n3\n4\n5",
+                  "hint": "for(int i = 1; i <= 5; i++) { cout << i << endl; } · for循环从1到5",
+                  "explanation": "for(int i=1; i<=5; i++) loops from 1 to 5 inclusive. · for循环从1循环到5。"
+        },
+        {
+                  "type": "coding",
+                  "question": "Calculate the sum of numbers from 1 to n using a while loop.\n用while循环计算1到n的和。",
+                  "prompt": "Read n, print the sum of 1+2+...+n",
+                  "starterCode": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int n;\n    cin >> n;\n    // Calculate sum using while loop\n    \n    return 0;\n}",
+                  "expectedOutput": "55",
+                  "hint": "int sum=0, i=1; while(i<=n) { sum+=i; i++; } · 用while循环累加",
+                  "explanation": "Use a while loop with a counter and accumulator. Sum of 1 to 10 = 55. · 用while循环和累加器。"
+        },
       ],
     },
   ],
@@ -3246,6 +3804,68 @@ int main() {
           options: ["The outermost loop · 最外层循环", "Random · 随机", "All loops · 所有循环", "The innermost loop · 最内层循环"],
           correctIndex: 3,
           explanation: "break only exits the innermost loop that contains it. To exit outer loops, you need flags or goto (avoid goto!). · break只退出包含它的最内层循环。",
+        },
+        {
+                  "question": "What does `continue;` do in a loop?\ncontinue在循环中做什么？",
+                  "options": [
+                            "Exits the loop · 退出循环",
+                            "Skips to the next iteration · 跳到下一次迭代",
+                            "Pauses execution · 暂停执行",
+                            "Continues to the next function · 继续到下一个函数"
+                  ],
+                  "correctIndex": 1,
+                  "explanation": "continue skips the rest of the current iteration and jumps to the next one. · continue跳过当前迭代的剩余部分。"
+        },
+        {
+                  "question": "How do you create an infinite loop in C++?\n如何创建无限循环？",
+                  "options": [
+                            "for(;;)",
+                            "while(true)",
+                            "Both a and b work · a和b都可以",
+                            "loop(forever)"
+                  ],
+                  "correctIndex": 2,
+                  "explanation": "Both for(;;) and while(true) create infinite loops. Use break to exit! · for(;;)和while(true)都能创建无限循环。"
+        },
+        {
+                  "question": "What's a nested loop?\n什么是嵌套循环？",
+                  "options": [
+                            "A loop that never ends · 永远不结束的循环",
+                            "A loop inside another loop · 循环中的循环",
+                            "Two loops side by side · 两个并排的循环",
+                            "A loop with no body · 没有循环体的循环"
+                  ],
+                  "correctIndex": 1,
+                  "explanation": "A nested loop is a loop inside another loop. Used for 2D patterns, grids, etc. · 嵌套循环是循环里的循环。"
+        },
+        {
+                  "question": "What does this print? `for(int i=0; i<3; i++) for(int j=0; j<2; j++) cout << \"*\";`\n这段代码打印什么？",
+                  "options": [
+                            "** · 2 stars",
+                            "*** · 3 stars",
+                            "***** · 5 stars",
+                            "****** · 6 stars"
+                  ],
+                  "correctIndex": 3,
+                  "explanation": "Outer loop runs 3 times, inner loop 2 times each → 3×2 = 6 stars. · 外循环3次×内循环2次=6个星号。"
+        },
+        {
+                  "type": "coding",
+                  "question": "Print all even numbers from 2 to 10.\n打印2到10的所有偶数。",
+                  "prompt": "Print 2 4 6 8 10, each on a new line",
+                  "starterCode": "#include <iostream>\nusing namespace std;\n\nint main() {\n    // Print even numbers from 2 to 10\n    \n    return 0;\n}",
+                  "expectedOutput": "2\n4\n6\n8\n10",
+                  "hint": "Use for(int i=2; i<=10; i+=2) or check i%2==0 · 用i+=2或i%2==0",
+                  "explanation": "Increment by 2: for(int i=2; i<=10; i+=2). Or use if(i%2==0). · 步长为2或用取余判断。"
+        },
+        {
+                  "type": "coding",
+                  "question": "Print a right triangle pattern of stars with n rows.\n打印n行的直角三角形星号图案。",
+                  "prompt": "Read n=3, print: *\\n**\\n***",
+                  "starterCode": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int n;\n    cin >> n;\n    // Print triangle pattern\n    \n    return 0;\n}",
+                  "expectedOutput": "*\n**\n***",
+                  "hint": "Use nested loops: outer for rows, inner for stars per row · 嵌套循环：外层行，内层星号",
+                  "explanation": "Row i has i stars. Use nested for loops with endl after each row. · 第i行有i个星号，用嵌套循环。"
         },
       ],
     },
@@ -3508,6 +4128,68 @@ int main() {
           correctIndex: 2,
           explanation: "void means the function doesn't return any value. Like a Python function that doesn't have a return statement. · void表示函数不返回任何值。",
         },
+        {
+                  "question": "What must a C++ function declaration include that Python doesn't require?\nC++函数声明需要什么Python不需要的？",
+                  "options": [
+                            "Function name · 函数名",
+                            "Return type and parameter types · 返回类型和参数类型",
+                            "The word 'def' · def关键字",
+                            "Indentation · 缩进"
+                  ],
+                  "correctIndex": 1,
+                  "explanation": "C++ needs explicit return type and parameter types: int add(int a, int b). Python just uses def. · C++需要显式返回类型和参数类型。"
+        },
+        {
+                  "question": "What does `void` mean as a return type?\nvoid作为返回类型是什么意思？",
+                  "options": [
+                            "Returns 0 · 返回0",
+                            "Returns nothing · 不返回任何值",
+                            "Returns a string · 返回字符串",
+                            "Error · 报错"
+                  ],
+                  "correctIndex": 1,
+                  "explanation": "void means the function doesn't return a value. Like Python functions without return. · void表示函数不返回值。"
+        },
+        {
+                  "question": "Where must a function be defined relative to where it's called?\n函数必须在调用之前定义在哪里？",
+                  "options": [
+                            "After main() · 在main()之后",
+                            "Before it's called, or use a forward declaration · 在调用之前，或使用前向声明",
+                            "In a different file · 在不同文件中",
+                            "Anywhere · 任何位置"
+                  ],
+                  "correctIndex": 1,
+                  "explanation": "Functions must be declared before use. You can use a prototype (forward declaration) above main(). · 函数必须在使用前声明。"
+        },
+        {
+                  "question": "What is function overloading?\n什么是函数重载？",
+                  "options": [
+                            "Calling a function too many times · 调用函数太多次",
+                            "Multiple functions with the same name but different parameters · 同名但参数不同的多个函数",
+                            "A function that's too long · 太长的函数",
+                            "An error · 错误"
+                  ],
+                  "correctIndex": 1,
+                  "explanation": "C++ allows multiple functions with the same name if they have different parameter types/counts. Python can't do this! · C++允许同名不同参数的函数。"
+        },
+        {
+                  "type": "coding",
+                  "question": "Write a function that returns the larger of two integers.\n写一个返回两个整数中较大值的函数。",
+                  "prompt": "Write function int maxOf(int a, int b) and call it from main",
+                  "starterCode": "#include <iostream>\nusing namespace std;\n\n// Write your maxOf function here\n\nint main() {\n    int a, b;\n    cin >> a >> b;\n    cout << maxOf(a, b) << endl;\n    return 0;\n}",
+                  "expectedOutput": "7",
+                  "hint": "int maxOf(int a, int b) { return (a > b) ? a : b; } · 用三元运算符或if/else",
+                  "explanation": "Define return type, parameter types, and use return to send back the value. · 定义返回类型和参数类型，用return返回值。"
+        },
+        {
+                  "type": "coding",
+                  "question": "Write a function that checks if a number is prime.\n写一个判断质数的函数。",
+                  "prompt": "Write bool isPrime(int n), print 'yes' or 'no'",
+                  "starterCode": "#include <iostream>\nusing namespace std;\n\n// Write isPrime function here\n\nint main() {\n    int n;\n    cin >> n;\n    cout << (isPrime(n) ? \"yes\" : \"no\") << endl;\n    return 0;\n}",
+                  "expectedOutput": "yes",
+                  "hint": "Check if any number from 2 to sqrt(n) divides n · 检查2到sqrt(n)是否能整除n",
+                  "explanation": "Loop from 2 to sqrt(n). If any divides n evenly, it's not prime. · 从2循环到sqrt(n)，如果能整除则不是质数。"
+        },
       ],
     },
   ],
@@ -3745,6 +4427,68 @@ int main() {
           options: ["Gets the address of x · 获取x的地址", "Makes x a reference (alias) to the original · 使x成为原始变量的引用", "Makes x constant · 使x为常量", "Creates a pointer · 创建指针"],
           correctIndex: 1,
           explanation: "& in a parameter makes it a reference — an alias for the original variable. Changes to x change the original! · &使参数成为原始变量的别名。",
+        },
+        {
+                  "question": "What does pass by reference (&) allow?\n传引用(&)允许什么？",
+                  "options": [
+                            "Faster printing · 更快打印",
+                            "The function can modify the original variable · 函数可以修改原始变量",
+                            "Automatic type conversion · 自动类型转换",
+                            "Multiple return values only · 仅多返回值"
+                  ],
+                  "correctIndex": 1,
+                  "explanation": "Pass by reference gives the function direct access to the original variable, not a copy. · 传引用让函数直接访问原始变量。"
+        },
+        {
+                  "question": "What does `void swap(int &a, int &b)` do differently than `void swap(int a, int b)`?\n这两个函数有什么不同？",
+                  "options": [
+                            "No difference · 没区别",
+                            "The & version modifies the original values · &版本修改原始值",
+                            "The & version is slower · &版本更慢",
+                            "The & version returns a value · &版本有返回值"
+                  ],
+                  "correctIndex": 1,
+                  "explanation": "Without &, changes only affect local copies. With &, changes affect the original variables! · 没有&只改副本，有&改原始变量。"
+        },
+        {
+                  "question": "What does `const int& x` mean as a parameter?\n`const int& x` 作为参数是什么意思？",
+                  "options": [
+                            "x can be modified · x可以修改",
+                            "x is a reference but cannot be modified · x是引用但不能修改",
+                            "x is a pointer · x是指针",
+                            "x is deleted · x被删除"
+                  ],
+                  "correctIndex": 1,
+                  "explanation": "const reference: efficient (no copy) + safe (can't modify). Best practice for large objects! · const引用：高效且安全。"
+        },
+        {
+                  "question": "In Python, are lists passed by value or reference?\nPython中列表是值传递还是引用传递？",
+                  "options": [
+                            "By value · 值传递",
+                            "By reference (similar to C++ references) · 引用传递",
+                            "By copy · 副本传递",
+                            "Neither · 都不是"
+                  ],
+                  "correctIndex": 1,
+                  "explanation": "Python lists behave like C++ references — changes inside functions affect the original. · Python列表类似C++引用传递。"
+        },
+        {
+                  "type": "coding",
+                  "question": "Write a swap function using references.\n用引用写一个交换函数。",
+                  "prompt": "Write void swap(int &a, int &b) that swaps two values",
+                  "starterCode": "#include <iostream>\nusing namespace std;\n\n// Write swap function with references\n\nint main() {\n    int x = 3, y = 7;\n    swap(x, y);\n    cout << x << \" \" << y << endl;\n    return 0;\n}",
+                  "expectedOutput": "7 3",
+                  "hint": "void swap(int &a, int &b) { int temp = a; a = b; b = temp; } · 用临时变量交换",
+                  "explanation": "References let the function modify the caller's variables directly. · 引用让函数直接修改调用者的变量。"
+        },
+        {
+                  "type": "coding",
+                  "question": "Write a function that doubles a number using a reference parameter.\n用引用参数写一个将数字翻倍的函数。",
+                  "prompt": "Write void doubleIt(int &n) that doubles n in place",
+                  "starterCode": "#include <iostream>\nusing namespace std;\n\n// Write doubleIt function\n\nint main() {\n    int val = 5;\n    doubleIt(val);\n    cout << val << endl;\n    return 0;\n}",
+                  "expectedOutput": "10",
+                  "hint": "void doubleIt(int &n) { n = n * 2; } · 用引用修改原值",
+                  "explanation": "With a reference parameter, n *= 2 modifies the original variable. · 引用参数直接修改原始变量。"
         },
       ],
     },
@@ -3990,6 +4734,68 @@ int main() {
           options: ["`vec.add(x)`", "`vec.append(x)`", "`vec.insert(x)`", "`vec.push_back(x)`"],
           correctIndex: 3,
           explanation: "push_back() adds an element to the end of a vector, just like Python's append(). · push_back()向向量末尾添加元素，类似Python的append()。",
+        },
+        {
+                  "question": "What's the main advantage of vector over arrays?\nvector相比数组的主要优势是什么？",
+                  "options": [
+                            "Faster · 更快",
+                            "Dynamic size — can grow and shrink · 动态大小，可增可减",
+                            "Uses less memory · 用更少内存",
+                            "Easier to declare · 更容易声明"
+                  ],
+                  "correctIndex": 1,
+                  "explanation": "Vectors can change size with push_back() and pop_back(). Arrays have fixed size! · vector可以动态改变大小。"
+        },
+        {
+                  "question": "How do you add an element to the end of a vector?\n如何在vector末尾添加元素？",
+                  "options": [
+                            "v.add(x)",
+                            "v.append(x)",
+                            "v.push_back(x)",
+                            "v.insert(x)"
+                  ],
+                  "correctIndex": 2,
+                  "explanation": "push_back() adds to the end. Python uses append(), C++ uses push_back(). · push_back()在末尾添加。"
+        },
+        {
+                  "question": "What happens if you access `arr[10]` in an array of size 5?\n访问大小为5的数组的arr[10]会怎样？",
+                  "options": [
+                            "Returns 0 · 返回0",
+                            "Compilation error · 编译错误",
+                            "Undefined behavior (could crash or return garbage) · 未定义行为",
+                            "Returns -1 · 返回-1"
+                  ],
+                  "correctIndex": 2,
+                  "explanation": "C++ doesn't check array bounds! Accessing out of bounds is undefined behavior. · C++不检查数组越界！"
+        },
+        {
+                  "question": "How do you get the size of a vector v?\n如何获取vector v的大小？",
+                  "options": [
+                            "len(v)",
+                            "v.length()",
+                            "v.size()",
+                            "sizeof(v)"
+                  ],
+                  "correctIndex": 2,
+                  "explanation": "v.size() returns the number of elements. len() is Python, sizeof() gives bytes. · v.size()返回元素数量。"
+        },
+        {
+                  "type": "coding",
+                  "question": "Create a vector of 5 integers and print their sum.\n创建包含5个整数的vector并打印它们的和。",
+                  "prompt": "Read 5 integers into a vector, print their sum",
+                  "starterCode": "#include <iostream>\n#include <vector>\nusing namespace std;\n\nint main() {\n    vector<int> v;\n    // Read 5 numbers and calculate sum\n    \n    return 0;\n}",
+                  "expectedOutput": "15",
+                  "hint": "Use push_back to add, then loop to sum · 用push_back添加，循环求和",
+                  "explanation": "Read with cin, push_back into vector, loop through to accumulate sum. · 读取后push_back，循环累加求和。"
+        },
+        {
+                  "type": "coding",
+                  "question": "Find the maximum value in a vector.\n找到vector中的最大值。",
+                  "prompt": "Read n numbers into a vector, print the maximum",
+                  "starterCode": "#include <iostream>\n#include <vector>\nusing namespace std;\n\nint main() {\n    int n;\n    cin >> n;\n    vector<int> v(n);\n    for(int i = 0; i < n; i++) cin >> v[i];\n    // Find and print the maximum\n    \n    return 0;\n}",
+                  "expectedOutput": "9",
+                  "hint": "Track the max as you loop: if(v[i] > maxVal) maxVal = v[i]; · 循环中追踪最大值",
+                  "explanation": "Initialize max to v[0], then compare each element. · 初始化max为v[0]，逐个比较。"
         },
       ],
     },
@@ -4237,6 +5043,68 @@ int main() {
           options: ["Characters from index 3 to 5 · 索引3到5的字符", "The first 5 characters · 前5个字符", "3 characters starting from index 5 · 从索引5开始的3个字符", "5 characters starting from index 3 · 从索引3开始的5个字符"],
           correctIndex: 3,
           explanation: "substr(pos, len) returns `len` characters starting at position `pos`. Different from Python's [start:end] slicing! · substr(pos, len)返回从位置pos开始的len个字符。",
+        },
+        {
+                  "question": "How do you access the i-th character of a string s?\n如何访问字符串s的第i个字符？",
+                  "options": [
+                            "s(i)",
+                            "s[i]",
+                            "s.get(i)",
+                            "s.char(i)"
+                  ],
+                  "correctIndex": 1,
+                  "explanation": "Use s[i] just like Python! Index starts at 0. · 用s[i]，和Python一样从0开始。"
+        },
+        {
+                  "question": "What does `s.find(\"abc\")` return if not found?\n如果没找到，s.find(\"abc\")返回什么？",
+                  "options": [
+                            "-1",
+                            "0",
+                            "string::npos",
+                            "null"
+                  ],
+                  "correctIndex": 2,
+                  "explanation": "string::npos is a special value meaning 'not found'. It's like Python returning -1 from find(). · string::npos表示未找到。"
+        },
+        {
+                  "question": "What's the C++ equivalent of Python's `s.upper()`?\nPython的s.upper()在C++中怎么写？",
+                  "options": [
+                            "s.upper()",
+                            "toupper(s)",
+                            "transform with ::toupper",
+                            "s.toUpper()"
+                  ],
+                  "correctIndex": 2,
+                  "explanation": "C++ has no built-in string upper(). Use transform(s.begin(), s.end(), s.begin(), ::toupper). · C++没有内置字符串大写方法。"
+        },
+        {
+                  "question": "What does `s.push_back('!')` do?\ns.push_back('!')做什么？",
+                  "options": [
+                            "Adds '!' to the front · 在前面加'!'",
+                            "Adds '!' to the end · 在末尾加'!'",
+                            "Removes '!' · 删除'!'",
+                            "Finds '!' · 查找'!'"
+                  ],
+                  "correctIndex": 1,
+                  "explanation": "push_back appends a character to the end of the string. · push_back在字符串末尾追加字符。"
+        },
+        {
+                  "type": "coding",
+                  "question": "Count the number of vowels in a string.\n统计字符串中的元音字母数量。",
+                  "prompt": "Read a word, print the count of vowels (a,e,i,o,u)",
+                  "starterCode": "#include <iostream>\n#include <string>\nusing namespace std;\n\nint main() {\n    string s;\n    cin >> s;\n    // Count vowels\n    \n    return 0;\n}",
+                  "expectedOutput": "2",
+                  "hint": "Loop through each character and check if it's a vowel · 遍历每个字符检查是否为元音",
+                  "explanation": "Loop through the string, check each char against 'aeiouAEIOU'. · 遍历字符串检查元音。"
+        },
+        {
+                  "type": "coding",
+                  "question": "Reverse a string.\n反转一个字符串。",
+                  "prompt": "Read a word and print it reversed",
+                  "starterCode": "#include <iostream>\n#include <string>\nusing namespace std;\n\nint main() {\n    string s;\n    cin >> s;\n    // Reverse and print\n    \n    return 0;\n}",
+                  "expectedOutput": "olleH",
+                  "hint": "Loop from the end: for(int i=s.length()-1; i>=0; i--) · 从末尾向前遍历",
+                  "explanation": "Loop backwards through the string, or use reverse(s.begin(), s.end()). · 反向遍历或用reverse()。"
         },
       ],
     },
@@ -4751,6 +5619,68 @@ int main() {
           correctIndex: 2,
           explanation: "The :: scope resolution operator means 'belongs to'. Player::takeDamage defines the takeDamage method that was declared inside the Player class. · ::作用域运算符表示'属于'。Player::takeDamage定义了在Player类中声明的方法。",
         },
+        {
+                  "question": "What goes in a header file (.h)?\n头文件(.h)里放什么？",
+                  "options": [
+                            "main() function · main()函数",
+                            "Function declarations (prototypes) · 函数声明（原型）",
+                            "All the program code · 所有程序代码",
+                            "Only comments · 只有注释"
+                  ],
+                  "correctIndex": 1,
+                  "explanation": "Header files contain declarations/prototypes. Implementation goes in .cpp files. · 头文件放声明，实现放.cpp文件。"
+        },
+        {
+                  "question": "What does `#pragma once` do?\n`#pragma once` 做什么？",
+                  "options": [
+                            "Runs the file once · 运行文件一次",
+                            "Prevents the header from being included multiple times · 防止头文件被多次包含",
+                            "Deletes the file · 删除文件",
+                            "Compiles faster · 编译更快"
+                  ],
+                  "correctIndex": 1,
+                  "explanation": "#pragma once is an include guard — prevents duplicate inclusion errors. · 防止头文件重复包含。"
+        },
+        {
+                  "question": "What's the difference between `#include <file>` and `#include \"file\"`?\n尖括号和双引号include的区别？",
+                  "options": [
+                            "No difference · 没区别",
+                            "<> for system headers, \"\" for your own files · <>系统头文件，\"\"自己的文件",
+                            "<> is faster · <>更快",
+                            "\"\" only works on Windows · \"\"只在Windows上有效"
+                  ],
+                  "correctIndex": 1,
+                  "explanation": "<> searches system directories first. \"\" searches your project directory first. · <>先搜系统目录，\"\"先搜项目目录。"
+        },
+        {
+                  "question": "Why split code into multiple files?\n为什么把代码分成多个文件？",
+                  "options": [
+                            "Makes it slower · 让它更慢",
+                            "Better organization and reusability · 更好的组织和复用",
+                            "Required by C++ · C++要求的",
+                            "Takes more memory · 占更多内存"
+                  ],
+                  "correctIndex": 1,
+                  "explanation": "Multi-file projects are organized, maintainable, and enable code reuse. · 多文件项目更有组织、可维护、可复用。"
+        },
+        {
+                  "type": "coding",
+                  "question": "Write a function in one 'file' and call it from main.\n在一个'文件'中写函数并从main调用。",
+                  "prompt": "Write int square(int n) above main, call it to print the square of input",
+                  "starterCode": "#include <iostream>\nusing namespace std;\n\n// Write square function here\n\nint main() {\n    int n;\n    cin >> n;\n    cout << square(n) << endl;\n    return 0;\n}",
+                  "expectedOutput": "25",
+                  "hint": "int square(int n) { return n * n; } · 返回n*n",
+                  "explanation": "Define the function before main() so the compiler knows about it. · 在main()前定义函数。"
+        },
+        {
+                  "type": "coding",
+                  "question": "Write a function prototype (declaration) and define it after main.\n写函数原型（声明）并在main后定义。",
+                  "prompt": "Declare int cube(int n); before main, define after main, print cube of input",
+                  "starterCode": "#include <iostream>\nusing namespace std;\n\n// Write function prototype here\n\nint main() {\n    int n;\n    cin >> n;\n    cout << cube(n) << endl;\n    return 0;\n}\n\n// Write function definition here\n",
+                  "expectedOutput": "27",
+                  "hint": "Prototype: int cube(int n); Definition: int cube(int n) { return n*n*n; } · 原型声明在前，定义在后",
+                  "explanation": "Forward declaration (prototype) lets you define the function after main(). · 前向声明让你在main()后定义函数。"
+        },
       ],
     },
     // 10. Challenge: Create a multi-file program
@@ -5243,6 +6173,57 @@ ref = 100;       // x is now 100
           correctIndex: 2,
           explanation: "References must always refer to a valid object. Pointers can be nullptr. · 引用必须始终引用有效对象。",
         },
+        {
+                  "question": "What does the `*` symbol mean when declaring `int *p;`?\n声明 `int *p;` 时*是什么意思？",
+                  "options": [
+                            "Multiply · 乘法",
+                            "p is a pointer to an int · p是指向int的指针",
+                            "p is an int · p是整数",
+                            "Dereference · 解引用"
+                  ],
+                  "correctIndex": 1,
+                  "explanation": "In a declaration, * means 'pointer to'. int *p means p holds the address of an int. · 声明中*表示'指向'。"
+        },
+        {
+                  "question": "What does `&x` give you?\n`&x` 给你什么？",
+                  "options": [
+                            "The value of x · x的值",
+                            "The memory address of x · x的内存地址",
+                            "A reference to x · x的引用",
+                            "A copy of x · x的副本"
+                  ],
+                  "correctIndex": 1,
+                  "explanation": "& (address-of operator) returns the memory address where x is stored. · &返回x的内存地址。"
+        },
+        {
+                  "question": "If `int *p = &x;`, what does `*p = 10;` do?\n这行代码做什么？",
+                  "options": [
+                            "Changes p's address · 改变p的地址",
+                            "Changes x's value to 10 · 将x的值改为10",
+                            "Creates a new variable · 创建新变量",
+                            "Error · 报错"
+                  ],
+                  "correctIndex": 1,
+                  "explanation": "*p dereferences the pointer — it accesses the value at the address p points to. So *p = 10 changes x to 10. · *p解引用，修改x的值。"
+        },
+        {
+                  "type": "coding",
+                  "question": "Create a pointer to an integer and modify the value through the pointer.\n创建指向整数的指针并通过指针修改值。",
+                  "prompt": "Create int x=5, pointer p to x, change *p to 10, print x",
+                  "starterCode": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int x = 5;\n    // Create pointer and modify value\n    \n    cout << x << endl;\n    return 0;\n}",
+                  "expectedOutput": "10",
+                  "hint": "int *p = &x; *p = 10; · 用指针修改值",
+                  "explanation": "int *p = &x creates a pointer to x. *p = 10 modifies x through the pointer. · 指针指向x后通过*p修改x。"
+        },
+        {
+                  "type": "coding",
+                  "question": "Write a function that uses a pointer parameter to set a value.\n写一个用指针参数设置值的函数。",
+                  "prompt": "Write void setTo100(int *p) that sets the value to 100",
+                  "starterCode": "#include <iostream>\nusing namespace std;\n\n// Write setTo100 function\n\nint main() {\n    int val = 0;\n    setTo100(&val);\n    cout << val << endl;\n    return 0;\n}",
+                  "expectedOutput": "100",
+                  "hint": "void setTo100(int *p) { *p = 100; } · 用*p = 100设置值",
+                  "explanation": "Pass the address with &val, receive with pointer, modify with *p. · 传地址，用指针接收，用*p修改。"
+        },
       ],
     },
     
@@ -5709,6 +6690,57 @@ int main() {
           correctIndex: 1,
           explanation: "Operator overloading lets you define how operators like +, -, == work with your custom types. · 运算符重载定义自定义类型的运算符行为。",
         },
+        {
+                  "question": "What keyword creates a struct in C++?\nC++中用什么关键字创建结构体？",
+                  "options": [
+                            "class",
+                            "struct",
+                            "type",
+                            "record"
+                  ],
+                  "correctIndex": 1,
+                  "explanation": "struct is used to group related variables together. Like a simple class with public members. · struct将相关变量组合在一起。"
+        },
+        {
+                  "question": "What's the default access modifier in a class vs struct?\nclass和struct的默认访问修饰符有什么不同？",
+                  "options": [
+                            "Both public · 都是public",
+                            "Both private · 都是private",
+                            "class is private, struct is public · class是private，struct是public",
+                            "class is public, struct is private · 反过来"
+                  ],
+                  "correctIndex": 2,
+                  "explanation": "In class, members are private by default. In struct, they're public by default. · class默认private，struct默认public。"
+        },
+        {
+                  "question": "What is a constructor?\n什么是构造函数？",
+                  "options": [
+                            "A function that deletes objects · 删除对象的函数",
+                            "A special function that initializes an object · 初始化对象的特殊函数",
+                            "A regular function · 普通函数",
+                            "A loop · 循环"
+                  ],
+                  "correctIndex": 1,
+                  "explanation": "Constructors are called automatically when creating an object. They initialize member variables. · 构造函数在创建对象时自动调用。"
+        },
+        {
+                  "type": "coding",
+                  "question": "Create a struct for a 2D point with x and y coordinates.\n创建一个包含x和y坐标的二维点结构体。",
+                  "prompt": "Create struct Point with int x, y. Read values and print 'Point: (x, y)'",
+                  "starterCode": "#include <iostream>\nusing namespace std;\n\n// Define Point struct here\n\nint main() {\n    Point p;\n    cin >> p.x >> p.y;\n    cout << \"Point: (\" << p.x << \", \" << p.y << \")\" << endl;\n    return 0;\n}",
+                  "expectedOutput": "Point: (3, 4)",
+                  "hint": "struct Point { int x, y; }; · 定义结构体",
+                  "explanation": "struct groups related data. Access members with the dot operator. · struct组合相关数据，用.访问成员。"
+        },
+        {
+                  "type": "coding",
+                  "question": "Create a class with a constructor and a method.\n创建一个有构造函数和方法的类。",
+                  "prompt": "Create class Rectangle with width/height, method area(). Print the area.",
+                  "starterCode": "#include <iostream>\nusing namespace std;\n\n// Define Rectangle class here\n\nint main() {\n    int w, h;\n    cin >> w >> h;\n    Rectangle r(w, h);\n    cout << r.area() << endl;\n    return 0;\n}",
+                  "expectedOutput": "20",
+                  "hint": "class Rectangle { public: int w, h; Rectangle(int w, int h) : w(w), h(h) {} int area() { return w*h; } }; · 用构造函数初始化",
+                  "explanation": "The constructor initializes width and height. area() returns their product. · 构造函数初始化，area()返回面积。"
+        },
       ],
     },
     
@@ -6096,6 +7128,68 @@ Use vector, string, unique_ptr — they handle memory FOR you. Then you don't ne
           options: ["The compiler catches the error · 编译器会捕获错误", "Nothing — it's automatically freed · 没事——会自动释放", "The program crashes immediately · 程序立即崩溃", "Memory leak — the memory is wasted · 内存泄漏——内存被浪费"],
           correctIndex: 3,
           explanation: "Memory leaks mean allocated memory is never freed. The program keeps running but wastes memory. The OS reclaims it when the program exits. · 内存泄漏意味着分配的内存永远不会被释放。",
+        },
+        {
+                  "question": "What does `new int` do?\n`new int` 做什么？",
+                  "options": [
+                            "Creates a stack variable · 创建栈变量",
+                            "Allocates memory on the heap and returns a pointer · 在堆上分配内存并返回指针",
+                            "Declares an integer · 声明整数",
+                            "Deletes an integer · 删除整数"
+                  ],
+                  "correctIndex": 1,
+                  "explanation": "new allocates memory on the heap (dynamic memory). You must delete it later! · new在堆上分配内存，必须delete释放。"
+        },
+        {
+                  "question": "What happens if you forget to `delete` after `new`?\n如果new之后忘记delete会怎样？",
+                  "options": [
+                            "Nothing · 没事",
+                            "Memory leak — the memory is never freed · 内存泄漏",
+                            "Compilation error · 编译错误",
+                            "Automatic cleanup · 自动清理"
+                  ],
+                  "correctIndex": 1,
+                  "explanation": "Memory leaks waste RAM. In long-running programs, this can crash the system! · 内存泄漏浪费内存，可能导致系统崩溃。"
+        },
+        {
+                  "question": "What's the difference between `delete p;` and `delete[] p;`?\n它们的区别是什么？",
+                  "options": [
+                            "No difference · 没区别",
+                            "delete for single objects, delete[] for arrays · delete用于单对象，delete[]用于数组",
+                            "delete[] is faster · delete[]更快",
+                            "delete is for classes only · delete只用于类"
+                  ],
+                  "correctIndex": 1,
+                  "explanation": "Use delete for new, delete[] for new[]. Mixing them is undefined behavior! · new对应delete，new[]对应delete[]。"
+        },
+        {
+                  "question": "What is a smart pointer?\n什么是智能指针？",
+                  "options": [
+                            "A faster pointer · 更快的指针",
+                            "A pointer that automatically manages memory · 自动管理内存的指针",
+                            "A pointer to smart devices · 指向智能设备的指针",
+                            "A debugging tool · 调试工具"
+                  ],
+                  "correctIndex": 1,
+                  "explanation": "Smart pointers (unique_ptr, shared_ptr) automatically delete memory when no longer needed. · 智能指针自动释放内存。"
+        },
+        {
+                  "type": "coding",
+                  "question": "Allocate an integer on the heap, set its value, print it, and free the memory.\n在堆上分配整数，设值，打印，释放内存。",
+                  "prompt": "Use new to allocate, set to 42, print, then delete",
+                  "starterCode": "#include <iostream>\nusing namespace std;\n\nint main() {\n    // Allocate, set, print, delete\n    \n    return 0;\n}",
+                  "expectedOutput": "42",
+                  "hint": "int *p = new int; *p = 42; cout << *p; delete p; · 分配、赋值、打印、释放",
+                  "explanation": "new allocates, *p accesses the value, delete frees the memory. Always pair new with delete! · new分配，*p访问，delete释放。"
+        },
+        {
+                  "type": "coding",
+                  "question": "Allocate a dynamic array of n integers, fill with 1 to n, print sum, and free.\n分配n个整数的动态数组，填入1到n，打印和，释放。",
+                  "prompt": "Read n, allocate array, fill 1..n, print sum, delete array",
+                  "starterCode": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int n;\n    cin >> n;\n    // Dynamic array operations\n    \n    return 0;\n}",
+                  "expectedOutput": "15",
+                  "hint": "int *arr = new int[n]; fill with loop; sum with loop; delete[] arr; · 用new int[n]分配",
+                  "explanation": "new int[n] allocates an array. Always use delete[] (not delete) for arrays! · new int[n]分配数组，用delete[]释放。"
         },
       ],
     },
@@ -6602,6 +7696,57 @@ obj.A::hello();   // Must specify
           correctIndex: 3,
           explanation: "The 'final' keyword prevents further overriding. · 'final'阻止进一步重写。",
         },
+        {
+                  "question": "How does C++ denote inheritance?\nC++如何表示继承？",
+                  "options": [
+                            "class Dog(Animal):",
+                            "class Dog extends Animal",
+                            "class Dog : public Animal",
+                            "class Dog inherits Animal"
+                  ],
+                  "correctIndex": 2,
+                  "explanation": "C++ uses colon syntax: class Derived : public Base. Python uses parentheses. · C++用冒号语法表示继承。"
+        },
+        {
+                  "question": "What does `virtual` keyword enable?\nvirtual关键字启用什么？",
+                  "options": [
+                            "Faster code · 更快的代码",
+                            "Polymorphism — derived classes can override the function · 多态性，派生类可以重写函数",
+                            "Static binding · 静态绑定",
+                            "Multiple inheritance · 多重继承"
+                  ],
+                  "correctIndex": 1,
+                  "explanation": "virtual enables runtime polymorphism — the correct overridden function is called based on the actual object type. · virtual启用运行时多态。"
+        },
+        {
+                  "question": "What is a pure virtual function?\n什么是纯虚函数？",
+                  "options": [
+                            "A function that returns void · 返回void的函数",
+                            "A function with = 0, making the class abstract · 带=0的函数，使类成为抽象类",
+                            "A static function · 静态函数",
+                            "A private function · 私有函数"
+                  ],
+                  "correctIndex": 1,
+                  "explanation": "virtual void func() = 0; makes a pure virtual function. The class becomes abstract and can't be instantiated. · 纯虚函数使类成为抽象类。"
+        },
+        {
+                  "type": "coding",
+                  "question": "Create a base class Shape and derived class Circle with an area method.\n创建基类Shape和派生类Circle，包含面积方法。",
+                  "prompt": "Shape has virtual double area(). Circle overrides it. Print circle area.",
+                  "starterCode": "#include <iostream>\nusing namespace std;\n\n// Define Shape and Circle classes\n\nint main() {\n    double r;\n    cin >> r;\n    Circle c(r);\n    cout << fixed;\n    cout.precision(2);\n    cout << c.area() << endl;\n    return 0;\n}",
+                  "expectedOutput": "78.54",
+                  "hint": "class Shape { public: virtual double area() = 0; }; class Circle : public Shape { ... }; · 虚函数和继承",
+                  "explanation": "Override virtual functions in derived classes to implement polymorphism. · 在派生类中重写虚函数实现多态。"
+        },
+        {
+                  "type": "coding",
+                  "question": "Demonstrate polymorphism with a base pointer.\n用基类指针演示多态。",
+                  "prompt": "Create Shape* pointing to Circle, call area() through pointer",
+                  "starterCode": "#include <iostream>\nusing namespace std;\n\nclass Shape {\npublic:\n    virtual double area() = 0;\n    virtual ~Shape() {}\n};\n\n// Add Circle class\n\nint main() {\n    double r;\n    cin >> r;\n    Shape* s = new Circle(r);\n    cout << fixed;\n    cout.precision(2);\n    cout << s->area() << endl;\n    delete s;\n    return 0;\n}",
+                  "expectedOutput": "28.27",
+                  "hint": "class Circle : public Shape { double r; public: Circle(double r):r(r){} double area() override { return 3.14159*r*r; } }; · 继承并重写",
+                  "explanation": "A base class pointer can call derived class methods through virtual dispatch. · 基类指针通过虚函数调用派生类方法。"
+        },
       ],
     },
     
@@ -7064,6 +8209,68 @@ int main() {
           correctIndex: 0,
           explanation: "map uses a balanced BST (O(log n)), while unordered_map uses a hash table (O(1) average, O(n) worst case). · map用平衡BST，unordered_map用哈希表。",
         },
+        {
+                  "question": "What's the C++ equivalent of Python's dictionary?\nC++中什么等价于Python的字典？",
+                  "options": [
+                            "vector",
+                            "array",
+                            "map",
+                            "set"
+                  ],
+                  "correctIndex": 2,
+                  "explanation": "std::map stores key-value pairs, like Python's dict. map is sorted by key. · map存储键值对，类似Python字典。"
+        },
+        {
+                  "question": "What does `set` guarantee about its elements?\nset对元素有什么保证？",
+                  "options": [
+                            "They're sorted and unique · 排序且唯一",
+                            "They're in insertion order · 按插入顺序",
+                            "They can repeat · 可以重复",
+                            "They're always integers · 总是整数"
+                  ],
+                  "correctIndex": 0,
+                  "explanation": "std::set stores unique elements in sorted order. Use unordered_set for faster unsorted access. · set存储排序的唯一元素。"
+        },
+        {
+                  "question": "How do you check if a key exists in a map?\n如何检查map中是否存在某个键？",
+                  "options": [
+                            "m.has(key)",
+                            "m.contains(key) or m.find(key) != m.end()",
+                            "m[key] != null",
+                            "key in m"
+                  ],
+                  "correctIndex": 1,
+                  "explanation": "Use m.count(key) > 0, m.find(key) != m.end(), or m.contains(key) (C++20). · 用count、find或contains检查。"
+        },
+        {
+                  "question": "What happens when you access `m[key]` for a nonexistent key?\n访问不存在的键m[key]会怎样？",
+                  "options": [
+                            "Error · 报错",
+                            "Returns null · 返回null",
+                            "Creates the key with default value · 用默认值创建该键",
+                            "Returns -1 · 返回-1"
+                  ],
+                  "correctIndex": 2,
+                  "explanation": "m[key] auto-creates the entry with default value (0 for int). This is different from Python's KeyError! · m[key]自动创建默认值条目。"
+        },
+        {
+                  "type": "coding",
+                  "question": "Count the frequency of each character in a string using a map.\n用map统计字符串中每个字符的频率。",
+                  "prompt": "Read a word, print each character and its count (sorted)",
+                  "starterCode": "#include <iostream>\n#include <map>\n#include <string>\nusing namespace std;\n\nint main() {\n    string s;\n    cin >> s;\n    // Count character frequencies\n    \n    return 0;\n}",
+                  "expectedOutput": "a: 1\nb: 1\nc: 1",
+                  "hint": "map<char,int> freq; for(char c : s) freq[c]++; · 用map计数",
+                  "explanation": "map[key]++ increments the count. Range-for loops make iteration easy. · map[key]++自增计数。"
+        },
+        {
+                  "type": "coding",
+                  "question": "Use a set to find unique elements from input.\n用set找出输入中的唯一元素。",
+                  "prompt": "Read n numbers, print count of unique values",
+                  "starterCode": "#include <iostream>\n#include <set>\nusing namespace std;\n\nint main() {\n    int n, x;\n    cin >> n;\n    set<int> unique;\n    // Read and insert into set\n    \n    return 0;\n}",
+                  "expectedOutput": "3",
+                  "hint": "Loop n times, cin >> x, unique.insert(x). Print unique.size(). · 插入set后输出size",
+                  "explanation": "Sets automatically handle duplicates. size() gives the count of unique elements. · set自动去重，size()给出唯一元素数。"
+        },
       ],
     },
   ],
@@ -7494,6 +8701,57 @@ int main() {
           options: ["Sorting · 排序", "Finding elements · 查找", "Actually removing elements from a container · 真正删除元素", "Copying · 复制"],
           correctIndex: 2,
           explanation: "remove_if moves unwanted elements to the end. erase actually removes them. · remove_if移到末尾，erase真正删除。",
+        },
+        {
+                  "question": "Which header provides sort(), find(), etc.?\n哪个头文件提供sort()、find()等？",
+                  "options": [
+                            "<iostream>",
+                            "<vector>",
+                            "<algorithm>",
+                            "<cmath>"
+                  ],
+                  "correctIndex": 2,
+                  "explanation": "<algorithm> contains most STL algorithms: sort, find, count, reverse, etc. · <algorithm>包含大多数STL算法。"
+        },
+        {
+                  "question": "What's the time complexity of std::sort()?\nstd::sort()的时间复杂度是？",
+                  "options": [
+                            "O(n)",
+                            "O(n log n)",
+                            "O(n²)",
+                            "O(log n)"
+                  ],
+                  "correctIndex": 1,
+                  "explanation": "std::sort uses IntroSort (hybrid of quicksort, heapsort, insertion sort) — O(n log n). · std::sort是O(n log n)。"
+        },
+        {
+                  "question": "How do you sort a vector in descending order?\n如何降序排序vector？",
+                  "options": [
+                            "sort(v.begin(), v.end())",
+                            "sort(v.rbegin(), v.rend())",
+                            "sort(v.end(), v.begin())",
+                            "reverse_sort(v)"
+                  ],
+                  "correctIndex": 1,
+                  "explanation": "Use reverse iterators rbegin/rend, or pass greater<int>() as the third argument. · 用反向迭代器或greater<int>()。"
+        },
+        {
+                  "type": "coding",
+                  "question": "Sort a vector and print the result.\n排序vector并打印结果。",
+                  "prompt": "Read n numbers, sort them, print space-separated",
+                  "starterCode": "#include <iostream>\n#include <vector>\n#include <algorithm>\nusing namespace std;\n\nint main() {\n    int n;\n    cin >> n;\n    vector<int> v(n);\n    for(int i = 0; i < n; i++) cin >> v[i];\n    // Sort and print\n    \n    return 0;\n}",
+                  "expectedOutput": "1 2 3 4 5",
+                  "hint": "sort(v.begin(), v.end()); then loop to print · sort排序后循环打印",
+                  "explanation": "sort(v.begin(), v.end()) sorts in ascending order. Print with a loop. · sort()升序排序。"
+        },
+        {
+                  "type": "coding",
+                  "question": "Find the number of occurrences of a value in a vector.\n统计vector中某值出现的次数。",
+                  "prompt": "Read n numbers and a target, print count of target",
+                  "starterCode": "#include <iostream>\n#include <vector>\n#include <algorithm>\nusing namespace std;\n\nint main() {\n    int n, target;\n    cin >> n;\n    vector<int> v(n);\n    for(int i = 0; i < n; i++) cin >> v[i];\n    cin >> target;\n    // Count occurrences\n    \n    return 0;\n}",
+                  "expectedOutput": "3",
+                  "hint": "Use count(v.begin(), v.end(), target) · 用count()统计",
+                  "explanation": "STL count() returns the number of elements matching the value. · count()返回匹配值的元素数。"
         },
       ],
     },
@@ -7961,6 +9219,68 @@ int main() {
           correctIndex: 2,
           explanation: "priority_queue is a max-heap by default — top() always returns the largest element. Use greater<int> for a min-heap. · priority_queue默认是最大堆。",
         },
+        {
+                  "question": "What is a stack's access pattern?\n栈的访问模式是什么？",
+                  "options": [
+                            "FIFO (First In First Out)",
+                            "LIFO (Last In First Out)",
+                            "Random access · 随机访问",
+                            "Sorted order · 排序顺序"
+                  ],
+                  "correctIndex": 1,
+                  "explanation": "Stack is LIFO: the last element pushed is the first one popped. Like a stack of plates! · 栈是后进先出。"
+        },
+        {
+                  "question": "What's the difference between a queue and a stack?\n队列和栈有什么区别？",
+                  "options": [
+                            "No difference · 没区别",
+                            "Queue is FIFO, stack is LIFO · 队列先进先出，栈后进先出",
+                            "Queue is faster · 队列更快",
+                            "Stack can hold more elements · 栈能存更多元素"
+                  ],
+                  "correctIndex": 1,
+                  "explanation": "Queue is FIFO (like a line at a store). Stack is LIFO (like a stack of books). · 队列先进先出，栈后进先出。"
+        },
+        {
+                  "question": "What does priority_queue give you first by default?\npriority_queue默认先给什么？",
+                  "options": [
+                            "Smallest element · 最小元素",
+                            "Largest element · 最大元素",
+                            "First inserted · 先插入的",
+                            "Random element · 随机元素"
+                  ],
+                  "correctIndex": 1,
+                  "explanation": "C++ priority_queue is a max-heap by default — top() gives the largest element. · priority_queue默认最大堆。"
+        },
+        {
+                  "question": "Which STL container would you use for BFS (Breadth-First Search)?\nBFS用哪个STL容器？",
+                  "options": [
+                            "stack",
+                            "vector",
+                            "queue",
+                            "set"
+                  ],
+                  "correctIndex": 2,
+                  "explanation": "BFS uses a queue (FIFO) to process nodes level by level. DFS uses a stack. · BFS用队列，DFS用栈。"
+        },
+        {
+                  "type": "coding",
+                  "question": "Use a stack to reverse a string.\n用栈反转字符串。",
+                  "prompt": "Read a word, push each char to stack, pop and print to reverse",
+                  "starterCode": "#include <iostream>\n#include <stack>\n#include <string>\nusing namespace std;\n\nint main() {\n    string s;\n    cin >> s;\n    stack<char> st;\n    // Push all chars, then pop to reverse\n    \n    return 0;\n}",
+                  "expectedOutput": "olleH",
+                  "hint": "Push each char, then pop and print: while(!st.empty()) { cout << st.top(); st.pop(); } · 入栈再出栈",
+                  "explanation": "Stack's LIFO property naturally reverses the order of elements. · 栈的后进先出特性自然反转顺序。"
+        },
+        {
+                  "type": "coding",
+                  "question": "Find the top 3 largest numbers using a priority queue.\n用优先队列找最大的3个数。",
+                  "prompt": "Read n numbers, print the 3 largest in descending order",
+                  "starterCode": "#include <iostream>\n#include <queue>\nusing namespace std;\n\nint main() {\n    int n;\n    cin >> n;\n    priority_queue<int> pq;\n    // Read numbers and find top 3\n    \n    return 0;\n}",
+                  "expectedOutput": "9 7 5",
+                  "hint": "Push all numbers, then pop top 3: pq.top() then pq.pop() three times · 插入所有数字，弹出前3个",
+                  "explanation": "priority_queue (max-heap) gives the largest element first with top(). · 最大堆用top()获取最大元素。"
+        },
       ],
     },
   ],
@@ -8269,6 +9589,68 @@ int main() {
           correctIndex: 1,
           explanation: "endl outputs a newline AND flushes the output buffer. In competitions with lots of output, this flush is wasteful. · endl输出换行并刷新缓冲区，竞赛中这很浪费时间。",
         },
+        {
+                  "question": "What does `ios::sync_with_stdio(false);` do?\n这行代码做什么？",
+                  "options": [
+                            "Makes the program slower · 让程序更慢",
+                            "Disables sync between C and C++ I/O for faster input/output · 禁用C和C++的I/O同步以加速",
+                            "Enables debugging · 启用调试",
+                            "Formats output · 格式化输出"
+                  ],
+                  "correctIndex": 1,
+                  "explanation": "Disabling sync makes cin/cout much faster — essential for competitive programming with large inputs! · 禁用同步让cin/cout快很多。"
+        },
+        {
+                  "question": "What is a template in C++?\nC++中什么是模板？",
+                  "options": [
+                            "A pre-written program · 预写的程序",
+                            "A way to write generic code that works with any type · 编写适用于任何类型的通用代码",
+                            "A design pattern · 设计模式",
+                            "A type of class · 一种类"
+                  ],
+                  "correctIndex": 1,
+                  "explanation": "Templates let you write one function/class that works with int, double, string, etc. — any type! · 模板让你写一次代码适用于任何类型。"
+        },
+        {
+                  "question": "What does `cin.tie(NULL);` do?\n这行代码做什么？",
+                  "options": [
+                            "Ties cin to a file · 将cin绑定到文件",
+                            "Unties cin from cout for faster I/O · 解绑cin和cout以加速I/O",
+                            "Creates a null pointer · 创建空指针",
+                            "Closes input · 关闭输入"
+                  ],
+                  "correctIndex": 1,
+                  "explanation": "Untying cin from cout means cout doesn't flush before each cin, making I/O faster. · 解绑让I/O更快。"
+        },
+        {
+                  "question": "What does `#include <bits/stdc++.h>` do?\n这个include做什么？",
+                  "options": [
+                            "Includes only iostream · 只包含iostream",
+                            "Includes ALL standard headers at once · 一次包含所有标准头文件",
+                            "Causes an error · 导致错误",
+                            "Includes bit manipulation only · 只包含位操作"
+                  ],
+                  "correctIndex": 1,
+                  "explanation": "bits/stdc++.h includes everything — convenient for competitive programming but not standard! · 包含所有标准库头文件。"
+        },
+        {
+                  "type": "coding",
+                  "question": "Write a template function that returns the maximum of two values.\n写一个模板函数返回两个值中的最大值。",
+                  "prompt": "Write template<typename T> T maxVal(T a, T b) and test with int and double",
+                  "starterCode": "#include <iostream>\nusing namespace std;\n\n// Write template maxVal function\n\nint main() {\n    cout << maxVal(3, 7) << endl;\n    cout << maxVal(3.14, 2.72) << endl;\n    return 0;\n}",
+                  "expectedOutput": "7\n3.14",
+                  "hint": "template<typename T> T maxVal(T a, T b) { return (a > b) ? a : b; } · 模板函数",
+                  "explanation": "Templates generate type-specific code at compile time. One function works for any comparable type! · 模板在编译时生成特定类型代码。"
+        },
+        {
+                  "type": "coding",
+                  "question": "Set up fast I/O and read/print n numbers quickly.\n设置快速I/O并快速读写n个数字。",
+                  "prompt": "Use fast I/O setup, read n numbers, print their sum",
+                  "starterCode": "#include <bits/stdc++.h>\nusing namespace std;\n\nint main() {\n    // Set up fast I/O\n    \n    int n;\n    cin >> n;\n    long long sum = 0;\n    // Read and sum\n    \n    cout << sum << endl;\n    return 0;\n}",
+                  "expectedOutput": "15",
+                  "hint": "ios::sync_with_stdio(false); cin.tie(NULL); · 快速I/O设置",
+                  "explanation": "Fast I/O is crucial in competitive programming. Always add these two lines at the start! · 快速I/O在竞赛中至关重要。"
+        },
       ],
     },
   ],
@@ -8568,6 +9950,68 @@ int main() {
           options: ["When the locally optimal choice leads to the global optimum · 当局部最优能导致全局最优时", "Only for sorting problems · 只用于排序问题", "Always — it's the fastest · 总是——它最快", "Never — dynamic programming is always better · 从不——动态规划总是更好"],
           correctIndex: 0,
           explanation: "Greedy works when you can prove that making the best local choice at each step gives the best overall solution. · 贪心在可以证明局部最优等于全局最优时有效。",
+        },
+        {
+                  "question": "What is a greedy algorithm?\n什么是贪心算法？",
+                  "options": [
+                            "An algorithm that uses all memory · 使用所有内存的算法",
+                            "An algorithm that makes the locally optimal choice at each step · 每步选局部最优的算法",
+                            "An algorithm that searches everything · 搜索所有内容的算法",
+                            "A slow algorithm · 慢算法"
+                  ],
+                  "correctIndex": 1,
+                  "explanation": "Greedy algorithms make the best choice at each step, hoping it leads to a global optimum. · 贪心每步选最优。"
+        },
+        {
+                  "question": "What is binary search's time complexity?\n二分搜索的时间复杂度是？",
+                  "options": [
+                            "O(n)",
+                            "O(n²)",
+                            "O(log n)",
+                            "O(1)"
+                  ],
+                  "correctIndex": 2,
+                  "explanation": "Binary search halves the search space each step: O(log n). But the data must be sorted! · 二分搜索每步减半，O(log n)。"
+        },
+        {
+                  "question": "What's required before using binary search?\n使用二分搜索前需要什么？",
+                  "options": [
+                            "Data must be sorted · 数据必须有序",
+                            "Data must be unique · 数据必须唯一",
+                            "Data must be integers · 数据必须是整数",
+                            "Nothing · 没有要求"
+                  ],
+                  "correctIndex": 0,
+                  "explanation": "Binary search only works on sorted data. Sort first, then search! · 二分搜索只能用于有序数据。"
+        },
+        {
+                  "question": "Which STL function performs binary search?\n哪个STL函数执行二分搜索？",
+                  "options": [
+                            "find()",
+                            "search()",
+                            "lower_bound() / upper_bound()",
+                            "binary_find()"
+                  ],
+                  "correctIndex": 2,
+                  "explanation": "lower_bound and upper_bound perform binary search on sorted containers. Also binary_search() returns bool. · lower_bound/upper_bound执行二分搜索。"
+        },
+        {
+                  "type": "coding",
+                  "question": "Implement binary search on a sorted array.\n在有序数组上实现二分搜索。",
+                  "prompt": "Read sorted array and target, print index or -1 if not found",
+                  "starterCode": "#include <iostream>\n#include <vector>\nusing namespace std;\n\nint main() {\n    int n, target;\n    cin >> n;\n    vector<int> v(n);\n    for(int i = 0; i < n; i++) cin >> v[i];\n    cin >> target;\n    // Binary search\n    \n    return 0;\n}",
+                  "expectedOutput": "2",
+                  "hint": "int lo=0, hi=n-1; while(lo<=hi) { int mid=(lo+hi)/2; ... } · 二分搜索模板",
+                  "explanation": "Binary search: compare middle element, narrow to left or right half. · 二分：比较中间值，缩小搜索范围。"
+        },
+        {
+                  "type": "coding",
+                  "question": "Solve the coin change greedy problem: use fewest coins for amount.\n贪心解硬币找零：用最少硬币凑金额。",
+                  "prompt": "Coins: 25, 10, 5, 1. Read amount, print minimum coins needed.",
+                  "starterCode": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int amount;\n    cin >> amount;\n    int coins[] = {25, 10, 5, 1};\n    int count = 0;\n    // Greedy: use largest coin first\n    \n    cout << count << endl;\n    return 0;\n}",
+                  "expectedOutput": "4",
+                  "hint": "For each coin: count += amount/coin; amount %= coin; · 对每种硬币：整除得数量，取余得剩余",
+                  "explanation": "Greedy: always use the largest coin possible. Works for US coin system! · 贪心：总是用最大面值。"
         },
       ],
     },
@@ -8879,6 +10323,68 @@ int main() {
           options: ["Greedy uses more memory · 贪心用更多内存", "Greedy makes irrevocable choices; DP considers all subproblems · 贪心做不可撤销的选择；DP考虑所有子问题", "DP can't use recursion · DP不能用递归", "DP is always faster · DP总是更快"],
           correctIndex: 1,
           explanation: "Greedy commits to the locally best choice. DP explores all possibilities via subproblems and picks the overall best. DP is more general but usually slower. · 贪心选择局部最优，DP探索所有子问题选全局最优。",
+        },
+        {
+                  "question": "What is the key idea behind dynamic programming?\n动态规划的核心思想是什么？",
+                  "options": [
+                            "Use recursion only · 只用递归",
+                            "Break problem into overlapping subproblems and store results · 分解为重叠子问题并存储结果",
+                            "Always use greedy approach · 总是用贪心",
+                            "Brute force search · 暴力搜索"
+                  ],
+                  "correctIndex": 1,
+                  "explanation": "DP = optimal substructure + overlapping subproblems + memoization/tabulation. · DP=最优子结构+重叠子问题+记忆化。"
+        },
+        {
+                  "question": "What's the difference between top-down and bottom-up DP?\n自顶向下和自底向上DP的区别？",
+                  "options": [
+                            "No difference · 没区别",
+                            "Top-down uses recursion+memo; bottom-up uses iteration+table · 自顶向下用递归+记忆；自底向上用迭代+表格",
+                            "Top-down is always faster · 自顶向下总是更快",
+                            "Bottom-up uses recursion · 自底向上用递归"
+                  ],
+                  "correctIndex": 1,
+                  "explanation": "Top-down (memoization) = recursive. Bottom-up (tabulation) = iterative. Both give same results. · 自顶向下递归，自底向上迭代。"
+        },
+        {
+                  "question": "What's the time complexity of the Fibonacci DP solution?\nFibonacci DP解法的时间复杂度？",
+                  "options": [
+                            "O(2^n)",
+                            "O(n²)",
+                            "O(n)",
+                            "O(n log n)"
+                  ],
+                  "correctIndex": 2,
+                  "explanation": "DP Fibonacci is O(n) — each subproblem computed once. Naive recursion is O(2^n)! · DP Fibonacci是O(n)。"
+        },
+        {
+                  "question": "What data structure typically stores DP results?\n通常用什么数据结构存DP结果？",
+                  "options": [
+                            "Stack · 栈",
+                            "Queue · 队列",
+                            "Array or vector · 数组或向量",
+                            "Set · 集合"
+                  ],
+                  "correctIndex": 2,
+                  "explanation": "DP tables are usually arrays/vectors indexed by the subproblem parameters. · DP表通常是按子问题参数索引的数组。"
+        },
+        {
+                  "type": "coding",
+                  "question": "Compute the nth Fibonacci number using bottom-up DP.\n用自底向上DP计算第n个Fibonacci数。",
+                  "prompt": "Read n, print fib(n). fib(0)=0, fib(1)=1, fib(2)=1, ...",
+                  "starterCode": "#include <iostream>\n#include <vector>\nusing namespace std;\n\nint main() {\n    int n;\n    cin >> n;\n    // Bottom-up DP for Fibonacci\n    \n    return 0;\n}",
+                  "expectedOutput": "55",
+                  "hint": "vector<long long> dp(n+1); dp[0]=0; dp[1]=1; loop from 2 to n · 从2循环到n",
+                  "explanation": "Build the table from small to large: dp[i] = dp[i-1] + dp[i-2]. O(n) time, O(n) space. · 自底向上构建表格。"
+        },
+        {
+                  "type": "coding",
+                  "question": "Solve the climbing stairs problem with DP.\n用DP解决爬楼梯问题。",
+                  "prompt": "n stairs, can climb 1 or 2 at a time. Print number of ways to reach top.",
+                  "starterCode": "#include <iostream>\n#include <vector>\nusing namespace std;\n\nint main() {\n    int n;\n    cin >> n;\n    // DP: ways to climb n stairs\n    \n    return 0;\n}",
+                  "expectedOutput": "8",
+                  "hint": "dp[i] = dp[i-1] + dp[i-2], dp[0]=1, dp[1]=1 · 和Fibonacci类似",
+                  "explanation": "Same recurrence as Fibonacci! dp[i] = ways from (i-1) + ways from (i-2). · 和Fibonacci相同递推！"
         },
       ],
     },
