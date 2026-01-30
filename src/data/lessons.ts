@@ -9224,7 +9224,13 @@ else:
 
 // Helper functions remain the same
 export function getLessonById(id: string): Lesson | undefined {
-  return LESSONS.find((l) => l.id === id);
+  const py = LESSONS.find((l) => l.id === id);
+  if (py) return py;
+  // Lazy-load C++ lessons to avoid circular deps
+  try {
+    const { CPP_LESSONS } = require("./cpp-lessons");
+    return (CPP_LESSONS as Lesson[]).find((l) => l.id === id);
+  } catch { return undefined; }
 }
 
 export function getModuleById(id: string): Module | undefined {
@@ -9235,11 +9241,13 @@ export function getLessonsByModule(moduleId: string): Lesson[] {
   return LESSONS.filter((l) => l.moduleId === moduleId).sort((a, b) => a.order - b.order);
 }
 
-/** Get all lessons in module order (flattened) */
-export function getAllLessonsOrdered(): Lesson[] {
+/** Get all lessons in module order (flattened) — for a given track */
+export function getAllLessonsOrdered(trackModules?: Module[], trackLessons?: Lesson[]): Lesson[] {
+  const mods = trackModules || MODULES;
+  const lsns = trackLessons || LESSONS;
   const ordered: Lesson[] = [];
-  for (const mod of MODULES) {
-    const modLessons = LESSONS.filter((l) => l.moduleId === mod.id).sort((a, b) => a.order - b.order);
+  for (const mod of mods) {
+    const modLessons = lsns.filter((l) => l.moduleId === mod.id).sort((a, b) => a.order - b.order);
     ordered.push(...modLessons);
   }
   return ordered;
@@ -9247,7 +9255,19 @@ export function getAllLessonsOrdered(): Lesson[] {
 
 /** Get the previous and next lesson relative to the given lesson ID */
 export function getAdjacentLessons(lessonId: string): { prev: Lesson | null; next: Lesson | null; isLastInModule: boolean; isVeryLast: boolean; nextModuleTitle?: string } {
-  const all = getAllLessonsOrdered();
+  // Determine track
+  const isCpp = lessonId.startsWith("cpp-");
+  let trackModules = MODULES;
+  let trackLessons = LESSONS;
+  if (isCpp) {
+    try {
+      const cpp = require("./cpp-lessons");
+      trackModules = cpp.CPP_MODULES;
+      trackLessons = cpp.CPP_LESSONS;
+    } catch { /* fall through */ }
+  }
+
+  const all = getAllLessonsOrdered(trackModules, trackLessons);
   const idx = all.findIndex((l) => l.id === lessonId);
   if (idx === -1) return { prev: null, next: null, isLastInModule: false, isVeryLast: false };
 
@@ -9256,7 +9276,7 @@ export function getAdjacentLessons(lessonId: string): { prev: Lesson | null; nex
   const next = idx < all.length - 1 ? all[idx + 1] : null;
   const isVeryLast = idx === all.length - 1;
   const isLastInModule = next ? next.moduleId !== current.moduleId : true;
-  const nextModuleTitle = next && isLastInModule ? MODULES.find((m) => m.id === next.moduleId)?.title : undefined;
+  const nextModuleTitle = next && isLastInModule ? trackModules.find((m) => m.id === next.moduleId)?.title : undefined;
 
   return { prev, next, isLastInModule, isVeryLast, nextModuleTitle };
 }

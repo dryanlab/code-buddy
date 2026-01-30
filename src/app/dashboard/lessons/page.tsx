@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { getProgress } from "@/lib/progress-store";
 import { MODULES, LESSONS } from "@/data/lessons";
+import { CPP_MODULES, CPP_LESSONS } from "@/data/cpp-lessons";
 import { useUserProfile } from "@/lib/useUserProfile";
 import { getStartingIndex, getLessonIndex, CURRICULUM_PATH, SKILL_LABELS, type SkillLevel } from "@/lib/skill-store";
 import { isPreviewMode, isLessonUnlocked } from "@/lib/preview-mode";
@@ -14,10 +15,14 @@ export default function LessonsPage() {
   const [completedLessons, setCompletedLessons] = useState<string[]>([]);
   const [preview, setPreview] = useState(false);
   const [showSignUpModal, setShowSignUpModal] = useState(false);
+  const [track, setTrack] = useState<"python" | "cpp">("python");
   const { profile } = useUserProfile();
   const skillLevel: SkillLevel = profile?.skillLevel || "beginner";
   const startIdx = getStartingIndex(skillLevel);
   const skillLabel = SKILL_LABELS[skillLevel];
+
+  const activeModules = track === "python" ? MODULES : CPP_MODULES;
+  const activeLessons = track === "python" ? LESSONS : CPP_LESSONS;
 
   useEffect(() => {
     setCompletedLessons(getProgress().completedLessons);
@@ -29,22 +34,58 @@ export default function LessonsPage() {
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
         <h1 className="text-3xl font-bold mb-1">📚 Lessons</h1>
         <p className="text-sm mb-1" style={{ color: "var(--theme-text-muted)" }}>课程</p>
-        <p className="mb-2" style={{ color: "var(--theme-text-secondary)" }}>
-          Your journey as {skillLabel.emoji} {skillLabel.en} starts at lesson {startIdx + 1} of {CURRICULUM_PATH.length}
-        </p>
-        <p className="text-sm mb-8" style={{ color: "var(--theme-text-muted)" }}>
-          {skillLabel.cn}的旅程从第 {startIdx + 1} 课开始 · 选择一个模块开始冒险！
-        </p>
+        {track === "python" ? (
+          <>
+            <p className="mb-2" style={{ color: "var(--theme-text-secondary)" }}>
+              Your journey as {skillLabel.emoji} {skillLabel.en} starts at lesson {startIdx + 1} of {CURRICULUM_PATH.length}
+            </p>
+            <p className="text-sm mb-8" style={{ color: "var(--theme-text-muted)" }}>
+              {skillLabel.cn}的旅程从第 {startIdx + 1} 课开始 · 选择一个模块开始冒险！
+            </p>
+          </>
+        ) : (
+          <>
+            <p className="mb-2" style={{ color: "var(--theme-text-secondary)" }}>
+              Level up from Python to C++ · 6 modules, 24 lessons
+            </p>
+            <p className="text-sm mb-8" style={{ color: "var(--theme-text-muted)" }}>
+              从Python进阶到C++ · 6个模块，24节课
+            </p>
+          </>
+        )}
       </motion.div>
 
+      {/* Track Tabs */}
+      <div className="flex gap-2 mb-8">
+        {([
+          { key: "python" as const, label: "🐍 Python", sub: "Python" },
+          { key: "cpp" as const, label: "⚡ C++", sub: "C++" },
+        ]).map((t) => (
+          <motion.button
+            key={t.key}
+            whileTap={{ scale: 0.97 }}
+            onClick={() => setTrack(t.key)}
+            className="px-5 py-2.5 rounded-full text-sm font-bold transition-all"
+            style={{
+              backgroundColor: track === t.key ? "var(--color-primary)" : "var(--theme-card-bg)",
+              color: track === t.key ? "var(--theme-bg)" : "var(--theme-text-secondary)",
+              border: `1px solid ${track === t.key ? "var(--color-primary)" : "var(--theme-border)"}`,
+            }}
+          >
+            {t.label}
+          </motion.button>
+        ))}
+      </div>
+
       <div className="space-y-10">
-        {MODULES.map((mod, mi) => {
-          const moduleLessons = LESSONS.filter((l) => l.moduleId === mod.id).sort((a, b) => a.order - b.order);
+        {activeModules.map((mod, mi) => {
+          const moduleLessons = activeLessons.filter((l) => l.moduleId === mod.id).sort((a, b) => a.order - b.order);
           const completed = moduleLessons.filter((l) => completedLessons.includes(l.id)).length;
 
-          // Check if entire module is "review" territory
+          // Check if entire module is "review" territory (Python track only)
+          const isCppTrack = track === "cpp";
           const moduleIndices = moduleLessons.map((l) => getLessonIndex(l.id));
-          const allBeforeStart = moduleIndices.every((idx) => idx < startIdx);
+          const allBeforeStart = !isCppTrack && moduleIndices.every((idx) => idx >= 0 && idx < startIdx);
 
           return (
             <motion.div
@@ -84,23 +125,27 @@ export default function LessonsPage() {
                   const isDone = completedLessons.includes(lesson.id);
                   const prevLesson = li > 0 ? moduleLessons[li - 1] : null;
                   const globalIdx = getLessonIndex(lesson.id);
-                  const isBeforeStart = globalIdx < startIdx;
-                  const isAtOrAfterStart = globalIdx >= startIdx;
+                  const isBeforeStart = !isCppTrack && globalIdx >= 0 && globalIdx < startIdx;
+                  const isAtOrAfterStart = isCppTrack || globalIdx >= startIdx;
 
                   // Preview mode: lock all except allowed first lessons
                   const previewLocked = preview && !isLessonUnlocked(lesson.id);
 
-                  // Unlock logic: lessons before starting point are always unlocked (review).
-                  // Lessons at/after starting point follow normal sequential unlock.
-                  const isLocked = previewLocked || (isAtOrAfterStart
-                    && !isDone
-                    && li > 0
-                    && !completedLessons.includes(prevLesson!.id)
-                    // But the very first lesson at or after start should be unlocked
-                    && globalIdx !== startIdx);
+                  // Unlock logic:
+                  // Python: lessons before starting point are always unlocked (review).
+                  // C++: simple sequential unlock (first lesson of each module always open).
+                  const isLocked = previewLocked || (isCppTrack
+                    ? (!isDone && li > 0 && !!prevLesson && !completedLessons.includes(prevLesson.id))
+                    : (isAtOrAfterStart
+                      && !isDone
+                      && li > 0
+                      && !completedLessons.includes(prevLesson!.id)
+                      && globalIdx !== startIdx));
 
                   // Difficulty badge based on curriculum position
-                  const diffBadge = globalIdx < 6 ? "🟢" : globalIdx < 12 ? "🟡" : "🔴";
+                  const diffBadge = isCppTrack
+                    ? (lesson.order <= 2 ? "🟢" : lesson.order <= 4 ? "🟡" : "🔴")
+                    : (globalIdx < 6 ? "🟢" : globalIdx < 12 ? "🟡" : "🔴");
 
                   return previewLocked ? (
                     <button
