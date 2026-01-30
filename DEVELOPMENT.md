@@ -548,57 +548,165 @@ DS 和 Algorithms 课程的 **所有练习和项目** 必须提供 Python 和 C+
 
 ## 已知问题
 
-| 问题 | 状态 | 描述 |
-|------|------|------|
-| Supabase RLS | 🔴 待修 | profiles 表 INSERT policy 阻止新用户注册 |
-| Builder City (Area 3) | 🟡 内容偏少 | 7课只有 concept+quiz，缺 coding challenges |
-| Apple Calendar | 🟡 不可用 | AppleScript/JXA 读取超时，gog 未配 OAuth |
-| Pyodide 首次加载 | 🟡 | ~10MB WASM 下载，首次加载较慢 |
-| Turtle 图形 | 🟡 | mock 实现，部分高级命令不支持 |
+### 🔴 严重
+- **Supabase RLS**: profiles 表 INSERT policy 阻止新用户注册，需修复 RLS policy
+- **Turtle Step 模式**: (1) Run 后再 Step，canvas 不清除旧图 (2) 直接 Step 图像一次性出来，不是逐行绘制。根因：Step 是先完整运行再回放 trace，turtle 命令在 trace 阶段全部执行了
+
+### 🟡 中等
+- **C++ Step 模式**: 目前只隐藏了 Step 按钮，未实现 C++ 逐行执行
+- **Pyodide 首次加载**: ~10MB WASM 下载，首次加载慢
+- **Turtle 图形**: mock 实现，部分高级命令不支持
+- **bits/stdc++.h**: 9个 C++ 代码块使用竞赛头文件，macOS clang 不支持（GCC/在线编译器可用）
+
+### 🟢 低优先级
+- **Builder City (Area 3)**: Python 课 7 课只有 concept+quiz，缺 coding challenges
+- **git config**: 未设置 user.name/email，每次 commit 有 warning
+
+---
+
+## 2026-01-30 开发总结
+
+### 今日成果概览
+
+```
+四门课程完整状态
+═══════════════════════════════════════════════════════════
+
+📗 Python (30课)         📘 C++ (30课)
+  Code sections: 57        Code sections: 82
+  教学讲解 🎯: 128          教学讲解 🎯: 98
+  Exercise: 23             Exercise: 24
+  Challenge: 62            Challenge: 54 (4→54 ✨)
+  Quiz: 310                Quiz: 142
+  Code Lab: 290            Code Lab: 250
+
+📙 DS (18课)             📒 ALG (20课)
+  Code sections: 28        Code sections: 51
+  教学讲解 🎯: 70           教学讲解 🎯: 96
+  codeCpp: 28 ✨           codeCpp: 51 ✨
+  Exercise: 28 Py+C++ ✨   Exercise: 71 Py + 50 C++ ✨
+  Challenge: 17            Challenge: 40 ✨
+  ChallengeCpp: 17 ✨      Quiz: 160 ✨
+  Quiz: 148 ✨             Code Lab: 21 ✨
+  Code Lab: 12 ✨
+
+✨ = 今日新增/大幅增强
+```
+
+### 经验教训
+
+#### 1. 课程生成必须一步到位
+> 🚨 算法课初版只生成了代码骨架，缺少教学讲解、练习、项目，后续补了5轮才完整。
+> **教训**: 新课程必须按"新课程开发流程"9步全部走完再上线，不能分批补。
+
+#### 2. 子 Agent 的任务描述要具体
+> 派出的 agent 如果任务描述模糊，产出质量不稳定。
+> **教训**: 给 agent 的 task 必须包含：具体的文件路径、数据格式示例（从现有代码复制）、验收标准、禁止修改的范围。
+
+#### 3. QA 必须用编译器/运行器验证
+> C++ 代码在 TypeScript 模板字符串中，`\n` 会被解释为真换行符，导致 C++ 字符串断裂。
+> **教训**: 不能只检查 TypeScript 编译通过，必须提取实际代码用 `python3` / `g++` 真正运行验证。
+
+#### 4. 不能只读代码做 QA
+> Su 明确要求：必须在浏览器中逐页点击测试，不能只看代码。
+> **教训**: QA = 真实运行环境测试。代码审查 ≠ QA。
+
+#### 5. 数据文件位置要搞清楚
+> Python quiz 数据在 `quiz-data.ts`，不在 `lessons.ts`。统计时数错了位置，误报缺口。
+> **教训**: 统计前先搞清楚数据架构，用实际 import 链追踪数据源。
+
+#### 6. 模板字符串中的转义陷阱
+> TypeScript backtick 字符串中：`\n` = 真换行，`\\n` = 字面 `\n`。
+> C++ 代码需要字面 `\n`（如 `cout << "\n"`），所以必须写 `\\n`。
+> 同理：backtick 需要 `\\\``，反斜杠需要 `\\\\`。
+
+#### 7. 课程内容必须双语言（DS/ALG）
+> DS 和算法是语言无关的知识，学 Python 或 C++ 的学生都要练。
+> **规则**: DS/ALG 的 code, exercise, challenge 必须有 Python + C++ 双版本。
+
+#### 8. UI/路由要实际点击测试
+> 地图跳转链接指向了不存在的页面（`/dashboard/cpp-lessons` → 404）。
+> **教训**: 每个链接/按钮都要实际点击验证目标页面存在。
+
+### 今日架构改动
+
+#### 新增数据字段 (LessonSection)
+```typescript
+// src/data/lessons.ts
+codeCpp?: string;                    // C++ 版本代码
+codeAnatomyCpp?: CodeAnatomyItem[];  // C++ 代码解析
+exerciseCpp?: InlineExercise;        // C++ 版本练习
+challengeCpp?: CodeChallenge;        // C++ 版本挑战
+```
+
+#### 新增组件
+- `src/components/Header.tsx` — 固定顶栏（汉堡菜单 + Logo + 标题）
+
+#### 新增数据文件
+- `src/data/alg-lessons.ts` — 算法课程 (5,247+ lines)
+- `src/data/ds-exercises-extracted.ts` — DS 练习提取到 Code Lab
+- `src/data/alg-exercises-extracted.ts` — ALG 练习提取到 Code Lab
+
+#### 课程列表页 URL 参数
+- `/dashboard/lessons?track=python|cpp|ds|alg` — 自动选中对应 tab
 
 ---
 
 ## 开发路线图
 
-### 近期 (v1.1)
+### 近期 (v1.1) — 稳定 + 修复
 - [ ] 修复 Supabase RLS 注册问题
+- [ ] Turtle Step 模式修复（canvas 清除 + 逐行绘制）
+- [ ] C++ Step 模式实现（目前只隐藏了按钮）
 - [ ] Builder City (Area 3) 补充 coding challenges
-- [ ] 测试 Step 执行在 Vercel 线上的表现
-- [ ] Explore CS 和 Data Structures 页面 UI 打磨
+- [ ] Logo 优化（当前用的是 jpg，可能需要优化为 svg/webp）
+- [ ] 移动端 Header 适配检查
 
-### 中期 (v1.5)
-- [ ] Data Structures 增加：Heap、Graph、BFS/DFS 迷宫游戏
-- [ ] 排序算法增加：Merge Sort、计数排序
-- [ ] 课程增加 OOP（类和对象）章节
-- [ ] 递归专题
-- [ ] 二维列表/矩阵专题
-- [ ] Parsons puzzles 和 debug challenges 大量增加
+### 中期 (v1.5) — Wave 1 课程完善
+- [ ] AI/ML 课程（Wave 1 第4门）
+- [ ] DS/ALG Code Lab 项目的 C++ 版本
+- [ ] Parsons puzzles 和 debug challenges
+- [ ] 课程进度跨设备同步优化
+- [ ] Explore CS 和 DS Playground UI 打磨
+- [ ] 排行榜 / 社交功能
 
-### 远期 (v2.0)
+### 远期 (v2.0) — Wave 2 + 平台化
+- [ ] Wave 2 课程: Web Dev + Databases + Cybersecurity
+- [ ] Wave 3 课程: Architecture + SE + App Dev + Game Dev
 - [ ] 多人协作编程（WebSocket）
-- [ ] 学生排行榜
 - [ ] 老师 Dashboard（查看学生进度）
 - [ ] 自定义课程编辑器
 - [ ] 移动端优化（PWA）
-- [ ] 更多语言支持
+- [ ] Monorepo 迁移 (learning-platform/)
 
 ---
 
-## 数据统计
+## 数据统计 (2026-01-30 更新)
 
-| 指标 | 数量 |
-|------|------|
-| 课程总数 | 31 |
-| 课程区域 | 5 |
-| 测验题目 | 310+ |
-| Coding Challenges | 60+ |
-| 知识卡片 (Explore CS) | 14 |
-| 互动模块 (Explore CS) | 9 |
-| 数据结构可视化 | 8 |
-| 主题 | 9 |
-| 源文件 | 60 |
-| 课程数据 | ~8,800 行 |
-| 测验数据 | ~2,500 行 |
+```
+课程体系
+────────────────────────────────────
+课程数             4 门 (Python/C++/DS/ALG)
+总课数             98 课 (30+30+18+20)
+Code sections     218 个
+codeCpp           79 个 (DS 28 + ALG 51)
+教学讲解 🎯        392 个
+
+练习与挑战
+────────────────────────────────────
+Quiz 总题数        760+ 题
+Exercise          196 个 (Python) + 79 个 (C++)
+Challenge         173 个
+Code Lab 练习      770 个
+Code Lab 项目      153 个
+
+技术指标
+────────────────────────────────────
+QA 测试通过        289/289 代码块
+C++ 编译验证       181/181 代码块
+源文件             60+
+课程数据           ~25,000+ 行
+```
 
 ---
 
