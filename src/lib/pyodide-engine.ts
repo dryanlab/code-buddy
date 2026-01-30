@@ -422,18 +422,58 @@ def input(prompt=""):
 `);
     }
 
-    // Set up the tracer
+    // Set up stdout buffer for incremental capture
     py.runPython(`
-import sys, json
+import sys, io, json
 
 _trace_lines = []
 _trace_output_snapshots = []
-_skip_names = {'sys', 'io', 'input', 'json', 'js', 'types', 'turtle', '_json', '_turtle_mod'}
+_trace_var_snapshots = []
+_skip_names = {'sys', 'io', 'input', 'json', 'js', 'types', 'turtle', '_json', '_turtle_mod', 'math', 'random', 'time'}
+_stdout_buf = io.StringIO()
+_real_stdout = sys.stdout
+
+class _TracingStdout:
+    def write(self, s):
+        _stdout_buf.write(s)
+        _real_stdout.write(s)  # also send to Pyodide's stdout callback
+        return len(s)
+    def flush(self):
+        pass
+
+sys.stdout = _TracingStdout()
+sys.stderr = _TracingStdout()
+
+def _snapshot_vars(frame):
+    vd = []
+    # Check locals first (for function scope)
+    scope_vars = {}
+    if frame.f_locals != frame.f_globals:
+        for k, v in frame.f_locals.items():
+            if k.startswith('_') or k in _skip_names:
+                continue
+            try:
+                if isinstance(v, (int, float, str, bool, list, dict, tuple, type(None))):
+                    scope_vars[k] = {"name": k, "value": str(v)[:200], "type": type(v).__name__, "scope": "local", "scopeName": frame.f_code.co_name}
+            except:
+                pass
+    # Globals
+    for k, v in frame.f_globals.items():
+        if k.startswith('_') or k in _skip_names or k in scope_vars:
+            continue
+        try:
+            if isinstance(v, (int, float, str, bool, list, dict, tuple, type(None))):
+                scope_vars[k] = {"name": k, "value": str(v)[:200], "type": type(v).__name__, "scope": "global", "scopeName": ""}
+        except:
+            pass
+    return list(scope_vars.values())
 
 def _trace_fn(frame, event, arg):
     if event == 'line' and frame.f_code.co_filename == '<exec>':
         lineno = frame.f_lineno - 1  # 0-indexed
         _trace_lines.append(lineno)
+        _trace_output_snapshots.append(_stdout_buf.getvalue())
+        _trace_var_snapshots.append(_snapshot_vars(frame))
     return _trace_fn
 
 sys.settrace(_trace_fn)
@@ -442,40 +482,25 @@ sys.settrace(_trace_fn)
     // Execute the code
     await py.runPythonAsync(code);
 
-    // Stop tracing
-    py.runPython(`sys.settrace(None)`);
+    // Stop tracing and restore stdout
+    py.runPython(`
+sys.settrace(None)
+sys.stdout = _real_stdout
+sys.stderr = _real_stdout
 
-    // Get the trace
+# One final snapshot after last line
+_trace_output_snapshots.append(_stdout_buf.getvalue())
+`);
+
+    // Get the trace data
     const traceLinesJson = py.runPython(`json.dumps(_trace_lines)`) as string;
     const traceLines: number[] = JSON.parse(traceLinesJson);
 
-    // Get final output
-    const finalOutput = _stdoutLines.join("\n").replace(/\n$/, "");
+    const traceOutputsJson = py.runPython(`json.dumps(_trace_output_snapshots)`) as string;
+    const traceOutputs: string[] = JSON.parse(traceOutputsJson);
 
-    // Get final variables
-    py.runPython(`
-_user_vars = {}
-_user_vars_detail = []
-for _k, _v in dict(globals()).items():
-    if _k.startswith('_') or _k in _skip_names:
-        continue
-    try:
-        if isinstance(_v, (int, float, str, bool)):
-            _user_vars[_k] = str(_v)
-            _user_vars_detail.append({"name": _k, "value": str(_v), "type": type(_v).__name__, "scope": "global", "scopeName": ""})
-        elif isinstance(_v, list):
-            _user_vars[_k] = str(_v)[:100]
-            _user_vars_detail.append({"name": _k, "value": json.dumps(_v) if len(str(_v)) < 200 else str(_v)[:100], "type": "list", "scope": "global", "scopeName": ""})
-        elif isinstance(_v, dict):
-            _user_vars[_k] = str(_v)[:100]
-            _user_vars_detail.append({"name": _k, "value": json.dumps(_v) if len(str(_v)) < 200 else str(_v)[:100], "type": "dict", "scope": "global", "scopeName": ""})
-    except:
-        pass
-_vars_json = json.dumps(_user_vars)
-_vars_detail_json = json.dumps(_user_vars_detail)
-`);
-    const variables = JSON.parse(py.runPython("_vars_json") as string);
-    const variableDetails = JSON.parse(py.runPython("_vars_detail_json") as string);
+    const traceVarsJson = py.runPython(`json.dumps(_trace_var_snapshots)`) as string;
+    const traceVars: VariableDetail[][] = JSON.parse(traceVarsJson);
 
     // Collect inputs
     let collectedInputs: string[] = [];
@@ -483,14 +508,20 @@ _vars_detail_json = json.dumps(_user_vars_detail)
       collectedInputs = JSON.parse(py.runPython("json.dumps(_all_inputs)") as string);
     } catch { /* no inputs */ }
 
-    // Build trace steps — each traced line gets the final vars/output
-    // For a simple version, we show cumulative output proportionally
-    const steps: TraceStep[] = traceLines.map((line, _i) => ({
-      line,
-      output: finalOutput, // simplified: show final output (we could do incremental but it's complex)
-      variables,
-      variableDetails,
-    }));
+    // Build trace steps with incremental output and per-step variables
+    const steps: TraceStep[] = traceLines.map((line, i) => {
+      // Use the NEXT snapshot (output after this line executes)
+      const outputSnapshot = (traceOutputs[i + 1] || traceOutputs[i] || "").replace(/\n$/, "");
+      const vars = traceVars[i] || [];
+      const varMap: Record<string, string> = {};
+      for (const v of vars) { varMap[v.name] = v.value; }
+      return {
+        line,
+        output: outputSnapshot,
+        variables: varMap,
+        variableDetails: vars,
+      };
+    });
 
     return { steps, error: null, collectedInputs };
   } catch (e) {

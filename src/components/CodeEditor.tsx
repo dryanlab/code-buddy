@@ -157,10 +157,10 @@ export default function CodeEditor({
     setIsRunning(false);
     setHasError(false);
 
-    // Show first step
+    // Show first step with its output
     const first = result.steps[0];
     setHighlightLines({ start: first.line, end: first.line });
-    setOutput("");
+    setOutput(first.output || "");
     setVariables(first.variables);
     setVariableDetails(first.variableDetails);
   }, [code, ensurePyodide]);
@@ -182,9 +182,9 @@ export default function CodeEditor({
     setStepIndex(nextIdx);
     const step = traceSteps[nextIdx];
     setHighlightLines({ start: step.line, end: step.line });
+    setOutput(step.output || "");
     setVariables(step.variables);
     setVariableDetails(step.variableDetails);
-    // Don't show output until the end (or show incrementally if we have it)
   }, [stepIndex, traceSteps]);
 
   // Step mode: run all remaining

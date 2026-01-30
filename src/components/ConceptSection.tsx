@@ -148,9 +148,8 @@ function CodeAnatomyComponent({ anatomy }: { anatomy: CodeAnatomy }) {
     setStepIndex(0);
     setStepMode(true);
     setHasError(false);
-    setOutput("");
-
     const first = result.steps[0];
+    setOutput(first.output || "");
     setHighlightLineIdx(first.line);
     setVariableDetails(first.variableDetails);
   }, [runnableCode, ensurePyodide]);
@@ -168,6 +167,7 @@ function CodeAnatomyComponent({ anatomy }: { anatomy: CodeAnatomy }) {
     setStepIndex(nextIdx);
     const step = traceSteps[nextIdx];
     setHighlightLineIdx(step.line);
+    setOutput(step.output || "");
     setVariableDetails(step.variableDetails);
   }, [stepIndex, traceSteps]);
 
