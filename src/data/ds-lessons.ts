@@ -86,8 +86,18 @@ Imagine your room is messy 🧹 — socks in the fridge, books under the bed. Yo
       emoji: "💻",
       content: `## 💻 Array Basics in Python
 
-Python uses **lists** as its array type. Let's explore!
-Python 用 **列表 (list)** 作为数组类型。`,
+🎯 **What you'll learn:** How Python lists work as arrays — creating, indexing, modifying, and understanding time complexity.
+学习目标：Python 列表如何作为数组使用——创建、索引、修改，以及理解时间复杂度。
+
+Think of a list like a row of school lockers 🗄️ — each locker has a number (starting from 0!), and you can open any locker instantly if you know its number. But if you want to squeeze a new locker into the middle, everyone has to scoot over!
+
+🔑 **Key things to notice · 注意要点:**
+- Indexing starts at 0, not 1! \\\`fruits[0]\\\` is the FIRST item
+- Negative indices count from the end: \\\`fruits[-1]\\\` is the LAST item
+- \\\`len()\\\` tells you how many items are in the list
+- Appending to the end is fast O(1), but inserting at the start is slow O(n)
+
+👀 Try changing the fruits list and accessing different indices!`,
       code: `# 📦 Box: "Let me show you how arrays work!"
 # Arrays in Python = Lists
 
@@ -202,7 +212,20 @@ Each **node** has two parts:
     {
       type: "code",
       emoji: "💻",
-      content: `## 💻 Building a Linked List from Scratch`,
+      content: `## 💻 Building a Linked List from Scratch
+
+🎯 **What you'll learn:** How to create a Node class and LinkedList class from scratch — the building blocks of dynamic data.
+学习目标：如何从零创建 Node 类和 LinkedList 类——动态数据的基础。
+
+Imagine a scavenger hunt 🗺️ — each clue card has a message AND directions to the next clue. That's exactly how a linked list works! Each node holds data and a pointer to the next node.
+
+🔑 **Key things to notice · 注意要点:**
+- A Node has two parts: \\\`data\\\` (the value) and \\\`next\\\` (pointer to the next node)
+- \\\`self.head\\\` tracks the start of the list — lose this, and you lose the whole list!
+- To append, you must "walk" to the end node (where \\\`next\\\` is None)
+- The display method walks through every node — that's O(n) traversal
+
+👀 Try appending more values and watch the chain grow!`,
       code: `# 🔗 Link: "Let's build a linked list step by step!"
 
 class Node:
@@ -249,7 +272,20 @@ my_list.display()  # A → B → C → None
     {
       type: "code",
       emoji: "🔧",
-      content: `## 🔧 Inserting & Traversing · 插入与遍历`,
+      content: `## 🔧 Inserting & Traversing · 插入与遍历
+
+🎯 **What you'll learn:** How to insert at the beginning (O(1)!) and search through a linked list.
+学习目标：如何在链表开头插入（O(1)！）以及如何搜索链表。
+
+Inserting at the head is like cutting in line at the very front 😈 — just point the new person to whoever was first, and update the "front" sign. No one else has to move! Searching, though, is like checking every person in line one by one.
+
+🔑 **Key things to notice · 注意要点:**
+- \\\`prepend\\\` is O(1) — just update two pointers!
+- \\\`search\\\` is O(n) — worst case, you check every node
+- The \\\`position\\\` counter tracks where you are as you walk the list
+- Returns -1 if not found (a common convention)
+
+👀 Try prepending different values and searching for them!`,
       code: `class Node:
     def __init__(self, data):
         self.data = data
@@ -375,7 +411,20 @@ None ← [prev|data|next] ↔ [prev|data|next] ↔ [prev|data|next] → None
     {
       type: "code",
       emoji: "💻",
-      content: `## 💻 Building a Doubly Linked List`,
+      content: `## 💻 Building a Doubly Linked List
+
+🎯 **What you'll learn:** How to build a doubly linked list with prev/next pointers, plus insertion and deletion.
+学习目标：如何构建带有 prev/next 指针的双向链表，包括插入和删除。
+
+A doubly linked list is like a two-lane highway 🛣️ — you can drive forward OR backward! Each node has a rearview mirror (prev) and a windshield (next). The trade-off? More pointers to manage, but way more flexibility.
+
+🔑 **Key things to notice · 注意要点:**
+- Each node now has THREE fields: \\\`prev\\\`, \\\`data\\\`, \\\`next\\\`
+- We track BOTH \\\`head\\\` and \\\`tail\\\` — this makes append O(1)!
+- Deletion requires updating up to 4 pointers (prev.next and next.prev)
+- \\\`display_backward\\\` starts from tail and follows prev — impossible with singly linked!
+
+👀 Try deleting different nodes and displaying both directions!`,
       code: `# 🔗 Link: "Double the pointers, double the power!"
 
 class DNode:
@@ -530,7 +579,20 @@ You can't reach the bottom plate without removing everything on top! This is **L
     {
       type: "code",
       emoji: "💻",
-      content: `## 💻 Stack Implementation · 栈的实现`,
+      content: `## 💻 Stack Implementation · 栈的实现
+
+🎯 **What you'll learn:** How to build a Stack class with push, pop, peek, is_empty, and size operations.
+学习目标：如何构建栈类，包含 push、pop、peek、is_empty 和 size 操作。
+
+Think of a Pringles can 🥫 — you can only add or remove chips from the TOP. The last chip you put in is the first one you eat! That's LIFO (Last In, First Out). Simple but incredibly powerful.
+
+🔑 **Key things to notice · 注意要点:**
+- \\\`push\\\` uses list.append() — adds to the end (top of stack), O(1)
+- \\\`pop\\\` uses list.pop() — removes from the end (top), O(1)
+- \\\`peek\\\` looks at \\\`items[-1]\\\` without removing it
+- Always check \\\`is_empty()\\\` before popping to avoid errors!
+
+👀 Try pushing and popping in different orders — notice the LIFO pattern!`,
       code: `# 📦 Box: "Let's build a stack!"
 
 class Stack:
@@ -583,7 +645,20 @@ plates.pop()  # Empty!`,
     {
       type: "code",
       emoji: "🔙",
-      content: `## 🔙 Real Example: Browser Back Button · 浏览器后退按钮`,
+      content: `## 🔙 Real Example: Browser Back Button · 浏览器后退按钮
+
+🎯 **What you'll learn:** How TWO stacks work together to create browser back/forward navigation.
+学习目标：两个栈如何协作实现浏览器的前进/后退导航。
+
+Your browser's back button is literally a stack! 🌐 Every page you visit gets pushed onto the "back stack." When you hit back, it pops the current page onto a "forward stack." It's like having two piles of papers — move sheets between them!
+
+🔑 **Key things to notice · 注意要点:**
+- Two stacks: \\\`back_stack\\\` and \\\`forward_stack\\\` work as a pair
+- Visiting a new page clears the forward stack (no "future" anymore!)
+- \\\`back()\\\` pops from back_stack, pushes current to forward_stack
+- \\\`forward()\\\` does the reverse — pops forward, pushes to back
+
+👀 Try visiting pages then going back and forward — trace the two stacks!`,
       code: `# Simulate a browser's back/forward with stacks!
 # 用栈模拟浏览器的前进/后退！
 
@@ -690,7 +765,20 @@ Every time you type, the action is pushed onto a stack. Ctrl+Z? Pop the last act
     {
       type: "code",
       emoji: "⚖️",
-      content: `## ⚖️ Balanced Parentheses Checker · 括号匹配检查器`,
+      content: `## ⚖️ Balanced Parentheses Checker · 括号匹配检查器
+
+🎯 **What you'll learn:** How to use a stack to check if brackets are properly matched — a CLASSIC interview question!
+学习目标：如何用栈检查括号是否正确匹配——经典面试题！
+
+Imagine nesting Russian dolls 🪆 — each opening bracket must have a matching closing bracket in the right order. A stack naturally tracks "what's still open." Push when you open, pop when you close. If everything matches, the stack ends empty!
+
+🔑 **Key things to notice · 注意要点:**
+- Opening brackets \\\`([{\\\` get pushed onto the stack
+- Closing brackets \\\`)]}\\\` trigger a pop — the popped bracket must match!
+- If the stack is empty when you see a closer → unmatched! ❌
+- At the end, the stack must be empty → all brackets matched! ✅
+
+👀 Try adding your own test cases with different bracket combinations!`,
       code: `# 📦 Box: "This is a CLASSIC interview question!"
 
 def is_balanced(expression):
@@ -727,7 +815,20 @@ for expr, expected in tests:
     {
       type: "code",
       emoji: "↩️",
-      content: `## ↩️ Undo/Redo System · 撤销/重做系统`,
+      content: `## ↩️ Undo/Redo System · 撤销/重做系统
+
+🎯 **What you'll learn:** How to build an undo/redo text editor using two stacks — just like real software!
+学习目标：如何用两个栈构建撤销/重做文本编辑器——就像真正的软件！
+
+Every text editor you've ever used has Ctrl+Z (undo) and Ctrl+Y (redo). The secret? Two stacks! 📝 Before each change, save the current state to the undo stack. Undoing moves it to the redo stack. It's like a time machine with forward and reverse!
+
+🔑 **Key things to notice · 注意要点:**
+- \\\`type_text\\\` saves the current state BEFORE modifying (so you can undo)
+- \\\`undo\\\` pops from undo_stack, pushes current state to redo_stack
+- \\\`redo\\\` does the reverse — restores what was undone
+- New typing clears the redo_stack (the "alternate future" is gone!)
+
+👀 Try typing several words, then undo/redo — watch the text change!`,
       code: `# 📦 Box: "Build your own text editor undo!"
 
 class TextEditor:
@@ -838,7 +939,20 @@ Where queues are used:
     {
       type: "code",
       emoji: "💻",
-      content: `## 💻 Queue Implementation · 队列实现`,
+      content: `## 💻 Queue Implementation · 队列实现
+
+🎯 **What you'll learn:** How to build a Queue class with enqueue, dequeue, front, is_empty, and size.
+学习目标：如何构建队列类，包含入队、出队、查看队首、判空和大小操作。
+
+A queue is just a line at a coffee shop ☕ — the first person in line gets served first, and new people join at the back. No cutting! Python's \\\`deque\\\` (double-ended queue) makes both ends efficient.
+
+🔑 **Key things to notice · 注意要点:**
+- We use \\\`collections.deque\\\` instead of a regular list — \\\`popleft()\\\` is O(1)!
+- \\\`enqueue\\\` = append to back, \\\`dequeue\\\` = popleft from front
+- Regular list's \\\`pop(0)\\\` is O(n) because everything shifts — deque avoids this!
+- \\\`front()\\\` peeks without removing, like seeing who's next in line
+
+👀 Try enqueuing and dequeuing customers — notice FIFO order!`,
       code: `# 📦 Box: "First come, first served!"
 from collections import deque
 
@@ -947,7 +1061,20 @@ Python's \`heapq\` module gives us a min-heap for free!`,
     {
       type: "code",
       emoji: "💻",
-      content: `## 💻 Priority Queue with heapq · 用 heapq 实现优先队列`,
+      content: `## 💻 Priority Queue with heapq · 用 heapq 实现优先队列
+
+🎯 **What you'll learn:** How to use Python's heapq module to build a priority queue where the most urgent item comes out first.
+学习目标：如何使用 Python 的 heapq 模块构建优先队列，让最紧急的项目最先处理。
+
+Think of an emergency room 🏥 — a heart attack patient gets treated before someone with a cold, even if the cold patient arrived first! The priority number decides the order, not arrival time. Lower number = higher priority.
+
+🔑 **Key things to notice · 注意要点:**
+- \\\`heapq.heappush()\\\` adds items maintaining heap order — O(log n)
+- \\\`heapq.heappop()\\\` removes the SMALLEST item — O(log n)
+- Tuples are compared element by element: (priority, tiebreaker, data)
+- The arrival_order field breaks ties when priorities are equal
+
+👀 Try changing patient priorities and see how the treatment order changes!`,
       code: `import heapq
 
 # 🏥 Emergency Room Priority Queue
@@ -975,7 +1102,20 @@ while er_queue:
     {
       type: "code",
       emoji: "🌳",
-      content: `## 🌳 Understanding Heap Structure · 理解堆结构`,
+      content: `## 🌳 Understanding Heap Structure · 理解堆结构
+
+🎯 **What you'll learn:** How a heap is structured as a complete binary tree, and how heapify and heappop work.
+学习目标：堆如何作为完全二叉树结构化，以及 heapify 和 heappop 的工作原理。
+
+A heap is like a tournament bracket 🏆 where the winner (smallest value) always floats to the top! When you remove the winner, the next-best takes their place. \\\`heapify\\\` reorganizes a messy list into this structure in just O(n) time!
+
+🔑 **Key things to notice · 注意要点:**
+- Min-heap rule: every parent ≤ its children (smallest always at root)
+- \\\`heapq.heapify()\\\` transforms a list in-place in O(n) — very efficient!
+- The heap is stored as a flat list, but represents a tree (parent at i, children at 2i+1 and 2i+2)
+- Popping repeatedly gives you sorted order — that's basically heap sort!
+
+👀 Try heapifying different lists and popping elements to see sorted output!`,
       code: `# 🌳 Root: "A heap is a special complete binary tree!"
 # Min-heap property: parent ≤ children
 # 最小堆性质：父节点 ≤ 子节点
@@ -1076,7 +1216,21 @@ A **binary tree** is like a family tree where each person has at most **2 childr
     {
       type: "code",
       emoji: "💻",
-      content: `## 💻 Building a Binary Tree · 构建二叉树`,
+      content: `## 💻 Building a Binary Tree · 构建二叉树
+
+🎯 **What you'll learn:** How to create tree nodes, connect them, and traverse the tree three different ways.
+学习目标：如何创建树节点、连接节点，以及用三种方式遍历树。
+
+Building a tree is like building a family tree 👨‍👩‍👧‍👦 — start with the ancestor (root), then add children. Traversal is like visiting every family member, but the ORDER you visit them matters! In-order, pre-order, and post-order each visit the same nodes differently.
+
+🔑 **Key things to notice · 注意要点:**
+- Each TreeNode has \\\`value\\\`, \\\`left\\\`, and \\\`right\\\`
+- In-order (Left→Root→Right): visits nodes in sorted order for BSTs!
+- Pre-order (Root→Left→Right): good for copying/serializing a tree
+- Post-order (Left→Right→Root): good for deleting a tree (children first!)
+- All three use recursion — the function calls itself for subtrees
+
+👀 Try adding more nodes and predicting the traversal output before running!`,
       code: `# 🌳 Root: "Let's grow a tree!"
 
 class TreeNode:
@@ -1199,7 +1353,20 @@ This means we can **search like binary search** — cut the problem in half each
     {
       type: "code",
       emoji: "💻",
-      content: `## 💻 BST: Insert & Search · BST：插入与搜索`,
+      content: `## 💻 BST: Insert & Search · BST：插入与搜索
+
+🎯 **What you'll learn:** How BST insert maintains the left<parent<right rule, and how search exploits it for O(log n) speed.
+学习目标：BST 插入如何维持左<父<右规则，以及搜索如何利用它实现 O(log n) 速度。
+
+Searching a BST is like playing a number guessing game 🎯 — "Is it higher or lower?" Each answer eliminates HALF the remaining possibilities! That's why BST search is O(log n) instead of O(n).
+
+🔑 **Key things to notice · 注意要点:**
+- Insert: if value < node, go left; if value ≥ node, go right; repeat until you find an empty spot
+- Search: same logic — go left or right, eliminating half each step
+- In-order traversal of a BST gives SORTED output — a free bonus!
+- Both insert and search use recursion following the same left/right pattern
+
+👀 Try inserting numbers in different orders — how does the tree shape change?`,
       code: `# 🌳 Root: "Organized trees are FAST trees!"
 
 class BSTNode:
@@ -1325,7 +1492,20 @@ Trees power many systems you use daily:
     {
       type: "code",
       emoji: "📁",
-      content: `## 📁 File System Tree · 文件系统树`,
+      content: `## 📁 File System Tree · 文件系统树
+
+🎯 **What you'll learn:** How to model a file system as a tree with folders and files, plus recursive traversal.
+学习目标：如何用树来建模文件系统（文件夹和文件），以及递归遍历。
+
+Your computer's file system IS a tree! 🖥️ The root folder (/ or C:\\) is the root node, folders are internal nodes (they have children), and files are leaf nodes (no children). The \\\`display\\\` method uses indentation to show the tree structure — deeper = more indented.
+
+🔑 **Key things to notice · 注意要点:**
+- FileNode has \\\`children\\\` list — a general tree (not just binary!)
+- \\\`is_folder\\\` distinguishes folders from files
+- \\\`display\\\` uses recursion with increasing indent — tree depth becomes visual depth
+- \\\`count_files\\\` recursively counts only non-folder nodes (leaves)
+
+👀 Try adding your own folders and files to build your dream file system!`,
       code: `# 🌳 Root: "Your computer is literally a tree!"
 
 class FileNode:
@@ -1371,7 +1551,20 @@ print(f"\\nTotal files: {count_files(root)}")`,
     {
       type: "code",
       emoji: "🧮",
-      content: `## 🧮 Expression Tree · 表达式树`,
+      content: `## 🧮 Expression Tree · 表达式树
+
+🎯 **What you'll learn:** How calculators and compilers use trees to represent and evaluate math expressions.
+学习目标：计算器和编译器如何用树来表示和计算数学表达式。
+
+A math expression like (3+5)*2 becomes a tree 🌳 where operators are internal nodes and numbers are leaves. To evaluate, work from the bottom up — compute the leaves first, then combine using operators. This is exactly how your calculator works inside!
+
+🔑 **Key things to notice · 注意要点:**
+- Leaf nodes = numbers, internal nodes = operators (+, -, *, /)
+- The root is the LAST operation performed (highest precedence grouping)
+- \\\`evaluate\\\` uses recursion: base case is a leaf (just return the number)
+- Post-order traversal naturally evaluates the expression bottom-up
+
+👀 Try building a tree for a different expression like (10 - 4) / 2!`,
       code: `# 🌳 Root: "Calculators use trees to parse math!"
 # Expression: (3 + 5) * 2
 #       *
@@ -1477,7 +1670,20 @@ Python's \`dict\` IS a hash map!`,
     {
       type: "code",
       emoji: "💻",
-      content: `## 💻 Hash Maps in Python · Python 中的哈希表`,
+      content: `## 💻 Hash Maps in Python · Python 中的哈希表
+
+🎯 **What you'll learn:** How to use Python dictionaries as hash maps — creating, accessing, updating, iterating, and counting word frequency.
+学习目标：如何使用 Python 字典作为哈希表——创建、访问、更新、遍历和统计词频。
+
+A hash map is like a super-smart filing cabinet 🗄️ — you say "name" and it INSTANTLY opens the right drawer. No searching through everything! Python's \\\`dict\\\` is the most-used data structure in real software. Word frequency counting is a classic use case.
+
+🔑 **Key things to notice · 注意要点:**
+- Access by key is O(1): \\\`student['name']\\\` is instant!
+- \\\`in\\\` keyword checks if a key exists — also O(1)
+- \\\`.items()\\\` gives you (key, value) pairs for iteration
+- \\\`.get(key, default)\\\` avoids KeyError — returns default if key missing
+
+👀 Try adding more student info and counting words in your own sentence!`,
       code: `# 📦 Box: "Python dicts are hash maps!"
 
 # Creating a hash map (dictionary)
@@ -1517,7 +1723,20 @@ print(f"\\nWord counts: {word_count}")`,
     {
       type: "code",
       emoji: "🔧",
-      content: `## 🔧 Hash Collisions · 哈希冲突`,
+      content: `## 🔧 Hash Collisions · 哈希冲突
+
+🎯 **What you'll learn:** What happens when two different keys hash to the same slot, and how collisions are resolved.
+学习目标：当两个不同的键哈希到同一个槽时会发生什么，以及如何解决碰撞。
+
+Imagine two students assigned to the same locker 🗄️💥 — that's a collision! "cat" and "act" have the same letters, so a simple hash gives them the same slot. Solutions: chaining (linked list at each slot) or open addressing (find the next empty slot).
+
+🔑 **Key things to notice · 注意要点:**
+- A hash function converts a key to an index: \\\`sum(ord(c)) % size\\\`
+- Small table sizes increase collision probability
+- "cat" and "act" collide because they have the same character sum!
+- Python handles collisions automatically — you never see them, but they're there
+
+👀 Try changing the table_size and see how collision patterns change!`,
       code: `# 📦 Box: "What happens when two keys hash to the same spot?"
 
 # Simple hash function demo
@@ -1604,7 +1823,20 @@ All operations are O(1) for single elements thanks to hashing!`,
     {
       type: "code",
       emoji: "💻",
-      content: `## 💻 Set Operations · 集合操作`,
+      content: `## 💻 Set Operations · 集合操作
+
+🎯 **What you'll learn:** How to use Python sets for union, intersection, difference, and removing duplicates.
+学习目标：如何使用 Python 集合进行并集、交集、差集运算，以及去重。
+
+Sets are like a VIP club 🎟️ — no duplicate members allowed! They also support math-class set operations. Need to find what two groups have in common? Intersection. Need to combine two groups? Union. Need to remove duplicates from a list? Convert to set!
+
+🔑 **Key things to notice · 注意要点:**
+- \\\`|\\\` = union (everything from both), \\\`&\\\` = intersection (only shared items)
+- \\\`-\\\` = difference (in first but not second), \\\`^\\\` = symmetric difference
+- Membership test (\\\`in\\\`) is O(1) — sets use hashing internally!
+- \\\`set(list)\\\` instantly removes duplicates — a super common pattern
+
+👀 Try creating your own sets and experimenting with the operators!`,
       code: `# 📦 Box: "Sets are hash maps without values!"
 
 # Creating sets
@@ -1703,7 +1935,20 @@ Graphs are the most flexible data structure! They model **connections** between 
     {
       type: "code",
       emoji: "💻",
-      content: `## 💻 Graph Implementation · 图的实现`,
+      content: `## 💻 Graph Implementation · 图的实现
+
+🎯 **What you'll learn:** How to build an undirected graph using an adjacency list — the most common graph representation.
+学习目标：如何用邻接表构建无向图——最常见的图表示方式。
+
+A graph is like a social network map 🌐 — people are vertices, friendships are edges. An adjacency list stores each person's friend list in a dictionary. Undirected means if Alice knows Bob, Bob also knows Alice!
+
+🔑 **Key things to notice · 注意要点:**
+- \\\`adj_list\\\` is a dictionary: {vertex: [list of neighbors]}
+- For undirected graphs, \\\`add_edge\\\` adds BOTH directions (v1→v2 AND v2→v1)
+- \\\`add_vertex\\\` is called automatically by \\\`add_edge\\\`
+- \\\`has_edge\\\` checks if v2 is in v1's neighbor list — O(degree) time
+
+👀 Try building a graph of your own social network or a map of nearby cities!`,
       code: `# 🔗 Link: "Let me show you how to build a graph!"
 
 class Graph:
@@ -1806,7 +2051,20 @@ Imagine you're exploring a maze 🏰. Two strategies:
     {
       type: "code",
       emoji: "🌊",
-      content: `## 🌊 BFS Implementation · 广度优先搜索实现`,
+      content: `## 🌊 BFS Implementation · 广度优先搜索实现
+
+🎯 **What you'll learn:** How BFS uses a queue to explore a graph layer by layer, and how to find shortest paths.
+学习目标：BFS 如何使用队列逐层探索图，以及如何找到最短路径。
+
+BFS is like dropping a stone in a pond 🌊 — ripples spread outward, reaching nearby points first, then farther ones. It uses a QUEUE (FIFO) to process nodes in order of discovery. Because it explores layer by layer, the first path it finds IS the shortest!
+
+🔑 **Key things to notice · 注意要点:**
+- Uses a \\\`deque\\\` (queue) — FIFO ensures layer-by-layer exploration
+- \\\`visited\\\` set prevents revisiting nodes (avoids infinite loops!)
+- Add to visited WHEN enqueueing, not when dequeuing (important for correctness)
+- \\\`bfs_shortest_path\\\` tracks the full path by storing it alongside each node
+
+👀 Try finding the shortest path between different pairs of nodes!`,
       code: `from collections import deque
 
 def bfs(graph, start):
@@ -1861,7 +2119,20 @@ print(f"Shortest A→E: {' → '.join(path)}")`,
     {
       type: "code",
       emoji: "🏊",
-      content: `## 🏊 DFS Implementation · 深度优先搜索实现`,
+      content: `## 🏊 DFS Implementation · 深度优先搜索实现
+
+🎯 **What you'll learn:** How DFS uses a stack (or recursion) to dive deep into one path before backtracking.
+学习目标：DFS 如何使用栈（或递归）深入一条路径，然后回溯。
+
+DFS is like exploring a cave 🏊 — you go as deep as possible down one tunnel before turning back and trying another. It uses a STACK (LIFO), so the most recently discovered path gets explored first. The recursive version does this naturally via the call stack!
+
+🔑 **Key things to notice · 注意要点:**
+- Iterative DFS uses a stack (\\\`list.pop()\\\`) — LIFO gives depth-first behavior
+- \\\`visited\\\` check happens AFTER popping (unlike BFS which checks on enqueue)
+- Recursive DFS uses the call stack implicitly — each function call goes deeper
+- \\\`reversed()\\\` is used for consistent ordering with the recursive version
+
+👀 Compare BFS and DFS output on the same graph — notice the different orders!`,
       code: `def dfs(graph, start):
     """Depth-First Search (iterative with stack) · 深度优先搜索"""
     visited = set()
@@ -1967,7 +2238,20 @@ Let's build two REAL projects with graphs:
     {
       type: "code",
       emoji: "👥",
-      content: `## 👥 Social Network: Friend Suggestions · 社交网络好友推荐`,
+      content: `## 👥 Social Network: Friend Suggestions · 社交网络好友推荐
+
+🎯 **What you'll learn:** How to build a friend suggestion algorithm using "friends of friends" — just like Facebook/Instagram!
+学习目标：如何用"朋友的朋友"构建好友推荐算法——就像 Facebook/Instagram！
+
+Ever wonder how social media knows who to suggest? 🤔 If Alice and Bob are friends, and Bob and Diana are friends, then Diana is Alice's "friend of friend." The more mutual friends, the stronger the suggestion! This is graph theory in action.
+
+🔑 **Key things to notice · 注意要点:**
+- Friend lists use \\\`set\\\` for O(1) membership checks
+- "Friends of friends" = neighbors of neighbors in the graph
+- We count mutual friends to rank suggestions (more mutuals = better match)
+- We filter out people who are already friends AND the user themselves
+
+👀 Try adding yourself to the network and see who gets suggested!`,
       code: `# 🔗 Link: "Who should you be friends with?"
 
 from collections import deque

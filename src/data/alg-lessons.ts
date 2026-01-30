@@ -2434,4 +2434,2815 @@ print(f"  → {flatten(nested)}")`,
           explanation: "Processing one element and recursing on the rest = linear recursion. 处理一个元素，对其余递归 = 线性递归。",
         },
         {
-          question
+          question: "What is an accumulator in recursion?\n递归中的累加器是什么？",
+          options: ["A loop counter", "A parameter that carries the result so far", "A global variable", "The return value"],
+          correctIndex: 1,
+          explanation: "An accumulator is a parameter that builds up the result as recursion progresses. 累加器是随递归推进构建结果的参数。",
+        },
+        {
+          question: "Why is naive recursive Fibonacci slow?\n为什么朴素递归 Fibonacci 很慢？",
+          options: ["Too many base cases", "It recomputes the same values many times", "Python is slow", "The numbers get too big"],
+          correctIndex: 1,
+          explanation: "fib(3) is computed multiple times! Overlapping subproblems → use DP! 重复计算相同的值！",
+        },
+        {
+          question: "What does flatten([1, [2, [3]]]) return?\nflatten([1, [2, [3]]]) 返回什么？",
+          options: ["[1, 2, 3]", "[[1, 2, 3]]", "[1, [2, 3]]", "Error"],
+          correctIndex: 0,
+          explanation: "Flatten recursively unpacks all nested lists into a single flat list. 递归展开所有嵌套列表。",
+        },
+        {
+          question: "Fast power x^10 makes how many multiplications?\n快速幂 x^10 做几次乘法？",
+          options: ["10", "5", "4", "3"],
+          correctIndex: 2,
+          explanation: "x^10 = (x^5)^2, x^5 = x·(x^2)^2, x^2 = x·x → about 4 multiplications. 大约 4 次乘法。",
+        },
+        {
+          question: "Which is NOT a valid base case for recursive list processing?\n哪个不是递归列表处理的有效基本情况？",
+          options: ["Empty list", "Single element list", "List of length n", "None of these"],
+          correctIndex: 2,
+          explanation: "The base case should be the SIMPLEST case (empty or single element), not a general n. 基本情况应该是最简单的情况。",
+        },
+      ],
+    },
+  ],
+};
+
+const alg_3_3: Lesson = {
+  id: "alg-3-3",
+  moduleId: "alg-3",
+  title: "Backtracking",
+  subtitle: "Try, fail, try again · 回溯法",
+  icon: "🔙",
+  xp: 30,
+  duration: "25 min",
+  order: 3,
+  gradeRange: [9, 12],
+  difficulty: "advanced",
+  skillLevel: "advanced",
+  sections: [
+    {
+      type: "text",
+      emoji: "🌀",
+      content: `## 🌀 Spiral: The Art of Trying and Undoing!
+
+**Backtracking** is like exploring a maze: try a path, hit a dead end, go BACK and try another path!
+
+**回溯法**就像探索迷宫：试一条路，走到死胡同，退回来试另一条！
+
+🎯 **What you'll learn:**
+- The backtracking template
+- Generate permutations and combinations
+- Solve puzzles (N-Queens, Sudoku concepts)
+
+> 🏠 Real-world analogy: Imagine trying every combination on a lock 🔐. Try 0-0-0, then 0-0-1, 0-0-2... If you know the first digit is wrong, skip ALL combinations starting with that digit! That's backtracking — pruning bad branches early!
+>
+> 现实类比：想象尝试密码锁的每种组合。如果你知道第一位不对，跳过所有以那个数字开头的组合！这就是回溯——早早剪掉坏分支！
+
+🔑 **Backtracking = DFS + pruning = try all possibilities smartly**`,
+    },
+    {
+      type: "code",
+      emoji: "💻",
+      content: `## 💻 Backtracking Template
+
+The universal template for backtracking problems!
+回溯问题的通用模板！`,
+      code: `# 🌀 The Backtracking Template
+# def backtrack(state):
+#     if is_solution(state):
+#         record(state)
+#         return
+#     for choice in get_choices(state):
+#         if is_valid(choice):
+#             make_choice(choice)
+#             backtrack(state)
+#             undo_choice(choice)  ← THIS is the "backtrack"!
+
+# Example: Generate all subsets of [1, 2, 3]
+def subsets(nums):
+    result = []
+    
+    def backtrack(start, current):
+        result.append(current[:])  # Record current subset
+        print(f"  Subset: {current}")
+        
+        for i in range(start, len(nums)):
+            current.append(nums[i])       # Choose
+            backtrack(i + 1, current)      # Explore
+            current.pop()                  # Undo (backtrack!)
+    
+    backtrack(0, [])
+    return result
+
+print("📦 All subsets of [1, 2, 3]:")
+result = subsets([1, 2, 3])
+print(f"\\nTotal: {len(result)} subsets")`,
+    },
+    {
+      type: "code",
+      emoji: "🔢",
+      content: `## 🔢 Permutations — All Arrangements
+
+Generate all orderings of a list!
+生成列表的所有排列！`,
+      code: `def permutations(nums):
+    result = []
+    used = [False] * len(nums)
+    
+    def backtrack(current):
+        if len(current) == len(nums):
+            result.append(current[:])
+            return
+        
+        for i in range(len(nums)):
+            if used[i]:
+                continue
+            
+            used[i] = True                # Choose
+            current.append(nums[i])
+            backtrack(current)            # Explore
+            current.pop()                 # Undo
+            used[i] = False               # Undo
+    
+    backtrack([])
+    return result
+
+print("🔢 Permutations of [1, 2, 3]:")
+perms = permutations([1, 2, 3])
+for p in perms:
+    print(f"  {p}")
+print(f"Total: {len(perms)} (= 3! = 6)")
+
+# With strings!
+print("\\n🔤 Permutations of 'ABC':")
+str_perms = permutations(list("ABC"))
+for p in str_perms:
+    print(f"  {''.join(p)}")`,
+    },
+    {
+      type: "code",
+      emoji: "👑",
+      content: `## 👑 N-Queens: The Classic Backtracking Problem
+
+Place N queens on an N×N board so no two attack each other!
+在 N×N 棋盘上放 N 个皇后，使它们互不攻击！`,
+      code: `def solve_n_queens(n):
+    solutions = []
+    board = [['.' for _ in range(n)] for _ in range(n)]
+    
+    def is_safe(row, col):
+        # Check column
+        for i in range(row):
+            if board[i][col] == 'Q':
+                return False
+        # Check upper-left diagonal
+        i, j = row - 1, col - 1
+        while i >= 0 and j >= 0:
+            if board[i][j] == 'Q': return False
+            i -= 1; j -= 1
+        # Check upper-right diagonal
+        i, j = row - 1, col + 1
+        while i >= 0 and j < n:
+            if board[i][j] == 'Q': return False
+            i -= 1; j += 1
+        return True
+    
+    def backtrack(row):
+        if row == n:
+            solutions.append([''.join(r) for r in board])
+            return
+        for col in range(n):
+            if is_safe(row, col):
+                board[row][col] = 'Q'    # Place queen
+                backtrack(row + 1)        # Next row
+                board[row][col] = '.'    # Remove queen (backtrack!)
+    
+    backtrack(0)
+    return solutions
+
+# Solve for 4-Queens
+print("👑 4-Queens Solutions:")
+sols = solve_n_queens(4)
+for i, sol in enumerate(sols):
+    print(f"\\nSolution {i+1}:")
+    for row in sol:
+        print(f"  {' '.join(row)}")
+
+print(f"\\n📊 Number of solutions for different N:")
+for n in range(1, 9):
+    print(f"  {n}-Queens: {len(solve_n_queens(n))} solutions")`,
+    },
+    {
+      type: "concept",
+      emoji: "🧠",
+      content: `## 🧠 Code Anatomy: Backtracking Template`,
+      concept: {
+        title: "Backtracking — The Three Steps",
+        titleZh: "回溯——三个步骤",
+        codeAnatomy: {
+          lines: [
+            { code: "if is_solution(state):", explanation: "Check if we found a complete solution", explanationZh: "检查是否找到完整解" },
+            { code: "    record(state); return", explanation: "Save the solution and stop this branch", explanationZh: "保存解并停止这个分支" },
+            { code: "for choice in choices:", explanation: "Try each possible next step", explanationZh: "尝试每个可能的下一步" },
+            { code: "    if is_valid(choice):", explanation: "Prune: skip invalid choices early", explanationZh: "剪枝：早早跳过无效选择" },
+            { code: "    make_choice()", explanation: "CHOOSE: apply the decision", explanationZh: "选择：应用决定" },
+            { code: "    backtrack(next_state)", explanation: "EXPLORE: recurse with updated state", explanationZh: "探索：用更新状态递归" },
+            { code: "    undo_choice()", explanation: "UNCHOOSE: undo to try next option", explanationZh: "撤销：取消以尝试下一个选项" },
+          ],
+        },
+      },
+    },
+    {
+      type: "interactive",
+      content: `## 🎯 Practice: Generate Combinations · 练习：生成组合`,
+      exercise: {
+        prompt: "Generate all combinations of k numbers from [1..n]. E.g., combine(4, 2) = [[1,2],[1,3],[1,4],[2,3],[2,4],[3,4]]",
+        promptZh: "生成从 [1..n] 中选 k 个数的所有组合。",
+        starterCode: "def combine(n, k):\n    result = []\n    def backtrack(start, current):\n        if len(current) == k:\n            result.append(current[:])\n            return\n        # Your code: try each number from start to n\n        pass\n    backtrack(1, [])\n    return result\n\nprint(combine(4, 2))",
+        expectedOutput: "[[1, 2], [1, 3], [1, 4], [2, 3], [2, 4], [3, 4]]",
+        hint: "Loop from start to n+1. Append number, backtrack(i+1, current), pop.",
+        hintZh: "从 start 循环到 n+1。追加数字，backtrack(i+1, current)，弹出。",
+        solution: "def combine(n, k):\n    result = []\n    def backtrack(start, current):\n        if len(current) == k:\n            result.append(current[:])\n            return\n        for i in range(start, n + 1):\n            current.append(i)\n            backtrack(i + 1, current)\n            current.pop()\n    backtrack(1, [])\n    return result\n\nprint(combine(4, 2))",
+      },
+    },
+    {
+      type: "quiz",
+      content: "🎓 Backtracking Quiz · 回溯法测验",
+      quiz: [
+        {
+          question: "What makes backtracking different from brute force?\n回溯法和暴力搜索有什么不同？",
+          options: ["Nothing, they're the same", "Backtracking prunes invalid branches early", "Backtracking uses less memory", "Backtracking is always faster"],
+          correctIndex: 1,
+          explanation: "Backtracking prunes (skips) branches that can't lead to valid solutions. 回溯法剪掉不能产生有效解的分支。",
+        },
+        {
+          question: "The 'undo' step in backtracking is essential because...?\n回溯中的"撤销"步骤很重要因为……？",
+          options: ["It saves memory", "It lets us try other choices at the same position", "It makes the code cleaner", "It's optional"],
+          correctIndex: 1,
+          explanation: "Undoing lets us explore all alternatives — try choice A, undo, try choice B, etc. 撤销让我们探索所有替代方案。",
+        },
+        {
+          question: "How many subsets does a set of n elements have?\nn 个元素的集合有多少子集？",
+          options: ["n", "n²", "2ⁿ", "n!"],
+          correctIndex: 2,
+          explanation: "Each element is either included or not: 2 choices × n elements = 2ⁿ subsets. 每个元素要么选要么不选。",
+        },
+        {
+          question: "How many permutations of n elements?\nn 个元素有多少排列？",
+          options: ["n", "2ⁿ", "n²", "n!"],
+          correctIndex: 3,
+          explanation: "n choices × (n-1) × (n-2) × ... × 1 = n! permutations. n! 个排列。",
+        },
+        {
+          question: "In N-Queens, what does 'is_safe' check?\n在 N 皇后中，'is_safe' 检查什么？",
+          options: ["Only the row", "Row and column", "Row, column, and both diagonals", "All 8 directions"],
+          correctIndex: 2,
+          explanation: "Queens attack along rows, columns, and diagonals. We only check upward since we place top-to-bottom. 检查行、列和两条对角线。",
+        },
+        {
+          question: "Backtracking explores solutions like which traversal?\n回溯法像哪种遍历方式探索解？",
+          options: ["BFS (breadth-first)", "DFS (depth-first)", "Random", "Level-order"],
+          correctIndex: 1,
+          explanation: "Backtracking is essentially DFS on the decision tree! 回溯法本质上是决策树上的 DFS！",
+        },
+        {
+          question: "What is 'pruning' in backtracking?\n回溯法中的"剪枝"是什么？",
+          options: ["Removing solutions", "Skipping branches that can't lead to valid solutions", "Cutting the array in half", "Removing duplicates"],
+          correctIndex: 1,
+          explanation: "Pruning skips invalid branches early, avoiding unnecessary work. 剪枝提前跳过无效分支。",
+        },
+        {
+          question: "The 4-Queens problem has how many solutions?\n4 皇后问题有多少个解？",
+          options: ["0", "1", "2", "4"],
+          correctIndex: 2,
+          explanation: "The 4-Queens problem has exactly 2 solutions. 4 皇后问题恰好有 2 个解。",
+        },
+      ],
+    },
+  ],
+};
+
+const alg_3_4: Lesson = {
+  id: "alg-3-4",
+  moduleId: "alg-3",
+  title: "Divide & Conquer",
+  subtitle: "Split, solve, combine · 分治法",
+  icon: "✂️",
+  xp: 25,
+  duration: "22 min",
+  order: 4,
+  gradeRange: [8, 12],
+  difficulty: "intermediate",
+  skillLevel: "intermediate",
+  sections: [
+    {
+      type: "text",
+      emoji: "🌀",
+      content: `## 🌀 Spiral: The Power of Splitting!
+
+**Divide and Conquer** is a strategy: break a big problem into smaller pieces, solve each piece, combine the answers!
+
+**分治法**是一种策略：把大问题分成小块，解决每块，合并答案！
+
+🎯 **What you'll learn:**
+- The D&C template: divide → conquer → combine
+- Classic examples: merge sort, quick sort, binary search
+- New examples: maximum subarray, counting inversions
+
+> 🏠 Real-world analogy: Imagine counting people at a HUGE concert 🎵:
+> 1. **Divide**: Split the audience into left and right halves
+> 2. **Conquer**: Count each half (they split further)
+> 3. **Combine**: Add the two counts
+> Much easier than counting 50,000 people one by one!
+
+🔑 **D&C works when:** The problem can be split into independent subproblems of the same type!`,
+    },
+    {
+      type: "code",
+      emoji: "💻",
+      content: `## 💻 D&C Example: Maximum Subarray Sum
+
+Find the contiguous subarray with the largest sum!
+找到连续子数组的最大和！`,
+      code: `# Kadane's is O(n), but let's see the D&C approach!
+# It teaches the pattern beautifully.
+
+def max_subarray_dc(arr, left=0, right=None):
+    if right is None:
+        right = len(arr) - 1
+    
+    # Base case: single element
+    if left == right:
+        return arr[left]
+    
+    mid = (left + right) // 2
+    
+    # DIVIDE: solve left and right halves
+    left_max = max_subarray_dc(arr, left, mid)
+    right_max = max_subarray_dc(arr, mid + 1, right)
+    
+    # COMBINE: find max crossing subarray
+    # (subarray that crosses the midpoint)
+    left_sum = float('-inf')
+    total = 0
+    for i in range(mid, left - 1, -1):
+        total += arr[i]
+        left_sum = max(left_sum, total)
+    
+    right_sum = float('-inf')
+    total = 0
+    for i in range(mid + 1, right + 1):
+        total += arr[i]
+        right_sum = max(right_sum, total)
+    
+    cross_max = left_sum + right_sum
+    
+    return max(left_max, right_max, cross_max)
+
+# Test
+arr = [-2, 1, -3, 4, -1, 2, 1, -5, 4]
+print(f"Array: {arr}")
+print(f"Max subarray sum: {max_subarray_dc(arr)}")
+
+# Compare with Kadane's O(n) solution
+def kadane(arr):
+    max_sum = curr_sum = arr[0]
+    for x in arr[1:]:
+        curr_sum = max(x, curr_sum + x)
+        max_sum = max(max_sum, curr_sum)
+    return max_sum
+
+print(f"Kadane's answer: {kadane(arr)}")`,
+    },
+    {
+      type: "code",
+      emoji: "🔢",
+      content: `## 🔢 D&C: Counting Inversions
+
+Count how "unsorted" an array is. Used in recommendation systems!
+计算数组有多"无序"。用于推荐系统！`,
+      code: `# An inversion is a pair (i,j) where i < j but arr[i] > arr[j]
+# Brute force: O(n²). D&C: O(n log n)!
+
+def count_inversions(arr):
+    if len(arr) <= 1:
+        return arr, 0
+    
+    mid = len(arr) // 2
+    left, left_inv = count_inversions(arr[:mid])
+    right, right_inv = count_inversions(arr[mid:])
+    
+    # Merge and count cross inversions
+    merged = []
+    cross_inv = 0
+    i = j = 0
+    
+    while i < len(left) and j < len(right):
+        if left[i] <= right[j]:
+            merged.append(left[i])
+            i += 1
+        else:
+            merged.append(right[j])
+            # All remaining left elements are > right[j]
+            cross_inv += len(left) - i
+            j += 1
+    
+    merged.extend(left[i:])
+    merged.extend(right[j:])
+    
+    return merged, left_inv + right_inv + cross_inv
+
+# Test
+arrays = [
+    [1, 2, 3, 4, 5],    # sorted: 0 inversions
+    [5, 4, 3, 2, 1],    # reverse sorted: max inversions
+    [2, 4, 1, 3, 5],    # partially sorted
+]
+
+for arr in arrays:
+    _, inv = count_inversions(arr)
+    print(f"  {arr} → {inv} inversions")
+
+# Max inversions for n elements = n(n-1)/2
+n = 5
+print(f"\\nMax inversions for {n} elements: {n*(n-1)//2}")`,
+    },
+    {
+      type: "code",
+      emoji: "⚡",
+      content: `## ⚡ Fast Exponentiation — D&C Style
+
+Compute x^n in O(log n) instead of O(n)!
+用 O(log n) 而非 O(n) 计算 x^n！`,
+      code: `# D&C: x^n = (x^(n/2))^2 if n even
+#       x^n = x * x^(n-1) if n odd
+
+def fast_pow(x, n, depth=0):
+    indent = "  " * depth
+    print(f"{indent}pow({x}, {n})")
+    
+    if n == 0:
+        return 1
+    if n == 1:
+        return x
+    
+    if n % 2 == 0:
+        half = fast_pow(x, n // 2, depth + 1)
+        result = half * half
+    else:
+        result = x * fast_pow(x, n - 1, depth + 1)
+    
+    print(f"{indent}  = {result}")
+    return result
+
+print("⚡ Fast Power: 2^16")
+result = fast_pow(2, 16)
+print(f"\\nAnswer: {result}")
+print(f"Steps: ~log₂(16) = 4 multiplications instead of 16!")
+
+# Compare step count
+def count_steps_naive(x, n):
+    steps = 0
+    result = 1
+    for _ in range(n):
+        result *= x
+        steps += 1
+    return steps
+
+def count_steps_fast(n):
+    if n <= 1: return n
+    if n % 2 == 0:
+        return 1 + count_steps_fast(n // 2)
+    return 1 + count_steps_fast(n - 1)
+
+print(f"\\n📊 Steps comparison:")
+for n in [8, 16, 32, 64, 1000]:
+    print(f"  x^{n}: naive={count_steps_naive(2,n)} vs fast={count_steps_fast(n)} steps")`,
+    },
+    {
+      type: "interactive",
+      content: `## 🎯 Practice: D&C Min and Max · 练习：分治法求最大最小值`,
+      exercise: {
+        prompt: "Find both min AND max of an array using D&C with fewer comparisons than naive approach.",
+        promptZh: "用分治法同时找数组的最大和最小值，比较次数比暴力法更少。",
+        starterCode: "def min_max(arr, left=0, right=None):\n    if right is None:\n        right = len(arr) - 1\n    # Base case: 1 element\n    if left == right:\n        return arr[left], arr[left]\n    # Your D&C code here\n    pass\n\nprint(min_max([3, 5, 1, 8, 2, 9, 4]))",
+        expectedOutput: "(1, 9)",
+        hint: "Split in half. Get min/max of each half. Compare the two mins and two maxes.",
+        hintZh: "分成两半。分别求每半的最大最小值。比较两个最小值和两个最大值。",
+        solution: "def min_max(arr, left=0, right=None):\n    if right is None:\n        right = len(arr) - 1\n    if left == right:\n        return arr[left], arr[left]\n    if right - left == 1:\n        return (min(arr[left], arr[right]), max(arr[left], arr[right]))\n    mid = (left + right) // 2\n    min1, max1 = min_max(arr, left, mid)\n    min2, max2 = min_max(arr, mid + 1, right)\n    return (min(min1, min2), max(max1, max2))\n\nprint(min_max([3, 5, 1, 8, 2, 9, 4]))",
+      },
+    },
+    {
+      type: "text",
+      emoji: "📋",
+      content: `## 📋 Divide & Conquer Summary
+
+| Algorithm | Divide | Conquer | Combine | Time |
+|-----------|--------|---------|---------|------|
+| Binary Search | Split in half | Search one half | — | O(log n) |
+| Merge Sort | Split in half | Sort halves | Merge | O(n log n) |
+| Quick Sort | Partition | Sort partitions | — | O(n log n) avg |
+| Max Subarray | Split in half | Solve halves | Find crossing | O(n log n) |
+| Fast Power | Split exponent | Compute half | Square | O(log n) |
+
+🔑 **When to use D&C:**
+- Problem can be split into same-type subproblems
+- Combining solutions is efficient
+- Subproblems are independent (no overlap)
+- If subproblems overlap → use Dynamic Programming instead!`,
+    },
+    {
+      type: "quiz",
+      content: "🎓 Divide & Conquer Quiz · 分治法测验",
+      quiz: [
+        {
+          question: "What are the three steps of divide and conquer?\n分治法的三个步骤是什么？",
+          options: ["Plan, execute, review", "Divide, conquer, combine", "Sort, search, merge", "Input, process, output"],
+          correctIndex: 1,
+          explanation: "Divide (split), Conquer (solve subproblems), Combine (merge results). 分、治、合。",
+        },
+        {
+          question: "When should you use D&C instead of DP?\n什么时候用分治法而不是动态规划？",
+          options: ["When subproblems overlap", "When subproblems are independent", "Always", "Never"],
+          correctIndex: 1,
+          explanation: "D&C for independent subproblems, DP for overlapping subproblems. 独立子问题用分治，重叠子问题用 DP。",
+        },
+        {
+          question: "Fast exponentiation computes x^1000 in about how many steps?\n快速幂计算 x^1000 大约需要几步？",
+          options: ["1000", "500", "~10", "~100"],
+          correctIndex: 2,
+          explanation: "log₂(1000) ≈ 10. D&C reduces exponential to logarithmic! 大约 10 步。",
+        },
+        {
+          question: "The Master Theorem helps analyze which algorithms?\n主定理帮助分析哪种算法？",
+          options: ["All algorithms", "Only sorting", "D&C recurrences of form T(n) = aT(n/b) + f(n)", "Only binary search"],
+          correctIndex: 2,
+          explanation: "The Master Theorem solves recurrences of the form T(n) = aT(n/b) + f(n). 主定理解决 D&C 递推式。",
+        },
+        {
+          question: "Counting inversions uses which D&C algorithm as a base?\n计数逆序对基于哪个 D&C 算法？",
+          options: ["Binary search", "Quick sort", "Merge sort", "Fast power"],
+          correctIndex: 2,
+          explanation: "Counting inversions modifies merge sort to count while merging. 修改归并排序在合并时计数。",
+        },
+        {
+          question: "What is the recurrence for merge sort?\n归并排序的递推式是什么？",
+          options: ["T(n) = T(n-1) + O(1)", "T(n) = 2T(n/2) + O(n)", "T(n) = T(n/2) + O(1)", "T(n) = 2T(n-1) + O(1)"],
+          correctIndex: 1,
+          explanation: "Two subproblems of size n/2, plus O(n) merge step. 两个 n/2 大小的子问题，加 O(n) 合并。",
+        },
+        {
+          question: "Which is NOT a divide and conquer algorithm?\n哪个不是分治算法？",
+          options: ["Merge sort", "Binary search", "Dijkstra's algorithm", "Quick sort"],
+          correctIndex: 2,
+          explanation: "Dijkstra's is a greedy algorithm, not divide and conquer. Dijkstra 是贪心算法。",
+        },
+        {
+          question: "D&C min-max finds both min and max using ~3n/2 comparisons instead of?\n分治求最大最小值用约 3n/2 次比较而不是？",
+          options: ["n", "n log n", "2n - 2", "n²"],
+          correctIndex: 2,
+          explanation: "Naive approach: n-1 for min + n-1 for max = 2n-2. D&C: ~3n/2. 暴力法需要 2n-2 次。",
+        },
+      ],
+    },
+  ],
+};
+
+// ═══════════════════════════════════════════════════════════════
+// MODULE ALG-4: DYNAMIC PROGRAMMING
+// ═══════════════════════════════════════════════════════════════
+
+const alg_4_1: Lesson = {
+  id: "alg-4-1",
+  moduleId: "alg-4",
+  title: "Memoization",
+  subtitle: "Remember past results · 记忆化",
+  icon: "🧠",
+  xp: 25,
+  duration: "22 min",
+  order: 1,
+  gradeRange: [9, 12],
+  difficulty: "advanced",
+  skillLevel: "advanced",
+  sections: [
+    {
+      type: "text",
+      emoji: "🧩",
+      content: `## 🧩 Puzzle Says: Don't Repeat Yourself!
+
+I'm **Puzzle** 🧩, your DP strategist! Dynamic Programming is all about **not solving the same problem twice**.
+
+我是 **拼图** 🧩，你的 DP 策略师！动态规划的核心是**不重复解决同一个问题**。
+
+🎯 **What you'll learn:**
+- Why recursion can be SLOW (overlapping subproblems)
+- Memoization: caching results of function calls
+- From exponential to polynomial!
+
+> 🏠 Real-world analogy: Imagine your teacher asks "What's 7×8?" every class. The first time you calculate: 56. But from then on, you just REMEMBER the answer! That's memoization — solving once, remembering forever!
+>
+> 现实类比：想象老师每节课都问"7×8等于多少？"第一次你要算：56。之后你直接记住答案！这就是记忆化——解决一次，永远记住！
+
+🔑 **DP = recursion + memoization (top-down) OR iteration + table (bottom-up)**`,
+    },
+    {
+      type: "code",
+      emoji: "🐌",
+      content: `## 🐌 The Problem: Slow Fibonacci
+
+Naive recursive Fibonacci is EXPONENTIALLY slow. Let's see why!
+朴素递归 Fibonacci 指数级慢。让我们看看为什么！`,
+      code: `import time
+
+# 🐌 Naive Fibonacci — O(2^n)
+call_count = 0
+def fib_naive(n):
+    global call_count
+    call_count += 1
+    if n <= 1:
+        return n
+    return fib_naive(n-1) + fib_naive(n-2)
+
+# Time it for increasing n
+print("🐌 Naive Fibonacci (exponential!):")
+for n in [10, 20, 25, 30, 35]:
+    call_count = 0
+    start = time.time()
+    result = fib_naive(n)
+    elapsed = time.time() - start
+    print(f"  fib({n:2d}) = {result:>10,}  calls: {call_count:>12,}  time: {elapsed:.4f}s")
+
+print("\\n⚠️ Notice how calls EXPLODE! fib(35) makes 18 million calls!")
+print("   fib(50) would take minutes... fib(100) would take YEARS!")
+print("\\n🤔 Why? Because we recompute the SAME values over and over!")
+print("   fib(5) calls fib(3) TWICE, fib(2) THREE times, etc.")`,
+    },
+    {
+      type: "code",
+      emoji: "⚡",
+      content: `## ⚡ The Fix: Memoization!
+
+Cache every result. Never compute the same thing twice!
+缓存每个结果。永远不重复计算！`,
+      code: `import time
+
+# ⚡ Memoized Fibonacci — O(n)
+def fib_memo(n, memo={}):
+    if n in memo:
+        return memo[n]
+    if n <= 1:
+        return n
+    memo[n] = fib_memo(n-1, memo) + fib_memo(n-2, memo)
+    return memo[n]
+
+print("⚡ Memoized Fibonacci (linear!):")
+for n in [10, 20, 50, 100, 500]:
+    memo = {}
+    start = time.time()
+    result = fib_memo(n, memo)
+    elapsed = time.time() - start
+    # Show first 20 digits for big numbers
+    result_str = str(result)
+    if len(result_str) > 20:
+        result_str = result_str[:20] + f"... ({len(result_str)} digits)"
+    print(f"  fib({n:3d}) = {result_str}  time: {elapsed:.6f}s  cached: {len(memo)} values")
+
+print("\\n🎉 fib(500) in microseconds! Was impossible without memoization!")
+
+# Python's built-in way: @functools.lru_cache
+from functools import lru_cache
+
+@lru_cache(maxsize=None)
+def fib_cached(n):
+    if n <= 1: return n
+    return fib_cached(n-1) + fib_cached(n-2)
+
+print(f"\\n🐍 Python's @lru_cache:")
+print(f"  fib(100) = {fib_cached(100)}")
+print(f"  Cache info: {fib_cached.cache_info()}")`,
+    },
+    {
+      type: "concept",
+      emoji: "🧠",
+      content: `## 🧠 Code Anatomy: Memoization Pattern`,
+      concept: {
+        title: "Memoization — The Pattern",
+        titleZh: "记忆化——模式解析",
+        codeAnatomy: {
+          lines: [
+            { code: "def solve(n, memo={}):", explanation: "Function with a memo dictionary", explanationZh: "带备忘录字典的函数" },
+            { code: "    if n in memo:", explanation: "Check if we already computed this", explanationZh: "检查是否已经计算过" },
+            { code: "        return memo[n]", explanation: "Return cached result — O(1)!", explanationZh: "返回缓存结果 — O(1)！" },
+            { code: "    # ... compute result ...", explanation: "Do the actual computation", explanationZh: "进行实际计算" },
+            { code: "    memo[n] = result", explanation: "Store result for future use", explanationZh: "存储结果供将来使用" },
+            { code: "    return memo[n]", explanation: "Return the computed result", explanationZh: "返回计算结果" },
+          ],
+        },
+      },
+    },
+    {
+      type: "code",
+      emoji: "🪜",
+      content: `## 🪜 Classic DP: Climbing Stairs
+
+How many ways to climb n stairs, taking 1 or 2 steps at a time?
+每次走 1 或 2 步，爬 n 级台阶有多少种方法？`,
+      code: `# This is Fibonacci in disguise!
+# ways(n) = ways(n-1) + ways(n-2)
+# (either take 1 step from n-1, or 2 steps from n-2)
+
+def climb_stairs(n, memo={}):
+    if n in memo: return memo[n]
+    if n <= 2: return n
+    memo[n] = climb_stairs(n-1, memo) + climb_stairs(n-2, memo)
+    return memo[n]
+
+print("🪜 Climbing Stairs:")
+for n in range(1, 11):
+    ways = climb_stairs(n, {})
+    print(f"  {n} stairs: {ways} ways")
+
+# What if we can take 1, 2, or 3 steps?
+def climb_stairs_3(n, memo={}):
+    if n in memo: return memo[n]
+    if n <= 0: return 1 if n == 0 else 0
+    memo[n] = (climb_stairs_3(n-1, memo) + 
+               climb_stairs_3(n-2, memo) + 
+               climb_stairs_3(n-3, memo))
+    return memo[n]
+
+print("\\n🪜 With 1, 2, or 3 steps:")
+for n in range(1, 11):
+    print(f"  {n} stairs: {climb_stairs_3(n, {})} ways")`,
+    },
+    {
+      type: "interactive",
+      content: `## 🎯 Practice: Memoize a Function · 练习：记忆化一个函数`,
+      exercise: {
+        prompt: "Memoize this slow recursive function that counts paths in a grid from top-left to bottom-right (can only go right or down).",
+        promptZh: "记忆化这个慢递归函数，计算从左上到右下的网格路径数（只能向右或向下走）。",
+        starterCode: "def count_paths(m, n, memo={}):\n    # Base case: 1x1 grid = 1 path\n    if m == 1 or n == 1:\n        return 1\n    # Add memoization!\n    return count_paths(m-1, n) + count_paths(m, n-1)\n\nprint(count_paths(3, 3))  # Should be 6",
+        expectedOutput: "6",
+        hint: "Check if (m,n) is in memo before computing. Store result in memo[(m,n)].",
+        hintZh: "计算前检查 (m,n) 是否在 memo 中。将结果存入 memo[(m,n)]。",
+        solution: "def count_paths(m, n, memo={}):\n    if (m, n) in memo:\n        return memo[(m, n)]\n    if m == 1 or n == 1:\n        return 1\n    memo[(m, n)] = count_paths(m-1, n, memo) + count_paths(m, n-1, memo)\n    return memo[(m, n)]\n\nprint(count_paths(3, 3))",
+      },
+    },
+    {
+      type: "quiz",
+      content: "🎓 Memoization Quiz · 记忆化测验",
+      quiz: [
+        {
+          question: "What does memoization do?\n记忆化做什么？",
+          options: ["Sorts the results", "Caches results of function calls", "Removes recursion", "Parallelizes computation"],
+          correctIndex: 1,
+          explanation: "Memoization caches (saves) results so we never recompute the same input. 记忆化缓存结果避免重复计算。",
+        },
+        {
+          question: "Naive Fibonacci fib(50) is slow because...?\n朴素 Fibonacci fib(50) 很慢因为……？",
+          options: ["50 is too big", "It recomputes the same values exponentially many times", "Python is slow", "Fibonacci numbers are large"],
+          correctIndex: 1,
+          explanation: "fib(50) makes over 2^50 calls due to overlapping subproblems! 由于重叠子问题，调用超过 2^50 次！",
+        },
+        {
+          question: "Memoized Fibonacci's time complexity?\n记忆化 Fibonacci 的时间复杂度？",
+          options: ["O(2ⁿ)", "O(n²)", "O(n)", "O(n log n)"],
+          correctIndex: 2,
+          explanation: "Each value fib(0) to fib(n) is computed exactly once: O(n). 每个值只计算一次。",
+        },
+        {
+          question: "What is the space complexity of memoized Fibonacci?\n记忆化 Fibonacci 的空间复杂度？",
+          options: ["O(1)", "O(n)", "O(n²)", "O(2ⁿ)"],
+          correctIndex: 1,
+          explanation: "We store n values in the memo dictionary: O(n) space. 在备忘录中存储 n 个值。",
+        },
+        {
+          question: "Climbing stairs (1 or 2 steps) for n=5 gives?\nn=5 级台阶（每次 1 或 2 步）有多少种方法？",
+          options: ["5", "8", "13", "3"],
+          correctIndex: 1,
+          explanation: "It's the Fibonacci sequence! ways(5) = ways(4) + ways(3) = 5 + 3 = 8. 是 Fibonacci 数列！",
+        },
+        {
+          question: "Which Python decorator does memoization?\n哪个 Python 装饰器做记忆化？",
+          options: ["@staticmethod", "@property", "@lru_cache", "@classmethod"],
+          correctIndex: 2,
+          explanation: "@functools.lru_cache automatically memoizes function results. 自动记忆化函数结果。",
+        },
+        {
+          question: "Memoization is also called?\n记忆化也叫？",
+          options: ["Bottom-up DP", "Top-down DP", "Greedy", "Divide and conquer"],
+          correctIndex: 1,
+          explanation: "Memoization = top-down DP (start from the big problem, cache as you go). 自顶向下的 DP。",
+        },
+        {
+          question: "When does memoization NOT help?\n什么时候记忆化没有帮助？",
+          options: ["When subproblems overlap", "When each subproblem is unique (no overlap)", "When the problem is recursive", "When using Python"],
+          correctIndex: 1,
+          explanation: "If every subproblem is unique, there's nothing to cache! 如果每个子问题都唯一，就没什么可缓存的！",
+        },
+      ],
+    },
+  ],
+};
+
+const alg_4_2: Lesson = {
+  id: "alg-4-2",
+  moduleId: "alg-4",
+  title: "Tabulation",
+  subtitle: "Build up from the bottom · 制表法",
+  icon: "📊",
+  xp: 25,
+  duration: "22 min",
+  order: 2,
+  gradeRange: [9, 12],
+  difficulty: "advanced",
+  skillLevel: "advanced",
+  sections: [
+    {
+      type: "text",
+      emoji: "🧩",
+      content: `## 🧩 Puzzle: Bottom-Up DP!
+
+Memoization is top-down (start big, cache as you go). **Tabulation** is bottom-up: start from the smallest subproblems and build up!
+
+记忆化是自顶向下。**制表法**是自底向上：从最小的子问题开始，逐步构建！
+
+🎯 **What you'll learn:**
+- Bottom-up DP (tabulation)
+- Converting memoization to tabulation
+- Space optimization tricks
+
+> 🏠 Real-world analogy: Building a pyramid 🏗️ — you can't start from the top! You build the base layer first, then the next, then the next... Each layer depends on the one below.
+>
+> 现实类比：建金字塔 🏗️ ——你不能从顶部开始！先建基层，然后下一层……每层都依赖下面的层。
+
+🔑 **Tabulation advantages:**
+- No recursion → no stack overflow!
+- Often faster (no function call overhead)
+- Easier to optimize space`,
+    },
+    {
+      type: "code",
+      emoji: "💻",
+      content: `## 💻 Fibonacci: Three Ways
+
+Compare naive, memoized (top-down), and tabulated (bottom-up)!
+比较朴素、记忆化（自顶向下）和制表法（自底向上）！`,
+      code: `# Method 1: Naive recursion — O(2^n)
+def fib_naive(n):
+    if n <= 1: return n
+    return fib_naive(n-1) + fib_naive(n-2)
+
+# Method 2: Memoization (top-down) — O(n)
+def fib_memo(n, memo={}):
+    if n in memo: return memo[n]
+    if n <= 1: return n
+    memo[n] = fib_memo(n-1, memo) + fib_memo(n-2, memo)
+    return memo[n]
+
+# Method 3: Tabulation (bottom-up) — O(n)
+def fib_tab(n):
+    if n <= 1: return n
+    dp = [0] * (n + 1)
+    dp[0], dp[1] = 0, 1
+    for i in range(2, n + 1):
+        dp[i] = dp[i-1] + dp[i-2]
+    return dp[n]
+
+# Method 4: Space-optimized — O(1) space!
+def fib_opt(n):
+    if n <= 1: return n
+    a, b = 0, 1
+    for _ in range(2, n + 1):
+        a, b = b, a + b
+    return b
+
+# Compare
+print("📊 Fibonacci Comparison:")
+for n in [10, 20, 50]:
+    print(f"  fib({n}): memo={fib_memo(n, {})} | tab={fib_tab(n)} | opt={fib_opt(n)}")
+
+# Show the DP table
+print("\\n📊 DP table for fib(10):")
+dp = [0] * 11
+dp[1] = 1
+for i in range(2, 11):
+    dp[i] = dp[i-1] + dp[i-2]
+    print(f"  dp[{i}] = dp[{i-1}] + dp[{i-2}] = {dp[i-1]} + {dp[i-2]} = {dp[i]}")`,
+    },
+    {
+      type: "code",
+      emoji: "🪙",
+      content: `## 🪙 Classic DP: Coin Change
+
+Minimum coins to make a target amount!
+用最少的硬币凑出目标金额！`,
+      code: `def coin_change(coins, amount):
+    """Minimum coins needed to make 'amount'"""
+    # dp[i] = minimum coins to make amount i
+    dp = [float('inf')] * (amount + 1)
+    dp[0] = 0  # 0 coins to make amount 0
+    
+    for i in range(1, amount + 1):
+        for coin in coins:
+            if coin <= i:
+                dp[i] = min(dp[i], dp[i - coin] + 1)
+    
+    return dp[amount] if dp[amount] != float('inf') else -1
+
+# Example
+coins = [1, 5, 10, 25]
+print("🪙 Coin Change (US coins: 1¢, 5¢, 10¢, 25¢):")
+for amount in [11, 15, 30, 41, 63]:
+    result = coin_change(coins, amount)
+    print(f"  {amount}¢ → {result} coins")
+
+# Show the DP table for small example
+print("\\n📊 DP table for coins=[1,3,4], amount=6:")
+coins2 = [1, 3, 4]
+dp = [float('inf')] * 7
+dp[0] = 0
+for i in range(1, 7):
+    for c in coins2:
+        if c <= i and dp[i-c] + 1 < dp[i]:
+            dp[i] = dp[i-c] + 1
+    print(f"  dp[{i}] = {dp[i]} coins")
+print(f"\\nAnswer: {dp[6]} coins for amount 6 with coins {coins2}")`,
+    },
+    {
+      type: "concept",
+      emoji: "🧠",
+      content: `## 🧠 Code Anatomy: Tabulation Pattern`,
+      concept: {
+        title: "Bottom-Up DP Template",
+        titleZh: "自底向上 DP 模板",
+        codeAnatomy: {
+          lines: [
+            { code: "dp = [initial_value] * (n + 1)", explanation: "Create table with space for all subproblems", explanationZh: "创建存放所有子问题的表" },
+            { code: "dp[0] = base_case", explanation: "Fill in the base case(s)", explanationZh: "填入基本情况" },
+            { code: "for i in range(1, n + 1):", explanation: "Build up from smallest to largest", explanationZh: "从最小到最大逐步构建" },
+            { code: "    dp[i] = f(dp[i-1], dp[i-2], ...)", explanation: "Compute current from previous results", explanationZh: "从之前的结果计算当前值" },
+            { code: "return dp[n]", explanation: "Answer is in the last cell", explanationZh: "答案在最后一个单元格" },
+          ],
+        },
+      },
+    },
+    {
+      type: "interactive",
+      content: `## 🎯 Practice: House Robber · 练习：打家劫舍`,
+      exercise: {
+        prompt: "A robber can't rob two adjacent houses. Given money in each house, find the maximum money. dp[i] = max(dp[i-1], dp[i-2] + nums[i])",
+        promptZh: "小偷不能抢相邻两家。给定每家的钱，求最大金额。",
+        starterCode: "def rob(nums):\n    if not nums: return 0\n    if len(nums) == 1: return nums[0]\n    # Build DP table\n    dp = [0] * len(nums)\n    dp[0] = nums[0]\n    dp[1] = max(nums[0], nums[1])\n    # Fill the rest\n    # Your code here\n    return dp[-1]\n\nprint(rob([2, 7, 9, 3, 1]))  # Should print 12",
+        expectedOutput: "12",
+        hint: "dp[i] = max(dp[i-1], dp[i-2] + nums[i]) — skip this house OR rob it + best from 2 houses ago.",
+        hintZh: "dp[i] = max(dp[i-1], dp[i-2] + nums[i])——跳过这家或抢它加上两家前的最优。",
+        solution: "def rob(nums):\n    if not nums: return 0\n    if len(nums) == 1: return nums[0]\n    dp = [0] * len(nums)\n    dp[0] = nums[0]\n    dp[1] = max(nums[0], nums[1])\n    for i in range(2, len(nums)):\n        dp[i] = max(dp[i-1], dp[i-2] + nums[i])\n    return dp[-1]\n\nprint(rob([2, 7, 9, 3, 1]))",
+      },
+    },
+    {
+      type: "text",
+      emoji: "⚖️",
+      content: `## ⚖️ Top-Down vs Bottom-Up
+
+| Feature | Memoization (Top-Down) | Tabulation (Bottom-Up) |
+|---------|----------------------|----------------------|
+| Direction | Big → small | Small → big |
+| Uses recursion | Yes | No |
+| Stack overflow risk | Yes ⚠️ | No ✅ |
+| Computes ALL subproblems | Only needed ones | All of them |
+| Space optimization | Harder | Easy ✅ |
+| Code style | More intuitive | More efficient |
+
+🔑 **Rule of thumb:**
+- Start with memoization (easier to think about)
+- Convert to tabulation if you need performance or space optimization
+- In competitions, memoization + @lru_cache is often fastest to code!`,
+    },
+    {
+      type: "quiz",
+      content: "🎓 Tabulation Quiz · 制表法测验",
+      quiz: [
+        {
+          question: "Tabulation builds solutions in which direction?\n制表法从哪个方向构建解？",
+          options: ["Top to bottom", "Bottom to top", "Left to right", "Random order"],
+          correctIndex: 1,
+          explanation: "Tabulation starts from the smallest subproblems and builds up. 从最小的子问题开始向上构建。",
+        },
+        {
+          question: "What is the space-optimized Fibonacci's space complexity?\n空间优化的 Fibonacci 空间复杂度？",
+          options: ["O(n)", "O(n²)", "O(1)", "O(log n)"],
+          correctIndex: 2,
+          explanation: "We only need 2 variables (a, b), not the whole array: O(1)! 只需要 2 个变量。",
+        },
+        {
+          question: "In coin change, dp[0] = ?\n在硬币找零中，dp[0] = ？",
+          options: ["1", "0", "infinity", "-1"],
+          correctIndex: 1,
+          explanation: "0 coins needed to make amount 0. 凑出金额 0 需要 0 个硬币。",
+        },
+        {
+          question: "Coin change with coins=[1,3,4] for amount=6: minimum coins?\n硬币 [1,3,4] 凑 6：最少几个硬币？",
+          options: ["2 (3+3)", "3 (4+1+1)", "6 (1×6)", "1"],
+          correctIndex: 0,
+          explanation: "3 + 3 = 6, using 2 coins. 3+3=6，用 2 个硬币。",
+        },
+        {
+          question: "Advantage of tabulation over memoization?\n制表法比记忆化的优势？",
+          options: ["Faster time complexity", "No recursion stack overflow risk", "Uses more memory", "Easier to understand"],
+          correctIndex: 1,
+          explanation: "Tabulation uses iteration, avoiding recursion stack overflow. 制表法用迭代，避免递归栈溢出。",
+        },
+        {
+          question: "House robber: rob([1, 2, 3, 1]) = ?\n打家劫舍：rob([1, 2, 3, 1]) = ？",
+          options: ["3", "4", "6", "5"],
+          correctIndex: 1,
+          explanation: "Rob house 1 (1) + house 3 (3) = 4. 抢第 1 家(1) + 第 3 家(3) = 4。",
+        },
+        {
+          question: "When can we optimize DP space from O(n) to O(1)?\n什么时候能把 DP 空间从 O(n) 优化到 O(1)？",
+          options: ["Always", "When dp[i] only depends on dp[i-1] and dp[i-2]", "Never", "Only for Fibonacci"],
+          correctIndex: 1,
+          explanation: "If current state only depends on a fixed number of previous states, we can use rolling variables. 如果当前状态只依赖固定数量的前几个状态。",
+        },
+        {
+          question: "Which is easier to code in competitions?\n哪种在比赛中更容易编码？",
+          options: ["Tabulation", "Memoization with @lru_cache", "Both are equally hard", "Neither"],
+          correctIndex: 1,
+          explanation: "Just add @lru_cache decorator to your recursive function — done! 加上 @lru_cache 装饰器就行了！",
+        },
+      ],
+    },
+  ],
+};
+
+const alg_4_3: Lesson = {
+  id: "alg-4-3",
+  moduleId: "alg-4",
+  title: "Classic DP Problems",
+  subtitle: "Knapsack, LCS, and more · 经典 DP 问题",
+  icon: "🎒",
+  xp: 30,
+  duration: "25 min",
+  order: 3,
+  gradeRange: [9, 12],
+  difficulty: "advanced",
+  skillLevel: "advanced",
+  sections: [
+    {
+      type: "text",
+      emoji: "🧩",
+      content: `## 🧩 Puzzle: The Greatest Hits of DP!
+
+Time for the classics! These problems appear in interviews, competitions, and real life!
+
+经典问题时间！这些问题出现在面试、竞赛和现实生活中！
+
+🎯 **What you'll learn:**
+- 0/1 Knapsack — packing your bag optimally
+- Longest Common Subsequence (LCS) — comparing sequences
+- Longest Increasing Subsequence (LIS)
+
+> 🏠 Real-world analogy:
+> - **Knapsack** 🎒: Packing for a trip with limited luggage weight
+> - **LCS** 📝: Finding what two essays have in common (like diff in Git!)
+> - **LIS** 📈: Finding the longest upward trend in stock prices
+
+🔑 **DP patterns to recognize:**
+- "Maximize/minimize something with constraints" → likely DP
+- "Count the number of ways" → likely DP
+- "Can this be done?" → likely DP`,
+    },
+    {
+      type: "code",
+      emoji: "🎒",
+      content: `## 🎒 0/1 Knapsack Problem
+
+You have a bag with weight limit W. Pick items to maximize total value!
+你有一个重量限制为 W 的背包。选物品使总价值最大！`,
+      code: `def knapsack(weights, values, W):
+    """0/1 Knapsack: each item used at most once"""
+    n = len(weights)
+    # dp[i][w] = max value using first i items with capacity w
+    dp = [[0] * (W + 1) for _ in range(n + 1)]
+    
+    for i in range(1, n + 1):
+        for w in range(W + 1):
+            # Don't take item i
+            dp[i][w] = dp[i-1][w]
+            # Take item i (if it fits)
+            if weights[i-1] <= w:
+                dp[i][w] = max(dp[i][w], dp[i-1][w - weights[i-1]] + values[i-1])
+    
+    # Show the table
+    print("📊 DP Table:")
+    print("     w:", " ".join(f"{w:3d}" for w in range(W + 1)))
+    for i in range(n + 1):
+        label = f"  i={i}:" if i > 0 else "  i=0:"
+        print(label, " ".join(f"{dp[i][w]:3d}" for w in range(W + 1)))
+    
+    return dp[n][W]
+
+# Example: packing for a camping trip
+items = ["Tent", "Sleeping Bag", "Food", "Water", "Camera"]
+weights = [3, 2, 4, 1, 1]
+values = [4, 3, 5, 2, 3]
+capacity = 7
+
+print(f"🎒 Knapsack (capacity = {capacity}kg):")
+for i, (item, w, v) in enumerate(zip(items, weights, values)):
+    print(f"  {item}: weight={w}kg, value={v}")
+
+result = knapsack(weights, values, capacity)
+print(f"\\n🏆 Maximum value: {result}")`,
+    },
+    {
+      type: "code",
+      emoji: "📝",
+      content: `## 📝 Longest Common Subsequence (LCS)
+
+Find the longest sequence that appears in both strings!
+找到两个字符串中都出现的最长序列！`,
+      code: `def lcs(s1, s2):
+    """Longest Common Subsequence"""
+    m, n = len(s1), len(s2)
+    dp = [[0] * (n + 1) for _ in range(m + 1)]
+    
+    for i in range(1, m + 1):
+        for j in range(1, n + 1):
+            if s1[i-1] == s2[j-1]:
+                dp[i][j] = dp[i-1][j-1] + 1
+            else:
+                dp[i][j] = max(dp[i-1][j], dp[i][j-1])
+    
+    # Reconstruct the LCS
+    result = []
+    i, j = m, n
+    while i > 0 and j > 0:
+        if s1[i-1] == s2[j-1]:
+            result.append(s1[i-1])
+            i -= 1; j -= 1
+        elif dp[i-1][j] > dp[i][j-1]:
+            i -= 1
+        else:
+            j -= 1
+    
+    return dp[m][n], ''.join(reversed(result))
+
+# Example 1
+s1, s2 = "ABCBDAB", "BDCAB"
+length, subseq = lcs(s1, s2)
+print(f"📝 LCS of '{s1}' and '{s2}':")
+print(f"   Length: {length}")
+print(f"   Subsequence: '{subseq}'")
+
+# Example 2: DNA sequences
+dna1 = "AGGTAB"
+dna2 = "GXTXAYB"
+length, subseq = lcs(dna1, dna2)
+print(f"\\n🧬 LCS of '{dna1}' and '{dna2}':")
+print(f"   Length: {length}")
+print(f"   Subsequence: '{subseq}'")
+
+# Example 3: Git diff!
+print("\\n💡 LCS is used in 'git diff' to find common lines between file versions!")`,
+    },
+    {
+      type: "code",
+      emoji: "📈",
+      content: `## 📈 Longest Increasing Subsequence (LIS)
+
+Find the longest strictly increasing subsequence!
+找到最长严格递增子序列！`,
+      code: `def lis(arr):
+    """Longest Increasing Subsequence: O(n²)"""
+    n = len(arr)
+    dp = [1] * n  # Each element is a subsequence of length 1
+    
+    for i in range(1, n):
+        for j in range(i):
+            if arr[j] < arr[i]:
+                dp[i] = max(dp[i], dp[j] + 1)
+    
+    # Reconstruct
+    max_len = max(dp)
+    result = []
+    idx = dp.index(max_len)
+    result.append(arr[idx])
+    
+    for i in range(idx - 1, -1, -1):
+        if dp[i] == dp[idx] - 1 and arr[i] < arr[idx]:
+            result.append(arr[i])
+            idx = i
+    
+    result.reverse()
+    return max_len, result
+
+# Examples
+arrays = [
+    [10, 22, 9, 33, 21, 50, 41, 60, 80],
+    [3, 10, 2, 1, 20],
+    [50, 3, 10, 7, 40, 80],
+]
+
+for arr in arrays:
+    length, subseq = lis(arr)
+    print(f"📈 Array: {arr}")
+    print(f"   LIS length: {length}, example: {subseq}")
+    print()
+
+# Show DP table
+arr = [3, 10, 2, 11, 5, 20]
+dp = [1] * len(arr)
+for i in range(1, len(arr)):
+    for j in range(i):
+        if arr[j] < arr[i]:
+            dp[i] = max(dp[i], dp[j] + 1)
+print(f"DP table for {arr}:")
+for i in range(len(arr)):
+    print(f"  dp[{i}] = {dp[i]} (element {arr[i]})")`,
+    },
+    {
+      type: "concept",
+      emoji: "🧠",
+      content: `## 🧠 Code Anatomy: Knapsack DP`,
+      concept: {
+        title: "0/1 Knapsack — State Transition",
+        titleZh: "0/1 背包——状态转移",
+        codeAnatomy: {
+          lines: [
+            { code: "dp[i][w] = max value using items 1..i with capacity w", explanation: "State definition: what does each cell mean?", explanationZh: "状态定义：每个单元格代表什么？" },
+            { code: "dp[i][w] = dp[i-1][w]", explanation: "Option 1: DON'T take item i", explanationZh: "选项1：不拿物品 i" },
+            { code: "if weights[i-1] <= w:", explanation: "Check if item i fits in remaining capacity", explanationZh: "检查物品 i 是否放得下" },
+            { code: "  dp[i][w] = max(dp[i][w], dp[i-1][w-weights[i-1]] + values[i-1])", explanation: "Option 2: TAKE item i (remaining cap - item weight + item value)", explanationZh: "选项2：拿物品 i" },
+          ],
+        },
+      },
+    },
+    {
+      type: "interactive",
+      content: `## 🎯 Practice: Edit Distance · 练习：编辑距离`,
+      exercise: {
+        prompt: "Find the minimum number of operations (insert, delete, replace) to transform word1 into word2.",
+        promptZh: "找到将 word1 转换为 word2 的最少操作次数（插入、删除、替换）。",
+        starterCode: "def edit_distance(s1, s2):\n    m, n = len(s1), len(s2)\n    dp = [[0]*(n+1) for _ in range(m+1)]\n    # Base cases\n    for i in range(m+1): dp[i][0] = i\n    for j in range(n+1): dp[0][j] = j\n    # Fill table\n    # Your code here\n    return dp[m][n]\n\nprint(edit_distance('kitten', 'sitting'))  # 3",
+        expectedOutput: "3",
+        hint: "If chars match: dp[i][j] = dp[i-1][j-1]. Else: 1 + min(dp[i-1][j], dp[i][j-1], dp[i-1][j-1]).",
+        hintZh: "如果字符匹配：dp[i][j] = dp[i-1][j-1]。否则：1 + min(三个方向)。",
+        solution: "def edit_distance(s1, s2):\n    m, n = len(s1), len(s2)\n    dp = [[0]*(n+1) for _ in range(m+1)]\n    for i in range(m+1): dp[i][0] = i\n    for j in range(n+1): dp[0][j] = j\n    for i in range(1, m+1):\n        for j in range(1, n+1):\n            if s1[i-1] == s2[j-1]:\n                dp[i][j] = dp[i-1][j-1]\n            else:\n                dp[i][j] = 1 + min(dp[i-1][j], dp[i][j-1], dp[i-1][j-1])\n    return dp[m][n]\n\nprint(edit_distance('kitten', 'sitting'))",
+      },
+    },
+    {
+      type: "quiz",
+      content: "🎓 Classic DP Quiz · 经典 DP 测验",
+      quiz: [
+        {
+          question: "In 0/1 Knapsack, '0/1' means?\n0/1 背包中的 '0/1' 是什么意思？",
+          options: ["Binary numbers", "Each item is taken 0 or 1 times", "There are 0 or 1 solutions", "The values are 0 or 1"],
+          correctIndex: 1,
+          explanation: "Each item can be taken once (1) or not at all (0). 每个物品要么拿(1)要么不拿(0)。",
+        },
+        {
+          question: "Knapsack time complexity?\n背包问题时间复杂度？",
+          options: ["O(n)", "O(nW)", "O(n²)", "O(2ⁿ)"],
+          correctIndex: 1,
+          explanation: "n items × W capacity = O(nW) — pseudo-polynomial. n 个物品 × W 容量。",
+        },
+        {
+          question: "LCS of 'ABC' and 'AC'?\n'ABC' 和 'AC' 的 LCS？",
+          options: ["'A'", "'AC'", "'ABC'", "'C'"],
+          correctIndex: 1,
+          explanation: "'AC' appears in both strings as a subsequence. 'AC' 在两个字符串中都作为子序列出现。",
+        },
+        {
+          question: "LCS time complexity for strings of length m and n?\n长度为 m 和 n 的字符串 LCS 时间复杂度？",
+          options: ["O(m+n)", "O(mn)", "O(m²n²)", "O(2^(m+n))"],
+          correctIndex: 1,
+          explanation: "We fill an m×n table: O(mn). 填充 m×n 的表格。",
+        },
+        {
+          question: "LIS of [10, 9, 2, 5, 3, 7, 101, 18]?\n[10, 9, 2, 5, 3, 7, 101, 18] 的 LIS 长度？",
+          options: ["3", "4", "5", "6"],
+          correctIndex: 1,
+          explanation: "One possible LIS: [2, 3, 7, 18] or [2, 5, 7, 101] — length 4. 长度为 4。",
+        },
+        {
+          question: "Which real-world tool uses LCS?\n哪个现实工具使用 LCS？",
+          options: ["Calculator", "Git diff", "Web browser", "Music player"],
+          correctIndex: 1,
+          explanation: "Git diff uses LCS to find common lines between file versions. Git diff 使用 LCS 找文件版本间的公共行。",
+        },
+        {
+          question: "Edit distance between 'cat' and 'car'?\n'cat' 和 'car' 的编辑距离？",
+          options: ["1", "2", "3", "0"],
+          correctIndex: 0,
+          explanation: "Replace 't' with 'r': one operation. 替换 't' 为 'r'：一次操作。",
+        },
+        {
+          question: "Which is NOT a classic DP problem?\n哪个不是经典 DP 问题？",
+          options: ["Knapsack", "Longest Common Subsequence", "Binary Search", "Edit Distance"],
+          correctIndex: 2,
+          explanation: "Binary search is a divide and conquer algorithm, not DP. 二分搜索是分治算法，不是 DP。",
+        },
+      ],
+    },
+  ],
+};
+
+const alg_4_4: Lesson = {
+  id: "alg-4-4",
+  moduleId: "alg-4",
+  title: "DP on Grids",
+  subtitle: "Paths and grids · 网格 DP",
+  icon: "🗺️",
+  xp: 25,
+  duration: "22 min",
+  order: 4,
+  gradeRange: [9, 12],
+  difficulty: "advanced",
+  skillLevel: "advanced",
+  sections: [
+    {
+      type: "text",
+      emoji: "🧩",
+      content: `## 🧩 Puzzle: DP on 2D Grids!
+
+Many DP problems happen on grids: counting paths, finding minimum costs, navigating obstacles!
+
+很多 DP 问题发生在网格上：计数路径、最小代价、绕过障碍物！
+
+🎯 **What you'll learn:**
+- Grid path counting
+- Minimum path sum
+- Grids with obstacles
+
+> 🏠 Real-world analogy: Imagine a city grid 🏙️. You're at the top-left corner and need to reach the bottom-right. You can only go right or down. How many routes are there? What's the shortest path with traffic costs?
+>
+> 现实类比：想象一个城市网格。你在左上角，要到右下角。只能向右或向下。有多少条路线？考虑交通费用的最短路径是什么？
+
+🔑 **Grid DP pattern:** dp[i][j] depends on dp[i-1][j] (from above) and dp[i][j-1] (from left)`,
+    },
+    {
+      type: "code",
+      emoji: "💻",
+      content: `## 💻 Grid Paths: Count All Paths
+
+How many ways to go from top-left to bottom-right?
+从左上到右下有多少种走法？`,
+      code: `def count_paths(m, n):
+    """Count paths in m×n grid (right or down only)"""
+    dp = [[0] * n for _ in range(m)]
+    
+    # First row and column: only one way
+    for i in range(m): dp[i][0] = 1
+    for j in range(n): dp[0][j] = 1
+    
+    # Fill the grid
+    for i in range(1, m):
+        for j in range(1, n):
+            dp[i][j] = dp[i-1][j] + dp[i][j-1]
+    
+    # Print the grid
+    print(f"📊 Path count grid ({m}×{n}):")
+    for row in dp:
+        print("  " + " ".join(f"{x:4d}" for x in row))
+    
+    return dp[m-1][n-1]
+
+result = count_paths(4, 4)
+print(f"\\n🏁 Total paths: {result}")
+
+# This is actually C(m+n-2, m-1) = (m+n-2)! / ((m-1)! * (n-1)!)
+from math import comb
+m, n = 4, 4
+print(f"Math formula: C({m+n-2}, {m-1}) = {comb(m+n-2, m-1)}")
+
+# Bigger grid
+print(f"\\n10×10 grid: {count_paths(3, 3)} paths (3×3)")
+print(f"Math: C(18, 9) = {comb(18, 9)} paths (10×10)")`,
+    },
+    {
+      type: "code",
+      emoji: "🚧",
+      content: `## 🚧 Grid with Obstacles
+
+Some cells are blocked! Can we still count paths?
+有些格子被堵了！还能数路径吗？`,
+      code: `def count_paths_obstacles(grid):
+    """Count paths avoiding obstacles (1 = obstacle)"""
+    m, n = len(grid), len(grid[0])
+    dp = [[0] * n for _ in range(m)]
+    
+    # First cell
+    dp[0][0] = 0 if grid[0][0] == 1 else 1
+    
+    # First row
+    for j in range(1, n):
+        dp[0][j] = 0 if grid[0][j] == 1 else dp[0][j-1]
+    
+    # First column
+    for i in range(1, m):
+        dp[i][0] = 0 if grid[i][0] == 1 else dp[i-1][0]
+    
+    # Fill rest
+    for i in range(1, m):
+        for j in range(1, n):
+            if grid[i][j] == 1:
+                dp[i][j] = 0  # Blocked!
+            else:
+                dp[i][j] = dp[i-1][j] + dp[i][j-1]
+    
+    # Visualize
+    print("🗺️ Grid (0=open, 1=blocked):")
+    for i in range(m):
+        row = ""
+        for j in range(n):
+            if grid[i][j] == 1:
+                row += "  🚧"
+            else:
+                row += f" {dp[i][j]:3d}"
+        print(row)
+    
+    return dp[m-1][n-1]
+
+grid = [
+    [0, 0, 0, 0],
+    [0, 1, 0, 0],
+    [0, 0, 1, 0],
+    [0, 0, 0, 0]
+]
+result = count_paths_obstacles(grid)
+print(f"\\n🏁 Paths avoiding obstacles: {result}")`,
+    },
+    {
+      type: "code",
+      emoji: "💰",
+      content: `## 💰 Minimum Path Sum
+
+Find the path with minimum total cost!
+找到总代价最小的路径！`,
+      code: `def min_path_sum(grid):
+    """Minimum cost path from top-left to bottom-right"""
+    m, n = len(grid), len(grid[0])
+    dp = [[0] * n for _ in range(m)]
+    
+    dp[0][0] = grid[0][0]
+    
+    # First row: can only come from left
+    for j in range(1, n):
+        dp[0][j] = dp[0][j-1] + grid[0][j]
+    
+    # First column: can only come from above
+    for i in range(1, m):
+        dp[i][0] = dp[i-1][0] + grid[i][0]
+    
+    # Fill rest: min of top or left + current cost
+    for i in range(1, m):
+        for j in range(1, n):
+            dp[i][j] = min(dp[i-1][j], dp[i][j-1]) + grid[i][j]
+    
+    # Reconstruct path
+    path = []
+    i, j = m - 1, n - 1
+    path.append((i, j))
+    while i > 0 or j > 0:
+        if i == 0:
+            j -= 1
+        elif j == 0:
+            i -= 1
+        elif dp[i-1][j] < dp[i][j-1]:
+            i -= 1
+        else:
+            j -= 1
+        path.append((i, j))
+    path.reverse()
+    
+    # Visualize
+    print("💰 Cost grid:")
+    for row in grid:
+        print("  " + " ".join(f"{x:3d}" for x in row))
+    print("\\n📊 Min cost to reach each cell:")
+    for i in range(m):
+        row = ""
+        for j in range(n):
+            marker = " *" if (i,j) in path else "  "
+            row += f"{dp[i][j]:3d}{marker}"
+        print(row)
+    
+    print(f"\\n🏁 Minimum path sum: {dp[m-1][n-1]}")
+    print(f"📍 Path: {' → '.join(f'({r},{c})' for r,c in path)}")
+    return dp[m-1][n-1]
+
+grid = [
+    [1, 3, 1, 2],
+    [1, 5, 1, 3],
+    [4, 2, 1, 1],
+    [2, 1, 4, 1]
+]
+min_path_sum(grid)`,
+    },
+    {
+      type: "interactive",
+      content: `## 🎯 Practice: Maximum Path Sum · 练习：最大路径和`,
+      exercise: {
+        prompt: "Find the MAXIMUM path sum in a grid (move right or down only).",
+        promptZh: "找到网格中的最大路径和（只能向右或向下走）。",
+        starterCode: "def max_path_sum(grid):\n    m, n = len(grid), len(grid[0])\n    dp = [[0]*n for _ in range(m)]\n    dp[0][0] = grid[0][0]\n    # Fill first row and column\n    # Then fill the rest using max instead of min\n    # Your code here\n    return dp[m-1][n-1]\n\ngrid = [[1,2,3],[4,5,6],[7,8,9]]\nprint(max_path_sum(grid))  # Should print 29",
+        expectedOutput: "29",
+        hint: "Same as min path sum but use max(dp[i-1][j], dp[i][j-1]) + grid[i][j].",
+        hintZh: "和最小路径和一样，但用 max。",
+        solution: "def max_path_sum(grid):\n    m, n = len(grid), len(grid[0])\n    dp = [[0]*n for _ in range(m)]\n    dp[0][0] = grid[0][0]\n    for j in range(1, n): dp[0][j] = dp[0][j-1] + grid[0][j]\n    for i in range(1, m): dp[i][0] = dp[i-1][0] + grid[i][0]\n    for i in range(1, m):\n        for j in range(1, n):\n            dp[i][j] = max(dp[i-1][j], dp[i][j-1]) + grid[i][j]\n    return dp[m-1][n-1]\n\ngrid = [[1,2,3],[4,5,6],[7,8,9]]\nprint(max_path_sum(grid))",
+      },
+    },
+    {
+      type: "text",
+      emoji: "📋",
+      content: `## 📋 Grid DP Summary
+
+| Problem | Recurrence | Time | Space |
+|---------|-----------|------|-------|
+| Count paths | dp[i][j] = dp[i-1][j] + dp[i][j-1] | O(mn) | O(mn)→O(n) |
+| Min path sum | dp[i][j] = min(above, left) + cost | O(mn) | O(mn)→O(n) |
+| With obstacles | Same, but dp=0 for blocked cells | O(mn) | O(mn)→O(n) |
+| Max path sum | dp[i][j] = max(above, left) + value | O(mn) | O(mn)→O(n) |
+
+🔑 **Space optimization:** Since each row only depends on the row above, we can use a 1D array instead of 2D!
+
+🧩 **DP mastery checklist:**
+1. ✅ Define the state (what does dp[i][j] represent?)
+2. ✅ Write the recurrence (how to compute dp[i][j]?)
+3. ✅ Set base cases
+4. ✅ Fill in the correct order
+5. ✅ Extract the answer`,
+    },
+    {
+      type: "quiz",
+      content: "🎓 Grid DP Quiz · 网格 DP 测验",
+      quiz: [
+        {
+          question: "In a 3×3 grid, how many paths from top-left to bottom-right?\n3×3 网格中从左上到右下有多少条路径？",
+          options: ["4", "6", "8", "9"],
+          correctIndex: 1,
+          explanation: "C(4,2) = 6. We need 2 downs and 2 rights in any order. C(4,2) = 6。",
+        },
+        {
+          question: "For min path sum, dp[i][j] = ?\n最小路径和中，dp[i][j] = ？",
+          options: ["dp[i-1][j] + dp[i][j-1]", "min(dp[i-1][j], dp[i][j-1])", "min(dp[i-1][j], dp[i][j-1]) + grid[i][j]", "grid[i][j]"],
+          correctIndex: 2,
+          explanation: "Take the minimum of coming from above or left, plus current cell's cost. 取从上方或左方来的最小值，加当前格的代价。",
+        },
+        {
+          question: "What happens at an obstacle in grid path counting?\n网格路径计数中遇到障碍物怎么办？",
+          options: ["dp = infinity", "dp = 0", "dp = -1", "Skip the cell"],
+          correctIndex: 1,
+          explanation: "No paths can go through an obstacle: dp = 0. 没有路径能经过障碍物。",
+        },
+        {
+          question: "Grid DP time complexity for m×n grid?\nm×n 网格 DP 的时间复杂度？",
+          options: ["O(m+n)", "O(mn)", "O(m²n²)", "O(2^(m+n))"],
+          correctIndex: 1,
+          explanation: "We visit each cell once: O(m×n). 访问每个格子一次。",
+        },
+        {
+          question: "Can grid DP space be optimized to O(n)?\n网格 DP 空间能优化到 O(n) 吗？",
+          options: ["No, never", "Yes, using a 1D array", "Yes, using recursion", "Only for square grids"],
+          correctIndex: 1,
+          explanation: "Since each row only uses the previous row, we can reuse a single 1D array. 每行只用前一行，可以复用一维数组。",
+        },
+        {
+          question: "Grid path count is equivalent to which math concept?\n网格路径计数等价于哪个数学概念？",
+          options: ["Permutation", "Combination C(m+n-2, m-1)", "Factorial", "Power"],
+          correctIndex: 1,
+          explanation: "Choosing m-1 downs from m+n-2 total moves = C(m+n-2, m-1). 从 m+n-2 步中选 m-1 步向下。",
+        },
+        {
+          question: "First row in grid path counting: all cells have dp value?\n网格路径计数第一行的所有格子 dp 值是？",
+          options: ["0", "1", "Their row index", "Varies"],
+          correctIndex: 1,
+          explanation: "First row: only one way to reach each cell (go right). 第一行：只有一种方式到达每个格子（一直向右）。",
+        },
+        {
+          question: "If grid[0][0] is an obstacle, how many paths exist?\n如果 grid[0][0] 是障碍物，有多少路径？",
+          options: ["1", "0", "Depends on grid size", "Error"],
+          correctIndex: 1,
+          explanation: "If the start is blocked, no paths are possible: 0. 起点被堵则无路径。",
+        },
+      ],
+    },
+  ],
+};
+
+// ═══════════════════════════════════════════════════════════════
+// MODULE ALG-5: GRAPH ALGORITHMS
+// ═══════════════════════════════════════════════════════════════
+
+const alg_5_1: Lesson = {
+  id: "alg-5-1",
+  moduleId: "alg-5",
+  title: "BFS & DFS",
+  subtitle: "Graph traversal basics · 图遍历基础",
+  icon: "🔎",
+  xp: 25,
+  duration: "25 min",
+  order: 1,
+  gradeRange: [9, 12],
+  difficulty: "advanced",
+  skillLevel: "advanced",
+  sections: [
+    {
+      type: "text",
+      emoji: "🕸️",
+      content: `## 🕸️ Web Says: Let's Explore Graphs!
+
+I'm **Web** 🕸️, your graph navigator! Graphs are everywhere: social networks, maps, the internet!
+
+我是 **蛛网** 🕸️，你的图导航员！图无处不在：社交网络、地图、互联网！
+
+🎯 **What you'll learn:**
+- BFS (Breadth-First Search) — explore level by level
+- DFS (Depth-First Search) — explore as deep as possible first
+- When to use each
+
+> 🏠 Real-world analogies:
+> - **BFS** 🌊: Like ripples in water — explore all neighbors first, then their neighbors
+> - **DFS** 🏔️: Like exploring a cave — go as deep as possible, then backtrack
+>
+> 现实类比：
+> - BFS：像水中的涟漪——先探索所有邻居，再探索邻居的邻居
+> - DFS：像探索洞穴——尽可能深入，然后回溯
+
+🔑 **BFS uses a Queue | DFS uses a Stack (or recursion)**`,
+    },
+    {
+      type: "code",
+      emoji: "🌊",
+      content: `## 🌊 BFS — Breadth-First Search
+
+Explore nodes level by level using a queue!
+用队列逐层探索节点！`,
+      code: `from collections import deque
+
+def bfs(graph, start):
+    """BFS: explore level by level"""
+    visited = set()
+    queue = deque([start])
+    visited.add(start)
+    order = []
+    level = 0
+    
+    while queue:
+        size = len(queue)
+        level_nodes = []
+        
+        for _ in range(size):
+            node = queue.popleft()
+            level_nodes.append(node)
+            order.append(node)
+            
+            for neighbor in graph[node]:
+                if neighbor not in visited:
+                    visited.add(neighbor)
+                    queue.append(neighbor)
+        
+        print(f"  Level {level}: {level_nodes}")
+        level += 1
+    
+    return order
+
+# Create a graph (adjacency list)
+graph = {
+    'A': ['B', 'C'],
+    'B': ['A', 'D', 'E'],
+    'C': ['A', 'F'],
+    'D': ['B'],
+    'E': ['B', 'F'],
+    'F': ['C', 'E']
+}
+
+print("🗺️ Graph:")
+for node, neighbors in graph.items():
+    print(f"  {node} → {neighbors}")
+
+print(f"\\n🌊 BFS from 'A':")
+result = bfs(graph, 'A')
+print(f"Visit order: {' → '.join(result)}")`,
+    },
+    {
+      type: "code",
+      emoji: "🏔️",
+      content: `## 🏔️ DFS — Depth-First Search
+
+Go as deep as possible, then backtrack!
+尽可能深入，然后回溯！`,
+      code: `# DFS with recursion
+def dfs_recursive(graph, node, visited=None):
+    if visited is None:
+        visited = set()
+    
+    visited.add(node)
+    print(f"  Visiting: {node}")
+    
+    for neighbor in graph[node]:
+        if neighbor not in visited:
+            dfs_recursive(graph, neighbor, visited)
+    
+    return visited
+
+# DFS with stack (iterative)
+def dfs_iterative(graph, start):
+    visited = set()
+    stack = [start]
+    order = []
+    
+    while stack:
+        node = stack.pop()
+        if node not in visited:
+            visited.add(node)
+            order.append(node)
+            # Add neighbors in reverse for consistent order
+            for neighbor in reversed(graph[node]):
+                if neighbor not in visited:
+                    stack.append(neighbor)
+    
+    return order
+
+graph = {
+    'A': ['B', 'C'],
+    'B': ['A', 'D', 'E'],
+    'C': ['A', 'F'],
+    'D': ['B'],
+    'E': ['B', 'F'],
+    'F': ['C', 'E']
+}
+
+print("🏔️ DFS Recursive from 'A':")
+dfs_recursive(graph, 'A')
+
+print(f"\\n🏔️ DFS Iterative from 'A':")
+result = dfs_iterative(graph, 'A')
+print(f"Visit order: {' → '.join(result)}")
+
+# Compare BFS vs DFS
+from collections import deque
+def bfs_order(graph, start):
+    visited = set([start])
+    queue = deque([start])
+    order = []
+    while queue:
+        node = queue.popleft()
+        order.append(node)
+        for n in graph[node]:
+            if n not in visited:
+                visited.add(n)
+                queue.append(n)
+    return order
+
+print(f"\\n📊 Comparison:")
+print(f"  BFS order: {' → '.join(bfs_order(graph, 'A'))}")
+print(f"  DFS order: {' → '.join(dfs_iterative(graph, 'A'))}")`,
+    },
+    {
+      type: "concept",
+      emoji: "🧠",
+      content: `## 🧠 Code Anatomy: BFS`,
+      concept: {
+        title: "BFS — The Queue Pattern",
+        titleZh: "BFS——队列模式",
+        codeAnatomy: {
+          lines: [
+            { code: "queue = deque([start])", explanation: "Initialize queue with start node", explanationZh: "用起始节点初始化队列" },
+            { code: "visited.add(start)", explanation: "Mark start as visited", explanationZh: "标记起始节点已访问" },
+            { code: "while queue:", explanation: "Process until queue is empty", explanationZh: "处理直到队列为空" },
+            { code: "    node = queue.popleft()", explanation: "Take front node (FIFO)", explanationZh: "取出队首节点（先进先出）" },
+            { code: "    for neighbor in graph[node]:", explanation: "Check all neighbors", explanationZh: "检查所有邻居" },
+            { code: "        if neighbor not in visited:", explanation: "Only visit unvisited nodes", explanationZh: "只访问未访问的节点" },
+            { code: "        queue.append(neighbor)", explanation: "Add to queue for later processing", explanationZh: "加入队列等待处理" },
+          ],
+        },
+      },
+    },
+    {
+      type: "code",
+      emoji: "🎮",
+      content: `## 🎮 Application: Shortest Path in Unweighted Graph
+
+BFS finds the shortest path in unweighted graphs!
+BFS 在无权图中找最短路径！`,
+      code: `from collections import deque
+
+def shortest_path(graph, start, end):
+    """BFS shortest path in unweighted graph"""
+    queue = deque([(start, [start])])
+    visited = {start}
+    
+    while queue:
+        node, path = queue.popleft()
+        
+        if node == end:
+            return path
+        
+        for neighbor in graph[node]:
+            if neighbor not in visited:
+                visited.add(neighbor)
+                queue.append((neighbor, path + [neighbor]))
+    
+    return None  # No path
+
+# Social network graph
+social = {
+    'Alice': ['Bob', 'Charlie'],
+    'Bob': ['Alice', 'David', 'Eve'],
+    'Charlie': ['Alice', 'Frank'],
+    'David': ['Bob'],
+    'Eve': ['Bob', 'Frank'],
+    'Frank': ['Charlie', 'Eve', 'Grace'],
+    'Grace': ['Frank']
+}
+
+print("👥 Social Network:")
+for person, friends in social.items():
+    print(f"  {person} ↔ {friends}")
+
+# Find shortest connection
+pairs = [('Alice', 'Grace'), ('David', 'Frank'), ('Alice', 'Eve')]
+for start, end in pairs:
+    path = shortest_path(social, start, end)
+    print(f"\\n🔗 {start} → {end}:")
+    print(f"   Path: {' → '.join(path)}")
+    print(f"   Degrees of separation: {len(path) - 1}")`,
+    },
+    {
+      type: "interactive",
+      content: `## 🎯 Practice: Connected Components · 练习：连通分量`,
+      exercise: {
+        prompt: "Count the number of connected components in an undirected graph using BFS or DFS.",
+        promptZh: "用 BFS 或 DFS 计算无向图中的连通分量数。",
+        starterCode: "def count_components(n, edges):\n    # Build adjacency list\n    graph = {i: [] for i in range(n)}\n    for u, v in edges:\n        graph[u].append(v)\n        graph[v].append(u)\n    # Count components using BFS/DFS\n    visited = set()\n    count = 0\n    # Your code here\n    return count\n\nprint(count_components(5, [[0,1],[1,2],[3,4]]))  # 2",
+        expectedOutput: "2",
+        hint: "For each unvisited node, run BFS/DFS to mark all connected nodes, increment count.",
+        hintZh: "对每个未访问节点，运行 BFS/DFS 标记所有连接节点，计数加1。",
+        solution: "def count_components(n, edges):\n    graph = {i: [] for i in range(n)}\n    for u, v in edges:\n        graph[u].append(v)\n        graph[v].append(u)\n    visited = set()\n    count = 0\n    for i in range(n):\n        if i not in visited:\n            count += 1\n            stack = [i]\n            while stack:\n                node = stack.pop()\n                if node not in visited:\n                    visited.add(node)\n                    for nb in graph[node]:\n                        if nb not in visited:\n                            stack.append(nb)\n    return count\n\nprint(count_components(5, [[0,1],[1,2],[3,4]]))",
+      },
+    },
+    {
+      type: "text",
+      emoji: "⚖️",
+      content: `## ⚖️ BFS vs DFS Comparison
+
+| Feature | BFS | DFS |
+|---------|-----|-----|
+| Data structure | Queue (FIFO) | Stack (LIFO) / Recursion |
+| Explores | Level by level | Branch by branch |
+| Shortest path | Yes (unweighted) ✅ | No ❌ |
+| Space | O(width) — can be large | O(depth) — usually less |
+| Best for | Shortest path, level-order | Cycle detection, topological sort |
+| Complete | Yes | Yes (if finite) |
+
+🔑 **Rule of thumb:**
+- Need shortest path? → **BFS**
+- Need to explore all paths? → **DFS**
+- Need topological order? → **DFS**`,
+    },
+    {
+      type: "quiz",
+      content: "🎓 BFS & DFS Quiz · BFS & DFS 测验",
+      quiz: [
+        {
+          question: "What data structure does BFS use?\nBFS 使用什么数据结构？",
+          options: ["Stack", "Queue", "Array", "Hash map"],
+          correctIndex: 1,
+          explanation: "BFS uses a Queue (FIFO) to process nodes level by level. BFS 使用队列（先进先出）。",
+        },
+        {
+          question: "What data structure does DFS use?\nDFS 使用什么数据结构？",
+          options: ["Queue", "Priority queue", "Stack (or recursion)", "Array"],
+          correctIndex: 2,
+          explanation: "DFS uses a Stack (LIFO) or recursion (implicit stack). DFS 使用栈或递归。",
+        },
+        {
+          question: "Which finds the shortest path in an unweighted graph?\n哪个在无权图中找最短路径？",
+          options: ["DFS", "BFS", "Both", "Neither"],
+          correctIndex: 1,
+          explanation: "BFS explores level by level, so it finds the shortest path first! BFS 逐层探索，先找到最短路径！",
+        },
+        {
+          question: "BFS time complexity for V vertices and E edges?\nBFS 对 V 个顶点和 E 条边的时间复杂度？",
+          options: ["O(V)", "O(E)", "O(V + E)", "O(V × E)"],
+          correctIndex: 2,
+          explanation: "Visit each vertex once (V) and each edge once (E): O(V + E). 访问每个顶点和每条边各一次。",
+        },
+        {
+          question: "DFS is essentially which recursive pattern?\nDFS 本质上是哪种递归模式？",
+          options: ["Linear recursion", "Tree recursion", "Backtracking", "Dynamic programming"],
+          correctIndex: 2,
+          explanation: "DFS explores a path, then backtracks to try other paths — just like backtracking! DFS 探索一条路径，然后回溯。",
+        },
+        {
+          question: "'Six degrees of separation' relates to which algorithm?\n"六度分隔"与哪个算法有关？",
+          options: ["DFS", "BFS", "Dijkstra", "Floyd-Warshall"],
+          correctIndex: 1,
+          explanation: "BFS finds the shortest path (degrees of separation) in a social network. BFS 在社交网络中找最短路径。",
+        },
+        {
+          question: "If BFS from node A visits nodes in order A,B,C,D,E — which are at level 1?\n如果从 A 出发 BFS 顺序是 A,B,C,D,E——哪些在第 1 层？",
+          options: ["Only A", "B and C", "D and E", "Can't tell without the graph"],
+          correctIndex: 3,
+          explanation: "The visit order alone doesn't tell us levels — we need the graph structure. 仅凭访问顺序无法确定层级。",
+        },
+        {
+          question: "A connected component is?\n连通分量是什么？",
+          options: ["A single node", "A group of nodes all reachable from each other", "An edge", "A cycle"],
+          correctIndex: 1,
+          explanation: "A connected component is a maximal set of nodes where every pair is reachable. 连通分量是所有节点互相可达的最大集合。",
+        },
+      ],
+    },
+  ],
+};
+
+const alg_5_2: Lesson = {
+  id: "alg-5-2",
+  moduleId: "alg-5",
+  title: "Dijkstra's Algorithm",
+  subtitle: "Shortest path with weights · 最短路径",
+  icon: "🛤️",
+  xp: 30,
+  duration: "25 min",
+  order: 2,
+  gradeRange: [9, 12],
+  difficulty: "advanced",
+  skillLevel: "advanced",
+  sections: [
+    {
+      type: "text",
+      emoji: "🕸️",
+      content: `## 🕸️ Web: Finding the Shortest Route!
+
+BFS finds shortest paths when all edges are equal. But what about **weighted** graphs — like road maps with different distances?
+
+BFS 在所有边相等时找最短路径。但**加权**图呢——像有不同距离的路线图？
+
+🎯 **What you'll learn:**
+- Why BFS fails for weighted graphs
+- Dijkstra's algorithm — the gold standard
+- Priority queues (min-heaps)
+
+> 🏠 Real-world analogy: GPS navigation! 🗺️ Roads have different lengths and speeds. Dijkstra's algorithm is exactly what your GPS uses to find the fastest route!
+>
+> 现实类比：GPS 导航！道路有不同的长度和速度。Dijkstra 算法正是你的 GPS 用来找最快路线的！
+
+🔑 **Greedy approach:** Always expand the closest unvisited node!`,
+    },
+    {
+      type: "code",
+      emoji: "💻",
+      content: `## 💻 Dijkstra's Algorithm
+
+Find shortest paths from a source to all other nodes!
+从源点找到到所有其他节点的最短路径！`,
+      code: `import heapq
+
+def dijkstra(graph, start):
+    """Dijkstra's shortest path algorithm"""
+    distances = {node: float('inf') for node in graph}
+    distances[start] = 0
+    previous = {node: None for node in graph}
+    pq = [(0, start)]  # (distance, node)
+    visited = set()
+    
+    while pq:
+        dist, node = heapq.heappop(pq)
+        
+        if node in visited:
+            continue
+        visited.add(node)
+        print(f"  Visit {node} (distance={dist})")
+        
+        for neighbor, weight in graph[node]:
+            if neighbor not in visited:
+                new_dist = dist + weight
+                if new_dist < distances[neighbor]:
+                    distances[neighbor] = new_dist
+                    previous[neighbor] = node
+                    heapq.heappush(pq, (new_dist, neighbor))
+    
+    return distances, previous
+
+def get_path(previous, start, end):
+    path = []
+    node = end
+    while node is not None:
+        path.append(node)
+        node = previous[node]
+    return path[::-1]
+
+# Weighted graph (adjacency list with weights)
+graph = {
+    'A': [('B', 4), ('C', 2)],
+    'B': [('A', 4), ('D', 3), ('E', 1)],
+    'C': [('A', 2), ('D', 4), ('F', 5)],
+    'D': [('B', 3), ('C', 4), ('E', 2)],
+    'E': [('B', 1), ('D', 2), ('F', 3)],
+    'F': [('C', 5), ('E', 3)]
+}
+
+print("🗺️ Weighted Graph:")
+for node, edges in graph.items():
+    for neighbor, weight in edges:
+        print(f"  {node} --{weight}--> {neighbor}")
+
+print(f"\\n🛤️ Dijkstra from 'A':")
+distances, previous = dijkstra(graph, 'A')
+
+print(f"\\n📊 Shortest distances from A:")
+for node, dist in sorted(distances.items()):
+    path = get_path(previous, 'A', node)
+    print(f"  A → {node}: distance={dist}, path={' → '.join(path)}")`,
+    },
+    {
+      type: "concept",
+      emoji: "🧠",
+      content: `## 🧠 Code Anatomy: Dijkstra's Algorithm`,
+      concept: {
+        title: "Dijkstra's — Step by Step",
+        titleZh: "Dijkstra——逐步解析",
+        codeAnatomy: {
+          lines: [
+            { code: "distances = {node: inf}", explanation: "Initialize all distances to infinity", explanationZh: "初始化所有距离为无穷大" },
+            { code: "distances[start] = 0", explanation: "Distance to start is 0", explanationZh: "到起点的距离是 0" },
+            { code: "pq = [(0, start)]", explanation: "Priority queue (min-heap) with start", explanationZh: "优先队列（最小堆）包含起点" },
+            { code: "dist, node = heappop(pq)", explanation: "Always process the closest node first", explanationZh: "总是先处理最近的节点" },
+            { code: "new_dist = dist + weight", explanation: "Calculate distance through current node", explanationZh: "计算通过当前节点的距离" },
+            { code: "if new_dist < distances[neighbor]:", explanation: "Is this a shorter path?", explanationZh: "这是更短的路径吗？" },
+            { code: "    heappush(pq, (new_dist, neighbor))", explanation: "Add improved distance to queue", explanationZh: "将改进的距离加入队列" },
+          ],
+        },
+      },
+    },
+    {
+      type: "code",
+      emoji: "🎮",
+      content: `## 🎮 Dijkstra in a City Map
+
+A practical example with a city road network!
+一个城市道路网络的实际例子！`,
+      code: `import heapq
+
+def dijkstra_city(roads, start, end):
+    distances = {city: float('inf') for city in roads}
+    distances[start] = 0
+    previous = {city: None for city in roads}
+    pq = [(0, start)]
+    visited = set()
+    
+    while pq:
+        dist, city = heapq.heappop(pq)
+        if city in visited:
+            continue
+        visited.add(city)
+        if city == end:
+            break
+        for neighbor, weight in roads[city]:
+            new_dist = dist + weight
+            if new_dist < distances[neighbor]:
+                distances[neighbor] = new_dist
+                previous[neighbor] = city
+                heapq.heappush(pq, (new_dist, neighbor))
+    
+    # Reconstruct path
+    path = []
+    node = end
+    while node:
+        path.append(node)
+        node = previous[node]
+    path.reverse()
+    return distances[end], path
+
+# City road network (distances in km)
+roads = {
+    'Home':     [('School', 3), ('Mall', 7), ('Park', 2)],
+    'School':   [('Home', 3), ('Library', 4), ('Gym', 6)],
+    'Mall':     [('Home', 7), ('Theater', 2), ('Gym', 3)],
+    'Park':     [('Home', 2), ('Library', 5)],
+    'Library':  [('School', 4), ('Park', 5), ('Theater', 3)],
+    'Gym':      [('School', 6), ('Mall', 3), ('Theater', 1)],
+    'Theater':  [('Mall', 2), ('Library', 3), ('Gym', 1)]
+}
+
+print("🏙️ City Road Network:")
+destinations = ['School', 'Mall', 'Library', 'Theater', 'Gym', 'Park']
+for dest in destinations:
+    dist, path = dijkstra_city(roads, 'Home', dest)
+    print(f"  🏠→{dest}: {dist}km via {' → '.join(path)}")`,
+    },
+    {
+      type: "interactive",
+      content: `## 🎯 Practice: Cheapest Flight · 练习：最便宜的航班`,
+      exercise: {
+        prompt: "Use Dijkstra to find the cheapest flight from 'NYC' to 'LA'.",
+        promptZh: "用 Dijkstra 找从 'NYC' 到 'LA' 的最便宜航班。",
+        starterCode: "import heapq\n\ndef cheapest_flight(flights, start, end):\n    dist = {city: float('inf') for city in flights}\n    dist[start] = 0\n    pq = [(0, start)]\n    visited = set()\n    # Your Dijkstra code here\n    return dist[end]\n\nflights = {\n    'NYC': [('CHI', 200), ('DC', 100)],\n    'CHI': [('NYC', 200), ('LA', 300)],\n    'DC': [('NYC', 100), ('CHI', 150), ('LA', 500)],\n    'LA': [('CHI', 300), ('DC', 500)]\n}\nprint(cheapest_flight(flights, 'NYC', 'LA'))  # 450",
+        expectedOutput: "450",
+        hint: "Standard Dijkstra: pop min from heap, update neighbors if shorter path found.",
+        hintZh: "标准 Dijkstra：从堆中弹出最小值，如果找到更短路径则更新邻居。",
+        solution: "import heapq\n\ndef cheapest_flight(flights, start, end):\n    dist = {city: float('inf') for city in flights}\n    dist[start] = 0\n    pq = [(0, start)]\n    visited = set()\n    while pq:\n        d, city = heapq.heappop(pq)\n        if city in visited:\n            continue\n        visited.add(city)\n        for nb, w in flights[city]:\n            if d + w < dist[nb]:\n                dist[nb] = d + w\n                heapq.heappush(pq, (dist[nb], nb))\n    return dist[end]\n\nflights = {\n    'NYC': [('CHI', 200), ('DC', 100)],\n    'CHI': [('NYC', 200), ('LA', 300)],\n    'DC': [('NYC', 100), ('CHI', 150), ('LA', 500)],\n    'LA': [('CHI', 300), ('DC', 500)]\n}\nprint(cheapest_flight(flights, 'NYC', 'LA'))",
+      },
+    },
+    {
+      type: "text",
+      emoji: "⚠️",
+      content: `## ⚠️ Dijkstra's Limitations
+
+**Dijkstra works when:** All edge weights are **non-negative** (≥ 0)
+
+**Dijkstra FAILS when:** There are **negative weights** ❌
+
+For negative weights, use **Bellman-Ford** algorithm instead.
+
+| Algorithm | Handles Negative? | Time | Best for |
+|-----------|-------------------|------|----------|
+| BFS | N/A (unweighted) | O(V+E) | Unweighted shortest path |
+| Dijkstra | No ❌ | O((V+E) log V) | Weighted, non-negative |
+| Bellman-Ford | Yes ✅ | O(VE) | Graphs with negative edges |
+| Floyd-Warshall | Yes ✅ | O(V³) | All-pairs shortest path |
+
+🔑 **Dijkstra = BFS with a priority queue, always expanding the closest node first!**`,
+    },
+    {
+      type: "quiz",
+      content: "🎓 Dijkstra Quiz · Dijkstra 测验",
+      quiz: [
+        {
+          question: "What data structure does Dijkstra's algorithm use?\nDijkstra 算法使用什么数据结构？",
+          options: ["Queue", "Stack", "Priority queue (min-heap)", "Array"],
+          correctIndex: 2,
+          explanation: "Dijkstra uses a priority queue to always process the closest node first. 使用优先队列总是先处理最近的节点。",
+        },
+        {
+          question: "Dijkstra's time complexity with a binary heap?\n用二叉堆的 Dijkstra 时间复杂度？",
+          options: ["O(V²)", "O(V + E)", "O((V+E) log V)", "O(V³)"],
+          correctIndex: 2,
+          explanation: "Each vertex is extracted once (V log V) and each edge relaxed once (E log V). 每个顶点提取一次，每条边松弛一次。",
+        },
+        {
+          question: "Dijkstra fails when there are?\nDijkstra 在有什么时失败？",
+          options: ["Too many nodes", "Negative edge weights", "Cycles", "Disconnected components"],
+          correctIndex: 1,
+          explanation: "Negative weights can cause Dijkstra to miss shorter paths. 负权重会导致 Dijkstra 错过更短的路径。",
+        },
+        {
+          question: "In Dijkstra, initially all distances are set to?\n在 Dijkstra 中，初始所有距离设为？",
+          options: ["0", "1", "Infinity", "-1"],
+          correctIndex: 2,
+          explanation: "All distances start at infinity except the source (which is 0). 除源点(0)外都设为无穷大。",
+        },
+        {
+          question: "Dijkstra is a ___ algorithm?\nDijkstra 是一种___算法？",
+          options: ["Divide and conquer", "Dynamic programming", "Greedy", "Backtracking"],
+          correctIndex: 2,
+          explanation: "Dijkstra greedily picks the closest unvisited node each step. 每步贪心选择最近的未访问节点。",
+        },
+        {
+          question: "GPS navigation uses which algorithm?\nGPS 导航使用哪种算法？",
+          options: ["BFS", "DFS", "Dijkstra (or A*)", "Bubble sort"],
+          correctIndex: 2,
+          explanation: "GPS uses Dijkstra or A* (Dijkstra + heuristic) for route finding. GPS 使用 Dijkstra 或 A*。",
+        },
+        {
+          question: "What is 'relaxation' in Dijkstra's context?\nDijkstra 中的"松弛"是什么？",
+          options: ["Taking a break", "Updating a shorter distance to a node", "Removing an edge", "Adding a node"],
+          correctIndex: 1,
+          explanation: "Relaxation: if we found a shorter path to a node, update its distance. 如果找到更短的路径就更新距离。",
+        },
+        {
+          question: "For all-pairs shortest paths, which algorithm?\n所有节点对最短路径用哪个算法？",
+          options: ["Run Dijkstra once", "BFS", "Floyd-Warshall", "DFS"],
+          correctIndex: 2,
+          explanation: "Floyd-Warshall computes shortest paths between ALL pairs in O(V³). Floyd-Warshall 在 O(V³) 内计算所有节点对的最短路径。",
+        },
+      ],
+    },
+  ],
+};
+
+const alg_5_3: Lesson = {
+  id: "alg-5-3",
+  moduleId: "alg-5",
+  title: "Topological Sort",
+  subtitle: "Ordering dependencies · 拓扑排序",
+  icon: "📋",
+  xp: 25,
+  duration: "20 min",
+  order: 3,
+  gradeRange: [9, 12],
+  difficulty: "advanced",
+  skillLevel: "advanced",
+  sections: [
+    {
+      type: "text",
+      emoji: "🕸️",
+      content: `## 🕸️ Web: Ordering Things with Dependencies!
+
+Some things must come BEFORE others. Topological sort figures out the right order!
+
+有些事必须在其他事之前。拓扑排序找出正确的顺序！
+
+🎯 **What you'll learn:**
+- What topological sort is
+- Kahn's algorithm (BFS-based)
+- DFS-based topological sort
+- Detecting cycles
+
+> 🏠 Real-world analogy: College course prerequisites! 📚
+> - You must take Calculus I before Calculus II
+> - You must take Programming before Data Structures
+> - Topological sort finds a valid order to take ALL courses!
+>
+> 现实类比：大学课程先修要求！
+> - 必须先修微积分 I 才能修微积分 II
+> - 拓扑排序找到修完所有课程的有效顺序！
+
+🔑 **Only works on DAGs** (Directed Acyclic Graphs — no cycles!)`,
+    },
+    {
+      type: "code",
+      emoji: "💻",
+      content: `## 💻 Kahn's Algorithm (BFS-based)
+
+Start with nodes that have no prerequisites!
+从没有先修要求的节点开始！`,
+      code: `from collections import deque
+
+def topological_sort_kahn(graph, nodes):
+    """Kahn's algorithm: BFS-based topological sort"""
+    # Calculate in-degree for each node
+    in_degree = {node: 0 for node in nodes}
+    for node in graph:
+        for neighbor in graph[node]:
+            in_degree[neighbor] += 1
+    
+    # Start with nodes that have 0 in-degree
+    queue = deque([n for n in nodes if in_degree[n] == 0])
+    result = []
+    
+    print("📊 In-degrees:", {n: in_degree[n] for n in nodes})
+    print(f"Starting nodes (in-degree 0): {list(queue)}\\n")
+    
+    step = 0
+    while queue:
+        step += 1
+        node = queue.popleft()
+        result.append(node)
+        print(f"  Step {step}: process '{node}'", end="")
+        
+        freed = []
+        for neighbor in graph.get(node, []):
+            in_degree[neighbor] -= 1
+            if in_degree[neighbor] == 0:
+                queue.append(neighbor)
+                freed.append(neighbor)
+        
+        if freed:
+            print(f" → frees: {freed}")
+        else:
+            print()
+    
+    if len(result) != len(nodes):
+        print("⚠️ CYCLE DETECTED! Not all nodes processed!")
+        return None
+    
+    return result
+
+# Course prerequisites
+courses = {
+    'Algebra':      ['Calculus'],
+    'Calculus':     ['Linear Algebra', 'Physics'],
+    'Programming':  ['Data Structures'],
+    'Data Structures': ['Algorithms', 'Databases'],
+    'Linear Algebra': ['Machine Learning'],
+    'Algorithms':   ['Machine Learning'],
+    'Physics':      [],
+    'Databases':    [],
+    'Machine Learning': []
+}
+
+all_courses = list(courses.keys())
+print("📚 Course Prerequisites:")
+for course, prereqs in courses.items():
+    if prereqs:
+        print(f"  {course} → {prereqs}")
+    else:
+        print(f"  {course} (no dependencies)")
+
+print(f"\\n📋 Topological Sort (valid course order):")
+order = topological_sort_kahn(courses, all_courses)
+print(f"\\n✅ Valid order: {' → '.join(order)}")`,
+    },
+    {
+      type: "code",
+      emoji: "🔄",
+      content: `## 🔄 DFS-based Topological Sort
+
+Alternative: use DFS post-order and reverse!
+替代方法：用 DFS 后序遍历再反转！`,
+      code: `def topological_sort_dfs(graph, nodes):
+    """DFS-based topological sort"""
+    visited = set()
+    stack = []  # Result in reverse order
+    cycle = [False]
+    in_progress = set()
+    
+    def dfs(node):
+        if node in in_progress:
+            cycle[0] = True
+            return
+        if node in visited:
+            return
+        
+        in_progress.add(node)
+        for neighbor in graph.get(node, []):
+            dfs(neighbor)
+        
+        in_progress.remove(node)
+        visited.add(node)
+        stack.append(node)
+        print(f"  Finished: {node}")
+    
+    for node in nodes:
+        if node not in visited:
+            dfs(node)
+    
+    if cycle[0]:
+        return None
+    
+    return stack[::-1]  # Reverse post-order
+
+# Build process (like a Makefile)
+build = {
+    'main.cpp':    ['utils.o', 'math.o'],
+    'utils.cpp':   ['utils.o'],
+    'math.cpp':    ['math.o'],
+    'utils.o':     ['app.exe'],
+    'math.o':      ['app.exe'],
+    'app.exe':     []
+}
+
+all_files = list(build.keys())
+print("🔧 Build Dependencies:")
+for f, deps in build.items():
+    if deps:
+        print(f"  {f} → {deps}")
+
+print(f"\\n📋 DFS Topological Sort:")
+order = topological_sort_dfs(build, all_files)
+if order:
+    print(f"\\n✅ Build order: {' → '.join(order)}")
+
+# Cycle detection
+print("\\n🔴 Graph with cycle:")
+cyclic = {
+    'A': ['B'],
+    'B': ['C'],
+    'C': ['A']  # Cycle!
+}
+result = topological_sort_dfs(cyclic, ['A', 'B', 'C'])
+if result is None:
+    print("  ⚠️ Cycle detected! Topological sort impossible!")`,
+    },
+    {
+      type: "concept",
+      emoji: "🧠",
+      content: `## 🧠 Code Anatomy: Kahn's Algorithm`,
+      concept: {
+        title: "Kahn's Algorithm — The Steps",
+        titleZh: "Kahn 算法——步骤解析",
+        codeAnatomy: {
+          lines: [
+            { code: "in_degree = count incoming edges", explanation: "Count how many prerequisites each node has", explanationZh: "计算每个节点有多少先修要求" },
+            { code: "queue = [nodes with in_degree 0]", explanation: "Start with nodes that have no prerequisites", explanationZh: "从没有先修要求的节点开始" },
+            { code: "node = queue.popleft()", explanation: "Process next node with no remaining prerequisites", explanationZh: "处理下一个没有剩余先修要求的节点" },
+            { code: "in_degree[neighbor] -= 1", explanation: "Remove this prerequisite for each dependent", explanationZh: "为每个依赖节点移除这个先修要求" },
+            { code: "if in_degree[neighbor] == 0: queue.append", explanation: "If all prerequisites met, add to queue", explanationZh: "如果所有先修要求满足，加入队列" },
+          ],
+        },
+      },
+    },
+    {
+      type: "interactive",
+      content: `## 🎯 Practice: Task Scheduler · 练习：任务调度器`,
+      exercise: {
+        prompt: "Given tasks and dependencies, find a valid execution order using topological sort.",
+        promptZh: "给定任务和依赖关系，用拓扑排序找到有效的执行顺序。",
+        starterCode: "from collections import deque\n\ndef task_order(n, deps):\n    graph = {i: [] for i in range(n)}\n    in_deg = {i: 0 for i in range(n)}\n    for a, b in deps:  # a must come before b\n        graph[a].append(b)\n        in_deg[b] += 1\n    # Kahn's algorithm\n    queue = deque([i for i in range(n) if in_deg[i] == 0])\n    result = []\n    # Your code here\n    return result\n\nprint(task_order(4, [[0,1],[0,2],[1,3],[2,3]]))  # e.g. [0,1,2,3]",
+        expectedOutput: "[0, 1, 2, 3]",
+        hint: "Process queue: pop node, add to result, decrement in-degree of neighbors, add 0-degree neighbors to queue.",
+        hintZh: "处理队列：弹出节点，加入结果，递减邻居入度，将入度为 0 的邻居加入队列。",
+        solution: "from collections import deque\n\ndef task_order(n, deps):\n    graph = {i: [] for i in range(n)}\n    in_deg = {i: 0 for i in range(n)}\n    for a, b in deps:\n        graph[a].append(b)\n        in_deg[b] += 1\n    queue = deque([i for i in range(n) if in_deg[i] == 0])\n    result = []\n    while queue:\n        node = queue.popleft()\n        result.append(node)\n        for nb in graph[node]:\n            in_deg[nb] -= 1\n            if in_deg[nb] == 0:\n                queue.append(nb)\n    return result\n\nprint(task_order(4, [[0,1],[0,2],[1,3],[2,3]]))",
+      },
+    },
+    {
+      type: "quiz",
+      content: "🎓 Topological Sort Quiz · 拓扑排序测验",
+      quiz: [
+        {
+          question: "Topological sort works on which type of graph?\n拓扑排序适用于哪种图？",
+          options: ["Any graph", "DAG (Directed Acyclic Graph)", "Undirected graph", "Complete graph"],
+          correctIndex: 1,
+          explanation: "Topological sort only works on DAGs — directed graphs with no cycles. 只适用于 DAG。",
+        },
+        {
+          question: "In Kahn's algorithm, which nodes start in the queue?\n在 Kahn 算法中，哪些节点最先入队？",
+          options: ["All nodes", "Nodes with most edges", "Nodes with in-degree 0", "Random nodes"],
+          correctIndex: 2,
+          explanation: "Nodes with no incoming edges (no prerequisites) start first. 没有入边的节点先开始。",
+        },
+        {
+          question: "If topological sort can't process all nodes, it means?\n如果拓扑排序不能处理所有节点，说明？",
+          options: ["The graph is too large", "There's a cycle", "The graph is disconnected", "The algorithm failed"],
+          correctIndex: 1,
+          explanation: "If some nodes remain, there's a cycle — their in-degrees never reach 0. 有环——某些节点入度永远不为 0。",
+        },
+        {
+          question: "Time complexity of topological sort?\n拓扑排序的时间复杂度？",
+          options: ["O(V²)", "O(V + E)", "O(V log V)", "O(E²)"],
+          correctIndex: 1,
+          explanation: "We process each vertex and edge once: O(V + E). 每个顶点和边处理一次。",
+        },
+        {
+          question: "Which is a real-world use of topological sort?\n拓扑排序的现实应用？",
+          options: ["Sorting numbers", "Course scheduling with prerequisites", "Finding shortest path", "Balancing a tree"],
+          correctIndex: 1,
+          explanation: "Course scheduling, build systems, task dependencies all use topological sort. 课程安排、构建系统、任务依赖都用拓扑排序。",
+        },
+        {
+          question: "Can a graph have multiple valid topological orderings?\n一个图能有多个有效的拓扑排序吗？",
+          options: ["No, always unique", "Yes, usually multiple", "Only if it has cycles", "Only for trees"],
+          correctIndex: 1,
+          explanation: "Most DAGs have multiple valid topological orderings. 大多数 DAG 有多个有效的拓扑排序。",
+        },
+        {
+          question: "DFS-based topological sort uses which order?\nDFS 拓扑排序使用什么顺序？",
+          options: ["Pre-order", "In-order", "Reverse post-order", "Level-order"],
+          correctIndex: 2,
+          explanation: "DFS finishes deepest nodes first; reversing gives topological order. DFS 先完成最深的节点；反转得到拓扑顺序。",
+        },
+        {
+          question: "A node with in-degree 0 in a DAG is called?\nDAG 中入度为 0 的节点叫什么？",
+          options: ["Leaf", "Source", "Sink", "Root"],
+          correctIndex: 1,
+          explanation: "A node with no incoming edges is a source — it has no prerequisites. 没有入边的节点是源。",
+        },
+      ],
+    },
+  ],
+};
+
+const alg_5_4: Lesson = {
+  id: "alg-5-4",
+  moduleId: "alg-5",
+  title: "Graph Applications",
+  subtitle: "Real-world graph problems · 图的应用",
+  icon: "🌐",
+  xp: 25,
+  duration: "22 min",
+  order: 4,
+  gradeRange: [9, 12],
+  difficulty: "advanced",
+  skillLevel: "advanced",
+  sections: [
+    {
+      type: "text",
+      emoji: "🕸️",
+      content: `## 🕸️ Web: Graphs Are EVERYWHERE!
+
+Graphs aren't just academic — they power the modern world!
+
+图不只是学术性的——它们驱动着现代世界！
+
+🎯 **What you'll learn:**
+- Cycle detection
+- Bipartite checking
+- Graph coloring basics
+- Real-world applications
+
+> 🏠 Real-world graph applications:
+> - 🌐 **Internet** — websites are nodes, links are edges
+> - 👥 **Social networks** — people are nodes, friendships are edges
+> - 🗺️ **Maps** — intersections are nodes, roads are edges
+> - 🧬 **Biology** — proteins, neural networks
+> - 📦 **Supply chains** — warehouses and delivery routes
+
+🔑 **If you can model it as a graph, you can use graph algorithms to solve it!**`,
+    },
+    {
+      type: "code",
+      emoji: "🔴",
+      content: `## 🔴 Cycle Detection
+
+Does a directed graph have a cycle?
+有向图有环吗？`,
+      code: `def has_cycle(graph, nodes):
+    """Detect cycle in directed graph using DFS"""
+    WHITE, GRAY, BLACK = 0, 1, 2
+    color = {node: WHITE for node in nodes}
+    
+    def dfs(node):
+        color[node] = GRAY  # Currently being explored
+        
+        for neighbor in graph.get(node, []):
+            if color[neighbor] == GRAY:
+                print(f"  🔴 Cycle found! {node} → {neighbor} (back edge)")
+                return True
+            if color[neighbor] == WHITE:
+                if dfs(neighbor):
+                    return True
+        
+        color[node] = BLACK  # Fully explored
+        return False
+    
+    for node in nodes:
+        if color[node] == WHITE:
+            if dfs(node):
+                return True
+    return False
+
+# No cycle
+dag = {
+    'A': ['B', 'C'],
+    'B': ['D'],
+    'C': ['D'],
+    'D': []
+}
+print("DAG (no cycle):")
+print(f"  Has cycle: {has_cycle(dag, ['A','B','C','D'])}")
+
+# Has cycle
+cyclic = {
+    'A': ['B'],
+    'B': ['C'],
+    'C': ['A']  # Back to A!
+}
+print("\\nCyclic graph:")
+print(f"  Has cycle: {has_cycle(cyclic, ['A','B','C'])}")
+
+# Deadlock detection!
+print("\\n🔒 Deadlock Detection:")
+processes = {
+    'P1': ['R1'],  # P1 wants R1
+    'R1': ['P2'],  # R1 held by P2
+    'P2': ['R2'],  # P2 wants R2
+    'R2': ['P1'],  # R2 held by P1 → DEADLOCK!
+}
+print(f"  Deadlock: {has_cycle(processes, ['P1','R1','P2','R2'])}")`,
+    },
+    {
+      type: "code",
+      emoji: "🎨",
+      content: `## 🎨 Bipartite Graph Check
+
+Can we color a graph with 2 colors so no adjacent nodes share a color?
+能用 2 种颜色给图染色使得相邻节点颜色不同吗？`,
+      code: `from collections import deque
+
+def is_bipartite(graph):
+    """Check if graph is bipartite using BFS coloring"""
+    color = {}
+    
+    for start in graph:
+        if start in color:
+            continue
+        
+        queue = deque([start])
+        color[start] = 0
+        
+        while queue:
+            node = queue.popleft()
+            for neighbor in graph[node]:
+                if neighbor not in color:
+                    color[neighbor] = 1 - color[node]  # Opposite color
+                    queue.append(neighbor)
+                elif color[neighbor] == color[node]:
+                    print(f"  ❌ Conflict: {node} and {neighbor} both color {color[node]}")
+                    return False, {}
+    
+    return True, color
+
+# Bipartite graph (like students and classes)
+bipartite = {
+    'Alice': ['Math', 'Science'],
+    'Bob': ['Math', 'English'],
+    'Carol': ['Science', 'English'],
+    'Math': ['Alice', 'Bob'],
+    'Science': ['Alice', 'Carol'],
+    'English': ['Bob', 'Carol']
+}
+
+print("📊 Student-Class graph:")
+result, colors = is_bipartite(bipartite)
+print(f"  Bipartite: {result}")
+if result:
+    g1 = [n for n, c in colors.items() if c == 0]
+    g2 = [n for n, c in colors.items() if c == 1]
+    print(f"  Group 1: {g1}")
+    print(f"  Group 2: {g2}")
+
+# Non-bipartite (odd cycle)
+print("\\n🔺 Triangle graph (odd cycle):")
+triangle = {
+    'A': ['B', 'C'],
+    'B': ['A', 'C'],
+    'C': ['A', 'B']
+}
+result, _ = is_bipartite(triangle)
+print(f"  Bipartite: {result}")`,
+    },
+    {
+      type: "code",
+      emoji: "🌍",
+      content: `## 🌍 Graph Applications Showcase
+
+Graphs solve real problems across many domains!
+图解决各个领域的实际问题！`,
+      code: `from collections import deque
+
+# 1. Island counting (connected components in a grid)
+def count_islands(grid):
+    if not grid: return 0
+    rows, cols = len(grid), len(grid[0])
+    count = 0
+    
+    def bfs(r, c):
+        queue = deque([(r, c)])
+        grid[r][c] = '0'
+        while queue:
+            r, c = queue.popleft()
+            for dr, dc in [(0,1),(0,-1),(1,0),(-1,0)]:
+                nr, nc = r+dr, c+dc
+                if 0 <= nr < rows and 0 <= nc < cols and grid[nr][nc] == '1':
+                    grid[nr][nc] = '0'
+                    queue.append((nr, nc))
+    
+    for r in range(rows):
+        for c in range(cols):
+            if grid[r][c] == '1':
+                count += 1
+                bfs(r, c)
+    return count
+
+grid = [
+    ['1','1','0','0','0'],
+    ['1','1','0','0','0'],
+    ['0','0','1','0','0'],
+    ['0','0','0','1','1']
+]
+print("🏝️ Island Counting:")
+print("  Grid:")
+for row in grid:
+    print(f"    {' '.join(row)}")
+# Make a copy since bfs modifies the grid
+grid_copy = [row[:] for row in grid]
+print(f"  Islands: {count_islands(grid_copy)}")
+
+# 2. Word ladder (BFS)
+def word_ladder(begin, end, word_list):
+    word_set = set(word_list)
+    queue = deque([(begin, [begin])])
+    visited = {begin}
+    
+    while queue:
+        word, path = queue.popleft()
+        if word == end:
+            return path
+        for i in range(len(word)):
+            for c in 'abcdefghijklmnopqrstuvwxyz':
+                next_word = word[:i] + c + word[i+1:]
+                if next_word in word_set and next_word not in visited:
+                    visited.add(next_word)
+                    queue.append((next_word, path + [next_word]))
+    return None
+
+print("\\n🔤 Word Ladder:")
+words = ["hot","dot","dog","lot","log","cog"]
+path = word_ladder("hit", "cog", words)
+if path:
+    print(f"  hit → cog: {' → '.join(path)}")
+    print(f"  Steps: {len(path) - 1}")
+
+print("\\n🌟 Graph algorithms power:")
+print("  🗺️ Google Maps — shortest routes")
+print("  👥 Facebook — friend suggestions")
+print("  🎮 Game AI — pathfinding (A*)")
+print("  🧬 Bioinformatics — protein networks")
+print("  📦 Amazon — delivery optimization")`,
+    },
+    {
+      type: "interactive",
+      content: `## 🎯 Practice: Clone a Graph · 练习：克隆图`,
+      exercise: {
+        prompt: "Given an adjacency list, create a deep copy of the graph.",
+        promptZh: "给定邻接表，创建图的深拷贝。",
+        starterCode: "def clone_graph(graph):\n    # Create a new graph with same structure\n    # but different objects\n    new_graph = {}\n    # Your code here\n    return new_graph\n\noriginal = {'A': ['B','C'], 'B': ['A'], 'C': ['A']}\ncloned = clone_graph(original)\nprint(cloned)\nprint(original is cloned)  # False",
+        expectedOutput: "{'A': ['B', 'C'], 'B': ['A'], 'C': ['A']}\nFalse",
+        hint: "Iterate over each node and create a new list of neighbors.",
+        hintZh: "遍历每个节点，创建新的邻居列表。",
+        solution: "def clone_graph(graph):\n    new_graph = {}\n    for node in graph:\n        new_graph[node] = list(graph[node])\n    return new_graph\n\noriginal = {'A': ['B','C'], 'B': ['A'], 'C': ['A']}\ncloned = clone_graph(original)\nprint(cloned)\nprint(original is cloned)",
+      },
+    },
+    {
+      type: "text",
+      emoji: "🏆",
+      content: `## 🏆 Algorithms Course Complete!
+
+Congratulations! You've learned the most important algorithms in computer science!
+
+恭喜！你已经学完了计算机科学中最重要的算法！
+
+**Your Algorithm Toolkit:**
+- 🔍 **Searching:** Linear, Binary, 2D, Applications
+- ⚡ **Sorting:** Bubble, Selection, Insertion, Merge, Quick
+- 🌀 **Recursion:** Patterns, Backtracking, Divide & Conquer
+- 🧩 **Dynamic Programming:** Memoization, Tabulation, Classic Problems, Grids
+- 🕸️ **Graph Algorithms:** BFS, DFS, Dijkstra, Topological Sort, Applications
+
+🔑 **What's next?**
+- Practice on LeetCode, Codeforces, HackerRank
+- Join programming competitions (USACO, Codeforces)
+- Build projects that use these algorithms
+- The more you practice, the more natural they become!
+
+🎓 **Remember:** Algorithms are tools for solving problems. The best algorithm is the one you understand and can implement correctly!`,
+    },
+    {
+      type: "quiz",
+      content: "🎓 Graph Applications Quiz · 图应用测验",
+      quiz: [
+        {
+          question: "How do you detect a cycle in a directed graph?\n如何检测有向图中的环？",
+          options: ["BFS only", "DFS with 3-color marking", "Counting edges", "Sorting nodes"],
+          correctIndex: 1,
+          explanation: "DFS with WHITE/GRAY/BLACK coloring detects back edges (cycles). 三色 DFS 检测回边（环）。",
+        },
+        {
+          question: "A bipartite graph has no?\n二部图没有？",
+          options: ["Edges", "Nodes", "Odd-length cycles", "Even-length cycles"],
+          correctIndex: 2,
+          explanation: "A graph is bipartite if and only if it has no odd-length cycles. 当且仅当没有奇数长度的环时，图是二部图。",
+        },
+        {
+          question: "Island counting uses which algorithm?\n岛屿计数使用什么算法？",
+          options: ["Binary search", "BFS/DFS flood fill", "Sorting", "Dynamic programming"],
+          correctIndex: 1,
+          explanation: "BFS or DFS flood fill to explore each island (connected component). BFS 或 DFS 洪泛填充探索每个岛屿。",
+        },
+        {
+          question: "Word ladder (hit→cog) uses which algorithm?\n单词接龙使用什么算法？",
+          options: ["DFS", "BFS", "Dijkstra", "Binary search"],
+          correctIndex: 1,
+          explanation: "BFS finds the shortest transformation sequence. BFS 找最短变换序列。",
+        },
+        {
+          question: "Google Maps primarily uses?\n谷歌地图主要使用？",
+          options: ["BFS", "DFS", "Dijkstra / A*", "Topological sort"],
+          correctIndex: 2,
+          explanation: "Dijkstra or A* for weighted shortest path in road networks. 在路网中用 Dijkstra 或 A* 找加权最短路径。",
+        },
+        {
+          question: "Facebook friend suggestions use?\nFacebook 好友推荐使用？",
+          options: ["Sorting", "Graph algorithms (mutual friends)", "Binary search", "Dynamic programming"],
+          correctIndex: 1,
+          explanation: "Find people with many mutual friends = graph neighborhood analysis. 找到有很多共同好友的人。",
+        },
+        {
+          question: "Deadlock detection in OS is an example of?\n操作系统中的死锁检测是什么的例子？",
+          options: ["Shortest path", "Cycle detection in resource graph", "Sorting", "Binary search"],
+          correctIndex: 1,
+          explanation: "Deadlock = cycle in the resource allocation graph. 死锁 = 资源分配图中的环。",
+        },
+        {
+          question: "What's the most important thing about algorithms?\n关于算法最重要的是什么？",
+          options: ["Memorizing them", "Understanding WHEN to use each one", "Writing them fast", "Using the hardest one"],
+          correctIndex: 1,
+          explanation: "Knowing which algorithm to apply to which problem is the real skill! 知道对哪个问题用哪个算法才是真正的技能！",
+        },
+      ],
+    },
+  ],
+};
+
+// ═══════════════════════════════════════════════════════════════
+// EXPORT ALL LESSONS
+// ═══════════════════════════════════════════════════════════════
+
+export const ALG_LESSONS: Lesson[] = [
+  // Module 1: Searching
+  alg_1_1, alg_1_2, alg_1_3, alg_1_4,
+  // Module 2: Sorting
+  alg_2_1, alg_2_2, alg_2_3, alg_2_4,
+  // Module 3: Recursion
+  alg_3_1, alg_3_2, alg_3_3, alg_3_4,
+  // Module 4: Dynamic Programming
+  alg_4_1, alg_4_2, alg_4_3, alg_4_4,
+  // Module 5: Graph Algorithms
+  alg_5_1, alg_5_2, alg_5_3, alg_5_4,
+];
