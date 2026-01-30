@@ -122,6 +122,8 @@ function CodeAnatomyComponent({ anatomy }: { anatomy: CodeAnatomy }) {
     setIsRunning(false);
   }, [runnableCode, ensurePyodide]);
 
+  const [stepInputCache, setStepInputCache] = useState<string[]>([]);
+
   const startStepMode = useCallback(async () => {
     const ready = await ensurePyodide();
     if (!ready) return;
@@ -135,12 +137,16 @@ function CodeAnatomyComponent({ anatomy }: { anatomy: CodeAnatomy }) {
     setOutput("");
     setHasError(false);
     setVariableDetails([]);
+    setStepInputCache([]);
     setHighlightLineIdx(parsed[0].startLine);
 
     const result = await runPython(parsed[0].code);
     if (result.error) { setOutput(result.error); setHasError(true); }
     else { setOutput(result.output || ""); }
     setVariableDetails(result.variableDetails || []);
+    if (result.collectedInputs && result.collectedInputs.length > 0) {
+      setStepInputCache(result.collectedInputs);
+    }
   }, [runnableCode, ensurePyodide]);
 
   const nextStep = useCallback(async () => {
@@ -153,12 +159,14 @@ function CodeAnatomyComponent({ anatomy }: { anatomy: CodeAnatomy }) {
     setStepIndex(nextIdx);
     setHighlightLineIdx(steps[nextIdx].startLine);
 
-    // Each step.code already includes all lines from 0..N, so just run the current step's code
-    const result = await runPython(steps[nextIdx].code);
+    const result = await runPython(steps[nextIdx].code, stepInputCache.length > 0 ? stepInputCache : undefined);
     if (result.error) { setOutput(result.error); setHasError(true); }
     else { setOutput(result.output || ""); setHasError(false); }
     setVariableDetails(result.variableDetails || []);
-  }, [stepIndex, steps]);
+    if (result.collectedInputs && result.collectedInputs.length > stepInputCache.length) {
+      setStepInputCache(result.collectedInputs);
+    }
+  }, [stepIndex, steps, stepInputCache]);
 
   const stopStepMode = useCallback(() => {
     setStepMode(false);

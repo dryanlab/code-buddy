@@ -17,6 +17,7 @@ export interface PyodideResult {
   variables: Record<string, string>;
   variableDetails: VariableDetail[];
   hasTurtle?: boolean;
+  collectedInputs?: string[];
 }
 
 let pyodideInstance: unknown = null;
@@ -220,12 +221,14 @@ export async function runPython(
 import sys
 `);
 
-    // Mock input() - use provided values or prompt via JS
+    // Mock input() - replay known values, prompt for new ones, collect all
     if (inputValues && inputValues.length > 0) {
       const inputJson = JSON.stringify(inputValues);
       py.runPython(`
+import js
 _input_values = ${inputJson}
 _input_idx = 0
+_all_inputs = list(_input_values)  # copy
 def input(prompt=""):
     global _input_idx
     if prompt:
@@ -235,13 +238,21 @@ def input(prompt=""):
         _input_idx += 1
         print(val)
         return val
-    return ""
+    # Need new input - prompt user
+    result = js.prompt(prompt or "请输入 (Enter a value):")
+    if result is None:
+        result = ""
+    else:
+        result = str(result)
+    _all_inputs.append(result)
+    print(result)
+    return result
 `);
     } else {
       // Use browser prompt() for input when no values pre-provided
       py.runPython(`
 import js
-
+_all_inputs = []
 def input(prompt=""):
     if prompt:
         print(prompt, end="")
@@ -250,6 +261,7 @@ def input(prompt=""):
         result = ""
     else:
         result = str(result)
+    _all_inputs.append(result)
     print(result)
     return result
 `);
@@ -312,16 +324,30 @@ _vars_detail_json = _json.dumps(_user_vars_detail)
     const variables = JSON.parse(varsJson);
     const variableDetails = JSON.parse(varsDetailJson);
 
-    return { output, error: null, variables, variableDetails, hasTurtle };
+    // Collect all inputs provided during this run
+    let collectedInputs: string[] = [];
+    try {
+      const inputsJson = py.runPython("_json.dumps(_all_inputs)") as string;
+      collectedInputs = JSON.parse(inputsJson);
+    } catch { /* no inputs */ }
+
+    return { output, error: null, variables, variableDetails, hasTurtle, collectedInputs };
   } catch (e) {
     // Get partial output captured before the error
     const partialOutput = _stdoutLines.join("\n").replace(/\n$/, "");
+
+    // Try to collect inputs even on error
+    let collectedInputs: string[] = [];
+    try {
+      const inputsJson = py.runPython("_json.dumps(_all_inputs)") as string;
+      collectedInputs = JSON.parse(inputsJson);
+    } catch { /* no inputs */ }
 
     const errMsg = e instanceof Error ? e.message : String(e);
     console.log("[pyodide] error:", errMsg, "partial output:", partialOutput);
     const errorText = translateError(errMsg);
     const fullOutput = partialOutput ? partialOutput + "\n\n" + errorText : errorText;
-    return { output: "", error: fullOutput, variables: {}, variableDetails: [], hasTurtle };
+    return { output: "", error: fullOutput, variables: {}, variableDetails: [], hasTurtle, collectedInputs };
   }
 }
 

@@ -122,6 +122,9 @@ export default function CodeEditor({
     await executeCode(inputValues.length > 0 ? inputValues : undefined);
   }, [executeCode, inputValues]);
 
+  // Cached inputs for step mode replay
+  const [stepInputCache, setStepInputCache] = useState<string[]>([]);
+
   // Step mode: start
   const startStepMode = useCallback(async () => {
     const ready = await ensurePyodide();
@@ -137,11 +140,11 @@ export default function CodeEditor({
     setHasError(false);
     setVariables({});
     setVariableDetails([]);
+    setStepInputCache([]);
     setHighlightLines({ start: parsed[0].startLine, end: parsed[0].endLine });
 
-    // Execute first step
-    const codeToRun = parsed[0].code;
-    const result = await runPython(codeToRun);
+    // Execute first step (no cached inputs yet)
+    const result = await runPython(parsed[0].code);
     if (result.error) {
       setOutput(result.error);
       setHasError(true);
@@ -150,13 +153,16 @@ export default function CodeEditor({
     }
     setVariables(result.variables);
     setVariableDetails(result.variableDetails || []);
+    // Cache any inputs collected
+    if (result.collectedInputs && result.collectedInputs.length > 0) {
+      setStepInputCache(result.collectedInputs);
+    }
   }, [code, ensurePyodide]);
 
   // Step mode: next
   const nextStep = useCallback(async () => {
     const nextIdx = stepIndex + 1;
     if (nextIdx >= steps.length) {
-      // Done
       setStepMode(false);
       setHighlightLines(null);
       return;
@@ -165,8 +171,8 @@ export default function CodeEditor({
     setStepIndex(nextIdx);
     setHighlightLines({ start: steps[nextIdx].startLine, end: steps[nextIdx].endLine });
 
-    // Each step.code already includes all lines from 0..N
-    const result = await runPython(steps[nextIdx].code);
+    // Replay cached inputs so user doesn't have to re-enter them
+    const result = await runPython(steps[nextIdx].code, stepInputCache.length > 0 ? stepInputCache : undefined);
     if (result.error) {
       setOutput(result.error);
       setHasError(true);
@@ -176,7 +182,11 @@ export default function CodeEditor({
     }
     setVariables(result.variables);
     setVariableDetails(result.variableDetails || []);
-  }, [stepIndex, steps]);
+    // Update cache with any new inputs
+    if (result.collectedInputs && result.collectedInputs.length > stepInputCache.length) {
+      setStepInputCache(result.collectedInputs);
+    }
+  }, [stepIndex, steps, stepInputCache]);
 
   // Step mode: run all remaining
   const runAllRemaining = useCallback(async () => {
