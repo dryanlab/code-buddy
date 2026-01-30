@@ -3,10 +3,19 @@
 
 import { getTurtleMockPython } from "./turtle-graphics";
 
+export interface VariableDetail {
+  name: string;
+  value: string;
+  type: string;
+  scope: "global" | "local";
+  scopeName?: string;
+}
+
 export interface PyodideResult {
   output: string;
   error: string | null;
   variables: Record<string, string>;
+  variableDetails: VariableDetail[];
   hasTurtle?: boolean;
 }
 
@@ -188,7 +197,7 @@ export async function runPython(
   inputValues?: string[]
 ): Promise<PyodideResult> {
   if (!pyodideInstance) {
-    return { output: "", error: "Python 引擎还没加载好，请稍等...", variables: {} };
+    return { output: "", error: "Python 引擎还没加载好，请稍等...", variables: {}, variableDetails: [] };
   }
 
   const py = pyodideInstance as PyodideInterface;
@@ -264,25 +273,46 @@ def input(prompt=""):
       output = moduleWarning + "\n\n" + output;
     }
 
-    // Collect variables (simple types only)
+    // Collect variables with type info
     py.runPython(`
 import json as _json
 _user_vars = {}
+_user_vars_detail = []
+_skip_names = {'sys', 'io', 'input', 'json', 'js', 'types', 'turtle', '_json', '_turtle_mod'}
 for _k, _v in dict(globals()).items():
-    if not _k.startswith('_') and _k not in ('sys', 'io', 'input', 'json', 'js', 'types'):
+    if not _k.startswith('_') and _k not in _skip_names:
         try:
+            _t = type(_v).__name__
+            if _t in ('module', 'function', 'builtin_function_or_method', 'type'):
+                continue
             if isinstance(_v, (int, float, str, bool)):
                 _user_vars[_k] = str(_v)
-            elif isinstance(_v, (list, tuple)):
+                _user_vars_detail.append({"name": _k, "value": str(_v), "type": _t, "scope": "global"})
+            elif isinstance(_v, list):
+                _sv = _json.dumps(_v) if len(str(_v)) < 200 else str(_v)[:100]
                 _user_vars[_k] = str(_v)[:50]
+                _user_vars_detail.append({"name": _k, "value": _sv, "type": "list", "scope": "global"})
+            elif isinstance(_v, dict):
+                _sv = _json.dumps(_v) if len(str(_v)) < 200 else str(_v)[:100]
+                _user_vars[_k] = str(_v)[:50]
+                _user_vars_detail.append({"name": _k, "value": _sv, "type": "dict", "scope": "global"})
+            elif isinstance(_v, tuple):
+                _user_vars[_k] = str(_v)[:50]
+                _user_vars_detail.append({"name": _k, "value": str(_v), "type": "tuple", "scope": "global"})
+            elif _v is None:
+                _user_vars[_k] = "None"
+                _user_vars_detail.append({"name": _k, "value": "None", "type": "NoneType", "scope": "global"})
         except:
             pass
 _vars_json = _json.dumps(_user_vars)
+_vars_detail_json = _json.dumps(_user_vars_detail)
 `);
     const varsJson = py.runPython("_vars_json") as string;
+    const varsDetailJson = py.runPython("_vars_detail_json") as string;
     const variables = JSON.parse(varsJson);
+    const variableDetails = JSON.parse(varsDetailJson);
 
-    return { output, error: null, variables, hasTurtle };
+    return { output, error: null, variables, variableDetails, hasTurtle };
   } catch (e) {
     // Get partial output captured before the error
     const partialOutput = _stdoutLines.join("\n").replace(/\n$/, "");
@@ -291,6 +321,67 @@ _vars_json = _json.dumps(_user_vars)
     console.log("[pyodide] error:", errMsg, "partial output:", partialOutput);
     const errorText = translateError(errMsg);
     const fullOutput = partialOutput ? partialOutput + "\n\n" + errorText : errorText;
-    return { output: "", error: fullOutput, variables: {}, hasTurtle };
+    return { output: "", error: fullOutput, variables: {}, variableDetails: [], hasTurtle };
   }
+}
+
+/**
+ * Parse Python code into logical line groups.
+ * Indented blocks (if/for/while/def/class) are grouped with their header.
+ * Returns array of { startLine, endLine, code } where lines are 0-indexed.
+ */
+export function parseCodeIntoSteps(code: string): { startLine: number; endLine: number; code: string }[] {
+  const lines = code.split("\n");
+  const steps: { startLine: number; endLine: number; code: string }[] = [];
+  let i = 0;
+
+  while (i < lines.length) {
+    const line = lines[i];
+    const trimmed = line.trimStart();
+
+    // Skip empty/comment lines — attach to next real line
+    if (trimmed === "" || trimmed.startsWith("#")) {
+      i++;
+      continue;
+    }
+
+    // Check if this is a block header (if/for/while/def/class/elif/else/try/except/finally/with)
+    const isBlockHeader = /^(if |elif |else:|for |while |def |class |try:|except|finally:|with )/.test(trimmed);
+
+    if (isBlockHeader) {
+      // Collect the block header + all indented lines beneath it
+      const headerIndent = line.length - line.trimStart().length;
+      const startLine = i;
+      i++;
+      // Collect body: lines more indented than header, or continuation block keywords at same indent
+      while (i < lines.length) {
+        const nextTrimmed = lines[i].trimStart();
+        const nextIndent = lines[i].length - nextTrimmed.length;
+        if (nextTrimmed === "" || nextTrimmed.startsWith("#")) {
+          i++;
+          continue;
+        }
+        // Continuation keywords at same indent level (elif, else, except, finally)
+        if (nextIndent === headerIndent && /^(elif |else:|except|finally:)/.test(nextTrimmed)) {
+          i++;
+          continue;
+        }
+        if (nextIndent > headerIndent) {
+          i++;
+          continue;
+        }
+        break;
+      }
+      steps.push({
+        startLine,
+        endLine: i - 1,
+        code: lines.slice(startLine, i).join("\n"),
+      });
+    } else {
+      steps.push({ startLine: i, endLine: i, code: line });
+      i++;
+    }
+  }
+
+  return steps;
 }

@@ -31,8 +31,8 @@ class _TurtleCanvas:
     
     @classmethod
     def get(cls):
-        if cls._instance is None:
-            cls._instance = cls()
+        # Always create fresh canvas to find the right mount point
+        cls._instance = cls()
         return cls._instance
     
     def __init__(self):
@@ -44,20 +44,23 @@ class _TurtleCanvas:
     
     def _setup_canvas(self):
         doc = js.document
-        # Find or create the turtle canvas container
-        container = doc.getElementById("turtle-canvas-container")
-        if not container:
-            # Create container in the output area
-            output_el = doc.getElementById("turtle-output")
-            if not output_el:
-                # Fallback: create it somewhere visible
-                output_el = doc.querySelector("[data-turtle-mount]")
-            if not output_el:
-                output_el = doc.body
-            container = doc.createElement("div")
-            container.id = "turtle-canvas-container"
-            container.style.cssText = "margin:8px 0;border-radius:12px;overflow:hidden;border:1px solid #334155;"
-            output_el.appendChild(container)
+        # Remove ALL old turtle containers to avoid conflicts
+        old_containers = doc.querySelectorAll("#turtle-canvas-container")
+        for i in range(old_containers.length):
+            old_containers.item(i).remove()
+        
+        # Find the LAST turtle-output mount point (closest to current editor)
+        mount_points = doc.querySelectorAll("[data-turtle-mount]")
+        output_el = None
+        if mount_points.length > 0:
+            output_el = mount_points.item(mount_points.length - 1)
+        if not output_el:
+            output_el = doc.body
+        
+        container = doc.createElement("div")
+        container.id = "turtle-canvas-container"
+        container.style.cssText = "margin:8px 0;border-radius:12px;overflow:hidden;border:1px solid #334155;"
+        output_el.appendChild(container)
         
         # Clear previous canvas
         container.innerHTML = ""
