@@ -218,12 +218,12 @@ function SkillRadar({ progress }: { progress: UserProgress }) {
   });
 
   return (
-    <div className="space-y-3 flex-1">
-      <div>
+    <div className="flex flex-col flex-1">
+      <div className="mb-3">
         <h2 className="text-lg font-bold">🎯 Skill Radar</h2>
         <p className="text-xs" style={{ color: "var(--theme-text-muted)" }}>技能雷达</p>
       </div>
-      <div className="rounded-xl p-4" style={{ backgroundColor: "var(--theme-card-bg)", border: "1px solid var(--theme-border)" }}>
+      <div className="rounded-xl p-4 flex-1 flex items-center" style={{ backgroundColor: "var(--theme-card-bg)", border: "1px solid var(--theme-border)" }}>
         <div className="relative w-full max-w-[400px] mx-auto" style={{ aspectRatio: "1" }}>
           {/* SVG chart */}
           <svg viewBox="0 0 300 300" className="absolute inset-0 w-full h-full">
@@ -299,12 +299,12 @@ function AchievementWall({ progress }: { progress: UserProgress }) {
   const earned = new Set(progress.earnedBadges);
 
   return (
-    <div className="space-y-3 flex-1">
-      <div>
+    <div className="flex flex-col flex-1">
+      <div className="mb-3">
         <h2 className="text-lg font-bold">🏅 Achievement Wall</h2>
         <p className="text-xs" style={{ color: "var(--theme-text-muted)" }}>成就墙 · {earned.size}/{ALL_BADGES.length} unlocked</p>
       </div>
-      <div className="rounded-xl p-4" style={{ backgroundColor: "var(--theme-card-bg)", border: "1px solid var(--theme-border)" }}>
+      <div className="rounded-xl p-4 flex-1" style={{ backgroundColor: "var(--theme-card-bg)", border: "1px solid var(--theme-border)" }}>
         <div className="grid grid-cols-4 sm:grid-cols-5 gap-2">
           {ALL_BADGES.map((badge) => {
             const isEarned = earned.has(badge.id);
@@ -685,7 +685,7 @@ export default function DashboardPage() {
       </motion.div>
 
       {/* 🎯 Skill Radar + 🏅 Achievement Wall (side by side on desktop) */}
-      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.18 }} className="flex flex-col md:flex-row gap-5">
+      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.18 }} className="flex flex-col md:flex-row md:items-stretch gap-5">
         <SkillRadar progress={progress} />
         <AchievementWall progress={progress} />
       </motion.div>
