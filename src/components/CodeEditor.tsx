@@ -28,6 +28,7 @@ export default function CodeEditor({
   const [loadingMsg, setLoadingMsg] = useState("");
   const [variables, setVariables] = useState<Record<string, string>>({});
   const [showSuccess, setShowSuccess] = useState(false);
+  const [hasError, setHasError] = useState(false);
   const [inputValues, setInputValues] = useState<string[]>([]);
   const [hasTurtle, setHasTurtle] = useState(false);
   const [inputPrompts, setInputPrompts] = useState<string[]>([]);
@@ -67,6 +68,7 @@ export default function CodeEditor({
   const executeCode = useCallback(async (inputs?: string[]) => {
     setIsRunning(true);
     setOutput("");
+    setHasError(false);
     setShowSuccess(false);
     setHasTurtle(false);
 
@@ -77,8 +79,10 @@ export default function CodeEditor({
     
     if (result.error) {
       setOutput(result.error);
+      setHasError(true);
     } else {
       setOutput(result.output || "(No output · 没有输出)");
+      setHasError(false);
       setShowSuccess(true);
       setTimeout(() => setShowSuccess(false), 2000);
       onRunSuccess?.();
@@ -169,7 +173,7 @@ export default function CodeEditor({
         {/* Turtle canvas mount point */}
         <div id="turtle-output" data-turtle-mount="true" />
         
-        <pre className="text-sm text-green-400 terminal-text whitespace-pre-wrap min-h-[2rem]">
+        <pre className={`text-sm terminal-text whitespace-pre-wrap min-h-[2rem] ${hasError ? "text-red-400" : "text-green-400"}`}>
           {output || <span className="text-[var(--theme-text-muted)]">Click &quot;Run&quot; to execute code... 点击 &quot;Run&quot; 运行代码</span>}
         </pre>
 
