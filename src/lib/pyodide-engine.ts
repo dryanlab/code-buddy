@@ -105,8 +105,16 @@ function detectInputCalls(code: string): string[] {
   return prompts;
 }
 
-// Translate Python errors to kid-friendly Chinese
+// Translate Python errors: show original error + kid-friendly Chinese hint
 function translateError(error: string): string {
+  // Extract the Python traceback (keep it readable)
+  const lines = error.trim().split("\n");
+  // Find the last meaningful error line
+  const errorLine = lines.filter(l => l.match(/Error:|Exception:/)).pop() || lines[lines.length - 1] || error;
+  
+  // Build: original error first, then Chinese hint
+  let hint = "";
+
   // Check for module import errors specifically
   const moduleMatch = error.match(/ModuleNotFoundError: No module named '(\w+)'/);
   if (moduleMatch) {
@@ -114,62 +122,35 @@ function translateError(error: string): string {
     if (UNSUPPORTED_MODULES[mod]) {
       return UNSUPPORTED_MODULES[mod];
     }
-    return `📦 找不到模块 '${mod}'。\n💡 这个模块在浏览器中可能不可用。试试在本地 Python 环境中运行！`;
+    hint = `💡 这个模块在浏览器中可能不可用。试试在本地 Python 环境中运行！`;
+  } else if (error.includes("SyntaxError")) {
+    hint = "💡 语法错误：检查拼写、引号配对、冒号和缩进！";
+  } else if (error.includes("NameError")) {
+    const match = error.match(/name '(\w+)' is not defined/);
+    hint = match
+      ? `💡 Python 不认识 '${match[1]}'，是不是拼错了，或者忘记定义它了？`
+      : "💡 用了一个 Python 不认识的名字，检查变量是否定义了。";
+  } else if (error.includes("TypeError")) {
+    hint = "💡 类型错误：不同类型的数据不能直接运算，用 str()、int()、float() 转换一下！";
+  } else if (error.includes("IndexError")) {
+    hint = "💡 索引错误：访问了列表中不存在的位置，记住列表是从 0 开始数的！";
+  } else if (error.includes("ZeroDivisionError")) {
+    hint = "💡 不能除以 0！检查除数是否为零。";
+  } else if (error.includes("IndentationError")) {
+    hint = "💡 Python 对空格很讲究！if/for/while 下面的代码要缩进（按 Tab 或 4 个空格）";
+  } else if (error.includes("ValueError")) {
+    hint = "💡 给的值不对，检查数据类型是否匹配。";
+  } else if (error.includes("RecursionError")) {
+    hint = "💡 函数调用自己太多次了！检查是否有正确的停止条件（base case）。";
+  } else if (error.includes("KeyError")) {
+    hint = "💡 字典中找不到这个键，检查键名是否拼写正确！";
+  } else if (error.includes("AttributeError")) {
+    hint = "💡 对象没有这个属性或方法，检查拼写和对象类型。";
   }
 
-  if (error.includes("SyntaxError")) {
-    const match = error.match(/SyntaxError: (.+)/);
-    const detail = match?.[1] || "";
-    if (detail.includes("EOL while scanning"))
-      return "❌ 语法错误：字符串没有正确关闭，检查引号是否配对！";
-    if (detail.includes("unexpected EOF"))
-      return "❌ 语法错误：代码没写完，是不是少了什么？";
-    if (detail.includes("invalid syntax"))
-      return "❌ 语法错误：Python 看不懂这行代码，检查拼写和符号！";
-    return `❌ 语法错误：Python 看不懂你的代码 —— ${detail}`;
-  }
-  if (error.includes("NameError")) {
-    const match = error.match(/name '(\w+)' is not defined/);
-    if (match)
-      return `❌ 名字错误：Python 不认识 '${match[1]}'，是不是拼错了，或者忘记定义它了？`;
-    return "❌ 名字错误：用了一个 Python 不认识的名字";
-  }
-  if (error.includes("TypeError")) {
-    if (error.includes("unsupported operand"))
-      return "❌ 类型错误：你试图把不同类型的东西放在一起运算（比如数字和文字），用 str() 或 int() 转换一下！";
-    if (error.includes("can only concatenate"))
-      return '❌ 类型错误：不能把文字和数字直接拼接，用 str() 把数字变成文字！比如 str(42)';
-    return `❌ 类型错误：数据类型不对 —— ${error.match(/TypeError: (.+)/)?.[1] || ""}`;
-  }
-  if (error.includes("IndexError")) {
-    return "❌ 索引错误：你访问了列表中不存在的位置，记住列表是从 0 开始数的！";
-  }
-  if (error.includes("ZeroDivisionError")) {
-    return "❌ 除零错误：不能除以 0！数学老师也会告诉你这不行 😄";
-  }
-  if (error.includes("IndentationError")) {
-    return "❌ 缩进错误：Python 对空格很讲究！if/for/while 下面的代码要缩进（按 Tab 或 4 个空格）";
-  }
-  if (error.includes("ValueError")) {
-    return `❌ 值错误：给的值不对 —— ${error.match(/ValueError: (.+)/)?.[1] || ""}`;
-  }
-  if (error.includes("KeyboardInterrupt")) {
-    return "⏹️ 程序被中断了。";
-  }
-  if (error.includes("RecursionError")) {
-    return "🔄 递归错误：函数调用自己太多次了！检查是否有正确的停止条件（base case）。";
-  }
-  if (error.includes("KeyError")) {
-    const keyMatch = error.match(/KeyError: (.+)/);
-    return `❌ 键错误：字典中找不到这个键 ${keyMatch?.[1] || ""}。检查键名是否拼写正确！`;
-  }
-  if (error.includes("AttributeError")) {
-    const attrMatch = error.match(/AttributeError: (.+)/);
-    return `❌ 属性错误：${attrMatch?.[1] || "对象没有这个属性或方法"}`;
-  }
-  // fallback
-  const lastLine = error.trim().split("\n").pop() || error;
-  return `❌ 错误：${lastLine}`;
+  // Show original Python error + Chinese hint
+  const original = error.trim();
+  return hint ? `${original}\n\n${hint}` : original;
 }
 
 async function installTurtleMock(py: PyodideInterface): Promise<void> {
