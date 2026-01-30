@@ -86,27 +86,34 @@ function HotspotOverlay({
       }}
     >
       {(isFuture || isComingSoon) && (
-        <div className="absolute inset-[-55%] pointer-events-none">
-          <svg viewBox="0 0 160 160" className="w-full h-full">
+        <div className="absolute pointer-events-none" style={{ inset: "-90%", zIndex: 5 }}>
+          <svg viewBox="0 0 200 200" className="w-full h-full">
             <defs>
-              <filter id={`cloud-blur-${spot.trackId}`} x="-60%" y="-60%" width="220%" height="220%">
-                <feGaussianBlur in="SourceGraphic" stdDeviation="8" />
+              <filter id={`cloud-blur-${spot.trackId}`} x="-80%" y="-80%" width="260%" height="260%">
+                <feGaussianBlur in="SourceGraphic" stdDeviation="10" />
               </filter>
+              <radialGradient id={`cloud-fade-${spot.trackId}`} cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stopColor="#8a9bb0" stopOpacity="1" />
+                <stop offset="40%" stopColor="#96a7b8" stopOpacity="0.95" />
+                <stop offset="70%" stopColor="#a8b6c4" stopOpacity="0.7" />
+                <stop offset="100%" stopColor="#b8c5d2" stopOpacity="0" />
+              </radialGradient>
             </defs>
             <g filter={`url(#cloud-blur-${spot.trackId})`}>
-              {/* Dense core */}
-              <ellipse cx="80" cy="78" rx="52" ry="38" fill="#9aa8b8" opacity="0.95" />
-              <ellipse cx="65" cy="72" rx="45" ry="34" fill="#aab6c4" opacity="0.9" />
-              <ellipse cx="95" cy="75" rx="46" ry="36" fill="#a0aebb" opacity="0.9" />
-              {/* Mid layer */}
-              <ellipse cx="75" cy="65" rx="38" ry="28" fill="#bcc8d6" opacity="0.85" />
-              <ellipse cx="88" cy="85" rx="40" ry="30" fill="#b0bfcc" opacity="0.85" />
-              <ellipse cx="55" cy="82" rx="36" ry="26" fill="#b5c2d0" opacity="0.8" />
-              {/* Outer wisps */}
-              <ellipse cx="80" cy="55" rx="50" ry="25" fill="#c8d2de" opacity="0.6" />
-              <ellipse cx="80" cy="100" rx="48" ry="22" fill="#c5cfd8" opacity="0.55" />
-              <ellipse cx="40" cy="75" rx="30" ry="28" fill="#c0ccd8" opacity="0.5" />
-              <ellipse cx="120" cy="78" rx="32" ry="26" fill="#c2ced8" opacity="0.5" />
+              {/* Dense opaque core — covers the building */}
+              <ellipse cx="100" cy="100" rx="70" ry="55" fill="#8a9ab0" opacity="0.95" />
+              <ellipse cx="85" cy="95" rx="60" ry="48" fill="#95a5b8" opacity="0.92" />
+              <ellipse cx="115" cy="98" rx="62" ry="50" fill="#90a2b5" opacity="0.92" />
+              <ellipse cx="100" cy="88" rx="55" ry="42" fill="#a0afc0" opacity="0.9" />
+              {/* Mid volume */}
+              <ellipse cx="75" cy="105" rx="50" ry="40" fill="#9dadb8" opacity="0.85" />
+              <ellipse cx="125" cy="102" rx="52" ry="42" fill="#9baabb" opacity="0.85" />
+              <ellipse cx="100" cy="112" rx="55" ry="38" fill="#a5b3c2" opacity="0.8" />
+              {/* Outer soft edges — fade into map naturally */}
+              <ellipse cx="100" cy="75" rx="65" ry="30" fill="#b0bcc8" opacity="0.5" />
+              <ellipse cx="100" cy="130" rx="60" ry="28" fill="#adb9c5" opacity="0.45" />
+              <ellipse cx="55" cy="100" rx="35" ry="40" fill="#b5c0cc" opacity="0.4" />
+              <ellipse cx="145" cy="100" rx="38" ry="38" fill="#b2bfca" opacity="0.4" />
             </g>
           </svg>
         </div>
