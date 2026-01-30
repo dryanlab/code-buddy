@@ -113,7 +113,7 @@ export default function LandingPage() {
 
   const handleTryFree = () => {
     enterPreviewMode();
-    router.push("/dashboard/lessons");
+    router.push("/dashboard");
   };
 
   return (
