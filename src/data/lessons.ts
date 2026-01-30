@@ -5646,6 +5646,51 @@ You'll create a program that categorizes things, just like AI does (but simpler)
 This is the foundation of machine learning!`,
       },
       {
+        type: "concept",
+        emoji: "📖",
+        content: "Key Concepts: Classification & Decision Logic",
+        concept: {
+          title: "🧠 Key Concepts: Classification & Decision Logic",
+          titleZh: "关键概念：分类与决策逻辑",
+          syntaxCards: [
+            {
+              symbol: "if/elif/else chain",
+              name: "Decision Tree (Rule-Based AI)",
+              nameZh: "决策树（基于规则的 AI）",
+              emoji: "🌳",
+              description: "Like a flowchart 🌳 — a series of yes/no questions that lead to a category. This is the simplest form of AI!",
+              example: "if has_fins and lives_in_water:\n    return 'fish'\nelif has_wings:\n    return 'bird'",
+            },
+            {
+              symbol: "features = [...]",
+              name: "Feature Extraction",
+              nameZh: "特征提取",
+              emoji: "🔬",
+              description: "Like listing clues 🔍 — break the input into measurable features the AI can analyze (size, color, count, etc.).",
+              example: "features = {\n  'length': len(text),\n  'has_number': any(c.isdigit() for c in text),\n  'uppercase': text.isupper()\n}",
+            },
+            {
+              symbol: "confidence score",
+              name: "Confidence Score",
+              nameZh: "置信度",
+              emoji: "📊",
+              description: "How sure is the AI? 📊 — a number from 0% to 100% showing how confident the prediction is.",
+              example: "score = matching_features / total_features\nconfidence = round(score * 100)\nprint(f'{confidence}% confident')",
+            },
+          ],
+          codeAnatomy: {
+            lines: [
+              { code: "def classify_animal(features):", explanation: "Our 'AI' classifier function.", explanationZh: "我们的 'AI' 分类器函数" },
+              { code: "    if features['legs'] == 0 and features['fins']:", explanation: "Check features like a detective — 0 legs + fins?", explanationZh: "像侦探一样检查特征 — 0条腿+有鳍？" },
+              { code: "        return ('fish', 0.9)", explanation: "Return category AND confidence (90%).", explanationZh: "返回类别和置信度（90%）" },
+              { code: "    elif features['legs'] == 4:", explanation: "4 legs could be many animals...", explanationZh: "4 条腿可能是很多动物..." },
+              { code: "        return ('mammal', 0.7)", explanation: "Lower confidence — need more features!", explanationZh: "置信度较低 — 需要更多特征！" },
+              { code: "    return ('unknown', 0.1)", explanation: "Default: we don't know (low confidence).", explanationZh: "默认：不知道（低置信度）" },
+            ],
+          },
+        },
+      },
+      {
         type: "quiz",
         content: "🧠 AI Logic Quiz!",
         quiz: [
@@ -5694,6 +5739,60 @@ This is the foundation of machine learning!`,
 - 🧮 Perform calculations
 - 💾 Remember information
 - 🎯 Make decisions`,
+      },
+      {
+        type: "concept",
+        emoji: "📖",
+        content: "Grand Review: Your Complete Coding Toolkit",
+        concept: {
+          title: "🎓 Grand Review: Your Complete Coding Toolkit",
+          titleZh: "大复习：你的完整编程工具包",
+          syntaxCards: [
+            {
+              symbol: "🏝️ → 🤖",
+              name: "Your Programming Journey",
+              nameZh: "你的编程之旅",
+              emoji: "🗺️",
+              description: "From zero to hero! 🗺️ You started with print('Hello') and now you understand AI, encryption, data analysis, and building complete applications!",
+              example: "# Area 1: print('Hello!')\n# Area 5: AI classifier with\n#   functions, files, dicts, loops!",
+            },
+            {
+              symbol: "API (Application Programming Interface)",
+              name: "APIs",
+              nameZh: "应用程序接口",
+              emoji: "🔌",
+              description: "Like a restaurant menu 🍽️ — APIs let your program talk to other services (weather, AI, maps) by making requests!",
+              example: "import requests\nresponse = requests.get('https://api.example.com/data')\ndata = response.json()",
+            },
+            {
+              symbol: "class ClassName:",
+              name: "Classes (Preview)",
+              nameZh: "类（预览）",
+              emoji: "🏭",
+              description: "The ultimate building block 🏭 — classes bundle data AND functions together. Like a blueprint for creating objects!",
+              example: "class Pet:\n    def __init__(self, name):\n        self.name = name\n    def speak(self):\n        print(f'{self.name} says hi!')",
+            },
+            {
+              symbol: "Keep Learning! 🚀",
+              name: "Next Steps",
+              nameZh: "下一步",
+              emoji: "🚀",
+              description: "This is just the beginning 🚀 — explore web development, game engines, data science, machine learning, robotics, and more!",
+              example: "# Your future:\n# - Web: Flask, Django\n# - Games: Pygame\n# - AI: TensorFlow, PyTorch\n# - Data: Pandas, NumPy",
+            },
+          ],
+          codeAnatomy: {
+            lines: [
+              { code: "# YOUR AI ASSISTANT — using everything!", explanation: "The capstone project combines ALL skills.", explanationZh: "毕业项目结合所有技能" },
+              { code: "import json, random", explanation: "Modules for data and randomness.", explanationZh: "数据和随机性模块" },
+              { code: "def ai_assistant(user_input):", explanation: "A function — your AI's brain.", explanationZh: "一个函数 — 你 AI 的大脑" },
+              { code: "    keywords = extract_keywords(user_input)", explanation: "Feature extraction from user text.", explanationZh: "从用户文本中提取特征" },
+              { code: "    response = classify_and_respond(keywords)", explanation: "Classification + decision making.", explanationZh: "分类 + 决策" },
+              { code: "    save_to_memory(user_input, response)", explanation: "File I/O for persistent memory.", explanationZh: "文件读写实现持久记忆" },
+              { code: "    return response", explanation: "Return the AI's answer!", explanationZh: "返回 AI 的回答！" },
+            ],
+          },
+        },
       },
       {
         type: "quiz",
