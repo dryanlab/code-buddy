@@ -23,15 +23,15 @@ interface MapHotspot {
 const MAP_HOTSPOTS: MapHotspot[] = [
   { trackId: "python", x: 15, y: 88 },
   { trackId: "data-structures", x: 22, y: 65 },
-  { trackId: "algorithms", x: 52, y: 62, cloudOffsetY: 12 },
+  { trackId: "algorithms", x: 52, y: 62, cloudOffsetY: 25 },
   { trackId: "ai-ml", x: 80, y: 65 },
   { trackId: "web-dev", x: 32, y: 42 },
   { trackId: "databases", x: 52, y: 42 },
   { trackId: "cybersecurity", x: 78, y: 40 },
   { trackId: "computer-architecture", x: 30, y: 20 },
   { trackId: "software-engineering", x: 52, y: 20 },
-  { trackId: "app-dev", x: 72, y: 20 },
-  { trackId: "game-dev", x: 90, y: 20, cloudOffsetX: -10 },
+  { trackId: "app-dev", x: 72, y: 20, cloudOffsetX: -8 },
+  { trackId: "game-dev", x: 90, y: 20, cloudOffsetX: -20 },
 ];
 
 function ProgressRing({ pct, color, size = 48 }: { pct: number; color: string; size?: number }) {
@@ -99,18 +99,18 @@ function HotspotOverlay({
             </defs>
             {isFuture ? (
               <g filter={`url(#cloud-blur-${spot.trackId})`}>
-                {/* Future: denser clouds, still semi-transparent */}
-                <ellipse cx="100" cy="100" rx="68" ry="52" fill="#8a9ab0" opacity="0.7" />
-                <ellipse cx="85" cy="95" rx="58" ry="45" fill="#95a5b8" opacity="0.65" />
-                <ellipse cx="115" cy="98" rx="60" ry="48" fill="#90a2b5" opacity="0.65" />
-                <ellipse cx="100" cy="88" rx="50" ry="38" fill="#a0afc0" opacity="0.6" />
-                <ellipse cx="75" cy="105" rx="45" ry="36" fill="#9dadb8" opacity="0.55" />
-                <ellipse cx="125" cy="102" rx="48" ry="38" fill="#9baabb" opacity="0.55" />
+                {/* Future: moderate clouds, can still see building underneath */}
+                <ellipse cx="100" cy="100" rx="68" ry="52" fill="#8a9ab0" opacity="0.5" />
+                <ellipse cx="85" cy="95" rx="58" ry="45" fill="#95a5b8" opacity="0.45" />
+                <ellipse cx="115" cy="98" rx="60" ry="48" fill="#90a2b5" opacity="0.45" />
+                <ellipse cx="100" cy="88" rx="50" ry="38" fill="#a0afc0" opacity="0.4" />
+                <ellipse cx="75" cy="105" rx="45" ry="36" fill="#9dadb8" opacity="0.35" />
+                <ellipse cx="125" cy="102" rx="48" ry="38" fill="#9baabb" opacity="0.35" />
                 {/* Outer wisps */}
-                <ellipse cx="100" cy="72" rx="55" ry="25" fill="#b0bcc8" opacity="0.35" />
-                <ellipse cx="100" cy="128" rx="52" ry="22" fill="#adb9c5" opacity="0.3" />
-                <ellipse cx="50" cy="100" rx="30" ry="35" fill="#b5c0cc" opacity="0.25" />
-                <ellipse cx="150" cy="100" rx="32" ry="32" fill="#b2bfca" opacity="0.25" />
+                <ellipse cx="100" cy="72" rx="55" ry="25" fill="#b0bcc8" opacity="0.22" />
+                <ellipse cx="100" cy="128" rx="52" ry="22" fill="#adb9c5" opacity="0.18" />
+                <ellipse cx="50" cy="100" rx="30" ry="35" fill="#b5c0cc" opacity="0.15" />
+                <ellipse cx="150" cy="100" rx="32" ry="32" fill="#b2bfca" opacity="0.15" />
               </g>
             ) : (
               <g filter={`url(#cloud-blur-${spot.trackId})`}>
@@ -142,21 +142,20 @@ function HotspotOverlay({
           }}
         />
 
-        {/* "You are here" spinning arrow for active track */}
+        {/* "You are here" marker for active track */}
         {isActive && (
           <motion.div
-            className="absolute -top-10 left-1/2 -translate-x-1/2 pointer-events-none"
-            animate={{ y: [0, -6, 0] }}
-            transition={{ duration: 1.2, repeat: Infinity, ease: "easeInOut" }}
+            className="absolute -top-12 left-1/2 -translate-x-1/2 pointer-events-none"
+            animate={{ y: [0, -5, 0] }}
+            transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
           >
-            <motion.div
-              animate={{ rotate: [0, 10, -10, 0] }}
-              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-              className="text-2xl drop-shadow-lg"
-              style={{ filter: `drop-shadow(0 0 6px ${track.colorHex})` }}
-            >
-              ⬇️
-            </motion.div>
+            <svg width="28" height="36" viewBox="0 0 28 36" fill="none" style={{ filter: `drop-shadow(0 2px 6px ${track.colorHex}aa)` }}>
+              {/* Pin shape */}
+              <path d="M14 0C6.27 0 0 6.27 0 14c0 10.5 14 22 14 22s14-11.5 14-22C28 6.27 21.73 0 14 0z" fill={track.colorHex} />
+              <circle cx="14" cy="14" r="6" fill="white" />
+              {/* Inner dot */}
+              <circle cx="14" cy="14" r="3" fill={track.colorHex} />
+            </svg>
           </motion.div>
         )}
 
