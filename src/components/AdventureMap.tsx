@@ -199,33 +199,33 @@ function TrackCard({
           backgroundImage: `linear-gradient(135deg, ${colorHex}10, transparent)`,
         }}
       >
-        <div className="flex items-center gap-3 mb-2">
-          <span className="text-4xl">{icon}</span>
+        <div className="flex items-center gap-3 mb-3">
+          <span className="text-5xl">{icon}</span>
           <div className="min-w-0">
-            <h4 className="font-bold text-sm">{title}</h4>
-            <p className="text-[11px]" style={{ color: "var(--theme-text-muted)" }}>{titleZh}</p>
+            <h4 className="font-bold text-lg">{title}</h4>
+            <p className="text-sm" style={{ color: "var(--theme-text-muted)" }}>{titleZh}</p>
           </div>
         </div>
 
-        <div className="flex items-center gap-2 mb-2 flex-wrap">
-          <span className="text-[10px] px-2 py-0.5 rounded-full" style={{ backgroundColor: "#22c55e20", color: "#22c55e" }}>✅ Available</span>
-          <span className="text-[10px]">{diffEmoji} {diffLabel}</span>
+        <div className="flex items-center gap-2 mb-3 flex-wrap">
+          <span className="text-xs px-2 py-0.5 rounded-full" style={{ backgroundColor: "#22c55e20", color: "#22c55e" }}>✅ Available</span>
+          <span className="text-xs">{diffEmoji} {diffLabel}</span>
         </div>
 
-        <p className="text-xs mb-1 flex-1" style={{ color: "var(--theme-text-secondary)" }}>{description}</p>
-        <p className="text-[10px] mb-3" style={{ color: "var(--theme-text-muted)" }}>{descriptionZh}</p>
+        <p className="text-sm mb-1 flex-1" style={{ color: "var(--theme-text-secondary)" }}>{description}</p>
+        <p className="text-xs mb-4" style={{ color: "var(--theme-text-muted)" }}>{descriptionZh}</p>
 
         <div className="mt-auto">
-          <div className="flex justify-between text-[10px] mb-1">
+          <div className="flex justify-between text-xs mb-1">
             <span style={{ color: "var(--theme-text-secondary)" }}>📖 {lessonCount} lessons</span>
             <span style={{ color: colorHex }}>{completedCount}/{lessonCount} ({pct}%)</span>
           </div>
-          <div className="h-2 rounded-full overflow-hidden" style={{ backgroundColor: "var(--theme-border)" }}>
+          <div className="h-2.5 rounded-full overflow-hidden" style={{ backgroundColor: "var(--theme-border)" }}>
             <div className="h-full rounded-full transition-all" style={{ width: `${pct}%`, backgroundColor: colorHex }} />
           </div>
         </div>
 
-        <div className="mt-3 text-center py-2 rounded-lg font-bold text-xs" style={{ backgroundColor: colorHex, color: "#000" }}>
+        <div className="mt-4 text-center py-3 rounded-xl font-bold text-sm" style={{ backgroundColor: colorHex, color: "#000" }}>
           {pct > 0 ? "▶ Continue · 继续" : "🚀 Start · 开始"}
         </div>
       </motion.div>
@@ -285,7 +285,7 @@ function TrackPopup({
         animate={{ opacity: 1, scale: 1, y: 0 }}
         exit={{ opacity: 0, scale: 0.9, y: 20 }}
         transition={{ type: "spring", damping: 25, stiffness: 300 }}
-        className={`relative rounded-2xl p-5 w-full overflow-hidden z-10 ${isDualTrack ? "max-w-lg" : "max-w-md"}`}
+        className={`relative rounded-2xl p-6 w-full overflow-hidden z-10 ${isDualTrack ? "max-w-2xl" : "max-w-md"}`}
         style={{
           backgroundColor: "var(--theme-card-bg)",
           border: `2px solid ${track.colorHex}40`,
@@ -303,9 +303,9 @@ function TrackPopup({
 
         {isDualTrack ? (
           <>
-            <div className="text-center mb-4">
-              <h3 className="text-lg font-bold">🏝️ Starter Island</h3>
-              <p className="text-xs" style={{ color: "var(--theme-text-muted)" }}>新手岛 — 选择你的编程语言！</p>
+            <div className="text-center mb-5">
+              <h3 className="text-xl font-bold">🏝️ Starter Island</h3>
+              <p className="text-sm" style={{ color: "var(--theme-text-muted)" }}>新手岛 — 选择你的编程语言！</p>
             </div>
             <div className="grid grid-cols-2 gap-3">
               <TrackCard
