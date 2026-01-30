@@ -1,8 +1,10 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
+import { isPreviewMode, PREVIEW_ALLOWED_EXPLORE_TABS } from "@/lib/preview-mode";
+import SignUpModal from "@/components/SignUpModal";
 
 const BinaryLab = dynamic(() => import("@/components/explore/BinaryLab"), { ssr: false });
 const CryptoLab = dynamic(() => import("@/components/explore/CryptoLab"), { ssr: false });
@@ -519,6 +521,12 @@ const KNOWLEDGE_CARDS = [
 export default function ExplorePage() {
   const [activeCard, setActiveCard] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<string>("cards");
+  const [preview, setPreview] = useState(false);
+  const [showSignUpModal, setShowSignUpModal] = useState(false);
+
+  useEffect(() => {
+    setPreview(isPreviewMode());
+  }, []);
 
   const tabs = [
     { id: "cards", icon: "🃏", label: "Knowledge Cards", labelCn: "知识卡片" },
@@ -542,21 +550,26 @@ export default function ExplorePage() {
 
       {/* Tabs */}
       <div className="flex gap-2 mb-6 flex-wrap">
-        {tabs.map((tab) => (
-          <button
-            key={tab.id}
-            onClick={() => setActiveTab(tab.id)}
-            className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-              activeTab === tab.id
-                ? "bg-green-500/20 text-green-400 border border-green-500/30"
-                : "bg-[var(--theme-card-bg)] text-[var(--theme-text-secondary)] border border-[var(--theme-border)] hover:border-[var(--theme-border)]"
-            }`}
-          >
-            <span>{tab.icon} {tab.label}</span>
-            <span className="block text-[10px] text-[var(--theme-text-muted)]">{tab.labelCn}</span>
-          </button>
-        ))}
+        {tabs.map((tab) => {
+          const tabLocked = preview && !PREVIEW_ALLOWED_EXPLORE_TABS.includes(tab.id);
+          return (
+            <button
+              key={tab.id}
+              onClick={() => tabLocked ? setShowSignUpModal(true) : setActiveTab(tab.id)}
+              className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                activeTab === tab.id
+                  ? "bg-green-500/20 text-green-400 border border-green-500/30"
+                  : "bg-[var(--theme-card-bg)] text-[var(--theme-text-secondary)] border border-[var(--theme-border)] hover:border-[var(--theme-border)]"
+              }`}
+              style={{ opacity: tabLocked ? 0.45 : 1 }}
+            >
+              <span>{tabLocked ? "🔒" : tab.icon} {tab.label}</span>
+              <span className="block text-[10px] text-[var(--theme-text-muted)]">{tabLocked ? "Sign up · 注册解锁" : tab.labelCn}</span>
+            </button>
+          );
+        })}
       </div>
+      <SignUpModal open={showSignUpModal} onClose={() => setShowSignUpModal(false)} />
 
       <AnimatePresence mode="wait">
         {activeTab === "cards" && (

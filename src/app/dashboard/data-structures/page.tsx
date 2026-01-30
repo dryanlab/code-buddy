@@ -1,8 +1,10 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
+import { isPreviewMode, PREVIEW_ALLOWED_DS_TABS } from "@/lib/preview-mode";
+import SignUpModal from "@/components/SignUpModal";
 
 const ArrayVisualizer = dynamic(() => import("@/components/data-structures/ArrayVisualizer"), { ssr: false });
 const ListVisualizer = dynamic(() => import("@/components/data-structures/ListVisualizer"), { ssr: false });
@@ -26,6 +28,12 @@ const TABS = [
 
 export default function DataStructuresPage() {
   const [activeTab, setActiveTab] = useState("array");
+  const [preview, setPreview] = useState(false);
+  const [showSignUpModal, setShowSignUpModal] = useState(false);
+
+  useEffect(() => {
+    setPreview(isPreviewMode());
+  }, []);
 
   return (
     <div className="min-h-screen p-4 pt-16 max-w-4xl mx-auto">
@@ -40,24 +48,29 @@ export default function DataStructuresPage() {
 
       {/* Tab Navigation */}
       <div className="flex gap-1 overflow-x-auto pb-2 mb-4 scrollbar-hide">
-        {TABS.map(tab => (
-          <button
-            key={tab.id}
-            onClick={() => setActiveTab(tab.id)}
-            className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm whitespace-nowrap transition-colors border ${
-              activeTab === tab.id
-                ? "border-[var(--theme-primary)] text-[var(--theme-primary)] bg-[var(--theme-primary)]/10"
-                : "border-transparent text-[var(--theme-text-secondary)] hover:text-[var(--theme-text)] hover:bg-[var(--theme-card-bg)]"
-            }`}
-          >
-            <span>{tab.icon}</span>
-            <div className="flex flex-col items-start">
-              <span className="text-xs font-medium">{tab.label}</span>
-              <span className="text-[10px] text-[var(--theme-text-muted)]">{tab.labelCn}</span>
-            </div>
-          </button>
-        ))}
+        {TABS.map(tab => {
+          const tabLocked = preview && !PREVIEW_ALLOWED_DS_TABS.includes(tab.id);
+          return (
+            <button
+              key={tab.id}
+              onClick={() => tabLocked ? setShowSignUpModal(true) : setActiveTab(tab.id)}
+              className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm whitespace-nowrap transition-colors border ${
+                activeTab === tab.id
+                  ? "border-[var(--theme-primary)] text-[var(--theme-primary)] bg-[var(--theme-primary)]/10"
+                  : "border-transparent text-[var(--theme-text-secondary)] hover:text-[var(--theme-text)] hover:bg-[var(--theme-card-bg)]"
+              }`}
+              style={{ opacity: tabLocked ? 0.45 : 1 }}
+            >
+              <span>{tabLocked ? "🔒" : tab.icon}</span>
+              <div className="flex flex-col items-start">
+                <span className="text-xs font-medium">{tab.label}</span>
+                <span className="text-[10px] text-[var(--theme-text-muted)]">{tabLocked ? "Sign up · 注册" : tab.labelCn}</span>
+              </div>
+            </button>
+          );
+        })}
       </div>
+      <SignUpModal open={showSignUpModal} onClose={() => setShowSignUpModal(false)} />
 
       {/* Tab Content */}
       <AnimatePresence mode="wait">

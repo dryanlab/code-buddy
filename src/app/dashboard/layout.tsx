@@ -3,18 +3,29 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Sidebar from "@/components/Sidebar";
+import PreviewBanner from "@/components/PreviewBanner";
 import { usePathname } from "next/navigation";
 import { getUser, getSessionUser, ensureProfile } from "@/lib/auth-store";
 import { isSupabaseConfigured } from "@/lib/supabase";
 import { loadSkillLevelFromProfile } from "@/lib/skill-store";
+import { isPreviewMode } from "@/lib/preview-mode";
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const pathname = usePathname();
   const [ready, setReady] = useState(false);
 
+  const [preview, setPreview] = useState(false);
+
   useEffect(() => {
     async function check() {
+      // Preview mode: skip all auth checks
+      if (isPreviewMode()) {
+        setPreview(true);
+        setReady(true);
+        return;
+      }
+
       if (isSupabaseConfigured) {
         const supabase = (await import("@/lib/supabase")).getSupabase();
         if (supabase) {
@@ -64,8 +75,9 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 
   return (
     <div className="min-h-[100dvh]" style={{ backgroundColor: "var(--theme-bg)", color: "var(--theme-text-primary)" }}>
+      {preview && <PreviewBanner />}
       <Sidebar />
-      <main className="overflow-y-auto pt-14">{children}</main>
+      <main className={`overflow-y-auto ${preview ? "pt-24" : "pt-14"}`}>{children}</main>
     </div>
   );
 }

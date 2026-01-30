@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 import { getLessonById, getAdjacentLessons, type LessonSection } from "@/data/lessons";
 import InlineCodeExercise from "@/components/InlineCodeExercise";
 import { completeLesson, getProgress, saveLessonPosition, getLessonPosition } from "@/lib/progress-store";
+import { isPreviewMode, isLessonUnlocked } from "@/lib/preview-mode";
 import CodeEditor from "@/components/CodeEditor";
 import {
   ParsonsExercise,
@@ -162,6 +163,13 @@ export default function LessonPage() {
   const lessonId = params.id as string;
   const lesson = getLessonById(lessonId);
   const [currentSection, setCurrentSection] = useState(() => getLessonPosition(lessonId));
+
+  // Preview mode: redirect if lesson not allowed
+  useEffect(() => {
+    if (isPreviewMode() && !isLessonUnlocked(lessonId)) {
+      router.replace("/dashboard/lessons");
+    }
+  }, [lessonId, router]);
   const [quizScore, setQuizScore] = useState<number | null>(null);
   const [isCompleted, setIsCompleted] = useState(false);
   const [showCelebration, setShowCelebration] = useState(false);

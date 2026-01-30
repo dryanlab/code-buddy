@@ -6,6 +6,8 @@ import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { getUser, logout, type UserProfile } from "@/lib/auth-store";
 import { useTheme } from "@/lib/theme-context";
+import { isPreviewMode, PREVIEW_LOCKED_PATHS, exitPreviewMode } from "@/lib/preview-mode";
+import SignUpModal from "@/components/SignUpModal";
 
 const NAV_ITEMS = [
   { href: "/dashboard", icon: "🏠", label: "Dashboard", labelCn: "主页" },
@@ -24,10 +26,13 @@ export default function Sidebar() {
   const pathname = usePathname();
   const [user, setUser] = useState<UserProfile | null>(null);
   const [open, setOpen] = useState(false);
+  const [preview, setPreview] = useState(false);
+  const [showSignUpModal, setShowSignUpModal] = useState(false);
   const { theme, themes: allThemes, setThemeId, themeId } = useTheme();
 
   useEffect(() => {
     setUser(getUser());
+    setPreview(isPreviewMode());
   }, []);
 
   useEffect(() => {
@@ -107,23 +112,38 @@ export default function Sidebar() {
           {NAV_ITEMS.map((item) => {
             const isActive = pathname === item.href || 
               (item.href !== "/dashboard" && pathname.startsWith(item.href));
+            const isLocked = preview && PREVIEW_LOCKED_PATHS.includes(item.href);
+            
+            const content = (
+              <motion.div
+                whileHover={isLocked ? {} : { x: 4 }}
+                className="flex items-center gap-3 px-4 py-3 rounded-lg transition-colors"
+                style={{
+                  backgroundColor: isActive ? `${theme.colors.primary}18` : "transparent",
+                  color: isLocked ? theme.colors.textMuted : isActive ? theme.colors.primary : theme.colors.textSecondary,
+                  border: isActive ? `1px solid ${theme.colors.primary}30` : "1px solid transparent",
+                  opacity: isLocked ? 0.5 : 1,
+                }}
+              >
+                <span className="text-xl">{isLocked ? "🔒" : item.icon}</span>
+                <div className="flex flex-col">
+                  <span className="text-sm font-medium">{item.label}</span>
+                  <span className="text-[10px]" style={{ color: theme.colors.textMuted }}>{item.labelCn}</span>
+                </div>
+              </motion.div>
+            );
+
+            if (isLocked) {
+              return (
+                <button key={item.href} onClick={() => setShowSignUpModal(true)} className="w-full text-left">
+                  {content}
+                </button>
+              );
+            }
+
             return (
               <Link key={item.href} href={item.href}>
-                <motion.div
-                  whileHover={{ x: 4 }}
-                  className="flex items-center gap-3 px-4 py-3 rounded-lg transition-colors"
-                  style={{
-                    backgroundColor: isActive ? `${theme.colors.primary}18` : "transparent",
-                    color: isActive ? theme.colors.primary : theme.colors.textSecondary,
-                    border: isActive ? `1px solid ${theme.colors.primary}30` : "1px solid transparent",
-                  }}
-                >
-                  <span className="text-xl">{item.icon}</span>
-                  <div className="flex flex-col">
-                    <span className="text-sm font-medium">{item.label}</span>
-                    <span className="text-[10px]" style={{ color: theme.colors.textMuted }}>{item.labelCn}</span>
-                  </div>
-                </motion.div>
+                {content}
               </Link>
             );
           })}
@@ -131,7 +151,21 @@ export default function Sidebar() {
 
         {/* User & Footer */}
         <div className="px-4 py-4 space-y-3" style={{ borderTop: `1px solid ${theme.colors.sidebarBorder}` }}>
-          {user && (
+          {preview ? (
+            <button
+              onClick={() => {
+                exitPreviewMode();
+                window.location.href = "/login";
+              }}
+              className="w-full py-3 font-bold text-sm rounded-xl hover:opacity-90 transition-opacity"
+              style={{
+                background: `linear-gradient(to right, ${theme.colors.primary}, ${theme.colors.primaryLight || theme.colors.primary})`,
+                color: theme.colors.bg,
+              }}
+            >
+              🚀 Sign Up · 注册
+            </button>
+          ) : user ? (
             <div className="flex items-center gap-2">
               <span className="text-2xl">{user.avatar}</span>
               <div className="flex-1 min-w-0">
@@ -147,12 +181,13 @@ export default function Sidebar() {
                 🚪 退出
               </button>
             </div>
-          )}
+          ) : null}
           <div className="text-xs terminal-text" style={{ color: theme.colors.textMuted }}>
             v2.0 Phase 2
           </div>
         </div>
       </aside>
+      <SignUpModal open={showSignUpModal} onClose={() => setShowSignUpModal(false)} />
     </>
   );
 }

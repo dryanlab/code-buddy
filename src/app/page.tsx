@@ -2,7 +2,9 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useEffect, useState, useRef } from "react";
+import { enterPreviewMode } from "@/lib/preview-mode";
 
 const CODE_LINES = [
   'print("Hello, World! 🌍")',
@@ -107,6 +109,13 @@ function TypewriterCode() {
 }
 
 export default function LandingPage() {
+  const router = useRouter();
+
+  const handleTryFree = () => {
+    enterPreviewMode();
+    router.push("/dashboard/lessons");
+  };
+
   return (
     <main className="relative min-h-screen flex flex-col items-center justify-center bg-grid overflow-hidden" style={{ backgroundColor: "var(--theme-bg)", color: "var(--theme-text-primary)" }}>
       <MatrixRain />
@@ -183,6 +192,14 @@ export default function LandingPage() {
             💻 Code Lab
             <span className="block text-xs font-normal opacity-70">代码实验室</span>
           </Link>
+          <button
+            onClick={handleTryFree}
+            className="px-8 py-4 font-bold text-lg rounded-xl transition-colors hover:scale-105 transition-transform"
+            style={{ border: "1px solid var(--theme-text-muted)", color: "var(--theme-text-secondary)" }}
+          >
+            👀 Try Free
+            <span className="block text-xs font-normal opacity-70">免费试用</span>
+          </button>
         </motion.div>
 
         {/* Feature cards */}

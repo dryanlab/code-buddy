@@ -7,9 +7,13 @@ import { getProgress } from "@/lib/progress-store";
 import { MODULES, LESSONS } from "@/data/lessons";
 import { useUserProfile } from "@/lib/useUserProfile";
 import { getStartingIndex, getLessonIndex, CURRICULUM_PATH, SKILL_LABELS, type SkillLevel } from "@/lib/skill-store";
+import { isPreviewMode, isLessonUnlocked } from "@/lib/preview-mode";
+import SignUpModal from "@/components/SignUpModal";
 
 export default function LessonsPage() {
   const [completedLessons, setCompletedLessons] = useState<string[]>([]);
+  const [preview, setPreview] = useState(false);
+  const [showSignUpModal, setShowSignUpModal] = useState(false);
   const { profile } = useUserProfile();
   const skillLevel: SkillLevel = profile?.skillLevel || "beginner";
   const startIdx = getStartingIndex(skillLevel);
@@ -17,6 +21,7 @@ export default function LessonsPage() {
 
   useEffect(() => {
     setCompletedLessons(getProgress().completedLessons);
+    setPreview(isPreviewMode());
   }, []);
 
   return (
@@ -82,19 +87,45 @@ export default function LessonsPage() {
                   const isBeforeStart = globalIdx < startIdx;
                   const isAtOrAfterStart = globalIdx >= startIdx;
 
+                  // Preview mode: lock all except allowed first lessons
+                  const previewLocked = preview && !isLessonUnlocked(lesson.id);
+
                   // Unlock logic: lessons before starting point are always unlocked (review).
                   // Lessons at/after starting point follow normal sequential unlock.
-                  const isLocked = isAtOrAfterStart
+                  const isLocked = previewLocked || (isAtOrAfterStart
                     && !isDone
                     && li > 0
                     && !completedLessons.includes(prevLesson!.id)
                     // But the very first lesson at or after start should be unlocked
-                    && globalIdx !== startIdx;
+                    && globalIdx !== startIdx);
 
                   // Difficulty badge based on curriculum position
                   const diffBadge = globalIdx < 6 ? "🟢" : globalIdx < 12 ? "🟡" : "🔴";
 
-                  return (
+                  return previewLocked ? (
+                    <button
+                      key={lesson.id}
+                      onClick={() => setShowSignUpModal(true)}
+                      className="w-full text-left"
+                    >
+                      <motion.div
+                        className="relative p-4 rounded-xl border transition-colors"
+                        style={{
+                          backgroundColor: "var(--theme-card-bg)",
+                          borderColor: "var(--theme-border)",
+                          opacity: 0.45,
+                        }}
+                      >
+                        <div className="flex items-center gap-3">
+                          <span className="text-2xl">🔒</span>
+                          <div className="flex-1 min-w-0">
+                            <div className="font-semibold text-sm truncate">{lesson.title}</div>
+                            <div className="text-xs" style={{ color: "var(--theme-text-muted)" }}>Sign up to unlock · 注册解锁</div>
+                          </div>
+                        </div>
+                      </motion.div>
+                    </button>
+                  ) : (
                     <Link
                       key={lesson.id}
                       href={isLocked ? "#" : `/dashboard/lessons/${lesson.id}`}
@@ -149,6 +180,7 @@ export default function LessonsPage() {
           );
         })}
       </div>
+      <SignUpModal open={showSignUpModal} onClose={() => setShowSignUpModal(false)} />
     </div>
   );
 }
