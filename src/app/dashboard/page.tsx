@@ -224,66 +224,69 @@ function SkillRadar({ progress }: { progress: UserProgress }) {
         <p className="text-xs" style={{ color: "var(--theme-text-muted)" }}>技能雷达</p>
       </div>
       <div className="rounded-xl p-4" style={{ backgroundColor: "var(--theme-card-bg)", border: "1px solid var(--theme-border)" }}>
-        <svg viewBox="-120 -20 540 340" className="w-full max-w-full mx-auto">
-          <defs>
-            <linearGradient id="radarGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#22d3ee" />
-              <stop offset="25%" stopColor="#a78bfa" />
-              <stop offset="50%" stopColor="#fb923c" />
-              <stop offset="75%" stopColor="#4ade80" />
-              <stop offset="100%" stopColor="#facc15" />
-            </linearGradient>
-          </defs>
-          {/* Grid */}
-          {gridPaths.map((d, i) => (
-            <path key={i} d={d} fill="none" stroke="var(--theme-border)" strokeWidth={i === gridLevels.length - 1 ? 2.5 : 1} opacity={i === gridLevels.length - 1 ? 0.8 : 0.4} />
-          ))}
-          {/* Axes */}
-          {axisEnds.map((p, i) => (
-            <line key={i} x1={cx} y1={cy} x2={p.x} y2={p.y} stroke="var(--theme-border)" strokeWidth={0.8} opacity={0.3} />
-          ))}
-          {/* Data polygon */}
-          <motion.path
-            d={dataPath}
-            fill="rgba(99, 102, 241, 0.25)"
-            stroke="url(#radarGradient)"
-            strokeWidth={2.5}
-            initial={{ opacity: 0, scale: 0.3 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-            style={{ transformOrigin: `${cx}px ${cy}px` }}
-          />
-          {/* Data points */}
-          {dataPoints.map((p, i) => (
-            <motion.circle
-              key={i}
-              cx={p.x}
-              cy={p.y}
-              r={5}
-              fill={dimensions[i].color}
-              stroke="white"
-              strokeWidth={2}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.5 + i * 0.1 }}
+        <div className="relative w-full max-w-[400px] mx-auto" style={{ aspectRatio: "1" }}>
+          {/* SVG chart */}
+          <svg viewBox="0 0 300 300" className="absolute inset-0 w-full h-full">
+            <defs>
+              <linearGradient id="radarGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="#22d3ee" />
+                <stop offset="25%" stopColor="#a78bfa" />
+                <stop offset="50%" stopColor="#fb923c" />
+                <stop offset="75%" stopColor="#4ade80" />
+                <stop offset="100%" stopColor="#facc15" />
+              </linearGradient>
+            </defs>
+            {/* Grid */}
+            {gridPaths.map((d, i) => (
+              <path key={i} d={d} fill="none" stroke="var(--theme-border)" strokeWidth={i === gridLevels.length - 1 ? 2.5 : 1} opacity={i === gridLevels.length - 1 ? 0.8 : 0.4} />
+            ))}
+            {/* Axes */}
+            {axisEnds.map((p, i) => (
+              <line key={i} x1={cx} y1={cy} x2={p.x} y2={p.y} stroke="var(--theme-border)" strokeWidth={0.8} opacity={0.3} />
+            ))}
+            {/* Data polygon */}
+            <motion.path
+              d={dataPath}
+              fill="rgba(99, 102, 241, 0.25)"
+              stroke="url(#radarGradient)"
+              strokeWidth={2.5}
+              initial={{ opacity: 0, scale: 0.3 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+              style={{ transformOrigin: `${cx}px ${cy}px` }}
             />
-          ))}
-          {/* Labels */}
+            {/* Data points */}
+            {dataPoints.map((p, i) => (
+              <motion.circle
+                key={i}
+                cx={p.x}
+                cy={p.y}
+                r={5}
+                fill={dimensions[i].color}
+                stroke="white"
+                strokeWidth={2}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.5 + i * 0.1 }}
+              />
+            ))}
+          </svg>
+          {/* HTML Labels — no clipping */}
           {labelPositions.map((p, i) => (
-            <text
+            <div
               key={i}
-              x={p.x}
-              y={p.y}
-              textAnchor="middle"
-              dominantBaseline="middle"
-              fontSize={12}
-              fontWeight={700}
+              className="absolute text-center pointer-events-none"
+              style={{
+                left: `${(p.x / 300) * 100}%`,
+                top: `${(p.y / 300) * 100}%`,
+                transform: "translate(-50%, -50%)",
+              }}
             >
-              <tspan x={p.x} dy="-0.5em" fill={dimensions[i].color}>{dimensions[i].label}</tspan>
-              <tspan x={p.x} dy="1.3em" fontSize={11} fontWeight={800} fill={dimensions[i].color}>{dimensions[i].value}</tspan>
-            </text>
+              <div className="text-xs font-bold whitespace-nowrap" style={{ color: dimensions[i].color }}>{dimensions[i].label}</div>
+              <div className="text-sm font-extrabold" style={{ color: dimensions[i].color }}>{dimensions[i].value}</div>
+            </div>
           ))}
-        </svg>
+        </div>
       </div>
     </div>
   );
