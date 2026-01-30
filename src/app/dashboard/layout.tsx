@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Sidebar from "@/components/Sidebar";
+import Header from "@/components/Header";
 import PreviewBanner from "@/components/PreviewBanner";
 import { usePathname } from "next/navigation";
 import { getUser, getSessionUser, ensureProfile } from "@/lib/auth-store";
@@ -16,6 +17,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   const [ready, setReady] = useState(false);
 
   const [preview, setPreview] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   useEffect(() => {
     async function check() {
@@ -76,7 +78,8 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   return (
     <div className="min-h-[100dvh]" style={{ backgroundColor: "var(--theme-bg)", color: "var(--theme-text-primary)" }}>
       {preview && <PreviewBanner />}
-      <Sidebar />
+      <Header onToggleSidebar={() => setSidebarOpen(o => !o)} sidebarOpen={sidebarOpen} />
+      <Sidebar open={sidebarOpen} setOpen={setSidebarOpen} />
       <main className={`overflow-y-auto ${preview ? "pt-24" : "pt-14"}`}>{children}</main>
     </div>
   );

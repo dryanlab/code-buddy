@@ -22,13 +22,17 @@ const NAV_ITEMS = [
   { href: "/dashboard/settings", icon: "⚙️", label: "Settings", labelCn: "设置" },
 ];
 
-export default function Sidebar() {
+interface SidebarProps {
+  open: boolean;
+  setOpen: (open: boolean) => void;
+}
+
+export default function Sidebar({ open, setOpen }: SidebarProps) {
   const pathname = usePathname();
   const [user, setUser] = useState<UserProfile | null>(null);
-  const [open, setOpen] = useState(false);
   const [preview, setPreview] = useState(false);
   const [showSignUpModal, setShowSignUpModal] = useState(false);
-  const { theme, themes: allThemes, setThemeId, themeId } = useTheme();
+  const { theme } = useTheme();
 
   useEffect(() => {
     setUser(getUser());
@@ -39,41 +43,8 @@ export default function Sidebar() {
     setOpen(false);
   }, [pathname]);
 
-  // Cycle through themes
-  const cycleTheme = () => {
-    const idx = allThemes.findIndex(t => t.id === themeId);
-    const next = allThemes[(idx + 1) % allThemes.length];
-    setThemeId(next.id);
-  };
-
   return (
     <>
-      {/* Hamburger + Theme toggle */}
-      <div className="fixed top-3 left-3 z-[60] flex gap-2">
-        <button
-          onClick={() => setOpen(!open)}
-          className="backdrop-blur border rounded-lg p-2.5 text-xl shadow-lg"
-          style={{
-            backgroundColor: `${theme.colors.sidebarBg}e6`,
-            borderColor: theme.colors.sidebarBorder,
-          }}
-          aria-label={open ? "Close menu" : "Open menu"}
-        >
-          {open ? "✕" : "☰"}
-        </button>
-        <button
-          onClick={cycleTheme}
-          className="backdrop-blur border rounded-lg p-2.5 text-xl shadow-lg"
-          style={{
-            backgroundColor: `${theme.colors.sidebarBg}e6`,
-            borderColor: theme.colors.sidebarBorder,
-          }}
-          title="Change theme · 切换主题"
-        >
-          {theme.emoji}
-        </button>
-      </div>
-
       {/* Overlay */}
       <AnimatePresence>
         {open && (
