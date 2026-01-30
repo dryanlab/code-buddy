@@ -18,12 +18,13 @@ interface MapHotspot {
   y: number;
   cloudOffsetX?: number; // % shift for cloud overlay
   cloudOffsetY?: number;
+  cloudScale?: number; // scale multiplier for cloud size
 }
 
 const MAP_HOTSPOTS: MapHotspot[] = [
   { trackId: "python", x: 15, y: 88 },
   { trackId: "data-structures", x: 22, y: 65 },
-  { trackId: "algorithms", x: 52, y: 62, cloudOffsetY: 40 },
+  { trackId: "algorithms", x: 52, y: 62, cloudOffsetY: 40, cloudScale: 1.4 },
   { trackId: "ai-ml", x: 80, y: 65 },
   { trackId: "web-dev", x: 32, y: 42 },
   { trackId: "databases", x: 52, y: 42 },
@@ -90,40 +91,23 @@ function HotspotOverlay({
       }}
     >
       {(isFuture || isComingSoon) && (
-        <div className="absolute pointer-events-none" style={{ inset: "-90%", zIndex: 5, transform: `translate(${spot.cloudOffsetX || 0}%, ${spot.cloudOffsetY || 0}%)` }}>
+        <div className="absolute pointer-events-none" style={{ inset: "-90%", zIndex: 5, transform: `translate(${spot.cloudOffsetX || 0}%, ${spot.cloudOffsetY || 0}%) scale(${spot.cloudScale || 1})` }}>
           <svg viewBox="0 0 200 200" className="w-full h-full">
             <defs>
               <filter id={`cloud-blur-${spot.trackId}`} x="-80%" y="-80%" width="260%" height="260%">
                 <feGaussianBlur in="SourceGraphic" stdDeviation="10" />
               </filter>
             </defs>
-            {isFuture ? (
-              <g filter={`url(#cloud-blur-${spot.trackId})`}>
-                {/* Future: light clouds, building visible underneath */}
-                <ellipse cx="100" cy="100" rx="68" ry="52" fill="#8a9ab0" opacity="0.35" />
-                <ellipse cx="85" cy="95" rx="58" ry="45" fill="#95a5b8" opacity="0.3" />
-                <ellipse cx="115" cy="98" rx="60" ry="48" fill="#90a2b5" opacity="0.3" />
-                <ellipse cx="100" cy="88" rx="50" ry="38" fill="#a0afc0" opacity="0.28" />
-                <ellipse cx="75" cy="105" rx="45" ry="36" fill="#9dadb8" opacity="0.22" />
-                <ellipse cx="125" cy="102" rx="48" ry="38" fill="#9baabb" opacity="0.22" />
-                {/* Outer wisps */}
-                <ellipse cx="100" cy="72" rx="55" ry="25" fill="#b0bcc8" opacity="0.15" />
-                <ellipse cx="100" cy="128" rx="52" ry="22" fill="#adb9c5" opacity="0.12" />
-                <ellipse cx="50" cy="100" rx="30" ry="35" fill="#b5c0cc" opacity="0.1" />
-                <ellipse cx="150" cy="100" rx="32" ry="32" fill="#b2bfca" opacity="0.1" />
-              </g>
-            ) : (
-              <g filter={`url(#cloud-blur-${spot.trackId})`}>
-                {/* Coming soon: lighter clouds, building clearly visible */}
-                <ellipse cx="100" cy="100" rx="60" ry="45" fill="#a0b0c0" opacity="0.45" />
-                <ellipse cx="85" cy="95" rx="50" ry="38" fill="#aab8c8" opacity="0.4" />
-                <ellipse cx="115" cy="98" rx="52" ry="40" fill="#a5b5c5" opacity="0.4" />
-                <ellipse cx="100" cy="88" rx="42" ry="32" fill="#b0bece" opacity="0.35" />
-                {/* Outer wisps */}
-                <ellipse cx="100" cy="72" rx="48" ry="20" fill="#bcc8d4" opacity="0.2" />
-                <ellipse cx="100" cy="125" rx="45" ry="18" fill="#b8c4d0" opacity="0.18" />
-              </g>
-            )}
+            <g filter={`url(#cloud-blur-${spot.trackId})`}>
+              {/* Uniform light clouds — building clearly visible */}
+              <ellipse cx="100" cy="100" rx="60" ry="45" fill="#a0b0c0" opacity="0.45" />
+              <ellipse cx="85" cy="95" rx="50" ry="38" fill="#aab8c8" opacity="0.4" />
+              <ellipse cx="115" cy="98" rx="52" ry="40" fill="#a5b5c5" opacity="0.4" />
+              <ellipse cx="100" cy="88" rx="42" ry="32" fill="#b0bece" opacity="0.35" />
+              {/* Outer wisps */}
+              <ellipse cx="100" cy="72" rx="48" ry="20" fill="#bcc8d4" opacity="0.2" />
+              <ellipse cx="100" cy="125" rx="45" ry="18" fill="#b8c4d0" opacity="0.18" />
+            </g>
           </svg>
         </div>
       )}
