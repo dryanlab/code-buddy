@@ -224,7 +224,7 @@ function SkillRadar({ progress }: { progress: UserProgress }) {
         <p className="text-xs" style={{ color: "var(--theme-text-muted)" }}>技能雷达</p>
       </div>
       <div className="rounded-xl p-4" style={{ backgroundColor: "var(--theme-card-bg)", border: "1px solid var(--theme-border)" }}>
-        <svg viewBox="-40 -20 380 340" className="w-full max-w-[380px] mx-auto">
+        <svg viewBox="-70 -20 440 340" className="w-full max-w-[440px] mx-auto">
           <defs>
             <linearGradient id="radarGradient" x1="0%" y1="0%" x2="100%" y2="100%">
               <stop offset="0%" stopColor="#22d3ee" />
