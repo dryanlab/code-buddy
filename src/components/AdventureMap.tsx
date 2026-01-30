@@ -85,8 +85,24 @@ function HotspotOverlay({
         aspectRatio: "1",
       }}
     >
-      {isFuture && (
-        <div className="absolute inset-[-20%] rounded-full bg-white/30 dark:bg-gray-900/40 backdrop-blur-[1px] pointer-events-none" />
+      {(isFuture || isComingSoon) && (
+        <div className="absolute inset-[-35%] pointer-events-none">
+          {/* Cloud layer 1 - large soft cloud */}
+          <svg viewBox="0 0 120 120" className="w-full h-full opacity-80">
+            <defs>
+              <filter id={`cloud-blur-${spot.trackId}`} x="-50%" y="-50%" width="200%" height="200%">
+                <feGaussianBlur in="SourceGraphic" stdDeviation="4" />
+              </filter>
+            </defs>
+            <g filter={`url(#cloud-blur-${spot.trackId})`}>
+              <ellipse cx="60" cy="55" rx="42" ry="28" fill="#b8c5d6" opacity="0.7" />
+              <ellipse cx="45" cy="50" rx="30" ry="22" fill="#c9d4e2" opacity="0.8" />
+              <ellipse cx="75" cy="52" rx="32" ry="24" fill="#bcc8d8" opacity="0.75" />
+              <ellipse cx="55" cy="45" rx="25" ry="18" fill="#d4dde8" opacity="0.85" />
+              <ellipse cx="65" cy="60" rx="28" ry="20" fill="#c2ced9" opacity="0.7" />
+            </g>
+          </svg>
+        </div>
       )}
 
       <motion.button
@@ -104,12 +120,24 @@ function HotspotOverlay({
         />
 
         {isAvailable && (
-          <motion.div
-            className="absolute inset-[-20%] rounded-full pointer-events-none"
-            style={{ border: `2px solid ${track.colorHex}` }}
-            animate={{ scale: [1, 1.3, 1], opacity: [0.5, 0, 0.5] }}
-            transition={{ duration: 2.5, repeat: Infinity }}
-          />
+          <>
+            {/* Outer glow */}
+            <motion.div
+              className="absolute inset-[-40%] rounded-full pointer-events-none"
+              style={{
+                background: `radial-gradient(circle, ${track.colorHex}50 0%, ${track.colorHex}20 40%, transparent 70%)`,
+              }}
+              animate={{ scale: [1, 1.15, 1], opacity: [0.7, 0.4, 0.7] }}
+              transition={{ duration: 3, repeat: Infinity }}
+            />
+            {/* Pulsing ring */}
+            <motion.div
+              className="absolute inset-[-25%] rounded-full pointer-events-none"
+              style={{ border: `3px solid ${track.colorHex}`, boxShadow: `0 0 12px ${track.colorHex}80` }}
+              animate={{ scale: [1, 1.4, 1], opacity: [0.8, 0, 0.8] }}
+              transition={{ duration: 2.5, repeat: Infinity }}
+            />
+          </>
         )}
 
         {isAvailable && pct > 0 && pct < 100 && (
