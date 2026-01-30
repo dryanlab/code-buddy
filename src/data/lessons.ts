@@ -305,6 +305,30 @@ Create your own hacker-style message! Try changing the text above to make it you
         },
       },
       {
+        type: "challenge",
+        content: "🏆 Coding Challenge · 编程挑战",
+        challenge: {
+          title: "🎨 ASCII Art Robot · ASCII 机器人",
+          description: "Create an ASCII art robot using multiple print() statements! Make it at least 5 lines tall.\n用多个 print() 画一个 ASCII 机器人！至少5行高。",
+          starterCode: "# Draw a robot using print()\n# 用 print() 画一个机器人\n# Example / 示例:\n# print(\"  [o_o]  \")\n\nprint(\"  [o_o]  \")\n# Add more lines below! / 在下面添加更多行！\n",
+          hint: "Use characters like [ ] | _ / \\ - to build your robot body. Each print() is one line.\n用 [ ] | _ / \\ - 等字符画机器人。每个 print() 是一行。",
+          solution: "print(\"  [o_o]  \")\nprint(\"  /| |\\\\  \")\nprint(\"   | |   \")\nprint(\"  _| |_  \")\nprint(\" |_____|  \")",
+          expectedOutput: "  [o_o]  \n  /| |\\  \n   | |   \n  _| |_  \n |_____|  ",
+        },
+      },
+      {
+        type: "challenge",
+        content: "🏆 Coding Challenge · 编程挑战",
+        challenge: {
+          title: "🏠 My Business Card · 我的名片",
+          description: "Print a fancy business card with a border! Include your name, title, and a fun fact.\n打印一张带边框的名片！包括名字、头衔和有趣的事实。",
+          starterCode: "# Create a business card with borders\n# 制作一张带边框的名片\nprint(\"+\" + \"-\"*20 + \"+\")\n# Add your info below / 在下面添加你的信息\n\nprint(\"+\" + \"-\"*20 + \"+\")",
+          hint: "Use print(\"| Name: YourName      |\") to add lines inside the border.\n用 print(\"| Name: YourName      |\") 添加边框内的行。",
+          solution: "print(\"+\" + \"-\"*20 + \"+\")\nprint(\"| Name: Python Coder |\")\nprint(\"| Title: Hacker      |\")\nprint(\"| Fun: I love code!  |\")\nprint(\"+\" + \"-\"*20 + \"+\")",
+          expectedOutput: "+--------------------+\n| Name: Python Coder |\n| Title: Hacker      |\n| Fun: I love code!  |\n+--------------------+",
+        },
+      },
+      {
         type: "quiz",
         content: "🎓 Hacker Knowledge Check!",
         quiz: QUIZ_DATA["1-1"],
@@ -465,6 +489,30 @@ print()
 print("🎉 THE END! Hope you laughed! 🎉")
 
 # 🔧 Chip: "I just stored 5 different pieces of data and mixed them up!"`,
+      },
+      {
+        type: "challenge",
+        content: "🏆 Coding Challenge · 编程挑战",
+        challenge: {
+          title: "📇 Self Introduction · 自我介绍",
+          description: "Create variables for your name, age, and hobby, then print a self-introduction using f-string!\n创建名字、年龄和爱好变量，用 f-string 打印自我介绍！",
+          starterCode: "# Create your profile / 创建个人资料\nname = \"___\"  # Your name / 你的名字\nage = 0       # Your age / 你的年龄\nhobby = \"___\" # Your hobby / 你的爱好\n\n# Print introduction using f-string\n# 用 f-string 打印自我介绍\n",
+          hint: "Fill in the variables, then use: print(f\"Hi! I'm {name}, {age} years old. I love {hobby}!\")\n填好变量，然后用 f-string 打印",
+          solution: "name = \"Alex\"\nage = 12\nhobby = \"coding\"\nprint(f\"Hi! I'm {name}, {age} years old. I love {hobby}!\")",
+          expectedOutput: "Hi! I'm Alex, 12 years old. I love coding!",
+        },
+      },
+      {
+        type: "challenge",
+        content: "🏆 Coding Challenge · 编程挑战",
+        challenge: {
+          title: "🔄 Variable Swap · 变量交换",
+          description: "You have two variables. Swap their values and print the result!\n你有两个变量，交换它们的值并打印结果！",
+          starterCode: "# Swap the values of a and b\n# 交换 a 和 b 的值\na = \"cat\"\nb = \"dog\"\n\n# TODO: Swap a and b (hint: use a temp variable!)\n# 提示：用一个临时变量！\n\nprint(f\"a = {a}\")  # Should print: a = dog\nprint(f\"b = {b}\")  # Should print: b = cat",
+          hint: "Use a temporary variable: temp = a, then a = b, then b = temp\n用临时变量：temp = a, 然后 a = b, 然后 b = temp",
+          solution: "a = \"cat\"\nb = \"dog\"\ntemp = a\na = b\nb = temp\nprint(f\"a = {a}\")\nprint(f\"b = {b}\")",
+          expectedOutput: "a = dog\nb = cat",
+        },
       },
       {
         type: "quiz",
@@ -658,6 +706,30 @@ print("Money left: $" + str(round(money_left, 2)))
 print("Suggested tip: $" + str(round(tip_amount, 2)))
 
 # 🔧 Chip: "Restaurants use programs like this for their cash registers!"`,
+      },
+      {
+        type: "challenge",
+        content: "🏆 Coding Challenge · 编程挑战",
+        challenge: {
+          title: "🌡️ Temperature Converter · 温度转换器",
+          description: "Convert Celsius to Fahrenheit! Formula: F = C × 9/5 + 32\n把摄氏度转成华氏度！公式：F = C × 9/5 + 32",
+          starterCode: "# Temperature Converter / 温度转换器\ncelsius = 25\n\n# Calculate Fahrenheit / 计算华氏度\n# Formula: F = C * 9/5 + 32\nfahrenheit = ___\n\nprint(f\"{celsius}°C = {fahrenheit}°F\")",
+          hint: "Replace ___ with: celsius * 9/5 + 32\n把 ___ 替换为：celsius * 9/5 + 32",
+          solution: "celsius = 25\nfahrenheit = celsius * 9/5 + 32\nprint(f\"{celsius}°C = {fahrenheit}°F\")",
+          expectedOutput: "25°C = 77.0°F",
+        },
+      },
+      {
+        type: "challenge",
+        content: "🏆 Coding Challenge · 编程挑战",
+        challenge: {
+          title: "⏰ Time Converter · 时间转换器",
+          description: "Convert total seconds into hours, minutes, and seconds!\n把总秒数转成时、分、秒！",
+          starterCode: "# Time Converter / 时间转换器\ntotal_seconds = 3725\n\n# Calculate hours, minutes, seconds\n# Hint: use // (integer division) and % (remainder)\n# 提示：用 //（整除）和 %（取余）\nhours = ___\nminutes = ___\nseconds = ___\n\nprint(f\"{total_seconds} seconds = {hours}h {minutes}m {seconds}s\")",
+          hint: "hours = total_seconds // 3600, remaining = total_seconds % 3600, minutes = remaining // 60, seconds = remaining % 60",
+          solution: "total_seconds = 3725\nhours = total_seconds // 3600\nremaining = total_seconds % 3600\nminutes = remaining // 60\nseconds = remaining % 60\nprint(f\"{total_seconds} seconds = {hours}h {minutes}m {seconds}s\")",
+          expectedOutput: "3725 seconds = 1h 2m 5s",
+        },
       },
       {
         type: "quiz",
@@ -875,6 +947,28 @@ Plan your turtle masterpiece:
           hint: "Use regular division: print(360 / sides)",
           hintZh: "用普通除法：print(360 / sides)",
           solution: "sides = 5\nprint(360 / sides)",
+        },
+      },
+      {
+        type: "challenge",
+        content: "🏆 Coding Challenge · 编程挑战",
+        challenge: {
+          title: "🔷 Draw a Square · 画正方形",
+          description: "Use turtle to draw a perfect square with side length 100!\n用 turtle 画一个边长100的正方形！",
+          starterCode: "import turtle\nt = turtle.Turtle()\n\n# Draw a square with side length 100\n# 画边长100的正方形\n# Hint: forward, turn right 90°, repeat 4 times\n# 提示：前进，右转90度，重复4次\n\nt.forward(100)\nt.right(90)\n# Complete the square! / 完成正方形！\n",
+          hint: "You need 4 sides: t.forward(100) then t.right(90), repeated 4 times total.\n需要4条边：t.forward(100) 然后 t.right(90)，共4次。",
+          solution: "import turtle\nt = turtle.Turtle()\nt.forward(100)\nt.right(90)\nt.forward(100)\nt.right(90)\nt.forward(100)\nt.right(90)\nt.forward(100)\nt.right(90)",
+        },
+      },
+      {
+        type: "challenge",
+        content: "🏆 Coding Challenge · 编程挑战",
+        challenge: {
+          title: "🔺 Draw a Triangle · 画三角形",
+          description: "Draw an equilateral triangle (all sides equal, turn 120° each time)!\n画等边三角形（所有边相等，每次转120度）！",
+          starterCode: "import turtle\nt = turtle.Turtle()\n\n# Draw an equilateral triangle, side length 150\n# 画等边三角形，边长150\n# Hint: turn 120° at each corner (not 60°!)\n# 提示：每个角转120度！\n\n# Your code here / 你的代码\n",
+          hint: "The exterior angle is 120°. Do: forward(150), right(120) three times.\n外角是120度。forward(150), right(120) 做三次。",
+          solution: "import turtle\nt = turtle.Turtle()\nt.forward(150)\nt.right(120)\nt.forward(150)\nt.right(120)\nt.forward(150)\nt.right(120)",
         },
       },
       {
@@ -1107,6 +1201,30 @@ print("\\n🎯 Safety is our #1 priority!")
 # 🔧 Chip: "Real theme parks use computer systems exactly like this!"`,
       },
       {
+        type: "challenge",
+        content: "🏆 Coding Challenge · 编程挑战",
+        challenge: {
+          title: "📊 Grade Calculator · 成绩评级",
+          description: "Convert a number score to a letter grade: 90+=A, 80+=B, 70+=C, 60+=D, <60=F\n把分数转成字母等级：90+=A, 80+=B, 70+=C, 60+=D, <60=F",
+          starterCode: "# Grade Calculator / 成绩评级器\nscore = 85\n\n# Use if/elif/else to determine the grade\n# 用 if/elif/else 判断等级\nif score >= 90:\n    grade = \"A\"\n# Add more conditions below!\n# 在下面添加更多条件！\n\nprint(f\"Score: {score} → Grade: {grade}\")",
+          hint: "Add: elif score >= 80: grade = \"B\", elif score >= 70: grade = \"C\", etc.\n加上 elif score >= 80, elif score >= 70 等",
+          solution: "score = 85\nif score >= 90:\n    grade = \"A\"\nelif score >= 80:\n    grade = \"B\"\nelif score >= 70:\n    grade = \"C\"\nelif score >= 60:\n    grade = \"D\"\nelse:\n    grade = \"F\"\nprint(f\"Score: {score} → Grade: {grade}\")",
+          expectedOutput: "Score: 85 → Grade: B",
+        },
+      },
+      {
+        type: "challenge",
+        content: "🏆 Coding Challenge · 编程挑战",
+        challenge: {
+          title: "🗳️ Voting Booth · 投票站",
+          description: "Check if someone can vote: must be 18+ AND a citizen. Print different messages for each case.\n检查是否能投票：必须18岁以上且是公民。",
+          starterCode: "# Voting Booth / 投票站\nage = 20\nis_citizen = True\n\n# Check voting eligibility / 检查投票资格\n# Case 1: Can vote (18+ AND citizen)\n# Case 2: Too young\n# Case 3: Not a citizen\n\n# Your code here / 你的代码\n",
+          hint: "Use: if age >= 18 and is_citizen: ... elif age < 18: ... else: ...\n用 if age >= 18 and is_citizen: ... elif age < 18: ... else: ...",
+          solution: "age = 20\nis_citizen = True\nif age >= 18 and is_citizen:\n    print(\"✅ You can vote!\")\nelif age < 18:\n    print(f\"❌ Too young! Come back in {18 - age} years.\")\nelse:\n    print(\"❌ Only citizens can vote.\")",
+          expectedOutput: "✅ You can vote!",
+        },
+      },
+      {
         type: "quiz",
         content: "🎢 Safety Inspector Master Quiz!",
         quiz: QUIZ_DATA["1-5"],
@@ -1253,6 +1371,30 @@ else:
           hint: "hp = hp - damage, then print(hp), then if hp > 50: ...",
           hintZh: "hp = hp - damage，然后 print(hp)，再用 if hp > 50: ...",
           solution: "hp = 100\ndamage = 65\nhp = hp - damage\nprint(hp)\nif hp > 50:\n    print(\"Strong!\")\nelse:\n    print(\"Danger!\")",
+        },
+      },
+      {
+        type: "challenge",
+        content: "🏆 Coding Challenge · 编程挑战",
+        challenge: {
+          title: "🗡️ Mini Text Adventure · 迷你文字冒险",
+          description: "Create a short text adventure: choose left or right, each path has a different outcome!\n创建文字冒险：选左或右，每条路有不同结果！",
+          starterCode: "# Mini Text Adventure / 迷你文字冒险\nprint(\"🗡️ You enter a dark cave...\")\nprint(\"1. Go LEFT (dark tunnel)\")\nprint(\"2. Go RIGHT (glowing light)\")\n\nchoice = \"1\"  # Simulated choice / 模拟选择\n\n# Use if/else for different outcomes\n# 用 if/else 设计不同结局\n\n# Your code here / 你的代码\n",
+          hint: "Use: if choice == \"1\": print(...) else: print(...) — make each path exciting!\n用 if/else 让每条路都精彩！",
+          solution: "print(\"🗡️ You enter a dark cave...\")\nprint(\"1. Go LEFT (dark tunnel)\")\nprint(\"2. Go RIGHT (glowing light)\")\nchoice = \"1\"\nif choice == \"1\":\n    print(\"💀 A dragon appears! You run away!\")\n    print(\"🏃 Barely escaped! Lost 10 HP!\")\nelse:\n    print(\"✨ You found a treasure chest!\")\n    print(\"💰 You got 100 gold coins!\")",
+          expectedOutput: "🗡️ You enter a dark cave...\n1. Go LEFT (dark tunnel)\n2. Go RIGHT (glowing light)\n💀 A dragon appears! You run away!\n🏃 Barely escaped! Lost 10 HP!",
+        },
+      },
+      {
+        type: "challenge",
+        content: "🏆 Coding Challenge · 编程挑战",
+        challenge: {
+          title: "🎮 Character Creator · 角色创建器",
+          description: "Create a character with name, class and stats. Set different stats for Warrior/Mage/Archer!\n创建角色：不同职业有不同属性！",
+          starterCode: "# Character Creator / 角色创建器\nname = \"Hero\"\nchar_class = \"Warrior\"\n\n# Set stats based on class / 根据职业设置属性\n# Warrior: hp=100, attack=15, magic=5\n# Mage: hp=60, attack=5, magic=20\n# Archer: hp=80, attack=12, magic=8\n\n# Your code here / 你的代码\n\n# Print character sheet / 打印角色卡",
+          hint: "Use if/elif to set hp, attack, magic based on char_class, then print with f-strings.\n用 if/elif 根据职业设属性，用 f-string 打印。",
+          solution: "name = \"Hero\"\nchar_class = \"Warrior\"\nif char_class == \"Warrior\":\n    hp, attack, magic = 100, 15, 5\nelif char_class == \"Mage\":\n    hp, attack, magic = 60, 5, 20\nelse:\n    hp, attack, magic = 80, 12, 8\nprint(f\"=== {name} the {char_class} ===\")\nprint(f\"❤️ HP: {hp}\")\nprint(f\"⚔️ Attack: {attack}\")\nprint(f\"✨ Magic: {magic}\")",
+          expectedOutput: "=== Hero the Warrior ===\n❤️ HP: 100\n⚔️ Attack: 15\n✨ Magic: 5",
         },
       },
       {
@@ -1517,6 +1659,30 @@ print("\\n🎉 Loop Circus Complete!")
 # 🤖 Botty: "These are the building blocks of user interfaces!"`,
       },
       {
+        type: "challenge",
+        content: "🏆 Coding Challenge · 编程挑战",
+        challenge: {
+          title: "✖️ Times Table · 乘法表",
+          description: "Print the 7 times table from 7×1 to 7×10!\n打印7的乘法表！",
+          starterCode: "# Times Table / 乘法表\nnumber = 7\n\n# Print 7 x 1 = 7, 7 x 2 = 14, etc.\nfor i in range(1, 11):\n    result = ___\n    print(f\"{number} x {i} = {result}\")",
+          hint: "result = number * i\nresult = number * i",
+          solution: "number = 7\nfor i in range(1, 11):\n    result = number * i\n    print(f\"{number} x {i} = {result}\")",
+          expectedOutput: "7 x 1 = 7\n7 x 2 = 14\n7 x 3 = 21\n7 x 4 = 28\n7 x 5 = 35\n7 x 6 = 42\n7 x 7 = 49\n7 x 8 = 56\n7 x 9 = 63\n7 x 10 = 70",
+        },
+      },
+      {
+        type: "challenge",
+        content: "🏆 Coding Challenge · 编程挑战",
+        challenge: {
+          title: "⭐ Star Line · 星星行",
+          description: "Use a for loop to print a line of 20 stars using end=\"\"!\n用 for 循环打印20个星星，用 end=\"\" 保持同一行！",
+          starterCode: "# Star Line / 星星行\n# Print 20 stars in one line using a loop\n# 用循环在一行打印20个星星\n# Hint: use end=\"\" to stay on same line\n\nfor i in range(___):\n    print(\"⭐\", end=\"\")\nprint()  # New line at the end",
+          hint: "range(20) loops 20 times. end=\"\" prevents a new line after each star.\nrange(20) 循环20次。end=\"\" 防止每颗星后换行。",
+          solution: "for i in range(20):\n    print(\"⭐\", end=\"\")\nprint()",
+          expectedOutput: "⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐⭐",
+        },
+      },
+      {
         type: "quiz",
         content: "🌀 Loop Master Quiz!",
         quiz: QUIZ_DATA["2-1"],
@@ -1766,6 +1932,30 @@ print("✨ Total items:", len(weapons) + len(potions) + len(treasures))
 # 🔧 Chip: "Databases organize data exactly like this!"`,
       },
       {
+        type: "challenge",
+        content: "🏆 Coding Challenge · 编程挑战",
+        challenge: {
+          title: "🎒 Shopping List · 购物清单",
+          description: "Create a list, add 3 items with .append(), remove 1 with .remove(), print the result!\n创建列表，用 .append() 加3个，用 .remove() 删1个！",
+          starterCode: "# Shopping List / 购物清单\nshopping = [\"milk\", \"bread\"]\n\n# Add 3 more items using .append()\n# 用 .append() 添加3个物品\n\n# Remove 1 item using .remove()\n# 用 .remove() 删除1个物品\n\n# Print result / 打印结果\nprint(f\"My list: {shopping}\")\nprint(f\"Total: {len(shopping)} items\")",
+          hint: "shopping.append(\"eggs\") adds an item. shopping.remove(\"bread\") removes one.\n.append() 添加，.remove() 删除",
+          solution: "shopping = [\"milk\", \"bread\"]\nshopping.append(\"eggs\")\nshopping.append(\"butter\")\nshopping.append(\"cheese\")\nshopping.remove(\"bread\")\nprint(f\"My list: {shopping}\")\nprint(f\"Total: {len(shopping)} items\")",
+          expectedOutput: "My list: ['milk', 'eggs', 'butter', 'cheese']\nTotal: 4 items",
+        },
+      },
+      {
+        type: "challenge",
+        content: "🏆 Coding Challenge · 编程挑战",
+        challenge: {
+          title: "📊 List Stats · 列表统计",
+          description: "Find the highest, lowest, and average of a list of scores!\n找出分数列表的最高分、最低分和平均分！",
+          starterCode: "# List Stats / 列表统计\nscores = [85, 92, 78, 95, 88, 73, 91]\n\n# Find highest / 最高分\nhighest = ___\n# Find lowest / 最低分\nlowest = ___\n# Calculate average / 平均分\naverage = ___\n\nprint(f\"Highest: {highest}\")\nprint(f\"Lowest: {lowest}\")\nprint(f\"Average: {average}\")",
+          hint: "Use max(), min(), and sum()/len(): max(scores), min(scores), sum(scores)/len(scores)\n用 max(), min(), sum()/len()",
+          solution: "scores = [85, 92, 78, 95, 88, 73, 91]\nhighest = max(scores)\nlowest = min(scores)\naverage = sum(scores) / len(scores)\nprint(f\"Highest: {highest}\")\nprint(f\"Lowest: {lowest}\")\nprint(f\"Average: {average}\")",
+          expectedOutput: "Highest: 95\nLowest: 73\nAverage: 86.0",
+        },
+      },
+      {
         type: "quiz",
         content: "🎒 RPG Backpack Master Quiz!",
         quiz: QUIZ_DATA["2-2"],
@@ -2013,6 +2203,30 @@ else:
     print("🥉 Good effort! Practice makes perfect!")
 
 # 🤖 Botty: "This scoring system is how AI measures its learning progress!"`,
+      },
+      {
+        type: "challenge",
+        content: "🏆 Coding Challenge · 编程挑战",
+        challenge: {
+          title: "🚀 Countdown Timer · 倒计时器",
+          description: "Create a countdown from 10 to 1, then print 'Liftoff! 🚀'\n从10倒数到1，然后打印 'Liftoff! 🚀'",
+          starterCode: "# Countdown Timer / 倒计时器\ncount = 10\n\n# Count down using while loop\n# 用 while 循环倒数\nwhile ___:\n    print(count)\n    count = ___\n\nprint(\"🚀 Liftoff!\")",
+          hint: "Loop while count > 0, decrease by 1: count = count - 1\n循环条件 count > 0，每次减1",
+          solution: "count = 10\nwhile count > 0:\n    print(count)\n    count = count - 1\nprint(\"🚀 Liftoff!\")",
+          expectedOutput: "10\n9\n8\n7\n6\n5\n4\n3\n2\n1\n🚀 Liftoff!",
+        },
+      },
+      {
+        type: "challenge",
+        content: "🏆 Coding Challenge · 编程挑战",
+        challenge: {
+          title: "🔑 Password Gate · 密码门",
+          description: "Create a password checker with 3 attempts! Use while loop + break.\n创建密码检查器，3次机会！用 while 循环 + break。",
+          starterCode: "# Password Gate / 密码门\npassword = \"python123\"\nattempts = 3\n\nwhile attempts > 0:\n    guess = \"wrong\"  # Simulated input\n    if guess == password:\n        print(\"🔓 Access granted!\")\n        break\n    else:\n        attempts = attempts - 1\n        print(f\"❌ Wrong! {attempts} tries left.\")\n\nif attempts == 0:\n    print(\"🔒 Locked out!\")",
+          hint: "The code works! Try changing guess = \"wrong\" to guess = \"python123\" to see the success path.\n试着改 guess 看成功路径。",
+          solution: "password = \"python123\"\nattempts = 3\nwhile attempts > 0:\n    guess = \"wrong\"\n    if guess == password:\n        print(\"🔓 Access granted!\")\n        break\n    else:\n        attempts = attempts - 1\n        print(f\"❌ Wrong! {attempts} tries left.\")\nif attempts == 0:\n    print(\"🔒 Locked out!\")",
+          expectedOutput: "❌ Wrong! 2 tries left.\n❌ Wrong! 1 tries left.\n❌ Wrong! 0 tries left.\n🔒 Locked out!",
+        },
       },
       {
         type: "quiz",
@@ -2309,6 +2523,30 @@ print(f"\\n🎉 Your custom {pattern_type} pattern is complete!")
 print("🔧 You just used nested loops like a pro programmer!")
 
 # 🐍 Py: "You're thinking like a computer graphics programmer now!"`,
+      },
+      {
+        type: "challenge",
+        content: "🏆 Coding Challenge · 编程挑战",
+        challenge: {
+          title: "🔺 Right Triangle · 直角三角形",
+          description: "Print a right triangle of stars with 5 rows using nested loops!\n用嵌套循环打印5行直角三角形！",
+          starterCode: "# Right Triangle / 直角三角形\n# Row 1: *\n# Row 2: **\n# Row 3: ***\n# Row 4: ****\n# Row 5: *****\n\nfor row in range(1, 6):\n    for col in range(___):\n        print(\"*\", end=\"\")\n    print()",
+          hint: "Inner loop runs 'row' times: range(row). Row 1 prints 1 star, row 2 prints 2, etc.\n内层循环 range(row)。第1行1个星，第2行2个。",
+          solution: "for row in range(1, 6):\n    for col in range(row):\n        print(\"*\", end=\"\")\n    print()",
+          expectedOutput: "*\n**\n***\n****\n*****",
+        },
+      },
+      {
+        type: "challenge",
+        content: "🏆 Coding Challenge · 编程挑战",
+        challenge: {
+          title: "🏰 Rectangle Border · 矩形边框",
+          description: "Print a 6×4 rectangle border: * for edges, spaces inside!\n打印6×4矩形边框：边用 *，内部用空格！",
+          starterCode: "# Rectangle Border / 矩形边框\nwidth = 6\nheight = 4\n# Should print:\n# ******\n# *    *\n# *    *\n# ******\n\nfor row in range(height):\n    for col in range(width):\n        if ___:\n            print(\"*\", end=\"\")\n        else:\n            print(\" \", end=\"\")\n    print()",
+          hint: "Border: row == 0 or row == height-1 or col == 0 or col == width-1\n边框条件：第一行、最后一行、第一列、最后一列",
+          solution: "width = 6\nheight = 4\nfor row in range(height):\n    for col in range(width):\n        if row == 0 or row == height-1 or col == 0 or col == width-1:\n            print(\"*\", end=\"\")\n        else:\n            print(\" \", end=\"\")\n    print()",
+          expectedOutput: "******\n*    *\n*    *\n******",
+        },
       },
       {
         type: "quiz",
@@ -2615,6 +2853,30 @@ else:
 print(f"\\n🎉 String art complete for '{text}'!")
 
 # 🐍 Py: "String manipulation is the foundation of all text processing!"`,
+      },
+      {
+        type: "challenge",
+        content: "🏆 Coding Challenge · 编程挑战",
+        challenge: {
+          title: "🔤 Vowel Counter · 元音计数器",
+          description: "Count how many vowels (a,e,i,o,u) are in a sentence!\n统计句子中有多少个元音字母！",
+          starterCode: "# Vowel Counter / 元音计数器\nsentence = \"Python programming is awesome\"\nvowels = \"aeiou\"\n\nfor v in vowels:\n    count = ___\n    print(f\"'{v}': {count} times\")",
+          hint: "Use sentence.lower().count(v) to count each vowel.\n用 sentence.lower().count(v) 统计。",
+          solution: "sentence = \"Python programming is awesome\"\nvowels = \"aeiou\"\nfor v in vowels:\n    count = sentence.lower().count(v)\n    print(f\"'{v}': {count} times\")",
+          expectedOutput: "'a': 2 times\n'e': 2 times\n'i': 2 times\n'o': 3 times\n'u': 0 times",
+        },
+      },
+      {
+        type: "challenge",
+        content: "🏆 Coding Challenge · 编程挑战",
+        challenge: {
+          title: "🔀 Reverse String · 反转字符串",
+          description: "Reverse a string WITHOUT using [::-1]! Use a loop.\n不用 [::-1] 反转字符串！用循环。",
+          starterCode: "# Reverse String / 反转字符串\noriginal = \"Python\"\nreversed_str = \"\"\n\n# Build reversed string using a loop\nfor char in original:\n    reversed_str = ___ + reversed_str\n\nprint(f\"Original: {original}\")\nprint(f\"Reversed: {reversed_str}\")",
+          hint: "Each character goes to the front: reversed_str = char + reversed_str\n每个字符放最前面：reversed_str = char + reversed_str",
+          solution: "original = \"Python\"\nreversed_str = \"\"\nfor char in original:\n    reversed_str = char + reversed_str\nprint(f\"Original: {original}\")\nprint(f\"Reversed: {reversed_str}\")",
+          expectedOutput: "Original: Python\nReversed: nohtyP",
+        },
       },
       {
         type: "quiz",
@@ -2968,6 +3230,29 @@ else:
 print("\\n🎪 Thanks for playing Advanced Championship!")
 
 # 🤖 Botty: "You just built a game with AI learning capabilities!"`,
+      },
+      {
+        type: "challenge",
+        content: "🏆 Coding Challenge · 编程挑战",
+        challenge: {
+          title: "🏆 Score Tracker · 计分器",
+          description: "Track scores for a 3-round game. Calculate totals and determine the winner!\n追踪3回合游戏分数，算总分，定胜负！",
+          starterCode: "# Score Tracker / 计分器\nplayer1_scores = []\nplayer2_scores = []\nrounds = [(5, 3), (2, 4), (6, 1)]\n\nfor p1, p2 in rounds:\n    player1_scores.append(p1)\n    player2_scores.append(p2)\n\n# Calculate totals / 算总分\ntotal1 = ___\ntotal2 = ___\n\nprint(f\"P1: {player1_scores} → {total1}\")\nprint(f\"P2: {player2_scores} → {total2}\")\n\n# Who wins? / 谁赢了？\nif ___:\n    print(\"🏆 Player 1 wins!\")\nelif ___:\n    print(\"🏆 Player 2 wins!\")\nelse:\n    print(\"🤝 Tie!\")",
+          hint: "total1 = sum(player1_scores). Compare: if total1 > total2: ...\n用 sum() 算总分，用 if 比较",
+          solution: "player1_scores = []\nplayer2_scores = []\nrounds = [(5, 3), (2, 4), (6, 1)]\nfor p1, p2 in rounds:\n    player1_scores.append(p1)\n    player2_scores.append(p2)\ntotal1 = sum(player1_scores)\ntotal2 = sum(player2_scores)\nprint(f\"P1: {player1_scores} → {total1}\")\nprint(f\"P2: {player2_scores} → {total2}\")\nif total1 > total2:\n    print(\"🏆 Player 1 wins!\")\nelif total2 > total1:\n    print(\"🏆 Player 2 wins!\")\nelse:\n    print(\"🤝 Tie!\")",
+          expectedOutput: "P1: [5, 2, 6] → 13\nP2: [3, 4, 1] → 8\n🏆 Player 1 wins!",
+        },
+      },
+      {
+        type: "challenge",
+        content: "🏆 Coding Challenge · 编程挑战",
+        challenge: {
+          title: "🎲 Dice Stats · 骰子统计",
+          description: "Simulate rolling a dice 20 times and count each number with a bar chart!\n模拟掷骰子20次，用柱状图统计每个数字！",
+          starterCode: "# Dice Stats / 骰子统计\nimport random\n\nrolls = []\nfor i in range(20):\n    rolls.append(random.randint(1, 6))\n\nprint(f\"Rolls: {rolls}\")\nprint()\n\n# Count each number / 统计每个数字\nfor num in range(1, 7):\n    count = ___\n    bar = \"█\" * count\n    print(f\"  {num}: {bar} ({count})\")",
+          hint: "Use rolls.count(num) to count occurrences.\n用 rolls.count(num) 统计出现次数。",
+          solution: "import random\nrolls = []\nfor i in range(20):\n    rolls.append(random.randint(1, 6))\nprint(f\"Rolls: {rolls}\")\nprint()\nfor num in range(1, 7):\n    count = rolls.count(num)\n    bar = \"█\" * count\n    print(f\"  {num}: {bar} ({count})\")",
+        },
       },
       {
         type: "quiz",
