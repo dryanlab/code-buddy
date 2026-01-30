@@ -47,7 +47,7 @@ export default function Header({ onToggleSidebar, sidebarOpen }: HeaderProps) {
 
       {/* Center: logo + title */}
       <Link href="/dashboard" className="flex items-center gap-2 absolute left-1/2 -translate-x-1/2">
-        <span className="text-xl">🤖</span>
+        <img src="/logo.png" alt="Code Buddy" className="h-8 w-8 rounded" />
         <span className="text-lg font-bold hidden sm:inline" style={{ color: theme.colors.primary }}>
           Code Buddy
         </span>
