@@ -46,8 +46,8 @@ export default function DataStructuresPage() {
     <div className="min-h-screen p-4 pt-16 max-w-4xl mx-auto">
       <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }}>
         <div className="flex items-center gap-2 mb-2">
-          <span className="text-xs font-semibold px-2 py-1 rounded-full" style={{ backgroundColor: "rgba(202,138,4,0.15)", color: "#a16207" }}>
-            🔜 Coming Soon Track · 即将推出
+          <span className="text-xs font-semibold px-2 py-1 rounded-full" style={{ backgroundColor: "rgba(22,163,74,0.15)", color: "#22c55e" }}>
+            ✅ Available · 可学习
           </span>
           <span className="text-xs px-2 py-1 rounded-full" style={{ backgroundColor: "rgba(59,130,246,0.15)", color: "#3b82f6" }}>
             Wave 1 · 第一期
@@ -74,7 +74,7 @@ export default function DataStructuresPage() {
             <span className="text-3xl">📦</span>
           </div>
           <p className="text-xs mt-2" style={{ color: "var(--theme-text-muted)" }}>
-            🎮 Meanwhile, explore the interactive playground below! 先来体验互动可视化吧！
+            🎮 Explore the interactive playground and start learning! 开始探索互动可视化吧！
           </p>
         </div>
       </motion.div>
