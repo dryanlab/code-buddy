@@ -43,7 +43,7 @@ export const TRACKS: Track[] = [
     description: "Level up with C++! From Python to compiled code — types, pointers, OOP, STL, and competition prep.",
     descriptionZh: "进阶 C++！从 Python 到编译型语言——类型、指针、面向对象、STL 和竞赛准备。",
     difficulty: "intermediate",
-    lessonCount: 24,
+    lessonCount: 25,
     status: "available",
     wave: 1,
     prerequisites: ["python"],

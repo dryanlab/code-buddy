@@ -4293,6 +4293,645 @@ int main() {
   ],
 };
 
+const cpp_3_5: Lesson = {
+  id: "cpp-3-5",
+  moduleId: "cpp-3",
+  title: "Header Files & Multi-file Code",
+  subtitle: "Organize your C++ like a pro · 像专业人士一样组织C++代码",
+  icon: "📂",
+  xp: 130,
+  duration: "25 min",
+  order: 5,
+  gradeRange: [9, 12],
+  difficulty: "intermediate",
+  skillLevel: "intermediate",
+  sections: [
+    // 1. Text intro: Why header files matter
+    {
+      type: "text",
+      emoji: "📂",
+      content: `# Header Files: The Blueprints of C++ · 头文件：C++的蓝图
+
+⚡ **Volt says:** "Imagine building a house. You don't just start hammering — you need **blueprints** first. In C++, **header files** are your blueprints. They tell the compiler *what exists* before the actual code runs."
+
+🐍 **Py says:** "In Python, you just \`import math\` and everything works. C++ needs more setup — but that's what makes it fast and powerful!"
+
+## Why Do Header Files Exist? 为什么需要头文件？
+
+In a real C++ project, code is split across **many files**:
+
+- 📄 **Header files** (\`.h\` or \`.hpp\`) — contain **declarations** (what functions/classes exist)
+- 📄 **Source files** (\`.cpp\`) — contain **implementations** (how functions/classes work)
+
+This separation gives you:
+
+- 🧩 **Modularity** — each file has one job
+- 🔄 **Reusability** — include a header anywhere you need it
+- ⚡ **Faster compilation** — only recompile changed files
+- 👥 **Team collaboration** — different people work on different files
+
+> 💡 **Note:** Our online compiler runs single files, but understanding headers is **essential** for real C++ projects, reading library code, and competitions. The examples below are educational — we'll simulate multi-file structure in single files!`,
+    },
+    // 2. Concept section with syntaxCards + codeAnatomy
+    {
+      type: "concept",
+      emoji: "🧠",
+      content: `# The #include System · #include 系统`,
+      concept: {
+        title: "#include — Bringing Code Together",
+        titleZh: "#include — 将代码组合在一起",
+        syntaxCards: [
+          {
+            symbol: '#include <header>',
+            name: "System Include",
+            nameZh: "系统包含",
+            emoji: "📦",
+            example: '#include <iostream>',
+            description: "Angle brackets <> search system directories first. Used for standard library headers like iostream, vector, string.",
+          },
+          {
+            symbol: '#include "header.h"',
+            name: "Local Include",
+            nameZh: "本地包含",
+            emoji: "📄",
+            example: '#include "math_utils.h"',
+            description: 'Double quotes "" search the current directory first, then system directories. Used for your own header files.',
+          },
+          {
+            symbol: "#ifndef / #define / #endif",
+            name: "Header Guard",
+            nameZh: "头文件保护",
+            emoji: "🛡️",
+            example: "#ifndef MATH_UTILS_H\\n#define MATH_UTILS_H\\n...\\n#endif",
+            description: "Prevents double inclusion. The preprocessor skips the content if the guard macro is already defined.",
+          },
+          {
+            symbol: "#pragma once",
+            name: "Modern Header Guard",
+            nameZh: "现代头文件保护",
+            emoji: "✨",
+            example: "#pragma once\\n// declarations here",
+            description: "A simpler alternative to #ifndef guards. Supported by all major compilers (GCC, Clang, MSVC).",
+          },
+        ],
+        codeAnatomy: {
+          lines: [
+            { code: '#include <iostream>', explanation: "System header — from the C++ standard library", explanationZh: "系统头文件 — 来自C++标准库" },
+            { code: '#include <vector>', explanation: "Another system header — dynamic arrays", explanationZh: "另一个系统头文件 — 动态数组" },
+            { code: '#include "my_utils.h"', explanation: "Local header — your own file in the project", explanationZh: "本地头文件 — 项目中你自己的文件" },
+            { code: "", explanation: "" },
+            { code: "// my_utils.h would contain:", explanation: "Header = declarations only", explanationZh: "头文件 = 仅声明" },
+            { code: "int add(int a, int b);", explanation: "Function declaration (no body!)", explanationZh: "函数声明（没有函数体！）" },
+            { code: "", explanation: "" },
+            { code: "// my_utils.cpp would contain:", explanation: "Source = implementations", explanationZh: "源文件 = 实现" },
+            { code: "int add(int a, int b) { return a + b; }", explanation: "Function definition (has body)", explanationZh: "函数定义（有函数体）" },
+          ],
+        },
+      },
+    },
+    // 3. Code example: Creating math_utils.h
+    {
+      type: "code",
+      emoji: "📄",
+      content: `# Creating a Header File · 创建头文件
+
+Here's what a real header file looks like — and how it connects to the implementation. We'll simulate both files in one program:`,
+      code: `#include <iostream>
+#include <cmath>
+using namespace std;
+
+// ══════════════════════════════════════════
+// Imagine this is "math_utils.h"
+// ══════════════════════════════════════════
+// #pragma once  (would go at the top of the .h file)
+
+// Function DECLARATIONS (prototypes)
+double circleArea(double radius);
+double rectangleArea(double w, double h);
+bool isPrime(int n);
+
+// ══════════════════════════════════════════
+// Imagine this is "math_utils.cpp"
+// It would have: #include "math_utils.h"
+// ══════════════════════════════════════════
+
+// Function DEFINITIONS (implementations)
+double circleArea(double radius) {
+    return M_PI * radius * radius;
+}
+
+double rectangleArea(double w, double h) {
+    return w * h;
+}
+
+bool isPrime(int n) {
+    if (n < 2) return false;
+    for (int i = 2; i * i <= n; i++) {
+        if (n % i == 0) return false;
+    }
+    return true;
+}
+
+// ══════════════════════════════════════════
+// Imagine this is "main.cpp"
+// It would have: #include "math_utils.h"
+// ══════════════════════════════════════════
+int main() {
+    cout << "Circle area (r=5): " << circleArea(5.0) << endl;
+    cout << "Rectangle area (3x4): " << rectangleArea(3, 4) << endl;
+    cout << "Is 17 prime? " << (isPrime(17) ? "Yes" : "No") << endl;
+    cout << "Is 20 prime? " << (isPrime(20) ? "Yes" : "No") << endl;
+    return 0;
+}`,
+    },
+    // 4. Text: System vs local headers
+    {
+      type: "text",
+      emoji: "📚",
+      content: `# System vs Local Headers · 系统头文件 vs 本地头文件
+
+## \`<angle brackets>\` — System Headers 系统头文件
+
+These are part of the C++ Standard Library. The compiler knows where to find them.
+
+| Header | What It Provides | Python Equivalent |
+|--------|-----------------|-------------------|
+| \`<iostream>\` | cout, cin, endl | \`print()\`, \`input()\` |
+| \`<string>\` | std::string | Built-in \`str\` |
+| \`<vector>\` | Dynamic arrays | Built-in \`list\` |
+| \`<cmath>\` | Math functions | \`import math\` |
+| \`<algorithm>\` | sort, find, etc. | Built-in + \`itertools\` |
+| \`<fstream>\` | File I/O | \`open()\` |
+| \`<map>\` | Key-value pairs | Built-in \`dict\` |
+| \`<set>\` | Unique collections | Built-in \`set\` |
+| \`<queue>\` | Queue & priority queue | \`from collections import deque\` |
+| \`<stack>\` | Stack (LIFO) | \`list\` as stack |
+
+## \`"quotes"\` — Local Headers 本地头文件
+
+These are files **you** create in your project:
+
+\`\`\`cpp
+#include "player.h"      // Your Player class
+#include "game_engine.h"  // Your game logic
+#include "utils/math.h"   // Can use relative paths!
+\`\`\`
+
+## 🔧 Include Order Best Practice 最佳引入顺序
+
+Professional C++ projects follow this order:
+
+1. **Related header** — \`#include "myclass.h"\` (if in myclass.cpp)
+2. **C system headers** — \`#include <cstdio>\`
+3. **C++ standard headers** — \`#include <iostream>\`, \`<vector>\`
+4. **Third-party headers** — \`#include "lib/json.h"\`
+5. **Project headers** — \`#include "myproject/utils.h"\`
+
+> This order catches missing includes early! Google's C++ Style Guide recommends this.`,
+    },
+    // 5. Code example: Header guards
+    {
+      type: "code",
+      emoji: "🛡️",
+      content: `# Header Guards: Preventing Double Inclusion · 头文件保护
+
+Without header guards, including the same file twice causes errors. Here's a demo of the problem and solution:`,
+      code: `#include <iostream>
+using namespace std;
+
+// ══════════════════════════════════════════
+// WITHOUT header guards — PROBLEM!
+// If "point.h" were included twice:
+//   #include "point.h"
+//   #include "point.h"  // ERROR: struct Point redefined!
+// ══════════════════════════════════════════
+
+// ══════════════════════════════════════════
+// WITH header guards — SAFE! ✅
+// This is what "point.h" should look like:
+// ══════════════════════════════════════════
+
+// Method 1: Traditional #ifndef guard
+#ifndef POINT_H
+#define POINT_H
+
+struct Point {
+    double x, y;
+    
+    double distanceTo(Point other) {
+        double dx = x - other.x;
+        double dy = y - other.y;
+        return sqrt(dx*dx + dy*dy);
+    }
+};
+
+#endif // POINT_H
+
+// Method 2: Modern #pragma once
+// #pragma once
+// struct Point { ... };
+// (Simpler! Same effect. Works on all major compilers.)
+
+// ══════════════════════════════════════════
+// Even if "included" twice, the guard prevents
+// the second definition from being processed!
+// ══════════════════════════════════════════
+
+int main() {
+    Point a = {0, 0};
+    Point b = {3, 4};
+    
+    cout << "Point A: (" << a.x << ", " << a.y << ")" << endl;
+    cout << "Point B: (" << b.x << ", " << b.y << ")" << endl;
+    cout << "Distance: " << a.distanceTo(b) << endl;  // 5.0!
+    
+    return 0;
+}`,
+    },
+    // 6. Interactive: Build your own header
+    {
+      type: "interactive",
+      emoji: "🔨",
+      content: `# Build Your Own Header · 构建你自己的头文件
+
+🔧 **Chip says:** "Time to practice! Write a header file for a temperature converter."
+
+**Your task:** Complete the header file and implementation below.
+
+The header should declare these functions:
+- \`double celsiusToFahrenheit(double c)\`
+- \`double fahrenheitToCelsius(double f)\`
+- \`double celsiusToKelvin(double c)\``,
+      code: `#include <iostream>
+using namespace std;
+
+// ══════════════════════════════════════════
+// "temperature.h" — YOUR HEADER FILE
+// ══════════════════════════════════════════
+// TODO: Add #pragma once (or #ifndef guard)
+// TODO: Declare 3 functions (no bodies!)
+
+double celsiusToFahrenheit(double c);
+double fahrenheitToCelsius(double f);
+double celsiusToKelvin(double c);
+
+// ══════════════════════════════════════════
+// "temperature.cpp" — YOUR IMPLEMENTATION
+// ══════════════════════════════════════════
+// TODO: Implement all 3 functions
+
+double celsiusToFahrenheit(double c) {
+    return c * 9.0 / 5.0 + 32.0;
+}
+
+double fahrenheitToCelsius(double f) {
+    return (f - 32.0) * 5.0 / 9.0;
+}
+
+double celsiusToKelvin(double c) {
+    return c + 273.15;
+}
+
+// ══════════════════════════════════════════
+// "main.cpp" — uses the temperature header
+// ══════════════════════════════════════════
+int main() {
+    double tempC = 100.0;
+    
+    cout << tempC << "°C = " 
+         << celsiusToFahrenheit(tempC) << "°F" << endl;
+    cout << tempC << "°C = " 
+         << celsiusToKelvin(tempC) << "K" << endl;
+    
+    double tempF = 98.6;
+    cout << tempF << "°F = " 
+         << fahrenheitToCelsius(tempF) << "°C" << endl;
+    
+    return 0;
+}`,
+      exercise: {
+        prompt: "This program simulates a multi-file project. Try modifying the conversion functions!",
+        promptZh: "这个程序模拟了一个多文件项目。试着修改转换函数！",
+        starterCode: `double celsiusToFahrenheit(double c) {\n    return c * 9.0 / 5.0 + 32.0;\n}`,
+        expectedOutput: "100°C = 212°F",
+        hint: "The declarations (no body) go in the .h file, implementations (with body) go in the .cpp file.",
+        hintZh: "没有函数体的声明放在.h文件中，有函数体的实现放在.cpp文件中。",
+        solution: `double celsiusToFahrenheit(double c) {\n    return c * 9.0 / 5.0 + 32.0;\n}\ndouble fahrenheitToCelsius(double f) {\n    return (f - 32.0) * 5.0 / 9.0;\n}\ndouble celsiusToKelvin(double c) {\n    return c + 273.15;\n}`,
+      },
+    },
+    // 7. Text: Separating declaration and implementation
+    {
+      type: "text",
+      emoji: "✂️",
+      content: `# Declaration vs Definition · 声明 vs 定义
+
+This is one of the most important concepts in C++:
+
+## Declaration 声明 — "This exists"
+
+\`\`\`cpp
+// In player.h
+class Player {
+    string name;
+    int health;
+public:
+    Player(string n, int hp);  // Constructor declaration
+    void takeDamage(int dmg);  // Method declaration
+    bool isAlive();            // Method declaration
+    string getName();          // Method declaration
+};
+\`\`\`
+
+## Definition 定义 — "Here's how it works"
+
+\`\`\`cpp
+// In player.cpp
+#include "player.h"
+
+Player::Player(string n, int hp) : name(n), health(hp) {}
+
+void Player::takeDamage(int dmg) {
+    health -= dmg;
+    if (health < 0) health = 0;
+}
+
+bool Player::isAlive() { return health > 0; }
+
+string Player::getName() { return name; }
+\`\`\`
+
+Notice the \`Player::\` prefix — this tells the compiler "this function belongs to the Player class."
+
+## Forward Declarations 前向声明
+
+Sometimes you just need to tell the compiler a name exists:
+
+\`\`\`cpp
+class Enemy;  // Forward declaration — "Enemy exists, details later"
+
+class Player {
+    void attack(Enemy& e);  // Can use Enemy& because of forward declaration
+};
+\`\`\`
+
+This avoids circular includes (A.h includes B.h which includes A.h... 💥)`,
+    },
+    // 8. Code example: Class in header + implementation in .cpp
+    {
+      type: "code",
+      emoji: "🎮",
+      content: `# Class Split: Header + Implementation · 类的分离
+
+Here's a complete example showing how a class would be organized across files:`,
+      code: `#include <iostream>
+#include <string>
+using namespace std;
+
+// ══════════════════════════════════════════
+// "inventory.h" — Class DECLARATION
+// ══════════════════════════════════════════
+// #pragma once
+
+class Inventory {
+    string items[100];
+    int count;
+
+public:
+    Inventory();                    // Constructor
+    void addItem(string item);     // Add an item
+    bool removeItem(string item);  // Remove an item
+    void display();                // Show all items
+    int getCount();                // Get item count
+};
+
+// ══════════════════════════════════════════
+// "inventory.cpp" — Class IMPLEMENTATION
+// ══════════════════════════════════════════
+// #include "inventory.h"
+
+Inventory::Inventory() : count(0) {}
+
+void Inventory::addItem(string item) {
+    if (count < 100) {
+        items[count] = item;
+        count++;
+        cout << "✅ Added: " << item << endl;
+    } else {
+        cout << "❌ Inventory full!" << endl;
+    }
+}
+
+bool Inventory::removeItem(string item) {
+    for (int i = 0; i < count; i++) {
+        if (items[i] == item) {
+            // Shift remaining items
+            for (int j = i; j < count - 1; j++) {
+                items[j] = items[j + 1];
+            }
+            count--;
+            cout << "🗑️ Removed: " << item << endl;
+            return true;
+        }
+    }
+    cout << "❓ Not found: " << item << endl;
+    return false;
+}
+
+void Inventory::display() {
+    cout << "\\n🎒 Inventory (" << count << " items):" << endl;
+    for (int i = 0; i < count; i++) {
+        cout << "  " << (i+1) << ". " << items[i] << endl;
+    }
+    if (count == 0) cout << "  (empty)" << endl;
+}
+
+int Inventory::getCount() { return count; }
+
+// ══════════════════════════════════════════
+// "main.cpp"
+// ══════════════════════════════════════════
+int main() {
+    Inventory inv;
+    
+    inv.addItem("Sword");
+    inv.addItem("Shield");
+    inv.addItem("Health Potion");
+    inv.addItem("Magic Scroll");
+    inv.display();
+    
+    inv.removeItem("Shield");
+    inv.display();
+    
+    cout << "\\nItems remaining: " << inv.getCount() << endl;
+    return 0;
+}`,
+    },
+    // 9. Quiz: Header file concepts
+    {
+      type: "quiz",
+      emoji: "❓",
+      content: `# Header File Quiz · 头文件测验`,
+      quiz: [
+        {
+          question: "What's the difference between `#include <header>` and `#include \"header\"`?",
+          options: [
+            "<> is for .h files, \"\" is for .hpp files · <>用于.h文件，\"\"用于.hpp文件",
+            "<> searches system directories, \"\" searches local directory first · <>搜索系统目录，\"\"先搜索本地目录",
+            "<> is faster than \"\" · <>比\"\"更快",
+            "There is no difference · 没有区别",
+          ],
+          correctIndex: 1,
+          explanation: "Angle brackets <> search system/standard library paths. Double quotes \"\" search the current project directory first, then fall back to system paths. · 尖括号搜索系统路径，双引号先搜索项目目录再搜索系统路径。",
+        },
+        {
+          question: "What problem do header guards (#ifndef) solve?",
+          options: [
+            "They make code run faster · 让代码运行更快",
+            "They prevent a header from being included twice · 防止头文件被重复包含",
+            "They protect against hackers · 防止黑客攻击",
+            "They hide private variables · 隐藏私有变量",
+          ],
+          correctIndex: 1,
+          explanation: "Without header guards, including the same header twice causes redefinition errors. Guards ensure the contents are only processed once. · 没有头文件保护，重复包含会导致重定义错误。保护确保内容只被处理一次。",
+        },
+        {
+          question: "In a multi-file project, where does `int add(int a, int b);` (no body) go?",
+          options: [
+            "In the .cpp file · 在.cpp文件中",
+            "In the main() function · 在main()函数中",
+            "In the .h header file · 在.h头文件中",
+            "Nowhere — it's not valid C++ · 这不是有效的C++",
+          ],
+          correctIndex: 2,
+          explanation: "A function declaration (prototype) without a body goes in the header file (.h). The definition (with body) goes in the .cpp file. · 没有函数体的函数声明放在头文件(.h)中，定义放在.cpp文件中。",
+        },
+        {
+          question: "What does `Player::takeDamage` mean?",
+          options: [
+            "A function called Player that takes Damage · 一个叫Player的函数接受Damage",
+            "takeDamage is a member function of the Player class · takeDamage是Player类的成员函数",
+            "Player inherits from takeDamage · Player继承自takeDamage",
+            "A pointer from Player to takeDamage · 从Player到takeDamage的指针",
+          ],
+          correctIndex: 1,
+          explanation: "The :: scope resolution operator means 'belongs to'. Player::takeDamage defines the takeDamage method that was declared inside the Player class. · ::作用域运算符表示'属于'。Player::takeDamage定义了在Player类中声明的方法。",
+        },
+      ],
+    },
+    // 10. Challenge: Create a multi-file program
+    {
+      type: "challenge",
+      emoji: "🏆",
+      content: `# Challenge: Multi-file Student Records · 挑战：多文件学生记录系统
+
+Create a program that simulates a multi-file structure with a Student class. Include:
+- A "header section" with the Student class declaration
+- An "implementation section" with method definitions using \`Student::\`
+- A main function that creates students and displays their info
+
+The Student class should have: name, grade, GPA, and methods to display info and check honor roll (GPA ≥ 3.5).`,
+      challenge: {
+        title: "Multi-file Student Records",
+        description: "Create a Student class with name, grade, GPA. Separate declaration from implementation using Student:: syntax. Add displayInfo() and isHonorRoll() (GPA ≥ 3.5) methods.",
+        starterCode: `#include <iostream>
+#include <string>
+using namespace std;
+
+// "student.h" — Class Declaration
+class Student {
+    // TODO: Add private members
+public:
+    // TODO: Declare constructor, displayInfo(), isHonorRoll()
+};
+
+// "student.cpp" — Implementation
+// TODO: Implement methods with Student:: prefix
+
+int main() {
+    // TODO: Create students and display info
+    return 0;
+}`,
+        hint: "Use Student:: prefix for method definitions outside the class. Honor roll = GPA >= 3.5.",
+        solution: `#include <iostream>
+#include <string>
+using namespace std;
+
+class Student {
+    string name;
+    int grade;
+    double gpa;
+public:
+    Student(string n, int g, double g_);
+    void displayInfo();
+    bool isHonorRoll();
+};
+
+Student::Student(string n, int g, double g_) : name(n), grade(g), gpa(g_) {}
+void Student::displayInfo() {
+    cout << name << " | Grade " << grade << " | GPA: " << gpa;
+    if (isHonorRoll()) cout << " Honor Roll!";
+    cout << endl;
+}
+bool Student::isHonorRoll() { return gpa >= 3.5; }
+
+int main() {
+    Student s1("Alice", 10, 3.8);
+    Student s2("Bob", 11, 3.2);
+    Student s3("Carol", 12, 4.0);
+    s1.displayInfo();
+    s2.displayInfo();
+    s3.displayInfo();
+    return 0;
+}`,
+      },
+    },
+    // 11. Text: Common standard headers reference
+    {
+      type: "text",
+      emoji: "📖",
+      content: `# C++ Standard Headers Quick Reference · C++标准头文件速查
+
+## Most Used Headers 最常用的头文件
+
+| Header | Key Features | When to Use |
+|--------|-------------|-------------|
+| \`<iostream>\` | \`cout\`, \`cin\`, \`endl\` | Any program with input/output |
+| \`<string>\` | \`string\`, \`getline()\` | Working with text |
+| \`<vector>\` | \`vector<T>\`, dynamic sizing | Lists that grow/shrink |
+| \`<algorithm>\` | \`sort()\`, \`find()\`, \`count()\` | Sorting, searching |
+| \`<cmath>\` | \`sqrt()\`, \`pow()\`, \`abs()\` | Math operations |
+| \`<fstream>\` | \`ifstream\`, \`ofstream\` | Reading/writing files |
+| \`<map>\` | \`map<K,V>\` | Key-value dictionaries |
+| \`<set>\` | \`set<T>\` | Unique sorted collections |
+| \`<queue>\` | \`queue<T>\`, \`priority_queue\` | BFS, scheduling |
+| \`<stack>\` | \`stack<T>\` | DFS, expression parsing |
+| \`<sstream>\` | \`stringstream\` | String ↔ number conversion |
+| \`<climits>\` | \`INT_MAX\`, \`INT_MIN\` | Boundary values |
+| \`<cstdlib>\` | \`rand()\`, \`srand()\` | Random numbers |
+| \`<iomanip>\` | \`setprecision()\`, \`setw()\` | Formatted output |
+| \`<numeric>\` | \`accumulate()\`, \`gcd()\` | Numeric algorithms |
+
+## 🏆 Competition Tip 竞赛技巧
+
+Many competitive programmers use:
+\`\`\`cpp
+#include <bits/stdc++.h>  // Includes EVERYTHING (GCC only!)
+\`\`\`
+This is **not** standard C++ and won't work on all compilers, but it's popular in competitions because it saves time.
+
+## 🎯 Key Takeaways 要点总结
+
+1. **Headers = declarations**, source files = implementations
+2. **Always use header guards** (\`#pragma once\` or \`#ifndef\`)
+3. **\`<>\` for system**, \`""\` for your own files
+4. **Separate declaration from definition** for clean, maintainable code
+5. Real projects have hundreds of files — headers keep them organized!
+
+⚡ **Volt says:** "You now understand how professional C++ code is organized. Even when writing single-file programs, think about *where* each piece would go in a real project!"`,
+    },
+  ],
+};
+
 // ═══════════════════════════════════════════════════════════════
 // MODULE CPP-4: POINTERS & OOP (4 lessons)
 // ═══════════════════════════════════════════════════════════════
@@ -8362,7 +9001,7 @@ int main() {
 export const CPP_LESSONS: Lesson[] = [
   cpp_1_1, cpp_1_2, cpp_1_3, cpp_1_4, cpp_1_5, cpp_1_6,
   cpp_2_1, cpp_2_2, cpp_2_3, cpp_2_4,
-  cpp_3_1, cpp_3_2, cpp_3_3, cpp_3_4,
+  cpp_3_1, cpp_3_2, cpp_3_3, cpp_3_4, cpp_3_5,
   cpp_4_1, cpp_4_2, cpp_4_3, cpp_4_4,
   cpp_5_1, cpp_5_2, cpp_5_3,
   cpp_6_1, cpp_6_2, cpp_6_3,
