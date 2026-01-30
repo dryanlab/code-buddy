@@ -226,64 +226,80 @@ function CodeAnatomyComponent({ anatomy }: { anatomy: CodeAnatomy }) {
         </div>
       </div>
 
-      <div className="bg-[var(--theme-card-bg)] p-4">
-        <pre className="text-sm leading-relaxed">
-          {anatomy.lines.map((line, i) => {
-            const isStepHighlight = getLineHighlight(i);
-            return (
-              <div
-                key={i}
-                onMouseEnter={() => !stepMode && setActiveLine(i)}
-                onMouseLeave={() => !stepMode && setActiveLine(null)}
-                onClick={() => !stepMode && setActiveLine(activeLine === i ? null : i)}
-                className={`px-2 py-1 rounded cursor-pointer transition-all ${
-                  isStepHighlight
-                    ? "bg-yellow-500/20 border-l-4 border-yellow-400"
-                    : activeLine === i
-                    ? "bg-cyan-500/20 border-l-2 border-cyan-400"
-                    : "hover:bg-[var(--theme-input-bg)] border-l-2 border-transparent"
-                }`}
-              >
-                <code className="text-green-300">{line.code}</code>
-                {activeLine === i && !stepMode && (
-                  <motion.div
-                    initial={{ opacity: 0, x: -10 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    className="mt-1 ml-4 text-cyan-300 text-xs whitespace-normal break-words"
-                  >
-                    <span className="block">💡 {line.explanation}</span>
-                    {line.explanationZh && (
-                      <span className="block text-[var(--theme-text-secondary)] mt-0.5">· {line.explanationZh}</span>
-                    )}
-                  </motion.div>
-                )}
-                {isStepHighlight && (
-                  <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    className="mt-1 ml-4 text-yellow-300 text-xs"
-                  >
-                    ▶ Running this line... · 正在执行这一行...
-                  </motion.div>
-                )}
+      <div className="flex flex-col lg:flex-row">
+        {/* Left: Code lines */}
+        <div className="lg:w-3/5 bg-[var(--theme-card-bg)] p-4">
+          <pre className="text-sm leading-relaxed">
+            {anatomy.lines.map((line, i) => {
+              const isStepHighlight = getLineHighlight(i);
+              return (
+                <div
+                  key={i}
+                  onMouseEnter={() => !stepMode && setActiveLine(i)}
+                  onMouseLeave={() => !stepMode && setActiveLine(null)}
+                  onClick={() => !stepMode && setActiveLine(activeLine === i ? null : i)}
+                  className={`px-2 py-1 rounded cursor-pointer transition-all ${
+                    isStepHighlight
+                      ? "bg-yellow-500/20 border-l-4 border-yellow-400"
+                      : activeLine === i
+                      ? "bg-cyan-500/20 border-l-2 border-cyan-400"
+                      : "hover:bg-[var(--theme-input-bg)] border-l-2 border-transparent"
+                  }`}
+                >
+                  <code className="text-green-300">{line.code}</code>
+                  {activeLine === i && !stepMode && (
+                    <motion.div
+                      initial={{ opacity: 0, x: -10 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      className="mt-1 ml-4 text-cyan-300 text-xs whitespace-normal break-words"
+                    >
+                      <span className="block">💡 {line.explanation}</span>
+                      {line.explanationZh && (
+                        <span className="block text-[var(--theme-text-secondary)] mt-0.5">· {line.explanationZh}</span>
+                      )}
+                    </motion.div>
+                  )}
+                  {isStepHighlight && (
+                    <motion.div
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      className="mt-1 ml-4 text-yellow-300 text-xs"
+                    >
+                      ▶ Running this line... · 正在执行这一行...
+                    </motion.div>
+                  )}
+                </div>
+              );
+            })}
+          </pre>
+
+          {/* Mobile output — below code */}
+          <div className="lg:hidden">
+            <div id="turtle-output" data-turtle-mount="true" />
+            {(output || isLoading) && (
+              <div className="bg-[#0d1117] border-t border-[var(--theme-border)] p-3 mt-2 rounded-b-lg sticky bottom-0">
+                <div className="text-xs text-[var(--theme-text-muted)] mb-1 terminal-text">OUTPUT</div>
+                {isLoading && <span className="text-xs text-cyan-400 animate-pulse">{loadingMsg}</span>}
+                <pre className={`text-xs terminal-text whitespace-pre-wrap ${hasError ? "text-red-400" : "text-green-400"}`}>
+                  {output}
+                </pre>
+                <MemoryModel variables={variableDetails} />
               </div>
-            );
-          })}
-        </pre>
-      </div>
+            )}
+          </div>
+        </div>
 
-      <div id="turtle-output" data-turtle-mount="true" />
-
-      {(output || isLoading) && (
-        <div className="bg-[#0d1117] border-t border-[var(--theme-border)] p-3">
+        {/* Right: Output — desktop only */}
+        <div className="hidden lg:block lg:w-2/5 lg:sticky lg:top-0 lg:self-start lg:max-h-screen lg:overflow-y-auto bg-[#0d1117] border-l border-[var(--theme-border)] p-3">
+          <div id="turtle-output" data-turtle-mount="true" />
           <div className="text-xs text-[var(--theme-text-muted)] mb-1 terminal-text">OUTPUT</div>
           {isLoading && <span className="text-xs text-cyan-400 animate-pulse">{loadingMsg}</span>}
           <pre className={`text-xs terminal-text whitespace-pre-wrap ${hasError ? "text-red-400" : "text-green-400"}`}>
-            {output}
+            {output || <span className="text-[var(--theme-text-muted)]">Run code to see output · 运行代码查看输出</span>}
           </pre>
           <MemoryModel variables={variableDetails} />
         </div>
-      )}
+      </div>
 
       <div className="bg-[var(--theme-card-bg)] px-4 py-2 text-xs text-[var(--theme-text-muted)]">
         {stepMode

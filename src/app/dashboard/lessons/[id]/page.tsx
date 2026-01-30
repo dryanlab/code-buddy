@@ -208,7 +208,7 @@ export default function LessonPage() {
   // Quiz completion now handled by TurtleQuiz onQuizComplete callback
 
   return (
-    <div className="p-6 md:p-8 max-w-3xl mx-auto">
+    <div className="p-6 md:p-8 max-w-7xl mx-auto">
       {showCelebration && <Celebration />}
 
       {/* Header */}

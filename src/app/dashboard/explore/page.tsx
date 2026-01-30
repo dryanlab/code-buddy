@@ -443,7 +443,7 @@ export default function ExplorePage() {
   ];
 
   return (
-    <div className="p-6 md:p-8 max-w-4xl mx-auto">
+    <div className="p-6 md:p-8 max-w-7xl mx-auto">
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
         <h1 className="text-3xl font-bold mb-1">🔬 Computer Explorer</h1>
         <p className="text-sm text-[var(--theme-text-muted)] mb-1">计算机探秘</p>

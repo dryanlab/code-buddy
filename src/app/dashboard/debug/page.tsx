@@ -288,7 +288,7 @@ export default function DebugPage() {
   const [selected, setSelected] = useState<DebugPuzzle | null>(null);
 
   return (
-    <div className="p-6 md:p-8 max-w-4xl mx-auto space-y-6">
+    <div className="p-6 md:p-8 max-w-7xl mx-auto space-y-6">
       {selected ? (
         <PuzzleSolver puzzle={selected} onBack={() => setSelected(null)} />
       ) : (

@@ -200,7 +200,7 @@ export default function DashboardPage() {
     .slice(0, 4);
 
   return (
-    <div className="p-6 md:p-8 max-w-5xl mx-auto space-y-8">
+    <div className="p-6 md:p-8 max-w-7xl mx-auto space-y-8">
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
         <h1 className="text-3xl font-bold mb-1">
           {greeting.en} {displayName}! {userAvatar}

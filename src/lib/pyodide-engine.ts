@@ -360,9 +360,9 @@ export interface TraceStep {
 }
 
 /**
- * Execute code statement-by-statement using Python AST.
- * Each statement is executed independently, capturing output and variables after each.
- * Correctly handles if/else, loops, functions — they execute as single statements.
+ * Execute code line-by-line using sys.settrace().
+ * Records every executed line (including loop iterations, branch paths),
+ * captures output and variables at each step.
  */
 export async function traceExecution(
   code: string,
@@ -377,38 +377,13 @@ export async function traceExecution(
   try {
     _stdoutLines = [];
 
-    // Use Python AST to split code into top-level statements
-    // Then execute each statement one at a time, capturing output/vars after each
-    py.runPython(`
-import ast, json, sys
-
-_code = ${JSON.stringify(code)}
-_tree = ast.parse(_code)
-_code_lines = _code.split("\\n")
-
-# Get statement boundaries (startLine, endLine) for each top-level statement
-_stmt_ranges = []
-for _node in _tree.body:
-    _start = _node.lineno - 1  # 0-indexed
-    _end = _node.end_lineno - 1 if hasattr(_node, 'end_lineno') and _node.end_lineno else _start
-    _stmt_ranges.append([_start, _end])
-
-_stmt_ranges_json = json.dumps(_stmt_ranges)
-`);
-    const stmtRangesJson = py.runPython("_stmt_ranges_json") as string;
-    const stmtRanges: [number, number][] = JSON.parse(stmtRangesJson);
-
-    if (stmtRanges.length === 0) {
-      return { steps: [], error: null };
-    }
-
-    // Set up shared execution namespace with input mock
+    // Set up execution namespace with input mock
     py.runPython(`_exec_globals = {"__builtins__": __builtins__}`);
 
     if (inputValues && inputValues.length > 0) {
       const inputJson = JSON.stringify(inputValues);
       py.runPython(`
-import js
+import js, json, sys, io
 _input_values = ${inputJson}
 _input_idx = 0
 _all_inputs = list(_input_values)
@@ -433,7 +408,7 @@ _exec_globals['input'] = _mock_input
 `);
     } else {
       py.runPython(`
-import js
+import js, json, sys, io
 _all_inputs = []
 def _mock_input(prompt=""):
     if prompt:
@@ -450,73 +425,130 @@ _exec_globals['input'] = _mock_input
 `);
     }
 
-    // Execute statements one by one, capturing after each
-    const codeLines = code.split("\n");
+    // Use sys.settrace to record line-by-line execution with output & vars snapshots
+    py.runPython(`
+import sys, json, io
+
+_trace_steps = []
+_trace_output_buf = io.StringIO()
+_trace_code_obj = None
+_trace_error = None
+_skip_vars = {'sys','io','input','json','js','types','turtle','math','random','time','ast','_mock_input','__builtins__'}
+
+def _capture_vars(frame):
+    """Capture variables from the frame's local and global scope."""
+    _vars = {}
+    _details = []
+    # Merge globals and locals (locals override)
+    all_vars = dict(frame.f_globals)
+    all_vars.update(frame.f_locals)
+    for k, v in all_vars.items():
+        if k.startswith('_') or k in _skip_vars:
+            continue
+        try:
+            scope = "local" if k in frame.f_locals and frame.f_locals is not frame.f_globals else "global"
+            if isinstance(v, (int, float, str, bool)):
+                _vars[k] = str(v)
+                _details.append({"name": k, "value": str(v), "type": type(v).__name__, "scope": scope, "scopeName": ""})
+            elif isinstance(v, (list, tuple)):
+                _vars[k] = str(v)[:100]
+                _details.append({"name": k, "value": str(v)[:200], "type": type(v).__name__, "scope": scope, "scopeName": ""})
+            elif isinstance(v, dict):
+                _vars[k] = str(v)[:100]
+                _details.append({"name": k, "value": str(v)[:200], "type": "dict", "scope": scope, "scopeName": ""})
+        except:
+            pass
+    return _vars, _details
+
+def _trace_func(frame, event, arg):
+    global _trace_code_obj
+    # Only trace lines in user code (not internal modules)
+    if frame.f_code.co_filename != '<exec>':
+        return _trace_func
+    if event == 'call' and _trace_code_obj is None:
+        _trace_code_obj = frame.f_code
+    if event == 'line':
+        lineno = frame.f_lineno - 1  # 0-indexed
+        # Flush stdout to capture output up to this point
+        output_so_far = _trace_output_buf.getvalue()
+        _vars, _details = _capture_vars(frame)
+        _trace_steps.append({
+            "line": lineno,
+            "output": output_so_far.rstrip("\\n"),
+            "vars": _vars,
+            "details": _details
+        })
+    return _trace_func
+
+# Redirect stdout to our buffer for tracing
+_orig_stdout = sys.stdout
+sys.stdout = _trace_output_buf
+
+try:
+    _compiled = compile(${JSON.stringify(code)}, '<exec>', 'exec')
+    sys.settrace(_trace_func)
+    try:
+        exec(_compiled, _exec_globals)
+    finally:
+        sys.settrace(None)
+        sys.stdout = _orig_stdout
+except Exception as _e:
+    sys.settrace(None)
+    sys.stdout = _orig_stdout
+    _trace_error = str(_e)
+
+# Capture final output after execution completes
+_final_output = _trace_output_buf.getvalue().rstrip("\\n")
+
+# Add a final step for the last state (after last line executed)
+if _trace_steps:
+    # The last trace step captured vars BEFORE its line executed.
+    # Add one more step to show the state AFTER the last line.
+    pass
+
+_trace_steps_json = json.dumps(_trace_steps)
+_trace_error_json = json.dumps(_trace_error)
+_trace_final_output = json.dumps(_final_output)
+`);
+
+    const stepsJson = py.runPython("_trace_steps_json") as string;
+    const traceError = JSON.parse(py.runPython("_trace_error_json") as string);
+    const finalOutput = JSON.parse(py.runPython("_trace_final_output") as string);
+    const rawSteps: { line: number; output: string; vars: Record<string, string>; details: VariableDetail[] }[] = JSON.parse(stepsJson);
+
+    // Convert raw trace steps to TraceStep format
+    // Each step's output should be cumulative (it already is from the StringIO buffer)
+    // But we want to show the output and vars AFTER the line executes,
+    // so shift: step[i] gets output from step[i+1] (or finalOutput for last)
     const steps: TraceStep[] = [];
-    const skipNames = new Set(["sys","io","input","json","js","types","turtle","_json","_turtle_mod","math","random","time","ast","_mock_input"]);
+    for (let i = 0; i < rawSteps.length; i++) {
+      const nextOutput = i + 1 < rawSteps.length ? rawSteps[i + 1].output : finalOutput;
+      const nextVars = i + 1 < rawSteps.length ? rawSteps[i + 1].vars : rawSteps[i].vars;
+      const nextDetails = i + 1 < rawSteps.length ? rawSteps[i + 1].details : rawSteps[i].details;
+      steps.push({
+        line: rawSteps[i].line,
+        endLine: rawSteps[i].line,
+        output: nextOutput,
+        variables: nextVars,
+        variableDetails: nextDetails,
+      });
+    }
 
-    for (let si = 0; si < stmtRanges.length; si++) {
-      const [startLine, endLine] = stmtRanges[si];
-      const stmtCode = codeLines.slice(startLine, endLine + 1).join("\n");
-
-      // Execute this statement in shared namespace
-      _stdoutLines = [];
-      try {
-        py.runPython(`exec(${JSON.stringify(stmtCode)}, _exec_globals)`);
-      } catch (e) {
-        // Statement failed — record error and stop
-        const errMsg = e instanceof Error ? e.message : String(e);
+    // If there was a trace error, update the last step or add an error step
+    if (traceError) {
+      const errorText = translateError(traceError);
+      if (steps.length > 0) {
+        const last = steps[steps.length - 1];
+        last.output = last.output ? last.output + "\n\n" + errorText : errorText;
+      } else {
         steps.push({
-          line: startLine,
-          endLine,
-          output: translateError(errMsg),
+          line: 0,
+          endLine: 0,
+          output: errorText,
           variables: {},
           variableDetails: [],
         });
-        break;
       }
-
-      // Capture output so far (cumulative via Pyodide stdout callback is tricky, so use a buffer)
-      // Actually _stdoutLines only has this statement's output. We need cumulative.
-      // Let's accumulate manually
-      const stepOutput = _stdoutLines.join("\n").replace(/\n$/, "");
-
-      // Capture variables from exec namespace
-      py.runPython(`
-_step_vars = {}
-_step_detail = []
-for _k, _v in _exec_globals.items():
-    if _k.startswith('_') or _k == '__builtins__' or _k in {'sys','io','input','json','js','types','turtle','math','random','time','ast'}:
-        continue
-    try:
-        if isinstance(_v, (int, float, str, bool)):
-            _step_vars[_k] = str(_v)
-            _step_detail.append({"name": _k, "value": str(_v), "type": type(_v).__name__, "scope": "global", "scopeName": ""})
-        elif isinstance(_v, (list, tuple)):
-            _step_vars[_k] = str(_v)[:100]
-            _step_detail.append({"name": _k, "value": str(_v)[:200], "type": type(_v).__name__, "scope": "global", "scopeName": ""})
-        elif isinstance(_v, dict):
-            _step_vars[_k] = str(_v)[:100]
-            _step_detail.append({"name": _k, "value": str(_v)[:200], "type": "dict", "scope": "global", "scopeName": ""})
-    except:
-        pass
-_step_vars_json = json.dumps(_step_vars)
-_step_detail_json = json.dumps(_step_detail)
-`);
-      const vars = JSON.parse(py.runPython("_step_vars_json") as string);
-      const varDetails: VariableDetail[] = JSON.parse(py.runPython("_step_detail_json") as string);
-
-      // Accumulate output
-      const prevOutput = si > 0 ? steps[si - 1].output : "";
-      const cumulativeOutput = prevOutput ? (stepOutput ? prevOutput + "\n" + stepOutput : prevOutput) : stepOutput;
-
-      steps.push({
-        line: startLine,
-        endLine,
-        output: cumulativeOutput,
-        variables: vars,
-        variableDetails: varDetails,
-      });
     }
 
     // Collect inputs
@@ -525,7 +557,12 @@ _step_detail_json = json.dumps(_step_detail)
       collectedInputs = JSON.parse(py.runPython("json.dumps(_all_inputs)") as string);
     } catch { /* no inputs */ }
 
-    return { steps, error: null, collectedInputs };
+    // Re-emit the captured output to Pyodide's normal stdout so the output panel shows it
+    if (finalOutput) {
+      _stdoutLines = finalOutput.split("\n");
+    }
+
+    return { steps, error: traceError ? translateError(traceError) : null, collectedInputs };
   } catch (e) {
     const partialOutput = _stdoutLines.join("\n").replace(/\n$/, "");
     let collectedInputs: string[] = [];
