@@ -1195,11 +1195,15 @@ export default function CodeLabPage() {
               </p>
             )}
 
-            {/* Lesson Projects — grouped by area */}
+            {/* Lesson Projects — grouped by area (Python) or category (C++) */}
             {(() => {
-              const lessonProjects = CODE_EXERCISES.filter(ex => ex.tags.includes("project") && ex.fromLesson);
+              const isCpp = activeLanguage === "cpp";
+              const lessonProjects = CODE_EXERCISES.filter(ex =>
+                ex.tags.includes("project") && ex.fromLesson &&
+                (isCpp ? ex.language === "cpp" : !ex.language || ex.language === "python")
+              );
               if (lessonProjects.length === 0) return null;
-              // Group by area tag (area-1, area-2, etc.)
+              // Python: group by area tag; C++: group by category
               const areaNames: Record<string, string> = {
                 "area-1": "🏝️ Starter Island",
                 "area-2": "🌲 Loop Forest",
@@ -1207,11 +1211,20 @@ export default function CodeLabPage() {
                 "area-4": "🔬 Science Lab",
                 "area-5": "🤖 AI Frontier",
               };
+              const cppCategoryNames: Record<string, string> = {
+                "Games": "🎮 Games · 游戏",
+                "Simulations": "🔬 Simulations · 模拟",
+                "Creative": "🎨 Creative · 创意",
+                "Science": "🧬 Science · 科学",
+                "Tools": "🛠️ Tools · 工具",
+                "Algorithms": "🧩 Algorithms · 算法",
+                "Data": "📊 Data · 数据",
+              };
               const groups: Record<string, typeof lessonProjects> = {};
               lessonProjects.forEach((ex) => {
-                const areaTag = ex.tags.find(t => t.startsWith("area-")) || "other";
-                if (!groups[areaTag]) groups[areaTag] = [];
-                groups[areaTag].push(ex);
+                const key = isCpp ? (ex.category || "Other") : (ex.tags.find(t => t.startsWith("area-")) || "other");
+                if (!groups[key]) groups[key] = [];
+                groups[key].push(ex);
               });
               return (
                 <>
@@ -1219,7 +1232,7 @@ export default function CodeLabPage() {
                     📚 Lesson Projects · 课程项目
                   </div>
                   {Object.entries(groups).map(([area, exs]) => {
-                    const areaLabel = areaNames[area] || area;
+                    const areaLabel = isCpp ? (cppCategoryNames[area] || area) : (areaNames[area] || area);
                     const isCollapsed = collapsedCategories === "all" || (collapsedCategories instanceof Set && collapsedCategories.has(`lp_${area}`));
                     return (
                       <div key={area}>

@@ -13,6 +13,9 @@ export interface CodeExercise {
   expectedOutput?: string;
   tags: string[];
   fromLesson?: string; // lesson id this project belongs to (e.g. "1-6")
+  language?: "python" | "cpp";
+  category?: string;
+  categoryZh?: string;
 }
 
 export const CODE_EXERCISES: CodeExercise[] = [
@@ -2756,6 +2759,9 @@ int main() {
 3... 2... 1... LIFTOFF!`,
     tags: ["project", "cpp-area-1", "ascii-art"],
     fromLesson: "cpp-1-1",
+    language: "cpp",
+    category: "Creative",
+    categoryZh: "创意",
   },
   {
     id: "proj-cpp-1-1-2",
@@ -2818,6 +2824,9 @@ Semicolons make it right!
    * MIC DROP *`,
     tags: ["project", "cpp-area-1", "creative"],
     fromLesson: "cpp-1-1",
+    language: "cpp",
+    category: "Creative",
+    categoryZh: "创意",
   },
 
   // cpp-1-2: Types are Serious Business
@@ -2895,6 +2904,9 @@ GC Content: 50%
 High GC: 0`,
     tags: ["project", "cpp-area-1", "science"],
     fromLesson: "cpp-1-2",
+    language: "cpp",
+    category: "Science",
+    categoryZh: "科学",
   },
   {
     id: "proj-cpp-1-2-2",
@@ -2983,6 +2995,9 @@ int main() {
 ╚══════════════════╝`,
     tags: ["project", "cpp-area-1", "rpg"],
     fromLesson: "cpp-1-2",
+    language: "cpp",
+    category: "Games",
+    categoryZh: "游戏",
   },
 
   // cpp-1-3: Input & Output Mastery
@@ -3070,6 +3085,9 @@ Lucky color: Blue
 Compatibility: Pisces`,
     tags: ["project", "cpp-area-1", "interactive"],
     fromLesson: "cpp-1-3",
+    language: "cpp",
+    category: "Games",
+    categoryZh: "游戏",
   },
   {
     id: "proj-cpp-1-3-2",
@@ -3148,6 +3166,9 @@ int main() {
 +------------------------+`,
     tags: ["project", "cpp-area-1", "formatting"],
     fromLesson: "cpp-1-3",
+    language: "cpp",
+    category: "Tools",
+    categoryZh: "工具",
   },
 
   // cpp-1-4: Math & Operators
@@ -3238,6 +3259,9 @@ Jupiter: 558.6 days (1.5 years)
 Saturn: 915.9 days (2.5 years)`,
     tags: ["project", "cpp-area-1", "math", "science"],
     fromLesson: "cpp-1-4",
+    language: "cpp",
+    category: "Tools",
+    categoryZh: "工具",
   },
   {
     id: "proj-cpp-1-4-2",
@@ -3322,6 +3346,9 @@ Total:     $107.69
 Per person (3): $35.90`,
     tags: ["project", "cpp-area-1", "math"],
     fromLesson: "cpp-1-4",
+    language: "cpp",
+    category: "Tools",
+    categoryZh: "工具",
   },
 
   // cpp-1-5: Strings
@@ -3416,6 +3443,9 @@ Encoded: KHOOR ZRUOG
 Decoded: HELLO WORLD`,
     tags: ["project", "cpp-area-1", "cipher", "strings"],
     fromLesson: "cpp-1-5",
+    language: "cpp",
+    category: "Science",
+    categoryZh: "科学",
   },
   {
     id: "proj-cpp-1-5-2",
@@ -3505,6 +3535,9 @@ Style 3: ALEX_42
 Name length: 11`,
     tags: ["project", "cpp-area-1", "strings"],
     fromLesson: "cpp-1-5",
+    language: "cpp",
+    category: "Tools",
+    categoryZh: "工具",
   },
 
   // cpp-1-6: First C++ Projects
@@ -3609,6 +3642,9 @@ Interest earned: $102.50
 Final balance: $2152.50`,
     tags: ["project", "cpp-area-1", "simulation"],
     fromLesson: "cpp-1-6",
+    language: "cpp",
+    category: "Simulations",
+    categoryZh: "模拟",
   },
   {
     id: "proj-cpp-1-6-2",
@@ -3711,6 +3747,9 @@ Feeling: Mild 😊
 Range: 15.1F`,
     tags: ["project", "cpp-area-1", "simulation"],
     fromLesson: "cpp-1-6",
+    language: "cpp",
+    category: "Simulations",
+    categoryZh: "模拟",
   },
 
   // ─── Area 2: Control Flow ────────────────────────────────
@@ -3839,6 +3878,9 @@ Player HP after round 2: 90
 Final - Player: 90 HP | Boss: 100 HP`,
     tags: ["project", "cpp-area-2", "game"],
     fromLesson: "cpp-2-1",
+    language: "cpp",
+    category: "Games",
+    categoryZh: "游戏",
   },
   {
     id: "proj-cpp-2-1-2",
@@ -3942,6 +3984,9 @@ Score: 5/6
 Rating: 💪 STRONG`,
     tags: ["project", "cpp-area-2", "security"],
     fromLesson: "cpp-2-1",
+    language: "cpp",
+    category: "Science",
+    categoryZh: "科学",
   },
 
   // cpp-2-2: switch & Ternary
@@ -4051,6 +4096,9 @@ Shuffle: ON 🔀
 Songs: 15 - Long playlist!`,
     tags: ["project", "cpp-area-2", "creative"],
     fromLesson: "cpp-2-2",
+    language: "cpp",
+    category: "Creative",
+    categoryZh: "创意",
   },
   {
     id: "proj-cpp-2-2-2",
@@ -4161,6 +4209,9 @@ Delivery: Yes ($5.00)
 TOTAL: $21.49`,
     tags: ["project", "cpp-area-2", "simulation"],
     fromLesson: "cpp-2-2",
+    language: "cpp",
+    category: "Tools",
+    categoryZh: "工具",
   },
 
   // cpp-2-3: Loops
@@ -4272,6 +4323,9 @@ Guess #5: 42 - CORRECT!
 🎉 You got it in 5 attempts!`,
     tags: ["project", "cpp-area-2", "game"],
     fromLesson: "cpp-2-3",
+    language: "cpp",
+    category: "Games",
+    categoryZh: "游戏",
   },
   {
     id: "proj-cpp-2-3-2",
@@ -4354,6 +4408,9 @@ Sum of all: 986
 Last ratio (approx Golden Ratio): 0.618034`,
     tags: ["project", "cpp-area-2", "math"],
     fromLesson: "cpp-2-3",
+    language: "cpp",
+    category: "Science",
+    categoryZh: "科学",
   },
 
   // cpp-2-4: Nested Loops & Patterns
@@ -4483,6 +4540,9 @@ int main() {
 * * * * * `,
     tags: ["project", "cpp-area-2", "patterns"],
     fromLesson: "cpp-2-4",
+    language: "cpp",
+    category: "Creative",
+    categoryZh: "创意",
   },
   {
     id: "proj-cpp-2-4-2",
@@ -4564,6 +4624,9 @@ int main() {
 `,
     tags: ["project", "cpp-area-2", "formatting"],
     fromLesson: "cpp-2-4",
+    language: "cpp",
+    category: "Tools",
+    categoryZh: "工具",
   },
 
   // ─── Area 3: Functions & Data ────────────────────────────────
@@ -4669,6 +4732,9 @@ myMax(5, 15, 10) = 15
 factorial(10) = 3628800`,
     tags: ["project", "cpp-area-3", "math", "functions"],
     fromLesson: "cpp-3-1",
+    language: "cpp",
+    category: "Tools",
+    categoryZh: "工具",
   },
   {
     id: "proj-cpp-3-1-2",
@@ -4783,6 +4849,9 @@ Roll: 4 + 1 = 5
 Score: 9`,
     tags: ["project", "cpp-area-3", "game"],
     fromLesson: "cpp-3-1",
+    language: "cpp",
+    category: "Games",
+    categoryZh: "游戏",
   },
 
   // cpp-3-2: Arrays (C-style)
@@ -4881,6 +4950,9 @@ Lowest: Hank (65)
 A: 4 B: 3 C: 2`,
     tags: ["project", "cpp-area-3", "arrays"],
     fromLesson: "cpp-3-2",
+    language: "cpp",
+    category: "Data",
+    categoryZh: "数据",
   },
   {
     id: "proj-cpp-3-2-2",
@@ -4991,6 +5063,9 @@ Hits - Kick: 4 Snare: 2 HiHat: 8
 Busiest beat: #1 (2 hits)`,
     tags: ["project", "cpp-area-3", "creative", "arrays"],
     fromLesson: "cpp-3-2",
+    language: "cpp",
+    category: "Creative",
+    categoryZh: "创意",
   },
 
   // cpp-3-3: Vectors
@@ -5100,6 +5175,9 @@ int main() {
 Completed: 2/5`,
     tags: ["project", "cpp-area-3", "vectors"],
     fromLesson: "cpp-3-3",
+    language: "cpp",
+    category: "Tools",
+    categoryZh: "工具",
   },
   {
     id: "proj-cpp-3-3-2",
@@ -5196,6 +5274,9 @@ Max: $165.50 (day 9)
 Best profit: $17.00`,
     tags: ["project", "cpp-area-3", "simulation", "vectors"],
     fromLesson: "cpp-3-3",
+    language: "cpp",
+    category: "Simulations",
+    categoryZh: "模拟",
   },
 
   // cpp-3-4: References & Pass-by
@@ -5325,6 +5406,9 @@ Quest 1: +8 (total: 8)
 Quest 2: +17 (total: 25)`,
     tags: ["project", "cpp-area-3", "references"],
     fromLesson: "cpp-3-4",
+    language: "cpp",
+    category: "Games",
+    categoryZh: "游戏",
   },
 
   // ─── Area 4: OOP & Memory ────────────────────────────────
@@ -5420,6 +5504,9 @@ int main() {
 }`,
     tags: ["project", "cpp-area-4", "pointers"],
     fromLesson: "cpp-4-1",
+    language: "cpp",
+    category: "Games",
+    categoryZh: "游戏",
   },
   {
     id: "proj-cpp-4-1-2",
@@ -5517,6 +5604,9 @@ Clue 3: X marks the spot! [100 pts]
 Total clue value: 135`,
     tags: ["project", "cpp-area-4", "pointers"],
     fromLesson: "cpp-4-1",
+    language: "cpp",
+    category: "Data",
+    categoryZh: "数据",
   },
 
   // cpp-4-2: Classes & Objects
@@ -5689,6 +5779,9 @@ int main() {
   Energy: 65/100`,
     tags: ["project", "cpp-area-4", "classes", "simulation"],
     fromLesson: "cpp-4-2",
+    language: "cpp",
+    category: "Simulations",
+    categoryZh: "模拟",
   },
   {
     id: "proj-cpp-4-2-2",
@@ -5829,6 +5922,9 @@ Balance: $1365.00
 Transactions: 3`,
     tags: ["project", "cpp-area-4", "classes"],
     fromLesson: "cpp-4-2",
+    language: "cpp",
+    category: "Data",
+    categoryZh: "数据",
   },
 
   // cpp-4-3: Inheritance & Polymorphism
@@ -5992,6 +6088,9 @@ Gandalf casts Fireball! 🔥 50 damage!
 Shadow uses Backstab! 💀 Critical 60 damage!`,
     tags: ["project", "cpp-area-4", "inheritance", "rpg"],
     fromLesson: "cpp-4-3",
+    language: "cpp",
+    category: "Games",
+    categoryZh: "游戏",
   },
 
   // cpp-4-4: Memory Management
@@ -6103,6 +6202,9 @@ Paladin dismissed.
 Smart pointers auto-cleanup!`,
     tags: ["project", "cpp-area-4", "memory"],
     fromLesson: "cpp-4-4",
+    language: "cpp",
+    category: "Games",
+    categoryZh: "游戏",
   },
 
   // ─── Area 5: STL & Templates ────────────────────────────────
@@ -6211,6 +6313,9 @@ Unique words: 7
 Most common: "the" (5 times)`,
     tags: ["project", "cpp-area-5", "stl", "map"],
     fromLesson: "cpp-5-1",
+    language: "cpp",
+    category: "Data",
+    categoryZh: "数据",
   },
   {
     id: "proj-cpp-5-1-2",
@@ -6321,6 +6426,9 @@ Honor Roll:
   ⭐ Carol`,
     tags: ["project", "cpp-area-5", "stl", "map"],
     fromLesson: "cpp-5-1",
+    language: "cpp",
+    category: "Data",
+    categoryZh: "数据",
   },
 
   // cpp-5-2: Algorithms
@@ -6441,6 +6549,9 @@ Players above 8000: 3
 Perfect score exists: No`,
     tags: ["project", "cpp-area-5", "algorithms"],
     fromLesson: "cpp-5-2",
+    language: "cpp",
+    category: "Data",
+    categoryZh: "数据",
   },
 
   // cpp-5-3: Templates
@@ -6567,6 +6678,9 @@ bigger(3.14, 2.71) = 3.14
 [Hello Templates!]`,
     tags: ["project", "cpp-area-5", "templates"],
     fromLesson: "cpp-5-3",
+    language: "cpp",
+    category: "Data",
+    categoryZh: "数据",
   },
   {
     id: "proj-cpp-5-3-2",
@@ -6691,6 +6805,9 @@ String stack:
 Top: World`,
     tags: ["project", "cpp-area-5", "templates"],
     fromLesson: "cpp-5-3",
+    language: "cpp",
+    category: "Data",
+    categoryZh: "数据",
   },
 
   // ─── Area 6: Problem Solving ────────────────────────────────
@@ -6792,6 +6909,9 @@ Sum of arr[2..5]: 18
 "racecar" is palindrome: yes`,
     tags: ["project", "cpp-area-6", "patterns"],
     fromLesson: "cpp-6-1",
+    language: "cpp",
+    category: "Algorithms",
+    categoryZh: "算法",
   },
   {
     id: "proj-cpp-6-1-2",
@@ -6907,6 +7027,9 @@ Diagonal sum: 34
 Max: 16 at (3,3)`,
     tags: ["project", "cpp-area-6", "matrix"],
     fromLesson: "cpp-6-1",
+    language: "cpp",
+    category: "Algorithms",
+    categoryZh: "算法",
   },
 
   // cpp-6-2: Classic Algorithms
@@ -7041,6 +7164,9 @@ Searching for 999:
   Binary: (binary: 7 steps) idx=-1`,
     tags: ["project", "cpp-area-6", "binary-search"],
     fromLesson: "cpp-6-2",
+    language: "cpp",
+    category: "Algorithms",
+    categoryZh: "算法",
   },
   {
     id: "proj-cpp-6-2-2",
@@ -7162,6 +7288,9 @@ After reverse: 5 4 3 2 1
 Unique elements in {1,1,2,2,3,4,4,5}: 5`,
     tags: ["project", "cpp-area-6", "two-pointers"],
     fromLesson: "cpp-6-2",
+    language: "cpp",
+    category: "Algorithms",
+    categoryZh: "算法",
   },
 
   // cpp-6-3: Competition Practice
@@ -7304,6 +7433,9 @@ Before: 1 2 3 4 5
 After rotate by 2: 3 4 5 1 2 `,
     tags: ["project", "cpp-area-6", "competition"],
     fromLesson: "cpp-6-3",
+    language: "cpp",
+    category: "Algorithms",
+    categoryZh: "算法",
   },
   {
     id: "proj-cpp-6-3-2",
@@ -7450,5 +7582,8 @@ int main() {
 2024 = MMXXIV`,
     tags: ["project", "cpp-area-6", "competition"],
     fromLesson: "cpp-6-3",
+    language: "cpp",
+    category: "Algorithms",
+    categoryZh: "算法",
   },
 ];
