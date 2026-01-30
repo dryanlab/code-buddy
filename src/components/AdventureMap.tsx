@@ -279,9 +279,15 @@ function TrackPopup({
   const dsDone = progress ? DS_LESSONS.filter((l) => progress.completedLessons.includes(l.id)).length : 0;
   const dsPct = dsTotal > 0 ? Math.round((dsDone / dsTotal) * 100) : 0;
 
-  const href = track.id === "data-structures" ? "/dashboard/lessons/ds-1-1"
-    : track.id === "algorithms" ? "/dashboard/lessons/alg-1-1"
-    : track.status === "available" ? "/dashboard/lessons"
+  // Map always links to lessons list with track tab selected (not a specific lesson)
+  const trackTabMap: Record<string, string> = {
+    "python": "python",
+    "cpp": "cpp",
+    "data-structures": "ds",
+    "algorithms": "alg",
+  };
+  const href = track.status === "available"
+    ? `/dashboard/lessons?track=${trackTabMap[track.id] || "python"}`
     : null;
 
   return (

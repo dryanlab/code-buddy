@@ -111,7 +111,9 @@ export interface LessonSection {
   outputChoice?: OutputChoice;
   bugChallenge?: BugChallenge;
   exercise?: InlineExercise;
+  exerciseCpp?: InlineExercise;
   concept?: ConceptData;
+  challengeCpp?: CodeChallenge;
 }
 
 export interface Lesson {
