@@ -4,6 +4,8 @@
 // Languages: English primary + Chinese subtitles
 // Characters: 🐍Py (Python Snake), 🤖Botty (AI Assistant), 🔧Chip (Hardware Sprite)
 
+import { QUIZ_DATA } from "./quiz-data";
+
 export interface QuizQuestion {
   type?: "multiple-choice" | "coding";
   question: string;
@@ -305,20 +307,7 @@ Create your own hacker-style message! Try changing the text above to make it you
       {
         type: "quiz",
         content: "🎓 Hacker Knowledge Check!",
-        quiz: [
-          {
-            question: "🐍 Py asks: What does print() do?",
-            options: ["Prints on paper like a printer", "Shows text on the screen like hackers", "Deletes secret files", "Shuts down the computer"],
-            correctIndex: 1,
-            explanation: "🐍 Py: 正确! print() makes text appear on screen - just like those cool hacker movies! 电影里的绿色文字就是这样显示的！",
-          },
-          {
-            question: "🤖 Botty asks: What happens when you run multiple print() commands?",
-            options: ["Only the last one shows", "They all show, line by line", "They merge into one line", "The computer explodes"],
-            correctIndex: 1,
-            explanation: "🤖 Botty: Yes! Each print() command creates a new line, just like a typewriter. That's how hackers make those scrolling text effects! 每个print()都会换行显示！",
-          },
-        ],
+        quiz: QUIZ_DATA["1-1"],
       },
     ],
   },
@@ -480,26 +469,7 @@ print("🎉 THE END! Hope you laughed! 🎉")
       {
         type: "quiz",
         content: "🎯 Mad Libs Master Quiz!",
-        quiz: [
-          {
-            question: "🐍 Py asks: What does name = 'Sarah' do?",
-            options: ["Checks if name equals Sarah", "Creates a variable box called 'name' and puts 'Sarah' in it", "Deletes the name variable", "Prints Sarah on screen"],
-            correctIndex: 1,
-            explanation: "🐍 Py: Perfect! The = is like a magic spell that creates a labeled box and stores something inside. 就像给盒子贴标签然后放东西进去！",
-          },
-          {
-            question: "😂 What makes Mad Libs so funny?",
-            options: ["Using random words in unexpected places", "The computer making jokes", "Variables being broken", "Python telling stories"],
-            correctIndex: 0,
-            explanation: "😂 Exactly! Random + unexpected = comedy gold! AI chatbots work similarly - they mix words in creative ways! 随机组合词语就会产生搞笑效果！",
-          },
-          {
-            question: "🤖 Botty asks: Why do we use input() in Mad Libs?",
-            options: ["To print the story", "To let users add their own creative words", "To delete variables", "To make the computer think"],
-            correctIndex: 1,
-            explanation: "🤖 Botty: Right! input() makes programs INTERACTIVE - users become part of the creative process! 让用户参与创作过程！",
-          },
-        ],
+        quiz: QUIZ_DATA["1-2"],
       },
     ],
   },
@@ -692,26 +662,7 @@ print("Suggested tip: $" + str(round(tip_amount, 2)))
       {
         type: "quiz",
         content: "🍕 Pizza Math Master Quiz!",
-        quiz: [
-          {
-            question: "🐍 Py asks: What does 17 % 5 equal?",
-            options: ["3.4", "3", "2", "12"],
-            correctIndex: 2,
-            explanation: "🐍 Py: Correct! 17 ÷ 5 = 3 remainder 2, so 17 % 5 = 2. Perfect for calculating leftover pizza slices! 求余数运算非常适合计算剩余的披萨！",
-          },
-          {
-            question: "🍕 If you have 23 slices and 7 people, how many slices per person (whole slices only)?",
-            options: ["3 slices each", "3.28 slices each", "4 slices each", "2 slices each"],
-            correctIndex: 0,
-            explanation: "🍕 Right! 23 // 7 = 3 whole slices per person. Use // for 'floor division' to get whole numbers! 用//可以得到整数结果！",
-          },
-          {
-            question: "🤖 Botty asks: Why is % useful in programming?",
-            options: ["It makes numbers smaller", "It helps divide things fairly with leftovers", "It's faster than +", "It only works with pizza"],
-            correctIndex: 1,
-            explanation: "🤖 Botty: Exactly! % helps us handle 'leftover' situations - sharing pizza, wrapping around arrays, checking even/odd numbers! 处理「剩余」情况非常有用！",
-          },
-        ],
+        quiz: QUIZ_DATA["1-3"],
       },
     ],
   },
@@ -929,26 +880,7 @@ Plan your turtle masterpiece:
       {
         type: "quiz",
         content: "🐢 Turtle Master Quiz!",
-        quiz: [
-          {
-            question: "🐍 Py asks: To draw a square, how many degrees should the turtle turn at each corner?",
-            options: ["45 degrees", "90 degrees", "180 degrees", "360 degrees"],
-            correctIndex: 1,
-            explanation: "🐍 Py: Perfect! A square has 4 equal sides and 4 right angles (90°). 360° ÷ 4 sides = 90° per turn! 正方形每个角都是90度！",
-          },
-          {
-            question: "🔧 Chip asks: How does Code Buddy make turtle graphics work in the browser?",
-            options: ["It downloads Python first", "It uses an HTML5 Canvas to simulate turtle drawing", "It sends code to a server", "It uses a browser plugin"],
-            correctIndex: 1,
-            explanation: "🔧 Chip: Right! Turtle graphics originally need a pop-up window, but Code Buddy has a built-in turtle simulator! You can draw right in the browser! 我们内置了海龟画图模拟器！",
-          },
-          {
-            question: "🤖 Botty asks: What's the connection between turtle graphics and video games?",
-            options: ["Nothing at all", "Both use movement and drawing commands", "Games are harder", "Turtles are in games"],
-            correctIndex: 1,
-            explanation: "🤖 Botty: Exactly! Video games move characters using similar commands - forward, turn, change color. Turtle graphics teaches the basics! 游戏角色移动用类似的指令！",
-          },
-        ],
+        quiz: QUIZ_DATA["1-4"],
       },
     ],
   },
@@ -1177,26 +1109,7 @@ print("\\n🎯 Safety is our #1 priority!")
       {
         type: "quiz",
         content: "🎢 Safety Inspector Master Quiz!",
-        quiz: [
-          {
-            question: "🐍 Py asks: What's the difference between = and == ?",
-            options: ["They're the same thing", "= stores a value, == checks if values are equal", "= checks equality, == stores values", "One is for numbers, one is for text"],
-            correctIndex: 1,
-            explanation: "🐍 Py: Perfect! = is assignment (putting data into a variable box), == is comparison (checking if two things are equal). Essential for safety checks! 赋值vs比较很重要！",
-          },
-          {
-            question: "🎢 For a ride requiring age ≥ 12 and height ≥ 50, which code checks BOTH conditions?",
-            options: ["if age >= 12 or height >= 50:", "if age >= 12 and height >= 50:", "if age == 12 and height == 50:", "if age > 12 or height > 50:"],
-            correctIndex: 1,
-            explanation: "🎢 Right! 'and' means BOTH conditions must be true for safety. 'or' would mean only ONE needs to be true - unsafe! 两个条件都必须满足才安全！",
-          },
-          {
-            question: "🔧 Chip asks: Why are computers better than humans for safety checks?",
-            options: ["They're faster", "They never get tired or distracted", "They're smarter", "They don't need training"],
-            correctIndex: 1,
-            explanation: "🔧 Chip: Exactly! Computers consistently follow rules without getting tired, distracted, or making human errors. Perfect for safety! 电脑不会疲劳走神，安全检查更可靠！",
-          },
-        ],
+        quiz: QUIZ_DATA["1-5"],
       },
     ],
   },
@@ -1345,14 +1258,7 @@ else:
       {
         type: "quiz",
         content: "🏆 Graduation Quiz: Starter Island Mastery!",
-        quiz: [
-          {
-            question: "🎮 What programming concepts did your text adventure game use?",
-            options: ["Only print() and input()", "Variables, conditions, and user input", "Just basic math", "Only text manipulation"],
-            correctIndex: 1,
-            explanation: "🏆 Your game combined multiple concepts: variables (to store game state), conditions (if-else for different paths), user input (for choices), and output (to tell the story). This is how real software is built!",
-          },
-        ],
+        quiz: QUIZ_DATA["1-6"],
       },
     ],
   },
@@ -1613,26 +1519,7 @@ print("\\n🎉 Loop Circus Complete!")
       {
         type: "quiz",
         content: "🌀 Loop Master Quiz!",
-        quiz: [
-          {
-            question: "🐍 Py asks: To draw a hexagon (6 sides), what angle should the turtle turn?",
-            options: ["45 degrees", "60 degrees", "90 degrees", "120 degrees"],
-            correctIndex: 1,
-            explanation: "🐍 Py: Perfect! 360° ÷ 6 sides = 60° per turn. This formula works for ANY polygon! 360度除以边数就是转弯角度！",
-          },
-          {
-            question: "🌀 What makes the kaleidoscope pattern so mesmerizing?",
-            options: ["Random colors", "Many polygons slightly rotated around a center", "Fast turtle speed", "Large size"],
-            correctIndex: 1,
-            explanation: "🌀 Right! The kaleidoscope repeats the same shape many times, slightly rotated each time. This creates symmetrical, beautiful patterns! 重复+旋转=美丽图案！",
-          },
-          {
-            question: "🤖 Botty asks: How do for loops help with creative coding?",
-            options: ["They make code shorter", "They create repetitive patterns impossible to draw by hand", "They're faster than while loops", "They use less memory"],
-            correctIndex: 1,
-            explanation: "🤖 Botty: Exactly! Loops let you create complex, beautiful patterns with just a few lines of code. Artists and designers use code loops to make impossible art! 循环让我们创造人手无法绘制的复杂图案！",
-          },
-        ],
+        quiz: QUIZ_DATA["2-1"],
       },
     ],
   },
@@ -1881,26 +1768,7 @@ print("✨ Total items:", len(weapons) + len(potions) + len(treasures))
       {
         type: "quiz",
         content: "🎒 RPG Backpack Master Quiz!",
-        quiz: [
-          {
-            question: "🐍 Py asks: How do you add dragon loot to your backpack?",
-            options: ["backpack.add('Dragon Scale')", "backpack.append('Dragon Scale')", "backpack.insert('Dragon Scale')", "backpack + 'Dragon Scale'"],
-            correctIndex: 1,
-            explanation: "🐍 Py: append() adds the item to the END of your backpack list! Perfect for picking up new loot during adventures! 在列表末尾添加新物品！",
-          },
-          {
-            question: "⚔️ You want to check if you have a Magic Sword before fighting a boss. Which code works?",
-            options: ["if backpack.has('Magic Sword'):", "if 'Magic Sword' in backpack:", "if backpack.contains('Magic Sword'):", "if backpack['Magic Sword']:"],
-            correctIndex: 1,
-            explanation: "⚔️ Perfect! 'in' checks if an item exists in the list. Essential for RPG logic - always check your gear before boss fights! 检查装备是否存在！",
-          },
-          {
-            question: "🤖 Botty asks: Why are lists perfect for RPG inventories?",
-            options: ["They're faster than other data types", "They can hold different item types and change size", "They use less memory", "They automatically sort items"],
-            correctIndex: 1,
-            explanation: "🤖 Botty: Right! Lists can hold any items (weapons, potions, treasures) and grow/shrink as you loot and use items. Perfect for dynamic game inventories! 可以包含不同物品类型且大小可变！",
-          },
-        ],
+        quiz: QUIZ_DATA["2-2"],
       },
     ],
   },
@@ -2149,26 +2017,7 @@ else:
       {
         type: "quiz",
         content: "🎯 Number Guessing Master Quiz!",
-        quiz: [
-          {
-            question: "🐍 Py asks: When does a while loop stop running?",
-            options: ["After 10 iterations", "When the condition becomes False", "When the user presses Enter", "Never"],
-            correctIndex: 1,
-            explanation: "🐍 Py: Perfect! A while loop keeps running as long as its condition is True, and stops the moment it becomes False. Essential for games! while循环条件为False时停止！",
-          },
-          {
-            question: "🎮 In the guessing game, why do we use while instead of for?",
-            options: ["while is faster", "We don't know how many guesses it will take", "for loops don't work with numbers", "while uses less memory"],
-            correctIndex: 1,
-            explanation: "🎮 Exactly! We don't know if the player will guess in 1 try or 50 tries. while loops are perfect for 'keep going until success' situations! 不知道需要多少次猜测！",
-          },
-          {
-            question: "🤖 Botty asks: How is this similar to AI learning?",
-            options: ["Both use random numbers", "Both keep trying until they get it right", "Both count attempts", "Both give hints"],
-            correctIndex: 1,
-            explanation: "🤖 Botty: Yes! AI learning is like our guessing game - the AI keeps adjusting its guesses based on feedback until it gets the right answer! AI学习就像猜数字游戏！",
-          },
-        ],
+        quiz: QUIZ_DATA["2-3"],
       },
     ],
   },
@@ -2464,31 +2313,7 @@ print("🔧 You just used nested loops like a pro programmer!")
       {
         type: "quiz",
         content: "🎨 Pattern Printing Master Quiz!",
-        quiz: [
-          {
-            question: "🐍 Py asks: What creates a triangle pattern that grows by 1 star each row?",
-            options: [
-              "for row in range(5): for col in range(5): print('⭐')",
-              "for row in range(5): for col in range(row + 1): print('⭐')",  
-              "for row in range(5): for col in range(row): print('⭐')",
-              "for row in range(5): print('⭐' * 5)"
-            ],
-            correctIndex: 1,
-            explanation: "🐍 Py: Perfect! row + 1 makes row 0 print 1 star, row 1 print 2 stars, etc. The inner loop size changes based on the outer loop! 内循环的次数随外循环变化！",
-          },
-          {
-            question: "🎨 To create a 5×5 square pattern, how many total characters get printed?",
-            options: ["5 characters", "10 characters", "25 characters", "50 characters"],
-            correctIndex: 2,
-            explanation: "🎨 Right! 5 rows × 5 columns = 25 characters total. Each outer loop iteration runs the inner loop 5 times! 5×5=25个字符！",
-          },
-          {
-            question: "🤖 Botty asks: How do nested loops relate to computer graphics?",
-            options: ["They don't", "Every pixel on screen is positioned using row/column loops", "Only for text patterns", "Graphics use different methods"],
-            correctIndex: 1,
-            explanation: "🤖 Botty: Exactly! Your computer screen is a giant grid. Graphics programs use nested loops to set the color of each pixel at position (row, col)! 屏幕上每个像素都是用嵌套循环定位的！",
-          },
-        ],
+        quiz: QUIZ_DATA["2-4"],
       },
     ],
   },
@@ -2794,26 +2619,7 @@ print(f"\\n🎉 String art complete for '{text}'!")
       {
         type: "quiz",
         content: "🔐 Secret Agent String Master Quiz!",
-        quiz: [
-          {
-            question: "🕵️ In Caesar cipher, if A becomes D, what does the letter M become?",
-            options: ["N", "P", "J", "Q"],
-            correctIndex: 1,
-            explanation: "🕵️ Perfect! If A→D is a shift of +3, then M (13th letter) + 3 = P (16th letter). You cracked the code like a real secret agent! 破解了真正的密码！",
-          },
-          {
-            question: "🔐 What does ord('A') return in Python?",
-            options: ["1", "26", "65", "97"],
-            correctIndex: 2,
-            explanation: "🔐 Correct! ord('A') returns 65 - the ASCII number for uppercase A. This is how computers store letters as numbers for encryption! 计算机用数字存储字母！",
-          },
-          {
-            question: "🌐 Why is encryption important in real life?",
-            options: ["It makes text look cool", "It protects passwords and private data online", "It's only for spy movies", "It makes computers faster"],
-            correctIndex: 1,
-            explanation: "🌐 Exactly! Encryption protects your passwords, credit cards, messages, and private data. Every secure website uses it! 加密保护我们的隐私数据！",
-          },
-        ],
+        quiz: QUIZ_DATA["2-5"],
       },
     ],
   },
@@ -3166,26 +2972,7 @@ print("\\n🎪 Thanks for playing Advanced Championship!")
       {
         type: "quiz",
         content: "🏆 Loop Forest Champion Graduation Quiz!",
-        quiz: [
-          {
-            question: "🎮 Which Loop Forest skills did your Rock Paper Scissors game use?",
-            options: ["Only if-else statements", "for loops, while loops, lists, strings, and random", "Just basic math", "Only variables and functions"],
-            correctIndex: 1,
-            explanation: "🏆 Perfect! Your championship game used the COMPLETE Loop Forest toolkit: for loops (rounds), while loops (game continuation), lists (history), strings (display), random (computer choices), and if-else (game logic). You're a programming champion! 你掌握了完整的编程工具包！",
-          },
-          {
-            question: "🤖 How is Rock Paper Scissors related to AI and computer science?",
-            options: ["It's just a simple game", "It teaches game theory, decision trees, and pattern recognition", "It only uses basic math", "It has no real applications"],
-            correctIndex: 1,
-            explanation: "🤖 Excellent insight! Rock Paper Scissors is used in computer science research for game theory, AI decision-making, and pattern recognition. Your simple game contains the same logic used in advanced AI systems! 包含了高级AI系统的逻辑！",
-          },
-          {
-            question: "🔥 What's the most impressive part of your programming journey so far?",
-            options: ["Learning individual commands", "Building complete interactive programs that combine multiple concepts", "Memorizing syntax", "Using a computer"],
-            correctIndex: 1,
-            explanation: "🔥 YES! You've evolved from learning individual commands to building complete, interactive programs that combine loops, lists, strings, conditionals, and random elements. You're thinking like a real software developer now! 你现在像真正的软件开发者一样思考！",
-          },
-        ],
+        quiz: QUIZ_DATA["2-6"],
       },
     ],
   },
@@ -3605,32 +3392,7 @@ print(f"\\n🎉 Calculator complete! Total area processed: {total:.2f}")
       {
         type: "quiz",
         content: "🧱 Function Factory Master Quiz!",
-        quiz: [
-          {
-            question: "🐍 Py asks: What's the main advantage of functions?",
-            options: ["They make code longer", "They create reusable building blocks", "They slow down programs", "They use more memory"],
-            correctIndex: 1,
-            explanation: "🐍 Py: Perfect! Functions create reusable building blocks - write once, use everywhere! Just like LEGO blocks for code! 函数是代码的乐高积木！",
-          },
-          {
-            question: "🧱 What does 'return' do in a function?",
-            options: ["Prints a message", "Gives back a result to whoever called the function", "Restarts the function", "Deletes the function"],
-            correctIndex: 1,
-            explanation: "🧱 Exactly! return sends the function's result back to the caller, like a factory delivering a finished product! 返回函数的计算结果！",
-          },
-          {
-            question: "🏠 In our house builder, why is draw_square() better than writing 4 lines every time?",
-            options: ["It's shorter to type", "It's reusable, readable, and easier to modify", "It runs faster", "It uses less memory"],
-            correctIndex: 1,
-            explanation: "🏠 Right! Functions make code reusable (use anywhere), readable (clear purpose), and maintainable (fix in one place). That's professional programming! 专业编程的精髓！",
-          },
-          {
-            question: "🤖 Botty asks: How are functions related to AI?",
-            options: ["They're not related", "AI models are made of millions of specialized functions working together", "AI only uses loops", "Functions are too simple for AI"],
-            correctIndex: 1,
-            explanation: "🤖 Botty: Brilliant! AI models like ChatGPT are made of millions of functions - each doing a small specialized job. You're learning the building blocks of AI! AI模型就是无数个函数的组合！",
-          },
-        ],
+        quiz: QUIZ_DATA["3-1"],
       },
     ],
   },
@@ -4025,32 +3787,7 @@ print("\\n🔒 Mission assignment complete!")
       {
         type: "quiz",
         content: "🕵️ Secret Agent Dictionary Master Quiz!",
-        quiz: [
-          {
-            question: "🐍 Py asks: How do you access Agent 007's real name from the dictionary?",
-            options: ["agent_007[0]", "agent_007['real_name']", "agent_007.real_name", "agent_007(real_name)"],
-            correctIndex: 1,
-            explanation: "🐍 Py: Perfect! Use dictionary['key'] to access values. Much clearer than remembering position numbers! 用键名访问字典值！",
-          },
-          {
-            question: "🕵️ What's the main advantage of dictionaries over lists for agent profiles?",
-            options: ["Dictionaries are faster", "Meaningful key names instead of position numbers", "Dictionaries use less memory", "Dictionaries are newer"],
-            correctIndex: 1,
-            explanation: "🕵️ Exactly! 'clearance_level' is much clearer than 'position 3'. Dictionaries make data self-documenting! 键名比位置更有意义！",
-          },
-          {
-            question: "🔍 How do you check if an agent exists in the database?",
-            options: ["agent in database", "database.has(agent)", "database.contains(agent)", "database.find(agent)"],
-            correctIndex: 0,
-            explanation: "🔍 Right! 'if key in dictionary:' checks if a key exists. Essential for preventing database errors! 检查键是否存在防止错误！",
-          },
-          {
-            question: "🤖 Botty asks: How are dictionaries used in real-world systems?",
-            options: ["Only in Python programs", "JSON APIs, databases, configuration files, web data", "Just for games", "Only for storing numbers"],
-            correctIndex: 1,
-            explanation: "🤖 Botty: Brilliant! Dictionaries (key-value pairs) power the internet - JSON APIs, databases, config files, web forms. You're learning universal data structures! 字典结构无处不在！",
-          },
-        ],
+        quiz: QUIZ_DATA["3-2"],
       },
     ],
   },
@@ -4475,32 +4212,7 @@ while True:
       {
         type: "quiz",
         content: "🏆 High Score File Master Quiz!",
-        quiz: [
-          {
-            question: "🔧 Chip asks: What's the main difference between variables and files?",
-            options: ["Files are faster", "Variables survive program restarts, files don't", "Files survive program restarts, variables don't", "No difference"],
-            correctIndex: 2,
-            explanation: "🔧 Chip: Perfect! Files are PERSISTENT - they survive restarts, while variables are TEMPORARY - gone when the program ends. Essential for saving game progress! 文件是持久存储！",
-          },
-          {
-            question: "💾 What does 'with open(filename, \"a\")' do?",
-            options: ["Opens file and erases everything", "Opens file to add new content at the end", "Opens file to read only", "Creates a new file"],
-            correctIndex: 1,
-            explanation: "💾 Right! 'a' means APPEND - add new content without erasing existing data. Perfect for growing high score lists! append模式在末尾添加内容！",
-          },
-          {
-            question: "🏆 Why is exception handling important when working with files?",
-            options: ["Files are unreliable", "File operations can fail (missing files, permissions, etc.)", "It makes code faster", "It's required by Python"],
-            correctIndex: 1,
-            explanation: "🏆 Exactly! File operations can fail for many reasons - file doesn't exist, no permissions, disk full, etc. Good programmers always handle these cases gracefully! 文件操作需要异常处理！",
-          },
-          {
-            question: "🤖 Botty asks: How are files used in AI and real applications?",
-            options: ["Only for simple text storage", "Configuration, data storage, model saving, logs, backups", "Just for game scores", "AI doesn't use files"],
-            correctIndex: 1,
-            explanation: "🤖 Botty: Brilliant! Files are everywhere - AI model weights, configuration settings, training data, log files, backups. Every serious application depends on file I/O! 文件是现代应用的基础！",
-          },
-        ],
+        quiz: QUIZ_DATA["3-3"],
       },
     ],
   },
@@ -4573,14 +4285,7 @@ while True:
       {
         type: "quiz",
         content: "🔍 Bug Detective Quiz!",
-        quiz: [
-          {
-            question: "🔍 What's the best way to find a logic error?",
-            options: ["Guess randomly", "Add print statements to trace values", "Rewrite everything", "Ask someone else"],
-            correctIndex: 1,
-            explanation: "🔍 Adding print statements helps you trace what your program is actually doing!",
-          },
-        ],
+        quiz: QUIZ_DATA["3-4"],
       },
     ],
   },
@@ -4660,14 +4365,7 @@ while True:
       {
         type: "quiz",
         content: "🛡️ Error Shield Quiz!",
-        quiz: [
-          {
-            question: "🛡️ What does try-except do?",
-            options: ["Prevents all errors", "Catches and handles specific errors gracefully", "Fixes bugs automatically", "Makes code run faster"],
-            correctIndex: 1,
-            explanation: "🛡️ try-except catches specific errors and lets you handle them gracefully instead of crashing!",
-          },
-        ],
+        quiz: QUIZ_DATA["3-5"],
       },
     ],
   },
@@ -4747,14 +4445,7 @@ while True:
       {
         type: "quiz",
         content: "🧰 Module Quiz!",
-        quiz: [
-          {
-            question: "🧰 How do you use code from another file?",
-            options: ["copy and paste", "import module_name", "download module_name", "link module_name"],
-            correctIndex: 1,
-            explanation: "🧰 Use 'import module_name' to bring in code from other files or libraries!",
-          },
-        ],
+        quiz: QUIZ_DATA["3-6"],
       },
     ],
   },
@@ -4830,14 +4521,7 @@ while True:
       {
         type: "quiz",
         content: "🏗️ Builder City Graduation Quiz!",
-        quiz: [
-          {
-            question: "🏗️ What makes you a 'builder' now?",
-            options: ["You can write longer programs", "You can create reusable tools and organize complex data", "You memorized more functions", "You can type faster"],
-            correctIndex: 1,
-            explanation: "🏗️ You're now a builder because you create reusable functions, organize data with dictionaries, and build systems that persist!",
-          },
-        ],
+        quiz: QUIZ_DATA["3-7"],
       },
     ],
   },
@@ -4910,14 +4594,7 @@ while True:
       {
         type: "quiz",
         content: "📊 Math Canvas Quiz!",
-        quiz: [
-          {
-            question: "📊 Why is data visualization important?",
-            options: ["It looks pretty", "It helps us see patterns in data", "It's required by computers", "It uses more memory"],
-            correctIndex: 1,
-            explanation: "📊 Visualization helps us see patterns and trends that are hidden in raw numbers!",
-          },
-        ],
+        quiz: QUIZ_DATA["4-1"],
       },
     ],
   },
@@ -4998,14 +4675,7 @@ while True:
       {
         type: "quiz",
         content: "🎲 Random World Quiz!",
-        quiz: [
-          {
-            question: "🎲 How does randomness help in programming?",
-            options: ["It makes programs unpredictable", "It enables simulations, games, and AI learning", "It breaks programs", "It's only for entertainment"],
-            correctIndex: 1,
-            explanation: "🎲 Randomness enables simulations, game variety, AI exploration, and statistical modeling!",
-          },
-        ],
+        quiz: QUIZ_DATA["4-2"],
       },
     ],
   },
@@ -5087,14 +4757,7 @@ while True:
       {
         type: "quiz",
         content: "🚀 Physics Simulator Quiz!",
-        quiz: [
-          {
-            question: "🚀 How do physics engines in games work?",
-            options: ["Magic", "Mathematical formulas calculated many times per second", "Random guessing", "Pre-recorded movements"],
-            correctIndex: 1,
-            explanation: "🚀 Physics engines use mathematical formulas calculated 60+ times per second to simulate realistic motion!",
-          },
-        ],
+        quiz: QUIZ_DATA["4-3"],
       },
     ],
   },
@@ -5174,14 +4837,7 @@ while True:
       {
         type: "quiz",
         content: "🔍 Data Detective Quiz!",
-        quiz: [
-          {
-            question: "🔍 What can data analysis reveal?",
-            options: ["Nothing useful", "Hidden patterns and trends", "Only obvious information", "Random noise"],
-            correctIndex: 1,
-            explanation: "🔍 Data analysis reveals hidden patterns, trends, and insights that aren't obvious from raw data!",
-          },
-        ],
+        quiz: QUIZ_DATA["4-4"],
       },
     ],
   },
@@ -5261,14 +4917,7 @@ while True:
       {
         type: "quiz",
         content: "🔐 Cryptography Quiz!",
-        quiz: [
-          {
-            question: "🔐 Why is cryptography important?",
-            options: ["It's not important", "It protects private information from unauthorized access", "It makes computers slower", "It's only for spies"],
-            correctIndex: 1,
-            explanation: "🔐 Cryptography protects your passwords, messages, and personal data from being stolen!",
-          },
-        ],
+        quiz: QUIZ_DATA["4-5"],
       },
     ],
   },
@@ -5344,14 +4993,7 @@ while True:
       {
         type: "quiz",
         content: "🧪 Science Lab Graduation Quiz!",
-        quiz: [
-          {
-            question: "🧪 How does programming help scientists?",
-            options: ["It doesn't help", "It automates calculations, simulations, and data analysis", "Only for writing reports", "Just for making charts"],
-            correctIndex: 1,
-            explanation: "🧪 Programming automates complex calculations, runs simulations, analyzes data, and helps scientists focus on discovery!",
-          },
-        ],
+        quiz: QUIZ_DATA["4-6"],
       },
     ],
   },
@@ -5441,14 +5083,7 @@ The difference? **Scale and complexity!**`,
       {
         type: "quiz",
         content: "🤖 AI Understanding Quiz!",
-        quiz: [
-          {
-            question: "🤖 What is AI fundamentally based on?",
-            options: ["Magic", "Advanced mathematics and programming", "Alien technology", "Random guessing"],
-            correctIndex: 1,
-            explanation: "🤖 AI is advanced mathematics and programming! Every 'intelligent' behavior comes from mathematical calculations.",
-          },
-        ],
+        quiz: QUIZ_DATA["5-1"],
       },
     ],
   },
@@ -5526,14 +5161,7 @@ AI can help with:
       {
         type: "quiz",
         content: "🤝 AI Collaboration Quiz!",
-        quiz: [
-          {
-            question: "🤝 What's the best way to use AI for coding?",
-            options: ["Copy everything AI suggests without thinking", "Use AI suggestions as starting points, then review and improve", "Never use AI", "Only use AI for simple tasks"],
-            correctIndex: 1,
-            explanation: "🤝 Use AI as a starting point, then apply your programming knowledge to review, improve, and verify!",
-          },
-        ],
+        quiz: QUIZ_DATA["5-2"],
       },
     ],
   },
@@ -5614,14 +5242,7 @@ Common AI coding mistakes:
       {
         type: "quiz",
         content: "🔍 AI Critical Thinking Quiz!",
-        quiz: [
-          {
-            question: "🔍 Why is it important to review AI-generated code?",
-            options: ["AI never makes mistakes", "AI can have logic errors and miss edge cases", "It's not important", "AI is always better than humans"],
-            correctIndex: 1,
-            explanation: "🔍 AI can make subtle logic errors, use outdated methods, or miss edge cases. Human review is essential!",
-          },
-        ],
+        quiz: QUIZ_DATA["5-3"],
       },
     ],
   },
@@ -5701,14 +5322,7 @@ This is the foundation of machine learning!`,
       {
         type: "quiz",
         content: "🧠 AI Logic Quiz!",
-        quiz: [
-          {
-            question: "🧠 What's the basic pattern of AI classification?",
-            options: ["Random guessing", "Input → Processing → Output category", "Magic prediction", "Copy-paste answers"],
-            correctIndex: 1,
-            explanation: "🧠 All AI classification follows: Input (data) → Processing (analysis) → Output (category/prediction)!",
-          },
-        ],
+        quiz: QUIZ_DATA["5-4"],
       },
     ],
   },
@@ -5805,26 +5419,7 @@ This is the foundation of machine learning!`,
       {
         type: "quiz",
         content: "🏆 Final Graduation Quiz!",
-        quiz: [
-          {
-            question: "🏆 What programming concepts have you mastered?",
-            options: ["Just basic syntax", "Complete programming toolkit: variables, loops, functions, data structures, AI collaboration", "Only Python basics", "Just simple math"],
-            correctIndex: 1,
-            explanation: "🏆 You've mastered the complete programming toolkit! You can build interactive programs, process data, create tools, and collaborate with AI!",
-          },
-          {
-            question: "🤖 How has your understanding of AI changed?",
-            options: ["AI is still magic to me", "I understand AI is advanced programming using familiar concepts", "AI is too complex to understand", "AI is just for experts"],
-            correctIndex: 1,
-            explanation: "🤖 You now understand that AI is advanced programming using the same fundamental concepts you've learned — variables, loops, functions, and math at massive scale!",
-          },
-          {
-            question: "🚀 What can you build now?",
-            options: ["Only simple scripts", "Interactive applications with data processing, AI collaboration, and real-world problem solving", "Just homework assignments", "Only what tutorials teach"],
-            correctIndex: 1,
-            explanation: "🚀 You can now build real applications! Games, data analyzers, AI-assisted tools, scientific calculators — you have the complete toolkit!",
-          },
-        ],
+        quiz: QUIZ_DATA["5-5"],
       },
     ],
   },
