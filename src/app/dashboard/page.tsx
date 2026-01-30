@@ -171,7 +171,7 @@ function SkillRadar({ progress }: { progress: UserProgress }) {
 
   const dimensions = [
     { label: "🧠 Logic", labelCn: "逻辑", value: logic, color: "#22d3ee" },
-    { label: "🔧 Engineer", labelCn: "工程", value: engineering, color: "#a78bfa" },
+    { label: "🔧 Engineering", labelCn: "工程", value: engineering, color: "#a78bfa" },
     { label: "🎨 Creative", labelCn: "创造力", value: creativity, color: "#fb923c" },
     { label: "🐛 Debug", labelCn: "调试", value: debugging, color: "#4ade80" },
     { label: "⚡ Speed", labelCn: "速度", value: speed, color: "#facc15" },
