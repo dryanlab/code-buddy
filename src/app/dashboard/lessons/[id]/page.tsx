@@ -318,7 +318,7 @@ export default function LessonPage() {
         {lesson.sections.map((_, i) => (
           <button
             key={i}
-            onClick={() => setCurrentSection(i)}
+            onClick={() => { setCurrentSection(i); window.scrollTo(0, 0); }}
             className={`h-2 rounded-full transition-all ${
               i === currentSection
                 ? "w-8 bg-green-500"
@@ -384,7 +384,7 @@ export default function LessonPage() {
       {/* Section Navigation */}
       <div className="flex justify-between mt-8">
         <button
-          onClick={() => setCurrentSection(Math.max(0, currentSection - 1))}
+          onClick={() => { setCurrentSection(Math.max(0, currentSection - 1)); window.scrollTo(0, 0); }}
           disabled={currentSection === 0}
           className="px-4 py-2 text-sm bg-[var(--theme-card-bg)] text-[var(--theme-text-secondary)] rounded-lg disabled:opacity-30 hover:bg-[var(--theme-card-bg)] transition-colors"
         >
@@ -417,7 +417,7 @@ export default function LessonPage() {
           )
         ) : (
           <button
-            onClick={() => setCurrentSection(Math.min(lesson.sections.length - 1, currentSection + 1))}
+            onClick={() => { setCurrentSection(Math.min(lesson.sections.length - 1, currentSection + 1)); window.scrollTo(0, 0); }}
             className="px-6 py-2 bg-cyan-500 text-black font-bold rounded-lg hover:bg-cyan-400 transition-colors"
           >
             Next → 下一页

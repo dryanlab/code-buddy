@@ -277,7 +277,17 @@ Ready to see the Matrix? Let's make your screen look like a hacker movie! 🕶�
         emoji: "💚",
         content: `## 🎬 Your First Hacker Screen!
 
-Time to create that epic green-text hacker look! Run this code:`,
+🎯 **What you'll learn:** How to use print() to display multiple lines of text on screen.
+学习目标：如何用 print() 在屏幕上显示多行文字。
+
+Imagine you're a movie director 🎬 — each print() is one line of dialogue! The computer reads your script top to bottom and performs each line in order.
+
+🔑 **Key things to notice:**
+- Each print() creates one line of output
+- Text inside quotes is displayed exactly as written
+- Comments (# lines) are ignored by Python
+
+👀 Try changing the messages to create your own hacker story!`,
         code: `# 🐍 Py: "Welcome to the Matrix! 💊"
 print("🟢 SYSTEM BREACH DETECTED 🟢")
 print("💻 Accessing mainframe...")
@@ -476,7 +486,19 @@ print("Then they flew to Mars at " + adjective + " speed!")
       {
         type: "code",
         emoji: "🎪",
-        content: `## 🎪 The Ultimate Mad Libs Story Generator!`,
+        content: `## 🎪 The Ultimate Mad Libs Story Generator!
+
+🎯 **What you'll learn:** How to combine input(), variables, and string concatenation (+) to build dynamic stories.
+学习目标：如何结合 input()、变量和字符串拼接（+）来构建动态故事。
+
+Think of this like a recipe 🧑‍🍳 — first you gather ingredients (input), store them in bowls (variables), then mix them together (+) into a delicious story!
+
+🔑 **Key things to notice:**
+- input() pauses the program and waits for the user to type
+- Each answer gets stored in a named variable
+- The + operator glues strings together like tape 🔗
+
+👀 Try adding more input() calls for extra story ingredients!`,
         code: `# 🎪 Welcome to the Mad Libs Circus!
 print("🎪 WELCOME TO MAD LIBS CIRCUS! 🎪")
 print("I need some words to create a HILARIOUS story!")
@@ -659,7 +681,19 @@ Try figuring it out before looking at the code below! 🧮`,
       {
         type: "code",
         emoji: "🍕",
-        content: `## 🍕 Pizza Party Calculator Supreme!`,
+        content: `## 🍕 Pizza Party Calculator Supreme!
+
+🎯 **What you'll learn:** How to use // (floor division) and % (modulo) to solve real sharing problems.
+学习目标：如何用 //（整除）和 %（取余）解决真实的分配问题。
+
+Dividing pizza is the perfect analogy! // tells you how many whole slices each person gets, and % tells you how many are left over. It's like dealing cards 🃏 — deal evenly, then count what's left.
+
+🔑 **Key things to notice:**
+- \`//\` gives whole number results (no decimals)
+- \`%\` gives the remainder after division
+- \`str()\` converts numbers to text for printing
+
+👀 Change the number of slices or friends and see how the results change!`,
         code: `# 🍕 Welcome to Pizza Math Central!
 print("🍕 PIZZA PARTY CALCULATOR 🍕")
 print("=" * 35)
@@ -696,7 +730,19 @@ print("Cheese awesomeness level: " + str(cheese_layers))
       {
         type: "code",
         emoji: "💰",
-        content: `## 💰 Pizza Budget Calculator`,
+        content: `## 💰 Pizza Budget Calculator
+
+🎯 **What you'll learn:** How to combine math operators for real-world budget calculations.
+学习目标：如何组合数学运算符进行实际的预算计算。
+
+This is what real apps do! 💳 Your phone's calculator, shopping apps, even games — they all use these same math operations under the hood.
+
+🔑 **Key things to notice:**
+- \`int()\` converts decimals to whole numbers (chops off the decimal)
+- \`round(number, 2)\` keeps only 2 decimal places (for money!)
+- Percentage formula: \`value * percent / 100\`
+
+👀 Try changing the budget or pizza price!`,
         code: `# 💰 How much pizza can we afford?
 print("💰 PIZZA BUDGET CALCULATOR 💰")
 
@@ -852,7 +898,17 @@ Imagine you have a **magic turtle** 🐢 that can draw anything you command:
         emoji: "🟩",
         content: `## 🟩 Your First Turtle Drawing - Perfect Square!
 
-🐢 **Click Run to see the turtle draw!** 点击运行看海龟画图！`,
+🎯 **What you'll learn:** How to use turtle graphics commands and a for loop to draw shapes.
+学习目标：如何使用海龟绘图命令和 for 循环画图形。
+
+The turtle is like a robot artist 🤖🎨 — it follows your movement instructions exactly. A square is just: go forward, turn 90°, repeat 4 times!
+
+🔑 **Key things to notice:**
+- \`import turtle\` loads the drawing toolbox
+- \`for side in range(4):\` repeats the indented code 4 times
+- forward() moves, right() turns — that's it!
+
+👀 Click Run to see the turtle draw! 点击运行看海龟画图！`,
         code: `# 🐢 Turtle Square Drawing Masterpiece!
 import turtle
 
@@ -903,7 +959,17 @@ turtle.done()
         emoji: "🔺",
         content: `## 🔺 Challenge: Triangle and Colorful Shapes!
 
-💻 **Copy this into Thonny and run it locally!**`,
+🎯 **What you'll learn:** How to use lists and nested loops to create colorful multi-shape drawings.
+学习目标：如何用列表和嵌套循环创建多彩的多图形绘画。
+
+This is like having a box of crayons 🖍️ — you pick a color, draw a shape, pick another color, draw another shape. The outer loop changes colors, the inner loop draws each triangle!
+
+🔑 **Key things to notice:**
+- \`colors[i]\` picks a color from the list by position
+- Nested loops = a loop inside a loop (one for shapes, one for sides)
+- \`penup()\` / \`pendown()\` = lift/lower the pen to move without drawing
+
+👀 Try changing 120 to other angles or 3 to other numbers!`,
         code: `# 🌈 Rainbow Shape Artist!
 import turtle
 
@@ -1144,7 +1210,19 @@ This step-by-step checking is exactly what if-else statements do!`,
       {
         type: "code",
         emoji: "🎢",
-        content: `## 🎢 Rollercoaster Safety System v1.0`,
+        content: `## 🎢 Rollercoaster Safety System v1.0
+
+🎯 **What you'll learn:** How to use if/else with boolean variables and the \`and\` operator for multi-condition checks.
+学习目标：如何用 if/else 配合布尔变量和 and 运算符进行多条件检查。
+
+This is how real safety systems work! 🛡️ Like an airport security checkpoint — you must pass ALL checks (ID ✅ AND boarding pass ✅) before you can board.
+
+🔑 **Key things to notice:**
+- \`int(input(...))\` converts typed text into a number
+- Boolean variables (True/False) store check results for later
+- \`and\` means BOTH conditions must be True
+
+👀 Try different heights and gear answers to see all possible outcomes!`,
         code: `# 🎢 MEGA LOOP ROLLERCOASTER SAFETY INSPECTOR
 print("🎪 Welcome to MegaFun Amusement Park!")
 print("🎢 Mega Loop Coaster Safety Check")
@@ -1188,7 +1266,19 @@ else:
       {
         type: "code",
         emoji: "🎡",
-        content: `## 🎡 Advanced Multi-Ride Safety System`,
+        content: `## 🎡 Advanced Multi-Ride Safety System
+
+🎯 **What you'll learn:** How to use multiple independent if/else blocks to check different rules.
+学习目标：如何使用多个独立的 if/else 代码块检查不同规则。
+
+Imagine a theme park map 🗺️ with different rides — each ride has its own rules. Your code checks them all, one by one, like a safety inspector walking through the park.
+
+🔑 **Key things to notice:**
+- Each ride has its OWN if/else block (they're independent!)
+- \`and\` combines two conditions: age AND height must both pass
+- Different rides = different thresholds
+
+👀 Try entering different ages and heights to unlock different rides!`,
         code: `# 🎡 MULTI-RIDE SAFETY INSPECTOR 3000!
 print("🎪 ═══ MULTI-RIDE SAFETY CHECK ═══")
 
@@ -1350,7 +1440,19 @@ Let's build a **Text Adventure Game** — the same genre that inspired modern AI
       {
         type: "code",
         emoji: "🏗️",
-        content: `## Game Foundation - Setup & Introduction`,
+        content: `## Game Foundation - Setup & Introduction
+
+🎯 **What you'll learn:** How to set up a game with variables, booleans, and user input — the foundation of every game.
+学习目标：如何用变量、布尔值和用户输入搭建游戏基础——每个游戏的起点。
+
+Every game starts the same way: introduce the story, get player info, and set up the scoreboard 🎮. Think of this as building the stage before the actors perform!
+
+🔑 **Key things to notice:**
+- Boolean variables (True/False) track what the player has/hasn't done
+- \`gold_coins = 0\` and \`courage_points = 50\` set starting stats
+- \`str()\` converts numbers to text for display
+
+👀 This is Part 1 — the setup. Watch how these variables get used later!`,
         code: `# 🎮 ESCAPE THE MYSTIC CASTLE
 
 # A complete text adventure game using all our skills!
@@ -1383,7 +1485,19 @@ print()`,
       {
         type: "code",
         emoji: "🎮",
-        content: `## 🎮 Mini Challenge: Combine Everything!`,
+        content: `## 🎮 Mini Challenge: Combine Everything!
+
+🎯 **What you'll learn:** How to combine variables, math, and if/else in one program — the core of game logic.
+学习目标：如何在一个程序中组合变量、数学运算和 if/else——游戏逻辑的核心。
+
+This is like a mini video game engine ⚙️ — store data (variables), do math (damage calculation), then make decisions (if/else). Every game works this way!
+
+🔑 **Key things to notice:**
+- \`hp = hp - damage\` updates a variable using its old value
+- \`str()\` converts numbers so they can join text with +
+- The if/else checks the NEW value of hp after damage
+
+👀 Try changing damage to different values and predict the output!`,
         code: `# Use variables, math, and if-else together!
 player = "Hero"
 hp = 100
@@ -1538,7 +1652,17 @@ for side in range(4):
         emoji: "🔺",
         content: `## 🔺 Polygon Factory - Any Shape You Want!
 
-🐢 **Click Run to see the turtle draw!** 点击运行看海龟画图！`,
+🎯 **What you'll learn:** How to use a for loop with a calculated angle to draw ANY regular polygon.
+学习目标：如何用 for 循环和计算出的角度画任意正多边形。
+
+Here's the magic formula: turn angle = 360° ÷ number of sides 🔮. A square? 360÷4=90°. A hexagon? 360÷6=60°. With this one formula, you can draw ANY shape!
+
+🔑 **Key things to notice:**
+- \`360 / sides\` calculates the turn angle automatically
+- \`range(sides)\` repeats exactly the right number of times
+- Same code structure works for 3 sides or 100 sides!
+
+👀 Click Run to see the turtle draw! Try changing the number of sides!`,
         code: `# 🔺 POLYGON FACTORY - Master of All Shapes!
 import turtle
 
@@ -1587,7 +1711,17 @@ turtle.done()`,
         emoji: "🌈",
         content: `## 🌈 Kaleidoscope Creator - Psychedelic Art!
 
-🐢 **Click Run to see the kaleidoscope!** 点击运行看万花筒！`,
+🎯 **What you'll learn:** How nested loops and color lists create mesmerizing repeating patterns.
+学习目标：如何用嵌套循环和颜色列表创建令人着迷的重复图案。
+
+A kaleidoscope works by repeating the same pattern with slight rotation 🔄. Our code does the same: draw, rotate a little, change color, repeat!
+
+🔑 **Key things to notice:**
+- The outer loop controls how many times the pattern repeats
+- Colors cycle through a list using \`colors[i % len(colors)]\`
+- Small angle changes between repetitions create the spiral effect
+
+👀 Click Run to see the kaleidoscope! Try changing colors or angles!`,
         code: `# 🌈 KALEIDOSCOPE CREATOR - Trippy Pattern Master!
 import turtle
 
@@ -1658,7 +1792,19 @@ turtle.done()`,
       {
         type: "code",
         emoji: "🎪",
-        content: `## 🎪 Loop Circus - Text Patterns (runs in browser!)`,
+        content: `## 🎪 Loop Circus - Text Patterns (runs in browser!)
+
+🎯 **What you'll learn:** How to use for loops with string multiplication to create visual text patterns.
+学习目标：如何用 for 循环和字符串乘法创建视觉文字图案。
+
+String multiplication is like a copy machine 📄 — \`"⭐" * 3\` makes \`"⭐⭐⭐"\`. Combine that with loops that change the count each time, and you get pyramids, diamonds, and progress bars!
+
+🔑 **Key things to notice:**
+- \`"x" * n\` repeats a string n times
+- \`range(10, 0, -1)\` counts backwards (10, 9, 8...)
+- f-strings make formatting easy: \`f"[{bar}] {percent}%"\`
+
+👀 Try changing the patterns — can you make an upside-down pyramid?`,
         code: `# 🎪 LOOP CIRCUS - Amazing Text Patterns!
 
 # This runs in the browser since it's just text!
@@ -1861,7 +2007,19 @@ Starting inventory: ["Rusty Sword", "Health Potion", "Torch"]
       {
         type: "code",
         emoji: "⚔️",
-        content: `## ⚔️ Epic RPG Adventure - Backpack Master!`,
+        content: `## ⚔️ Epic RPG Adventure - Backpack Master!
+
+🎯 **What you'll learn:** How to use Python lists as an inventory system — adding, removing, and checking items.
+学习目标：如何用 Python 列表作为背包系统——添加、删除和检查物品。
+
+A list is like a real backpack 🎒 — you can stuff things in (append), take things out (remove), check what's inside (in), and count items (len). Every RPG game uses this!
+
+🔑 **Key things to notice:**
+- \`.append()\` adds items to the end of a list
+- \`.remove()\` takes a specific item out
+- \`"item" in backpack\` checks if something is in the list (True/False)
+
+👀 Follow the adventure and watch how the backpack changes!`,
         code: `# ⚔️ LEGENDS OF THE LOST KINGDOM - Inventory System
 
 print("🏰 ═══ LEGENDS OF THE LOST KINGDOM ═══")
@@ -1930,7 +2088,19 @@ print("📊 Items:", str(len(backpack)) + "/" + str(max_capacity))
       {
         type: "code",
         emoji: "🏪",
-        content: `## 🏪 Backpack Organizer - Sort Your Loot!`,
+        content: `## 🏪 Backpack Organizer - Sort Your Loot!
+
+🎯 **What you'll learn:** How to sort, slice, and organize lists — essential data management skills.
+学习目标：如何排序、切片和整理列表——必备的数据管理技能。
+
+Organizing a list is like tidying your room 🧹 — sort alphabetically, grab the first 3 items, or reverse the order. These operations are the building blocks of search engines and databases!
+
+🔑 **Key things to notice:**
+- \`.sort()\` arranges items alphabetically/numerically
+- \`list[:3]\` grabs the first 3 items (slicing)
+- \`.reverse()\` flips the order
+
+👀 Try sorting your own list of favorite games or foods!`,
         code: `# 🏪 BACKPACK ORGANIZER - Keep Your Loot Tidy!
 
 print("🏪 Welcome to the Backpack Organizer!")
@@ -2124,7 +2294,19 @@ Let's code this step by step! 🚀`,
       {
         type: "code",
         emoji: "🎮",
-        content: `## 🎮 Number Guessing Game 2.0 - The Ultimate Version!`,
+        content: `## 🎮 Number Guessing Game 2.0 - The Ultimate Version!
+
+🎯 **What you'll learn:** How to use while loops, random numbers, and counters to build a real game.
+学习目标：如何用 while 循环、随机数和计数器构建一个真正的游戏。
+
+A while loop is like a stubborn security guard 💂 — it keeps asking "password?" until you get it right! Combined with \`random\`, you get a game that's different every time.
+
+🔑 **Key things to notice:**
+- \`while guess != secret:\` keeps looping until correct
+- \`import random\` + \`random.randint(1, 100)\` generates a mystery number
+- A counter variable tracks how many attempts
+
+👀 Try playing the game — can you guess in under 7 tries?`,
         code: `# 🎮 NUMBER GUESSING GAME 2.0 - Pro Gamer Edition!
 import random
 
@@ -2199,7 +2381,19 @@ print("\\n🎯 Thanks for playing Number Guessing Game 2.0!")
       {
         type: "code",
         emoji: "🏆",
-        content: `## 🏆 Advanced: High Score Challenge Mode!`,
+        content: `## 🏆 Advanced: High Score Challenge Mode!
+
+🎯 **What you'll learn:** How to use loops within loops and track best scores across multiple rounds.
+学习目标：如何使用循环嵌套并跨多轮追踪最佳成绩。
+
+This is how arcade games work! 🕹️ An outer loop runs multiple rounds, while the inner loop handles each guessing attempt. A "best score" variable remembers your record across all rounds.
+
+🔑 **Key things to notice:**
+- Outer for loop = multiple rounds; inner while loop = guessing
+- \`min()\` finds the smallest number (best/fewest attempts)
+- Variables outside the loop persist between rounds
+
+👀 Can you beat your own high score?`,
         code: `# 🏆 HIGH SCORE CHALLENGE - Multiple Rounds!
 import random
 
@@ -2400,7 +2594,19 @@ for row in range(5):        # Outer: 5 rows
       {
         type: "code",
         emoji: "⭐",
-        content: `## ⭐ Star Pattern Factory - Your First Masterpieces!`,
+        content: `## ⭐ Star Pattern Factory - Your First Masterpieces!
+
+🎯 **What you'll learn:** How nested loops (a loop inside a loop) create 2D patterns row by row.
+学习目标：如何用嵌套循环（循环中的循环）逐行创建二维图案。
+
+Think of it like a typewriter 📝 — the outer loop moves to a new line (row), and the inner loop types characters across (columns). Row by row, a pattern appears!
+
+🔑 **Key things to notice:**
+- Outer loop = which row we're on
+- Inner loop = what to print on that row
+- String multiplication \`"⭐" * n\` is a shortcut for repeating
+
+👀 Try changing the range numbers to make bigger or different patterns!`,
         code: `# ⭐ STAR PATTERN FACTORY - Nested Loop Magic!
 
 print("🌟 Welcome to the Star Pattern Factory! 🌟")
@@ -2449,7 +2655,19 @@ print("\\n✨ Pattern Factory Complete! Wasn't that AMAZING?")
       {
         type: "code",
         emoji: "💎",
-        content: `## 💎 Advanced Pattern Academy - Diamond & Pyramid Masters!`,
+        content: `## 💎 Advanced Pattern Academy - Diamond & Pyramid Masters!
+
+🎯 **What you'll learn:** How to calculate spaces and symbols mathematically to create centered patterns.
+学习目标：如何通过数学计算空格和符号来创建居中图案。
+
+A diamond shape is just two pyramids stacked! 💎 The secret is controlling spaces: more spaces = more centered. It's math + art working together.
+
+🔑 **Key things to notice:**
+- Spaces decrease as stars increase (they add up to a constant!)
+- The top half counts up, the bottom half counts down
+- \`" " * (n - i)\` creates the right amount of spacing
+
+👀 Can you figure out the math pattern before reading the code?`,
         code: `# 💎 ADVANCED PATTERN ACADEMY - For Pattern Ninjas!
 
 print("💎 ADVANCED PATTERN ACADEMY 💎")
@@ -2523,7 +2741,19 @@ print("\\n🏆 You've mastered advanced patterns! You're a nested loop ninja!")
       {
         type: "code",
         emoji: "🎮",
-        content: `## 🎮 Interactive Pattern Generator - Build Your Own!`,
+        content: `## 🎮 Interactive Pattern Generator - Build Your Own!
+
+🎯 **What you'll learn:** How to use user input to customize loop behavior — making programs interactive.
+学习目标：如何用用户输入来定制循环行为——让程序变得交互化。
+
+This is like a pattern vending machine 🎰 — you choose the size and style, and the loops generate it for you! Input controls what the loops create.
+
+🔑 **Key things to notice:**
+- \`int(input(...))\` turns user text into a number for range()
+- The same loop code creates different results based on input
+- This is how customizable software works!
+
+👀 Try different sizes and see how the patterns scale!`,
         code: `# 🎮 BUILD YOUR OWN PATTERN GENERATOR!
 
 print("🎮 INTERACTIVE PATTERN GENERATOR")
@@ -2739,7 +2969,19 @@ Try figuring it out before seeing the code! 🧠`,
       {
         type: "code",
         emoji: "🕵️",
-        content: `## 🕵️ Caesar Cipher Encryption Machine!`,
+        content: `## 🕵️ Caesar Cipher Encryption Machine!
+
+🎯 **What you'll learn:** How to use string indexing, loops, and the \`in\` operator to encrypt messages character by character.
+学习目标：如何用字符串索引、循环和 in 运算符逐字符加密消息。
+
+Caesar Cipher is one of the oldest codes in history! 🏛️ Julius Caesar used it to send secret military messages. Each letter shifts forward by a fixed number — A becomes D (shift 3), B becomes E, etc.
+
+🔑 **Key things to notice:**
+- \`.find()\` locates a character's position in the alphabet
+- Modulo \`% 26\` wraps Z back to A (circular shifting!)
+- Non-letter characters pass through unchanged
+
+👀 Try encrypting your name and then decoding it!`,
         code: `# 🕵️ SECRET AGENT ENCRYPTION MACHINE v2.0!
 
 print("🔐 ═══ SECRET AGENT HEADQUARTERS ═══")
@@ -2788,7 +3030,19 @@ print("🌐 Modern internet uses much stronger encryption!")
       {
         type: "code",
         emoji: "🔓",
-        content: `## 🔓 Message Decoder - Break the Code!`,
+        content: `## 🔓 Message Decoder - Break the Code!
+
+🎯 **What you'll learn:** How to reverse an encryption by shifting letters in the opposite direction.
+学习目标：如何通过反方向移动字母来反转加密。
+
+Decoding is just encrypting in reverse! 🔄 If the encoder shifted +3, the decoder shifts -3. Same code, opposite direction. This is the foundation of all cryptography!
+
+🔑 **Key things to notice:**
+- Decoding uses the SAME logic as encoding, just subtract instead of add
+- A brute-force decoder tries ALL 26 shifts to crack unknown messages
+- \`for shift in range(26):\` systematically tries every possibility
+
+👀 Can you decode a secret message from a friend?`,
         code: `# 🔓 SECRET MESSAGE DECODER - Crack Any Code!
 
 print("🔓 MESSAGE DECODER ACTIVATED!")
@@ -2852,7 +3106,19 @@ print("🤖 AI models encrypt their training data too!")
       {
         type: "code",
         emoji: "🎨",
-        content: `## 🎨 String Art Creator - Text Transformation Magic!`,
+        content: `## 🎨 String Art Creator - Text Transformation Magic!
+
+🎯 **What you'll learn:** How to use string methods like .upper(), .replace(), and slicing to transform text.
+学习目标：如何用字符串方法如 .upper()、.replace() 和切片来变换文字。
+
+Strings are like clay 🏺 — you can reshape them! Upper case, reverse, replace characters, extract parts. These are the tools that power text editors, search engines, and chat filters.
+
+🔑 **Key things to notice:**
+- \`.upper()\` / \`.lower()\` change case without changing content
+- \`.replace("old", "new")\` swaps text patterns
+- \`text[::-1]\` reverses a string (slicing trick!)
+
+👀 Try transforming your own name or favorite phrase!`,
         code: `# 🎨 STRING ART CREATOR - Transform Text Into Art!
 
 print("🎨 STRING ART CREATOR")
@@ -3076,7 +3342,19 @@ Time to prove your skills with the ULTIMATE project that combines everything:
       {
         type: "code",
         emoji: "🪨",
-        content: `## 🪨📄✂️ Rock Paper Scissors Championship Engine!`,
+        content: `## 🪨📄✂️ Rock Paper Scissors Championship Engine!
+
+🎯 **What you'll learn:** How to use random.choice(), while loops, and if/elif/else for game logic.
+学习目标：如何用 random.choice()、while 循环和 if/elif/else 实现游戏逻辑。
+
+This is a complete game engine! 🎮 The computer picks randomly (AI opponent), you pick your move, and if/elif/else determines who wins. It's the same structure as turn-based games.
+
+🔑 **Key things to notice:**
+- \`random.choice([...])\` picks a random item from a list
+- Winning conditions use \`and\` to check two things at once
+- A while loop keeps the game running until someone quits
+
+👀 Play a few rounds — does the computer seem random?`,
         code: `# 🏆 ROCK PAPER SCISSORS CHAMPIONSHIP v2.0!
 import random
 
@@ -3189,7 +3467,19 @@ print("\\n🎮 Thanks for playing Rock Paper Scissors Championship!")
       {
         type: "code",
         emoji: "📊",
-        content: `## 📊 Advanced Statistics & Tournament Mode!`,
+        content: `## 📊 Advanced Statistics & Tournament Mode!
+
+🎯 **What you'll learn:** How to track statistics with counters and calculate percentages from game data.
+学习目标：如何用计数器追踪统计数据并从游戏数据中计算百分比。
+
+Every esports game tracks stats! 📈 Win rate, streak, total games — it's all just counters and math. This is how leaderboards and analytics dashboards work.
+
+🔑 **Key things to notice:**
+- Counter variables (wins, losses, draws) increment with \`+= 1\`
+- Win rate = \`wins / total * 100\` (percentage formula)
+- Statistics persist across rounds because variables live outside the loop
+
+👀 Play 10+ rounds and check your win rate — is it close to 33%?`,
         code: `# 📊 ADVANCED ROCK PAPER SCISSORS - Tournament Edition!
 import random
 
@@ -3666,7 +3956,19 @@ turtle.done()`,
       {
         type: "code",
         emoji: "🧮",
-        content: `## 🧮 Function Calculator - Building Blocks for Math!`,
+        content: `## 🧮 Function Calculator - Building Blocks for Math!
+
+🎯 **What you'll learn:** How to use \`return\` to make functions that give back results you can use.
+学习目标：如何用 return 让函数返回可以使用的结果。
+
+So far, functions just DID things (printed, drew). But with \`return\`, functions become like vending machines 🎰 — put something in, get something back! That's how real calculators and apps work.
+
+🔑 **Key things to notice:**
+- \`return value\` sends a result BACK to where the function was called
+- You can store returned values: \`result = add(3, 5)\`
+- Functions with return values can be used inside other expressions
+
+👀 Try building your own math functions!`,
         code: `# 🧮 FUNCTION CALCULATOR - Math Building Blocks!
 
 print("🧮 FUNCTION CALCULATOR FACTORY!")
@@ -3941,7 +4243,19 @@ agent_007 = {
       {
         type: "code",
         emoji: "📋",
-        content: `## 📋 Agent Database - Create Secret Profiles!`,
+        content: `## 📋 Agent Database - Create Secret Profiles!
+
+🎯 **What you'll learn:** How to use dictionaries to store structured data with key-value pairs.
+学习目标：如何用字典存储键值对形式的结构化数据。
+
+A dictionary is like a real ID card 🪪 — it has labeled fields (name, age, code_name) each with a value. Unlike lists which use number positions, dictionaries use meaningful names!
+
+🔑 **Key things to notice:**
+- \`{"key": "value"}\` creates a dictionary
+- \`agent["name"]\` accesses a value by its key
+- Dictionaries can hold any type: strings, numbers, lists, even other dicts!
+
+👀 Try creating a dictionary for your own secret agent profile!`,
         code: `# 🕵️ SECRET AGENT DATABASE SYSTEM v2.0!
 
 print("🕵️ ═══ SECRET AGENT HEADQUARTERS ═══")
@@ -4061,7 +4375,19 @@ print("\\n🔒 Database operations complete!")
       {
         type: "code",
         emoji: "🔍",
-        content: `## 🔍 Mission Assignment System - Advanced Dictionary Operations!`,
+        content: `## 🔍 Mission Assignment System - Advanced Dictionary Operations!
+
+🎯 **What you'll learn:** How to loop through, update, and search dictionaries for complex operations.
+学习目标：如何遍历、更新和搜索字典以进行复杂操作。
+
+Now dictionaries get serious! 🕵️ You can loop through all agents, filter by skill level, update records — this is exactly how databases work in real apps like Instagram or Spotify.
+
+🔑 **Key things to notice:**
+- \`.items()\` lets you loop through both keys AND values
+- \`.keys()\` and \`.values()\` give you just one side
+- \`if key in dict:\` checks if a key exists before accessing it
+
+👀 Try adding new agents and assigning them missions!`,
         code: `# 🔍 MISSION ASSIGNMENT SYSTEM - Advanced Agent Operations!
 
 print("🎯 MISSION ASSIGNMENT SYSTEM")
@@ -4371,7 +4697,19 @@ Let's build this step by step! 🚀`,
       {
         type: "code",
         emoji: "📝",
-        content: `## 📝 High Score Recorder - Writing Hall of Fame!`,
+        content: `## 📝 High Score Recorder - Writing Hall of Fame!
+
+🎯 **What you'll learn:** How to write data to files so it persists even after the program ends.
+学习目标：如何把数据写入文件，使其在程序结束后依然保存。
+
+Without files, your program's memory vanishes when it stops — like a dream you forget! 💭 File writing is how games save progress, apps store settings, and websites remember your login.
+
+🔑 **Key things to notice:**
+- \`open("file.txt", "w")\` opens a file for writing
+- \`.write()\` puts text into the file
+- \`with open(...) as f:\` automatically closes the file when done
+
+👀 Check if the file actually appears after running the code!`,
         code: `# 🏆 HIGH SCORE HALL OF FAME - File Writing System!
 
 print("🏆 HIGH SCORE HALL OF FAME")
@@ -4497,7 +4835,19 @@ print("🔄 Run this program again anytime to see your scores!")
       {
         type: "code",
         emoji: "🥇",
-        content: `## 🥇 Advanced Hall of Fame - Top 10 Leaderboard!`,
+        content: `## 🥇 Advanced Hall of Fame - Top 10 Leaderboard!
+
+🎯 **What you'll learn:** How to read, parse, sort, and rewrite files to maintain a leaderboard.
+学习目标：如何读取、解析、排序和重写文件来维护排行榜。
+
+This is how EVERY leaderboard works — from video games to school rankings! 🏆 Read old scores, add the new one, sort them, keep only the top 10, save back to file.
+
+🔑 **Key things to notice:**
+- \`.readlines()\` reads a file into a list of strings
+- \`.strip()\` removes extra spaces/newlines from each line
+- \`sorted(scores, reverse=True)\` sorts highest-first
+
+👀 Try running this multiple times and watch the leaderboard grow!`,
         code: `# 🥇 ADVANCED HALL OF FAME - Top 10 Leaderboard System!
 
 print("🥇 ADVANCED HALL OF FAME SYSTEM")
@@ -4776,6 +5126,16 @@ while True:
         emoji: "✅",
         content: `## ✅ Assert: Your Code's Self-Check
 
+🎯 **What you'll learn:** How to use \`assert\` to automatically verify your code works correctly.
+学习目标：如何用 assert 自动验证代码是否正确运行。
+
+Think of assert like a bouncer at a club 🚪 — it checks conditions at the door and stops everything if something's wrong. Way better than finding the bug 3 hours later!
+
+🔑 **Key things to notice:**
+- \`assert condition, "error message"\` crashes on purpose if condition is False
+- Great for catching impossible inputs (negative money, etc.)
+- Use during development to find bugs early
+
 \`\`\`python
 def withdraw(balance, amount):
     assert amount > 0, "Amount must be positive!"
@@ -4790,12 +5150,17 @@ wallet = withdraw(wallet, 50)   # ✅ Works: Withdrew 50, remaining: 20
 # wallet = withdraw(wallet, -5) # ❌ AssertionError: Amount must be positive!
 \`\`\`
 
-**🐍 Py:** "assert catches bugs EARLY — before they cause mysterious problems later!"`,
+👀 Try uncommenting the last line to see assert in action!`,
       },
       {
         type: "code",
         emoji: "🏷️",
         content: `## 🏷️ Type Checking for Debugging
+
+🎯 **What you'll learn:** How to use \`type()\` and \`isinstance()\` to check and debug data types.
+学习目标：如何用 type() 和 isinstance() 检查和调试数据类型。
+
+Type errors are like putting diesel in a gasoline car ⛽ — it looks similar but breaks everything! type() is your fuel tester.
 
 \`\`\`python
 def double(value):
@@ -4937,6 +5302,11 @@ print(double([1,2]))   # WARNING + None
         emoji: "🥅",
         content: `## 🥅 Multiple Exception Types
 
+🎯 **What you'll learn:** How to catch different types of errors with specific except blocks.
+学习目标：如何用特定的 except 块捕获不同类型的错误。
+
+Different errors need different fixes — like a doctor treating different symptoms 🏥. ValueError needs different handling than ZeroDivisionError!
+
 \`\`\`python
 def safe_divide(a, b):
     try:
@@ -4960,6 +5330,11 @@ safe_divide("hi", 2)  # ❌ Both values must be numbers!
         type: "code",
         emoji: "🚨",
         content: `## 🚨 Raise Your Own Errors
+
+🎯 **What you'll learn:** How to use \`raise\` to create your own custom error messages.
+学习目标：如何用 raise 创建自己的自定义错误消息。
+
+Sometimes YOU know something is wrong before Python does! 🚨 raise lets you pull the fire alarm yourself instead of waiting for the building to catch fire.
 
 \`\`\`python
 def set_age(age):
@@ -5103,6 +5478,11 @@ except TypeError as e:
         emoji: "🎲",
         content: `## 🎲 The Random Module — Fun with Chance!
 
+🎯 **What you'll learn:** How to use the random module for games, simulations, and unpredictable behavior.
+学习目标：如何用 random 模块实现游戏、模拟和不可预测的行为。
+
+Random is the spice of programming! 🎲 Without it, games would be boring (same enemy every time) and simulations would be useless.
+
 \`\`\`python
 import random
 
@@ -5127,6 +5507,11 @@ print(f"Shuffled: {cards}")
         type: "code",
         emoji: "📅",
         content: `## 📅 Useful Built-in Modules
+
+🎯 **What you'll learn:** How to import and use Python's built-in modules like math, datetime, and os.
+学习目标：如何导入和使用 Python 内置模块如 math、datetime 和 os。
+
+Python comes with batteries included! 🔋 These modules are pre-built toolboxes — no need to build everything from scratch.
 
 \`\`\`python
 # datetime — work with dates and times
@@ -5272,6 +5657,11 @@ print(text)
         emoji: "📊",
         content: `## 📊 Complete Grade Manager System
 
+🎯 **What you'll learn:** How to combine functions, dictionaries, and file I/O into a complete application.
+学习目标：如何将函数、字典和文件读写组合成一个完整的应用程序。
+
+This is your graduation project for Area 3! 🎓 Everything you've learned — functions, dicts, files — comes together into one real-world app.
+
 \`\`\`python
 import json
 
@@ -5316,6 +5706,11 @@ gm.show_report()
         type: "code",
         emoji: "💾",
         content: `## 💾 Saving Data to Files with JSON
+
+🎯 **What you'll learn:** How to use the json module to save and load structured data.
+学习目标：如何用 json 模块保存和加载结构化数据。
+
+JSON is the universal language of data! 🌐 Every app, website, and API uses it. Think of it as a standardized way to pack your Python dictionaries into a file.
 
 \`\`\`python
 import json
@@ -5499,7 +5894,17 @@ print(len(data))
         emoji: "🛸",
         content: `## 🛸 Follow Along: Alien Radar Report
 
-Let's build a complete radar scanning report! Run this code and watch the alien data come alive:`,
+🎯 **What you'll learn:** How to use enumerate(), f-strings, and conditional formatting to create data reports.
+学习目标：如何用 enumerate()、f字符串和条件格式化来创建数据报告。
+
+This is how real dashboards work! 📊 Data goes in, formatted reports come out. You'll build a bar chart using nothing but text characters — data visualization with pure Python!
+
+🔑 **Key things to notice:**
+- \`enumerate()\` gives you both the index AND the value
+- \`f"{text:>8}"\` right-aligns text (great for tables!)
+- Conditional expressions add warnings only when needed
+
+👀 Run this code and watch the alien data come alive!`,
         code: `# 🛸 SPACE STATION PYTHON — RADAR REPORT
 print("=" * 40)
 print("  🛸 ALIEN RADAR SCANNING REPORT")
@@ -7763,7 +8168,17 @@ else:
         emoji: "🐾",
         content: `## 🐾 Exercise 1: Teach Your Pet Commands! 教宠物识别命令！
 
-This pet knows 5 tricks. Type a command and watch it respond!`,
+🎯 **What you'll learn:** How to build a simple AI that maps commands to responses using dictionaries.
+学习目标：如何用字典构建一个将命令映射到响应的简单AI。
+
+This is how voice assistants start! 🗣️ Siri and Alexa use the same basic idea — match what you say to a known command, then respond. Your pet is a mini AI assistant!
+
+🔑 **Key things to notice:**
+- A dictionary maps commands → responses (the pet's "brain")
+- \`.lower().strip()\` normalizes input so "SIT" and "sit" both work
+- Unknown commands get a random confused response
+
+👀 Type commands and watch your AI pet respond!`,
         code: `# 🐾 AI Pet: Command Recognition System
 
 # AI宠物：命令识别系统
@@ -7811,7 +8226,17 @@ for cmd in test_commands:
         emoji: "😊",
         content: `## 😊 Exercise 2: Teach Your Pet to Read Emotions! 教宠物读情绪！
 
-Now let's make the pet understand how you FEEL based on keywords in your message!`,
+🎯 **What you'll learn:** How to build a simple sentiment analyzer using keyword matching.
+学习目标：如何用关键词匹配构建一个简单的情感分析器。
+
+This is basic Natural Language Processing (NLP)! 🧠 Real AI chatbots use similar (but fancier) techniques to understand if you're happy, sad, or angry. Your pet reads your mood from your words!
+
+🔑 **Key things to notice:**
+- Keywords like "happy", "sad", "angry" trigger different responses
+- \`if keyword in message:\` searches for words in text
+- Multiple keywords can match — priority order matters
+
+👀 Try typing different emotional messages and see how the pet reacts!`,
         code: `# 😊 AI Pet: Emotion Reader
 
 # AI宠物：情绪识别器
