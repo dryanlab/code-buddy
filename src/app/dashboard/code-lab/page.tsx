@@ -9,6 +9,7 @@ import type { VariableDetail, TraceStep } from "@/lib/pyodide-engine";
 import { runCpp } from "@/lib/cpp-engine";
 import { incrementCodeRun, addXP } from "@/lib/progress-store";
 import { CODE_EXERCISES, type CodeExercise } from "@/data/code-challenges";
+import { ALL_EXERCISES, type UnifiedExercise, type ExerciseLanguage } from "@/data/unified-exercises";
 import { useUserProfile } from "@/lib/useUserProfile";
 import { isPreviewMode, PREVIEW_MAX_EXERCISES } from "@/lib/preview-mode";
 import SignUpModal from "@/components/SignUpModal";
@@ -264,20 +265,19 @@ const TEMPLATES_BY_LANG: Record<ProjectLanguage, typeof PYTHON_TEMPLATES> = {
 
 // ─── Sidebar Components ────────────────────────────────────
 
-function ExerciseCard({
+function UnifiedExerciseCard({
   exercise,
   isSelected,
   onClick,
-  isRecommended,
   locked,
 }: {
-  exercise: CodeExercise;
+  exercise: UnifiedExercise;
   isSelected: boolean;
   onClick: () => void;
-  isRecommended: boolean;
   locked?: boolean;
 }) {
-  const diffBadge = exercise.difficulty === 1 ? "🟢" : exercise.difficulty === 2 ? "🟡" : "🔴";
+  const diffBadge = exercise.difficulty === "easy" ? "🟢" : exercise.difficulty === "medium" ? "🟡" : "🔴";
+  const langIcon = exercise.language === "python" ? "🐍" : "⚡";
   return (
     <motion.button
       whileHover={{ scale: 1.02 }}
@@ -290,7 +290,7 @@ function ExerciseCard({
         borderColor: isSelected
           ? "color-mix(in srgb, var(--color-primary) 30%, transparent)"
           : "var(--theme-border)",
-        opacity: locked ? 0.4 : isRecommended ? 1 : 0.7,
+        opacity: locked ? 0.4 : 1,
       }}
     >
       {locked && (
@@ -301,24 +301,22 @@ function ExerciseCard({
           🔒 Sign up
         </div>
       )}
-      {!locked && !isRecommended && (
-        <div
-          className="absolute -top-1.5 -right-1.5 text-[9px] px-1.5 py-0.5 rounded-full"
-          style={{ backgroundColor: "var(--theme-border)", color: "var(--theme-text-muted)" }}
-        >
-          🔮 Challenge
-        </div>
-      )}
       <div className="flex items-center justify-between mb-1">
-        <span className="font-bold text-xs">
-          {diffBadge} {exercise.title}
+        <span className="font-bold text-xs truncate">
+          {langIcon} {diffBadge} {exercise.title}
+        </span>
+        <span
+          className="text-[9px] px-1.5 py-0.5 rounded-full flex-shrink-0 ml-1"
+          style={{ backgroundColor: "color-mix(in srgb, var(--color-primary) 12%, transparent)", color: "var(--color-primary)" }}
+        >
+          L{exercise.level}
         </span>
       </div>
-      {exercise.fromLesson && (
-        <span className="inline-block text-[9px] px-1.5 py-0.5 rounded-full mb-1" style={{ backgroundColor: "color-mix(in srgb, var(--color-primary) 15%, transparent)", color: "var(--color-primary)" }}>
-          📚 From Lesson {exercise.fromLesson}
+      <div className="flex items-center gap-1 mb-0.5">
+        <span className="text-[9px] px-1.5 py-0.5 rounded-full" style={{ backgroundColor: "var(--theme-border)", color: "var(--theme-text-muted)" }}>
+          {exercise.category}
         </span>
-      )}
+      </div>
       <p className="text-[10px] line-clamp-1" style={{ color: "var(--theme-text-secondary)" }}>
         {exercise.description}
       </p>
@@ -518,13 +516,11 @@ export default function CodeLabPage() {
     if (projectParamHandled.current) return;
     const projectId = searchParams.get("project");
     if (projectId) {
-      const ex = CODE_EXERCISES.find((e) => e.id === projectId);
+      const ex = ALL_EXERCISES.find((e) => e.id === projectId);
       if (ex) {
         projectParamHandled.current = true;
-        // Switch to exercises tab and open the exercise
         setSidebarTab("exercises");
-        setFilterTag("projects");
-        setTimeout(() => openExercise(ex), 100);
+        setTimeout(() => openUnifiedExercise(ex), 100);
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -542,9 +538,10 @@ export default function CodeLabPage() {
   const [activeTabId, setActiveTabId] = useState("__free__");
 
   // Exercise state
-  const [selectedExercise, setSelectedExercise] = useState<CodeExercise | null>(null);
+  const [selectedExercise, setSelectedExercise] = useState<UnifiedExercise | null>(null);
   const [showHint, setShowHint] = useState(false);
   const [showSolution, setShowSolution] = useState(false);
+  const [hintIndex, setHintIndex] = useState(0);
 
   // Language
   const [activeLanguage, setActiveLanguage] = useState<ProjectLanguage>("python");
@@ -581,22 +578,19 @@ export default function CodeLabPage() {
   const userSkillIdx = SKILL_ORDER.indexOf(skillLevel);
 
   const [filterTag, setFilterTag] = useState<string>("all");
+  const [exLangFilter, setExLangFilter] = useState<"all" | ExerciseLanguage>("all");
+  const [exLevelFilter, setExLevelFilter] = useState<number>(0); // 0 = all
 
-  const sortedExercises = useMemo(() => {
-    let exercises = CODE_EXERCISES;
-    if (filterTag === "projects") {
-      exercises = exercises.filter((ex) => ex.tags.includes("project"));
-    } else if (filterTag !== "all") {
-      exercises = exercises.filter((ex) => ex.tags.includes(filterTag));
+  const filteredExercises = useMemo(() => {
+    let exercises = ALL_EXERCISES;
+    if (exLangFilter !== "all") {
+      exercises = exercises.filter((ex) => ex.language === exLangFilter);
     }
-    // Projects first, then by skill level
-    const projects = exercises.filter((ex) => ex.tags.includes("project"));
-    const nonProjects = exercises.filter((ex) => !ex.tags.includes("project"));
-    const recommended = nonProjects.filter((ex) => SKILL_ORDER.indexOf(ex.skillLevel) <= userSkillIdx);
-    const advanced = nonProjects.filter((ex) => SKILL_ORDER.indexOf(ex.skillLevel) > userSkillIdx);
-    return [...projects, ...recommended, ...advanced];
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userSkillIdx, filterTag]);
+    if (exLevelFilter > 0) {
+      exercises = exercises.filter((ex) => ex.level === exLevelFilter);
+    }
+    return exercises;
+  }, [exLangFilter, exLevelFilter]);
 
   // ─── Load projects ────────────────────────────────────────
   useEffect(() => {
@@ -830,17 +824,19 @@ export default function CodeLabPage() {
     [openTabs]
   );
 
-  const openExercise = useCallback(
-    (ex: CodeExercise) => {
+  const openUnifiedExercise = useCallback(
+    (ex: UnifiedExercise) => {
       setSelectedExercise(ex);
       setCode(ex.starterCode);
-      setActiveLanguage("python");
+      setActiveLanguage(ex.language);
       setShowHint(false);
       setShowSolution(false);
+      setHintIndex(0);
       const tabId = `ex_${ex.id}`;
       const existing = openTabs.find((t) => t.id === tabId);
       if (!existing) {
-        setOpenTabs((prev) => [...prev, { type: "exercise", id: tabId, name: ex.title }]);
+        const langIcon = ex.language === "python" ? "🐍" : "⚡";
+        setOpenTabs((prev) => [...prev, { type: "exercise", id: tabId, name: `${langIcon} ${ex.title}` }]);
       }
       setActiveTabId(tabId);
     },
@@ -873,12 +869,12 @@ export default function CodeLabPage() {
           if (p) openProject(p);
         } else if (last.type === "exercise") {
           const exId = last.id.replace("ex_", "");
-          const ex = CODE_EXERCISES.find((e) => e.id === exId);
-          if (ex) openExercise(ex);
+          const ex = ALL_EXERCISES.find((e) => e.id === exId);
+          if (ex) openUnifiedExercise(ex);
         }
       }
     },
-    [openTabs, activeTabId, projects, openFreeMode, openProject, openExercise]
+    [openTabs, activeTabId, projects, openFreeMode, openProject, openUnifiedExercise]
   );
 
   const switchTab = useCallback(
@@ -898,11 +894,11 @@ export default function CodeLabPage() {
         }
       } else if (tab.type === "exercise") {
         const exId = tab.id.replace("ex_", "");
-        const ex = CODE_EXERCISES.find((e) => e.id === exId);
+        const ex = ALL_EXERCISES.find((e) => e.id === exId);
         if (ex) {
           setSelectedExercise(ex);
           setCode(ex.starterCode);
-          setActiveLanguage("python");
+          setActiveLanguage(ex.language);
         }
       }
       setStepMode(false);
@@ -1108,33 +1104,52 @@ export default function CodeLabPage() {
               </>
             ) : (
               <>
-                <div className="flex gap-1 flex-wrap mb-1">
-                  {["all", "projects", "beginner", "intermediate", "advanced"].map((tag) => (
+                {/* Language filter */}
+                <div className="flex gap-1 mb-1">
+                  {([["all", "All"], ["python", "🐍 Python"], ["cpp", "⚡ C++"]] as const).map(([val, label]) => (
                     <button
-                      key={tag}
-                      onClick={() => setFilterTag(tag)}
+                      key={val}
+                      onClick={() => setExLangFilter(val as "all" | ExerciseLanguage)}
                       className="px-2 py-0.5 rounded-full text-[10px] font-bold transition-colors"
                       style={{
-                        backgroundColor: filterTag === tag ? "color-mix(in srgb, var(--color-primary) 20%, transparent)" : "transparent",
-                        color: filterTag === tag ? "var(--color-primary)" : "var(--theme-text-muted)",
-                        border: filterTag === tag ? "1px solid var(--color-primary)" : "1px solid var(--theme-border)",
+                        backgroundColor: exLangFilter === val ? "color-mix(in srgb, var(--color-primary) 20%, transparent)" : "transparent",
+                        color: exLangFilter === val ? "var(--color-primary)" : "var(--theme-text-muted)",
+                        border: exLangFilter === val ? "1px solid var(--color-primary)" : "1px solid var(--theme-border)",
                       }}
                     >
-                      {tag === "all" ? "All" : tag === "projects" ? "🚀 Projects" : tag.charAt(0).toUpperCase() + tag.slice(1)}
+                      {label}
                     </button>
                   ))}
                 </div>
-                {sortedExercises.map((ex, idx) => {
-                  const isRecommended = SKILL_ORDER.indexOf(ex.skillLevel) <= userSkillIdx;
+                {/* Level filter */}
+                <div className="flex gap-1 flex-wrap mb-2">
+                  {[0, 1, 2, 3, 4, 5].map((lvl) => (
+                    <button
+                      key={lvl}
+                      onClick={() => setExLevelFilter(lvl)}
+                      className="px-2 py-0.5 rounded-full text-[10px] font-bold transition-colors"
+                      style={{
+                        backgroundColor: exLevelFilter === lvl ? "color-mix(in srgb, var(--color-secondary) 20%, transparent)" : "transparent",
+                        color: exLevelFilter === lvl ? "var(--color-secondary)" : "var(--theme-text-muted)",
+                        border: exLevelFilter === lvl ? "1px solid var(--color-secondary)" : "1px solid var(--theme-border)",
+                      }}
+                    >
+                      {lvl === 0 ? "All Levels" : `L${lvl}`}
+                    </button>
+                  ))}
+                </div>
+                <div className="text-[10px] mb-1" style={{ color: "var(--theme-text-muted)" }}>
+                  {filteredExercises.length} exercises
+                </div>
+                {filteredExercises.map((ex, idx) => {
                   const exerciseLocked = preview && idx >= PREVIEW_MAX_EXERCISES;
                   return (
-                    <ExerciseCard
+                    <UnifiedExerciseCard
                       key={ex.id}
                       exercise={ex}
                       isSelected={activeTabId === `ex_${ex.id}`}
-                      isRecommended={isRecommended}
                       locked={exerciseLocked}
-                      onClick={() => exerciseLocked ? setShowSignUpModal(true) : openExercise(ex)}
+                      onClick={() => exerciseLocked ? setShowSignUpModal(true) : openUnifiedExercise(ex)}
                     />
                   );
                 })}
@@ -1252,10 +1267,19 @@ export default function CodeLabPage() {
               initial={{ height: 0, opacity: 0 }}
               animate={{ height: "auto", opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
-              className="px-3 py-2 text-xs border-b"
+              className="px-3 py-2 text-xs border-b flex items-center gap-2"
               style={{ backgroundColor: "color-mix(in srgb, var(--color-warning) 8%, var(--theme-bg))", borderColor: "var(--theme-border)" }}
             >
-              💡 {selectedExercise.hint}
+              <span>💡 {selectedExercise.hints[hintIndex] || "No hints available"}</span>
+              {selectedExercise.hints.length > 1 && (
+                <button
+                  onClick={() => setHintIndex((i) => (i + 1) % selectedExercise.hints.length)}
+                  className="text-[10px] px-1.5 py-0.5 rounded"
+                  style={{ backgroundColor: "color-mix(in srgb, var(--color-warning) 20%, transparent)", color: "var(--color-warning)" }}
+                >
+                  Next hint ({hintIndex + 1}/{selectedExercise.hints.length})
+                </button>
+              )}
             </motion.div>
           )}
 
