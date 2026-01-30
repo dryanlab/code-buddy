@@ -114,6 +114,8 @@ export interface LessonSection {
   exerciseCpp?: InlineExercise;
   concept?: ConceptData;
   challengeCpp?: CodeChallenge;
+  codeCpp?: string;
+  codeAnatomyCpp?: { line: number; label: string; labelZh?: string; description: string; descriptionZh?: string }[];
 }
 
 export interface Lesson {

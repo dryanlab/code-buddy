@@ -128,6 +128,15 @@ print(f"\\n📊 Array size: {len(numbers)}")
 print(f"Best case: 1 comparison (first element)")
 print(f"Worst case: {len(numbers)} comparisons (last or not found)")
 print(f"Average: {len(numbers)//2} comparisons")`,
+      exercise: {
+        prompt: "Write a linear search that returns the INDEX of the LAST occurrence of a target in an array. Return -1 if not found.",
+        promptZh: "写一个线性搜索，返回目标值在数组中最后一次出现的索引。未找到返回 -1。",
+        starterCode: "def find_last(arr, target):\\n    # Your code here\\n    pass\\n\\nprint(find_last([3, 1, 4, 1, 5, 1], 1))\\nprint(find_last([3, 1, 4], 9))",
+        expectedOutput: "5\\n-1",
+        hint: "Track the last found index. Don't return early — check ALL elements!",
+        hintZh: "记录最后找到的索引。不要提前返回——检查所有元素！",
+        solution: "def find_last(arr, target):\\n    last = -1\\n    for i in range(len(arr)):\\n        if arr[i] == target:\\n            last = i\\n    return last\\n\\nprint(find_last([3, 1, 4, 1, 5, 1], 1))\\nprint(find_last([3, 1, 4], 9))",
+      },
     },
     {
       type: "concept",
@@ -188,6 +197,15 @@ def find_min(arr):
 
 idx, val = find_min(data)
 print(f"\\nMinimum value: {val} at index {idx}")`,
+      exercise: {
+        prompt: "Write a function that finds the SECOND largest value in an array using linear search.",
+        promptZh: "写一个函数，用线性搜索找到数组中第二大的值。",
+        starterCode: "def second_largest(arr):\\n    # Your code here\\n    pass\\n\\nprint(second_largest([3, 1, 4, 1, 5, 9, 2, 6]))",
+        expectedOutput: "6",
+        hint: "Track both the largest and second largest as you scan through.",
+        hintZh: "扫描数组时同时跟踪最大值和第二大值。",
+        solution: "def second_largest(arr):\\n    first = second = float('-inf')\\n    for x in arr:\\n        if x > first:\\n            second = first\\n            first = x\\n        elif x > second and x != first:\\n            second = x\\n    return second\\n\\nprint(second_largest([3, 1, 4, 1, 5, 9, 2, 6]))",
+      },
     },
     {
       type: "interactive",
@@ -225,6 +243,30 @@ print(f"\\nMinimum value: {val} at index {idx}")`,
 
 🔑 **Key takeaway:** Linear search is simple and universal, but slow for big data!
 线性搜索简单通用，但对大数据来说太慢！`,
+    },
+    {
+      type: "challenge",
+      content: "🏆 Coding Challenge · 编程挑战",
+      challenge: {
+        title: "🔍 Frequency Counter · 频率计数器",
+        description: "Write a function that finds the MOST FREQUENT element in an array. Return (element, count).\n写一个函数找到数组中出现最多的元素。返回 (元素, 次数)。",
+        starterCode: "def most_frequent(arr):\n    # Find most frequent element\n    pass\n\nprint(most_frequent([1,3,2,1,4,1,3,1]))",
+        hint: "Use a dictionary to count occurrences, then find the max.\n用字典计数，然后找最大值。",
+        solution: "def most_frequent(arr):\n    counts = {}\n    for x in arr:\n        counts[x] = counts.get(x, 0) + 1\n    best = max(counts, key=counts.get)\n    return (best, counts[best])\n\nprint(most_frequent([1,3,2,1,4,1,3,1]))",
+        expectedOutput: "(1, 4)",
+      },
+    },
+    {
+      type: "challenge",
+      content: "🏆 Coding Challenge · 编程挑战",
+      challenge: {
+        title: "🎯 Two Sum · 两数之和",
+        description: "Find TWO elements that add up to target. Return their indices.\n找两个加起来等于目标的元素。返回索引。",
+        starterCode: "def two_sum(arr, target):\n    pass\n\nprint(two_sum([2, 7, 11, 15], 9))",
+        hint: "Use a dictionary to store seen values and their indices.\n用字典存已见的值和索引。",
+        solution: "def two_sum(arr, target):\n    seen = {}\n    for i, x in enumerate(arr):\n        if target - x in seen:\n            return (seen[target - x], i)\n        seen[x] = i\n\nprint(two_sum([2, 7, 11, 15], 9))",
+        expectedOutput: "(0, 1)",
+      },
     },
     {
       type: "quiz",
@@ -373,6 +415,15 @@ print(f"\\n📊 For {len(nums)} elements:")
 print(f"  Linear search: up to {len(nums)} steps")
 print(f"  Binary search: up to {math.ceil(math.log2(len(nums)))} steps")
 print(f"  That's {len(nums) // math.ceil(math.log2(len(nums)))}x faster!")`,
+      exercise: {
+        prompt: "Implement binary search that returns the INSERTION POINT (like bisect_left).",
+        promptZh: "实现二分搜索，返回插入位置（类似 bisect_left）。",
+        starterCode: "def bisect_left(arr, target):\\n    # Your code here\\n    pass\\n\\nprint(bisect_left([1, 3, 5, 7, 9], 5))\\nprint(bisect_left([1, 3, 5, 7, 9], 6))",
+        expectedOutput: "2\\n3",
+        hint: "When not found, 'left' will be at the insertion point.",
+        hintZh: "当未找到时，'left' 就在插入位置。",
+        solution: "def bisect_left(arr, target):\\n    left, right = 0, len(arr)\\n    while left < right:\\n        mid = (left + right) // 2\\n        if arr[mid] < target:\\n            left = mid + 1\\n        else:\\n            right = mid\\n    return left\\n\\nprint(bisect_left([1, 3, 5, 7, 9], 5))\\nprint(bisect_left([1, 3, 5, 7, 9], 6))",
+      },
     },
     {
       type: "concept",
@@ -444,6 +495,15 @@ print(f"\\n⏱️ Finding 999999 in 1,000,000 elements:")
 print(f"  Linear: {linear_time:.4f}s")
 print(f"  Binary: {binary_time:.6f}s")
 print(f"  Binary is ~{int(linear_time/max(binary_time,0.000001))}x faster!")`,
+      exercise: {
+        prompt: "Write a recursive binary search that COUNTS comparisons. Return (index, count).",
+        promptZh: "写一个递归二分搜索，统计比较次数。返回 (索引, 次数)。",
+        starterCode: "def binary_count(arr, target, left=0, right=None, count=0):\\n    pass\\n\\nidx, steps = binary_count([1,3,5,7,9,11,13,15], 11)\\nprint(f'{idx} {steps}')",
+        expectedOutput: "5 3",
+        hint: "Pass count+1 in each recursive call.",
+        hintZh: "每次递归调用传 count+1。",
+        solution: "def binary_count(arr, target, left=0, right=None, count=0):\\n    if right is None: right = len(arr) - 1\\n    if left > right: return (-1, count)\\n    mid = (left + right) // 2\\n    count += 1\\n    if arr[mid] == target: return (mid, count)\\n    elif arr[mid] < target: return binary_count(arr, target, mid+1, right, count)\\n    else: return binary_count(arr, target, left, mid-1, count)\\n\\nidx, steps = binary_count([1,3,5,7,9,11,13,15], 11)\\nprint(f'{idx} {steps}')",
+      },
     },
     {
       type: "interactive",
@@ -481,6 +541,30 @@ print(f"  Binary is ~{int(linear_time/max(binary_time,0.000001))}x faster!")`,
 
 🔑 **Binary search is one of the most important algorithms in CS!**
 二分搜索是计算机科学中最重要的算法之一！`,
+    },
+    {
+      type: "challenge",
+      content: "🏆 Coding Challenge · 编程挑战",
+      challenge: {
+        title: "📖 Count Occurrences · 计算出现次数",
+        description: "Count how many times target appears in sorted array using binary search (O(log n)).\n用二分搜索计算排序数组中目标出现次数。",
+        starterCode: "def count_occurrences(arr, target):\n    pass\n\nprint(count_occurrences([1,2,2,2,3,4,5], 2))\nprint(count_occurrences([1,2,3,4,5], 6))",
+        hint: "Find leftmost and rightmost positions with binary search.\n用二分搜索找最左和最右位置。",
+        solution: "def count_occurrences(arr, target):\n    def find_left(t):\n        lo, hi = 0, len(arr)-1\n        while lo <= hi:\n            mid = (lo+hi)//2\n            if arr[mid] < t: lo = mid+1\n            else: hi = mid-1\n        return lo\n    left = find_left(target)\n    right = find_left(target+1)\n    return right - left\n\nprint(count_occurrences([1,2,2,2,3,4,5], 2))\nprint(count_occurrences([1,2,3,4,5], 6))",
+        expectedOutput: "3\n0",
+      },
+    },
+    {
+      type: "challenge",
+      content: "🏆 Coding Challenge · 编程挑战",
+      challenge: {
+        title: "🎯 Peak Finder · 峰值查找",
+        description: "Find a peak element using binary search. A peak is greater than its neighbors.\n用二分搜索找峰值元素。",
+        starterCode: "def find_peak(arr):\n    pass\n\nprint(find_peak([1, 3, 20, 4, 1, 0]))",
+        hint: "If arr[mid] < arr[mid+1], peak is on the right.\n如果 arr[mid] < arr[mid+1]，峰值在右边。",
+        solution: "def find_peak(arr):\n    lo, hi = 0, len(arr)-1\n    while lo < hi:\n        mid = (lo+hi)//2\n        if arr[mid] < arr[mid+1]: lo = mid+1\n        else: hi = mid\n    return lo\n\nprint(find_peak([1, 3, 20, 4, 1, 0]))",
+        expectedOutput: "2",
+      },
     },
     {
       type: "quiz",
@@ -606,6 +690,15 @@ for row in matrix:
 print(f"\\nBrute force search:")
 search_2d_brute(matrix, 9)
 search_2d_brute(matrix, 15)`,
+      exercise: {
+        prompt: "Find ALL cells in a 2D matrix containing a target. Return list of (row, col) tuples.",
+        promptZh: "找到二维矩阵中包含目标的所有单元格。返回 (行, 列) 元组列表。",
+        starterCode: "def find_all_2d(matrix, target):\\n    pass\\n\\nm = [[1,2,3],[4,2,6],[2,8,9]]\\nprint(find_all_2d(m, 2))",
+        expectedOutput: "[(0, 1), (1, 1), (2, 0)]",
+        hint: "Use nested loops. Append (i, j) whenever matrix[i][j] == target.",
+        hintZh: "用嵌套循环。当 matrix[i][j] == target 时添加 (i, j)。",
+        solution: "def find_all_2d(matrix, target):\\n    result = []\\n    for i in range(len(matrix)):\\n        for j in range(len(matrix[0])):\\n            if matrix[i][j] == target:\\n                result.append((i, j))\\n    return result\\n\\nm = [[1,2,3],[4,2,6],[2,8,9]]\\nprint(find_all_2d(m, 2))",
+      },
     },
     {
       type: "code",
@@ -663,6 +756,15 @@ print(f"\\n📊 For a 4×4 matrix:")
 print(f"  Brute force: up to 16 steps")
 print(f"  Staircase: up to 4+4=8 steps")
 print(f"  For 1000×1000: brute=1,000,000 vs staircase=2,000!")`,
+      exercise: {
+        prompt: "Modify staircase search to return the NUMBER OF STEPS taken.",
+        promptZh: "修改阶梯搜索，返回所走的步数。",
+        starterCode: "def staircase_steps(matrix, target):\\n    pass\\n\\nm = [[1,4,7],[2,5,8],[3,6,9]]\\nprint(staircase_steps(m, 5))\\nprint(staircase_steps(m, 10))",
+        expectedOutput: "2\\n3",
+        hint: "Count each comparison as a step. Start from top-right corner.",
+        hintZh: "每次比较计为一步。从右上角开始。",
+        solution: "def staircase_steps(matrix, target):\\n    r, c = 0, len(matrix[0]) - 1\\n    steps = 0\\n    while r < len(matrix) and c >= 0:\\n        steps += 1\\n        if matrix[r][c] == target: return steps\\n        elif matrix[r][c] > target: c -= 1\\n        else: r += 1\\n    return steps\\n\\nm = [[1,4,7],[2,5,8],[3,6,9]]\\nprint(staircase_steps(m, 5))\\nprint(staircase_steps(m, 10))",
+      },
     },
     {
       type: "concept",
@@ -709,6 +811,30 @@ print(f"  For 1000×1000: brute=1,000,000 vs staircase=2,000!")`,
 
 🔑 **The more structure (sorting), the faster we can search!**
 结构越多（排序），搜索越快！`,
+    },
+    {
+      type: "challenge",
+      content: "🏆 Coding Challenge · 编程挑战",
+      challenge: {
+        title: "🗺️ Island Counter · 岛屿计数器",
+        description: "Count islands (connected 1s) in a 2D grid.\n计算二维网格中岛屿数。",
+        starterCode: "def count_islands(grid):\n    pass\n\ngrid = [[1,1,0,0],[1,0,0,0],[0,0,1,1],[0,0,0,1]]\nprint(count_islands(grid))",
+        hint: "DFS from each unvisited 1. Each DFS = one island.\n从每个未访问的 1 开始 DFS。每次 = 一个岛屿。",
+        solution: "def count_islands(grid):\n    rows, cols = len(grid), len(grid[0])\n    count = 0\n    def dfs(r, c):\n        if r < 0 or r >= rows or c < 0 or c >= cols or grid[r][c] == 0: return\n        grid[r][c] = 0\n        dfs(r+1,c); dfs(r-1,c); dfs(r,c+1); dfs(r,c-1)\n    for r in range(rows):\n        for c in range(cols):\n            if grid[r][c] == 1:\n                count += 1\n                dfs(r, c)\n    return count\n\ngrid = [[1,1,0,0],[1,0,0,0],[0,0,1,1],[0,0,0,1]]\nprint(count_islands(grid))",
+        expectedOutput: "2",
+      },
+    },
+    {
+      type: "challenge",
+      content: "🏆 Coding Challenge · 编程挑战",
+      challenge: {
+        title: "🔢 Spiral Matrix · 螺旋矩阵",
+        description: "Print a matrix in spiral order (clockwise from top-left).\n按螺旋顺序打印矩阵。",
+        starterCode: "def spiral_order(matrix):\n    pass\n\nprint(spiral_order([[1,2,3],[4,5,6],[7,8,9]]))",
+        hint: "Use four boundaries: top, bottom, left, right. Shrink after each direction.\n用四个边界：上、下、左、右。每个方向后缩小。",
+        solution: "def spiral_order(matrix):\n    result = []\n    top, bottom = 0, len(matrix)-1\n    left, right = 0, len(matrix[0])-1\n    while top <= bottom and left <= right:\n        for c in range(left, right+1): result.append(matrix[top][c])\n        top += 1\n        for r in range(top, bottom+1): result.append(matrix[r][right])\n        right -= 1\n        if top <= bottom:\n            for c in range(right, left-1, -1): result.append(matrix[bottom][c])\n            bottom -= 1\n        if left <= right:\n            for r in range(bottom, top-1, -1): result.append(matrix[r][left])\n            left += 1\n    return result\n\nprint(spiral_order([[1,2,3],[4,5,6],[7,8,9]]))",
+        expectedOutput: "[1, 2, 3, 6, 9, 8, 7, 4, 5]",
+      },
     },
     {
       type: "quiz",
@@ -852,6 +978,15 @@ def int_sqrt(n):
 print(f"\\nsqrt(16) = {int_sqrt(16)}")
 print(f"sqrt(27) = {int_sqrt(27)}")
 print(f"sqrt(100) = {int_sqrt(100)}")`,
+      exercise: {
+        prompt: "Find the FIRST position where value >= target in sorted array.",
+        promptZh: "找到排序数组中第一个 >= target 的位置。",
+        starterCode: "def lower_bound(arr, target):\\n    pass\\n\\nprint(lower_bound([1,3,5,7,9], 5))\\nprint(lower_bound([1,3,5,7,9], 6))\\nprint(lower_bound([1,3,5,7,9], 10))",
+        expectedOutput: "2\\n3\\n5",
+        hint: "Binary search. When arr[mid] >= target, move right boundary.",
+        hintZh: "二分搜索。当 arr[mid] >= target 时移动右边界。",
+        solution: "def lower_bound(arr, target):\\n    left, right = 0, len(arr)\\n    while left < right:\\n        mid = (left + right) // 2\\n        if arr[mid] < target: left = mid + 1\\n        else: right = mid\\n    return left\\n\\nprint(lower_bound([1,3,5,7,9], 5))\\nprint(lower_bound([1,3,5,7,9], 6))\\nprint(lower_bound([1,3,5,7,9], 10))",
+      },
     },
     {
       type: "code",
@@ -894,6 +1029,15 @@ print(f"\\nSearching for 0:")
 print(f"Found at index: {search_rotated(rotated, 0)}")
 print(f"\\nSearching for 6:")
 print(f"Found at index: {search_rotated(rotated, 6)}")`,
+      exercise: {
+        prompt: "Find the MINIMUM element in a rotated sorted array using binary search.",
+        promptZh: "用二分搜索在旋转排序数组中找到最小元素。",
+        starterCode: "def find_min_rotated(arr):\\n    pass\\n\\nprint(find_min_rotated([4,5,6,7,0,1,2]))\\nprint(find_min_rotated([3,1,2]))",
+        expectedOutput: "0\\n1",
+        hint: "If arr[mid] > arr[right], minimum is in right half.",
+        hintZh: "如果 arr[mid] > arr[right]，最小值在右半部分。",
+        solution: "def find_min_rotated(arr):\\n    left, right = 0, len(arr) - 1\\n    while left < right:\\n        mid = (left + right) // 2\\n        if arr[mid] > arr[right]: left = mid + 1\\n        else: right = mid\\n    return arr[left]\\n\\nprint(find_min_rotated([4,5,6,7,0,1,2]))\\nprint(find_min_rotated([3,1,2]))",
+      },
     },
     {
       type: "code",
@@ -932,6 +1076,15 @@ n = guess_number_game(secret)
 print(f"\\n🏆 Found in {n} guesses!")
 print(f"Maximum possible: 7 guesses (log₂(100) ≈ 7)")
 print(f"Random guessing average: 50 guesses")`,
+      exercise: {
+        prompt: "Write a binary search that finds the integer square root of n.",
+        promptZh: "写一个二分搜索找到 n 的整数平方根。",
+        starterCode: "def int_sqrt(n):\\n    pass\\n\\nprint(int_sqrt(27))\\nprint(int_sqrt(100))\\nprint(int_sqrt(0))",
+        expectedOutput: "5\\n10\\n0",
+        hint: "Binary search between 0 and n. If mid*mid <= n, try higher.",
+        hintZh: "在 0 和 n 之间二分搜索。如果 mid*mid <= n，尝试更高。",
+        solution: "def int_sqrt(n):\\n    if n < 2: return n\\n    left, right = 0, n\\n    ans = 0\\n    while left <= right:\\n        mid = (left + right) // 2\\n        if mid * mid <= n:\\n            ans = mid\\n            left = mid + 1\\n        else:\\n            right = mid - 1\\n    return ans\\n\\nprint(int_sqrt(27))\\nprint(int_sqrt(100))\\nprint(int_sqrt(0))",
+      },
     },
     {
       type: "interactive",
@@ -963,6 +1116,30 @@ print(f"Random guessing average: 50 guesses")`,
 
 🔑 **Key takeaway:** Mastering search = mastering efficiency. The right search algorithm can turn hours into milliseconds!
 掌握搜索 = 掌握效率。正确的搜索算法能把几小时变成几毫秒！`,
+    },
+    {
+      type: "challenge",
+      content: "🏆 Coding Challenge · 编程挑战",
+      challenge: {
+        title: "📏 Min Difference Pair · 最小差值对",
+        description: "In a sorted array, find the pair with smallest absolute difference.\n在排序数组中找绝对差最小的对。",
+        starterCode: "def min_diff_pair(arr):\n    pass\n\nprint(min_diff_pair([1, 3, 4, 8, 13, 17, 20]))",
+        hint: "Minimum difference is always between adjacent elements in sorted array.\n最小差值一定在排序数组的相邻元素之间。",
+        solution: "def min_diff_pair(arr):\n    min_d = float('inf')\n    pair = (arr[0], arr[1])\n    for i in range(len(arr)-1):\n        d = arr[i+1]-arr[i]\n        if d < min_d:\n            min_d = d\n            pair = (arr[i], arr[i+1])\n    return pair\n\nprint(min_diff_pair([1, 3, 4, 8, 13, 17, 20]))",
+        expectedOutput: "(3, 4)",
+      },
+    },
+    {
+      type: "challenge",
+      content: "🏆 Coding Challenge · 编程挑战",
+      challenge: {
+        title: "🔄 Bitonic Search · 双调搜索",
+        description: "Search in a bitonic array (first increases then decreases) in O(log n).\n在双调数组中 O(log n) 搜索。",
+        starterCode: "def bitonic_search(arr, target):\n    pass\n\nprint(bitonic_search([1,3,8,12,4,2], 4))\nprint(bitonic_search([1,3,8,12,4,2], 13))",
+        hint: "Find peak, then binary search both halves.\n找到峰值，然后对两半分别二分搜索。",
+        solution: "def bitonic_search(arr, target):\n    lo, hi = 0, len(arr)-1\n    while lo < hi:\n        mid = (lo+hi)//2\n        if arr[mid] < arr[mid+1]: lo = mid+1\n        else: hi = mid\n    peak = lo\n    def bsearch(lo, hi, asc=True):\n        while lo <= hi:\n            mid = (lo+hi)//2\n            if arr[mid] == target: return mid\n            if asc:\n                if arr[mid] < target: lo = mid+1\n                else: hi = mid-1\n            else:\n                if arr[mid] > target: lo = mid+1\n                else: hi = mid-1\n        return -1\n    r = bsearch(0, peak, True)\n    return r if r != -1 else bsearch(peak, len(arr)-1, False)\n\nprint(bitonic_search([1,3,8,12,4,2], 4))\nprint(bitonic_search([1,3,8,12,4,2], 13))",
+        expectedOutput: "4\n-1",
+      },
     },
     {
       type: "quiz",
@@ -1098,6 +1275,15 @@ data = [64, 34, 25, 12, 22, 11, 90]
 print(f"Original: {data}")
 print()
 bubble_sort(data.copy())`,
+      exercise: {
+        prompt: "Modify bubble sort to COUNT total swaps. Return (sorted_array, swap_count).",
+        promptZh: "修改冒泡排序统计总交换次数。返回 (排序数组, 交换次数)。",
+        starterCode: "def bubble_sort_count(arr):\\n    pass\\n\\narr, swaps = bubble_sort_count([5, 1, 4, 2, 8])\\nprint(arr)\\nprint(swaps)",
+        expectedOutput: "[1, 2, 4, 5, 8]\\n4",
+        hint: "Add a counter. Increment every time you swap.",
+        hintZh: "添加计数器。每次交换时加 1。",
+        solution: "def bubble_sort_count(arr):\\n    a = arr[:]\\n    swaps = 0\\n    n = len(a)\\n    for i in range(n):\\n        for j in range(n-1-i):\\n            if a[j] > a[j+1]:\\n                a[j], a[j+1] = a[j+1], a[j]\\n                swaps += 1\\n    return a, swaps\\n\\narr, swaps = bubble_sort_count([5, 1, 4, 2, 8])\\nprint(arr)\\nprint(swaps)",
+      },
     },
     {
       type: "code",
@@ -1129,6 +1315,15 @@ data = [64, 25, 12, 22, 11]
 print(f"Original: {data}")
 print()
 selection_sort(data.copy())`,
+      exercise: {
+        prompt: "Implement selection sort in DESCENDING order.",
+        promptZh: "实现降序选择排序。",
+        starterCode: "def selection_sort_desc(arr):\\n    pass\\n\\nprint(selection_sort_desc([3, 1, 4, 1, 5]))",
+        expectedOutput: "[5, 4, 3, 1, 1]",
+        hint: "Find MAXIMUM in each pass instead of minimum.",
+        hintZh: "每轮找最大值而不是最小值。",
+        solution: "def selection_sort_desc(arr):\\n    a = arr[:]\\n    for i in range(len(a)):\\n        max_idx = i\\n        for j in range(i+1, len(a)):\\n            if a[j] > a[max_idx]: max_idx = j\\n        a[i], a[max_idx] = a[max_idx], a[i]\\n    return a\\n\\nprint(selection_sort_desc([3, 1, 4, 1, 5]))",
+      },
     },
     {
       type: "code",
@@ -1170,6 +1365,15 @@ print(f"Original: {almost}")
 print()
 insertion_sort(almost.copy())
 print("Only a few shifts needed! 🎉")`,
+      exercise: {
+        prompt: "Write insertion sort that prints the array after EACH pass.",
+        promptZh: "写一个插入排序，每次插入后打印数组。",
+        starterCode: "def insertion_sort_trace(arr):\\n    pass\\n\\ninsertion_sort_trace([5, 2, 4, 6, 1, 3])",
+        expectedOutput: "[2, 5, 4, 6, 1, 3]\\n[2, 4, 5, 6, 1, 3]\\n[2, 4, 5, 6, 1, 3]\\n[1, 2, 4, 5, 6, 3]\\n[1, 2, 3, 4, 5, 6]",
+        hint: "After each inner loop, print the current state.",
+        hintZh: "每次内层循环后打印当前状态。",
+        solution: "def insertion_sort_trace(arr):\\n    a = arr[:]\\n    for i in range(1, len(a)):\\n        key = a[i]\\n        j = i - 1\\n        while j >= 0 and a[j] > key:\\n            a[j+1] = a[j]\\n            j -= 1\\n        a[j+1] = key\\n        print(a)\\n\\ninsertion_sort_trace([5, 2, 4, 6, 1, 3])",
+      },
     },
     {
       type: "concept",
@@ -1201,6 +1405,30 @@ print("Only a few shifts needed! 🎉")`,
         hint: "Two nested loops. Outer: n passes. Inner: compare adjacent, swap if arr[j] > arr[j+1].",
         hintZh: "两层嵌套循环。外层：n 次遍历。内层：比较相邻元素，如果 arr[j] > arr[j+1] 就交换。",
         solution: "def my_bubble_sort(arr):\n    n = len(arr)\n    for i in range(n):\n        for j in range(0, n - i - 1):\n            if arr[j] > arr[j + 1]:\n                arr[j], arr[j + 1] = arr[j + 1], arr[j]\n    return arr\n\nresult = my_bubble_sort([5, 3, 1, 4, 2])\nprint(result)",
+      },
+    },
+    {
+      type: "challenge",
+      content: "🏆 Coding Challenge · 编程挑战",
+      challenge: {
+        title: "🎨 Dutch National Flag · 荷兰国旗",
+        description: "Sort array of 0s, 1s, 2s in ONE pass.\n一趟排序 0、1、2 数组。",
+        starterCode: "def dutch_flag(arr):\n    pass\n\nprint(dutch_flag([2,0,1,2,1,0,0,2,1]))",
+        hint: "Three pointers: lo (0s), mid (current), hi (2s).\n三指针：lo（0）、mid（当前）、hi（2）。",
+        solution: "def dutch_flag(arr):\n    a = arr[:]\n    lo, mid, hi = 0, 0, len(a)-1\n    while mid <= hi:\n        if a[mid] == 0:\n            a[lo], a[mid] = a[mid], a[lo]\n            lo += 1; mid += 1\n        elif a[mid] == 1: mid += 1\n        else:\n            a[mid], a[hi] = a[hi], a[mid]\n            hi -= 1\n    return a\n\nprint(dutch_flag([2,0,1,2,1,0,0,2,1]))",
+        expectedOutput: "[0, 0, 0, 1, 1, 1, 2, 2, 2]",
+      },
+    },
+    {
+      type: "challenge",
+      content: "🏆 Coding Challenge · 编程挑战",
+      challenge: {
+        title: "📊 Stable Sort Test · 稳定排序测试",
+        description: "Sort (name, score) tuples by score. Keep original order for ties (stable).\n按分数排序元组。相同分数保持原序。",
+        starterCode: "def stable_sort(students):\n    pass\n\nfor s in stable_sort([('Alice',85),('Bob',92),('Carol',85),('Dave',92)]):\n    print(s)",
+        hint: "Insertion sort is naturally stable.\n插入排序天然稳定。",
+        solution: "def stable_sort(students):\n    a = students[:]\n    for i in range(1, len(a)):\n        key = a[i]\n        j = i-1\n        while j >= 0 and a[j][1] > key[1]:\n            a[j+1] = a[j]; j -= 1\n        a[j+1] = key\n    return a\n\nfor s in stable_sort([('Alice',85),('Bob',92),('Carol',85),('Dave',92)]):\n    print(s)",
+        expectedOutput: "('Alice', 85)\n('Carol', 85)\n('Bob', 92)\n('Dave', 92)",
       },
     },
     {
@@ -1349,6 +1577,15 @@ data = [38, 27, 43, 3, 9, 82, 10]
 print(f"Original: {data}\\n")
 sorted_data = merge_sort(data)
 print(f"\\nResult: {sorted_data}")`,
+      exercise: {
+        prompt: "Write JUST the merge function: merge two sorted lists into one.",
+        promptZh: "只写合并函数：将两个排序列表合并为一个。",
+        starterCode: "def merge(left, right):\\n    pass\\n\\nprint(merge([1, 3, 5], [2, 4, 6]))\\nprint(merge([1, 1], [2]))",
+        expectedOutput: "[1, 2, 3, 4, 5, 6]\\n[1, 1, 2]",
+        hint: "Two pointers. Compare and append the smaller. Don't forget remainders.",
+        hintZh: "两个指针。比较并添加较小的。别忘了剩余元素。",
+        solution: "def merge(left, right):\\n    result = []\\n    i = j = 0\\n    while i < len(left) and j < len(right):\\n        if left[i] <= right[j]:\\n            result.append(left[i]); i += 1\\n        else:\\n            result.append(right[j]); j += 1\\n    result.extend(left[i:])\\n    result.extend(right[j:])\\n    return result\\n\\nprint(merge([1, 3, 5], [2, 4, 6]))\\nprint(merge([1, 1], [2]))",
+      },
     },
     {
       type: "concept",
@@ -1405,6 +1642,15 @@ for n in [100, 1000, 10000, 100000]:
     nlogn = n * math.ceil(math.log2(n))
     ratio = n2 / nlogn
     print(f"  n={n:>6}: O(n²)={n2:>12,} vs O(n log n)={nlogn:>10,}  ({ratio:.0f}x faster)")`,
+      exercise: {
+        prompt: "Count how many times n can be halved before reaching 1 (this is log₂(n)).",
+        promptZh: "计算 n 可以被对半分多少次才到 1（这就是 log₂(n)）。",
+        starterCode: "def count_halves(n):\\n    pass\\n\\nprint(count_halves(8))\\nprint(count_halves(16))\\nprint(count_halves(1000))",
+        expectedOutput: "3\\n4\\n10",
+        hint: "Keep dividing n by 2 and count until n <= 1.",
+        hintZh: "不断将 n 除以 2 并计数，直到 n <= 1。",
+        solution: "def count_halves(n):\\n    count = 0\\n    while n > 1:\\n        n //= 2\\n        count += 1\\n    return count\\n\\nprint(count_halves(8))\\nprint(count_halves(16))\\nprint(count_halves(1000))",
+      },
     },
     {
       type: "interactive",
@@ -1444,6 +1690,30 @@ for n in [100, 1000, 10000, 100000]:
 
 🔑 **Merge sort is the go-to when you need guaranteed O(n log n) and stability!**
 归并排序是需要保证 O(n log n) 和稳定性时的首选！`,
+    },
+    {
+      type: "challenge",
+      content: "🏆 Coding Challenge · 编程挑战",
+      challenge: {
+        title: "🔗 Merge K Lists · 合并 K 个列表",
+        description: "Merge 3 sorted lists into one.\n合并 3 个排序列表。",
+        starterCode: "def merge_k(lists):\n    pass\n\nprint(merge_k([[1,4,7],[2,5,8],[3,6,9]]))",
+        hint: "Merge first two, then merge result with third.\n先合并前两个，再和第三个合并。",
+        solution: "def merge_k(lists):\n    def merge(a, b):\n        r = []; i = j = 0\n        while i < len(a) and j < len(b):\n            if a[i] <= b[j]: r.append(a[i]); i += 1\n            else: r.append(b[j]); j += 1\n        r.extend(a[i:]); r.extend(b[j:])\n        return r\n    result = lists[0]\n    for i in range(1, len(lists)):\n        result = merge(result, lists[i])\n    return result\n\nprint(merge_k([[1,4,7],[2,5,8],[3,6,9]]))",
+        expectedOutput: "[1, 2, 3, 4, 5, 6, 7, 8, 9]",
+      },
+    },
+    {
+      type: "challenge",
+      content: "🏆 Coding Challenge · 编程挑战",
+      challenge: {
+        title: "🔢 Merge Sort Inversion Count · 归并排序逆序对",
+        description: "Count inversions using merge sort in O(n log n).\n用归并排序 O(n log n) 计算逆序对。",
+        starterCode: "def count_inv(arr):\n    # Return (sorted, count)\n    pass\n\n_, c = count_inv([5,4,3,2,1])\nprint(c)",
+        hint: "During merge: when right < left, count += len(left) - i.\n合并时：右 < 左，count += len(left) - i。",
+        solution: "def count_inv(arr):\n    if len(arr) <= 1: return arr, 0\n    mid = len(arr)//2\n    left, li = count_inv(arr[:mid])\n    right, ri = count_inv(arr[mid:])\n    merged = []; inv = li + ri; i = j = 0\n    while i < len(left) and j < len(right):\n        if left[i] <= right[j]: merged.append(left[i]); i += 1\n        else: merged.append(right[j]); j += 1; inv += len(left)-i\n    merged.extend(left[i:]); merged.extend(right[j:])\n    return merged, inv\n\n_, c = count_inv([5,4,3,2,1])\nprint(c)",
+        expectedOutput: "10",
+      },
     },
     {
       type: "quiz",
@@ -1576,6 +1846,15 @@ data = [10, 7, 8, 9, 1, 5]
 print(f"Original: {data}\\n")
 result = quicksort(data)
 print(f"\\nSorted: {result}")`,
+      exercise: {
+        prompt: "Partition an array into elements <= pivot and > pivot. Return two lists.",
+        promptZh: "将数组分为 <= 枢轴和 > 枢轴的元素。返回两个列表。",
+        starterCode: "def partition(arr, pivot):\\n    pass\\n\\nlo, hi = partition([3,6,8,10,1,2,1], 5)\\nprint(lo)\\nprint(hi)",
+        expectedOutput: "[3, 1, 2, 1]\\n[6, 8, 10]",
+        hint: "Loop through, add to left if <= pivot, else right.",
+        hintZh: "遍历，<= 枢轴加左边，否则加右边。",
+        solution: "def partition(arr, pivot):\\n    left = [x for x in arr if x <= pivot]\\n    right = [x for x in arr if x > pivot]\\n    return left, right\\n\\nlo, hi = partition([3,6,8,10,1,2,1], 5)\\nprint(lo)\\nprint(hi)",
+      },
     },
     {
       type: "code",
@@ -1619,6 +1898,15 @@ print(f"Before partition: {demo}, pivot=70")
 p = partition(demo, 0, len(demo) - 1)
 print(f"After partition:  {demo}")
 print(f"Pivot at index {p}: everything left ≤ 70, everything right > 70")`,
+      exercise: {
+        prompt: "Implement Lomuto partition: return final pivot position after partitioning.",
+        promptZh: "实现 Lomuto 分区：返回分区后枢轴的最终位置。",
+        starterCode: "def lomuto(arr, lo, hi):\\n    pass\\n\\na = [10,80,30,90,40,50,70]\\np = lomuto(a, 0, len(a)-1)\\nprint(p)\\nprint(a)",
+        expectedOutput: "6\\n[10, 30, 40, 50, 70, 80, 90]",
+        hint: "Use last element as pivot. Track where small elements end.",
+        hintZh: "用最后一个元素做枢轴。跟踪小元素的结束位置。",
+        solution: "def lomuto(arr, lo, hi):\\n    pivot = arr[hi]\\n    i = lo - 1\\n    for j in range(lo, hi):\\n        if arr[j] <= pivot:\\n            i += 1\\n            arr[i], arr[j] = arr[j], arr[i]\\n    arr[i+1], arr[hi] = arr[hi], arr[i+1]\\n    return i + 1\\n\\na = [10,80,30,90,40,50,70]\\np = lomuto(a, 0, len(a)-1)\\nprint(p)\\nprint(a)",
+      },
     },
     {
       type: "concept",
@@ -1681,6 +1969,30 @@ print(f"Pivot at index {p}: everything left ≤ 70, everything right > 70")`,
 | In practice | Usually faster | More predictable |
 
 🔑 **Quick sort is the default choice when space matters and average case is good enough!**`,
+    },
+    {
+      type: "challenge",
+      content: "🏆 Coding Challenge · 编程挑战",
+      challenge: {
+        title: "🎲 Kth Smallest · 第 K 小",
+        description: "Find kth smallest using Quick Select (average O(n)).\n用快速选择找第 k 小。",
+        starterCode: "def kth_smallest(arr, k):\n    pass\n\nprint(kth_smallest([7,10,4,3,20,15], 3))\nprint(kth_smallest([7,10,4,3,20,15], 1))",
+        hint: "Partition, check pivot position vs k-1, recurse on correct half.\n分区，检查枢轴位置和 k-1 的关系，递归正确的一半。",
+        solution: "def kth_smallest(arr, k):\n    a = arr[:]\n    def select(lo, hi, k):\n        pivot = a[hi]; i = lo\n        for j in range(lo, hi):\n            if a[j] <= pivot: a[i], a[j] = a[j], a[i]; i += 1\n        a[i], a[hi] = a[hi], a[i]\n        if i == k-1: return a[i]\n        elif i > k-1: return select(lo, i-1, k)\n        else: return select(i+1, hi, k)\n    return select(0, len(a)-1, k)\n\nprint(kth_smallest([7,10,4,3,20,15], 3))\nprint(kth_smallest([7,10,4,3,20,15], 1))",
+        expectedOutput: "7\n3",
+      },
+    },
+    {
+      type: "challenge",
+      content: "🏆 Coding Challenge · 编程挑战",
+      challenge: {
+        title: "🔀 Three-Way Partition · 三路分区",
+        description: "Split array into < pivot, == pivot, > pivot.\n将数组分为 < 枢轴、== 枢轴、> 枢轴。",
+        starterCode: "def three_way(arr, pivot):\n    pass\n\nlo, eq, hi = three_way([4,9,4,4,1,9,4,4,9,4,4,1,4], 4)\nprint(lo)\nprint(eq)\nprint(hi)",
+        hint: "Three lists, compare each element to pivot.\n三个列表，每个元素与枢轴比较。",
+        solution: "def three_way(arr, pivot):\n    return [x for x in arr if x < pivot], [x for x in arr if x == pivot], [x for x in arr if x > pivot]\n\nlo, eq, hi = three_way([4,9,4,4,1,9,4,4,9,4,4,1,4], 4)\nprint(lo)\nprint(eq)\nprint(hi)",
+        expectedOutput: "[1, 1]\n[4, 4, 4, 4, 4, 4, 4, 4]\n[9, 9, 9]",
+      },
     },
     {
       type: "quiz",
@@ -1844,6 +2156,15 @@ for n in sizes:
         elapsed = time.time() - start
         bar = "█" * min(int(elapsed * 5000), 50)
         print(f"  {name:>12}: {elapsed:.4f}s {bar}")`,
+      exercise: {
+        prompt: "Write a function that checks if an array is ALREADY sorted (ascending).",
+        promptZh: "写一个函数检查数组是否已排好序（升序）。",
+        starterCode: "def is_sorted(arr):\\n    pass\\n\\nprint(is_sorted([1,2,3,4,5]))\\nprint(is_sorted([1,3,2,4,5]))\\nprint(is_sorted([]))",
+        expectedOutput: "True\\nFalse\\nTrue",
+        hint: "Compare each element with the next one.",
+        hintZh: "比较每个元素和下一个。",
+        solution: "def is_sorted(arr):\\n    for i in range(len(arr)-1):\\n        if arr[i] > arr[i+1]: return False\\n    return True\\n\\nprint(is_sorted([1,2,3,4,5]))\\nprint(is_sorted([1,3,2,4,5]))\\nprint(is_sorted([]))",
+      },
     },
     {
       type: "code",
@@ -1896,6 +2217,15 @@ for name, info in sorts.items():
 print(f"\\n{'='*50}")
 print("🏆 In practice: just use Python's sorted() — it's TimSort!")
 print("   But knowing HOW sorts work makes you a better programmer!")`,
+      exercise: {
+        prompt: "Sort strings by LENGTH using insertion sort (don't use key=).",
+        promptZh: "用插入排序按长度排序字符串（不用 key= 参数）。",
+        starterCode: "def sort_by_length(words):\\n    pass\\n\\nprint(sort_by_length(['banana','kiwi','fig','apple','date']))",
+        expectedOutput: "['fig', 'kiwi', 'date', 'apple', 'banana']",
+        hint: "Compare len(a[j]) > len(key) instead of a[j] > key.",
+        hintZh: "比较 len(a[j]) > len(key) 而不是 a[j] > key。",
+        solution: "def sort_by_length(words):\\n    a = words[:]\\n    for i in range(1, len(a)):\\n        key = a[i]\\n        j = i - 1\\n        while j >= 0 and len(a[j]) > len(key):\\n            a[j+1] = a[j]; j -= 1\\n        a[j+1] = key\\n    return a\\n\\nprint(sort_by_length(['banana','kiwi','fig','apple','date']))",
+      },
     },
     {
       type: "text",
@@ -1928,6 +2258,30 @@ These work by exploiting the STRUCTURE of the data, not just comparing!
         hint: "Time both sorts. Insertion sort is O(n) on nearly sorted data!",
         hintZh: "计时两种排序。插入排序在几乎排好序的数据上是 O(n)！",
         solution: "import time\n\narr = list(range(1000))\narr[500], arr[501] = arr[501], arr[500]\n\ndef insertion_sort(a):\n    a = a.copy()\n    for i in range(1, len(a)):\n        key = a[i]\n        j = i - 1\n        while j >= 0 and a[j] > key:\n            a[j + 1] = a[j]\n            j -= 1\n        a[j + 1] = key\n    return a\n\nstart = time.time()\ninsertion_sort(arr)\nt1 = time.time() - start\nprint(f'Insertion: {t1:.6f}s')\nprint('Insertion sort is faster for nearly sorted data!')",
+      },
+    },
+    {
+      type: "challenge",
+      content: "🏆 Coding Challenge · 编程挑战",
+      challenge: {
+        title: "📊 Counting Sort · 计数排序",
+        description: "Implement counting sort for integers in [0, k]. O(n+k) time!\n实现 [0, k] 范围计数排序。",
+        starterCode: "def counting_sort(arr, k):\n    pass\n\nprint(counting_sort([4,2,2,8,3,3,1], 8))",
+        hint: "Count occurrences, rebuild from counts.\n统计出现次数，从计数重建。",
+        solution: "def counting_sort(arr, k):\n    count = [0]*(k+1)\n    for x in arr: count[x] += 1\n    result = []\n    for i in range(k+1): result.extend([i]*count[i])\n    return result\n\nprint(counting_sort([4,2,2,8,3,3,1], 8))",
+        expectedOutput: "[1, 2, 2, 3, 3, 4, 8]",
+      },
+    },
+    {
+      type: "challenge",
+      content: "🏆 Coding Challenge · 编程挑战",
+      challenge: {
+        title: "🏆 Sort Olympics · 排序奥运会",
+        description: "Implement all three simple sorts and verify same output.\n实现三种简单排序并验证结果相同。",
+        starterCode: "data = [64, 34, 25, 12, 22, 11, 90]\ndef bubble(a): pass\ndef selection(a): pass\ndef insertion(a): pass\n\nprint(bubble(data[:]))\nprint(selection(data[:]))\nprint(insertion(data[:]))",
+        hint: "Implement each independently. All should produce the same sorted array.\n独立实现每种。都应产生相同的排序数组。",
+        solution: "data = [64, 34, 25, 12, 22, 11, 90]\ndef bubble(a):\n    for i in range(len(a)):\n        for j in range(len(a)-1-i):\n            if a[j]>a[j+1]: a[j],a[j+1]=a[j+1],a[j]\n    return a\ndef selection(a):\n    for i in range(len(a)):\n        m=i\n        for j in range(i+1,len(a)):\n            if a[j]<a[m]: m=j\n        a[i],a[m]=a[m],a[i]\n    return a\ndef insertion(a):\n    for i in range(1,len(a)):\n        key=a[i]; j=i-1\n        while j>=0 and a[j]>key: a[j+1]=a[j]; j-=1\n        a[j+1]=key\n    return a\nprint(bubble(data[:]))\nprint(selection(data[:]))\nprint(insertion(data[:]))",
+        expectedOutput: "[11, 12, 22, 25, 34, 64, 90]\n[11, 12, 22, 25, 34, 64, 90]\n[11, 12, 22, 25, 34, 64, 90]",
       },
     },
     {
@@ -2064,6 +2418,15 @@ def factorial(n):
 
 print("\\n📐 Factorial:")
 print(f"5! = {factorial(5)}")`,
+      exercise: {
+        prompt: "Write a recursive function to calculate the SUM of digits. sum_digits(123) → 6.",
+        promptZh: "写一个递归函数计算各位数之和。sum_digits(123) → 6。",
+        starterCode: "def sum_digits(n):\\n    pass\\n\\nprint(sum_digits(123))\\nprint(sum_digits(9999))\\nprint(sum_digits(0))",
+        expectedOutput: "6\\n36\\n0",
+        hint: "Base case: n < 10 → return n. Recursive: n%10 + sum_digits(n//10).",
+        hintZh: "基本情况：n < 10 → 返回 n。递归：n%10 + sum_digits(n//10)。",
+        solution: "def sum_digits(n):\\n    if n < 10: return n\\n    return n % 10 + sum_digits(n // 10)\\n\\nprint(sum_digits(123))\\nprint(sum_digits(9999))\\nprint(sum_digits(0))",
+      },
     },
     {
       type: "concept",
@@ -2113,6 +2476,15 @@ print("def infinite(n):")
 print("    return infinite(n)  # Never stops!")
 print("# → RecursionError: maximum recursion depth exceeded")
 print(f"# Python's default limit: {__import__('sys').getrecursionlimit()}")`,
+      exercise: {
+        prompt: "Write a recursive countdown from n to 1, then print 'Blast off!'.",
+        promptZh: "写一个从 n 到 1 的递归倒计时，然后打印 'Blast off!'。",
+        starterCode: "def countdown(n):\\n    pass\\n\\ncountdown(3)",
+        expectedOutput: "3\\n2\\n1\\nBlast off!",
+        hint: "Base case: n == 0 → print 'Blast off!'. Print n, then countdown(n-1).",
+        hintZh: "基本情况：n == 0 → 打印 'Blast off!'。打印 n，然后 countdown(n-1)。",
+        solution: "def countdown(n):\\n    if n == 0:\\n        print('Blast off!')\\n        return\\n    print(n)\\n    countdown(n - 1)\\n\\ncountdown(3)",
+      },
     },
     {
       type: "code",
@@ -2154,6 +2526,15 @@ def fib(n):
 print(f"\\nFibonacci sequence:")
 for i in range(10):
     print(f"  fib({i}) = {fib(i)}")`,
+      exercise: {
+        prompt: "Write a recursive function to reverse a string. reverse('hello') → 'olleh'.",
+        promptZh: "写一个递归函数反转字符串。",
+        starterCode: "def reverse(s):\\n    pass\\n\\nprint(reverse('hello'))\\nprint(reverse('abcd'))\\nprint(reverse('a'))",
+        expectedOutput: "olleh\\ndcba\\na",
+        hint: "Base case: len(s) <= 1. Recursive: reverse(s[1:]) + s[0].",
+        hintZh: "基本情况：len(s) <= 1。递归：reverse(s[1:]) + s[0]。",
+        solution: "def reverse(s):\\n    if len(s) <= 1: return s\\n    return reverse(s[1:]) + s[0]\\n\\nprint(reverse('hello'))\\nprint(reverse('abcd'))\\nprint(reverse('a'))",
+      },
     },
     {
       type: "interactive",
@@ -2166,6 +2547,30 @@ for i in range(10):
         hint: "Last digit: n % 10. Rest: n // 10. Base case: n < 10.",
         hintZh: "最后一位：n % 10。其余：n // 10。基本情况：n < 10。",
         solution: "def digit_sum(n):\n    if n < 10:\n        return n\n    return n % 10 + digit_sum(n // 10)\n\nprint(digit_sum(123))\nprint(digit_sum(9999))",
+      },
+    },
+    {
+      type: "challenge",
+      content: "🏆 Coding Challenge · 编程挑战",
+      challenge: {
+        title: "🌀 Recursive Power · 递归幂",
+        description: "Write recursive base^exp without ** operator.\n不用 ** 运算符写递归幂。",
+        starterCode: "def power(base, exp):\n    pass\n\nprint(power(2, 10))\nprint(power(3, 0))\nprint(power(5, 3))",
+        hint: "Base case: exp==0 → 1. Recursive: base * power(base, exp-1).\n基本情况：exp==0 → 1。递归：base * power(base, exp-1)。",
+        solution: "def power(base, exp):\n    if exp == 0: return 1\n    return base * power(base, exp-1)\n\nprint(power(2, 10))\nprint(power(3, 0))\nprint(power(5, 3))",
+        expectedOutput: "1024\n1\n125",
+      },
+    },
+    {
+      type: "challenge",
+      content: "🏆 Coding Challenge · 编程挑战",
+      challenge: {
+        title: "🔢 Flatten Nested List · 展平嵌套列表",
+        description: "Recursively flatten a nested list of any depth.\n递归展平任意深度嵌套列表。",
+        starterCode: "def flatten(lst):\n    pass\n\nprint(flatten([1, [2, [3, 4], 5], [6, 7]]))",
+        hint: "If item is list, recurse. Otherwise append.\n如果是列表就递归。否则添加。",
+        solution: "def flatten(lst):\n    result = []\n    for item in lst:\n        if isinstance(item, list): result.extend(flatten(item))\n        else: result.append(item)\n    return result\n\nprint(flatten([1, [2, [3, 4], 5], [6, 7]]))",
+        expectedOutput: "[1, 2, 3, 4, 5, 6, 7]",
       },
     },
     {
@@ -2294,6 +2699,15 @@ def find_max(arr):
     return arr[0] if arr[0] > rest_max else rest_max
 
 print(f"Max of [3,7,2,9,4]: {find_max([3,7,2,9,4])}")`,
+      exercise: {
+        prompt: "Write a recursive function to calculate the product of all elements in a list.",
+        promptZh: "写一个递归函数计算列表所有元素的乘积。",
+        starterCode: "def product(arr):\\n    pass\\n\\nprint(product([1,2,3,4,5]))\\nprint(product([3,7]))",
+        expectedOutput: "120\\n21",
+        hint: "Base case: empty list → 1. Recursive: arr[0] * product(arr[1:]).",
+        hintZh: "基本情况：空列表 → 1。递归：arr[0] * product(arr[1:])。",
+        solution: "def product(arr):\\n    if not arr: return 1\\n    return arr[0] * product(arr[1:])\\n\\nprint(product([1,2,3,4,5]))\\nprint(product([3,7]))",
+      },
     },
     {
       type: "code",
@@ -2335,6 +2749,15 @@ print()
 print("⚠️ Notice: fib(3) computed TWICE, fib(2) computed THREE times!")
 print("   This is why naive tree recursion can be very slow!")
 print("   Solution: Dynamic Programming (coming up!) 🧩")`,
+      exercise: {
+        prompt: "Count ways to climb n stairs (1 or 2 steps at a time).",
+        promptZh: "计算爬 n 级楼梯的方式数（每次 1 或 2 步）。",
+        starterCode: "def climb_stairs(n):\\n    pass\\n\\nprint(climb_stairs(1))\\nprint(climb_stairs(3))\\nprint(climb_stairs(5))",
+        expectedOutput: "1\\n3\\n8",
+        hint: "Base: n<=1 → 1. Recursive: climb(n-1) + climb(n-2).",
+        hintZh: "基本：n<=1 → 1。递归：climb(n-1) + climb(n-2)。",
+        solution: "def climb_stairs(n):\\n    if n <= 1: return 1\\n    return climb_stairs(n-1) + climb_stairs(n-2)\\n\\nprint(climb_stairs(1))\\nprint(climb_stairs(3))\\nprint(climb_stairs(5))",
+      },
     },
     {
       type: "code",
@@ -2378,6 +2801,15 @@ def flatten(lst):
 nested = [1, [2, 3], [4, [5, 6]], 7, [8, [9, [10]]]]
 print(f"\\nFlatten {nested}:")
 print(f"  → {flatten(nested)}")`,
+      exercise: {
+        prompt: "Rewrite factorial with a helper using an accumulator (tail recursion style).",
+        promptZh: "用带累加器的辅助函数重写阶乘。",
+        starterCode: "def factorial(n):\\n    def helper(n, acc):\\n        pass\\n    return helper(n, 1)\\n\\nprint(factorial(5))\\nprint(factorial(0))\\nprint(factorial(10))",
+        expectedOutput: "120\\n1\\n3628800",
+        hint: "Base: n <= 1 → return acc. Recursive: helper(n-1, acc*n).",
+        hintZh: "基本：n <= 1 → 返回 acc。递归：helper(n-1, acc*n)。",
+        solution: "def factorial(n):\\n    def helper(n, acc):\\n        if n <= 1: return acc\\n        return helper(n-1, acc*n)\\n    return helper(n, 1)\\n\\nprint(factorial(5))\\nprint(factorial(0))\\nprint(factorial(10))",
+      },
     },
     {
       type: "interactive",
@@ -2410,6 +2842,30 @@ print(f"  → {flatten(nested)}")`,
 2. Trust the recursion — assume smaller calls work
 3. Make sure each call gets CLOSER to the base case
 4. Draw the recursion tree if confused`,
+    },
+    {
+      type: "challenge",
+      content: "🏆 Coding Challenge · 编程挑战",
+      challenge: {
+        title: "🌳 Binary Tree Depth · 二叉树深度",
+        description: "Find max depth of tree as nested tuples (val, left, right).\n找嵌套元组树的最大深度。",
+        starterCode: "def max_depth(tree):\n    # tree = (val, left, right) or None\n    pass\n\nt = (1, (2, (4, None, None), None), (3, None, (5, None, None)))\nprint(max_depth(t))\nprint(max_depth(None))",
+        hint: "None → 0. Otherwise 1 + max(left depth, right depth).\nNone → 0。否则 1 + max(左深度, 右深度)。",
+        solution: "def max_depth(tree):\n    if tree is None: return 0\n    _, left, right = tree\n    return 1 + max(max_depth(left), max_depth(right))\n\nt = (1, (2, (4, None, None), None), (3, None, (5, None, None)))\nprint(max_depth(t))\nprint(max_depth(None))",
+        expectedOutput: "3\n0",
+      },
+    },
+    {
+      type: "challenge",
+      content: "🏆 Coding Challenge · 编程挑战",
+      challenge: {
+        title: "🔄 Tower of Hanoi · 汉诺塔",
+        description: "Solve Tower of Hanoi for 3 disks.\n解决 3 个盘的汉诺塔。",
+        starterCode: "def hanoi(n, src='A', tgt='C', aux='B'):\n    pass\n\nhanoi(3)",
+        hint: "Move n-1 to aux, move n to target, move n-1 from aux to target.\n移 n-1 到辅助，移 n 到目标，移 n-1 从辅助到目标。",
+        solution: "def hanoi(n, src='A', tgt='C', aux='B'):\n    if n == 1:\n        print(f'Move disk 1 from {src} to {tgt}')\n        return\n    hanoi(n-1, src, aux, tgt)\n    print(f'Move disk {n} from {src} to {tgt}')\n    hanoi(n-1, aux, tgt, src)\n\nhanoi(3)",
+        expectedOutput: "Move disk 1 from A to C\nMove disk 2 from A to B\nMove disk 1 from C to B\nMove disk 3 from A to C\nMove disk 1 from B to A\nMove disk 2 from B to C\nMove disk 1 from A to C",
+      },
     },
     {
       type: "quiz",
@@ -2538,6 +2994,15 @@ def subsets(nums):
 print("📦 All subsets of [1, 2, 3]:")
 result = subsets([1, 2, 3])
 print(f"\\nTotal: {len(result)} subsets")`,
+      exercise: {
+        prompt: "Generate all subsets of [1, 2, 3] using backtracking.",
+        promptZh: "用回溯法生成 [1, 2, 3] 的所有子集。",
+        starterCode: "def subsets(nums):\\n    result = []\\n    def backtrack(start, current):\\n        pass\\n    backtrack(0, [])\\n    return result\\n\\nfor s in subsets([1,2,3]):\\n    print(s)",
+        expectedOutput: "[]\\n[1]\\n[1, 2]\\n[1, 2, 3]\\n[1, 3]\\n[2]\\n[2, 3]\\n[3]",
+        hint: "Add current to result. Try each element from start, backtrack after.",
+        hintZh: "将 current 加入结果。从 start 尝试每个元素，之后回溯。",
+        solution: "def subsets(nums):\\n    result = []\\n    def backtrack(start, current):\\n        result.append(current[:])\\n        for i in range(start, len(nums)):\\n            current.append(nums[i])\\n            backtrack(i+1, current)\\n            current.pop()\\n    backtrack(0, [])\\n    return result\\n\\nfor s in subsets([1,2,3]):\\n    print(s)",
+      },
     },
     {
       type: "code",
@@ -2579,6 +3044,15 @@ print("\\n🔤 Permutations of 'ABC':")
 str_perms = permutations(list("ABC"))
 for p in str_perms:
     print(f"  {''.join(p)}")`,
+      exercise: {
+        prompt: "Generate all permutations of 'abc' as strings.",
+        promptZh: "生成 'abc' 的所有排列字符串。",
+        starterCode: "def permutations(s):\\n    result = []\\n    def backtrack(path, remaining):\\n        pass\\n    backtrack('', s)\\n    return result\\n\\nfor p in permutations('abc'):\\n    print(p)",
+        expectedOutput: "abc\\nacb\\nbac\\nbca\\ncab\\ncba",
+        hint: "Base: no remaining → add path. For each char, add to path, recurse without it.",
+        hintZh: "基本：没有剩余 → 添加 path。对每个字符，加到 path，去掉它递归。",
+        solution: "def permutations(s):\\n    result = []\\n    def backtrack(path, remaining):\\n        if not remaining:\\n            result.append(path)\\n            return\\n        for i in range(len(remaining)):\\n            backtrack(path + remaining[i], remaining[:i] + remaining[i+1:])\\n    backtrack('', s)\\n    return result\\n\\nfor p in permutations('abc'):\\n    print(p)",
+      },
     },
     {
       type: "code",
@@ -2632,6 +3106,15 @@ for i, sol in enumerate(sols):
 print(f"\\n📊 Number of solutions for different N:")
 for n in range(1, 9):
     print(f"  {n}-Queens: {len(solve_n_queens(n))} solutions")`,
+      exercise: {
+        prompt: "Write a function to check if placing a queen at (row, col) is safe.",
+        promptZh: "写一个函数检查在 (row, col) 放置皇后是否安全。",
+        starterCode: "def is_safe(queens, row, col):\\n    # queens[i] = column of queen in row i\\n    pass\\n\\nprint(is_safe([0], 1, 2))\\nprint(is_safe([0], 1, 1))\\nprint(is_safe([0], 1, 0))",
+        expectedOutput: "True\\nFalse\\nFalse",
+        hint: "Check same column and diagonals: abs(queens[i]-col) == abs(i-row).",
+        hintZh: "检查同列和对角线：abs(queens[i]-col) == abs(i-row)。",
+        solution: "def is_safe(queens, row, col):\\n    for i in range(len(queens)):\\n        if queens[i] == col: return False\\n        if abs(queens[i]-col) == abs(i-row): return False\\n    return True\\n\\nprint(is_safe([0], 1, 2))\\nprint(is_safe([0], 1, 1))\\nprint(is_safe([0], 1, 0))",
+      },
     },
     {
       type: "concept",
@@ -2664,6 +3147,30 @@ for n in range(1, 9):
         hint: "Loop from start to n+1. Append number, backtrack(i+1, current), pop.",
         hintZh: "从 start 循环到 n+1。追加数字，backtrack(i+1, current)，弹出。",
         solution: "def combine(n, k):\n    result = []\n    def backtrack(start, current):\n        if len(current) == k:\n            result.append(current[:])\n            return\n        for i in range(start, n + 1):\n            current.append(i)\n            backtrack(i + 1, current)\n            current.pop()\n    backtrack(1, [])\n    return result\n\nprint(combine(4, 2))",
+      },
+    },
+    {
+      type: "challenge",
+      content: "🏆 Coding Challenge · 编程挑战",
+      challenge: {
+        title: "🔤 Combination Sum · 组合总和",
+        description: "Find all unique combinations summing to target. Numbers can repeat.\n找所有和为目标的唯一组合。数字可重复。",
+        starterCode: "def combo_sum(cands, target):\n    result = []\n    # backtrack here\n    return result\n\nfor c in combo_sum([2,3,6,7], 7): print(c)",
+        hint: "Backtrack with start index. Try each candidate >= start.\n用起始索引回溯。",
+        solution: "def combo_sum(cands, target):\n    result = []\n    def bt(start, cur, rem):\n        if rem == 0: result.append(cur[:]); return\n        for i in range(start, len(cands)):\n            if cands[i] > rem: continue\n            cur.append(cands[i])\n            bt(i, cur, rem-cands[i])\n            cur.pop()\n    bt(0, [], target)\n    return result\n\nfor c in combo_sum([2,3,6,7], 7): print(c)",
+        expectedOutput: "[2, 2, 3]\n[7]",
+      },
+    },
+    {
+      type: "challenge",
+      content: "🏆 Coding Challenge · 编程挑战",
+      challenge: {
+        title: "🧩 4×4 Sudoku Solver · 4×4 数独求解",
+        description: "Solve a 4×4 sudoku (0 = empty) using backtracking.\n用回溯解 4×4 数独。",
+        starterCode: "def solve(board):\n    pass\n\nb = [[1,0,0,4],[0,0,0,0],[0,0,0,0],[4,0,0,1]]\nprint(solve(b))\nfor r in b: print(r)",
+        hint: "Find first 0, try 1-4, check row/col/2×2 box.\n找第一个 0，尝试 1-4，检查行/列/2×2 方块。",
+        solution: "def solve(board):\n    def valid(r, c, num):\n        for i in range(4):\n            if board[r][i]==num or board[i][c]==num: return False\n        br, bc = (r//2)*2, (c//2)*2\n        for i in range(br,br+2):\n            for j in range(bc,bc+2):\n                if board[i][j]==num: return False\n        return True\n    for i in range(4):\n        for j in range(4):\n            if board[i][j]==0:\n                for n in range(1,5):\n                    if valid(i,j,n):\n                        board[i][j]=n\n                        if solve(board): return True\n                        board[i][j]=0\n                return False\n    return True\n\nb = [[1,0,0,4],[0,0,0,0],[0,0,0,0],[4,0,0,1]]\nprint(solve(b))\nfor r in b: print(r)",
+        expectedOutput: "True\n[1, 2, 3, 4]\n[3, 4, 1, 2]\n[2, 1, 4, 3]\n[4, 3, 2, 1]",
       },
     },
     {
@@ -2814,6 +3321,15 @@ def kadane(arr):
     return max_sum
 
 print(f"Kadane's answer: {kadane(arr)}")`,
+      exercise: {
+        prompt: "Find max subarray sum using Kadane's algorithm (O(n)).",
+        promptZh: "用 Kadane 算法找到最大子数组和。",
+        starterCode: "def max_subarray(arr):\\n    pass\\n\\nprint(max_subarray([-2,1,-3,4,-1,2,1,-5,4]))\\nprint(max_subarray([-1,-2,-3]))",
+        expectedOutput: "6\\n-1",
+        hint: "Track current_sum and max_sum. Reset current if below current element.",
+        hintZh: "跟踪 current_sum 和 max_sum。",
+        solution: "def max_subarray(arr):\\n    max_sum = current = arr[0]\\n    for i in range(1, len(arr)):\\n        current = max(arr[i], current + arr[i])\\n        max_sum = max(max_sum, current)\\n    return max_sum\\n\\nprint(max_subarray([-2,1,-3,4,-1,2,1,-5,4]))\\nprint(max_subarray([-1,-2,-3]))",
+      },
     },
     {
       type: "code",
@@ -2867,6 +3383,15 @@ for arr in arrays:
 # Max inversions for n elements = n(n-1)/2
 n = 5
 print(f"\\nMax inversions for {n} elements: {n*(n-1)//2}")`,
+      exercise: {
+        prompt: "Count inversions using O(n²) nested loops.",
+        promptZh: "用 O(n²) 嵌套循环计算逆序对。",
+        starterCode: "def count_inversions(arr):\\n    pass\\n\\nprint(count_inversions([2,4,1,3,5]))\\nprint(count_inversions([5,4,3,2,1]))",
+        expectedOutput: "3\\n10",
+        hint: "For each pair (i,j) where i<j, check if arr[i] > arr[j].",
+        hintZh: "对每对 (i,j)，其中 i<j，检查 arr[i] > arr[j]。",
+        solution: "def count_inversions(arr):\\n    count = 0\\n    for i in range(len(arr)):\\n        for j in range(i+1, len(arr)):\\n            if arr[i] > arr[j]: count += 1\\n    return count\\n\\nprint(count_inversions([2,4,1,3,5]))\\nprint(count_inversions([5,4,3,2,1]))",
+      },
     },
     {
       type: "code",
@@ -2919,6 +3444,15 @@ def count_steps_fast(n):
 print(f"\\n📊 Steps comparison:")
 for n in [8, 16, 32, 64, 1000]:
     print(f"  x^{n}: naive={count_steps_naive(2,n)} vs fast={count_steps_fast(n)} steps")`,
+      exercise: {
+        prompt: "Implement fast power ITERATIVELY (no recursion).",
+        promptZh: "迭代实现快速幂（不用递归）。",
+        starterCode: "def fast_pow(base, exp):\\n    pass\\n\\nprint(fast_pow(2, 10))\\nprint(fast_pow(3, 5))\\nprint(fast_pow(5, 0))",
+        expectedOutput: "1024\\n243\\n1",
+        hint: "result=1. While exp>0: if odd, result*=base. Square base, halve exp.",
+        hintZh: "result=1。当 exp>0：奇数则 result*=base。base 平方，exp 减半。",
+        solution: "def fast_pow(base, exp):\\n    result = 1\\n    while exp > 0:\\n        if exp % 2 == 1: result *= base\\n        base *= base\\n        exp //= 2\\n    return result\\n\\nprint(fast_pow(2, 10))\\nprint(fast_pow(3, 5))\\nprint(fast_pow(5, 0))",
+      },
     },
     {
       type: "interactive",
@@ -2951,6 +3485,30 @@ for n in [8, 16, 32, 64, 1000]:
 - Combining solutions is efficient
 - Subproblems are independent (no overlap)
 - If subproblems overlap → use Dynamic Programming instead!`,
+    },
+    {
+      type: "challenge",
+      content: "🏆 Coding Challenge · 编程挑战",
+      challenge: {
+        title: "🔢 Closest Pair · 最近数对",
+        description: "Find closest pair of numbers using sort + adjacent check.\n用排序+相邻检查找最近数对。",
+        starterCode: "def closest_pair(arr):\n    pass\n\nprint(closest_pair([7, 1, 3, 10, 25, 8]))",
+        hint: "Sort first. Closest pair must be adjacent.\n先排序。最近对一定相邻。",
+        solution: "def closest_pair(arr):\n    s = sorted(arr)\n    best = (s[0], s[1])\n    for i in range(len(s)-1):\n        if s[i+1]-s[i] < best[1]-best[0]:\n            best = (s[i], s[i+1])\n    return best\n\nprint(closest_pair([7, 1, 3, 10, 25, 8]))",
+        expectedOutput: "(7, 8)",
+      },
+    },
+    {
+      type: "challenge",
+      content: "🏆 Coding Challenge · 编程挑战",
+      challenge: {
+        title: "⚡ Majority Element · 多数元素",
+        description: "Find element appearing > n/2 times using D&C (Boyer-Moore voting).\n用分治（Boyer-Moore 投票）找出现 > n/2 次的元素。",
+        starterCode: "def majority(arr):\n    pass\n\nprint(majority([3,2,3]))\nprint(majority([2,2,1,1,1,2,2]))",
+        hint: "Boyer-Moore: keep candidate and count. If count=0, new candidate.\nBoyer-Moore：维护候选和计数。计数=0 时换候选。",
+        solution: "def majority(arr):\n    candidate = count = 0\n    for x in arr:\n        if count == 0: candidate = x\n        count += 1 if x == candidate else -1\n    return candidate\n\nprint(majority([3,2,3]))\nprint(majority([2,2,1,1,1,2,2]))",
+        expectedOutput: "3\n2",
+      },
     },
     {
       type: "quiz",
@@ -3077,6 +3635,15 @@ print("\\n⚠️ Notice how calls EXPLODE! fib(35) makes 18 million calls!")
 print("   fib(50) would take minutes... fib(100) would take YEARS!")
 print("\\n🤔 Why? Because we recompute the SAME values over and over!")
 print("   fib(5) calls fib(3) TWICE, fib(2) THREE times, etc.")`,
+      exercise: {
+        prompt: "Count how many times fib(2) is called when computing fib(6).",
+        promptZh: "计算 fib(6) 时 fib(2) 被调用了多少次。",
+        starterCode: "count = 0\\ndef fib(n):\\n    global count\\n    pass\\n\\nresult = fib(6)\\nprint(result)\\nprint(count)",
+        expectedOutput: "8\\n5",
+        hint: "When n==2, increment count. Standard fib: 0→0, 1→1.",
+        hintZh: "当 n==2 时增加 count。标准 fib：0→0，1→1。",
+        solution: "count = 0\\ndef fib(n):\\n    global count\\n    if n == 2: count += 1\\n    if n <= 1: return n\\n    return fib(n-1) + fib(n-2)\\n\\nresult = fib(6)\\nprint(result)\\nprint(count)",
+      },
     },
     {
       type: "code",
@@ -3121,6 +3688,15 @@ def fib_cached(n):
 print(f"\\n🐍 Python's @lru_cache:")
 print(f"  fib(100) = {fib_cached(100)}")
 print(f"  Cache info: {fib_cached.cache_info()}")`,
+      exercise: {
+        prompt: "Implement Fibonacci with memoization. Count total function calls.",
+        promptZh: "用记忆化实现斐波那契。统计总调用次数。",
+        starterCode: "calls = 0\\ndef fib_memo(n, memo={}):\\n    global calls\\n    calls += 1\\n    pass\\n\\nprint(fib_memo(10))\\nprint(calls)",
+        expectedOutput: "55\\n19",
+        hint: "Check if n in memo first. Store result before returning.",
+        hintZh: "先检查 n 是否在 memo 中。返回前存储结果。",
+        solution: "calls = 0\\ndef fib_memo(n, memo={}):\\n    global calls\\n    calls += 1\\n    if n in memo: return memo[n]\\n    if n <= 1: return n\\n    memo[n] = fib_memo(n-1, memo) + fib_memo(n-2, memo)\\n    return memo[n]\\n\\nprint(fib_memo(10))\\nprint(calls)",
+      },
     },
     {
       type: "concept",
@@ -3175,6 +3751,15 @@ def climb_stairs_3(n, memo={}):
 print("\\n🪜 With 1, 2, or 3 steps:")
 for n in range(1, 11):
     print(f"  {n} stairs: {climb_stairs_3(n, {})} ways")`,
+      exercise: {
+        prompt: "Solve climbing stairs with 1, 2, or 3 steps allowed.",
+        promptZh: "解决允许走 1、2 或 3 步的爬楼梯问题。",
+        starterCode: "def climb3(n):\\n    pass\\n\\nprint(climb3(3))\\nprint(climb3(5))",
+        expectedOutput: "4\\n13",
+        hint: "dp[i] = dp[i-1] + dp[i-2] + dp[i-3]. Base: dp[0]=1, dp[1]=1, dp[2]=2.",
+        hintZh: "dp[i] = dp[i-1] + dp[i-2] + dp[i-3]。",
+        solution: "def climb3(n):\\n    if n <= 1: return 1\\n    if n == 2: return 2\\n    dp = [0]*(n+1)\\n    dp[0]=1; dp[1]=1; dp[2]=2\\n    for i in range(3, n+1):\\n        dp[i] = dp[i-1]+dp[i-2]+dp[i-3]\\n    return dp[n]\\n\\nprint(climb3(3))\\nprint(climb3(5))",
+      },
     },
     {
       type: "interactive",
@@ -3187,6 +3772,30 @@ for n in range(1, 11):
         hint: "Check if (m,n) is in memo before computing. Store result in memo[(m,n)].",
         hintZh: "计算前检查 (m,n) 是否在 memo 中。将结果存入 memo[(m,n)]。",
         solution: "def count_paths(m, n, memo={}):\n    if (m, n) in memo:\n        return memo[(m, n)]\n    if m == 1 or n == 1:\n        return 1\n    memo[(m, n)] = count_paths(m-1, n, memo) + count_paths(m, n-1, memo)\n    return memo[(m, n)]\n\nprint(count_paths(3, 3))",
+      },
+    },
+    {
+      type: "challenge",
+      content: "🏆 Coding Challenge · 编程挑战",
+      challenge: {
+        title: "🪙 Tribonacci · 三波那契",
+        description: "Compute Tribonacci: T(n)=T(n-1)+T(n-2)+T(n-3). T(0)=0, T(1)=T(2)=1.\n计算三波那契数。",
+        starterCode: "def tribonacci(n):\n    pass\n\nfor i in range(10): print(tribonacci(i), end=' ')",
+        hint: "Same as Fibonacci memo, but three recursive calls.\n和斐波那契记忆化一样，但三个递归。",
+        solution: "def tribonacci(n, memo={}):\n    if n in memo: return memo[n]\n    if n == 0: return 0\n    if n <= 2: return 1\n    memo[n] = tribonacci(n-1)+tribonacci(n-2)+tribonacci(n-3)\n    return memo[n]\n\nfor i in range(10): print(tribonacci(i), end=' ')",
+        expectedOutput: "0 1 1 2 4 7 13 24 44 81 ",
+      },
+    },
+    {
+      type: "challenge",
+      content: "🏆 Coding Challenge · 编程挑战",
+      challenge: {
+        title: "🏠 House Robber · 打家劫舍",
+        description: "Max money robbing non-adjacent houses. houses = [2,7,9,3,1].\n抢劫不相邻房屋的最大金额。",
+        starterCode: "def rob(houses):\n    pass\n\nprint(rob([2,7,9,3,1]))\nprint(rob([1,2,3,1]))",
+        hint: "dp[i] = max(dp[i-1], dp[i-2] + houses[i]).\ndp[i] = max(dp[i-1], dp[i-2] + houses[i])。",
+        solution: "def rob(houses):\n    if not houses: return 0\n    if len(houses) == 1: return houses[0]\n    dp = [0]*len(houses)\n    dp[0] = houses[0]\n    dp[1] = max(houses[0], houses[1])\n    for i in range(2, len(houses)):\n        dp[i] = max(dp[i-1], dp[i-2]+houses[i])\n    return dp[-1]\n\nprint(rob([2,7,9,3,1]))\nprint(rob([1,2,3,1]))",
+        expectedOutput: "12\n4",
       },
     },
     {
@@ -3330,6 +3939,15 @@ dp[1] = 1
 for i in range(2, 11):
     dp[i] = dp[i-1] + dp[i-2]
     print(f"  dp[{i}] = dp[{i-1}] + dp[{i-2}] = {dp[i-1]} + {dp[i-2]} = {dp[i]}")`,
+      exercise: {
+        prompt: "Implement Fibonacci using ONLY two variables (O(1) space).",
+        promptZh: "只用两个变量实现斐波那契（O(1) 空间）。",
+        starterCode: "def fib_const(n):\\n    pass\\n\\nprint(fib_const(0))\\nprint(fib_const(10))\\nprint(fib_const(20))",
+        expectedOutput: "0\\n55\\n6765",
+        hint: "prev=0, curr=1. Loop: prev, curr = curr, prev+curr.",
+        hintZh: "prev=0, curr=1。循环：prev, curr = curr, prev+curr。",
+        solution: "def fib_const(n):\\n    if n <= 1: return n\\n    prev, curr = 0, 1\\n    for _ in range(2, n+1):\\n        prev, curr = curr, prev+curr\\n    return curr\\n\\nprint(fib_const(0))\\nprint(fib_const(10))\\nprint(fib_const(20))",
+      },
     },
     {
       type: "code",
@@ -3369,6 +3987,15 @@ for i in range(1, 7):
             dp[i] = dp[i-c] + 1
     print(f"  dp[{i}] = {dp[i]} coins")
 print(f"\\nAnswer: {dp[6]} coins for amount 6 with coins {coins2}")`,
+      exercise: {
+        prompt: "Find minimum coins to make 36 cents with [1, 5, 10, 25].",
+        promptZh: "用 [1, 5, 10, 25] 凑 36 美分的最少硬币数。",
+        starterCode: "def min_coins(coins, amount):\\n    pass\\n\\nprint(min_coins([1,5,10,25], 36))\\nprint(min_coins([1,5,10,25], 30))",
+        expectedOutput: "3\\n2",
+        hint: "dp[i] = min(dp[i-c] + 1) for each coin c <= i.",
+        hintZh: "dp[i] = min(dp[i-c] + 1) 对每个 c <= i 的硬币。",
+        solution: "def min_coins(coins, amount):\\n    dp = [float('inf')]*(amount+1)\\n    dp[0] = 0\\n    for i in range(1, amount+1):\\n        for c in coins:\\n            if c <= i and dp[i-c]+1 < dp[i]:\\n                dp[i] = dp[i-c]+1\\n    return dp[amount]\\n\\nprint(min_coins([1,5,10,25], 36))\\nprint(min_coins([1,5,10,25], 30))",
+      },
     },
     {
       type: "concept",
@@ -3419,6 +4046,30 @@ print(f"\\nAnswer: {dp[6]} coins for amount 6 with coins {coins2}")`,
 - Start with memoization (easier to think about)
 - Convert to tabulation if you need performance or space optimization
 - In competitions, memoization + @lru_cache is often fastest to code!`,
+    },
+    {
+      type: "challenge",
+      content: "🏆 Coding Challenge · 编程挑战",
+      challenge: {
+        title: "🪙 Coin Combinations · 硬币组合",
+        description: "Count the NUMBER of ways to make amount with given coins.\n计算用给定硬币凑出金额的方式数。",
+        starterCode: "def coin_ways(coins, amount):\n    pass\n\nprint(coin_ways([1,2,5], 5))\nprint(coin_ways([1,2], 3))",
+        hint: "dp[i] += dp[i-coin] for each coin.\ndp[i] += dp[i-coin]。",
+        solution: "def coin_ways(coins, amount):\n    dp = [0]*(amount+1)\n    dp[0] = 1\n    for c in coins:\n        for i in range(c, amount+1):\n            dp[i] += dp[i-c]\n    return dp[amount]\n\nprint(coin_ways([1,2,5], 5))\nprint(coin_ways([1,2], 3))",
+        expectedOutput: "4\n2",
+      },
+    },
+    {
+      type: "challenge",
+      content: "🏆 Coding Challenge · 编程挑战",
+      challenge: {
+        title: "📊 Maximum Subarray DP · 最大子数组 DP",
+        description: "Find max subarray sum using DP (Kadane's).\n用 DP 找最大子数组和。",
+        starterCode: "def max_sub(arr):\n    pass\n\nprint(max_sub([-2,1,-3,4,-1,2,1,-5,4]))",
+        hint: "dp[i] = max(arr[i], dp[i-1]+arr[i]).\ndp[i] = max(arr[i], dp[i-1]+arr[i])。",
+        solution: "def max_sub(arr):\n    dp = arr[0]\n    best = arr[0]\n    for i in range(1, len(arr)):\n        dp = max(arr[i], dp+arr[i])\n        best = max(best, dp)\n    return best\n\nprint(max_sub([-2,1,-3,4,-1,2,1,-5,4]))",
+        expectedOutput: "6",
+      },
     },
     {
       type: "quiz",
@@ -3556,6 +4207,15 @@ for i, (item, w, v) in enumerate(zip(items, weights, values)):
 
 result = knapsack(weights, values, capacity)
 print(f"\\n🏆 Maximum value: {result}")`,
+      exercise: {
+        prompt: "Solve knapsack: items=[(2,3),(3,4),(4,5),(5,6)], capacity=8. Print max value.",
+        promptZh: "背包问题：物品=[(2,3),(3,4),(4,5),(5,6)]，容量=8。打印最大价值。",
+        starterCode: "def knapsack(items, capacity):\\n    pass\\n\\nprint(knapsack([(2,3),(3,4),(4,5),(5,6)], 8))",
+        expectedOutput: "10",
+        hint: "2D DP: dp[i][w] = max value using first i items with capacity w.",
+        hintZh: "二维 DP：dp[i][w] = 用前 i 个物品、容量 w 的最大价值。",
+        solution: "def knapsack(items, capacity):\\n    n = len(items)\\n    dp = [[0]*(capacity+1) for _ in range(n+1)]\\n    for i in range(1, n+1):\\n        w, v = items[i-1]\\n        for c in range(capacity+1):\\n            dp[i][c] = dp[i-1][c]\\n            if w <= c:\\n                dp[i][c] = max(dp[i][c], dp[i-1][c-w]+v)\\n    return dp[n][capacity]\\n\\nprint(knapsack([(2,3),(3,4),(4,5),(5,6)], 8))",
+      },
     },
     {
       type: "code",
@@ -3607,6 +4267,15 @@ print(f"   Subsequence: '{subseq}'")
 
 # Example 3: Git diff!
 print("\\n💡 LCS is used in 'git diff' to find common lines between file versions!")`,
+      exercise: {
+        prompt: "Find LCS length of 'ABCDE' and 'ACE'.",
+        promptZh: "找出 'ABCDE' 和 'ACE' 的 LCS 长度。",
+        starterCode: "def lcs_length(s1, s2):\\n    pass\\n\\nprint(lcs_length('ABCDE', 'ACE'))\\nprint(lcs_length('abc', 'def'))",
+        expectedOutput: "3\\n0",
+        hint: "dp[i][j]: if match, dp[i-1][j-1]+1; else max(dp[i-1][j], dp[i][j-1]).",
+        hintZh: "dp[i][j]：匹配则 dp[i-1][j-1]+1，否则取最大值。",
+        solution: "def lcs_length(s1, s2):\\n    m, n = len(s1), len(s2)\\n    dp = [[0]*(n+1) for _ in range(m+1)]\\n    for i in range(1, m+1):\\n        for j in range(1, n+1):\\n            if s1[i-1] == s2[j-1]: dp[i][j] = dp[i-1][j-1]+1\\n            else: dp[i][j] = max(dp[i-1][j], dp[i][j-1])\\n    return dp[m][n]\\n\\nprint(lcs_length('ABCDE', 'ACE'))\\nprint(lcs_length('abc', 'def'))",
+      },
     },
     {
       type: "code",
@@ -3662,6 +4331,15 @@ for i in range(1, len(arr)):
 print(f"DP table for {arr}:")
 for i in range(len(arr)):
     print(f"  dp[{i}] = {dp[i]} (element {arr[i]})")`,
+      exercise: {
+        prompt: "Find the actual LIS (not just length) for [10,9,2,5,3,7,101,18].",
+        promptZh: "找到 [10,9,2,5,3,7,101,18] 的实际 LIS（不只是长度）。",
+        starterCode: "def lis_sequence(arr):\\n    pass\\n\\nprint(lis_sequence([10,9,2,5,3,7,101,18]))",
+        expectedOutput: "[2, 3, 7, 18]",
+        hint: "Track parent pointers alongside dp array.",
+        hintZh: "在 dp 数组之外跟踪父指针。",
+        solution: "def lis_sequence(arr):\\n    n = len(arr)\\n    dp = [1]*n\\n    parent = [-1]*n\\n    for i in range(1, n):\\n        for j in range(i):\\n            if arr[j] < arr[i] and dp[j]+1 > dp[i]:\\n                dp[i] = dp[j]+1\\n                parent[i] = j\\n    idx = dp.index(max(dp))\\n    result = []\\n    while idx != -1:\\n        result.append(arr[idx])\\n        idx = parent[idx]\\n    return result[::-1]\\n\\nprint(lis_sequence([10,9,2,5,3,7,101,18]))",
+      },
     },
     {
       type: "concept",
@@ -3691,6 +4369,30 @@ for i in range(len(arr)):
         hint: "If chars match: dp[i][j] = dp[i-1][j-1]. Else: 1 + min(dp[i-1][j], dp[i][j-1], dp[i-1][j-1]).",
         hintZh: "如果字符匹配：dp[i][j] = dp[i-1][j-1]。否则：1 + min(三个方向)。",
         solution: "def edit_distance(s1, s2):\n    m, n = len(s1), len(s2)\n    dp = [[0]*(n+1) for _ in range(m+1)]\n    for i in range(m+1): dp[i][0] = i\n    for j in range(n+1): dp[0][j] = j\n    for i in range(1, m+1):\n        for j in range(1, n+1):\n            if s1[i-1] == s2[j-1]:\n                dp[i][j] = dp[i-1][j-1]\n            else:\n                dp[i][j] = 1 + min(dp[i-1][j], dp[i][j-1], dp[i-1][j-1])\n    return dp[m][n]\n\nprint(edit_distance('kitten', 'sitting'))",
+      },
+    },
+    {
+      type: "challenge",
+      content: "🏆 Coding Challenge · 编程挑战",
+      challenge: {
+        title: "🎒 Unbounded Knapsack · 完全背包",
+        description: "Like 0/1 knapsack but items can be used unlimited times.\n类似 0/1 背包但物品可无限使用。",
+        starterCode: "def unbounded_knapsack(items, capacity):\n    # items: [(weight, value)]\n    pass\n\nprint(unbounded_knapsack([(2,3),(3,4),(4,5)], 7))",
+        hint: "dp[w] = max(dp[w], dp[w-weight]+value) for each item.\ndp[w] = max(dp[w], dp[w-weight]+value)。",
+        solution: "def unbounded_knapsack(items, capacity):\n    dp = [0]*(capacity+1)\n    for w in range(1, capacity+1):\n        for wt, val in items:\n            if wt <= w:\n                dp[w] = max(dp[w], dp[w-wt]+val)\n    return dp[capacity]\n\nprint(unbounded_knapsack([(2,3),(3,4),(4,5)], 7))",
+        expectedOutput: "10",
+      },
+    },
+    {
+      type: "challenge",
+      content: "🏆 Coding Challenge · 编程挑战",
+      challenge: {
+        title: "📝 Edit Distance · 编辑距离",
+        description: "Find minimum edits (insert/delete/replace) to convert s1 to s2.\n找将 s1 转为 s2 的最少编辑次数。",
+        starterCode: "def edit_distance(s1, s2):\n    pass\n\nprint(edit_distance('kitten', 'sitting'))\nprint(edit_distance('abc', 'abc'))",
+        hint: "dp[i][j] = min of insert, delete, replace operations.\ndp[i][j] = 插入、删除、替换的最小值。",
+        solution: "def edit_distance(s1, s2):\n    m, n = len(s1), len(s2)\n    dp = [[0]*(n+1) for _ in range(m+1)]\n    for i in range(m+1): dp[i][0] = i\n    for j in range(n+1): dp[0][j] = j\n    for i in range(1, m+1):\n        for j in range(1, n+1):\n            if s1[i-1] == s2[j-1]: dp[i][j] = dp[i-1][j-1]\n            else: dp[i][j] = 1+min(dp[i-1][j], dp[i][j-1], dp[i-1][j-1])\n    return dp[m][n]\n\nprint(edit_distance('kitten', 'sitting'))\nprint(edit_distance('abc', 'abc'))",
+        expectedOutput: "3\n0",
       },
     },
     {
@@ -3821,6 +4523,15 @@ print(f"Math formula: C({m+n-2}, {m-1}) = {comb(m+n-2, m-1)}")
 # Bigger grid
 print(f"\\n10×10 grid: {count_paths(3, 3)} paths (3×3)")
 print(f"Math: C(18, 9) = {comb(18, 9)} paths (10×10)")`,
+      exercise: {
+        prompt: "Count paths in a 4×4 grid (top-left to bottom-right, only right/down).",
+        promptZh: "计算 4×4 网格的路径数。",
+        starterCode: "def count_paths(m, n):\\n    pass\\n\\nprint(count_paths(4, 4))\\nprint(count_paths(3, 3))",
+        expectedOutput: "20\\n6",
+        hint: "dp[i][j] = dp[i-1][j] + dp[i][j-1]. First row/col = 1.",
+        hintZh: "dp[i][j] = dp[i-1][j] + dp[i][j-1]。第一行/列 = 1。",
+        solution: "def count_paths(m, n):\\n    dp = [[1]*n for _ in range(m)]\\n    for i in range(1, m):\\n        for j in range(1, n):\\n            dp[i][j] = dp[i-1][j] + dp[i][j-1]\\n    return dp[m-1][n-1]\\n\\nprint(count_paths(4, 4))\\nprint(count_paths(3, 3))",
+      },
     },
     {
       type: "code",
@@ -3874,6 +4585,15 @@ grid = [
 ]
 result = count_paths_obstacles(grid)
 print(f"\\n🏁 Paths avoiding obstacles: {result}")`,
+      exercise: {
+        prompt: "Count paths in a grid with obstacles (0=open, 1=blocked).",
+        promptZh: "计算有障碍网格的路径数。",
+        starterCode: "def paths_obstacles(grid):\\n    pass\\n\\nprint(paths_obstacles([[0,0,0],[0,1,0],[0,0,0]]))",
+        expectedOutput: "2",
+        hint: "Same as grid paths, but dp[i][j] = 0 if blocked.",
+        hintZh: "和网格路径一样，但阻塞处 dp[i][j] = 0。",
+        solution: "def paths_obstacles(grid):\\n    m, n = len(grid), len(grid[0])\\n    dp = [[0]*n for _ in range(m)]\\n    for i in range(m):\\n        if grid[i][0] == 1: break\\n        dp[i][0] = 1\\n    for j in range(n):\\n        if grid[0][j] == 1: break\\n        dp[0][j] = 1\\n    for i in range(1, m):\\n        for j in range(1, n):\\n            if grid[i][j] == 0:\\n                dp[i][j] = dp[i-1][j] + dp[i][j-1]\\n    return dp[m-1][n-1]\\n\\nprint(paths_obstacles([[0,0,0],[0,1,0],[0,0,0]]))",
+      },
     },
     {
       type: "code",
@@ -3941,6 +4661,15 @@ grid = [
     [2, 1, 4, 1]
 ]
 min_path_sum(grid)`,
+      exercise: {
+        prompt: "Find minimum path sum AND the actual path as a list of cell values.",
+        promptZh: "找到最小路径和以及实际路径。",
+        starterCode: "def min_path_route(grid):\\n    # Return (min_sum, path_list)\\n    pass\\n\\ns, p = min_path_route([[1,3,1],[1,5,1],[4,2,1]])\\nprint(s)\\nprint(p)",
+        expectedOutput: "7\\n[1, 3, 1, 1, 1]",
+        hint: "Compute dp, then backtrack from bottom-right following minimum.",
+        hintZh: "计算 dp，然后从右下角沿最小值回溯。",
+        solution: "def min_path_route(grid):\\n    m, n = len(grid), len(grid[0])\\n    dp = [[0]*n for _ in range(m)]\\n    dp[0][0] = grid[0][0]\\n    for i in range(1,m): dp[i][0] = dp[i-1][0]+grid[i][0]\\n    for j in range(1,n): dp[0][j] = dp[0][j-1]+grid[0][j]\\n    for i in range(1,m):\\n        for j in range(1,n):\\n            dp[i][j] = min(dp[i-1][j], dp[i][j-1])+grid[i][j]\\n    path = []\\n    i, j = m-1, n-1\\n    while i > 0 or j > 0:\\n        path.append(grid[i][j])\\n        if i == 0: j -= 1\\n        elif j == 0: i -= 1\\n        elif dp[i-1][j] < dp[i][j-1]: i -= 1\\n        else: j -= 1\\n    path.append(grid[0][0])\\n    return dp[m-1][n-1], path[::-1]\\n\\ns, p = min_path_route([[1,3,1],[1,5,1],[4,2,1]])\\nprint(s)\\nprint(p)",
+      },
     },
     {
       type: "interactive",
@@ -3975,6 +4704,30 @@ min_path_sum(grid)`,
 3. ✅ Set base cases
 4. ✅ Fill in the correct order
 5. ✅ Extract the answer`,
+    },
+    {
+      type: "challenge",
+      content: "🏆 Coding Challenge · 编程挑战",
+      challenge: {
+        title: "💰 Maximum Gold · 最大黄金",
+        description: "Find max gold collectible in a grid moving only right or down.\n在网格中只能向右或向下移动，收集最多黄金。",
+        starterCode: "def max_gold(grid):\n    pass\n\nprint(max_gold([[1,3,1],[1,5,1],[4,2,1]]))",
+        hint: "Same as minimum path sum, but take max.\n和最小路径和一样，但取最大值。",
+        solution: "def max_gold(grid):\n    m, n = len(grid), len(grid[0])\n    dp = [[0]*n for _ in range(m)]\n    dp[0][0] = grid[0][0]\n    for i in range(1,m): dp[i][0] = dp[i-1][0]+grid[i][0]\n    for j in range(1,n): dp[0][j] = dp[0][j-1]+grid[0][j]\n    for i in range(1,m):\n        for j in range(1,n):\n            dp[i][j] = max(dp[i-1][j],dp[i][j-1])+grid[i][j]\n    return dp[m-1][n-1]\n\nprint(max_gold([[1,3,1],[1,5,1],[4,2,1]]))",
+        expectedOutput: "12",
+      },
+    },
+    {
+      type: "challenge",
+      content: "🏆 Coding Challenge · 编程挑战",
+      challenge: {
+        title: "🔲 Maximal Square · 最大正方形",
+        description: "Find the area of the largest square of 1s in a binary grid.\n在二进制网格中找最大全 1 正方形的面积。",
+        starterCode: "def max_square(grid):\n    pass\n\nprint(max_square([[1,0,1,0],[1,0,1,1],[1,1,1,1],[1,0,0,1]]))",
+        hint: "dp[i][j] = min(dp[i-1][j], dp[i][j-1], dp[i-1][j-1]) + 1 if grid[i][j]==1.\n如果 grid[i][j]==1，dp[i][j] = min(三个邻居) + 1。",
+        solution: "def max_square(grid):\n    m, n = len(grid), len(grid[0])\n    dp = [[0]*n for _ in range(m)]\n    max_side = 0\n    for i in range(m):\n        for j in range(n):\n            if grid[i][j] == 1:\n                if i == 0 or j == 0: dp[i][j] = 1\n                else: dp[i][j] = min(dp[i-1][j],dp[i][j-1],dp[i-1][j-1])+1\n                max_side = max(max_side, dp[i][j])\n    return max_side * max_side\n\nprint(max_square([[1,0,1,0],[1,0,1,1],[1,1,1,1],[1,0,0,1]]))",
+        expectedOutput: "4",
+      },
     },
     {
       type: "quiz",
@@ -4127,6 +4880,15 @@ for node, neighbors in graph.items():
 print(f"\\n🌊 BFS from 'A':")
 result = bfs(graph, 'A')
 print(f"Visit order: {' → '.join(result)}")`,
+      exercise: {
+        prompt: "Implement BFS returning visit order from node 0.",
+        promptZh: "实现 BFS，返回从节点 0 开始的访问顺序。",
+        starterCode: "from collections import deque\\ndef bfs_order(graph, start):\\n    pass\\n\\ng = {0:[1,2], 1:[3], 2:[3,4], 3:[], 4:[]}\\nprint(bfs_order(g, 0))",
+        expectedOutput: "[0, 1, 2, 3, 4]",
+        hint: "Queue + visited set. Dequeue, add to result, enqueue neighbors.",
+        hintZh: "队列 + 已访问集合。出队，加入结果，邻居入队。",
+        solution: "from collections import deque\\ndef bfs_order(graph, start):\\n    visited = set([start])\\n    queue = deque([start])\\n    order = []\\n    while queue:\\n        node = queue.popleft()\\n        order.append(node)\\n        for nbr in graph.get(node, []):\\n            if nbr not in visited:\\n                visited.add(nbr)\\n                queue.append(nbr)\\n    return order\\n\\ng = {0:[1,2], 1:[3], 2:[3,4], 3:[], 4:[]}\\nprint(bfs_order(g, 0))",
+      },
     },
     {
       type: "code",
@@ -4201,6 +4963,15 @@ def bfs_order(graph, start):
 print(f"\\n📊 Comparison:")
 print(f"  BFS order: {' → '.join(bfs_order(graph, 'A'))}")
 print(f"  DFS order: {' → '.join(dfs_iterative(graph, 'A'))}")`,
+      exercise: {
+        prompt: "Implement iterative DFS using a stack. Return visit order.",
+        promptZh: "用栈实现迭代 DFS。返回访问顺序。",
+        starterCode: "def dfs_iter(graph, start):\\n    pass\\n\\ng = {0:[1,2], 1:[3], 2:[3,4], 3:[], 4:[]}\\nprint(dfs_iter(g, 0))",
+        expectedOutput: "[0, 2, 4, 3, 1]",
+        hint: "Stack. Pop, add if not visited, push neighbors (reversed).",
+        hintZh: "栈。弹出，如果未访问则添加，压入邻居（反转）。",
+        solution: "def dfs_iter(graph, start):\\n    visited = set()\\n    stack = [start]\\n    order = []\\n    while stack:\\n        node = stack.pop()\\n        if node not in visited:\\n            visited.add(node)\\n            order.append(node)\\n            for nbr in reversed(graph.get(node, [])):\\n                if nbr not in visited:\\n                    stack.append(nbr)\\n    return order\\n\\ng = {0:[1,2], 1:[3], 2:[3,4], 3:[], 4:[]}\\nprint(dfs_iter(g, 0))",
+      },
     },
     {
       type: "concept",
@@ -4271,6 +5042,15 @@ for start, end in pairs:
     print(f"\\n🔗 {start} → {end}:")
     print(f"   Path: {' → '.join(path)}")
     print(f"   Degrees of separation: {len(path) - 1}")`,
+      exercise: {
+        prompt: "BFS to find shortest distance from node 0 to ALL nodes.",
+        promptZh: "用 BFS 找到从节点 0 到所有节点的最短距离。",
+        starterCode: "from collections import deque\\ndef bfs_distances(graph, start):\\n    pass\\n\\ng = {0:[1,2], 1:[0,3], 2:[0,3,4], 3:[1,2], 4:[2]}\\nprint(bfs_distances(g, 0))",
+        expectedOutput: "{0: 0, 1: 1, 2: 1, 3: 2, 4: 2}",
+        hint: "Track distance when first visiting each node.",
+        hintZh: "首次访问时记录距离。",
+        solution: "from collections import deque\\ndef bfs_distances(graph, start):\\n    dist = {start: 0}\\n    queue = deque([start])\\n    while queue:\\n        node = queue.popleft()\\n        for nbr in graph.get(node, []):\\n            if nbr not in dist:\\n                dist[nbr] = dist[node]+1\\n                queue.append(nbr)\\n    return dist\\n\\ng = {0:[1,2], 1:[0,3], 2:[0,3,4], 3:[1,2], 4:[2]}\\nprint(bfs_distances(g, 0))",
+      },
     },
     {
       type: "interactive",
@@ -4303,6 +5083,30 @@ for start, end in pairs:
 - Need shortest path? → **BFS**
 - Need to explore all paths? → **DFS**
 - Need topological order? → **DFS**`,
+    },
+    {
+      type: "challenge",
+      content: "🏆 Coding Challenge · 编程挑战",
+      challenge: {
+        title: "🌊 Flood Fill · 洪水填充",
+        description: "Implement flood fill (like paint bucket tool). Change color at (r,c) and all connected same-color cells.\n实现洪水填充。",
+        starterCode: "def flood_fill(grid, r, c, new_color):\n    pass\n\ng = [[1,1,1],[1,1,0],[1,0,1]]\nflood_fill(g, 1, 1, 2)\nfor row in g: print(row)",
+        hint: "DFS/BFS from (r,c). Change all connected cells with original color.\n从 (r,c) DFS/BFS。改变所有连通的原色单元格。",
+        solution: "def flood_fill(grid, r, c, new_color):\n    orig = grid[r][c]\n    if orig == new_color: return\n    rows, cols = len(grid), len(grid[0])\n    def dfs(r, c):\n        if r<0 or r>=rows or c<0 or c>=cols: return\n        if grid[r][c] != orig: return\n        grid[r][c] = new_color\n        dfs(r+1,c); dfs(r-1,c); dfs(r,c+1); dfs(r,c-1)\n    dfs(r, c)\n\ng = [[1,1,1],[1,1,0],[1,0,1]]\nflood_fill(g, 1, 1, 2)\nfor row in g: print(row)",
+        expectedOutput: "[2, 2, 2]\n[2, 2, 0]\n[2, 0, 1]",
+      },
+    },
+    {
+      type: "challenge",
+      content: "🏆 Coding Challenge · 编程挑战",
+      challenge: {
+        title: "🔗 Graph Has Path · 图是否有路径",
+        description: "Check if path exists between two nodes using BFS or DFS.\n检查两个节点之间是否有路径。",
+        starterCode: "def has_path(graph, start, end):\n    pass\n\ng = {0:[1,2], 1:[3], 2:[], 3:[4], 4:[]}\nprint(has_path(g, 0, 4))\nprint(has_path(g, 0, 5))",
+        hint: "BFS/DFS from start. If you reach end, return True.\n从 start BFS/DFS。到达 end 返回 True。",
+        solution: "def has_path(graph, start, end):\n    visited = set()\n    stack = [start]\n    while stack:\n        node = stack.pop()\n        if node == end: return True\n        if node in visited: continue\n        visited.add(node)\n        for nbr in graph.get(node, []):\n            stack.append(nbr)\n    return False\n\ng = {0:[1,2], 1:[3], 2:[], 3:[4], 4:[]}\nprint(has_path(g, 0, 4))\nprint(has_path(g, 0, 5))",
+        expectedOutput: "True\nFalse",
+      },
     },
     {
       type: "quiz",
@@ -4459,6 +5263,15 @@ print(f"\\n📊 Shortest distances from A:")
 for node, dist in sorted(distances.items()):
     path = get_path(previous, 'A', node)
     print(f"  A → {node}: distance={dist}, path={' → '.join(path)}")`,
+      exercise: {
+        prompt: "Find shortest distances from 'A' to all nodes using Dijkstra.",
+        promptZh: "用 Dijkstra 找从 'A' 到所有节点的最短距离。",
+        starterCode: "import heapq\\ndef dijkstra(graph, start):\\n    pass\\n\\ng = {'A':[('B',1),('C',4)], 'B':[('C',2),('D',5)], 'C':[('D',1)], 'D':[]}\\nprint(dijkstra(g, 'A'))",
+        expectedOutput: "{'A': 0, 'B': 1, 'C': 3, 'D': 4}",
+        hint: "Min-heap. Pop smallest, update neighbors if shorter path found.",
+        hintZh: "最小堆。弹出最小距离，更新邻居。",
+        solution: "import heapq\\ndef dijkstra(graph, start):\\n    dist = {start: 0}\\n    heap = [(0, start)]\\n    while heap:\\n        d, node = heapq.heappop(heap)\\n        if d > dist.get(node, float('inf')): continue\\n        for nbr, w in graph.get(node, []):\\n            nd = d + w\\n            if nd < dist.get(nbr, float('inf')):\\n                dist[nbr] = nd\\n                heapq.heappush(heap, (nd, nbr))\\n    return dist\\n\\ng = {'A':[('B',1),('C',4)], 'B':[('C',2),('D',5)], 'C':[('D',1)], 'D':[]}\\nprint(dijkstra(g, 'A'))",
+      },
     },
     {
       type: "concept",
@@ -4535,6 +5348,15 @@ destinations = ['School', 'Mall', 'Library', 'Theater', 'Gym', 'Park']
 for dest in destinations:
     dist, path = dijkstra_city(roads, 'Home', dest)
     print(f"  🏠→{dest}: {dist}km via {' → '.join(path)}")`,
+      exercise: {
+        prompt: "Modify Dijkstra to return the actual shortest PATH to a target.",
+        promptZh: "修改 Dijkstra 返回到目标的实际最短路径。",
+        starterCode: "import heapq\\ndef dijkstra_path(graph, start, end):\\n    # Return (distance, path_list)\\n    pass\\n\\ng = {'A':[('B',1),('C',4)], 'B':[('C',2),('D',5)], 'C':[('D',1)], 'D':[]}\\nd, p = dijkstra_path(g, 'A', 'D')\\nprint(d)\\nprint(p)",
+        expectedOutput: "4\\n['A', 'B', 'C', 'D']",
+        hint: "Track parent pointers. Backtrack from end to start.",
+        hintZh: "跟踪父指针。从终点回溯到起点。",
+        solution: "import heapq\\ndef dijkstra_path(graph, start, end):\\n    dist = {start: 0}\\n    parent = {start: None}\\n    heap = [(0, start)]\\n    while heap:\\n        d, node = heapq.heappop(heap)\\n        if node == end: break\\n        if d > dist.get(node, float('inf')): continue\\n        for nbr, w in graph.get(node, []):\\n            nd = d + w\\n            if nd < dist.get(nbr, float('inf')):\\n                dist[nbr] = nd\\n                parent[nbr] = node\\n                heapq.heappush(heap, (nd, nbr))\\n    path = []\\n    n = end\\n    while n is not None:\\n        path.append(n)\\n        n = parent.get(n)\\n    return dist[end], path[::-1]\\n\\ng = {'A':[('B',1),('C',4)], 'B':[('C',2),('D',5)], 'C':[('D',1)], 'D':[]}\\nd, p = dijkstra_path(g, 'A', 'D')\\nprint(d)\\nprint(p)",
+      },
     },
     {
       type: "interactive",
@@ -4568,6 +5390,30 @@ For negative weights, use **Bellman-Ford** algorithm instead.
 | Floyd-Warshall | Yes ✅ | O(V³) | All-pairs shortest path |
 
 🔑 **Dijkstra = BFS with a priority queue, always expanding the closest node first!**`,
+    },
+    {
+      type: "challenge",
+      content: "🏆 Coding Challenge · 编程挑战",
+      challenge: {
+        title: "🗺️ Network Delay · 网络延迟",
+        description: "Find time for signal to reach ALL nodes from source. Return max distance or -1 if impossible.\n找信号从源到达所有节点的时间。",
+        starterCode: "import heapq\ndef network_delay(n, edges, source):\n    # edges: [(from, to, time)]\n    pass\n\nprint(network_delay(4, [(1,2,1),(2,3,2),(1,3,4),(3,4,1)], 1))",
+        hint: "Dijkstra from source. Answer is max of all distances.\n从源 Dijkstra。答案是所有距离的最大值。",
+        solution: "import heapq\ndef network_delay(n, edges, source):\n    adj = {}\n    for u, v, w in edges:\n        adj.setdefault(u, []).append((v, w))\n    dist = {source: 0}\n    heap = [(0, source)]\n    while heap:\n        d, node = heapq.heappop(heap)\n        if d > dist.get(node, float('inf')): continue\n        for nbr, w in adj.get(node, []):\n            nd = d + w\n            if nd < dist.get(nbr, float('inf')):\n                dist[nbr] = nd\n                heapq.heappush(heap, (nd, nbr))\n    if len(dist) < n: return -1\n    return max(dist.values())\n\nprint(network_delay(4, [(1,2,1),(2,3,2),(1,3,4),(3,4,1)], 1))",
+        expectedOutput: "4",
+      },
+    },
+    {
+      type: "challenge",
+      content: "🏆 Coding Challenge · 编程挑战",
+      challenge: {
+        title: "🏙️ Cheapest Flight · 最便宜航班",
+        description: "Find cheapest price from src to dst with at most k stops.\n找从 src 到 dst 最多 k 次中转的最便宜价格。",
+        starterCode: "def cheapest_flight(n, flights, src, dst, k):\n    # flights: [(from, to, price)]\n    pass\n\nprint(cheapest_flight(3, [(0,1,100),(1,2,100),(0,2,500)], 0, 2, 1))\nprint(cheapest_flight(3, [(0,1,100),(1,2,100),(0,2,500)], 0, 2, 0))",
+        hint: "BFS with level = stops. Track minimum cost per node per level.\n按层 BFS = 中转次数。跟踪每节点每层最低费用。",
+        solution: "def cheapest_flight(n, flights, src, dst, k):\n    prices = [float('inf')] * n\n    prices[src] = 0\n    for _ in range(k + 1):\n        tmp = prices[:]\n        for u, v, w in flights:\n            if prices[u] + w < tmp[v]:\n                tmp[v] = prices[u] + w\n        prices = tmp\n    return prices[dst] if prices[dst] != float('inf') else -1\n\nprint(cheapest_flight(3, [(0,1,100),(1,2,100),(0,2,500)], 0, 2, 1))\nprint(cheapest_flight(3, [(0,1,100),(1,2,100),(0,2,500)], 0, 2, 0))",
+        expectedOutput: "200\n500",
+      },
     },
     {
       type: "quiz",
@@ -4738,6 +5584,15 @@ for course, prereqs in courses.items():
 print(f"\\n📋 Topological Sort (valid course order):")
 order = topological_sort_kahn(courses, all_courses)
 print(f"\\n✅ Valid order: {' → '.join(order)}")`,
+      exercise: {
+        prompt: "Implement Kahn's algorithm for topological sort.",
+        promptZh: "实现 Kahn 拓扑排序算法。",
+        starterCode: "from collections import deque\\ndef topo_sort(n, edges):\\n    pass\\n\\nprint(topo_sort(4, [(0,1),(0,2),(1,3),(2,3)]))",
+        expectedOutput: "[0, 1, 2, 3]",
+        hint: "Build in-degree array. Start with in-degree 0 nodes. Process queue.",
+        hintZh: "建立入度数组。从入度 0 的节点开始。",
+        solution: "from collections import deque\\ndef topo_sort(n, edges):\\n    adj = [[] for _ in range(n)]\\n    indeg = [0]*n\\n    for u, v in edges:\\n        adj[u].append(v)\\n        indeg[v] += 1\\n    q = deque([i for i in range(n) if indeg[i] == 0])\\n    order = []\\n    while q:\\n        node = q.popleft()\\n        order.append(node)\\n        for nbr in adj[node]:\\n            indeg[nbr] -= 1\\n            if indeg[nbr] == 0: q.append(nbr)\\n    return order\\n\\nprint(topo_sort(4, [(0,1),(0,2),(1,3),(2,3)]))",
+      },
     },
     {
       type: "code",
@@ -4809,6 +5664,15 @@ cyclic = {
 result = topological_sort_dfs(cyclic, ['A', 'B', 'C'])
 if result is None:
     print("  ⚠️ Cycle detected! Topological sort impossible!")`,
+      exercise: {
+        prompt: "Implement DFS-based topological sort with post-order reversal.",
+        promptZh: "用后序遍历反转实现 DFS 拓扑排序。",
+        starterCode: "def topo_dfs(n, edges):\\n    pass\\n\\nprint(topo_dfs(4, [(0,1),(0,2),(1,3),(2,3)]))",
+        expectedOutput: "[0, 2, 1, 3]",
+        hint: "DFS each unvisited node. Append after visiting all neighbors. Reverse.",
+        hintZh: "DFS 每个未访问节点。访问完邻居后添加。反转。",
+        solution: "def topo_dfs(n, edges):\\n    adj = [[] for _ in range(n)]\\n    for u, v in edges: adj[u].append(v)\\n    visited = set()\\n    stack = []\\n    def dfs(node):\\n        visited.add(node)\\n        for nbr in adj[node]:\\n            if nbr not in visited: dfs(nbr)\\n        stack.append(node)\\n    for i in range(n):\\n        if i not in visited: dfs(i)\\n    return stack[::-1]\\n\\nprint(topo_dfs(4, [(0,1),(0,2),(1,3),(2,3)]))",
+      },
     },
     {
       type: "concept",
@@ -4839,6 +5703,30 @@ if result is None:
         hint: "Process queue: pop node, add to result, decrement in-degree of neighbors, add 0-degree neighbors to queue.",
         hintZh: "处理队列：弹出节点，加入结果，递减邻居入度，将入度为 0 的邻居加入队列。",
         solution: "from collections import deque\n\ndef task_order(n, deps):\n    graph = {i: [] for i in range(n)}\n    in_deg = {i: 0 for i in range(n)}\n    for a, b in deps:\n        graph[a].append(b)\n        in_deg[b] += 1\n    queue = deque([i for i in range(n) if in_deg[i] == 0])\n    result = []\n    while queue:\n        node = queue.popleft()\n        result.append(node)\n        for nb in graph[node]:\n            in_deg[nb] -= 1\n            if in_deg[nb] == 0:\n                queue.append(nb)\n    return result\n\nprint(task_order(4, [[0,1],[0,2],[1,3],[2,3]]))",
+      },
+    },
+    {
+      type: "challenge",
+      content: "🏆 Coding Challenge · 编程挑战",
+      challenge: {
+        title: "📋 Course Schedule · 课程安排",
+        description: "Determine if you can finish all courses given prerequisites (cycle detection in DAG).\n判断给定先修课程能否完成所有课程。",
+        starterCode: "def can_finish(n, prereqs):\n    # prereqs: [(course, prerequisite)]\n    pass\n\nprint(can_finish(4, [(1,0),(2,1),(3,2)]))\nprint(can_finish(2, [(0,1),(1,0)]))",
+        hint: "Topological sort. If sorted order has all n nodes, no cycle.\n拓扑排序。如果排序有 n 个节点，无环。",
+        solution: "from collections import deque\ndef can_finish(n, prereqs):\n    adj = [[] for _ in range(n)]\n    indeg = [0]*n\n    for c, p in prereqs:\n        adj[p].append(c)\n        indeg[c] += 1\n    q = deque([i for i in range(n) if indeg[i]==0])\n    count = 0\n    while q:\n        node = q.popleft()\n        count += 1\n        for nbr in adj[node]:\n            indeg[nbr] -= 1\n            if indeg[nbr] == 0: q.append(nbr)\n    return count == n\n\nprint(can_finish(4, [(1,0),(2,1),(3,2)]))\nprint(can_finish(2, [(0,1),(1,0)]))",
+        expectedOutput: "True\nFalse",
+      },
+    },
+    {
+      type: "challenge",
+      content: "🏆 Coding Challenge · 编程挑战",
+      challenge: {
+        title: "📊 Longest Path in DAG · DAG 最长路径",
+        description: "Find the longest path in a DAG using topological sort.\n用拓扑排序找 DAG 中的最长路径。",
+        starterCode: "def longest_path(n, edges):\n    # edges: [(from, to, weight)]\n    pass\n\nprint(longest_path(4, [(0,1,3),(0,2,2),(1,3,4),(2,3,1)]))",
+        hint: "Topo sort, then relax edges in order.\n拓扑排序，然后按顺序松弛边。",
+        solution: "from collections import deque\ndef longest_path(n, edges):\n    adj = [[] for _ in range(n)]\n    indeg = [0]*n\n    for u, v, w in edges:\n        adj[u].append((v, w))\n        indeg[v] += 1\n    q = deque([i for i in range(n) if indeg[i]==0])\n    order = []\n    while q:\n        node = q.popleft()\n        order.append(node)\n        for v, _ in adj[node]:\n            indeg[v] -= 1\n            if indeg[v] == 0: q.append(v)\n    dist = [0]*n\n    for u in order:\n        for v, w in adj[u]:\n            dist[v] = max(dist[v], dist[u]+w)\n    return max(dist)\n\nprint(longest_path(4, [(0,1,3),(0,2,2),(1,3,4),(2,3,1)]))",
+        expectedOutput: "7",
       },
     },
     {
@@ -4995,6 +5883,15 @@ processes = {
     'R2': ['P1'],  # R2 held by P1 → DEADLOCK!
 }
 print(f"  Deadlock: {has_cycle(processes, ['P1','R1','P2','R2'])}")`,
+      exercise: {
+        prompt: "Detect if an undirected graph has a cycle using DFS.",
+        promptZh: "用 DFS 检测无向图是否有环。",
+        starterCode: "def has_cycle(n, edges):\\n    pass\\n\\nprint(has_cycle(4, [(0,1),(1,2),(2,3)]))\\nprint(has_cycle(4, [(0,1),(1,2),(2,3),(3,0)]))",
+        expectedOutput: "False\\nTrue",
+        hint: "DFS with parent tracking. Visited neighbor ≠ parent → cycle!",
+        hintZh: "带父节点跟踪的 DFS。已访问邻居 ≠ 父节点 → 有环！",
+        solution: "def has_cycle(n, edges):\\n    adj = [[] for _ in range(n)]\\n    for u, v in edges:\\n        adj[u].append(v); adj[v].append(u)\\n    visited = set()\\n    def dfs(node, parent):\\n        visited.add(node)\\n        for nbr in adj[node]:\\n            if nbr not in visited:\\n                if dfs(nbr, node): return True\\n            elif nbr != parent: return True\\n        return False\\n    for i in range(n):\\n        if i not in visited:\\n            if dfs(i, -1): return True\\n    return False\\n\\nprint(has_cycle(4, [(0,1),(1,2),(2,3)]))\\nprint(has_cycle(4, [(0,1),(1,2),(2,3),(3,0)]))",
+      },
     },
     {
       type: "code",
@@ -5056,6 +5953,15 @@ triangle = {
 }
 result, _ = is_bipartite(triangle)
 print(f"  Bipartite: {result}")`,
+      exercise: {
+        prompt: "Check if a graph is bipartite using BFS coloring.",
+        promptZh: "用 BFS 着色检查图是否二部图。",
+        starterCode: "from collections import deque\\ndef is_bipartite(n, edges):\\n    pass\\n\\nprint(is_bipartite(4, [(0,1),(1,2),(2,3)]))\\nprint(is_bipartite(3, [(0,1),(1,2),(2,0)]))",
+        expectedOutput: "True\\nFalse",
+        hint: "Color neighbors with opposite color. Conflict → not bipartite.",
+        hintZh: "给邻居着相反颜色。冲突 → 不是二部图。",
+        solution: "from collections import deque\\ndef is_bipartite(n, edges):\\n    adj = [[] for _ in range(n)]\\n    for u, v in edges:\\n        adj[u].append(v); adj[v].append(u)\\n    color = [-1]*n\\n    for s in range(n):\\n        if color[s] != -1: continue\\n        color[s] = 0\\n        q = deque([s])\\n        while q:\\n            node = q.popleft()\\n            for nbr in adj[node]:\\n                if color[nbr] == -1:\\n                    color[nbr] = 1 - color[node]\\n                    q.append(nbr)\\n                elif color[nbr] == color[node]: return False\\n    return True\\n\\nprint(is_bipartite(4, [(0,1),(1,2),(2,3)]))\\nprint(is_bipartite(3, [(0,1),(1,2),(2,0)]))",
+      },
     },
     {
       type: "code",
@@ -5135,6 +6041,15 @@ print("  👥 Facebook — friend suggestions")
 print("  🎮 Game AI — pathfinding (A*)")
 print("  🧬 Bioinformatics — protein networks")
 print("  📦 Amazon — delivery optimization")`,
+      exercise: {
+        prompt: "Count connected components in an undirected graph using DFS.",
+        promptZh: "用 DFS 计算无向图的连通分量数。",
+        starterCode: "def count_components(n, edges):\\n    pass\\n\\nprint(count_components(5, [(0,1),(2,3)]))\\nprint(count_components(4, [(0,1),(1,2),(2,3)]))",
+        expectedOutput: "3\\n1",
+        hint: "DFS from each unvisited node. Each DFS call = one component.",
+        hintZh: "从每个未访问节点 DFS。每次 = 一个连通分量。",
+        solution: "def count_components(n, edges):\\n    adj = [[] for _ in range(n)]\\n    for u, v in edges:\\n        adj[u].append(v); adj[v].append(u)\\n    visited = set()\\n    count = 0\\n    def dfs(node):\\n        visited.add(node)\\n        for nbr in adj[node]:\\n            if nbr not in visited: dfs(nbr)\\n    for i in range(n):\\n        if i not in visited:\\n            dfs(i); count += 1\\n    return count\\n\\nprint(count_components(5, [(0,1),(2,3)]))\\nprint(count_components(4, [(0,1),(1,2),(2,3)]))",
+      },
     },
     {
       type: "interactive",
@@ -5172,6 +6087,30 @@ Congratulations! You've learned the most important algorithms in computer scienc
 - The more you practice, the more natural they become!
 
 🎓 **Remember:** Algorithms are tools for solving problems. The best algorithm is the one you understand and can implement correctly!`,
+    },
+    {
+      type: "challenge",
+      content: "🏆 Coding Challenge · 编程挑战",
+      challenge: {
+        title: "🌉 Bridge Finder · 桥查找器",
+        description: "Count connected components after removing each edge.\n删除每条边后计算连通分量数。",
+        starterCode: "def count_bridges(n, edges):\n    # An edge is a bridge if removing it increases components\n    pass\n\nprint(count_bridges(4, [(0,1),(1,2),(2,0),(2,3)]))",
+        hint: "For each edge, remove it and count components using DFS.\n删除每条边，用 DFS 计算连通分量。",
+        solution: "def count_bridges(n, edges):\n    bridges = 0\n    for skip in range(len(edges)):\n        adj = [[] for _ in range(n)]\n        for i, (u, v) in enumerate(edges):\n            if i == skip: continue\n            adj[u].append(v); adj[v].append(u)\n        visited = set()\n        def dfs(node):\n            visited.add(node)\n            for nbr in adj[node]:\n                if nbr not in visited: dfs(nbr)\n        components = 0\n        for i in range(n):\n            if i not in visited: dfs(i); components += 1\n        if components > 1: bridges += 1\n    return bridges\n\nprint(count_bridges(4, [(0,1),(1,2),(2,0),(2,3)]))",
+        expectedOutput: "1",
+      },
+    },
+    {
+      type: "challenge",
+      content: "🏆 Coding Challenge · 编程挑战",
+      challenge: {
+        title: "🔄 Strongly Connected · 强连通检测",
+        description: "Check if a DIRECTED graph is strongly connected (every node reachable from every other).\n检查有向图是否强连通。",
+        starterCode: "def is_strongly_connected(n, edges):\n    pass\n\nprint(is_strongly_connected(3, [(0,1),(1,2),(2,0)]))\nprint(is_strongly_connected(3, [(0,1),(1,2)]))",
+        hint: "DFS from node 0. Reverse edges and DFS again. If both reach all nodes → strongly connected.\n从 0 DFS。反转边再 DFS。如果都能到达所有节点 → 强连通。",
+        solution: "def is_strongly_connected(n, edges):\n    adj = [[] for _ in range(n)]\n    radj = [[] for _ in range(n)]\n    for u, v in edges:\n        adj[u].append(v); radj[v].append(u)\n    def dfs(graph, start):\n        visited = set()\n        stack = [start]\n        while stack:\n            node = stack.pop()\n            if node in visited: continue\n            visited.add(node)\n            for nbr in graph[node]: stack.append(nbr)\n        return visited\n    return len(dfs(adj, 0)) == n and len(dfs(radj, 0)) == n\n\nprint(is_strongly_connected(3, [(0,1),(1,2),(2,0)]))\nprint(is_strongly_connected(3, [(0,1),(1,2)]))",
+        expectedOutput: "True\nFalse",
+      },
     },
     {
       type: "quiz",

@@ -237,7 +237,18 @@ export default function LessonPage() {
   const [showCelebration, setShowCelebration] = useState(false);
   const [quizPassed, setQuizPassed] = useState(false);
   const [superuser, setSuperuser] = useState(false);
-  const [exerciseLang, setExerciseLang] = useState<"python" | "cpp">(lessonId.startsWith("cpp-") ? "cpp" : "python");
+  const [codeLang, setCodeLang] = useState<"python" | "cpp">(() => {
+    if (lessonId.startsWith("cpp-")) return "cpp";
+    if (typeof window !== "undefined") {
+      const saved = localStorage.getItem("codeBuddy-codeLang");
+      if (saved === "cpp") return "cpp";
+    }
+    return "python";
+  });
+
+  useEffect(() => {
+    localStorage.setItem("codeBuddy-codeLang", codeLang);
+  }, [codeLang]);
 
   useEffect(() => {
     const p = getProgress();
@@ -331,37 +342,36 @@ export default function LessonPage() {
         ))}
       </div>
 
+      {/* Course-level language toggle for DS and ALG lessons */}
+      {(lessonId.startsWith("ds-") || lessonId.startsWith("alg-")) && (
+        <div className="flex gap-2 justify-center mb-6">
+          <button
+            onClick={() => setCodeLang("python")}
+            className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${codeLang === "python" ? "bg-cyan-500/20 text-cyan-400 border border-cyan-500/50" : "bg-[var(--theme-card-bg)] text-[var(--theme-text-secondary)] border border-transparent hover:border-cyan-500/30"}`}
+          >🐍 Python</button>
+          <button
+            onClick={() => setCodeLang("cpp")}
+            className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${codeLang === "cpp" ? "bg-indigo-500/20 text-indigo-400 border border-indigo-500/50" : "bg-[var(--theme-card-bg)] text-[var(--theme-text-secondary)] border border-transparent hover:border-indigo-500/30"}`}
+          >⚡ C++</button>
+        </div>
+      )}
+
       {/* Section content */}
       <AnimatePresence mode="wait">
         <div key={currentSection} className="space-y-6">
-          {section.type === "concept" && <ConceptSection section={section} language={lessonId.startsWith("cpp-") ? "cpp" : "python"} />}
+          {section.type === "concept" && <ConceptSection section={section} language={lessonId.startsWith("cpp-") ? "cpp" : codeLang} />}
           {section.type === "text" && <TextSection section={section} />}
           {section.type === "interactive" && <InteractiveSection section={section} />}
-          {section.type === "code" && <CodeSection section={section} language={lessonId.startsWith("cpp-") ? "cpp" : "python"} />}
+          {section.type === "code" && <CodeSection section={{
+            ...section,
+            ...(codeLang === "cpp" && section.codeCpp ? { code: section.codeCpp } : {}),
+          }} language={lessonId.startsWith("cpp-") ? "cpp" : codeLang} />}
           {section.type === "challenge" && (
-            <>
-              {section.challenge && section.challengeCpp && (
-                <div className="flex gap-2 mb-3 justify-center">
-                  <button
-                    onClick={() => setExerciseLang("python")}
-                    className={`px-4 py-1.5 rounded-lg text-sm font-medium transition-all ${exerciseLang === "python" ? "bg-cyan-500 text-black" : "bg-[var(--theme-card-bg)] text-[var(--theme-text-secondary)] hover:text-[var(--theme-text-primary)]"}`}
-                  >
-                    🐍 Python
-                  </button>
-                  <button
-                    onClick={() => setExerciseLang("cpp")}
-                    className={`px-4 py-1.5 rounded-lg text-sm font-medium transition-all ${exerciseLang === "cpp" ? "bg-cyan-500 text-black" : "bg-[var(--theme-card-bg)] text-[var(--theme-text-secondary)] hover:text-[var(--theme-text-primary)]"}`}
-                  >
-                    ⚡ C++
-                  </button>
-                </div>
-              )}
               <ChallengeSection
-                section={exerciseLang === "cpp" && section.challengeCpp ? { ...section, challenge: section.challengeCpp } : section}
+                section={codeLang === "cpp" && section.challengeCpp ? { ...section, challenge: section.challengeCpp } : section}
                 lessonId={lessonId}
-                language={exerciseLang === "cpp" && section.challengeCpp ? "cpp" : (lessonId.startsWith("cpp-") ? "cpp" : "python")}
+                language={codeLang === "cpp" && section.challengeCpp ? "cpp" : (lessonId.startsWith("cpp-") ? "cpp" : "python")}
               />
-            </>
           )}
           {section.type === "quiz" && (
             <TurtleQuiz
@@ -398,28 +408,10 @@ export default function LessonPage() {
 
           {/* Inline Code Exercise */}
           {(section.exercise || section.exerciseCpp) && (
-            <>
-              {section.exercise && section.exerciseCpp && (
-                <div className="flex gap-2 mb-3 justify-center">
-                  <button
-                    onClick={() => setExerciseLang("python")}
-                    className={`px-4 py-1.5 rounded-lg text-sm font-medium transition-all ${exerciseLang === "python" ? "bg-cyan-500 text-black" : "bg-[var(--theme-card-bg)] text-[var(--theme-text-secondary)] hover:text-[var(--theme-text-primary)]"}`}
-                  >
-                    🐍 Python
-                  </button>
-                  <button
-                    onClick={() => setExerciseLang("cpp")}
-                    className={`px-4 py-1.5 rounded-lg text-sm font-medium transition-all ${exerciseLang === "cpp" ? "bg-cyan-500 text-black" : "bg-[var(--theme-card-bg)] text-[var(--theme-text-secondary)] hover:text-[var(--theme-text-primary)]"}`}
-                  >
-                    ⚡ C++
-                  </button>
-                </div>
-              )}
               <InlineCodeExercise exercise={{
-                ...(exerciseLang === "cpp" && section.exerciseCpp ? section.exerciseCpp : section.exercise!),
-                language: exerciseLang === "cpp" && section.exerciseCpp ? "cpp" : (lessonId.startsWith("cpp-") ? "cpp" : "python"),
+                ...(codeLang === "cpp" && section.exerciseCpp ? section.exerciseCpp : section.exercise!),
+                language: codeLang === "cpp" && section.exerciseCpp ? "cpp" : (lessonId.startsWith("cpp-") ? "cpp" : "python"),
               }} />
-            </>
           )}
         </div>
       </AnimatePresence>
