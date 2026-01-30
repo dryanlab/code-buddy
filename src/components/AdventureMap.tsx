@@ -129,12 +129,12 @@ function HotspotOverlay({
         {/* "You are here" cartoon arrow for active track */}
         {isActive && (
           <motion.div
-            className="absolute -top-14 left-1/2 -translate-x-1/2 pointer-events-none"
+            className="absolute -top-24 left-1/2 -translate-x-1/2 pointer-events-none"
             animate={{ y: [0, -6, 0] }}
             transition={{ duration: 1.2, repeat: Infinity, ease: "easeInOut" }}
             style={{ filter: "drop-shadow(0 3px 6px rgba(0,0,0,0.5))" }}
           >
-            <Image src="/images/you-are-here-arrow.png" alt="You are here" width={36} height={48} className="w-9 h-auto" draggable={false} />
+            <Image src="/images/you-are-here-arrow.png" alt="You are here" width={72} height={96} className="w-[72px] h-auto" draggable={false} />
           </motion.div>
         )}
 
