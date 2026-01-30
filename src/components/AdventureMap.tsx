@@ -24,17 +24,17 @@ interface MapHotspot {
 }
 
 const MAP_HOTSPOTS: MapHotspot[] = [
-  { trackId: "python", x: 15, y: 84 },
-  { trackId: "data-structures", x: 22, y: 58 },
-  { trackId: "algorithms", x: 52, y: 56 },
-  { trackId: "ai-ml", x: 78, y: 60 },
-  { trackId: "web-dev", x: 33, y: 36 },
-  { trackId: "databases", x: 52, y: 35 },
-  { trackId: "cybersecurity", x: 78, y: 36 },
-  { trackId: "computer-architecture", x: 28, y: 16 },
-  { trackId: "software-engineering", x: 50, y: 14 },
-  { trackId: "app-dev", x: 73, y: 15 },
-  { trackId: "game-dev", x: 88, y: 14 },
+  { trackId: "python", x: 15, y: 88 },
+  { trackId: "data-structures", x: 22, y: 65 },
+  { trackId: "algorithms", x: 52, y: 62, cloudOffsetY: 40, cloudScale: 1.4 },
+  { trackId: "ai-ml", x: 80, y: 65 },
+  { trackId: "web-dev", x: 32, y: 42 },
+  { trackId: "databases", x: 52, y: 42 },
+  { trackId: "cybersecurity", x: 78, y: 40 },
+  { trackId: "computer-architecture", x: 30, y: 20 },
+  { trackId: "software-engineering", x: 52, y: 20 },
+  { trackId: "app-dev", x: 72, y: 20, cloudOffsetX: -15 },
+  { trackId: "game-dev", x: 90, y: 20, cloudOffsetX: -30 },
 ];
 
 function ProgressRing({ pct, color, size = 48 }: { pct: number; color: string; size?: number }) {
