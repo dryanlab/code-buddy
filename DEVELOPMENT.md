@@ -256,8 +256,34 @@ quiz        → 综合测验（选择题 + coding题，🐢龟进度条）
 | BST | 猜数字树 | 插入/搜索路径动画 + **1-100猜数字游戏** |
 | Sorting Arena | 排序竞技场 | 4种算法柱状图赛跑 + 速度控制 |
 
+### 💻 Code Lab（Python IDE）
+
+完整的浏览器端 Python IDE：
+| 功能 | 描述 |
+|------|------|
+| **项目管理** | 创建/重命名/删除/复制项目，云端同步（Supabase）+ 本地存储 |
+| **多文件 Tab** | 同时打开多个项目/练习，tab 切换 |
+| **代码模板** | 6 种模板：空白、Hello World、计算器、Turtle、游戏、数据分析 |
+| **自动保存** | 2 秒 debounce 自动保存 |
+| **断点调试** | 点击行号设断点，Step Over / Continue / Variable Watch |
+| **练习系统** | 分难度练习题（和项目管理并列 tab） |
+
+> ⚠️ 需在 Supabase 创建 `user_projects` 表（SQL 见 commit message）
+
+### 👀 预览模式（试用版）
+
+未注册用户可通过首页 "Try Free" 按钮体验：
+| 内容 | 预览权限 |
+|------|----------|
+| 课程 | 每个 Area 第一课（1-1, 2-1, 3-1, 4-1, 5-1） |
+| Explore CS | 知识卡片全开，互动模块前 2 个 |
+| Data Structures | Array + Stack |
+| Code Lab | Free Mode + 前 3 个练习 |
+| Progress/Shop/Settings/AI Chat | 🔒 锁定 |
+
+锁定内容显示 🔒 + 优雅注册弹窗，顶部有可关闭的预览横幅（5分钟后重现）。
+
 ### 其他功能
-- **Code Lab** — 自由 Python 编程环境
 - **AI Chat** — Gemini AI 助教
 - **Progress** — 学习进度追踪
 - **Shop** — 金币商店（用 XP 换装备）
