@@ -1,7 +1,13 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import dynamic from "next/dynamic";
+
+const BinaryLab = dynamic(() => import("@/components/explore/BinaryLab"), { ssr: false });
+const CryptoLab = dynamic(() => import("@/components/explore/CryptoLab"), { ssr: false });
+const PixelArt = dynamic(() => import("@/components/explore/PixelArt"), { ssr: false });
+const NetworkSim = dynamic(() => import("@/components/explore/NetworkSim"), { ssr: false });
 
 // ═══ CPU Fetch-Decode-Execute Animation ═══
 function CPUAnimation() {
@@ -428,6 +434,86 @@ const KNOWLEDGE_CARDS = [
     funFactCn: "字母 'A' = 01000001。你的名字需要几十个 0 和 1！",
     color: "from-yellow-500/20 to-orange-500/20 border-yellow-500/30",
   },
+  {
+    id: "gpu", icon: "🎮", title: "GPU — The Graphics Brain", subtitle: "图形处理器",
+    content: "While CPU is like one brilliant professor, GPU is like 1000 students working together. Perfect for games and AI!",
+    contentCn: "CPU像一个聪明的教授，GPU像1000个学生一起工作。最适合游戏和AI！",
+    funFact: "💡 Modern GPUs have over 10,000 cores — that's why they're so fast at drawing millions of pixels!",
+    funFactCn: "现代GPU有超过10,000个核心——所以它们画数百万像素时超快！",
+    color: "from-red-500/20 to-orange-500/20 border-red-500/30",
+  },
+  {
+    id: "network", icon: "🌐", title: "Network — The Internet Highway", subtitle: "网络",
+    content: "Data travels across the world through undersea cables at the speed of light! Your message to China goes through the Pacific Ocean.",
+    contentCn: "数据通过海底光缆以光速环游世界！你发给中国的消息穿越太平洋。",
+    funFact: "💡 There are over 550 undersea cables connecting the world — some are eaten by sharks!",
+    funFactCn: "世界上有超过550条海底光缆——有些还被鲨鱼咬过！",
+    color: "from-blue-500/20 to-indigo-500/20 border-blue-500/30",
+  },
+  {
+    id: "os", icon: "🪟", title: "Operating System — The Manager", subtitle: "操作系统",
+    content: "Windows, Mac, Linux — the OS is like a restaurant manager, coordinating waiters (programs), kitchen (CPU), and tables (memory).",
+    contentCn: "操作系统像餐厅经理，协调服务员（程序）、厨房（CPU）和餐桌（内存）。",
+    funFact: "💡 Linux runs on everything from phones (Android) to supercomputers to Mars rovers!",
+    funFactCn: "Linux 运行在从手机(Android)到超级计算机再到火星车的一切设备上！",
+    color: "from-sky-500/20 to-cyan-500/20 border-sky-500/30",
+  },
+  {
+    id: "filesystem", icon: "📁", title: "File System — The Library", subtitle: "文件系统",
+    content: "Files are organized like a library — shelves (drives), sections (folders), books (files). The path is like the address!",
+    contentCn: "文件系统像图书馆——书架（硬盘）、分区（文件夹）、书（文件）。路径就是地址！",
+    funFact: "💡 The deepest folder path in Windows can be 260 characters — longer names can actually crash old programs!",
+    funFactCn: "Windows中最深的文件夹路径可以有260个字符——更长的名字能让旧程序崩溃！",
+    color: "from-amber-500/20 to-yellow-500/20 border-amber-500/30",
+  },
+  {
+    id: "bugs", icon: "🐛", title: "Bugs — The First Computer Bug", subtitle: "虫子传说",
+    content: "In 1947, a real moth got stuck in a computer relay! Grace Hopper taped it in her log and called it 'debugging'.",
+    contentCn: "1947年，一只真的飞蛾卡在计算机继电器里！Grace Hopper 把它贴在日志上，发明了'调试'这个词。",
+    funFact: "💡 That original moth is still preserved at the Smithsonian Museum in Washington DC!",
+    funFactCn: "那只飞蛾至今仍保存在华盛顿特区的史密森尼博物馆！",
+    color: "from-lime-500/20 to-green-500/20 border-lime-500/30",
+  },
+  {
+    id: "encoding", icon: "🔤", title: "ASCII & Unicode — How Computers Read Text", subtitle: "字符编码",
+    content: "Computers store letters as numbers! A=65, B=66. Unicode added emoji: 😀=128512. That's why we can text across languages!",
+    contentCn: "计算机用数字存字母！A=65, B=66。Unicode 加了 emoji：😀=128512。所以我们能跨语言发信息！",
+    funFact: "💡 There are over 150,000 Unicode characters including ancient Egyptian hieroglyphs! 𓀀",
+    funFactCn: "Unicode有超过15万个字符，包括古埃及象形文字！𓀀",
+    color: "from-teal-500/20 to-emerald-500/20 border-teal-500/30",
+  },
+  {
+    id: "encryption", icon: "🔒", title: "Encryption — Secret Codes", subtitle: "加密",
+    content: "Encryption scrambles your messages so only the right person can read them. Like a secret language between you and your friend!",
+    contentCn: "加密把消息打乱，只有对的人能解读。就像你和朋友的暗号！",
+    funFact: "💡 Modern encryption is so strong that all computers in the world working together couldn't crack it in a billion years!",
+    funFactCn: "现代加密技术如此强大，全世界所有计算机一起工作也无法在十亿年内破解！",
+    color: "from-rose-500/20 to-pink-500/20 border-rose-500/30",
+  },
+  {
+    id: "internet", icon: "🌍", title: "How the Internet Works — Digital Post Office", subtitle: "互联网原理",
+    content: "When you visit a website: DNS finds the address → TCP breaks data into packets → packets travel different routes → reassemble at destination!",
+    contentCn: "访问网站时：DNS找地址→TCP把数据分成小包→小包走不同路线→到达后重新组装！",
+    funFact: "💡 A single Google search travels over 1,500 miles to a data center and back — all in 0.2 seconds!",
+    funFactCn: "一次 Google 搜索要走超过2400公里到数据中心再返回——全程仅需0.2秒！",
+    color: "from-violet-500/20 to-purple-500/20 border-violet-500/30",
+  },
+  {
+    id: "ai_cs", icon: "🤖", title: "AI & Machine Learning — Teaching Computers", subtitle: "人工智能",
+    content: "Instead of writing exact rules, ML lets computers learn from examples. Show it 1000 cat photos and it learns what 'cat' looks like!",
+    contentCn: "不用写精确规则，机器学习让计算机从例子中学习。给它看1000张猫照片，它就学会认猫！",
+    funFact: "💡 ChatGPT was trained on text from the internet — like reading millions of books in seconds!",
+    funFactCn: "ChatGPT 是用互联网上的文本训练的——相当于几秒钟读完数百万本书！",
+    color: "from-fuchsia-500/20 to-pink-500/20 border-fuchsia-500/30",
+  },
+  {
+    id: "io", icon: "⌨️", title: "Input/Output — Talking to Computers", subtitle: "输入输出",
+    content: "Keyboard and mouse are INPUT — you talk to the computer. Screen and speakers are OUTPUT — the computer talks back!",
+    contentCn: "键盘鼠标是输入——你对计算机说话。屏幕音箱是输出——计算机回答你！",
+    funFact: "💡 The first mouse was made of wood in 1964! It had only one button.",
+    funFactCn: "第一个鼠标是1964年用木头做的！只有一个按钮。",
+    color: "from-orange-500/20 to-red-500/20 border-orange-500/30",
+  },
 ];
 
 export default function ExplorePage() {
@@ -440,6 +526,10 @@ export default function ExplorePage() {
     { id: "memory", icon: "🧠", label: "Memory Visualizer", labelCn: "内存可视化" },
     { id: "speed", icon: "⚡", label: "Speed Race", labelCn: "速度比赛" },
     { id: "scheduler", icon: "⏱️", label: "Process Scheduler", labelCn: "进程调度" },
+    { id: "binary-converter", icon: "🔢", label: "Binary Lab", labelCn: "二进制实验室" },
+    { id: "encryption-playground", icon: "🔐", label: "Crypto Lab", labelCn: "加密实验室" },
+    { id: "pixel-art", icon: "🎨", label: "Pixel Art", labelCn: "像素画" },
+    { id: "network-sim", icon: "🌐", label: "Network Sim", labelCn: "网络模拟" },
   ];
 
   return (
@@ -520,6 +610,26 @@ export default function ExplorePage() {
         {activeTab === "scheduler" && (
           <motion.div key="scheduler" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
             <ProcessScheduler />
+          </motion.div>
+        )}
+        {activeTab === "binary-converter" && (
+          <motion.div key="binary-converter" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+            <BinaryLab />
+          </motion.div>
+        )}
+        {activeTab === "encryption-playground" && (
+          <motion.div key="encryption-playground" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+            <CryptoLab />
+          </motion.div>
+        )}
+        {activeTab === "pixel-art" && (
+          <motion.div key="pixel-art" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+            <PixelArt />
+          </motion.div>
+        )}
+        {activeTab === "network-sim" && (
+          <motion.div key="network-sim" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+            <NetworkSim />
           </motion.div>
         )}
       </AnimatePresence>
