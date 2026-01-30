@@ -19,11 +19,15 @@ interface CodeEditorProps {
 
 export default function CodeEditor({
   initialCode = '# Write your Python code here!\nprint("Hello, World!")',
-  height = "200px",
+  height: heightProp,
   readOnly = false,
   onRunSuccess,
 }: CodeEditorProps) {
   const [code, setCode] = useState(initialCode);
+  
+  // Auto-calculate height: 20px per line, min 150px, max 600px
+  const lineCount = code.split("\n").length;
+  const height = heightProp || `${Math.min(Math.max(lineCount * 20 + 20, 150), 600)}px`;
   const [output, setOutput] = useState("");
   const [isRunning, setIsRunning] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
