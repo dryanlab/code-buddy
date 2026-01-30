@@ -5817,6 +5817,7 @@ Header guards are like a **"Do Not Enter If Already Inside"** sign 🚫 — they
 
 👀 \`#pragma once\` is simpler — most modern projects use it!`,
       code: `#include <iostream>
+#include <cmath>
 using namespace std;
 
 // ══════════════════════════════════════════
