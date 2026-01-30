@@ -177,6 +177,26 @@ function ChallengeSection({ section, lessonId, language = "python" }: { section:
 
 // Simple markdown to HTML converter
 function markdownToHtml(md: string): string {
+  // First, extract and convert markdown tables to HTML tables
+  md = md.replace(/((?:^\|.+\|$\n?)+)/gm, (tableBlock) => {
+    const rows = tableBlock.trim().split('\n').filter(r => r.trim());
+    if (rows.length < 2) return tableBlock;
+    const parseRow = (row: string) => row.split('|').filter(Boolean).map(c => c.trim());
+    const headerCells = parseRow(rows[0]);
+    // Check if row 1 is separator (---|---|---)
+    const isSep = (row: string) => parseRow(row).every(c => /^[-:]+$/.test(c));
+    let headerHtml = '<thead><tr>' + headerCells.map(c => `<th>${c}</th>`).join('') + '</tr></thead>';
+    const dataStartIdx = isSep(rows[1]) ? 2 : 1;
+    const bodyRows = rows.slice(dataStartIdx)
+      .filter(r => !isSep(r))
+      .map(r => '<tr>' + parseRow(r).map(c => `<td>${c}</td>`).join('') + '</tr>')
+      .join('');
+    return `<table style="width:100%;border-collapse:collapse;margin:0.75rem 0;font-size:0.85rem">${headerHtml}<tbody>${bodyRows}</tbody></table>`
+      .replace(/<th>/g, '<th style="text-align:left;padding:0.5rem 0.75rem;border:1px solid var(--theme-border);background:var(--theme-card-bg);font-weight:bold">')
+      .replace(/<td>/g, '<td style="padding:0.5rem 0.75rem;border:1px solid var(--theme-border)">');
+
+  });
+
   let html = md
     .replace(/```(\w*)\n([\s\S]*?)```/g, '<pre><code class="language-$1">$2</code></pre>')
     .replace(/`([^`]+)`/g, '<code>$1</code>')
@@ -185,11 +205,6 @@ function markdownToHtml(md: string): string {
     .replace(/^# (.+)$/gm, '<h1>$1</h1>')
     .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
     .replace(/^> (.+)$/gm, '<blockquote><p>$1</p></blockquote>')
-    .replace(/\|(.+)\|/g, (match) => {
-      const cells = match.split('|').filter(Boolean).map(c => c.trim());
-      if (cells.every(c => /^-+$/.test(c))) return '';
-      return '<tr>' + cells.map(c => `<td>${c}</td>`).join('') + '</tr>';
-    })
     .replace(/\n\n/g, '</p><div style="margin-top:1rem"></div><p>')
     .replace(/\n/g, '<br/>');
 
