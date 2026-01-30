@@ -469,6 +469,65 @@ npm run lint         # ESLint 检查
 
 ---
 
+## ⚠️ 课程内容质量标准 (MANDATORY)
+
+**所有课程（Python / C++ / DS / Algorithms / 未来课程）必须遵循以下标准。**
+**违反此标准的课程不得上线。**
+
+### Code Section 教学讲解要求
+
+每个 `type: "code"` section 的 `content` 字段**必须包含详细教学讲解**，不能只写一两句话就上代码。
+
+✅ **正确示范**（参考 Python 课 / DS 课）：
+```
+🎯 What you'll learn: [具体学习目标]
+学习目标：[中文]
+
+[生动的现实世界类比，让概念具象化]
+[详细解释原理、为什么这样做、什么时候用]
+
+🔑 Key things to notice:
+- [关键点1]
+- [关键点2]
+- [关键点3]
+
+👀 [引导学生观察代码的提示]
+```
+
+❌ **错误示范**（算法课初版犯过的错误）：
+```
+Linear search isn't just for numbers! Let's try different uses.
+线性搜索不只能搜数字！
+[直接上代码，没有讲解]
+```
+
+### 最低内容要求 Checklist（每课）
+
+- [ ] 每个 code section 有 🎯学习目标 + 类比 + 🔑关键点
+- [ ] 每个 code section 有 `exercise` 嵌入式练习（学完立即动手）
+- [ ] 至少 2 个 `type: "challenge"` 综合编程挑战
+- [ ] 至少 1 个 Code Lab 项目（链接到 code-challenges.ts）
+- [ ] 8-10 道 quiz 题（选择题 + coding 题，答案分布均匀）
+- [ ] 所有内容双语（English + Chinese）
+- [ ] 课程末尾引导到 Code Lab：`💡 This lesson's project is available in Code Lab!`
+
+### 新课程开发流程
+
+1. **创建课程结构** — modules, lessons, sections 骨架
+2. **填写教学内容** — 每个 code section 的详细讲解（🎯+类比+🔑+👀）
+3. **添加嵌入式练习** — 每个 code section 的 exercise
+4. **添加 challenges** — 每课至少 2 个综合挑战
+5. **添加 Code Lab 项目** — 写入 code-challenges.ts，关联 fromLesson
+6. **添加 quiz** — 8-10 题/课，答案均匀分布
+7. **TypeScript 编译检查** — `npx tsc --noEmit`
+8. **浏览器 QA 测试** — 每页打开、每按钮点击、每交互功能操作
+9. **部署** — `npx vercel --prod --yes`
+
+> 🚨 **教训记录**: 2026-01-30 算法课初版只生成了代码和简短描述，缺少详细教学讲解、练习、项目。
+> 必须参考 Python/DS 课的质量标准，不能降低要求。生成课程时必须一步到位，不能分多次补。
+
+---
+
 ## 已知问题
 
 | 问题 | 状态 | 描述 |
