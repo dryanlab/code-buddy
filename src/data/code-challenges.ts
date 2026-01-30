@@ -10831,4 +10831,1390 @@ int main() {
     category: "Algorithms",
     categoryZh: "算法",
   },
+
+  // ═══ 🏗️ DATA STRUCTURES · 数据结构 ═══
+
+  // ─── Beginner ─────────────────────────────────────────────
+  {
+    id: "ds-1",
+    title: "📚 Implement a Stack · 实现栈",
+    titleZh: "实现栈",
+    description: "Build a Stack class with push, pop, peek, and is_empty operations using a Python list.",
+    descriptionZh: "使用 Python 列表构建一个栈类，实现 push、pop、peek 和 is_empty 操作。",
+    difficulty: 1,
+    gradeRange: [7, 10],
+    skillLevel: "beginner",
+    starterCode: `# 📚 Stack Implementation · 栈的实现
+# A stack is LIFO: Last In, First Out
+# 栈是后进先出（LIFO）的数据结构
+
+class Stack:
+    def __init__(self):
+        self.items = []
+
+    def push(self, item):
+        """Add item to top of stack · 压入元素"""
+        # TODO: append item to self.items
+        pass
+
+    def pop(self):
+        """Remove and return top item · 弹出栈顶元素"""
+        # TODO: remove and return last item
+        # Handle empty stack!
+        pass
+
+    def peek(self):
+        """Return top item without removing · 查看栈顶元素"""
+        # TODO
+        pass
+
+    def is_empty(self):
+        """Check if stack is empty · 判断栈是否为空"""
+        # TODO
+        pass
+
+    def size(self):
+        """Return number of items · 返回元素个数"""
+        # TODO
+        pass
+
+# Test · 测试
+s = Stack()
+s.push(10)
+s.push(20)
+s.push(30)
+print("Top:", s.peek())        # 30
+print("Pop:", s.pop())         # 30
+print("Pop:", s.pop())         # 20
+print("Size:", s.size())       # 1
+print("Empty?", s.is_empty())  # False
+s.pop()
+print("Empty?", s.is_empty())  # True`,
+    hint: "Use self.items.append() for push, self.items.pop() for pop, and self.items[-1] for peek.",
+    solution: `class Stack:
+    def __init__(self):
+        self.items = []
+
+    def push(self, item):
+        self.items.append(item)
+
+    def pop(self):
+        if self.is_empty():
+            return None
+        return self.items.pop()
+
+    def peek(self):
+        if self.is_empty():
+            return None
+        return self.items[-1]
+
+    def is_empty(self):
+        return len(self.items) == 0
+
+    def size(self):
+        return len(self.items)
+
+s = Stack()
+s.push(10)
+s.push(20)
+s.push(30)
+print("Top:", s.peek())
+print("Pop:", s.pop())
+print("Pop:", s.pop())
+print("Size:", s.size())
+print("Empty?", s.is_empty())
+s.pop()
+print("Empty?", s.is_empty())`,
+    expectedOutput: "Top: 30\nPop: 30\nPop: 20\nSize: 1\nEmpty? False\nEmpty? True",
+    tags: ["data-structures", "stack", "beginner"],
+    language: "python",
+    category: "Data Structures",
+    categoryZh: "数据结构",
+  },
+  {
+    id: "ds-2",
+    title: "🚶 Implement a Queue · 实现队列",
+    titleZh: "实现队列",
+    description: "Build a Queue class with enqueue, dequeue, peek, and is_empty operations.",
+    descriptionZh: "构建队列类，实现入队、出队、查看队首和判空操作。",
+    difficulty: 1,
+    gradeRange: [7, 10],
+    skillLevel: "beginner",
+    starterCode: `# 🚶 Queue Implementation · 队列的实现
+# A queue is FIFO: First In, First Out
+# 队列是先进先出（FIFO）的数据结构
+
+class Queue:
+    def __init__(self):
+        self.items = []
+
+    def enqueue(self, item):
+        """Add item to back · 入队"""
+        # TODO
+        pass
+
+    def dequeue(self):
+        """Remove and return front item · 出队"""
+        # TODO: remove from front (index 0)
+        pass
+
+    def peek(self):
+        """Return front item without removing · 查看队首"""
+        # TODO
+        pass
+
+    def is_empty(self):
+        # TODO
+        pass
+
+    def size(self):
+        # TODO
+        pass
+
+# Test · 测试
+q = Queue()
+q.enqueue("Alice")
+q.enqueue("Bob")
+q.enqueue("Charlie")
+print("Front:", q.peek())        # Alice
+print("Dequeue:", q.dequeue())   # Alice
+print("Dequeue:", q.dequeue())   # Bob
+print("Size:", q.size())         # 1
+print("Empty?", q.is_empty())    # False`,
+    hint: "Use self.items.append() for enqueue, self.items.pop(0) for dequeue, and self.items[0] for peek.",
+    solution: `class Queue:
+    def __init__(self):
+        self.items = []
+
+    def enqueue(self, item):
+        self.items.append(item)
+
+    def dequeue(self):
+        if self.is_empty():
+            return None
+        return self.items.pop(0)
+
+    def peek(self):
+        if self.is_empty():
+            return None
+        return self.items[0]
+
+    def is_empty(self):
+        return len(self.items) == 0
+
+    def size(self):
+        return len(self.items)
+
+q = Queue()
+q.enqueue("Alice")
+q.enqueue("Bob")
+q.enqueue("Charlie")
+print("Front:", q.peek())
+print("Dequeue:", q.dequeue())
+print("Dequeue:", q.dequeue())
+print("Size:", q.size())
+print("Empty?", q.is_empty())`,
+    expectedOutput: "Front: Alice\nDequeue: Alice\nDequeue: Bob\nSize: 1\nEmpty? False",
+    tags: ["data-structures", "queue", "beginner"],
+    language: "python",
+    category: "Data Structures",
+    categoryZh: "数据结构",
+  },
+  {
+    id: "ds-3",
+    title: "🔗 Linked List · 链表",
+    titleZh: "链表基础操作",
+    description: "Implement a singly linked list with insert, delete, search, and display operations.",
+    descriptionZh: "实现单链表，包含插入、删除、查找和显示操作。",
+    difficulty: 1,
+    gradeRange: [7, 10],
+    skillLevel: "beginner",
+    starterCode: `# 🔗 Linked List · 链表
+# Each node points to the next node
+# 每个节点指向下一个节点
+
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.next = None
+
+class LinkedList:
+    def __init__(self):
+        self.head = None
+
+    def append(self, data):
+        """Add node to end · 在末尾添加节点"""
+        # TODO: Create new node
+        # If list is empty, set as head
+        # Otherwise, traverse to end and link
+        pass
+
+    def display(self):
+        """Print all nodes · 打印所有节点"""
+        # TODO: Traverse and print each node's data
+        pass
+
+    def search(self, target):
+        """Find if value exists · 查找值是否存在"""
+        # TODO: Return True if found, False otherwise
+        pass
+
+    def delete(self, target):
+        """Delete first occurrence of value · 删除第一个匹配的值"""
+        # TODO: Handle head deletion and middle deletion
+        pass
+
+# Test · 测试
+ll = LinkedList()
+ll.append(10)
+ll.append(20)
+ll.append(30)
+ll.display()                    # 10 -> 20 -> 30 -> None
+print("Search 20:", ll.search(20))  # True
+print("Search 99:", ll.search(99))  # False
+ll.delete(20)
+ll.display()                    # 10 -> 30 -> None`,
+    hint: "For append: traverse with 'current = self.head' and 'while current.next:'. For delete: keep track of the previous node.",
+    solution: `class Node:
+    def __init__(self, data):
+        self.data = data
+        self.next = None
+
+class LinkedList:
+    def __init__(self):
+        self.head = None
+
+    def append(self, data):
+        new_node = Node(data)
+        if not self.head:
+            self.head = new_node
+            return
+        current = self.head
+        while current.next:
+            current = current.next
+        current.next = new_node
+
+    def display(self):
+        current = self.head
+        parts = []
+        while current:
+            parts.append(str(current.data))
+            current = current.next
+        print(" -> ".join(parts) + " -> None")
+
+    def search(self, target):
+        current = self.head
+        while current:
+            if current.data == target:
+                return True
+            current = current.next
+        return False
+
+    def delete(self, target):
+        if not self.head:
+            return
+        if self.head.data == target:
+            self.head = self.head.next
+            return
+        current = self.head
+        while current.next:
+            if current.next.data == target:
+                current.next = current.next.next
+                return
+            current = current.next
+
+ll = LinkedList()
+ll.append(10)
+ll.append(20)
+ll.append(30)
+ll.display()
+print("Search 20:", ll.search(20))
+print("Search 99:", ll.search(99))
+ll.delete(20)
+ll.display()`,
+    expectedOutput: "10 -> 20 -> 30 -> None\nSearch 20: True\nSearch 99: False\n10 -> 30 -> None",
+    tags: ["data-structures", "linked-list", "beginner"],
+    language: "python",
+    category: "Data Structures",
+    categoryZh: "数据结构",
+  },
+  {
+    id: "ds-4",
+    title: "#️⃣ Hash Table · 哈希表",
+    titleZh: "哈希表实现",
+    description: "Build a simple hash table with put, get, and delete using chaining for collision handling.",
+    descriptionZh: "使用链地址法实现简单哈希表，支持插入、查找和删除。",
+    difficulty: 2,
+    gradeRange: [7, 10],
+    skillLevel: "intermediate",
+    starterCode: `# #️⃣ Hash Table · 哈希表
+# Maps keys to values using a hash function
+# 使用哈希函数将键映射到值
+
+class HashTable:
+    def __init__(self, size=10):
+        self.size = size
+        self.table = [[] for _ in range(size)]  # List of buckets
+
+    def _hash(self, key):
+        """Hash function · 哈希函数"""
+        # TODO: Return hash(key) % self.size
+        pass
+
+    def put(self, key, value):
+        """Insert or update key-value pair · 插入或更新键值对"""
+        # TODO: Find the right bucket, update if key exists, else append
+        pass
+
+    def get(self, key):
+        """Get value by key · 根据键获取值"""
+        # TODO: Find key in the right bucket, return value or None
+        pass
+
+    def delete(self, key):
+        """Delete a key · 删除键"""
+        # TODO: Find and remove from bucket
+        pass
+
+    def display(self):
+        """Show the hash table · 显示哈希表"""
+        for i in range(self.size):
+            if self.table[i]:
+                print("Bucket " + str(i) + ": " + str(self.table[i]))
+
+# Test · 测试
+ht = HashTable(5)
+ht.put("name", "Alice")
+ht.put("age", 25)
+ht.put("city", "NYC")
+ht.put("name", "Bob")  # Update existing key
+print("name:", ht.get("name"))   # Bob
+print("age:", ht.get("age"))     # 25
+print("phone:", ht.get("phone")) # None
+ht.delete("age")
+print("age after delete:", ht.get("age"))  # None
+ht.display()`,
+    hint: "Each bucket is a list of [key, value] pairs. To put: loop through the bucket to check if key exists (update), or append new pair.",
+    solution: `class HashTable:
+    def __init__(self, size=10):
+        self.size = size
+        self.table = [[] for _ in range(size)]
+
+    def _hash(self, key):
+        return hash(key) % self.size
+
+    def put(self, key, value):
+        idx = self._hash(key)
+        bucket = self.table[idx]
+        for i, (k, v) in enumerate(bucket):
+            if k == key:
+                bucket[i] = [key, value]
+                return
+        bucket.append([key, value])
+
+    def get(self, key):
+        idx = self._hash(key)
+        for k, v in self.table[idx]:
+            if k == key:
+                return v
+        return None
+
+    def delete(self, key):
+        idx = self._hash(key)
+        bucket = self.table[idx]
+        for i, (k, v) in enumerate(bucket):
+            if k == key:
+                bucket.pop(i)
+                return
+
+    def display(self):
+        for i in range(self.size):
+            if self.table[i]:
+                print("Bucket " + str(i) + ": " + str(self.table[i]))
+
+ht = HashTable(5)
+ht.put("name", "Alice")
+ht.put("age", 25)
+ht.put("city", "NYC")
+ht.put("name", "Bob")
+print("name:", ht.get("name"))
+print("age:", ht.get("age"))
+print("phone:", ht.get("phone"))
+ht.delete("age")
+print("age after delete:", ht.get("age"))
+ht.display()`,
+    expectedOutput: "name: Bob\nage: 25\nphone: None\nage after delete: None",
+    tags: ["data-structures", "hash-table", "intermediate"],
+    language: "python",
+    category: "Data Structures",
+    categoryZh: "数据结构",
+  },
+  {
+    id: "ds-5",
+    title: "🌳 Binary Search Tree · 二叉搜索树",
+    titleZh: "二叉搜索树",
+    description: "Implement a Binary Search Tree with insert, search, and in-order traversal.",
+    descriptionZh: "实现二叉搜索树，支持插入、搜索和中序遍历。",
+    difficulty: 2,
+    gradeRange: [7, 10],
+    skillLevel: "intermediate",
+    starterCode: `# 🌳 Binary Search Tree · 二叉搜索树
+# Left child < parent < right child
+# 左子节点 < 父节点 < 右子节点
+
+class TreeNode:
+    def __init__(self, value):
+        self.value = value
+        self.left = None
+        self.right = None
+
+class BST:
+    def __init__(self):
+        self.root = None
+
+    def insert(self, value):
+        """Insert a value · 插入值"""
+        # TODO: If empty tree, set root
+        # Otherwise, find correct position
+        pass
+
+    def _insert_recursive(self, node, value):
+        """Helper: recursively find insert position"""
+        # TODO: Go left if value < node, right if value > node
+        pass
+
+    def search(self, value):
+        """Search for a value · 搜索值"""
+        # TODO: Return True/False
+        pass
+
+    def inorder(self):
+        """In-order traversal (sorted) · 中序遍历（有序）"""
+        # TODO: Left -> Root -> Right
+        result = []
+        self._inorder_recursive(self.root, result)
+        return result
+
+    def _inorder_recursive(self, node, result):
+        # TODO
+        pass
+
+# Test · 测试
+bst = BST()
+for val in [50, 30, 70, 20, 40, 60, 80]:
+    bst.insert(val)
+
+print("Inorder:", bst.inorder())       # [20, 30, 40, 50, 60, 70, 80]
+print("Search 40:", bst.search(40))    # True
+print("Search 99:", bst.search(99))    # False`,
+    hint: "For insert: compare value with current node — go left if smaller, right if larger. For inorder: visit left subtree, then node, then right subtree.",
+    solution: `class TreeNode:
+    def __init__(self, value):
+        self.value = value
+        self.left = None
+        self.right = None
+
+class BST:
+    def __init__(self):
+        self.root = None
+
+    def insert(self, value):
+        if not self.root:
+            self.root = TreeNode(value)
+        else:
+            self._insert_recursive(self.root, value)
+
+    def _insert_recursive(self, node, value):
+        if value < node.value:
+            if not node.left:
+                node.left = TreeNode(value)
+            else:
+                self._insert_recursive(node.left, value)
+        else:
+            if not node.right:
+                node.right = TreeNode(value)
+            else:
+                self._insert_recursive(node.right, value)
+
+    def search(self, value):
+        return self._search_recursive(self.root, value)
+
+    def _search_recursive(self, node, value):
+        if not node:
+            return False
+        if value == node.value:
+            return True
+        if value < node.value:
+            return self._search_recursive(node.left, value)
+        return self._search_recursive(node.right, value)
+
+    def inorder(self):
+        result = []
+        self._inorder_recursive(self.root, result)
+        return result
+
+    def _inorder_recursive(self, node, result):
+        if node:
+            self._inorder_recursive(node.left, result)
+            result.append(node.value)
+            self._inorder_recursive(node.right, result)
+
+bst = BST()
+for val in [50, 30, 70, 20, 40, 60, 80]:
+    bst.insert(val)
+
+print("Inorder:", bst.inorder())
+print("Search 40:", bst.search(40))
+print("Search 99:", bst.search(99))`,
+    expectedOutput: "Inorder: [20, 30, 40, 50, 60, 70, 80]\nSearch 40: True\nSearch 99: False",
+    tags: ["data-structures", "bst", "tree", "intermediate"],
+    language: "python",
+    category: "Data Structures",
+    categoryZh: "数据结构",
+  },
+  {
+    id: "ds-6",
+    title: "🌲 Tree Traversals · 树的遍历",
+    titleZh: "树的三种遍历",
+    description: "Implement all three tree traversal methods: inorder, preorder, and postorder.",
+    descriptionZh: "实现树的三种遍历方式：中序、前序和后序。",
+    difficulty: 2,
+    gradeRange: [7, 10],
+    skillLevel: "intermediate",
+    starterCode: `# 🌲 Tree Traversals · 树的遍历
+# Three ways to visit every node in a tree
+# 三种访问树中所有节点的方式
+
+class TreeNode:
+    def __init__(self, value):
+        self.value = value
+        self.left = None
+        self.right = None
+
+def build_sample_tree():
+    """Build this tree:
+            1
+           / \\
+          2   3
+         / \\   \\
+        4   5   6
+    """
+    root = TreeNode(1)
+    root.left = TreeNode(2)
+    root.right = TreeNode(3)
+    root.left.left = TreeNode(4)
+    root.left.right = TreeNode(5)
+    root.right.right = TreeNode(6)
+    return root
+
+def inorder(node, result):
+    """Left → Root → Right · 左 → 根 → 右"""
+    # TODO
+    pass
+
+def preorder(node, result):
+    """Root → Left → Right · 根 → 左 → 右"""
+    # TODO
+    pass
+
+def postorder(node, result):
+    """Left → Right → Root · 左 → 右 → 根"""
+    # TODO
+    pass
+
+# Test · 测试
+root = build_sample_tree()
+r1, r2, r3 = [], [], []
+inorder(root, r1)
+preorder(root, r2)
+postorder(root, r3)
+print("Inorder:  ", r1)   # [4, 2, 5, 1, 3, 6]
+print("Preorder: ", r2)   # [1, 2, 4, 5, 3, 6]
+print("Postorder:", r3)   # [4, 5, 2, 6, 3, 1]`,
+    hint: "Inorder: recurse left, append value, recurse right. Preorder: append value first, then left, then right. Postorder: left, right, then append value.",
+    solution: `class TreeNode:
+    def __init__(self, value):
+        self.value = value
+        self.left = None
+        self.right = None
+
+def build_sample_tree():
+    root = TreeNode(1)
+    root.left = TreeNode(2)
+    root.right = TreeNode(3)
+    root.left.left = TreeNode(4)
+    root.left.right = TreeNode(5)
+    root.right.right = TreeNode(6)
+    return root
+
+def inorder(node, result):
+    if node:
+        inorder(node.left, result)
+        result.append(node.value)
+        inorder(node.right, result)
+
+def preorder(node, result):
+    if node:
+        result.append(node.value)
+        preorder(node.left, result)
+        preorder(node.right, result)
+
+def postorder(node, result):
+    if node:
+        postorder(node.left, result)
+        postorder(node.right, result)
+        result.append(node.value)
+
+root = build_sample_tree()
+r1, r2, r3 = [], [], []
+inorder(root, r1)
+preorder(root, r2)
+postorder(root, r3)
+print("Inorder:  ", r1)
+print("Preorder: ", r2)
+print("Postorder:", r3)`,
+    expectedOutput: "Inorder:   [4, 2, 5, 1, 3, 6]\nPreorder:  [1, 2, 4, 5, 3, 6]\nPostorder: [4, 5, 2, 6, 3, 1]",
+    tags: ["data-structures", "tree", "traversal", "intermediate"],
+    language: "python",
+    category: "Data Structures",
+    categoryZh: "数据结构",
+  },
+  {
+    id: "ds-7",
+    title: "⬆️ Priority Queue (Min Heap) · 优先队列",
+    titleZh: "优先队列（最小堆）",
+    description: "Implement a min-heap based priority queue with insert and extract_min operations.",
+    descriptionZh: "使用最小堆实现优先队列，支持插入和提取最小值。",
+    difficulty: 2,
+    gradeRange: [8, 10],
+    skillLevel: "intermediate",
+    starterCode: `# ⬆️ Priority Queue (Min Heap) · 优先队列
+# Smallest priority value comes out first
+# 优先级值最小的元素最先出队
+
+class MinHeap:
+    def __init__(self):
+        self.heap = []
+
+    def _parent(self, i):
+        return (i - 1) // 2
+
+    def _left(self, i):
+        return 2 * i + 1
+
+    def _right(self, i):
+        return 2 * i + 2
+
+    def _swap(self, i, j):
+        self.heap[i], self.heap[j] = self.heap[j], self.heap[i]
+
+    def insert(self, value):
+        """Insert value and bubble up · 插入并上浮"""
+        # TODO: append to end, then bubble up
+        pass
+
+    def _bubble_up(self, i):
+        """Move element up to maintain heap property · 上浮操作"""
+        # TODO: while parent > current, swap and move up
+        pass
+
+    def extract_min(self):
+        """Remove and return minimum · 提取最小值"""
+        # TODO: swap root with last, remove last, bubble down
+        pass
+
+    def _bubble_down(self, i):
+        """Move element down to maintain heap property · 下沉操作"""
+        # TODO: find smallest among node and children, swap if needed
+        pass
+
+    def peek(self):
+        return self.heap[0] if self.heap else None
+
+# Test · 测试
+pq = MinHeap()
+for val in [5, 3, 8, 1, 2, 7]:
+    pq.insert(val)
+
+print("Min:", pq.peek())              # 1
+print("Extract:", pq.extract_min())   # 1
+print("Extract:", pq.extract_min())   # 2
+print("Extract:", pq.extract_min())   # 3
+print("Min now:", pq.peek())          # 5`,
+    hint: "Bubble up: compare with parent, swap if smaller. Bubble down: compare with children, swap with the smallest child.",
+    solution: `class MinHeap:
+    def __init__(self):
+        self.heap = []
+
+    def _parent(self, i):
+        return (i - 1) // 2
+
+    def _left(self, i):
+        return 2 * i + 1
+
+    def _right(self, i):
+        return 2 * i + 2
+
+    def _swap(self, i, j):
+        self.heap[i], self.heap[j] = self.heap[j], self.heap[i]
+
+    def insert(self, value):
+        self.heap.append(value)
+        self._bubble_up(len(self.heap) - 1)
+
+    def _bubble_up(self, i):
+        while i > 0 and self.heap[self._parent(i)] > self.heap[i]:
+            self._swap(i, self._parent(i))
+            i = self._parent(i)
+
+    def extract_min(self):
+        if not self.heap:
+            return None
+        if len(self.heap) == 1:
+            return self.heap.pop()
+        root = self.heap[0]
+        self.heap[0] = self.heap.pop()
+        self._bubble_down(0)
+        return root
+
+    def _bubble_down(self, i):
+        size = len(self.heap)
+        smallest = i
+        left = self._left(i)
+        right = self._right(i)
+        if left < size and self.heap[left] < self.heap[smallest]:
+            smallest = left
+        if right < size and self.heap[right] < self.heap[smallest]:
+            smallest = right
+        if smallest != i:
+            self._swap(i, smallest)
+            self._bubble_down(smallest)
+
+    def peek(self):
+        return self.heap[0] if self.heap else None
+
+pq = MinHeap()
+for val in [5, 3, 8, 1, 2, 7]:
+    pq.insert(val)
+
+print("Min:", pq.peek())
+print("Extract:", pq.extract_min())
+print("Extract:", pq.extract_min())
+print("Extract:", pq.extract_min())
+print("Min now:", pq.peek())`,
+    expectedOutput: "Min: 1\nExtract: 1\nExtract: 2\nExtract: 3\nMin now: 5",
+    tags: ["data-structures", "heap", "priority-queue", "intermediate"],
+    language: "python",
+    category: "Data Structures",
+    categoryZh: "数据结构",
+  },
+
+  // ─── Advanced ─────────────────────────────────────────────
+  {
+    id: "ds-8",
+    title: "🗺️ Graph BFS & DFS · 图的广度与深度优先搜索",
+    titleZh: "图的 BFS 和 DFS",
+    description: "Implement BFS and DFS traversal on a graph represented as an adjacency list.",
+    descriptionZh: "在邻接表表示的图上实现广度优先搜索和深度优先搜索。",
+    difficulty: 3,
+    gradeRange: [8, 10],
+    skillLevel: "advanced",
+    starterCode: `# 🗺️ Graph BFS & DFS · 图的遍历
+# Explore graphs two different ways!
+# 用两种方式探索图！
+
+from collections import deque
+
+class Graph:
+    def __init__(self):
+        self.adj = {}  # adjacency list · 邻接表
+
+    def add_edge(self, u, v):
+        """Add undirected edge · 添加无向边"""
+        # TODO: Add v to u's list and u to v's list
+        pass
+
+    def bfs(self, start):
+        """Breadth-First Search · 广度优先搜索"""
+        # TODO: Use a queue (deque) and visited set
+        # Visit level by level
+        pass
+
+    def dfs(self, start):
+        """Depth-First Search · 深度优先搜索"""
+        # TODO: Use a stack (or recursion) and visited set
+        # Go deep before going wide
+        pass
+
+# Test · 测试
+# Graph:
+#   A - B - D
+#   |   |
+#   C - E - F
+
+g = Graph()
+g.add_edge("A", "B")
+g.add_edge("A", "C")
+g.add_edge("B", "D")
+g.add_edge("B", "E")
+g.add_edge("C", "E")
+g.add_edge("E", "F")
+
+print("BFS from A:", g.bfs("A"))
+print("DFS from A:", g.dfs("A"))`,
+    hint: "BFS: use deque — append to right, pop from left. DFS: use a list as stack — append and pop from end. Both need a 'visited' set.",
+    solution: `from collections import deque
+
+class Graph:
+    def __init__(self):
+        self.adj = {}
+
+    def add_edge(self, u, v):
+        if u not in self.adj:
+            self.adj[u] = []
+        if v not in self.adj:
+            self.adj[v] = []
+        self.adj[u].append(v)
+        self.adj[v].append(u)
+
+    def bfs(self, start):
+        visited = set()
+        queue = deque([start])
+        visited.add(start)
+        order = []
+        while queue:
+            node = queue.popleft()
+            order.append(node)
+            for neighbor in sorted(self.adj.get(node, [])):
+                if neighbor not in visited:
+                    visited.add(neighbor)
+                    queue.append(neighbor)
+        return order
+
+    def dfs(self, start):
+        visited = set()
+        stack = [start]
+        order = []
+        while stack:
+            node = stack.pop()
+            if node not in visited:
+                visited.add(node)
+                order.append(node)
+                for neighbor in sorted(self.adj.get(node, []), reverse=True):
+                    if neighbor not in visited:
+                        stack.append(neighbor)
+        return order
+
+g = Graph()
+g.add_edge("A", "B")
+g.add_edge("A", "C")
+g.add_edge("B", "D")
+g.add_edge("B", "E")
+g.add_edge("C", "E")
+g.add_edge("E", "F")
+
+print("BFS from A:", g.bfs("A"))
+print("DFS from A:", g.dfs("A"))`,
+    expectedOutput: "BFS from A: ['A', 'B', 'C', 'D', 'E', 'F']\nDFS from A: ['A', 'B', 'D', 'E', 'C', 'F']",
+    tags: ["data-structures", "graph", "bfs", "dfs", "advanced"],
+    language: "python",
+    category: "Data Structures",
+    categoryZh: "数据结构",
+  },
+  {
+    id: "ds-9",
+    title: "🔗 Sort a Linked List · 链表排序",
+    titleZh: "链表排序（归并排序）",
+    description: "Implement merge sort on a linked list — split, sort, and merge!",
+    descriptionZh: "在链表上实现归并排序——拆分、排序、合并！",
+    difficulty: 3,
+    gradeRange: [8, 10],
+    skillLevel: "advanced",
+    starterCode: `# 🔗 Merge Sort on Linked List · 链表归并排序
+# Split the list in half, sort each half, merge them!
+# 将链表分成两半，分别排序，再合并！
+
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.next = None
+
+def to_linked_list(arr):
+    """Convert array to linked list · 数组转链表"""
+    if not arr:
+        return None
+    head = Node(arr[0])
+    current = head
+    for val in arr[1:]:
+        current.next = Node(val)
+        current = current.next
+    return head
+
+def to_array(head):
+    """Convert linked list to array · 链表转数组"""
+    result = []
+    while head:
+        result.append(head.data)
+        head = head.next
+    return result
+
+def get_middle(head):
+    """Find middle node using slow/fast pointers · 快慢指针找中点"""
+    # TODO: slow moves 1 step, fast moves 2 steps
+    pass
+
+def merge(left, right):
+    """Merge two sorted linked lists · 合并两个有序链表"""
+    # TODO: Compare heads, pick smaller, advance that pointer
+    pass
+
+def merge_sort(head):
+    """Sort linked list using merge sort · 归并排序"""
+    # TODO: Base case: 0 or 1 node
+    # Split at middle, recursively sort both halves, merge
+    pass
+
+# Test · 测试
+arr = [38, 27, 43, 3, 9, 82, 10]
+head = to_linked_list(arr)
+print("Before:", to_array(head))
+head = merge_sort(head)
+print("After: ", to_array(head))`,
+    hint: "get_middle: use slow/fast pointers. merge: create dummy head, compare and link nodes. merge_sort: split at middle, recurse on both halves.",
+    solution: `class Node:
+    def __init__(self, data):
+        self.data = data
+        self.next = None
+
+def to_linked_list(arr):
+    if not arr:
+        return None
+    head = Node(arr[0])
+    current = head
+    for val in arr[1:]:
+        current.next = Node(val)
+        current = current.next
+    return head
+
+def to_array(head):
+    result = []
+    while head:
+        result.append(head.data)
+        head = head.next
+    return result
+
+def get_middle(head):
+    if not head:
+        return head
+    slow = head
+    fast = head.next
+    while fast and fast.next:
+        slow = slow.next
+        fast = fast.next.next
+    return slow
+
+def merge(left, right):
+    dummy = Node(0)
+    current = dummy
+    while left and right:
+        if left.data <= right.data:
+            current.next = left
+            left = left.next
+        else:
+            current.next = right
+            right = right.next
+        current = current.next
+    current.next = left if left else right
+    return dummy.next
+
+def merge_sort(head):
+    if not head or not head.next:
+        return head
+    mid = get_middle(head)
+    right_half = mid.next
+    mid.next = None
+    left = merge_sort(head)
+    right = merge_sort(right_half)
+    return merge(left, right)
+
+arr = [38, 27, 43, 3, 9, 82, 10]
+head = to_linked_list(arr)
+print("Before:", to_array(head))
+head = merge_sort(head)
+print("After: ", to_array(head))`,
+    expectedOutput: "Before: [38, 27, 43, 3, 9, 82, 10]\nAfter:  [3, 9, 10, 27, 38, 43, 82]",
+    tags: ["data-structures", "linked-list", "sorting", "advanced"],
+    language: "python",
+    category: "Data Structures",
+    categoryZh: "数据结构",
+  },
+  {
+    id: "ds-10",
+    title: "🧮 Stack Expression Evaluator · 栈实现表达式求值",
+    titleZh: "用栈计算数学表达式",
+    description: "Use two stacks to evaluate arithmetic expressions like '3 + 5 * ( 2 - 8 )'.",
+    descriptionZh: "使用两个栈来计算数学表达式，如 '3 + 5 * ( 2 - 8 )'。",
+    difficulty: 3,
+    gradeRange: [8, 10],
+    skillLevel: "advanced",
+    starterCode: `# 🧮 Expression Evaluator · 表达式求值器
+# Use stacks to handle operator precedence and parentheses!
+# 使用栈处理运算符优先级和括号！
+
+def evaluate(expression):
+    """Evaluate an arithmetic expression string · 计算表达式"""
+    tokens = expression.split()
+    values = []    # stack for numbers · 数字栈
+    ops = []       # stack for operators · 运算符栈
+
+    precedence = {'+': 1, '-': 1, '*': 2, '/': 2}
+
+    def apply_op():
+        """Apply top operator to top two values · 执行一次运算"""
+        # TODO: pop operator and two values, compute, push result
+        pass
+
+    for token in tokens:
+        if token.isdigit() or (token[0] == '-' and len(token) > 1):
+            # TODO: push number to values stack
+            pass
+        elif token == '(':
+            # TODO: push to ops stack
+            pass
+        elif token == ')':
+            # TODO: apply ops until '(' is found
+            pass
+        elif token in precedence:
+            # TODO: while top of ops has >= precedence, apply
+            # then push current operator
+            pass
+
+    # TODO: apply remaining operators
+    # Return final result
+
+    return values[0] if values else 0
+
+# Test · 测试
+tests = [
+    "3 + 5",
+    "10 - 3 * 2",
+    "( 1 + 2 ) * 3",
+    "3 + 5 * ( 2 - 8 )",
+    "( 10 + 2 ) * ( 6 - 2 )",
+]
+for expr in tests:
+    print(expr + " = " + str(evaluate(expr)))`,
+    hint: "apply_op: pop operator, pop b then a from values, compute a op b, push result. For precedence: process higher/equal precedence ops before pushing new one.",
+    solution: `def evaluate(expression):
+    tokens = expression.split()
+    values = []
+    ops = []
+    precedence = {'+': 1, '-': 1, '*': 2, '/': 2}
+
+    def apply_op():
+        op = ops.pop()
+        b = values.pop()
+        a = values.pop()
+        if op == '+': values.append(a + b)
+        elif op == '-': values.append(a - b)
+        elif op == '*': values.append(a * b)
+        elif op == '/': values.append(a // b)
+
+    for token in tokens:
+        if token.lstrip('-').isdigit():
+            values.append(int(token))
+        elif token == '(':
+            ops.append(token)
+        elif token == ')':
+            while ops and ops[-1] != '(':
+                apply_op()
+            ops.pop()  # remove '('
+        elif token in precedence:
+            while ops and ops[-1] != '(' and ops[-1] in precedence and precedence[ops[-1]] >= precedence[token]:
+                apply_op()
+            ops.append(token)
+
+    while ops:
+        apply_op()
+
+    return values[0] if values else 0
+
+tests = [
+    "3 + 5",
+    "10 - 3 * 2",
+    "( 1 + 2 ) * 3",
+    "3 + 5 * ( 2 - 8 )",
+    "( 10 + 2 ) * ( 6 - 2 )",
+]
+for expr in tests:
+    print(expr + " = " + str(evaluate(expr)))`,
+    expectedOutput: "3 + 5 = 8\n10 - 3 * 2 = 4\n( 1 + 2 ) * 3 = 9\n3 + 5 * ( 2 - 8 ) = -27\n( 10 + 2 ) * ( 6 - 2 ) = 48",
+    tags: ["data-structures", "stack", "expression", "advanced"],
+    language: "python",
+    category: "Data Structures",
+    categoryZh: "数据结构",
+  },
+  {
+    id: "ds-11",
+    title: "🔗 Doubly Linked List · 双向链表",
+    titleZh: "双向链表",
+    description: "Build a doubly linked list with forward and backward traversal, insert at position, and reverse.",
+    descriptionZh: "实现双向链表，支持正向和反向遍历、按位置插入和反转。",
+    difficulty: 2,
+    gradeRange: [7, 10],
+    skillLevel: "intermediate",
+    starterCode: `# 🔗 Doubly Linked List · 双向链表
+# Each node has prev and next pointers
+# 每个节点有前驱和后继指针
+
+class DNode:
+    def __init__(self, data):
+        self.data = data
+        self.prev = None
+        self.next = None
+
+class DoublyLinkedList:
+    def __init__(self):
+        self.head = None
+        self.tail = None
+
+    def append(self, data):
+        """Add to end · 在末尾添加"""
+        # TODO
+        pass
+
+    def prepend(self, data):
+        """Add to beginning · 在开头添加"""
+        # TODO
+        pass
+
+    def display_forward(self):
+        """Print head to tail · 正向打印"""
+        # TODO
+        pass
+
+    def display_backward(self):
+        """Print tail to head · 反向打印"""
+        # TODO
+        pass
+
+    def reverse(self):
+        """Reverse the list in place · 原地反转"""
+        # TODO: Swap prev and next for every node
+        pass
+
+# Test · 测试
+dll = DoublyLinkedList()
+dll.append(1)
+dll.append(2)
+dll.append(3)
+dll.prepend(0)
+print("Forward: ", end="")
+dll.display_forward()     # 0 <-> 1 <-> 2 <-> 3
+print("Backward:", end="")
+dll.display_backward()    # 3 <-> 2 <-> 1 <-> 0
+dll.reverse()
+print("Reversed:", end="")
+dll.display_forward()     # 3 <-> 2 <-> 1 <-> 0`,
+    hint: "For append: set new_node.prev = self.tail. For reverse: swap prev and next for each node, then swap head and tail.",
+    solution: `class DNode:
+    def __init__(self, data):
+        self.data = data
+        self.prev = None
+        self.next = None
+
+class DoublyLinkedList:
+    def __init__(self):
+        self.head = None
+        self.tail = None
+
+    def append(self, data):
+        new_node = DNode(data)
+        if not self.head:
+            self.head = self.tail = new_node
+        else:
+            new_node.prev = self.tail
+            self.tail.next = new_node
+            self.tail = new_node
+
+    def prepend(self, data):
+        new_node = DNode(data)
+        if not self.head:
+            self.head = self.tail = new_node
+        else:
+            new_node.next = self.head
+            self.head.prev = new_node
+            self.head = new_node
+
+    def display_forward(self):
+        parts = []
+        current = self.head
+        while current:
+            parts.append(str(current.data))
+            current = current.next
+        print(" <-> ".join(parts))
+
+    def display_backward(self):
+        parts = []
+        current = self.tail
+        while current:
+            parts.append(str(current.data))
+            current = current.prev
+        print(" <-> ".join(parts))
+
+    def reverse(self):
+        current = self.head
+        while current:
+            current.prev, current.next = current.next, current.prev
+            current = current.prev
+        self.head, self.tail = self.tail, self.head
+
+dll = DoublyLinkedList()
+dll.append(1)
+dll.append(2)
+dll.append(3)
+dll.prepend(0)
+print("Forward: ", end="")
+dll.display_forward()
+print("Backward:", end="")
+dll.display_backward()
+dll.reverse()
+print("Reversed:", end="")
+dll.display_forward()`,
+    expectedOutput: "Forward: 0 <-> 1 <-> 2 <-> 3\nBackward:3 <-> 2 <-> 1 <-> 0\nReversed:3 <-> 2 <-> 1 <-> 0",
+    tags: ["data-structures", "linked-list", "intermediate"],
+    language: "python",
+    category: "Data Structures",
+    categoryZh: "数据结构",
+  },
+  {
+    id: "ds-12",
+    title: "🏔️ Dijkstra's Shortest Path · 最短路径",
+    titleZh: "Dijkstra 最短路径算法",
+    description: "Find the shortest path in a weighted graph using Dijkstra's algorithm with a priority queue.",
+    descriptionZh: "使用 Dijkstra 算法和优先队列在加权图中找最短路径。",
+    difficulty: 3,
+    gradeRange: [9, 10],
+    skillLevel: "advanced",
+    starterCode: `# 🏔️ Dijkstra's Shortest Path · 最短路径
+# Find shortest distances in a weighted graph
+# 在加权图中找到最短距离
+
+import heapq
+
+class WeightedGraph:
+    def __init__(self):
+        self.adj = {}
+
+    def add_edge(self, u, v, weight):
+        """Add weighted edge · 添加带权边"""
+        # TODO: add (v, weight) to u's list and vice versa
+        pass
+
+    def dijkstra(self, start):
+        """Find shortest path from start to all nodes · 找最短路径"""
+        # TODO:
+        # 1. Initialize distances dict: all nodes = infinity, start = 0
+        # 2. Use heapq as priority queue: push (0, start)
+        # 3. While queue not empty:
+        #    - Pop smallest distance node
+        #    - Skip if already processed with shorter distance
+        #    - For each neighbor: if new distance < known distance, update
+        # Return distances dict
+        pass
+
+    def shortest_path(self, start, end):
+        """Find shortest path and reconstruct route · 找路径并重建路线"""
+        # TODO: Modify dijkstra to track previous nodes
+        # Then backtrack from end to start
+        pass
+
+# Test · 测试
+g = WeightedGraph()
+g.add_edge("A", "B", 4)
+g.add_edge("A", "C", 2)
+g.add_edge("B", "D", 3)
+g.add_edge("C", "B", 1)
+g.add_edge("C", "D", 5)
+g.add_edge("D", "E", 1)
+
+distances = g.dijkstra("A")
+print("Distances from A:", distances)
+# Expected: A=0, B=3, C=2, D=6, E=7
+
+path = g.shortest_path("A", "E")
+print("Path A->E:", path)
+# Expected: ['A', 'C', 'B', 'D', 'E']`,
+    hint: "Use heapq.heappush/heappop. distances dict starts at float('inf'). When popping, skip if distance > known distance. To reconstruct path, track 'previous' node for each update.",
+    solution: `import heapq
+
+class WeightedGraph:
+    def __init__(self):
+        self.adj = {}
+
+    def add_edge(self, u, v, weight):
+        if u not in self.adj:
+            self.adj[u] = []
+        if v not in self.adj:
+            self.adj[v] = []
+        self.adj[u].append((v, weight))
+        self.adj[v].append((u, weight))
+
+    def dijkstra(self, start):
+        dist = {node: float('inf') for node in self.adj}
+        dist[start] = 0
+        pq = [(0, start)]
+        while pq:
+            d, u = heapq.heappop(pq)
+            if d > dist[u]:
+                continue
+            for v, w in self.adj.get(u, []):
+                new_dist = d + w
+                if new_dist < dist[v]:
+                    dist[v] = new_dist
+                    heapq.heappush(pq, (new_dist, v))
+        return dist
+
+    def shortest_path(self, start, end):
+        dist = {node: float('inf') for node in self.adj}
+        dist[start] = 0
+        prev = {node: None for node in self.adj}
+        pq = [(0, start)]
+        while pq:
+            d, u = heapq.heappop(pq)
+            if d > dist[u]:
+                continue
+            if u == end:
+                break
+            for v, w in self.adj.get(u, []):
+                new_dist = d + w
+                if new_dist < dist[v]:
+                    dist[v] = new_dist
+                    prev[v] = u
+                    heapq.heappush(pq, (new_dist, v))
+        path = []
+        node = end
+        while node:
+            path.append(node)
+            node = prev[node]
+        return path[::-1]
+
+g = WeightedGraph()
+g.add_edge("A", "B", 4)
+g.add_edge("A", "C", 2)
+g.add_edge("B", "D", 3)
+g.add_edge("C", "B", 1)
+g.add_edge("C", "D", 5)
+g.add_edge("D", "E", 1)
+
+distances = g.dijkstra("A")
+print("Distances from A:", distances)
+path = g.shortest_path("A", "E")
+print("Path A->E:", path)`,
+    expectedOutput: "Distances from A: {'A': 0, 'B': 3, 'C': 2, 'D': 6, 'E': 7}\nPath A->E: ['A', 'C', 'B', 'D', 'E']",
+    tags: ["data-structures", "graph", "dijkstra", "advanced"],
+    language: "python",
+    category: "Data Structures",
+    categoryZh: "数据结构",
+  },
 ];
