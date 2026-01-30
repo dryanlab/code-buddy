@@ -1,10 +1,12 @@
 "use client";
 
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
 import dynamic from "next/dynamic";
-import { loadPyodideEngine, runPython, isPyodideLoaded } from "@/lib/pyodide-engine";
+import { loadPyodideEngine, runPython, isPyodideLoaded, parseCodeIntoSteps } from "@/lib/pyodide-engine";
+import type { VariableDetail } from "@/lib/pyodide-engine";
 import { incrementCodeRun, addXP } from "@/lib/progress-store";
 import { motion, AnimatePresence } from "framer-motion";
+import MemoryModel from "./MemoryModel";
 
 const MonacoEditor = dynamic(() => import("@monaco-editor/react"), { ssr: false });
 
@@ -27,15 +29,20 @@ export default function CodeEditor({
   const [isLoading, setIsLoading] = useState(false);
   const [loadingMsg, setLoadingMsg] = useState("");
   const [variables, setVariables] = useState<Record<string, string>>({});
+  const [variableDetails, setVariableDetails] = useState<VariableDetail[]>([]);
   const [showSuccess, setShowSuccess] = useState(false);
   const [hasError, setHasError] = useState(false);
-  const [inputValues, setInputValues] = useState<string[]>([]);
+  const [inputValues] = useState<string[]>([]);
   const [hasTurtle, setHasTurtle] = useState(false);
-  const [inputPrompts, setInputPrompts] = useState<string[]>([]);
-  const [showInputForm, setShowInputForm] = useState(false);
-  const [currentInputs, setCurrentInputs] = useState<string[]>([]);
 
-  // Update code when initialCode changes
+  // Step mode state
+  const [stepMode, setStepMode] = useState(false);
+  const [stepIndex, setStepIndex] = useState(0);
+  const [steps, setSteps] = useState<{ startLine: number; endLine: number; code: string }[]>([]);
+  const [highlightLines, setHighlightLines] = useState<{ start: number; end: number } | null>(null);
+  const editorRef = useRef<unknown>(null);
+  const decorationsRef = useRef<string[]>([]);
+
   useEffect(() => {
     setCode(initialCode);
   }, [initialCode]);
@@ -54,16 +61,30 @@ export default function CodeEditor({
     }
   }, []);
 
-  // Detect input() calls in code and extract prompts
-  const detectInputPrompts = useCallback((src: string): string[] => {
-    const prompts: string[] = [];
-    const regex = /input\s*\(\s*(?:["']([^"']*)["'])?\s*\)/g;
-    let m;
-    while ((m = regex.exec(src)) !== null) {
-      prompts.push(m[1] || "请输入 (Enter value):");
+  // Apply line decorations in Monaco
+  useEffect(() => {
+    const editor = editorRef.current as { deltaDecorations?: (old: string[], newDec: unknown[]) => string[] } | null;
+    if (!editor || !editor.deltaDecorations) return;
+
+    if (highlightLines) {
+      const newDec = [{
+        range: {
+          startLineNumber: highlightLines.start + 1,
+          startColumn: 1,
+          endLineNumber: highlightLines.end + 1,
+          endColumn: 1000,
+        },
+        options: {
+          isWholeLine: true,
+          className: "step-highlight-line",
+          linesDecorationsClassName: "step-highlight-gutter",
+        },
+      }];
+      decorationsRef.current = editor.deltaDecorations(decorationsRef.current, newDec);
+    } else {
+      decorationsRef.current = editor.deltaDecorations(decorationsRef.current, []);
     }
-    return prompts;
-  }, []);
+  }, [highlightLines]);
 
   const executeCode = useCallback(async (inputs?: string[]) => {
     setIsRunning(true);
@@ -76,7 +97,7 @@ export default function CodeEditor({
     if (!ready) { setIsRunning(false); return; }
 
     const result = await runPython(code, inputs);
-    
+
     if (result.error) {
       setOutput(result.error);
       setHasError(true);
@@ -88,6 +109,7 @@ export default function CodeEditor({
       onRunSuccess?.();
     }
     setVariables(result.variables);
+    setVariableDetails(result.variableDetails || []);
     setHasTurtle(result.hasTurtle || false);
     setIsRunning(false);
     incrementCodeRun();
@@ -95,19 +117,97 @@ export default function CodeEditor({
   }, [code, ensurePyodide, onRunSuccess]);
 
   const runCode = useCallback(async () => {
-    const prompts = detectInputPrompts(code);
-    
-    if (prompts.length > 0 && inputValues.length === 0) {
-      // Show input form for users to fill in values before running
-      // Or use browser prompt() - the engine handles this via JS prompt
-      // Just run directly - the engine will use prompt() dialogs
-    }
-    
+    setStepMode(false);
+    setHighlightLines(null);
     await executeCode(inputValues.length > 0 ? inputValues : undefined);
-  }, [code, detectInputPrompts, executeCode, inputValues]);
+  }, [executeCode, inputValues]);
+
+  // Step mode: start
+  const startStepMode = useCallback(async () => {
+    const ready = await ensurePyodide();
+    if (!ready) return;
+
+    const parsed = parseCodeIntoSteps(code);
+    if (parsed.length === 0) return;
+
+    setSteps(parsed);
+    setStepIndex(0);
+    setStepMode(true);
+    setOutput("");
+    setHasError(false);
+    setVariables({});
+    setVariableDetails([]);
+    setHighlightLines({ start: parsed[0].startLine, end: parsed[0].endLine });
+
+    // Execute first step
+    const codeToRun = parsed[0].code;
+    const result = await runPython(codeToRun);
+    if (result.error) {
+      setOutput(result.error);
+      setHasError(true);
+    } else {
+      setOutput(result.output || "");
+    }
+    setVariables(result.variables);
+    setVariableDetails(result.variableDetails || []);
+  }, [code, ensurePyodide]);
+
+  // Step mode: next
+  const nextStep = useCallback(async () => {
+    const nextIdx = stepIndex + 1;
+    if (nextIdx >= steps.length) {
+      // Done
+      setStepMode(false);
+      setHighlightLines(null);
+      return;
+    }
+
+    setStepIndex(nextIdx);
+    setHighlightLines({ start: steps[nextIdx].startLine, end: steps[nextIdx].endLine });
+
+    // Execute all code up to and including this step
+    const codeToRun = steps.slice(0, nextIdx + 1).map((s) => s.code).join("\n");
+    const result = await runPython(codeToRun);
+    if (result.error) {
+      setOutput(result.error);
+      setHasError(true);
+    } else {
+      setOutput(result.output || "");
+      setHasError(false);
+    }
+    setVariables(result.variables);
+    setVariableDetails(result.variableDetails || []);
+  }, [stepIndex, steps]);
+
+  // Step mode: run all remaining
+  const runAllRemaining = useCallback(async () => {
+    setStepMode(false);
+    setHighlightLines(null);
+    await executeCode();
+  }, [executeCode]);
+
+  // Step mode: stop
+  const stopStepMode = useCallback(() => {
+    setStepMode(false);
+    setHighlightLines(null);
+  }, []);
+
+  const totalLines = code.split("\n").length;
 
   return (
     <div className="rounded-xl overflow-hidden border border-[var(--theme-border)]">
+      {/* Inject step highlight CSS */}
+      <style>{`
+        .step-highlight-line {
+          background: rgba(250, 204, 21, 0.15) !important;
+          border-left: 4px solid #facc15 !important;
+        }
+        .step-highlight-gutter {
+          background: #facc15;
+          width: 4px !important;
+        }
+      `}</style>
+
       {/* Editor header */}
       <div className="flex items-center justify-between bg-[#1e1e1e] px-4 py-2 border-b border-[var(--theme-border)]">
         <div className="flex items-center gap-2">
@@ -120,13 +220,48 @@ export default function CodeEditor({
           {isLoading && (
             <span className="text-xs text-cyan-400 animate-pulse">{loadingMsg}</span>
           )}
-          <button
-            onClick={runCode}
-            disabled={isRunning || isLoading}
-            className="flex items-center gap-2 px-4 py-1.5 bg-green-500 text-black text-sm font-bold rounded-lg hover:bg-green-400 disabled:opacity-50 transition-colors"
-          >
-            {isRunning ? "⏳ Running... 运行中" : isLoading ? "⏳ Loading... 加载中" : "▶ Run · 运行"}
-          </button>
+          {!stepMode ? (
+            <>
+              <button
+                onClick={startStepMode}
+                disabled={isRunning || isLoading}
+                className="flex items-center gap-1.5 px-3 py-1.5 bg-cyan-500 text-black text-sm font-bold rounded-lg hover:bg-cyan-400 disabled:opacity-50 transition-colors"
+              >
+                ⏭ Step · 分步
+              </button>
+              <button
+                onClick={runCode}
+                disabled={isRunning || isLoading}
+                className="flex items-center gap-2 px-4 py-1.5 bg-green-500 text-black text-sm font-bold rounded-lg hover:bg-green-400 disabled:opacity-50 transition-colors"
+              >
+                {isRunning ? "⏳ Running... 运行中" : isLoading ? "⏳ Loading... 加载中" : "▶ Run · 运行"}
+              </button>
+            </>
+          ) : (
+            <>
+              <span className="text-xs text-yellow-300 font-mono">
+                Line {highlightLines ? highlightLines.start + 1 : "?"} of {totalLines} · 第{highlightLines ? highlightLines.start + 1 : "?"}行/共{totalLines}行
+              </span>
+              <button
+                onClick={nextStep}
+                className="flex items-center gap-1 px-3 py-1.5 bg-cyan-500 text-black text-xs font-bold rounded-lg hover:bg-cyan-400 transition-colors"
+              >
+                ⏭ Next · 下一步
+              </button>
+              <button
+                onClick={runAllRemaining}
+                className="flex items-center gap-1 px-3 py-1.5 bg-green-500 text-black text-xs font-bold rounded-lg hover:bg-green-400 transition-colors"
+              >
+                ▶ Run All · 全部运行
+              </button>
+              <button
+                onClick={stopStepMode}
+                className="flex items-center gap-1 px-3 py-1.5 bg-red-500 text-white text-xs font-bold rounded-lg hover:bg-red-400 transition-colors"
+              >
+                ⏹ Stop · 停止
+              </button>
+            </>
+          )}
         </div>
       </div>
 
@@ -137,6 +272,7 @@ export default function CodeEditor({
         theme="vs-dark"
         value={code}
         onChange={(v) => setCode(v || "")}
+        onMount={(editor) => { editorRef.current = editor; }}
         options={{
           fontSize: 14,
           fontFamily: "'JetBrains Mono', 'Fira Code', monospace",
@@ -144,7 +280,7 @@ export default function CodeEditor({
           scrollBeyondLastLine: false,
           lineNumbers: "on",
           renderLineHighlight: "line",
-          readOnly,
+          readOnly: readOnly || stepMode,
           padding: { top: 12 },
           automaticLayout: true,
         }}
@@ -169,16 +305,22 @@ export default function CodeEditor({
               </motion.span>
             )}
           </AnimatePresence>
+          {stepMode && stepIndex >= steps.length - 1 && !hasError && (
+            <span className="text-xs text-green-400 font-bold">✅ Complete! · 执行完毕！</span>
+          )}
         </div>
         {/* Turtle canvas mount point */}
         <div id="turtle-output" data-turtle-mount="true" />
-        
+
         <pre className={`text-sm terminal-text whitespace-pre-wrap min-h-[2rem] ${hasError ? "text-red-400" : "text-green-400"}`}>
           {output || <span className="text-[var(--theme-text-muted)]">Click &quot;Run&quot; to execute code... 点击 &quot;Run&quot; 运行代码</span>}
         </pre>
 
-        {/* Variables panel */}
-        {Object.keys(variables).length > 0 && (
+        {/* Memory Model */}
+        <MemoryModel variables={variableDetails} />
+
+        {/* Legacy variables panel (hidden if MemoryModel shows) */}
+        {variableDetails.length === 0 && Object.keys(variables).length > 0 && (
           <div className="mt-3 pt-3 border-t border-[var(--theme-border)]">
             <div className="text-xs text-[var(--theme-text-muted)] terminal-text mb-2">VARIABLES · 变量</div>
             <div className="flex flex-wrap gap-2">

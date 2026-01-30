@@ -4,7 +4,9 @@ import { motion } from "framer-motion";
 import { useState, useCallback } from "react";
 import dynamic from "next/dynamic";
 import type { LessonSection, SyntaxCard, CodeAnatomy } from "@/data/lessons";
-import { loadPyodideEngine, runPython, isPyodideLoaded } from "@/lib/pyodide-engine";
+import { loadPyodideEngine, runPython, isPyodideLoaded, parseCodeIntoSteps } from "@/lib/pyodide-engine";
+import type { VariableDetail } from "@/lib/pyodide-engine";
+import MemoryModel from "./MemoryModel";
 
 const MonacoEditor = dynamic(() => import("@monaco-editor/react"), { ssr: false });
 
@@ -71,28 +73,41 @@ function CodeAnatomyComponent({ anatomy }: { anatomy: CodeAnatomy }) {
   const [isRunning, setIsRunning] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [loadingMsg, setLoadingMsg] = useState("");
+  const [variableDetails, setVariableDetails] = useState<VariableDetail[]>([]);
 
-  // Build runnable code from anatomy lines
+  // Step mode state
+  const [stepMode, setStepMode] = useState(false);
+  const [stepIndex, setStepIndex] = useState(0);
+  const [steps, setSteps] = useState<{ startLine: number; endLine: number; code: string }[]>([]);
+  const [highlightLineIdx, setHighlightLineIdx] = useState<number | null>(null);
+
   const runnableCode = anatomy.lines.map(l => l.code).join("\n");
+
+  const ensurePyodide = useCallback(async () => {
+    if (isPyodideLoaded()) return true;
+    setIsLoading(true);
+    try {
+      await loadPyodideEngine((msg) => setLoadingMsg(msg));
+      setIsLoading(false);
+      return true;
+    } catch {
+      setOutput("❌ Python engine failed to load. Please refresh.\nPython 引擎加载失败，请刷新页面重试");
+      setHasError(true);
+      setIsRunning(false);
+      setIsLoading(false);
+      return false;
+    }
+  }, []);
 
   const handleRun = useCallback(async () => {
     setIsRunning(true);
     setOutput("");
     setHasError(false);
+    setStepMode(false);
+    setHighlightLineIdx(null);
 
-    if (!isPyodideLoaded()) {
-      setIsLoading(true);
-      try {
-        await loadPyodideEngine((msg) => setLoadingMsg(msg));
-      } catch {
-        setOutput("❌ Python engine failed to load. Please refresh.\nPython 引擎加载失败，请刷新页面重试");
-        setHasError(true);
-        setIsRunning(false);
-        setIsLoading(false);
-        return;
-      }
-      setIsLoading(false);
-    }
+    const ready = await ensurePyodide();
+    if (!ready) { setIsRunning(false); return; }
 
     const result = await runPython(runnableCode);
     if (result.error) {
@@ -100,13 +115,63 @@ function CodeAnatomyComponent({ anatomy }: { anatomy: CodeAnatomy }) {
       setHasError(true);
     } else if (result.hasTurtle) {
       setOutput(result.output || "🐢 Turtle graphics rendered above! · 海龟图形已在上方显示！");
-      setHasError(false);
     } else {
       setOutput(result.output || "(No output · 没有输出)");
-      setHasError(false);
     }
+    setVariableDetails(result.variableDetails || []);
     setIsRunning(false);
-  }, [runnableCode]);
+  }, [runnableCode, ensurePyodide]);
+
+  const startStepMode = useCallback(async () => {
+    const ready = await ensurePyodide();
+    if (!ready) return;
+
+    const parsed = parseCodeIntoSteps(runnableCode);
+    if (parsed.length === 0) return;
+
+    setSteps(parsed);
+    setStepIndex(0);
+    setStepMode(true);
+    setOutput("");
+    setHasError(false);
+    setVariableDetails([]);
+    setHighlightLineIdx(parsed[0].startLine);
+
+    const result = await runPython(parsed[0].code);
+    if (result.error) { setOutput(result.error); setHasError(true); }
+    else { setOutput(result.output || ""); }
+    setVariableDetails(result.variableDetails || []);
+  }, [runnableCode, ensurePyodide]);
+
+  const nextStep = useCallback(async () => {
+    const nextIdx = stepIndex + 1;
+    if (nextIdx >= steps.length) {
+      setStepMode(false);
+      setHighlightLineIdx(null);
+      return;
+    }
+    setStepIndex(nextIdx);
+    setHighlightLineIdx(steps[nextIdx].startLine);
+
+    const codeToRun = steps.slice(0, nextIdx + 1).map(s => s.code).join("\n");
+    const result = await runPython(codeToRun);
+    if (result.error) { setOutput(result.error); setHasError(true); }
+    else { setOutput(result.output || ""); setHasError(false); }
+    setVariableDetails(result.variableDetails || []);
+  }, [stepIndex, steps]);
+
+  const stopStepMode = useCallback(() => {
+    setStepMode(false);
+    setHighlightLineIdx(null);
+  }, []);
+
+  // Map anatomy line index to highlight
+  const getLineHighlight = (lineIdx: number): boolean => {
+    if (!stepMode || highlightLineIdx === null) return false;
+    if (steps.length === 0) return false;
+    const currentStep = steps[stepIndex];
+    return lineIdx >= currentStep.startLine && lineIdx <= currentStep.endLine;
+  };
 
   return (
     <div className="rounded-xl overflow-hidden border border-cyan-500/30">
@@ -117,51 +182,89 @@ function CodeAnatomyComponent({ anatomy }: { anatomy: CodeAnatomy }) {
             Code Anatomy · 代码解剖
           </span>
         </div>
-        <button
-          onClick={handleRun}
-          disabled={isRunning || isLoading}
-          className="flex items-center gap-1.5 px-3 py-1 bg-green-500 text-black text-xs font-bold rounded-lg hover:bg-green-400 disabled:opacity-50 transition-colors"
-        >
-          {isRunning ? "⏳ Running..." : isLoading ? "⏳ Loading..." : "▶ Run · 运行"}
-        </button>
+        <div className="flex items-center gap-2">
+          {isLoading && <span className="text-xs text-cyan-400 animate-pulse">{loadingMsg}</span>}
+          {!stepMode ? (
+            <>
+              <button
+                onClick={startStepMode}
+                disabled={isRunning || isLoading}
+                className="flex items-center gap-1 px-2.5 py-1 bg-cyan-500 text-black text-xs font-bold rounded-lg hover:bg-cyan-400 disabled:opacity-50 transition-colors"
+              >
+                ⏭ Step · 分步
+              </button>
+              <button
+                onClick={handleRun}
+                disabled={isRunning || isLoading}
+                className="flex items-center gap-1.5 px-3 py-1 bg-green-500 text-black text-xs font-bold rounded-lg hover:bg-green-400 disabled:opacity-50 transition-colors"
+              >
+                {isRunning ? "⏳ Running..." : "▶ Run · 运行"}
+              </button>
+            </>
+          ) : (
+            <>
+              <span className="text-[10px] text-yellow-300 font-mono">
+                Step {stepIndex + 1}/{steps.length}
+              </span>
+              <button onClick={nextStep} className="px-2 py-1 bg-cyan-500 text-black text-[10px] font-bold rounded-lg hover:bg-cyan-400">
+                ⏭ Next · 下一步
+              </button>
+              <button onClick={stopStepMode} className="px-2 py-1 bg-red-500 text-white text-[10px] font-bold rounded-lg hover:bg-red-400">
+                ⏹ Stop · 停止
+              </button>
+            </>
+          )}
+        </div>
       </div>
 
       <div className="bg-[var(--theme-card-bg)] p-4">
         <pre className="text-sm leading-relaxed">
-          {anatomy.lines.map((line, i) => (
-            <div
-              key={i}
-              onMouseEnter={() => setActiveLine(i)}
-              onMouseLeave={() => setActiveLine(null)}
-              onClick={() => setActiveLine(activeLine === i ? null : i)}
-              className={`px-2 py-1 rounded cursor-pointer transition-all ${
-                activeLine === i
-                  ? "bg-cyan-500/20 border-l-2 border-cyan-400"
-                  : "hover:bg-[var(--theme-input-bg)] border-l-2 border-transparent"
-              }`}
-            >
-              <code className="text-green-300">{line.code}</code>
-              {activeLine === i && (
-                <motion.div
-                  initial={{ opacity: 0, x: -10 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  className="mt-1 ml-4 text-cyan-300 text-xs whitespace-normal break-words"
-                >
-                  <span className="block">💡 {line.explanation}</span>
-                  {line.explanationZh && (
-                    <span className="block text-[var(--theme-text-secondary)] mt-0.5">· {line.explanationZh}</span>
-                  )}
-                </motion.div>
-              )}
-            </div>
-          ))}
+          {anatomy.lines.map((line, i) => {
+            const isStepHighlight = getLineHighlight(i);
+            return (
+              <div
+                key={i}
+                onMouseEnter={() => !stepMode && setActiveLine(i)}
+                onMouseLeave={() => !stepMode && setActiveLine(null)}
+                onClick={() => !stepMode && setActiveLine(activeLine === i ? null : i)}
+                className={`px-2 py-1 rounded cursor-pointer transition-all ${
+                  isStepHighlight
+                    ? "bg-yellow-500/20 border-l-4 border-yellow-400"
+                    : activeLine === i
+                    ? "bg-cyan-500/20 border-l-2 border-cyan-400"
+                    : "hover:bg-[var(--theme-input-bg)] border-l-2 border-transparent"
+                }`}
+              >
+                <code className="text-green-300">{line.code}</code>
+                {activeLine === i && !stepMode && (
+                  <motion.div
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    className="mt-1 ml-4 text-cyan-300 text-xs whitespace-normal break-words"
+                  >
+                    <span className="block">💡 {line.explanation}</span>
+                    {line.explanationZh && (
+                      <span className="block text-[var(--theme-text-secondary)] mt-0.5">· {line.explanationZh}</span>
+                    )}
+                  </motion.div>
+                )}
+                {isStepHighlight && (
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    className="mt-1 ml-4 text-yellow-300 text-xs"
+                  >
+                    ▶ Running this line... · 正在执行这一行...
+                  </motion.div>
+                )}
+              </div>
+            );
+          })}
         </pre>
       </div>
 
-      {/* Turtle canvas mount point */}
       <div id="turtle-output" data-turtle-mount="true" />
 
-      {/* Output panel */}
       {(output || isLoading) && (
         <div className="bg-[#0d1117] border-t border-[var(--theme-border)] p-3">
           <div className="text-xs text-[var(--theme-text-muted)] mb-1 terminal-text">OUTPUT</div>
@@ -169,11 +272,14 @@ function CodeAnatomyComponent({ anatomy }: { anatomy: CodeAnatomy }) {
           <pre className={`text-xs terminal-text whitespace-pre-wrap ${hasError ? "text-red-400" : "text-green-400"}`}>
             {output}
           </pre>
+          <MemoryModel variables={variableDetails} />
         </div>
       )}
 
       <div className="bg-[var(--theme-card-bg)] px-4 py-2 text-xs text-[var(--theme-text-muted)]">
-        👆 Hover or tap each line to see what it does · 悬停或点击每一行查看解释
+        {stepMode
+          ? "⏭ Click Next to execute the next line · 点击下一步执行下一行"
+          : "👆 Hover or tap each line to see what it does · 悬停或点击每一行查看解释"}
       </div>
     </div>
   );
@@ -189,7 +295,6 @@ export default function ConceptSection({ section }: { section: LessonSection }) 
       animate={{ opacity: 1, y: 0 }}
       className="space-y-6"
     >
-      {/* Header */}
       <div
         className="rounded-xl p-5 border"
         style={{ backgroundColor: "var(--theme-card-bg)", borderColor: "var(--theme-border)" }}
@@ -206,7 +311,6 @@ export default function ConceptSection({ section }: { section: LessonSection }) 
         </p>
       </div>
 
-      {/* Syntax Cards - horizontal scroll with visible border */}
       {syntaxCards && syntaxCards.length > 0 && (
         <div>
           <div className="flex items-center gap-2 mb-3">
@@ -225,7 +329,6 @@ export default function ConceptSection({ section }: { section: LessonSection }) 
         </div>
       )}
 
-      {/* Code Anatomy */}
       {codeAnatomy && (
         <div>
           <div className="flex items-center gap-2 mb-3">
