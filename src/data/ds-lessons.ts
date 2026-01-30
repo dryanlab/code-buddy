@@ -4803,6 +4803,14 @@ Merge sort is like sorting a deck of cards with a friend 🃏 — split the deck
 👀 Watch the timing comparison — feel the difference between O(n²) and O(n log n)!`,
       code: `# 📦 Box: "Divide and conquer — split, sort, merge!"
 
+def bubble_sort(arr):
+    """Bubble Sort — O(n²) · 冒泡排序"""
+    n = len(arr)
+    for i in range(n):
+        for j in range(0, n-i-1):
+            if arr[j] > arr[j+1]:
+                arr[j], arr[j+1] = arr[j+1], arr[j]
+
 def merge_sort(arr):
     """Merge Sort — O(n log n) · 归并排序"""
     if len(arr) <= 1:
@@ -5179,6 +5187,30 @@ Interpolation search is like looking up a name in a phone book 📞 — if you'r
 
 👀 Compare all three search methods on the same data — see the step counts!`,
       code: `# 📦 Box: "An even smarter search for uniform data!"
+
+def linear_search(arr, target):
+    """Linear Search — O(n) · 线性搜索"""
+    steps = 0
+    for i, val in enumerate(arr):
+        steps += 1
+        if val == target:
+            return i, steps
+    return -1, steps
+
+def binary_search(arr, target):
+    """Binary Search — O(log n) · 二分搜索"""
+    steps = 0
+    left, right = 0, len(arr) - 1
+    while left <= right:
+        steps += 1
+        mid = (left + right) // 2
+        if arr[mid] == target:
+            return mid, steps
+        elif arr[mid] < target:
+            left = mid + 1
+        else:
+            right = mid - 1
+    return -1, steps
 
 def interpolation_search(arr, target):
     """Interpolation Search — O(log log n) for uniform data · 插值搜索"""

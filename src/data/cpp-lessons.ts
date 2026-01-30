@@ -2614,7 +2614,7 @@ int main() {
          << " " << animal << "." << endl;
     cout << "The " << animal << " " << verb << " " << number 
          << " times and then ate " << food << "." << endl;
-    cout << "\"That was " << adjective << "!\" said " << name << "." << endl;
+    cout << "\\"That was " << adjective << "!\\" said " << name << "." << endl;
     cout << "The End." << endl;
     
     return 0;
@@ -8935,14 +8935,14 @@ int main() {
     grades.insert({"Alice", 87});
     grades.insert({"Bob", 92});
     
-    cout << "\nAll grades:" << endl;
+    cout << "\\nAll grades:" << endl;
     for (auto& [name, grade] : grades) {
         cout << name << ": " << grade << endl;
     }
     
     // Find all entries for "Alice"
     auto range = grades.equal_range("Alice");
-    cout << "\nAlice's grades: ";
+    cout << "\\nAlice's grades: ";
     for (auto it = range.first; it != range.second; ++it) {
         cout << it->second << " ";
     }
