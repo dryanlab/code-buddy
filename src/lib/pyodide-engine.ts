@@ -14,10 +14,15 @@ let pyodideInstance: unknown = null;
 let loadingPromise: Promise<unknown> | null = null;
 let turtleMockInstalled = false;
 
+// Global output buffer for Pyodide stdout/stderr callbacks
+let _stdoutLines: string[] = [];
+
 type PyodideInterface = {
   runPythonAsync: (code: string) => Promise<unknown>;
   globals: { get: (key: string) => unknown; toJs: () => Map<string, unknown> };
   runPython: (code: string) => unknown;
+  setStdout: (opts: { batched: (text: string) => void }) => void;
+  setStderr: (opts: { batched: (text: string) => void }) => void;
 };
 
 export function isPyodideLoaded(): boolean {
@@ -47,9 +52,11 @@ export async function loadPyodideEngine(
 
     onProgress?.("正在初始化 Python... ⚙️");
     const loadPyodide = (window as unknown as Record<string, unknown>)
-      .loadPyodide as (config: Record<string, string>) => Promise<unknown>;
+      .loadPyodide as (config: Record<string, unknown>) => Promise<unknown>;
     pyodideInstance = await loadPyodide({
       indexURL: "https://cdn.jsdelivr.net/pyodide/v0.27.7/full/",
+      stdout: (text: string) => { _stdoutLines.push(text); },
+      stderr: (text: string) => { _stdoutLines.push(text); },
     });
     onProgress?.("Python 准备就绪！ ✅");
   })();
@@ -196,12 +203,12 @@ export async function runPython(
       await installTurtleMock(py);
     }
 
-    // Set up stdout/stderr capture and input mock
+    // Clear the global output buffer
+    _stdoutLines = [];
+    
+    // Set up input mock
     py.runPython(`
-import sys, io
-_output_buf = io.StringIO()
-sys.stdout = _output_buf
-sys.stderr = _output_buf
+import sys
 `);
 
     // Mock input() - use provided values or prompt via JS
@@ -213,11 +220,11 @@ _input_idx = 0
 def input(prompt=""):
     global _input_idx
     if prompt:
-        _output_buf.write(prompt)
+        print(prompt, end="")
     if _input_idx < len(_input_values):
         val = _input_values[_input_idx]
         _input_idx += 1
-        _output_buf.write(val + "\\n")
+        print(val)
         return val
     return ""
 `);
@@ -228,13 +235,13 @@ import js
 
 def input(prompt=""):
     if prompt:
-        _output_buf.write(prompt)
+        print(prompt, end="")
     result = js.prompt(prompt or "请输入 (Enter a value):")
     if result is None:
         result = ""
     else:
         result = str(result)
-    _output_buf.write(result + "\\n")
+    print(result)
     return result
 `);
     }
@@ -242,9 +249,9 @@ def input(prompt=""):
     // Run user code
     const returnVal = await py.runPythonAsync(code);
 
-    // Collect output
-    const rawOutput = py.runPython(`_output_buf.getvalue()`) as string;
-    console.log("[pyodide] raw output:", JSON.stringify(rawOutput), "returnVal:", returnVal);
+    // Collect output from global buffer (captured by Pyodide stdout callback)
+    const rawOutput = _stdoutLines.join("\n");
+    console.log("[pyodide] captured lines:", _stdoutLines.length, "returnVal:", returnVal);
     let output = rawOutput.replace(/\n$/, "");
     
     // Fallback: if no captured output but code had print(), something went wrong
@@ -275,29 +282,10 @@ _vars_json = _json.dumps(_user_vars)
     const varsJson = py.runPython("_vars_json") as string;
     const variables = JSON.parse(varsJson);
 
-    // Cleanup
-    py.runPython(`
-sys.stdout = sys.__stdout__
-sys.stderr = sys.__stderr__
-`);
-
     return { output, error: null, variables, hasTurtle };
   } catch (e) {
-    // Try to get partial output before the error
-    let partialOutput = "";
-    try {
-      partialOutput = py.runPython(`_output_buf.getvalue()`) as string;
-      partialOutput = partialOutput.replace(/\n$/, "");
-    } catch {}
-    
-    // Cleanup
-    try {
-      py.runPython(`
-import sys
-sys.stdout = sys.__stdout__
-sys.stderr = sys.__stderr__
-`);
-    } catch {}
+    // Get partial output captured before the error
+    const partialOutput = _stdoutLines.join("\n").replace(/\n$/, "");
 
     const errMsg = e instanceof Error ? e.message : String(e);
     console.log("[pyodide] error:", errMsg, "partial output:", partialOutput);
