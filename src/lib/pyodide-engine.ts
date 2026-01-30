@@ -360,9 +360,9 @@ export interface TraceStep {
 }
 
 /**
- * Execute code line-by-line using sys.settrace().
- * Records every executed line (including loop iterations, branch paths),
- * captures output and variables at each step.
+ * Execute code with AST-injected tracing.
+ * Injects _trace_line(N) before each statement (recursively into loops, ifs, etc.),
+ * records every executed line with cumulative output and variable snapshots.
  */
 export async function traceExecution(
   code: string,
@@ -425,106 +425,179 @@ _exec_globals['input'] = _mock_input
 `);
     }
 
-    // Use sys.settrace to record line-by-line execution with output & vars snapshots
+    // Use AST code injection to trace line-by-line execution.
+    // This is more reliable than sys.settrace() in Pyodide (WebAssembly).
+    // We inject _trace_line(N) calls before each statement in every body,
+    // which records the line number, captures stdout and variables.
     py.runPython(`
-import sys, json, io
+import sys, json, io, ast, copy
 
 _trace_steps = []
 _trace_output_buf = io.StringIO()
-_trace_code_obj = None
 _trace_error = None
-_skip_vars = {'sys','io','input','json','js','types','turtle','math','random','time','ast','_mock_input','__builtins__'}
+_skip_vars = {'sys','io','input','json','js','types','turtle','math','random','time','ast','copy','_mock_input','__builtins__','_trace_line','_capture_trace_vars'}
 
-def _capture_vars(frame):
-    """Capture variables from the frame's local and global scope."""
+def _capture_trace_vars(ns):
     _vars = {}
     _details = []
-    # Merge globals and locals (locals override)
-    all_vars = dict(frame.f_globals)
-    all_vars.update(frame.f_locals)
-    for k, v in all_vars.items():
+    for k, v in ns.items():
         if k.startswith('_') or k in _skip_vars:
             continue
         try:
-            scope = "local" if k in frame.f_locals and frame.f_locals is not frame.f_globals else "global"
+            t = type(v).__name__
+            if t in ('module', 'function', 'builtin_function_or_method', 'type'):
+                continue
             if isinstance(v, (int, float, str, bool)):
                 _vars[k] = str(v)
-                _details.append({"name": k, "value": str(v), "type": type(v).__name__, "scope": scope, "scopeName": ""})
+                _details.append({"name": k, "value": str(v), "type": t, "scope": "global", "scopeName": ""})
             elif isinstance(v, (list, tuple)):
                 _vars[k] = str(v)[:100]
-                _details.append({"name": k, "value": str(v)[:200], "type": type(v).__name__, "scope": scope, "scopeName": ""})
+                _details.append({"name": k, "value": str(v)[:200], "type": t, "scope": "global", "scopeName": ""})
             elif isinstance(v, dict):
                 _vars[k] = str(v)[:100]
-                _details.append({"name": k, "value": str(v)[:200], "type": "dict", "scope": scope, "scopeName": ""})
+                _details.append({"name": k, "value": str(v)[:200], "type": "dict", "scope": "global", "scopeName": ""})
+            elif v is None:
+                _vars[k] = "None"
+                _details.append({"name": k, "value": "None", "type": "NoneType", "scope": "global", "scopeName": ""})
         except:
             pass
     return _vars, _details
 
-def _trace_func(frame, event, arg):
-    global _trace_code_obj
-    # Only trace lines in user code (not internal modules)
-    if frame.f_code.co_filename != '<exec>':
-        return _trace_func
-    if event == 'call' and _trace_code_obj is None:
-        _trace_code_obj = frame.f_code
-    if event == 'line':
-        lineno = frame.f_lineno - 1  # 0-indexed
-        # Flush stdout to capture output up to this point
-        output_so_far = _trace_output_buf.getvalue()
-        _vars, _details = _capture_vars(frame)
-        _trace_steps.append({
-            "line": lineno,
-            "output": output_so_far.rstrip("\\n"),
-            "vars": _vars,
-            "details": _details
-        })
-    return _trace_func
+def _trace_line(n):
+    """Called before each statement. n is 1-indexed line number."""
+    output_so_far = _trace_output_buf.getvalue().rstrip("\\n")
+    _vars, _details = _capture_trace_vars(_exec_globals)
+    _trace_steps.append({
+        "line": n - 1,
+        "output": output_so_far,
+        "vars": _vars,
+        "details": _details
+    })
+
+_exec_globals['_trace_line'] = _trace_line
+_exec_globals['_capture_trace_vars'] = _capture_trace_vars
+
+# AST transformer: inject _trace_line(lineno) before each statement in every body
+class _LineInjector(ast.NodeTransformer):
+    def _inject_body(self, stmts):
+        new_stmts = []
+        for stmt in stmts:
+            # Insert trace call before this statement
+            trace_call = ast.Expr(value=ast.Call(
+                func=ast.Name(id='_trace_line', ctx=ast.Load()),
+                args=[ast.Constant(value=stmt.lineno)],
+                keywords=[]
+            ))
+            ast.copy_location(trace_call, stmt)
+            ast.copy_location(trace_call.value, stmt)
+            new_stmts.append(trace_call)
+            new_stmts.append(self.visit(stmt))
+        return new_stmts
+
+    def visit_Module(self, node):
+        node.body = self._inject_body(node.body)
+        return node
+
+    def visit_FunctionDef(self, node):
+        node.body = self._inject_body(node.body)
+        # Also handle decorators, defaults etc
+        self.generic_visit(node)
+        return node
+
+    visit_AsyncFunctionDef = visit_FunctionDef
+
+    def visit_For(self, node):
+        node.body = self._inject_body(node.body)
+        if node.orelse:
+            node.orelse = self._inject_body(node.orelse)
+        self.generic_visit(node)
+        return node
+
+    visit_While = visit_For
+
+    def visit_If(self, node):
+        node.body = self._inject_body(node.body)
+        if node.orelse:
+            node.orelse = self._inject_body(node.orelse)
+        self.generic_visit(node)
+        return node
+
+    def visit_With(self, node):
+        node.body = self._inject_body(node.body)
+        self.generic_visit(node)
+        return node
+
+    visit_AsyncWith = visit_With
+
+    def visit_Try(self, node):
+        node.body = self._inject_body(node.body)
+        for handler in node.handlers:
+            handler.body = self._inject_body(handler.body)
+        if node.orelse:
+            node.orelse = self._inject_body(node.orelse)
+        if hasattr(node, 'finalbody') and node.finalbody:
+            node.finalbody = self._inject_body(node.finalbody)
+        self.generic_visit(node)
+        return node
+
+    def visit_TryStar(self, node):
+        node.body = self._inject_body(node.body)
+        for handler in node.handlers:
+            handler.body = self._inject_body(handler.body)
+        if node.orelse:
+            node.orelse = self._inject_body(node.orelse)
+        if hasattr(node, 'finalbody') and node.finalbody:
+            node.finalbody = self._inject_body(node.finalbody)
+        self.generic_visit(node)
+        return node
+
+    def visit_ClassDef(self, node):
+        node.body = self._inject_body(node.body)
+        self.generic_visit(node)
+        return node
 
 # Redirect stdout to our buffer for tracing
 _orig_stdout = sys.stdout
 sys.stdout = _trace_output_buf
 
 try:
-    _compiled = compile(${JSON.stringify(code)}, '<exec>', 'exec')
-    sys.settrace(_trace_func)
-    try:
-        exec(_compiled, _exec_globals)
-    finally:
-        sys.settrace(None)
-        sys.stdout = _orig_stdout
+    _tree = ast.parse(${JSON.stringify(code)})
+    _tree = _LineInjector().visit(_tree)
+    ast.fix_missing_locations(_tree)
+    _compiled = compile(_tree, '<exec>', 'exec')
+    exec(_compiled, _exec_globals)
 except Exception as _e:
-    sys.settrace(None)
-    sys.stdout = _orig_stdout
     _trace_error = str(_e)
+finally:
+    sys.stdout = _orig_stdout
 
-# Capture final output after execution completes
+# Capture final output and final variable state
 _final_output = _trace_output_buf.getvalue().rstrip("\\n")
-
-# Add a final step for the last state (after last line executed)
-if _trace_steps:
-    # The last trace step captured vars BEFORE its line executed.
-    # Add one more step to show the state AFTER the last line.
-    pass
+_final_vars, _final_details = _capture_trace_vars(_exec_globals)
 
 _trace_steps_json = json.dumps(_trace_steps)
 _trace_error_json = json.dumps(_trace_error)
 _trace_final_output = json.dumps(_final_output)
+_trace_final_vars = json.dumps(_final_vars)
+_trace_final_details = json.dumps(_final_details)
 `);
 
     const stepsJson = py.runPython("_trace_steps_json") as string;
     const traceError = JSON.parse(py.runPython("_trace_error_json") as string);
     const finalOutput = JSON.parse(py.runPython("_trace_final_output") as string);
+    const finalVars: Record<string, string> = JSON.parse(py.runPython("_trace_final_vars") as string);
+    const finalDetails: VariableDetail[] = JSON.parse(py.runPython("_trace_final_details") as string);
     const rawSteps: { line: number; output: string; vars: Record<string, string>; details: VariableDetail[] }[] = JSON.parse(stepsJson);
 
     // Convert raw trace steps to TraceStep format
-    // Each step's output should be cumulative (it already is from the StringIO buffer)
-    // But we want to show the output and vars AFTER the line executes,
-    // so shift: step[i] gets output from step[i+1] (or finalOutput for last)
+    // _trace_line fires BEFORE each statement, so step[i] has pre-execution state.
+    // Shift: step[i] gets output/vars from step[i+1] (post-execution of line i).
+    // Last step gets final output/vars (after all code completes).
     const steps: TraceStep[] = [];
     for (let i = 0; i < rawSteps.length; i++) {
       const nextOutput = i + 1 < rawSteps.length ? rawSteps[i + 1].output : finalOutput;
-      const nextVars = i + 1 < rawSteps.length ? rawSteps[i + 1].vars : rawSteps[i].vars;
-      const nextDetails = i + 1 < rawSteps.length ? rawSteps[i + 1].details : rawSteps[i].details;
+      const nextVars = i + 1 < rawSteps.length ? rawSteps[i + 1].vars : finalVars;
+      const nextDetails = i + 1 < rawSteps.length ? rawSteps[i + 1].details : finalDetails;
       steps.push({
         line: rawSteps[i].line,
         endLine: rawSteps[i].line,
