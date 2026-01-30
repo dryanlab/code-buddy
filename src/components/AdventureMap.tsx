@@ -86,20 +86,27 @@ function HotspotOverlay({
       }}
     >
       {(isFuture || isComingSoon) && (
-        <div className="absolute inset-[-35%] pointer-events-none">
-          {/* Cloud layer 1 - large soft cloud */}
-          <svg viewBox="0 0 120 120" className="w-full h-full opacity-80">
+        <div className="absolute inset-[-55%] pointer-events-none">
+          <svg viewBox="0 0 160 160" className="w-full h-full">
             <defs>
-              <filter id={`cloud-blur-${spot.trackId}`} x="-50%" y="-50%" width="200%" height="200%">
-                <feGaussianBlur in="SourceGraphic" stdDeviation="4" />
+              <filter id={`cloud-blur-${spot.trackId}`} x="-60%" y="-60%" width="220%" height="220%">
+                <feGaussianBlur in="SourceGraphic" stdDeviation="8" />
               </filter>
             </defs>
             <g filter={`url(#cloud-blur-${spot.trackId})`}>
-              <ellipse cx="60" cy="55" rx="42" ry="28" fill="#b8c5d6" opacity="0.7" />
-              <ellipse cx="45" cy="50" rx="30" ry="22" fill="#c9d4e2" opacity="0.8" />
-              <ellipse cx="75" cy="52" rx="32" ry="24" fill="#bcc8d8" opacity="0.75" />
-              <ellipse cx="55" cy="45" rx="25" ry="18" fill="#d4dde8" opacity="0.85" />
-              <ellipse cx="65" cy="60" rx="28" ry="20" fill="#c2ced9" opacity="0.7" />
+              {/* Dense core */}
+              <ellipse cx="80" cy="78" rx="52" ry="38" fill="#9aa8b8" opacity="0.95" />
+              <ellipse cx="65" cy="72" rx="45" ry="34" fill="#aab6c4" opacity="0.9" />
+              <ellipse cx="95" cy="75" rx="46" ry="36" fill="#a0aebb" opacity="0.9" />
+              {/* Mid layer */}
+              <ellipse cx="75" cy="65" rx="38" ry="28" fill="#bcc8d6" opacity="0.85" />
+              <ellipse cx="88" cy="85" rx="40" ry="30" fill="#b0bfcc" opacity="0.85" />
+              <ellipse cx="55" cy="82" rx="36" ry="26" fill="#b5c2d0" opacity="0.8" />
+              {/* Outer wisps */}
+              <ellipse cx="80" cy="55" rx="50" ry="25" fill="#c8d2de" opacity="0.6" />
+              <ellipse cx="80" cy="100" rx="48" ry="22" fill="#c5cfd8" opacity="0.55" />
+              <ellipse cx="40" cy="75" rx="30" ry="28" fill="#c0ccd8" opacity="0.5" />
+              <ellipse cx="120" cy="78" rx="32" ry="26" fill="#c2ced8" opacity="0.5" />
             </g>
           </svg>
         </div>
@@ -121,21 +128,23 @@ function HotspotOverlay({
 
         {isAvailable && (
           <>
-            {/* Outer glow */}
+            {/* Neon glow — bright center fading to edges, no ring */}
             <motion.div
-              className="absolute inset-[-40%] rounded-full pointer-events-none"
+              className="absolute inset-[-60%] rounded-full pointer-events-none"
               style={{
-                background: `radial-gradient(circle, ${track.colorHex}50 0%, ${track.colorHex}20 40%, transparent 70%)`,
+                background: `radial-gradient(circle, ${track.colorHex}cc 0%, ${track.colorHex}80 20%, ${track.colorHex}40 40%, ${track.colorHex}15 60%, transparent 80%)`,
               }}
-              animate={{ scale: [1, 1.15, 1], opacity: [0.7, 0.4, 0.7] }}
+              animate={{ scale: [1, 1.1, 1], opacity: [0.9, 0.6, 0.9] }}
               transition={{ duration: 3, repeat: Infinity }}
             />
-            {/* Pulsing ring */}
+            {/* Second pulse layer for breathing effect */}
             <motion.div
-              className="absolute inset-[-25%] rounded-full pointer-events-none"
-              style={{ border: `3px solid ${track.colorHex}`, boxShadow: `0 0 12px ${track.colorHex}80` }}
-              animate={{ scale: [1, 1.4, 1], opacity: [0.8, 0, 0.8] }}
-              transition={{ duration: 2.5, repeat: Infinity }}
+              className="absolute inset-[-45%] rounded-full pointer-events-none"
+              style={{
+                background: `radial-gradient(circle, ${track.colorHex}90 0%, ${track.colorHex}30 35%, transparent 65%)`,
+              }}
+              animate={{ scale: [1, 1.25, 1], opacity: [0.6, 0.2, 0.6] }}
+              transition={{ duration: 2.5, repeat: Infinity, delay: 0.5 }}
             />
           </>
         )}
