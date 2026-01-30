@@ -1177,17 +1177,24 @@ export default function CodeLabPage() {
                         📚 Lesson Projects · 课程项目
                       </div>
                       {lessonProjects.map((ex) => {
-                        const unified = ALL_EXERCISES.find(e => e.id === ex.id);
-                        if (!unified) return null;
-                        const diffBadge = unified.difficulty === "easy" ? "🟢" : unified.difficulty === "medium" ? "🟡" : "🔴";
+                        const diffBadge = ex.difficulty === 1 ? "🟢" : ex.difficulty === 2 ? "🟡" : "🔴";
                         const isSelected = activeTabId === `ex_${ex.id}`;
                         return (
                           <motion.button
                             key={ex.id}
                             whileHover={{ scale: 1.02 }}
                             onClick={() => {
-                              setSidebarTab("exercises");
-                              openUnifiedExercise(unified);
+                              // Open as exercise tab directly
+                              setSelectedExercise(null);
+                              setCode(ex.starterCode);
+                              setShowHint(false);
+                              setShowSolution(false);
+                              const tabId = `ex_${ex.id}`;
+                              const existing = openTabs.find((t) => t.id === tabId);
+                              if (!existing) {
+                                setOpenTabs((prev) => [...prev, { type: "exercise" as const, id: tabId, name: ex.title }]);
+                              }
+                              setActiveTabId(tabId);
                             }}
                             className="w-full text-left p-3 rounded-xl border transition-colors"
                             style={{
@@ -1200,7 +1207,7 @@ export default function CodeLabPage() {
                             }}
                           >
                             <div className="flex items-center justify-between mb-0.5">
-                              <span className="font-bold text-xs truncate">🚀 {unified.title}</span>
+                              <span className="font-bold text-xs truncate">🚀 {ex.title}</span>
                               <span
                                 className="text-[9px] px-1.5 py-0.5 rounded-full flex-shrink-0 ml-1"
                                 style={{ backgroundColor: "color-mix(in srgb, var(--color-primary) 12%, transparent)", color: "var(--color-primary)" }}
@@ -1208,8 +1215,11 @@ export default function CodeLabPage() {
                                 {diffBadge}
                               </span>
                             </div>
-                            <p className="text-[10px]" style={{ color: "var(--theme-text-muted)" }}>
-                              From Lesson {ex.fromLesson}
+                            <p className="text-[10px] line-clamp-1" style={{ color: "var(--theme-text-secondary)" }}>
+                              {ex.description}
+                            </p>
+                            <p className="text-[9px]" style={{ color: "var(--theme-text-muted)" }}>
+                              📚 From Lesson {ex.fromLesson}
                             </p>
                           </motion.button>
                         );
