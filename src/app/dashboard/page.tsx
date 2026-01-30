@@ -3,11 +3,13 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { getProgress, getProgressAsync, getLevelInfo, LEVELS, getLastLessonId, mergeProgressFromCloud, type UserProgress } from "@/lib/progress-store";
+import { getProgress, getProgressAsync, getLevelInfo, LEVELS, getLastLessonId, mergeProgressFromCloud, type UserProgress, ALL_BADGES } from "@/lib/progress-store";
 import { getCoinState, mergeCoinsFromCloud } from "@/lib/coin-store";
 import { loadAllFromCloud } from "@/lib/cloud-sync";
 import { mergeSkillsFromCloud } from "@/lib/skill-store";
 import { MODULES, LESSONS } from "@/data/lessons";
+import { CPP_MODULES, CPP_LESSONS } from "@/data/cpp-lessons";
+import { DS_MODULES, DS_LESSONS } from "@/data/ds-lessons";
 import { getUser, getSessionUser, type UserProfile } from "@/lib/auth-store";
 import { isSupabaseConfigured } from "@/lib/supabase";
 import { useUserProfile, getSkillGreeting } from "@/lib/useUserProfile";
@@ -15,6 +17,10 @@ import { SKILL_LABELS, type SkillLevel, getNextLessonId, getStartingIndex, CURRI
 import SkillQuiz from "@/components/SkillQuiz";
 import AdventureMap from "@/components/AdventureMap";
 import { TRACKS } from "@/data/tracks";
+
+// All modules combined
+const ALL_MODULES = [...MODULES, ...CPP_MODULES, ...DS_MODULES];
+const ALL_LESSONS = [...LESSONS, ...CPP_LESSONS, ...DS_LESSONS];
 
 function XPBar({ xp, level }: { xp: number; level: number }) {
   const info = getLevelInfo(xp);
@@ -48,51 +54,276 @@ function XPBar({ xp, level }: { xp: number; level: number }) {
   );
 }
 
-function SkillTree({ progress }: { progress: UserProgress }) {
-  return (
-    <div className="space-y-4">
-      <div>
-        <h2 className="text-xl font-bold flex items-center gap-2">🌳 Skill Tree</h2>
-        <p className="text-sm" style={{ color: "var(--theme-text-muted)" }}>技能树</p>
-      </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {MODULES.map((mod) => {
-          const moduleLessons = LESSONS.filter((l) => l.moduleId === mod.id);
-          const completed = moduleLessons.filter((l) => progress.completedLessons.includes(l.id)).length;
-          const total = moduleLessons.length;
-          const pct = total > 0 ? (completed / total) * 100 : 0;
+// ═══════════════════════════════════════════════════════════════
+// 🏆 Area Conquered! Section
+// ═══════════════════════════════════════════════════════════════
+function AreaConquered({ progress }: { progress: UserProgress }) {
+  const conqueredModules = ALL_MODULES.filter((mod) => {
+    if (!mod.lessons || mod.lessons.length === 0) return false;
+    return mod.lessons.every((lid) => progress.completedLessons.includes(lid));
+  });
 
+  if (conqueredModules.length === 0) return null;
+
+  return (
+    <div className="space-y-3">
+      <div>
+        <h2 className="text-lg font-bold">🏆 Areas Conquered!</h2>
+        <p className="text-xs" style={{ color: "var(--theme-text-muted)" }}>已征服的区域</p>
+      </div>
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+        {conqueredModules.map((mod, i) => {
+          const moduleLessons = ALL_LESSONS.filter((l) => l.moduleId === mod.id);
+          const totalXp = moduleLessons.reduce((sum, l) => sum + (l.xp || 0), 0);
           return (
-            <Link key={mod.id} href="/dashboard/lessons">
-              <motion.div
-                whileHover={{ scale: 1.02 }}
-                className="rounded-xl p-5 transition-colors"
-                style={{ backgroundColor: "var(--theme-card-bg)", border: "1px solid var(--theme-border)" }}
-              >
-                <div className="flex items-center gap-3 mb-3">
-                  <span className="text-3xl">{mod.icon}</span>
-                  <div>
-                    <div className="font-bold">{mod.title}</div>
-                    <div className="text-xs" style={{ color: "var(--theme-text-secondary)" }}>{mod.subtitle}</div>
-                  </div>
+            <motion.div
+              key={mod.id}
+              initial={{ opacity: 0, scale: 0.8, rotate: -5 }}
+              animate={{ opacity: 1, scale: 1, rotate: 0 }}
+              transition={{ delay: i * 0.1, type: "spring", stiffness: 200 }}
+              className="relative rounded-xl p-4 overflow-hidden"
+              style={{
+                background: "linear-gradient(135deg, rgba(250,204,21,0.2), rgba(245,158,11,0.15), rgba(234,88,12,0.1))",
+                border: "1.5px solid rgba(250,204,21,0.4)",
+              }}
+            >
+              {/* Confetti dots */}
+              {[...Array(6)].map((_, j) => (
+                <motion.div
+                  key={j}
+                  className="absolute w-1.5 h-1.5 rounded-full"
+                  style={{
+                    backgroundColor: ["#facc15", "#f97316", "#a855f7", "#22d3ee", "#34d399", "#f472b6"][j],
+                    top: `${10 + (j * 15) % 80}%`,
+                    left: `${5 + (j * 23) % 90}%`,
+                  }}
+                  animate={{ opacity: [0.3, 1, 0.3], scale: [0.8, 1.2, 0.8] }}
+                  transition={{ repeat: Infinity, duration: 2, delay: j * 0.3 }}
+                />
+              ))}
+              <div className="relative z-10">
+                <div className="text-3xl mb-2">{mod.icon}</div>
+                <div className="font-bold text-sm leading-tight">{mod.title}</div>
+                <div className="text-[10px] mt-1" style={{ color: "var(--theme-text-secondary)" }}>
+                  ✅ Completed · 已完成
                 </div>
-                <div className="flex items-center gap-3">
-                  <div className="flex-1 h-2 rounded-full overflow-hidden" style={{ backgroundColor: "var(--theme-border)" }}>
-                    <div
-                      className={`h-full bg-gradient-to-r ${mod.color} rounded-full transition-all`}
-                      style={{ width: `${pct}%` }}
-                    />
+                {totalXp > 0 && (
+                  <div className="text-[10px] mt-0.5 font-semibold" style={{ color: "rgba(250,204,21,0.9)" }}>
+                    +{totalXp} XP earned
                   </div>
-                  <span className="text-xs" style={{ color: "var(--theme-text-secondary)" }}>{completed}/{total}</span>
-                </div>
-              </motion.div>
-            </Link>
+                )}
+              </div>
+            </motion.div>
           );
         })}
       </div>
     </div>
   );
 }
+
+// ═══════════════════════════════════════════════════════════════
+// 🎯 Skill Radar (SVG Spider Chart)
+// ═══════════════════════════════════════════════════════════════
+function SkillRadar({ progress }: { progress: UserProgress }) {
+  const scores = progress.lessonScores || {};
+  const completed = new Set(progress.completedLessons);
+
+  // Helper: average scores for lessons in given module IDs
+  function avgScoreForModules(moduleIds: string[]): number {
+    const relevant = ALL_LESSONS.filter((l) => moduleIds.includes(l.moduleId));
+    const scored = relevant.filter((l) => scores[l.id] !== undefined);
+    if (scored.length === 0) return 0;
+    const avg = scored.reduce((s, l) => s + (scores[l.id] || 0), 0) / scored.length;
+    // Weight by completion ratio
+    const completionRatio = relevant.filter((l) => completed.has(l.id)).length / Math.max(relevant.length, 1);
+    return Math.round(avg * 0.7 + completionRatio * 100 * 0.3);
+  }
+
+  // 🧠 Logic: area-1, area-2, cpp-1, cpp-2
+  const logic = avgScoreForModules(["area-1", "area-2", "cpp-1", "cpp-2"]);
+
+  // 🔧 Engineering: area-3, area-4, cpp-3, cpp-4, cpp-5
+  const engineering = avgScoreForModules(["area-3", "area-4", "cpp-3", "cpp-4", "cpp-5"]);
+
+  // 🎨 Creativity: lessons with "art", "game", "project" in title
+  const creativeLessons = ALL_LESSONS.filter((l) =>
+    /(art|game|project|turtle|creative|adventure)/i.test(l.title)
+  );
+  const creativeCompleted = creativeLessons.filter((l) => completed.has(l.id)).length;
+  const creativity = creativeLessons.length > 0
+    ? Math.round((creativeCompleted / creativeLessons.length) * 100)
+    : 0;
+
+  // 🐛 Debugging: overall average quiz accuracy
+  const allScored = Object.values(scores);
+  const overallAvg = allScored.length > 0
+    ? allScored.reduce((a, b) => a + b, 0) / allScored.length
+    : 0;
+  const debugging = Math.round(overallAvg);
+
+  // ⚡ Speed: code runs per completed lesson + streak bonus
+  const completedCount = progress.completedLessons.length || 1;
+  const runsPerLesson = progress.codeRunCount / completedCount;
+  // More runs = more experimentation. Cap at ~10 runs/lesson = 100
+  const speedFromRuns = Math.min(100, Math.round(runsPerLesson * 10));
+  const streakBonus = Math.min(30, progress.streakDays * 3);
+  const speed = Math.min(100, Math.round(speedFromRuns * 0.7 + streakBonus));
+
+  const dimensions = [
+    { label: "🧠 Logic", labelCn: "逻辑", value: logic },
+    { label: "🔧 Engineering", labelCn: "工程", value: engineering },
+    { label: "🎨 Creativity", labelCn: "创造力", value: creativity },
+    { label: "🐛 Debugging", labelCn: "调试", value: debugging },
+    { label: "⚡ Speed", labelCn: "速度", value: speed },
+  ];
+
+  // SVG radar chart
+  const cx = 150, cy = 150, r = 100;
+  const n = 5;
+  const angleStep = (2 * Math.PI) / n;
+  const startAngle = -Math.PI / 2; // top
+
+  function polarToXY(angle: number, radius: number) {
+    return { x: cx + radius * Math.cos(angle), y: cy + radius * Math.sin(angle) };
+  }
+
+  // Pentagon grid lines
+  const gridLevels = [0.25, 0.5, 0.75, 1.0];
+  const gridPaths = gridLevels.map((level) => {
+    const points = Array.from({ length: n }, (_, i) => {
+      const a = startAngle + i * angleStep;
+      return polarToXY(a, r * level);
+    });
+    return points.map((p, i) => `${i === 0 ? "M" : "L"}${p.x},${p.y}`).join(" ") + " Z";
+  });
+
+  // Data polygon
+  const dataPoints = dimensions.map((d, i) => {
+    const a = startAngle + i * angleStep;
+    const val = Math.max(5, d.value) / 100; // min 5% so it's visible
+    return polarToXY(a, r * val);
+  });
+  const dataPath = dataPoints.map((p, i) => `${i === 0 ? "M" : "L"}${p.x},${p.y}`).join(" ") + " Z";
+
+  // Axis lines
+  const axisEnds = Array.from({ length: n }, (_, i) => {
+    const a = startAngle + i * angleStep;
+    return polarToXY(a, r);
+  });
+
+  // Label positions (slightly outside)
+  const labelPositions = Array.from({ length: n }, (_, i) => {
+    const a = startAngle + i * angleStep;
+    return polarToXY(a, r + 30);
+  });
+
+  return (
+    <div className="space-y-3 flex-1">
+      <div>
+        <h2 className="text-lg font-bold">🎯 Skill Radar</h2>
+        <p className="text-xs" style={{ color: "var(--theme-text-muted)" }}>技能雷达</p>
+      </div>
+      <div className="rounded-xl p-4" style={{ backgroundColor: "var(--theme-card-bg)", border: "1px solid var(--theme-border)" }}>
+        <svg viewBox="0 0 300 300" className="w-full max-w-[280px] mx-auto">
+          {/* Grid */}
+          {gridPaths.map((d, i) => (
+            <path key={i} d={d} fill="none" stroke="var(--theme-border)" strokeWidth={i === gridLevels.length - 1 ? 1.5 : 0.5} opacity={0.6} />
+          ))}
+          {/* Axes */}
+          {axisEnds.map((p, i) => (
+            <line key={i} x1={cx} y1={cy} x2={p.x} y2={p.y} stroke="var(--theme-border)" strokeWidth={0.5} opacity={0.4} />
+          ))}
+          {/* Data polygon */}
+          <motion.path
+            d={dataPath}
+            fill="rgba(99, 102, 241, 0.2)"
+            stroke="rgb(99, 102, 241)"
+            strokeWidth={2}
+            initial={{ opacity: 0, scale: 0.3 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            style={{ transformOrigin: `${cx}px ${cy}px` }}
+          />
+          {/* Data points */}
+          {dataPoints.map((p, i) => (
+            <motion.circle
+              key={i}
+              cx={p.x}
+              cy={p.y}
+              r={4}
+              fill="rgb(99, 102, 241)"
+              stroke="white"
+              strokeWidth={1.5}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.5 + i * 0.1 }}
+            />
+          ))}
+          {/* Labels */}
+          {labelPositions.map((p, i) => (
+            <text
+              key={i}
+              x={p.x}
+              y={p.y}
+              textAnchor="middle"
+              dominantBaseline="middle"
+              fill="var(--theme-text-secondary)"
+              fontSize={11}
+              fontWeight={600}
+            >
+              <tspan x={p.x} dy="-0.4em">{dimensions[i].label}</tspan>
+              <tspan x={p.x} dy="1.2em" fontSize={10} fill="var(--theme-text-muted)">{dimensions[i].value}</tspan>
+            </text>
+          ))}
+        </svg>
+      </div>
+    </div>
+  );
+}
+
+// ═══════════════════════════════════════════════════════════════
+// 🏅 Achievement Wall
+// ═══════════════════════════════════════════════════════════════
+function AchievementWall({ progress }: { progress: UserProgress }) {
+  const earned = new Set(progress.earnedBadges);
+
+  return (
+    <div className="space-y-3 flex-1">
+      <div>
+        <h2 className="text-lg font-bold">🏅 Achievement Wall</h2>
+        <p className="text-xs" style={{ color: "var(--theme-text-muted)" }}>成就墙 · {earned.size}/{ALL_BADGES.length} unlocked</p>
+      </div>
+      <div className="rounded-xl p-4" style={{ backgroundColor: "var(--theme-card-bg)", border: "1px solid var(--theme-border)" }}>
+        <div className="grid grid-cols-4 sm:grid-cols-5 gap-2">
+          {ALL_BADGES.map((badge) => {
+            const isEarned = earned.has(badge.id);
+            return (
+              <motion.div
+                key={badge.id}
+                whileHover={{ scale: 1.1 }}
+                className="rounded-lg p-2 text-center relative"
+                style={{
+                  backgroundColor: isEarned ? "rgba(250,204,21,0.1)" : "rgba(128,128,128,0.05)",
+                  border: isEarned ? "1px solid rgba(250,204,21,0.3)" : "1px solid var(--theme-border)",
+                  opacity: isEarned ? 1 : 0.4,
+                  filter: isEarned ? "none" : "grayscale(1)",
+                }}
+                title={`${badge.name}: ${badge.description}`}
+              >
+                <div className="text-xl">{badge.icon}</div>
+                <div className="text-[8px] mt-0.5 leading-tight font-medium truncate">{badge.name}</div>
+              </motion.div>
+            );
+          })}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ═══════════════════════════════════════════════════════════════
+// Existing components (kept as-is)
+// ═══════════════════════════════════════════════════════════════
 
 function QuickActions({ continueHref }: { continueHref: string }) {
   return (
@@ -182,8 +413,23 @@ function CourseTrackCards({ progress }: { progress: UserProgress }) {
     : "/dashboard/courses";
 
   const pythonTotal = LESSONS.length;
-  const pythonDone = progress.completedLessons.length;
+  const pythonDone = progress.completedLessons.filter((id) => LESSONS.some((l) => l.id === id)).length;
   const pythonPct = pythonTotal > 0 ? (pythonDone / pythonTotal) * 100 : 0;
+
+  const cppTotal = CPP_LESSONS.length;
+  const cppDone = progress.completedLessons.filter((id) => CPP_LESSONS.some((l) => l.id === id)).length;
+  const cppPct = cppTotal > 0 ? (cppDone / cppTotal) * 100 : 0;
+
+  const dsTotal = DS_LESSONS.length;
+  const dsDone = progress.completedLessons.filter((id) => DS_LESSONS.some((l) => l.id === id)).length;
+  const dsPct = dsTotal > 0 ? (dsDone / dsTotal) * 100 : 0;
+
+  function getTrackProgress(id: string) {
+    if (id === "python") return { done: pythonDone, total: pythonTotal, pct: pythonPct };
+    if (id === "cpp") return { done: cppDone, total: cppTotal, pct: cppPct };
+    if (id === "data-structures") return { done: dsDone, total: dsTotal, pct: dsPct };
+    return null;
+  }
 
   return (
     <div className="space-y-3">
@@ -194,6 +440,7 @@ function CourseTrackCards({ progress }: { progress: UserProgress }) {
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
         {sorted.map((track) => {
           const badge = statusBadge(track.status);
+          const tp = getTrackProgress(track.id);
           return (
             <Link key={track.id} href={getHref(track.id)}>
               <motion.div
@@ -223,18 +470,18 @@ function CourseTrackCards({ progress }: { progress: UserProgress }) {
                   <span>{diffIcon(track.difficulty)}</span>
                   <span>{track.lessonCount} lessons</span>
                 </div>
-                {track.id === "python" && (
+                {tp && tp.done > 0 && (
                   <div className="mt-auto">
                     <div className="h-1.5 rounded-full overflow-hidden" style={{ backgroundColor: "var(--theme-border)" }}>
                       <motion.div
                         initial={{ width: 0 }}
-                        animate={{ width: `${pythonPct}%` }}
+                        animate={{ width: `${tp.pct}%` }}
                         transition={{ duration: 0.8 }}
                         className="h-full rounded-full"
                         style={{ backgroundColor: track.colorHex }}
                       />
                     </div>
-                    <div className="text-[9px] mt-0.5" style={{ color: "var(--theme-text-muted)" }}>{pythonDone}/{pythonTotal} done</div>
+                    <div className="text-[9px] mt-0.5" style={{ color: "var(--theme-text-muted)" }}>{tp.done}/{tp.total} done</div>
                   </div>
                 )}
               </motion.div>
@@ -313,17 +560,52 @@ export default function DashboardPage() {
     ? `/dashboard/lessons/${lastLesson}`
     : `/dashboard/lessons/${nextLessonId}`;
 
-  const recommendedLessons = CURRICULUM_PATH
+  // Cross-course recommendations
+  const completedSet = new Set(progress.completedLessons);
+
+  // Python recommendations
+  const pythonNext = CURRICULUM_PATH
     .slice(startIdx)
     .map((id) => LESSONS.find((l) => l.id === id)!)
-    .filter((l) => l && !progress.completedLessons.includes(l.id))
-    .slice(0, 4);
+    .filter((l) => l && !completedSet.has(l.id));
 
-  const continueLesson = lastLesson ? LESSONS.find(l => l.id === lastLesson) : null;
+  // C++ recommendations (if student has started any C++ lesson)
+  const hasCpp = progress.completedLessons.some((id) => id.startsWith("cpp-"));
+  const cppNext = hasCpp
+    ? CPP_LESSONS.filter((l) => !completedSet.has(l.id)).slice(0, 2)
+    : [];
+
+  // DS recommendations (if student has started any DS lesson)
+  const hasDs = progress.completedLessons.some((id) => id.startsWith("ds-"));
+  const dsNext = hasDs
+    ? DS_LESSONS.filter((l) => !completedSet.has(l.id)).slice(0, 2)
+    : [];
+
+  // Mix recommendations: prioritize courses student has started, up to 4
+  const recommendedLessons: typeof LESSONS = [];
+  const sources = [pythonNext, cppNext, dsNext].filter((s) => s.length > 0);
+  let idx = 0;
+  while (recommendedLessons.length < 4 && sources.some((s) => s.length > idx)) {
+    for (const src of sources) {
+      if (idx < src.length && recommendedLessons.length < 4) {
+        recommendedLessons.push(src[idx]);
+      }
+    }
+    idx++;
+  }
+
+  const continueLesson = lastLesson ? ALL_LESSONS.find(l => l.id === lastLesson) : null;
+
+  // Course tag for recommended lessons
+  function getCourseTag(lessonId: string) {
+    if (lessonId.startsWith("cpp-")) return { label: "C++", color: "#4f46e5" };
+    if (lessonId.startsWith("ds-")) return { label: "DS", color: "#3b82f6" };
+    return { label: "Python", color: "#22c55e" };
+  }
 
   return (
     <div className="p-4 md:p-8 max-w-7xl mx-auto space-y-5">
-      {/* Top: Greeting + Continue Learning (compact, same row) */}
+      {/* Top: Greeting + Continue Learning */}
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         <div>
           <h1 className="text-2xl font-bold">
@@ -365,7 +647,7 @@ export default function DashboardPage() {
         </motion.div>
       )}
 
-      {/* 🗺️ Adventure Map — Hero Element */}
+      {/* 🗺️ Adventure Map */}
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
         <div className="space-y-2">
           <div className="flex items-center justify-between">
@@ -381,59 +663,78 @@ export default function DashboardPage() {
         </div>
       </motion.div>
 
+      {/* 🏆 Area Conquered */}
+      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.12 }}>
+        <AreaConquered progress={progress} />
+      </motion.div>
+
       {/* 📚 All Courses */}
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }}>
         <CourseTrackCards progress={progress} />
       </motion.div>
 
-      {/* Stats Row: XP bar + stats compact */}
+      {/* 🎯 Skill Radar + 🏅 Achievement Wall (side by side on desktop) */}
+      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.18 }} className="flex flex-col md:flex-row gap-5">
+        <SkillRadar progress={progress} />
+        <AchievementWall progress={progress} />
+      </motion.div>
+
+      {/* Stats Row + XP */}
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="space-y-3">
         <XPBar xp={progress.xp} level={progress.level} />
         <StatsRow progress={progress} />
       </motion.div>
 
-      {/* Quick Actions — compact single row */}
-      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}>
-        <QuickActions continueHref={continueHref} />
-      </motion.div>
-
-      {/* Recommended Lessons */}
+      {/* Recommended Lessons (cross-course) */}
       {recommendedLessons.length > 0 && (
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.35 }}>
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.25 }}>
           <div className="space-y-3">
             <div>
               <h2 className="text-lg font-bold">🎯 Your Next Lessons {skillLabel ? skillLabel.emoji : ""}</h2>
               <p className="text-xs" style={{ color: "var(--theme-text-muted)" }}>接下来的课程</p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-              {recommendedLessons.map((lesson) => (
-                <Link key={lesson.id} href={`/dashboard/lessons/${lesson.id}`}>
-                  <motion.div
-                    whileHover={{ scale: 1.02 }}
-                    className="p-4 rounded-xl border transition-colors"
-                    style={{ backgroundColor: "var(--theme-card-bg)", border: "1px solid var(--theme-border)" }}
-                  >
-                    <div className="flex items-center gap-3">
-                      <span className="text-2xl">{lesson.icon}</span>
-                      <div className="flex-1 min-w-0">
-                        <div className="font-semibold text-sm truncate">{lesson.title}</div>
-                        <div className="text-xs truncate" style={{ color: "var(--theme-text-secondary)" }}>{lesson.subtitle}</div>
+              {recommendedLessons.map((lesson) => {
+                const tag = getCourseTag(lesson.id);
+                const lessonHref = lesson.id.startsWith("cpp-")
+                  ? `/dashboard/cpp/${lesson.id}`
+                  : lesson.id.startsWith("ds-")
+                  ? `/dashboard/data-structures/${lesson.id}`
+                  : `/dashboard/lessons/${lesson.id}`;
+                return (
+                  <Link key={lesson.id} href={lessonHref}>
+                    <motion.div
+                      whileHover={{ scale: 1.02 }}
+                      className="p-4 rounded-xl border transition-colors"
+                      style={{ backgroundColor: "var(--theme-card-bg)", border: "1px solid var(--theme-border)" }}
+                    >
+                      <div className="flex items-center gap-3">
+                        <span className="text-2xl">{lesson.icon}</span>
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center gap-2">
+                            <span className="font-semibold text-sm truncate">{lesson.title}</span>
+                            <span className="text-[9px] px-1.5 py-0.5 rounded-full font-bold shrink-0" style={{ backgroundColor: `${tag.color}22`, color: tag.color }}>
+                              {tag.label}
+                            </span>
+                          </div>
+                          <div className="text-xs truncate" style={{ color: "var(--theme-text-secondary)" }}>{lesson.subtitle}</div>
+                        </div>
+                        <div className="text-xs px-2 py-1 rounded-full shrink-0" style={{ backgroundColor: "color-mix(in srgb, var(--color-primary) 15%, transparent)", color: "var(--color-primary)" }}>
+                          +{lesson.xp} XP
+                        </div>
                       </div>
-                      <div className="text-xs px-2 py-1 rounded-full" style={{ backgroundColor: "color-mix(in srgb, var(--color-primary) 15%, transparent)", color: "var(--color-primary)" }}>
-                        {lesson.difficulty === "beginner" ? "🟢" : lesson.difficulty === "intermediate" ? "🟡" : "🔴"} +{lesson.xp} XP
-                      </div>
-                    </div>
-                  </motion.div>
-                </Link>
-              ))}
+                    </motion.div>
+                  </Link>
+                );
+              })}
             </div>
           </div>
         </motion.div>
       )}
 
-      {/* Skill Tree */}
-      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }}>
-        <SkillTree progress={progress} />
+      {/* Quick Actions */}
+      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}>
+        <QuickActions continueHref={continueHref} />
       </motion.div>
     </div>
   );
