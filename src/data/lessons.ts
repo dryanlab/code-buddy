@@ -213,6 +213,7 @@ Hi there, future hacker! I'm **Py**, your friendly Python snake guide! 🐍✨
 You're about to learn the most EPIC skill ever: **commanding computers like a hacker**!
 
 🖥️ When you see those green text screens in movies? That's what programmers actually use! 
+
 💻 Every line you type is a **command** that the computer must obey!
 
 🎯 **Programming** = Giving computers super-precise instructions
@@ -287,6 +288,7 @@ print("👨‍💻 Congratulations, young hacker!")
 print("🐍 Python is your new superpower!")
 
 # 🔧 Chip: "Whoa! You just gave me 7 print() commands!"
+
 # 🤖 Botty: "Real hackers write code that talks back!"`,
       },
       {
@@ -446,6 +448,7 @@ number = 17             # A number box
 Look at this hilarious space story template. We need to collect words from the user first:
 
 \`\`\`python
+
 # Collect story ingredients from user
 alien_name = input("Name a silly alien: ")
 adjective = input("Funny adjective: ")
@@ -872,6 +875,7 @@ print("✨ Square complete! Isn't math beautiful?")
 turtle.done()
 
 # 🔧 Chip: "Your computer just did geometry with code!"
+
 # 🤖 Botty: "Game engines use similar commands to move characters!"`,
       },
       {
@@ -1348,6 +1352,7 @@ Let's build a **Text Adventure Game** — the same genre that inspired modern AI
         emoji: "🏗️",
         content: `## Game Foundation - Setup & Introduction`,
         code: `# 🎮 ESCAPE THE MYSTIC CASTLE
+
 # A complete text adventure game using all our skills!
 
 print("🏰 ═══════════════════════════════════")
@@ -1573,6 +1578,7 @@ wizard.pendown()
 draw_polygon(8, 60)    # Octagon
 
 print("🎉 Polygon factory complete!")
+
 # 🤖 Botty: "This is how computer graphics work - math + loops!"
 turtle.done()`,
       },
@@ -1612,6 +1618,7 @@ for i in range(36):
 print("🎨 Kaleidoscope complete! Isn't math beautiful?")
 
 # 🐍 Py: "36 hexagons × 6 sides = 216 lines drawn with just 2 loops!"
+
 # 🔧 Chip: "Video game graphics use similar math for particle effects!"
 turtle.done()`,
       },
@@ -1653,6 +1660,7 @@ turtle.done()`,
         emoji: "🎪",
         content: `## 🎪 Loop Circus - Text Patterns (runs in browser!)`,
         code: `# 🎪 LOOP CIRCUS - Amazing Text Patterns!
+
 # This runs in the browser since it's just text!
 
 print("🎪 Welcome to the Loop Circus! 🎪")
@@ -1688,6 +1696,7 @@ for percent in range(0, 101, 10):
     print(f"[{filled}{empty}] {percent}%")
 
 print("\\n🎉 Loop Circus Complete!")
+
 # 🤖 Botty: "These are the building blocks of user interfaces!"`,
       },
       {
@@ -2026,6 +2035,7 @@ print("✨ Total items:", len(weapons) + len(potions) + len(treasures))
 
 **Perfect for games:**
 \`\`\`python
+
 # Keep playing until you guess correctly!
 secret = 42
 guess = 0
@@ -2183,6 +2193,7 @@ if guess_count >= max_guesses and player_guess != secret_number:
 print("\\n🎯 Thanks for playing Number Guessing Game 2.0!")
 
 # 🔧 Chip: "This game loop runs on every gaming device!"
+
 # 🤖 Botty: "AI learns by making guesses and getting feedback, just like this!"`,
       },
       {
@@ -2299,6 +2310,7 @@ else:
 - **Inner loop:** Controls COLUMNS (how many characters across)
 
 \`\`\`python
+
 # Draw a 5×5 square of stars
 for row in range(5):        # Outer: 5 rows
     for col in range(5):    # Inner: 5 stars per row
@@ -2462,6 +2474,7 @@ for row in range(height):
 
 # Pattern 2: Diamond Shape  
 print("\\n💎 PATTERN 2: Perfect Diamond")
+
 # Top half (growing)
 for row in range(4):
     spaces = 3 - row
@@ -3433,6 +3446,7 @@ You've been USING tools (print, input, if, loops). Now you'll start BUILDING too
 
 **Without functions (the hard way):**
 \`\`\`python
+
 # Draw square for house
 forward(100)
 right(90)
@@ -3447,6 +3461,7 @@ right(90)
 penup()
 goto(0, 100)
 pendown()
+
 # Draw triangle
 forward(100)
 left(120)
@@ -3460,6 +3475,7 @@ forward(100)
 \`\`\`python
 draw_square(100)     # 1 line!
 draw_triangle(100)   # 1 line!
+
 # Want 5 houses? Just call them 5 times!
 \`\`\`
 
@@ -3538,6 +3554,7 @@ print("\\n🎉 NEIGHBORHOOD COMPLETE!")
 print("🧱 Look how we built complex things from simple blocks!")
 
 # 🔧 Chip: "This is exactly how video game graphics are programmed!"
+
 # 🤖 Botty: "AI models work the same way - simple functions combined!"
 
 turtle.done()`,
@@ -3743,6 +3760,7 @@ total = generate_report(rectangle_area, circle_area, winner)
 print(f"\\n🎉 Calculator complete! Total area processed: {total:.2f}")
 
 # 🔧 Chip: "Calculators and computers use functions exactly like this!"
+
 # 🤖 Botty: "AI math models are just millions of functions like these!"`,
       },
       {
@@ -5529,6 +5547,7 @@ else:
           title: "📡 Radar Scan Report · 雷达扫描报告",
           description: "You received radar data for 5 time periods. Create an ASCII bar chart showing alien appearances over time. Each █ = 1 alien.\n你收到了5个时间段的雷达数据。创建ASCII条形图显示外星人出现情况。每个 █ = 1个外星人。",
           starterCode: `# 📡 Radar Scan Data
+
 # Aliens detected per hour: 8am, 9am, 10am, 11am, 12pm
 hours = ["08:00", "09:00", "10:00", "11:00", "12:00"]
 aliens = [3, 7, 12, 5, 9]
@@ -5578,10 +5597,13 @@ aliens = [30, 10, 45, 15]
 total_drones = 100
 
 # TODO: Calculate total aliens
+
 # TODO: For each sector, calculate its share of drones
 #   share = aliens[i] / total_aliens * total_drones
+
 # TODO: Print allocation like:
 #   North: 30 drones (30.0%)
+
 # TODO: Verify total drones add up!
 
 `,
@@ -5618,6 +5640,7 @@ print(f"  Total allocated: {allocated} drones")`,
           title: "🖥️ Space Station Dashboard · 太空站仪表盘",
           description: "Build a complete space station dashboard showing energy levels, ammo count, alien proximity, and crew status using text UI!\n构建完整的太空站仪表盘，显示能量、弹药、外星人距离和船员状态！",
           starterCode: `# 🖥️ SPACE STATION DASHBOARD
+
 # Build a cool text-based dashboard!
 
 energy = 73       # percent
@@ -5626,11 +5649,17 @@ aliens_near = 8   # nearby aliens
 crew = 12         # crew members
 
 # TODO: Print a dashboard frame with borders
+
 # TODO: Show energy as a bar (e.g., [███████···] 73%)
+
 # TODO: Show ammo count with warning if < 200
+
 # TODO: Show alien proximity alert
+
 # TODO: Show crew status
+
 # Hint: Use "█" for filled, "·" for empty in bars
+
 # Make it look cool! 😎
 
 `,
@@ -5847,6 +5876,7 @@ print(f"  🧑 Player: \${player_money:+}")
 print(f"  🏦 Casino: \${casino_money:+}")
 
 # Calculate probabilities
+
 # Ways to get >= 8: count them!
 ways_to_win = 0
 for d1 in range(1, 7):
@@ -5878,12 +5908,15 @@ player_wins = 0
 casino_wins = 0
 
 # TODO: Simulate 'rounds' games
+
 # Each game: both roll 2 dice, compare totals
+
 # Tie = casino wins
 for _ in range(rounds):
     pass  # Replace this!
 
 # TODO: Print results
+
 # Show win counts and percentages
 
 `,
@@ -6195,11 +6228,17 @@ speed = 40  # m/s
 g = 9.8
 
 # TODO: Convert angle to radians
+
 # TODO: Calculate horizontal velocity (vx = speed * cos)
+
 # TODO: Calculate vertical velocity (vy = speed * sin)
+
 # TODO: Calculate flight time (t = 2 * vy / g)
+
 # TODO: Calculate distance (d = vx * t)
+
 # TODO: Calculate max height (h = vy² / (2*g))
+
 # TODO: Print all results
 
 `,
@@ -6248,9 +6287,13 @@ best_angle = 0
 best_diff = 999
 
 # TODO: Loop through angles 10 to 80, step 5
+
 # TODO: For each angle, calculate landing distance
+
 # TODO: Track which angle gets closest to target
+
 # TODO: Print results for each angle
+
 # TODO: Print the best angle
 
 `,
@@ -6299,6 +6342,7 @@ print(f"🏆 Best angle: {best_angle}° (misses by {best_diff:.1f}m)")`,
   75° → 27.4m (off by 72.6m)
   80° → 10.4m (off by 89.6m)
 -----------------------------------
+
 🏆 Best angle: 30° (misses by 0.0m)`,
         },
       },
@@ -6596,8 +6640,10 @@ suspects = [
 ]
 
 # TODO: Apply Clue 1 — has_car is True
+
 # TODO: Apply Clue 2 — age < 40  
 # TODO: Apply Clue 3 — "Paris" in visited list
+
 # TODO: Print remaining suspect(s)
 
 `,
@@ -6648,8 +6694,11 @@ dna = "ATCGATCGATCGAATCGTTTGATCATCG"
 pattern = "ATC"
 
 # TODO: Count how many times 'pattern' appears in 'dna'
+
 # TODO: Find ALL positions where pattern starts
+
 # Hint: check each position i if dna[i:i+len(pattern)] == pattern
+
 # TODO: Print results
 
 `,
@@ -6869,8 +6918,11 @@ secret_pin = "7342"
 attempts = 0
 
 # TODO: Try all 4-digit combinations from "0000" to "9999"
+
 # TODO: Count attempts
+
 # TODO: When found, print the PIN and attempt count
+
 # Hint: Use f"{n:04d}" to format number as 4-digit string
 
 `,
@@ -6924,9 +6976,11 @@ MORSE = {
 message = "SOS HELP"
 
 # TODO: Build encoder — convert message to Morse
+
 # Each letter becomes its Morse code, separated by spaces
 
 # TODO: Build decoder — convert Morse back to text
+
 # Build a reverse dictionary: morse_to_letter
 
 # TODO: Print original, encoded, decoded, and verify match
@@ -7283,6 +7337,7 @@ r_history = []
 f_history = []
 
 # TODO: Simulate 50 days
+
 # Each day:
 #   rabbit_births = int(rabbits * 0.15)
 #   eaten = min(foxes * 2, rabbits)
@@ -7360,6 +7415,7 @@ plants = [
 ]
 
 # TODO: Simulate 20 days
+
 # Each day:
 #   sun = random.randint(5, 15)
 #   water = random.randint(5, 15)
@@ -7372,7 +7428,9 @@ plants = [
 #     If drought and roots < 5: growth = 0 (plant struggles)
 #     Add growth to height
 #
+
 # TODO: Print daily standings every 5 days
+
 # TODO: Announce winner (tallest plant)
 
 `,
@@ -7467,6 +7525,7 @@ species = {
 history = {"grass": [], "rabbit": [], "fox": []}
 
 # TODO: Simulate 50 rounds
+
 # Each round:
 #   1. Grass grows by growth_rate %
 #   2. Rabbits eat grass (eat_amount per rabbit)
@@ -7706,6 +7765,7 @@ else:
 
 This pet knows 5 tricks. Type a command and watch it respond!`,
         code: `# 🐾 AI Pet: Command Recognition System
+
 # AI宠物：命令识别系统
 
 import random
@@ -7753,6 +7813,7 @@ for cmd in test_commands:
 
 Now let's make the pet understand how you FEEL based on keywords in your message!`,
         code: `# 😊 AI Pet: Emotion Reader
+
 # AI宠物：情绪识别器
 
 pet_name = "Buddy"
@@ -8324,6 +8385,7 @@ Try it! Each run creates different art!`,
 
 This generates random landscape art with rules for each layer!`,
         code: `# 🖼️ ASCII Landscape Art Generator
+
 # ASCII 风景艺术生成器
 
 import random
@@ -8412,6 +8474,7 @@ print("🎨 Each run creates unique art! 每次运行都是独一无二的艺术
 
 This is how real AI generates text — predicting the NEXT word from the CURRENT word!`,
         code: `# 📝 AI Poet: Markov Chain Text Generator
+
 # AI诗人：马尔可夫链文本生成器
 
 import random
@@ -8905,6 +8968,7 @@ Bob and David have HIGHER income but got rejected! What might be the bias?`,
 
 Build a tool that automatically detects unfairness in AI decisions!`,
         code: `# 🔎 AI Bias Detector
+
 # AI偏见检测器
 
 # Simulated loan application data
@@ -8992,6 +9056,7 @@ print("🏛️ Several countries now REQUIRE AI fairness testing!")`,
 
 Create an AI that makes decisions — then discover its flaws!`,
         code: `# ⚖️ AI Judge: Fair or Unfair?
+
 # AI判官：公平还是不公平？
 
 import random

@@ -1,5 +1,5 @@
 // Code Buddy - C++ Track
-// 6 Modules, 24 Lessons
+// 6 Modules, 25 Lessons
 // Target: High school students WITH Python basics
 // Characters: 🐍Py (Python comparison), ⚡Volt (C++ guide), 🔧Chip (Hardware/performance)
 
@@ -36,7 +36,7 @@ export const CPP_MODULES: Module[] = [
     subtitle: "Typed functions, arrays, vectors · 类型化函数、数组和向量",
     icon: "📦",
     color: "from-orange-500 to-amber-600",
-    lessons: ["cpp-3-1", "cpp-3-2", "cpp-3-3", "cpp-3-4"],
+    lessons: ["cpp-3-1", "cpp-3-2", "cpp-3-3", "cpp-3-4", "cpp-3-5"],
   },
   {
     id: "cpp-4",
@@ -342,6 +342,7 @@ int main() {
 
 ## 🐍 In Python:
 \`\`\`python
+
 # This is a comment
 """
 This is a
@@ -650,6 +651,7 @@ int main() {
 int x;           // x has GARBAGE value!
 cout << x;       // Might print -8573629 or anything random
 \`\`\`
+
 🐍 **Py says:** "In Python, you can't use a variable before assigning it. C++ lets you — but the value is garbage!"
 
 ## ❌ Mistake 2: Integer overflow
@@ -1456,6 +1458,7 @@ int main() {
       content: `# Math Library Functions · 数学库函数
 
 ## 🐍 In Python: \`import math\`
+
 ## ⚡ In C++: \`#include <cmath>\``,
       code: `#include <iostream>
 #include <cmath>
@@ -2169,10 +2172,15 @@ int main() {
 \`\`\`
 
 ## Types: \`int\`, \`double\`, \`char\`, \`string\`, \`bool\`, \`long long\`
+
 ## Output: \`cout << "text" << variable << endl;\`
+
 ## Input: \`cin >> variable;\` or \`getline(cin, stringVar);\`
+
 ## Formatting: \`fixed << setprecision(n)\` (need \`#include <iomanip>\`)
+
 ## Math: \`+\`, \`-\`, \`*\`, \`/\`, \`%\`, \`++\`, \`--\`, \`pow()\`
+
 ## Strings: \`.length()\`, \`.substr()\`, \`.find()\`, \`+\` to concatenate
 
 🐍 **Py says:** "You've learned the C++ versions of everything in Python's first chapter. The syntax is different but the logic is the same!"
