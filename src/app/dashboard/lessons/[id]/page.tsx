@@ -171,9 +171,9 @@ export default function LessonPage() {
   useEffect(() => {
     const p = getProgress();
     setIsCompleted(p.completedLessons.includes(lessonId));
-    // Check superuser
+    // Check superuser (unlocks navigation but doesn't fake completion)
     import("@/lib/auth-store").then(m => m.isSuperuser()).then(su => {
-      if (su) { setSuperuser(true); setIsCompleted(true); }
+      if (su) setSuperuser(true);
     });
   }, [lessonId]);
 
