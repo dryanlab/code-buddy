@@ -159,7 +159,7 @@ export default function CodeEditor({
 
     // Show first step with its output
     const first = result.steps[0];
-    setHighlightLines({ start: first.line, end: first.line });
+    setHighlightLines({ start: first.line, end: first.endLine ?? first.line });
     setOutput(first.output || "");
     setVariables(first.variables);
     setVariableDetails(first.variableDetails);
@@ -181,7 +181,7 @@ export default function CodeEditor({
 
     setStepIndex(nextIdx);
     const step = traceSteps[nextIdx];
-    setHighlightLines({ start: step.line, end: step.line });
+    setHighlightLines({ start: step.line, end: step.endLine ?? step.line });
     setOutput(step.output || "");
     setVariables(step.variables);
     setVariableDetails(step.variableDetails);

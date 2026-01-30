@@ -79,7 +79,7 @@ function CodeAnatomyComponent({ anatomy }: { anatomy: CodeAnatomy }) {
   const [stepMode, setStepMode] = useState(false);
   const [stepIndex, setStepIndex] = useState(0);
   // old steps removed — using traceSteps
-  const [highlightLineIdx, setHighlightLineIdx] = useState<number | null>(null);
+  const [highlightRange, setHighlightRange] = useState<{ start: number; end: number } | null>(null);
 
   const runnableCode = anatomy.lines.map(l => l.code).join("\n");
 
@@ -104,7 +104,7 @@ function CodeAnatomyComponent({ anatomy }: { anatomy: CodeAnatomy }) {
     setOutput("");
     setHasError(false);
     setStepMode(false);
-    setHighlightLineIdx(null);
+    setHighlightRange(null);
 
     const ready = await ensurePyodide();
     if (!ready) { setIsRunning(false); return; }
@@ -150,7 +150,7 @@ function CodeAnatomyComponent({ anatomy }: { anatomy: CodeAnatomy }) {
     setHasError(false);
     const first = result.steps[0];
     setOutput(first.output || "");
-    setHighlightLineIdx(first.line);
+    setHighlightRange({ start: first.line, end: first.endLine ?? first.line });
     setVariableDetails(first.variableDetails);
   }, [runnableCode, ensurePyodide]);
 
@@ -158,7 +158,7 @@ function CodeAnatomyComponent({ anatomy }: { anatomy: CodeAnatomy }) {
     const nextIdx = stepIndex + 1;
     if (nextIdx >= traceSteps.length) {
       setStepMode(false);
-      setHighlightLineIdx(null);
+      setHighlightRange(null);
       const last = traceSteps[traceSteps.length - 1];
       setOutput(last.output || "(No output · 没有输出)");
       setVariableDetails(last.variableDetails);
@@ -166,20 +166,20 @@ function CodeAnatomyComponent({ anatomy }: { anatomy: CodeAnatomy }) {
     }
     setStepIndex(nextIdx);
     const step = traceSteps[nextIdx];
-    setHighlightLineIdx(step.line);
+    setHighlightRange({ start: step.line, end: step.endLine ?? step.line });
     setOutput(step.output || "");
     setVariableDetails(step.variableDetails);
   }, [stepIndex, traceSteps]);
 
   const stopStepMode = useCallback(() => {
     setStepMode(false);
-    setHighlightLineIdx(null);
+    setHighlightRange(null);
   }, []);
 
   // Map anatomy line index to highlight
   const getLineHighlight = (lineIdx: number): boolean => {
-    if (!stepMode || highlightLineIdx === null) return false;
-    return lineIdx === highlightLineIdx;
+    if (!stepMode || highlightRange === null) return false;
+    return lineIdx >= highlightRange.start && lineIdx <= highlightRange.end;
   };
 
   return (

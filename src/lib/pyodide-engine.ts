@@ -352,16 +352,17 @@ _vars_detail_json = _json.dumps(_user_vars_detail)
 }
 
 export interface TraceStep {
-  line: number;         // 0-indexed line number
+  line: number;         // 0-indexed line number (first line of this statement)
+  endLine: number;      // 0-indexed last line of this statement
   output: string;       // cumulative output up to this point
   variables: Record<string, string>;
   variableDetails: VariableDetail[];
 }
 
 /**
- * Execute code with sys.settrace() and return a step-by-step trace.
- * Each step records which line was executed, the output so far, and variable state.
- * This correctly handles if/else branches, loops, function calls, etc.
+ * Execute code statement-by-statement using Python AST.
+ * Each statement is executed independently, capturing output and variables after each.
+ * Correctly handles if/else, loops, functions — they execute as single statements.
  */
 export async function traceExecution(
   code: string,
@@ -376,8 +377,33 @@ export async function traceExecution(
   try {
     _stdoutLines = [];
 
-    // Set up input mock (same as runPython)
-    py.runPython(`import sys, json`);
+    // Use Python AST to split code into top-level statements
+    // Then execute each statement one at a time, capturing output/vars after each
+    py.runPython(`
+import ast, json, sys
+
+_code = ${JSON.stringify(code)}
+_tree = ast.parse(_code)
+_code_lines = _code.split("\\n")
+
+# Get statement boundaries (startLine, endLine) for each top-level statement
+_stmt_ranges = []
+for _node in _tree.body:
+    _start = _node.lineno - 1  # 0-indexed
+    _end = _node.end_lineno - 1 if hasattr(_node, 'end_lineno') and _node.end_lineno else _start
+    _stmt_ranges.append([_start, _end])
+
+_stmt_ranges_json = json.dumps(_stmt_ranges)
+`);
+    const stmtRangesJson = py.runPython("_stmt_ranges_json") as string;
+    const stmtRanges: [number, number][] = JSON.parse(stmtRangesJson);
+
+    if (stmtRanges.length === 0) {
+      return { steps: [], error: null };
+    }
+
+    // Set up shared execution namespace with input mock
+    py.runPython(`_exec_globals = {"__builtins__": __builtins__}`);
 
     if (inputValues && inputValues.length > 0) {
       const inputJson = JSON.stringify(inputValues);
@@ -386,7 +412,7 @@ import js
 _input_values = ${inputJson}
 _input_idx = 0
 _all_inputs = list(_input_values)
-def input(prompt=""):
+def _mock_input(prompt=""):
     global _input_idx
     if prompt:
         print(prompt, end="")
@@ -403,12 +429,13 @@ def input(prompt=""):
     _all_inputs.append(result)
     print(result)
     return result
+_exec_globals['input'] = _mock_input
 `);
     } else {
       py.runPython(`
 import js
 _all_inputs = []
-def input(prompt=""):
+def _mock_input(prompt=""):
     if prompt:
         print(prompt, end="")
     result = js.prompt(prompt or "请输入 (Enter a value):")
@@ -419,64 +446,78 @@ def input(prompt=""):
     _all_inputs.append(result)
     print(result)
     return result
+_exec_globals['input'] = _mock_input
 `);
     }
 
-    // Set up lightweight tracer — only record line numbers
-    py.runPython(`
-import sys, json
+    // Execute statements one by one, capturing after each
+    const codeLines = code.split("\n");
+    const steps: TraceStep[] = [];
+    const skipNames = new Set(["sys","io","input","json","js","types","turtle","_json","_turtle_mod","math","random","time","ast","_mock_input"]);
 
-_trace_lines = []
+    for (let si = 0; si < stmtRanges.length; si++) {
+      const [startLine, endLine] = stmtRanges[si];
+      const stmtCode = codeLines.slice(startLine, endLine + 1).join("\n");
 
-def _trace_fn(frame, event, arg):
-    if event == 'line' and frame.f_code.co_filename == '<exec>':
-        lineno = frame.f_lineno - 1  # 0-indexed
-        # Deduplicate consecutive same-line
-        if not _trace_lines or _trace_lines[-1] != lineno:
-            _trace_lines.append(lineno)
-    return _trace_fn
+      // Execute this statement in shared namespace
+      _stdoutLines = [];
+      try {
+        py.runPython(`exec(${JSON.stringify(stmtCode)}, _exec_globals)`);
+      } catch (e) {
+        // Statement failed — record error and stop
+        const errMsg = e instanceof Error ? e.message : String(e);
+        steps.push({
+          line: startLine,
+          endLine,
+          output: translateError(errMsg),
+          variables: {},
+          variableDetails: [],
+        });
+        break;
+      }
 
-sys.settrace(_trace_fn)
-`);
+      // Capture output so far (cumulative via Pyodide stdout callback is tricky, so use a buffer)
+      // Actually _stdoutLines only has this statement's output. We need cumulative.
+      // Let's accumulate manually
+      const stepOutput = _stdoutLines.join("\n").replace(/\n$/, "");
 
-    // Execute the code
-    await py.runPythonAsync(code);
-
-    // Stop tracing
-    py.runPython(`sys.settrace(None)`);
-
-    // Get traced lines
-    const traceLinesJson = py.runPython(`json.dumps(_trace_lines)`) as string;
-    const traceLines: number[] = JSON.parse(traceLinesJson);
-
-    // Get final output and variables
-    const finalOutput = _stdoutLines.join("\n").replace(/\n$/, "");
-
-    const _skip = "{'sys','io','input','json','js','types','turtle','_json','_turtle_mod','math','random','time'}";
-    py.runPython(`
-_skip_names = ${_skip}
-_user_vars = {}
-_user_vars_detail = []
-for _k, _v in dict(globals()).items():
-    if _k.startswith('_') or _k in _skip_names:
+      // Capture variables from exec namespace
+      py.runPython(`
+_step_vars = {}
+_step_detail = []
+for _k, _v in _exec_globals.items():
+    if _k.startswith('_') or _k == '__builtins__' or _k in {'sys','io','input','json','js','types','turtle','math','random','time','ast'}:
         continue
     try:
         if isinstance(_v, (int, float, str, bool)):
-            _user_vars[_k] = str(_v)
-            _user_vars_detail.append({"name": _k, "value": str(_v), "type": type(_v).__name__, "scope": "global", "scopeName": ""})
-        elif isinstance(_v, list):
-            _user_vars[_k] = str(_v)[:100]
-            _user_vars_detail.append({"name": _k, "value": str(_v)[:200], "type": "list", "scope": "global", "scopeName": ""})
+            _step_vars[_k] = str(_v)
+            _step_detail.append({"name": _k, "value": str(_v), "type": type(_v).__name__, "scope": "global", "scopeName": ""})
+        elif isinstance(_v, (list, tuple)):
+            _step_vars[_k] = str(_v)[:100]
+            _step_detail.append({"name": _k, "value": str(_v)[:200], "type": type(_v).__name__, "scope": "global", "scopeName": ""})
         elif isinstance(_v, dict):
-            _user_vars[_k] = str(_v)[:100]
-            _user_vars_detail.append({"name": _k, "value": str(_v)[:200], "type": "dict", "scope": "global", "scopeName": ""})
+            _step_vars[_k] = str(_v)[:100]
+            _step_detail.append({"name": _k, "value": str(_v)[:200], "type": "dict", "scope": "global", "scopeName": ""})
     except:
         pass
-_vars_json = json.dumps(_user_vars)
-_vars_detail_json = json.dumps(_user_vars_detail)
+_step_vars_json = json.dumps(_step_vars)
+_step_detail_json = json.dumps(_step_detail)
 `);
-    const variables = JSON.parse(py.runPython("_vars_json") as string);
-    const variableDetails: VariableDetail[] = JSON.parse(py.runPython("_vars_detail_json") as string);
+      const vars = JSON.parse(py.runPython("_step_vars_json") as string);
+      const varDetails: VariableDetail[] = JSON.parse(py.runPython("_step_detail_json") as string);
+
+      // Accumulate output
+      const prevOutput = si > 0 ? steps[si - 1].output : "";
+      const cumulativeOutput = prevOutput ? (stepOutput ? prevOutput + "\n" + stepOutput : prevOutput) : stepOutput;
+
+      steps.push({
+        line: startLine,
+        endLine,
+        output: cumulativeOutput,
+        variables: vars,
+        variableDetails: varDetails,
+      });
+    }
 
     // Collect inputs
     let collectedInputs: string[] = [];
@@ -484,24 +525,8 @@ _vars_detail_json = json.dumps(_user_vars_detail)
       collectedInputs = JSON.parse(py.runPython("json.dumps(_all_inputs)") as string);
     } catch { /* no inputs */ }
 
-    // Build trace steps — each step shows the line executed
-    // Output: show final output (incremental not possible without heavy tracing)
-    // Variables: show final state (accurate after full execution)
-    // The key value is knowing WHICH lines executed and in what ORDER
-    const steps: TraceStep[] = traceLines.map((line) => {
-      return {
-        line,
-        output: finalOutput,
-        variables,
-        variableDetails,
-      };
-    });
-
     return { steps, error: null, collectedInputs };
   } catch (e) {
-    // Stop tracing on error
-    try { py.runPython(`sys.settrace(None)`); } catch {}
-
     const partialOutput = _stdoutLines.join("\n").replace(/\n$/, "");
     let collectedInputs: string[] = [];
     try { collectedInputs = JSON.parse(py.runPython("json.dumps(_all_inputs)") as string); } catch {}
