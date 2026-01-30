@@ -214,7 +214,7 @@ function SkillRadar({ progress }: { progress: UserProgress }) {
   // Label positions (further outside for more room)
   const labelPositions = Array.from({ length: n }, (_, i) => {
     const a = startAngle + i * angleStep;
-    return polarToXY(a, r + 50);
+    return polarToXY(a, r + 28);
   });
 
   return (
@@ -238,11 +238,11 @@ function SkillRadar({ progress }: { progress: UserProgress }) {
             </defs>
             {/* Grid */}
             {gridPaths.map((d, i) => (
-              <path key={i} d={d} fill="none" stroke="var(--theme-border)" strokeWidth={i === gridLevels.length - 1 ? 2.5 : 1} opacity={i === gridLevels.length - 1 ? 0.8 : 0.4} />
+              <path key={i} d={d} fill="none" stroke="var(--theme-border)" strokeWidth={i === gridLevels.length - 1 ? 3 : 1.5} opacity={i === gridLevels.length - 1 ? 1 : 0.6} />
             ))}
             {/* Axes */}
             {axisEnds.map((p, i) => (
-              <line key={i} x1={cx} y1={cy} x2={p.x} y2={p.y} stroke="var(--theme-border)" strokeWidth={0.8} opacity={0.3} />
+              <line key={i} x1={cx} y1={cy} x2={p.x} y2={p.y} stroke="var(--theme-border)" strokeWidth={1.2} opacity={0.45} />
             ))}
             {/* Data polygon */}
             <motion.path
