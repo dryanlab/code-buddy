@@ -1,8 +1,12 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useState, useCallback } from "react";
+import dynamic from "next/dynamic";
 import type { LessonSection, SyntaxCard, CodeAnatomy } from "@/data/lessons";
+import { loadPyodideEngine, runPython, isPyodideLoaded } from "@/lib/pyodide-engine";
+
+const MonacoEditor = dynamic(() => import("@monaco-editor/react"), { ssr: false });
 
 function SyntaxCardComponent({ card, index }: { card: SyntaxCard; index: number }) {
   const [flipped, setFlipped] = useState(false);
@@ -41,7 +45,7 @@ function SyntaxCardComponent({ card, index }: { card: SyntaxCard; index: number 
               >
                 <p className="text-[var(--theme-text-secondary)] text-sm">{card.description}</p>
                 {card.example && (
-                  <pre className="mt-2 bg-[var(--theme-card-bg)] rounded-lg p-2 text-green-300 text-xs overflow-x-auto">
+                  <pre className="mt-2 bg-[var(--theme-input-bg)] rounded-lg p-2 text-green-300 text-xs overflow-x-auto border border-[var(--theme-border)]">
                     <code>{card.example}</code>
                   </pre>
                 )}
@@ -62,14 +66,61 @@ function SyntaxCardComponent({ card, index }: { card: SyntaxCard; index: number 
 
 function CodeAnatomyComponent({ anatomy }: { anatomy: CodeAnatomy }) {
   const [activeLine, setActiveLine] = useState<number | null>(null);
+  const [output, setOutput] = useState("");
+  const [hasError, setHasError] = useState(false);
+  const [isRunning, setIsRunning] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [loadingMsg, setLoadingMsg] = useState("");
+
+  // Build runnable code from anatomy lines
+  const runnableCode = anatomy.lines.map(l => l.code).join("\n");
+
+  const handleRun = useCallback(async () => {
+    setIsRunning(true);
+    setOutput("");
+    setHasError(false);
+
+    if (!isPyodideLoaded()) {
+      setIsLoading(true);
+      try {
+        await loadPyodideEngine((msg) => setLoadingMsg(msg));
+      } catch {
+        setOutput("❌ Python engine failed to load. Please refresh.\nPython 引擎加载失败，请刷新页面重试");
+        setHasError(true);
+        setIsRunning(false);
+        setIsLoading(false);
+        return;
+      }
+      setIsLoading(false);
+    }
+
+    const result = await runPython(runnableCode);
+    if (result.error) {
+      setOutput(result.error);
+      setHasError(true);
+    } else {
+      setOutput(result.output || "(No output · 没有输出)");
+      setHasError(false);
+    }
+    setIsRunning(false);
+  }, [runnableCode]);
 
   return (
     <div className="rounded-xl overflow-hidden border border-cyan-500/30">
-      <div className="bg-[var(--theme-card-bg)] px-4 py-2 border-b border-[var(--theme-border)] flex items-center gap-2">
-        <span className="text-lg">🔬</span>
-        <span className="text-cyan-400 font-medium text-sm">
-          Code Anatomy · 代码解剖
-        </span>
+      <div className="bg-[var(--theme-card-bg)] px-4 py-2 border-b border-[var(--theme-border)] flex items-center justify-between">
+        <div className="flex items-center gap-2">
+          <span className="text-lg">🔬</span>
+          <span className="text-cyan-400 font-medium text-sm">
+            Code Anatomy · 代码解剖
+          </span>
+        </div>
+        <button
+          onClick={handleRun}
+          disabled={isRunning || isLoading}
+          className="flex items-center gap-1.5 px-3 py-1 bg-green-500 text-black text-xs font-bold rounded-lg hover:bg-green-400 disabled:opacity-50 transition-colors"
+        >
+          {isRunning ? "⏳ Running..." : isLoading ? "⏳ Loading..." : "▶ Run · 运行"}
+        </button>
       </div>
 
       <div className="bg-[var(--theme-card-bg)] p-4">
@@ -83,7 +134,7 @@ function CodeAnatomyComponent({ anatomy }: { anatomy: CodeAnatomy }) {
               className={`px-2 py-1 rounded cursor-pointer transition-all ${
                 activeLine === i
                   ? "bg-cyan-500/20 border-l-2 border-cyan-400"
-                  : "hover:bg-[var(--theme-card-bg)] border-l-2 border-transparent"
+                  : "hover:bg-[var(--theme-input-bg)] border-l-2 border-transparent"
               }`}
             >
               <code className="text-green-300">{line.code}</code>
@@ -103,6 +154,17 @@ function CodeAnatomyComponent({ anatomy }: { anatomy: CodeAnatomy }) {
           ))}
         </pre>
       </div>
+
+      {/* Output panel */}
+      {(output || isLoading) && (
+        <div className="bg-[#0d1117] border-t border-[var(--theme-border)] p-3">
+          <div className="text-xs text-[var(--theme-text-muted)] mb-1 terminal-text">OUTPUT</div>
+          {isLoading && <span className="text-xs text-cyan-400 animate-pulse">{loadingMsg}</span>}
+          <pre className={`text-xs terminal-text whitespace-pre-wrap ${hasError ? "text-red-400" : "text-green-400"}`}>
+            {output}
+          </pre>
+        </div>
+      )}
 
       <div className="bg-[var(--theme-card-bg)] px-4 py-2 text-xs text-[var(--theme-text-muted)]">
         👆 Hover or tap each line to see what it does · 悬停或点击每一行查看解释
@@ -138,7 +200,7 @@ export default function ConceptSection({ section }: { section: LessonSection }) 
         </p>
       </div>
 
-      {/* Syntax Cards */}
+      {/* Syntax Cards - horizontal scroll with visible border */}
       {syntaxCards && syntaxCards.length > 0 && (
         <div>
           <div className="flex items-center gap-2 mb-3">
@@ -147,10 +209,12 @@ export default function ConceptSection({ section }: { section: LessonSection }) 
               New Syntax Cards · 新语法卡片
             </h3>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-            {syntaxCards.map((card, i) => (
-              <SyntaxCardComponent key={i} card={card} index={i} />
-            ))}
+          <div className="relative rounded-xl border border-[var(--theme-border)] bg-[var(--theme-card-bg)] p-3">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 max-h-[500px] overflow-y-auto pr-1 scrollbar-visible">
+              {syntaxCards.map((card, i) => (
+                <SyntaxCardComponent key={i} card={card} index={i} />
+              ))}
+            </div>
           </div>
         </div>
       )}

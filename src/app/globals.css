@@ -40,6 +40,23 @@ body {
   background: var(--theme-text-muted);
 }
 
+.scrollbar-visible::-webkit-scrollbar {
+  width: 8px;
+}
+.scrollbar-visible::-webkit-scrollbar-track {
+  background: var(--theme-bg);
+  border: 1px solid var(--theme-border);
+  border-radius: 4px;
+}
+.scrollbar-visible::-webkit-scrollbar-thumb {
+  background: var(--theme-text-muted);
+  border-radius: 4px;
+  border: 1px solid var(--theme-border);
+}
+.scrollbar-visible::-webkit-scrollbar-thumb:hover {
+  background: var(--theme-text-secondary);
+}
+
 /* Glow effects */
 .glow-green {
   box-shadow: 0 0 20px color-mix(in srgb, var(--color-primary) 30%, transparent);
