@@ -35,7 +35,7 @@ function TurtleProgressBar({ position, total }: { position: number; total: numbe
           transition={{ type: "spring", stiffness: 200, damping: 20 }}
           style={{ filter: "drop-shadow(0 2px 4px rgba(0,0,0,0.3))" }}
         >
-          🐢
+          <span style={{ display: "inline-block", transform: "scaleX(-1)" }}>🐢</span>
         </motion.div>
         {/* Finish flag */}
         <div className="absolute right-1 top-1/2 -translate-y-1/2 text-lg">🏁</div>
