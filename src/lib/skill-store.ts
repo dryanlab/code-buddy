@@ -2,6 +2,7 @@
 // Model: ONE curriculum path, skill level determines STARTING POINT
 
 import { getSupabase, isSupabaseConfigured } from "./supabase";
+import { queueCloudSync } from "./cloud-sync";
 
 export type SkillLevel = "beginner" | "intermediate" | "advanced";
 
@@ -78,6 +79,7 @@ export function getSkillLevel(): SkillLevel | null {
 export function saveSkillLevel(level: SkillLevel): void {
   if (typeof window === "undefined") return;
   localStorage.setItem(SKILL_KEY, level);
+  queueCloudSync("skills_data", { skillLevel: level });
 }
 
 export async function saveSkillLevelToProfile(level: SkillLevel): Promise<void> {
@@ -118,6 +120,19 @@ export async function loadSkillLevelFromProfile(): Promise<SkillLevel | null> {
     return data.skill_level as SkillLevel;
   }
   return null;
+}
+
+/** Merge cloud skill data into localStorage */
+export function mergeSkillsFromCloud(cloudData: Record<string, unknown>): void {
+  if (cloudData?.skillLevel) {
+    const level = cloudData.skillLevel as string;
+    if (level === "beginner" || level === "intermediate" || level === "advanced") {
+      // Only set if local has no skill level
+      if (!getSkillLevel()) {
+        saveSkillLevel(level);
+      }
+    }
+  }
 }
 
 // ═══ Quiz scoring ═══

@@ -3,8 +3,10 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { getProgress, getProgressAsync, getLevelInfo, LEVELS, getLastLessonId, type UserProgress } from "@/lib/progress-store";
-import { getCoinState } from "@/lib/coin-store";
+import { getProgress, getProgressAsync, getLevelInfo, LEVELS, getLastLessonId, mergeProgressFromCloud, type UserProgress } from "@/lib/progress-store";
+import { getCoinState, mergeCoinsFromCloud } from "@/lib/coin-store";
+import { loadAllFromCloud } from "@/lib/cloud-sync";
+import { mergeSkillsFromCloud } from "@/lib/skill-store";
 import { MODULES, LESSONS } from "@/data/lessons";
 import { getUser, getSessionUser, type UserProfile } from "@/lib/auth-store";
 import { isSupabaseConfigured } from "@/lib/supabase";
@@ -150,7 +152,18 @@ export default function DashboardPage() {
 
   useEffect(() => {
     async function load() {
+      // Load cloud data first (merge into localStorage), then load progress
       if (isSupabaseConfigured) {
+        try {
+          const cloudData = await loadAllFromCloud();
+          if (cloudData) {
+            if (cloudData.progress_data) mergeProgressFromCloud(cloudData.progress_data);
+            if (cloudData.coins_data) mergeCoinsFromCloud(cloudData.coins_data);
+            if (cloudData.skills_data) mergeSkillsFromCloud(cloudData.skills_data);
+          }
+        } catch (e) {
+          console.warn("[dashboard] cloud sync load failed:", e);
+        }
         const [p, u] = await Promise.all([getProgressAsync(), getSessionUser()]);
         setProgress(p);
         setUser(u);

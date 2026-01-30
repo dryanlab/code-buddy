@@ -1,5 +1,7 @@
 // Coin system — earn coins through progress, spend on avatars, titles, themes
 
+import { queueCloudSync } from "./cloud-sync";
+
 const COIN_KEY = "code-buddy-coins";
 
 export interface CoinState {
@@ -104,6 +106,7 @@ export function getCoinState(): CoinState {
 function saveCoinState(s: CoinState): void {
   if (typeof window === "undefined") return;
   localStorage.setItem(COIN_KEY, JSON.stringify(s));
+  queueCloudSync("coins_data", s);
 }
 
 export function earnCoins(amount: number, _reason?: string): CoinState {
@@ -165,6 +168,23 @@ export function getRarityColor(rarity: string): string {
     case "legendary": return "text-yellow-400 border-yellow-500/30 bg-yellow-500/10";
     default: return "text-slate-300";
   }
+}
+
+/** Merge cloud coin data into localStorage */
+export function mergeCoinsFromCloud(cloudData: Record<string, unknown>): void {
+  const local = getCoinState();
+  const cloud = { ...defaultState, ...cloudData } as CoinState;
+
+  const merged: CoinState = {
+    coins: Math.max(local.coins, cloud.coins || 0),
+    totalEarned: Math.max(local.totalEarned, cloud.totalEarned || 0),
+    unlockedAvatars: [...new Set([...local.unlockedAvatars, ...(cloud.unlockedAvatars || [])])],
+    unlockedTitles: [...new Set([...local.unlockedTitles, ...(cloud.unlockedTitles || [])])],
+    unlockedThemes: [...new Set([...local.unlockedThemes, ...(cloud.unlockedThemes || [])])],
+    equippedTitle: local.equippedTitle || cloud.equippedTitle || "",
+  };
+
+  saveCoinState(merged);
 }
 
 export function getRarityLabel(rarity: string): { en: string; cn: string } {

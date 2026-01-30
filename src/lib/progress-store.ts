@@ -3,6 +3,7 @@
 import { getSupabase, isSupabaseConfigured } from "./supabase";
 import { getUser } from "./auth-store";
 import { earnCoins, COIN_RATES } from "./coin-store";
+import { queueCloudSync } from "./cloud-sync";
 
 export interface Badge {
   id: string;
@@ -121,6 +122,7 @@ function getLocalProgress(): UserProgress {
 function saveLocalProgress(p: UserProgress): void {
   if (typeof window === "undefined") return;
   localStorage.setItem(STORAGE_KEY, JSON.stringify(p));
+  queueCloudSync("progress_data", p);
 }
 
 // ─── Supabase sync ───────────────────────────────────────────
@@ -385,6 +387,35 @@ export function getLessonPosition(lessonId: string): number {
 export function getLastLessonId(): string {
   const p = getLocalProgress();
   return p.lastLessonId || "";
+}
+
+/** Merge cloud progress data into localStorage (cloud wins for additive fields) */
+export function mergeProgressFromCloud(cloudData: Record<string, unknown>): void {
+  const local = getLocalProgress();
+  const cloud = { ...defaultProgress, ...cloudData } as UserProgress;
+
+  // Merge: take max for numeric fields, union for arrays
+  const merged: UserProgress = {
+    ...local,
+    xp: Math.max(local.xp, cloud.xp || 0),
+    level: Math.max(local.level, cloud.level || 1),
+    streakDays: Math.max(local.streakDays, cloud.streakDays || 0),
+    lastActiveDate: (local.lastActiveDate || "") >= (cloud.lastActiveDate || "") ? local.lastActiveDate : cloud.lastActiveDate,
+    completedLessons: [...new Set([...local.completedLessons, ...(cloud.completedLessons || [])])],
+    lessonScores: { ...cloud.lessonScores, ...local.lessonScores },
+    earnedBadges: [...new Set([...local.earnedBadges, ...(cloud.earnedBadges || [])])],
+    chatMessageCount: Math.max(local.chatMessageCount, cloud.chatMessageCount || 0),
+    codeRunCount: Math.max(local.codeRunCount, cloud.codeRunCount || 0),
+    lessonSections: { ...cloud.lessonSections, ...local.lessonSections },
+    lastLessonId: local.lastLessonId || cloud.lastLessonId || "",
+  };
+
+  // For lessonScores, take max per lesson
+  for (const [k, v] of Object.entries(cloud.lessonScores || {})) {
+    merged.lessonScores[k] = Math.max(merged.lessonScores[k] || 0, v || 0);
+  }
+
+  saveLocalProgress(merged);
 }
 
 export function resetProgress(): void {
