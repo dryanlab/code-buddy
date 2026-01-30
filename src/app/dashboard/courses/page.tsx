@@ -180,13 +180,13 @@ function TrackPopup({
 
   return (
     <motion.div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4"
+      className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-4"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
     >
-      {/* Backdrop */}
-      <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" onClick={onClose} />
+      {/* Backdrop — subtle, no blur so map stays visible */}
+      <div className="absolute inset-0 bg-black/20" onClick={onClose} />
 
       {/* Card */}
       <motion.div
