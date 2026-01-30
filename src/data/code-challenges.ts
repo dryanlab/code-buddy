@@ -12219,4 +12219,1467 @@ print("Path A->E:", path)`,
     category: "Data Structures",
     categoryZh: "数据结构",
   },
+
+  // ═══ 🔍 ALGORITHM PROJECTS — SEARCHING ═══
+  {
+    id: "alg-proj-1",
+    title: "🔍 Binary Search Visualizer",
+    titleZh: "🔍 二分搜索可视化器",
+    description: "Build a visual binary search that shows the search process step by step, highlighting left, right, and mid boundaries.",
+    descriptionZh: "构建一个可视化二分搜索，逐步展示搜索过程，高亮左、右和中间边界。",
+    difficulty: 2,
+    gradeRange: [9, 12] as [number, number],
+    skillLevel: "intermediate" as const,
+    starterCode: `# Binary Search Visualizer
+# TODO: Implement visual_binary_search(arr, target)
+# It should:
+# 1. Print the array with markers for left (L), right (R), mid (M)
+# 2. Show each step of the search
+# 3. Return the index found or -1
+
+def visual_binary_search(arr, target):
+    left, right = 0, len(arr) - 1
+    step = 0
+    while left <= right:
+        step += 1
+        mid = (left + right) // 2
+        # TODO: Print visualization
+        # Example: [2, 5, (8), 12, 16, 23, 38]
+        #           L       M               R
+        # TODO: Compare and adjust boundaries
+        pass
+    return -1
+
+# Test
+nums = [2, 5, 8, 12, 16, 23, 38, 42, 55, 67]
+print("Searching for 23:")
+result = visual_binary_search(nums, 23)
+print(f"Result: index {result}")
+print()
+print("Searching for 50:")
+result = visual_binary_search(nums, 50)
+print(f"Result: {result}")`,
+    hint: "For visualization, build a string with markers. Use string formatting to align L, M, R below the array elements.\n可视化时构建带标记的字符串。用字符串格式化对齐 L、M、R。",
+    solution: `def visual_binary_search(arr, target):
+    left, right = 0, len(arr) - 1
+    step = 0
+    while left <= right:
+        step += 1
+        mid = (left + right) // 2
+        display = []
+        markers = []
+        for i in range(len(arr)):
+            s = str(arr[i])
+            if i == mid:
+                display.append(f"({s})")
+            else:
+                display.append(f" {s} ")
+            if i == left and i == right:
+                markers.append("LR" + " " * (len(s) - 1))
+            elif i == left:
+                markers.append("L" + " " * len(s))
+            elif i == right:
+                markers.append("R" + " " * len(s))
+            elif i == mid:
+                markers.append("M" + " " * len(s))
+            else:
+                markers.append(" " * (len(s) + 1))
+        print(f"Step {step}: [{', '.join(display)}]")
+        print(f"        {' '.join(markers)}")
+        if arr[mid] == target:
+            print(f"  Found {target} at index {mid}!")
+            return mid
+        elif arr[mid] < target:
+            print(f"  {arr[mid]} < {target}, go RIGHT")
+            left = mid + 1
+        else:
+            print(f"  {arr[mid]} > {target}, go LEFT")
+            right = mid - 1
+    print("  Not found!")
+    return -1
+
+nums = [2, 5, 8, 12, 16, 23, 38, 42, 55, 67]
+print("Searching for 23:")
+result = visual_binary_search(nums, 23)
+print(f"Result: index {result}")
+print()
+print("Searching for 50:")
+result = visual_binary_search(nums, 50)
+print(f"Result: {result}")`,
+    expectedOutput: "",
+    tags: ["algorithms", "searching", "binary-search", "visualization"],
+    fromLesson: "alg-1-2",
+    language: "python",
+    category: "Algorithms",
+    categoryZh: "算法",
+  },
+  {
+    id: "alg-proj-2",
+    title: "🔎 Word Search Solver",
+    titleZh: "🔎 单词搜索求解器",
+    description: "Search for words in a 2D grid of letters. Words can go right, down, or diagonally.",
+    descriptionZh: "在二维字母网格中搜索单词。单词可以向右、向下或对角线方向。",
+    difficulty: 2,
+    gradeRange: [9, 12] as [number, number],
+    skillLevel: "intermediate" as const,
+    starterCode: `# Word Search Solver
+# TODO: Search for words in a letter grid
+# Words can be horizontal (right) or vertical (down)
+
+def find_word(grid, word):
+    """Return (row, col, direction) if found, else None"""
+    rows, cols = len(grid), len(grid[0])
+    # TODO: Check horizontal (left-to-right)
+    # TODO: Check vertical (top-to-bottom)
+    pass
+
+grid = [
+    ['P','Y','T','H','O','N'],
+    ['A','L','G','O','R','I'],
+    ['S','E','A','R','C','H'],
+    ['C','O','D','E','B','U'],
+    ['A','R','R','A','Y','D'],
+    ['L','I','S','T','M','A']
+]
+
+print("Grid:")
+for row in grid:
+    print(' '.join(row))
+print()
+
+for word in ['PYTHON', 'SEARCH', 'CODE', 'ALGO', 'ARRAY']:
+    result = find_word(grid, word)
+    if result:
+        print(f"Found '{word}' at {result}")
+    else:
+        print(f"'{word}' not found")`,
+    hint: "For horizontal: check each row as a string. For vertical: check each column. Use slicing to extract substrings.\n水平：检查每行字符串。垂直：检查每列。用切片提取子串。",
+    solution: `def find_word(grid, word):
+    rows, cols = len(grid), len(grid[0])
+    n = len(word)
+    # Horizontal
+    for r in range(rows):
+        for c in range(cols - n + 1):
+            if all(grid[r][c+k] == word[k] for k in range(n)):
+                return (r, c, 'horizontal')
+    # Vertical
+    for r in range(rows - n + 1):
+        for c in range(cols):
+            if all(grid[r+k][c] == word[k] for k in range(n)):
+                return (r, c, 'vertical')
+    # Diagonal (down-right)
+    for r in range(rows - n + 1):
+        for c in range(cols - n + 1):
+            if all(grid[r+k][c+k] == word[k] for k in range(n)):
+                return (r, c, 'diagonal')
+    return None
+
+grid = [
+    ['P','Y','T','H','O','N'],
+    ['A','L','G','O','R','I'],
+    ['S','E','A','R','C','H'],
+    ['C','O','D','E','B','U'],
+    ['A','R','R','A','Y','D'],
+    ['L','I','S','T','M','A']
+]
+
+print("Grid:")
+for row in grid:
+    print(' '.join(row))
+print()
+
+for word in ['PYTHON', 'SEARCH', 'CODE', 'ALGO', 'ARRAY']:
+    result = find_word(grid, word)
+    if result:
+        print(f"Found '{word}' at {result}")
+    else:
+        print(f"'{word}' not found")`,
+    expectedOutput: "",
+    tags: ["algorithms", "searching", "2d-search"],
+    fromLesson: "alg-1-3",
+    language: "python",
+    category: "Algorithms",
+    categoryZh: "算法",
+  },
+  {
+    id: "alg-proj-3",
+    title: "📊 Search Benchmark Tool",
+    titleZh: "📊 搜索基准测试工具",
+    description: "Build a benchmarking tool that compares linear search vs binary search on arrays of different sizes.",
+    descriptionZh: "构建基准测试工具，比较不同大小数组上的线性搜索和二分搜索。",
+    difficulty: 2,
+    gradeRange: [9, 12] as [number, number],
+    skillLevel: "intermediate" as const,
+    starterCode: `# Search Benchmark Tool
+import time
+
+def linear_search(arr, target):
+    # TODO: implement
+    pass
+
+def binary_search(arr, target):
+    # TODO: implement
+    pass
+
+def benchmark(sizes):
+    """Compare search algorithms on different array sizes"""
+    print(f"{'Size':>10} | {'Linear':>12} | {'Binary':>12} | {'Speedup':>8}")
+    print("-" * 50)
+    for n in sizes:
+        arr = list(range(n))
+        target = n - 1  # worst case: last element
+        # TODO: Time both searches
+        # TODO: Print comparison table
+        pass
+
+benchmark([100, 1000, 10000, 100000])`,
+    hint: "Use time.time() before and after each search to measure elapsed time. Compute speedup as linear_time/binary_time.\n用 time.time() 测量每次搜索的时间。加速比 = 线性时间/二分时间。",
+    solution: `import time
+
+def linear_search(arr, target):
+    for i in range(len(arr)):
+        if arr[i] == target:
+            return i
+    return -1
+
+def binary_search(arr, target):
+    left, right = 0, len(arr) - 1
+    while left <= right:
+        mid = (left + right) // 2
+        if arr[mid] == target: return mid
+        elif arr[mid] < target: left = mid + 1
+        else: right = mid - 1
+    return -1
+
+def benchmark(sizes):
+    print(f"{'Size':>10} | {'Linear':>12} | {'Binary':>12} | {'Speedup':>8}")
+    print("-" * 50)
+    for n in sizes:
+        arr = list(range(n))
+        target = n - 1
+        start = time.time()
+        linear_search(arr, target)
+        lt = time.time() - start
+        start = time.time()
+        binary_search(arr, target)
+        bt = time.time() - start
+        bt = max(bt, 0.000001)
+        speedup = lt / bt
+        print(f"{n:>10} | {lt:>10.6f}s | {bt:>10.6f}s | {speedup:>6.1f}x")
+
+benchmark([100, 1000, 10000, 100000])`,
+    expectedOutput: "",
+    tags: ["algorithms", "searching", "benchmarking"],
+    fromLesson: "alg-1-4",
+    language: "python",
+    category: "Algorithms",
+    categoryZh: "算法",
+  },
+
+  // ═══ ⚡ ALGORITHM PROJECTS — SORTING ═══
+  {
+    id: "alg-proj-4",
+    title: "⚡ Sort Visualizer",
+    titleZh: "⚡ 排序可视化器",
+    description: "Build a text-based sort visualizer that shows each step of bubble, selection, and insertion sort using bar charts.",
+    descriptionZh: "构建基于文本的排序可视化器，用条形图展示冒泡、选择和插入排序的每一步。",
+    difficulty: 2,
+    gradeRange: [9, 12] as [number, number],
+    skillLevel: "intermediate" as const,
+    starterCode: `# Sort Visualizer
+# TODO: Show each step of sorting with bar chart
+
+def print_bars(arr, highlight=None):
+    """Print array as horizontal bar chart"""
+    # TODO: Print each value as a bar of '#' characters
+    # Highlight specific indices
+    pass
+
+def bubble_sort_visual(arr):
+    a = arr[:]
+    # TODO: Bubble sort with visualization after each swap
+    pass
+
+def selection_sort_visual(arr):
+    a = arr[:]
+    # TODO: Selection sort with visualization after each pass
+    pass
+
+# Test
+data = [5, 2, 8, 1, 9, 3, 7, 4, 6]
+print("=== Bubble Sort ===")
+bubble_sort_visual(data)
+print()
+print("=== Selection Sort ===")
+selection_sort_visual(data)`,
+    hint: "For bar chart: print '#' * value for each element. Use ANSI or markers like [*] to highlight current elements being compared.\n条形图：对每个元素打印 '#' * 值。用标记如 [*] 高亮当前比较的元素。",
+    solution: `def print_bars(arr, highlight=None):
+    if highlight is None: highlight = set()
+    for i, val in enumerate(arr):
+        marker = ">>>" if i in highlight else "   "
+        bar = "#" * val
+        print(f"{marker} {val:2d} |{bar}")
+    print()
+
+def bubble_sort_visual(arr):
+    a = arr[:]
+    n = len(a)
+    print("Initial:")
+    print_bars(a)
+    for i in range(n):
+        for j in range(n - 1 - i):
+            if a[j] > a[j+1]:
+                a[j], a[j+1] = a[j+1], a[j]
+                print(f"Swap index {j} and {j+1}:")
+                print_bars(a, {j, j+1})
+    print("Sorted!")
+    print_bars(a)
+
+def selection_sort_visual(arr):
+    a = arr[:]
+    n = len(a)
+    print("Initial:")
+    print_bars(a)
+    for i in range(n):
+        min_idx = i
+        for j in range(i+1, n):
+            if a[j] < a[min_idx]:
+                min_idx = j
+        if min_idx != i:
+            a[i], a[min_idx] = a[min_idx], a[i]
+            print(f"Pass {i+1}: swap index {i} and {min_idx}:")
+            print_bars(a, {i, min_idx})
+    print("Sorted!")
+    print_bars(a)
+
+data = [5, 2, 8, 1, 9, 3, 7, 4, 6]
+print("=== Bubble Sort ===")
+bubble_sort_visual(data)
+print()
+print("=== Selection Sort ===")
+selection_sort_visual(data)`,
+    expectedOutput: "",
+    tags: ["algorithms", "sorting", "visualization"],
+    fromLesson: "alg-2-1",
+    language: "python",
+    category: "Algorithms",
+    categoryZh: "算法",
+  },
+  {
+    id: "alg-proj-5",
+    title: "🔀 Custom Comparator Sorter",
+    titleZh: "🔀 自定义比较器排序器",
+    description: "Build a sorting system with custom comparators: sort students by GPA, name, or age with ascending/descending options.",
+    descriptionZh: "构建自定义比较器排序系统：按 GPA、姓名或年龄排序学生，支持升序/降序。",
+    difficulty: 2,
+    gradeRange: [9, 12] as [number, number],
+    skillLevel: "intermediate" as const,
+    starterCode: `# Custom Comparator Sorter
+# TODO: Sort student records by different fields
+
+students = [
+    {"name": "Alice", "gpa": 3.8, "age": 20},
+    {"name": "Bob", "gpa": 3.5, "age": 22},
+    {"name": "Carol", "gpa": 3.9, "age": 19},
+    {"name": "Dave", "gpa": 3.5, "age": 21},
+    {"name": "Eve", "gpa": 3.7, "age": 20},
+]
+
+def merge_sort(arr, compare):
+    """Merge sort using a custom compare function"""
+    # compare(a, b) returns True if a should come before b
+    # TODO: implement merge sort with custom comparator
+    pass
+
+def print_students(students, label=""):
+    if label: print(f"\\n{label}")
+    for s in students:
+        print(f"  {s['name']:6s} | GPA: {s['gpa']} | Age: {s['age']}")
+
+print_students(students, "Original:")
+
+# TODO: Sort by GPA descending
+# TODO: Sort by name ascending
+# TODO: Sort by age ascending, then by name for ties`,
+    hint: "Write a merge sort that takes a compare(a,b) function. Create different compare functions for each sorting criterion.\n写一个接受 compare(a,b) 函数的归并排序。为每种排序条件创建不同的比较函数。",
+    solution: `students = [
+    {"name": "Alice", "gpa": 3.8, "age": 20},
+    {"name": "Bob", "gpa": 3.5, "age": 22},
+    {"name": "Carol", "gpa": 3.9, "age": 19},
+    {"name": "Dave", "gpa": 3.5, "age": 21},
+    {"name": "Eve", "gpa": 3.7, "age": 20},
+]
+
+def merge_sort(arr, compare):
+    if len(arr) <= 1: return arr
+    mid = len(arr) // 2
+    left = merge_sort(arr[:mid], compare)
+    right = merge_sort(arr[mid:], compare)
+    result = []
+    i = j = 0
+    while i < len(left) and j < len(right):
+        if compare(left[i], right[j]):
+            result.append(left[i]); i += 1
+        else:
+            result.append(right[j]); j += 1
+    result.extend(left[i:])
+    result.extend(right[j:])
+    return result
+
+def print_students(students, label=""):
+    if label: print(f"\\n{label}")
+    for s in students:
+        print(f"  {s['name']:6s} | GPA: {s['gpa']} | Age: {s['age']}")
+
+print_students(students, "Original:")
+by_gpa = merge_sort(students, lambda a, b: a['gpa'] > b['gpa'])
+print_students(by_gpa, "By GPA (desc):")
+by_name = merge_sort(students, lambda a, b: a['name'] < b['name'])
+print_students(by_name, "By Name (asc):")
+by_age_name = merge_sort(students, lambda a, b: (a['age'], a['name']) < (b['age'], b['name']))
+print_students(by_age_name, "By Age then Name:")`,
+    expectedOutput: "",
+    tags: ["algorithms", "sorting", "merge-sort", "comparators"],
+    fromLesson: "alg-2-2",
+    language: "python",
+    category: "Algorithms",
+    categoryZh: "算法",
+  },
+  {
+    id: "alg-proj-6",
+    title: "🏁 Sort Race Simulator",
+    titleZh: "🏁 排序竞赛模拟器",
+    description: "Build a simulator that races different sorting algorithms and reports operation counts (comparisons and swaps).",
+    descriptionZh: "构建排序竞赛模拟器，比较不同排序算法的操作计数（比较和交换次数）。",
+    difficulty: 2,
+    gradeRange: [9, 12] as [number, number],
+    skillLevel: "intermediate" as const,
+    starterCode: `# Sort Race Simulator
+import random
+
+# TODO: Implement each sort, counting comparisons and swaps
+def bubble_sort(arr):
+    comparisons = swaps = 0
+    # TODO: return (sorted_arr, comparisons, swaps)
+    pass
+
+def selection_sort(arr):
+    comparisons = swaps = 0
+    # TODO
+    pass
+
+def insertion_sort(arr):
+    comparisons = swaps = 0
+    # TODO
+    pass
+
+def merge_sort_count(arr):
+    comparisons = [0]
+    # TODO
+    pass
+
+# Test on different data patterns
+def race(n):
+    random.seed(42)
+    random_data = [random.randint(1, 1000) for _ in range(n)]
+    sorted_data = sorted(random_data)
+    reversed_data = sorted_data[::-1]
+
+    print(f"Racing with n={n}")
+    print(f"{'Algorithm':>15} | {'Random Comp':>11} | {'Sorted Comp':>11} | {'Reverse Comp':>12}")
+    print("-" * 60)
+    # TODO: Run each sort on each data pattern
+    # TODO: Print comparison table
+
+race(100)`,
+    hint: "Increment counters inside each sort algorithm whenever a comparison or swap happens. Use copies of the array for each test.\n在每种排序算法中，每次比较或交换时增加计数器。每次测试用数组副本。",
+    solution: `import random
+
+def bubble_sort(arr):
+    a = arr[:]; comp = swaps = 0
+    for i in range(len(a)):
+        for j in range(len(a)-1-i):
+            comp += 1
+            if a[j] > a[j+1]:
+                a[j], a[j+1] = a[j+1], a[j]; swaps += 1
+    return a, comp, swaps
+
+def selection_sort(arr):
+    a = arr[:]; comp = swaps = 0
+    for i in range(len(a)):
+        m = i
+        for j in range(i+1, len(a)):
+            comp += 1
+            if a[j] < a[m]: m = j
+        if m != i: a[i], a[m] = a[m], a[i]; swaps += 1
+    return a, comp, swaps
+
+def insertion_sort(arr):
+    a = arr[:]; comp = swaps = 0
+    for i in range(1, len(a)):
+        key = a[i]; j = i - 1
+        while j >= 0:
+            comp += 1
+            if a[j] > key:
+                a[j+1] = a[j]; j -= 1; swaps += 1
+            else: break
+        a[j+1] = key
+    return a, comp, swaps
+
+def race(n):
+    random.seed(42)
+    random_data = [random.randint(1, 1000) for _ in range(n)]
+    sorted_data = sorted(random_data)
+    reversed_data = sorted_data[::-1]
+    datasets = {"Random": random_data, "Sorted": sorted_data, "Reversed": reversed_data}
+    algos = {"Bubble": bubble_sort, "Selection": selection_sort, "Insertion": insertion_sort}
+    print(f"Racing with n={n}")
+    print(f"{'Algorithm':>12} | {'Random':>10} | {'Sorted':>10} | {'Reversed':>10}")
+    print("-" * 50)
+    for name, fn in algos.items():
+        results = []
+        for _, data in datasets.items():
+            _, comp, _ = fn(data)
+            results.append(comp)
+        print(f"{name:>12} | {results[0]:>10} | {results[1]:>10} | {results[2]:>10}")
+
+race(100)`,
+    expectedOutput: "",
+    tags: ["algorithms", "sorting", "benchmarking", "comparison"],
+    fromLesson: "alg-2-4",
+    language: "python",
+    category: "Algorithms",
+    categoryZh: "算法",
+  },
+
+  // ═══ 🌀 ALGORITHM PROJECTS — RECURSION ═══
+  {
+    id: "alg-proj-7",
+    title: "🌀 Fractal Pattern Drawer",
+    titleZh: "🌀 分形图案绘制器",
+    description: "Draw recursive fractal patterns like Sierpinski triangle and Koch snowflake using text art.",
+    descriptionZh: "用文本艺术绘制递归分形图案，如 Sierpinski 三角形和 Koch 雪花。",
+    difficulty: 3,
+    gradeRange: [9, 12] as [number, number],
+    skillLevel: "advanced" as const,
+    starterCode: `# Fractal Pattern Drawer
+# TODO: Draw Sierpinski Triangle using recursion
+
+def sierpinski(n):
+    """Draw Sierpinski triangle of depth n using text"""
+    # TODO: Generate the triangle pattern
+    # Depth 0: single '*'
+    # Depth 1:   *
+    #           * *
+    # Depth 2:     *
+    #             * *
+    #            *   *
+    #           * * * *
+    pass
+
+# TODO: Draw a recursive tree pattern
+def draw_tree(depth, prefix=""):
+    # TODO: Print a tree structure recursively
+    pass
+
+print("=== Sierpinski Triangle (depth 3) ===")
+sierpinski(3)
+print()
+print("=== Recursive Tree (depth 3) ===")
+draw_tree(3)`,
+    hint: "Sierpinski: depth 0 is ['*']. Each depth doubles height. Top half is previous triangle centered. Bottom half is two copies side by side.\nSierpinski：深度 0 是 ['*']。每个深度高度翻倍。上半是居中的前一个三角形。下半是两个副本并排。",
+    solution: `def sierpinski(n):
+    if n == 0:
+        return ['*']
+    prev = sierpinski(n - 1)
+    h = len(prev)
+    w = 2 ** n - 1
+    top = [' ' * (h) + line + ' ' * (h) for line in prev]
+    bottom = [line + ' ' + line for line in prev]
+    result = top + bottom
+    for line in result:
+        print(line)
+    return result
+
+def draw_tree(depth, prefix="", is_left=True):
+    if depth == 0:
+        return
+    print(prefix + ("├── " if is_left else "└── ") + f"Node(depth={depth})")
+    new_prefix = prefix + ("│   " if is_left else "    ")
+    if depth > 1:
+        draw_tree(depth - 1, new_prefix, True)
+        draw_tree(depth - 1, new_prefix, False)
+
+print("=== Sierpinski Triangle (depth 3) ===")
+sierpinski(3)
+print()
+print("=== Recursive Tree (depth 3) ===")
+draw_tree(3, "", False)`,
+    expectedOutput: "",
+    tags: ["algorithms", "recursion", "fractals", "visualization"],
+    fromLesson: "alg-3-1",
+    language: "python",
+    category: "Algorithms",
+    categoryZh: "算法",
+  },
+  {
+    id: "alg-proj-8",
+    title: "🏗️ Tower of Hanoi Simulator",
+    titleZh: "🏗️ 汉诺塔模拟器",
+    description: "Build an interactive Tower of Hanoi solver that shows the state of all three pegs after each move.",
+    descriptionZh: "构建汉诺塔求解器，每步移动后显示三根柱子的状态。",
+    difficulty: 2,
+    gradeRange: [9, 12] as [number, number],
+    skillLevel: "intermediate" as const,
+    starterCode: `# Tower of Hanoi Simulator
+# TODO: Show visual state of pegs after each move
+
+class HanoiSimulator:
+    def __init__(self, n):
+        self.n = n
+        self.pegs = {'A': list(range(n, 0, -1)), 'B': [], 'C': []}
+        self.moves = 0
+    
+    def display(self):
+        """Show current state of all pegs"""
+        # TODO: Print visual representation
+        pass
+    
+    def move(self, src, dst):
+        """Move top disk from src to dst"""
+        # TODO: Validate move and update state
+        pass
+    
+    def solve(self, n=None, src='A', dst='C', aux='B'):
+        """Recursively solve"""
+        # TODO: Implement recursive solution with display
+        pass
+
+sim = HanoiSimulator(4)
+print("Initial state:")
+sim.display()
+print()
+sim.solve()
+print(f"\\nSolved in {sim.moves} moves!")`,
+    hint: "Each peg is a list (stack). Display by finding the max width (bottom disk) and centering each disk.\n每根柱子是一个列表（栈）。显示时找最大宽度（底部盘）并居中每个盘。",
+    solution: `class HanoiSimulator:
+    def __init__(self, n):
+        self.n = n
+        self.pegs = {'A': list(range(n, 0, -1)), 'B': [], 'C': []}
+        self.moves = 0
+    
+    def display(self):
+        max_h = self.n
+        for level in range(max_h - 1, -1, -1):
+            row = ""
+            for peg in ['A', 'B', 'C']:
+                if level < len(self.pegs[peg]):
+                    disk = self.pegs[peg][level]
+                    bar = '=' * (disk * 2 - 1)
+                    row += bar.center(self.n * 2 + 1) + " "
+                else:
+                    row += '|'.center(self.n * 2 + 1) + " "
+            print(row)
+        print('-' * (self.n * 2 + 1) + " " + '-' * (self.n * 2 + 1) + " " + '-' * (self.n * 2 + 1))
+        print('A'.center(self.n * 2 + 1) + " " + 'B'.center(self.n * 2 + 1) + " " + 'C'.center(self.n * 2 + 1))
+        print()
+    
+    def move(self, src, dst):
+        disk = self.pegs[src].pop()
+        self.pegs[dst].append(disk)
+        self.moves += 1
+        print(f"Move {self.moves}: disk {disk} from {src} to {dst}")
+        self.display()
+    
+    def solve(self, n=None, src='A', dst='C', aux='B'):
+        if n is None: n = self.n
+        if n == 1:
+            self.move(src, dst)
+            return
+        self.solve(n-1, src, aux, dst)
+        self.move(src, dst)
+        self.solve(n-1, aux, dst, src)
+
+sim = HanoiSimulator(3)
+print("Initial state:")
+sim.display()
+sim.solve()
+print(f"Solved in {sim.moves} moves!")`,
+    expectedOutput: "",
+    tags: ["algorithms", "recursion", "tower-of-hanoi", "simulation"],
+    fromLesson: "alg-3-2",
+    language: "python",
+    category: "Algorithms",
+    categoryZh: "算法",
+  },
+  {
+    id: "alg-proj-9",
+    title: "🧩 Maze Solver",
+    titleZh: "🧩 迷宫求解器",
+    description: "Solve a maze using recursive backtracking. Display the maze and the solution path.",
+    descriptionZh: "用递归回溯法解迷宫。显示迷宫和解决路径。",
+    difficulty: 3,
+    gradeRange: [9, 12] as [number, number],
+    skillLevel: "advanced" as const,
+    starterCode: `# Maze Solver using Backtracking
+# '#' = wall, '.' = path, 'S' = start, 'E' = end, '*' = solution path
+
+maze = [
+    ['S', '.', '#', '#', '#'],
+    ['#', '.', '.', '.', '#'],
+    ['#', '#', '#', '.', '#'],
+    ['#', '.', '.', '.', '.'],
+    ['#', '#', '#', '#', 'E'],
+]
+
+def print_maze(maze):
+    for row in maze:
+        print(' '.join(row))
+
+def solve_maze(maze, row, col, path):
+    """Try to find path from (row,col) to 'E'"""
+    # TODO: Check bounds and walls
+    # TODO: Mark current cell as visited
+    # TODO: Try all 4 directions recursively
+    # TODO: Backtrack if dead end
+    pass
+
+print("Maze:")
+print_maze(maze)
+print()
+
+# Find start position
+start_r = start_c = 0
+for i in range(len(maze)):
+    for j in range(len(maze[0])):
+        if maze[i][j] == 'S':
+            start_r, start_c = i, j
+
+if solve_maze(maze, start_r, start_c, []):
+    print("Solution:")
+    print_maze(maze)
+else:
+    print("No solution!")`,
+    hint: "Check bounds, walls, and visited cells. Mark path with '*'. Try up/down/left/right. Unmark on backtrack.\n检查边界、墙壁和已访问。用 '*' 标记路径。尝试四个方向。回溯时取消标记。",
+    solution: `maze = [
+    ['S', '.', '#', '#', '#'],
+    ['#', '.', '.', '.', '#'],
+    ['#', '#', '#', '.', '#'],
+    ['#', '.', '.', '.', '.'],
+    ['#', '#', '#', '#', 'E'],
+]
+
+def print_maze(maze):
+    for row in maze:
+        print(' '.join(row))
+
+def solve_maze(maze, row, col, path):
+    rows, cols = len(maze), len(maze[0])
+    if row < 0 or row >= rows or col < 0 or col >= cols:
+        return False
+    if maze[row][col] == '#' or maze[row][col] == '*':
+        return False
+    if maze[row][col] == 'E':
+        return True
+    if maze[row][col] != 'S':
+        maze[row][col] = '*'
+    for dr, dc in [(0,1),(1,0),(0,-1),(-1,0)]:
+        if solve_maze(maze, row+dr, col+dc, path):
+            return True
+    if maze[row][col] != 'S':
+        maze[row][col] = '.'
+    return False
+
+print("Maze:")
+print_maze(maze)
+print()
+
+start_r = start_c = 0
+for i in range(len(maze)):
+    for j in range(len(maze[0])):
+        if maze[i][j] == 'S':
+            start_r, start_c = i, j
+
+if solve_maze(maze, start_r, start_c, []):
+    print("Solution:")
+    print_maze(maze)
+else:
+    print("No solution!")`,
+    expectedOutput: "",
+    tags: ["algorithms", "recursion", "backtracking", "maze"],
+    fromLesson: "alg-3-3",
+    language: "python",
+    category: "Algorithms",
+    categoryZh: "算法",
+  },
+
+  // ═══ 🧩 ALGORITHM PROJECTS — DYNAMIC PROGRAMMING ═══
+  {
+    id: "alg-proj-10",
+    title: "🪙 Coin Change Calculator",
+    titleZh: "🪙 硬币找零计算器",
+    description: "Build a coin change calculator that finds both the minimum coins needed AND which coins to use.",
+    descriptionZh: "构建硬币找零计算器，找到最少硬币数和具体使用哪些硬币。",
+    difficulty: 2,
+    gradeRange: [9, 12] as [number, number],
+    skillLevel: "intermediate" as const,
+    starterCode: `# Coin Change Calculator with Path Reconstruction
+# TODO: Find minimum coins AND which coins to use
+
+def coin_change(coins, amount):
+    """Return (min_coins, coins_used_list)"""
+    # TODO: DP to find minimum coins
+    # TODO: Backtrack to find which coins were used
+    pass
+
+# Test with US coins
+coins = [1, 5, 10, 25]
+for amount in [41, 67, 99, 100]:
+    result = coin_change(coins, amount)
+    if result:
+        min_count, used = result
+        print(f"{amount} cents = {min_count} coins: {used}")`,
+    hint: "Use DP for min coins. Track which coin was used at each amount for path reconstruction.\nDP 求最少硬币。在每个金额跟踪使用了哪个硬币以重建路径。",
+    solution: `def coin_change(coins, amount):
+    dp = [float('inf')] * (amount + 1)
+    dp[0] = 0
+    used = [-1] * (amount + 1)
+    for i in range(1, amount + 1):
+        for c in coins:
+            if c <= i and dp[i-c] + 1 < dp[i]:
+                dp[i] = dp[i-c] + 1
+                used[i] = c
+    if dp[amount] == float('inf'):
+        return None
+    result = []
+    a = amount
+    while a > 0:
+        result.append(used[a])
+        a -= used[a]
+    return dp[amount], sorted(result, reverse=True)
+
+coins = [1, 5, 10, 25]
+for amount in [41, 67, 99, 100]:
+    result = coin_change(coins, amount)
+    if result:
+        min_count, used_coins = result
+        print(f"{amount} cents = {min_count} coins: {used_coins}")`,
+    expectedOutput: "",
+    tags: ["algorithms", "dynamic-programming", "coin-change"],
+    fromLesson: "alg-4-2",
+    language: "python",
+    category: "Algorithms",
+    categoryZh: "算法",
+  },
+  {
+    id: "alg-proj-11",
+    title: "📝 Longest Common Subsequence Diff",
+    titleZh: "📝 最长公共子序列比较器",
+    description: "Build a text diff tool using LCS that highlights additions and deletions between two strings.",
+    descriptionZh: "用 LCS 构建文本比较工具，高亮两个字符串之间的添加和删除。",
+    difficulty: 3,
+    gradeRange: [9, 12] as [number, number],
+    skillLevel: "advanced" as const,
+    starterCode: `# LCS-based Text Diff Tool
+# TODO: Find LCS and show diff between two texts
+
+def lcs_table(s1, s2):
+    """Build the LCS DP table"""
+    # TODO
+    pass
+
+def backtrack_lcs(s1, s2, dp):
+    """Reconstruct the LCS string"""
+    # TODO
+    pass
+
+def show_diff(s1, s2):
+    """Show additions (+) and deletions (-) between s1 and s2"""
+    # TODO: Use LCS to compute diff
+    pass
+
+# Test
+text1 = "ALGORITHM"
+text2 = "ALTRUISTIC"
+print(f"Text 1: {text1}")
+print(f"Text 2: {text2}")
+show_diff(text1, text2)
+
+print()
+text1 = "ABCDEF"
+text2 = "ACBCF"
+print(f"Text 1: {text1}")
+print(f"Text 2: {text2}")
+show_diff(text1, text2)`,
+    hint: "Build LCS table, backtrack to find common chars. Chars not in LCS are additions (in s2) or deletions (from s1).\n建 LCS 表，回溯找公共字符。不在 LCS 中的是添加（在 s2）或删除（从 s1）。",
+    solution: `def lcs_table(s1, s2):
+    m, n = len(s1), len(s2)
+    dp = [[0]*(n+1) for _ in range(m+1)]
+    for i in range(1, m+1):
+        for j in range(1, n+1):
+            if s1[i-1] == s2[j-1]:
+                dp[i][j] = dp[i-1][j-1] + 1
+            else:
+                dp[i][j] = max(dp[i-1][j], dp[i][j-1])
+    return dp
+
+def show_diff(s1, s2):
+    dp = lcs_table(s1, s2)
+    i, j = len(s1), len(s2)
+    diff = []
+    while i > 0 and j > 0:
+        if s1[i-1] == s2[j-1]:
+            diff.append((' ', s1[i-1]))
+            i -= 1; j -= 1
+        elif dp[i-1][j] >= dp[i][j-1]:
+            diff.append(('-', s1[i-1]))
+            i -= 1
+        else:
+            diff.append(('+', s2[j-1]))
+            j -= 1
+    while i > 0:
+        diff.append(('-', s1[i-1])); i -= 1
+    while j > 0:
+        diff.append(('+', s2[j-1])); j -= 1
+    diff.reverse()
+    lcs_str = ''.join(c for op, c in diff if op == ' ')
+    print(f"LCS: {lcs_str} (length {len(lcs_str)})")
+    print("Diff:")
+    for op, c in diff:
+        if op == '-': print(f"  - {c} (removed)")
+        elif op == '+': print(f"  + {c} (added)")
+        else: print(f"    {c}")
+
+text1 = "ALGORITHM"
+text2 = "ALTRUISTIC"
+print(f"Text 1: {text1}")
+print(f"Text 2: {text2}")
+show_diff(text1, text2)
+
+print()
+text1 = "ABCDEF"
+text2 = "ACBCF"
+print(f"Text 1: {text1}")
+print(f"Text 2: {text2}")
+show_diff(text1, text2)`,
+    expectedOutput: "",
+    tags: ["algorithms", "dynamic-programming", "lcs", "text-diff"],
+    fromLesson: "alg-4-3",
+    language: "python",
+    category: "Algorithms",
+    categoryZh: "算法",
+  },
+  {
+    id: "alg-proj-12",
+    title: "🗺️ Grid Pathfinder",
+    titleZh: "🗺️ 网格寻路器",
+    description: "Build a grid pathfinder that counts paths, finds minimum cost paths, and visualizes them.",
+    descriptionZh: "构建网格寻路器，计算路径数、找最小成本路径并可视化。",
+    difficulty: 3,
+    gradeRange: [9, 12] as [number, number],
+    skillLevel: "advanced" as const,
+    starterCode: `# Grid Pathfinder
+# TODO: Count paths, find min cost, and visualize
+
+def count_paths(grid):
+    """Count all paths from top-left to bottom-right (right/down only)"""
+    # 0 = open, 1 = blocked
+    # TODO
+    pass
+
+def min_cost_path(grid):
+    """Find minimum cost path and return (cost, path)"""
+    # TODO
+    pass
+
+def visualize_path(grid, path):
+    """Display grid with path marked"""
+    # TODO
+    pass
+
+# Test: path counting with obstacles
+obstacle_grid = [
+    [0, 0, 0, 0],
+    [0, 1, 0, 0],
+    [0, 0, 0, 1],
+    [0, 0, 0, 0],
+]
+print(f"Paths through obstacle grid: {count_paths(obstacle_grid)}")
+
+# Test: minimum cost path
+cost_grid = [
+    [1, 3, 1, 2],
+    [1, 5, 1, 3],
+    [4, 2, 1, 1],
+    [2, 1, 3, 1],
+]
+cost, path = min_cost_path(cost_grid)
+print(f"Min cost: {cost}")
+visualize_path(cost_grid, path)`,
+    hint: "For count: dp[i][j] = dp[i-1][j] + dp[i][j-1] (0 if blocked). For min cost: similar but take min + grid[i][j]. Backtrack for path.\n计数：dp[i][j] = dp[i-1][j] + dp[i][j-1]。最小成本：类似但取 min + grid[i][j]。回溯找路径。",
+    solution: `def count_paths(grid):
+    m, n = len(grid), len(grid[0])
+    dp = [[0]*n for _ in range(m)]
+    for i in range(m):
+        if grid[i][0] == 1: break
+        dp[i][0] = 1
+    for j in range(n):
+        if grid[0][j] == 1: break
+        dp[0][j] = 1
+    for i in range(1, m):
+        for j in range(1, n):
+            if grid[i][j] == 0:
+                dp[i][j] = dp[i-1][j] + dp[i][j-1]
+    return dp[m-1][n-1]
+
+def min_cost_path(grid):
+    m, n = len(grid), len(grid[0])
+    dp = [[0]*n for _ in range(m)]
+    dp[0][0] = grid[0][0]
+    for i in range(1,m): dp[i][0] = dp[i-1][0]+grid[i][0]
+    for j in range(1,n): dp[0][j] = dp[0][j-1]+grid[0][j]
+    for i in range(1,m):
+        for j in range(1,n):
+            dp[i][j] = min(dp[i-1][j], dp[i][j-1]) + grid[i][j]
+    path = []
+    i, j = m-1, n-1
+    while i > 0 or j > 0:
+        path.append((i,j))
+        if i == 0: j -= 1
+        elif j == 0: i -= 1
+        elif dp[i-1][j] < dp[i][j-1]: i -= 1
+        else: j -= 1
+    path.append((0,0))
+    return dp[m-1][n-1], path[::-1]
+
+def visualize_path(grid, path):
+    path_set = set(path)
+    for i in range(len(grid)):
+        row = ""
+        for j in range(len(grid[0])):
+            if (i,j) in path_set:
+                row += f"[{grid[i][j]}]"
+            else:
+                row += f" {grid[i][j]} "
+        print(row)
+
+obstacle_grid = [
+    [0, 0, 0, 0],
+    [0, 1, 0, 0],
+    [0, 0, 0, 1],
+    [0, 0, 0, 0],
+]
+print(f"Paths through obstacle grid: {count_paths(obstacle_grid)}")
+
+cost_grid = [
+    [1, 3, 1, 2],
+    [1, 5, 1, 3],
+    [4, 2, 1, 1],
+    [2, 1, 3, 1],
+]
+cost, path = min_cost_path(cost_grid)
+print(f"Min cost: {cost}")
+visualize_path(cost_grid, path)`,
+    expectedOutput: "",
+    tags: ["algorithms", "dynamic-programming", "grid", "pathfinding"],
+    fromLesson: "alg-4-4",
+    language: "python",
+    category: "Algorithms",
+    categoryZh: "算法",
+  },
+
+  // ═══ 🕸️ ALGORITHM PROJECTS — GRAPHS ═══
+  {
+    id: "alg-proj-13",
+    title: "🕸️ Social Network Analyzer",
+    titleZh: "🕸️ 社交网络分析器",
+    description: "Build a social network analyzer using BFS/DFS to find friend connections, degrees of separation, and communities.",
+    descriptionZh: "用 BFS/DFS 构建社交网络分析器，找朋友连接、分离度和社区。",
+    difficulty: 2,
+    gradeRange: [9, 12] as [number, number],
+    skillLevel: "intermediate" as const,
+    starterCode: `# Social Network Analyzer
+from collections import deque
+
+# TODO: Build a social network and analyze it
+
+class SocialNetwork:
+    def __init__(self):
+        self.friends = {}  # adjacency list
+    
+    def add_person(self, name):
+        # TODO
+        pass
+    
+    def add_friendship(self, a, b):
+        # TODO: bidirectional
+        pass
+    
+    def degrees_of_separation(self, a, b):
+        """BFS to find shortest path between two people"""
+        # TODO
+        pass
+    
+    def find_communities(self):
+        """Find connected components (friend groups)"""
+        # TODO
+        pass
+    
+    def most_popular(self):
+        """Person with most friends"""
+        # TODO
+        pass
+
+# Build network
+net = SocialNetwork()
+for name in ['Alice','Bob','Carol','Dave','Eve','Frank','Grace','Henry']:
+    net.add_person(name)
+
+friendships = [('Alice','Bob'),('Alice','Carol'),('Bob','Dave'),
+               ('Carol','Dave'),('Eve','Frank'),('Frank','Grace')]
+for a, b in friendships:
+    net.add_friendship(a, b)
+
+print("Most popular:", net.most_popular())
+print("Alice to Dave:", net.degrees_of_separation('Alice', 'Dave'))
+print("Alice to Eve:", net.degrees_of_separation('Alice', 'Eve'))
+print("Communities:", net.find_communities())`,
+    hint: "Use dict of sets for adjacency. BFS for shortest path. DFS/BFS from each unvisited node for communities.\n用字典和集合做邻接表。BFS 找最短路径。从每个未访问节点 DFS/BFS 找社区。",
+    solution: `from collections import deque
+
+class SocialNetwork:
+    def __init__(self):
+        self.friends = {}
+    
+    def add_person(self, name):
+        if name not in self.friends:
+            self.friends[name] = set()
+    
+    def add_friendship(self, a, b):
+        self.friends[a].add(b)
+        self.friends[b].add(a)
+    
+    def degrees_of_separation(self, a, b):
+        if a not in self.friends or b not in self.friends:
+            return -1
+        visited = {a}
+        queue = deque([(a, 0)])
+        while queue:
+            person, dist = queue.popleft()
+            if person == b:
+                return dist
+            for friend in self.friends[person]:
+                if friend not in visited:
+                    visited.add(friend)
+                    queue.append((friend, dist + 1))
+        return -1
+    
+    def find_communities(self):
+        visited = set()
+        communities = []
+        for person in self.friends:
+            if person not in visited:
+                community = []
+                stack = [person]
+                while stack:
+                    p = stack.pop()
+                    if p in visited: continue
+                    visited.add(p)
+                    community.append(p)
+                    for f in self.friends[p]:
+                        if f not in visited:
+                            stack.append(f)
+                communities.append(sorted(community))
+        return communities
+    
+    def most_popular(self):
+        return max(self.friends, key=lambda p: len(self.friends[p]))
+
+net = SocialNetwork()
+for name in ['Alice','Bob','Carol','Dave','Eve','Frank','Grace','Henry']:
+    net.add_person(name)
+
+friendships = [('Alice','Bob'),('Alice','Carol'),('Bob','Dave'),
+               ('Carol','Dave'),('Eve','Frank'),('Frank','Grace')]
+for a, b in friendships:
+    net.add_friendship(a, b)
+
+print("Most popular:", net.most_popular())
+print("Alice to Dave:", net.degrees_of_separation('Alice', 'Dave'))
+print("Alice to Eve:", net.degrees_of_separation('Alice', 'Eve'))
+print("Communities:", net.find_communities())`,
+    expectedOutput: "",
+    tags: ["algorithms", "graphs", "bfs", "social-network"],
+    fromLesson: "alg-5-1",
+    language: "python",
+    category: "Algorithms",
+    categoryZh: "算法",
+  },
+  {
+    id: "alg-proj-14",
+    title: "🗺️ Shortest Path Navigator",
+    titleZh: "🗺️ 最短路径导航器",
+    description: "Build a city navigation system using Dijkstra's algorithm to find shortest routes between locations.",
+    descriptionZh: "用 Dijkstra 算法构建城市导航系统，找位置之间的最短路线。",
+    difficulty: 3,
+    gradeRange: [9, 12] as [number, number],
+    skillLevel: "advanced" as const,
+    starterCode: `# Shortest Path Navigator
+import heapq
+
+# TODO: Build a navigation system with Dijkstra
+
+class CityMap:
+    def __init__(self):
+        self.roads = {}  # city -> [(neighbor, distance)]
+    
+    def add_road(self, city1, city2, distance):
+        # TODO: bidirectional road
+        pass
+    
+    def shortest_path(self, start, end):
+        """Return (distance, path) using Dijkstra"""
+        # TODO
+        pass
+    
+    def all_reachable(self, start, max_dist):
+        """Find all cities within max_dist from start"""
+        # TODO
+        pass
+
+# Build city map
+city = CityMap()
+roads = [
+    ('Home', 'School', 3), ('Home', 'Park', 5), ('Home', 'Store', 8),
+    ('School', 'Library', 2), ('School', 'Park', 4),
+    ('Park', 'Gym', 3), ('Library', 'Store', 6),
+    ('Gym', 'Store', 2), ('Gym', 'Restaurant', 4),
+    ('Store', 'Restaurant', 1),
+]
+for c1, c2, d in roads:
+    city.add_road(c1, c2, d)
+
+dist, path = city.shortest_path('Home', 'Restaurant')
+print(f"Home → Restaurant: {dist} km via {' → '.join(path)}")
+
+dist, path = city.shortest_path('Library', 'Gym')
+print(f"Library → Gym: {dist} km via {' → '.join(path)}")
+
+print(f"\\nPlaces within 6 km of Home: {city.all_reachable('Home', 6)}")`,
+    hint: "Dijkstra: use min-heap with (distance, node). Track parent pointers to reconstruct path.\nDijkstra：用最小堆 (距离, 节点)。跟踪父指针重建路径。",
+    solution: `import heapq
+
+class CityMap:
+    def __init__(self):
+        self.roads = {}
+    
+    def add_road(self, city1, city2, distance):
+        self.roads.setdefault(city1, []).append((city2, distance))
+        self.roads.setdefault(city2, []).append((city1, distance))
+    
+    def shortest_path(self, start, end):
+        dist = {start: 0}
+        parent = {start: None}
+        heap = [(0, start)]
+        while heap:
+            d, node = heapq.heappop(heap)
+            if node == end:
+                path = []
+                n = end
+                while n is not None:
+                    path.append(n)
+                    n = parent.get(n)
+                return d, path[::-1]
+            if d > dist.get(node, float('inf')): continue
+            for nbr, w in self.roads.get(node, []):
+                nd = d + w
+                if nd < dist.get(nbr, float('inf')):
+                    dist[nbr] = nd
+                    parent[nbr] = node
+                    heapq.heappush(heap, (nd, nbr))
+        return float('inf'), []
+    
+    def all_reachable(self, start, max_dist):
+        dist = {start: 0}
+        heap = [(0, start)]
+        while heap:
+            d, node = heapq.heappop(heap)
+            if d > dist.get(node, float('inf')): continue
+            for nbr, w in self.roads.get(node, []):
+                nd = d + w
+                if nd <= max_dist and nd < dist.get(nbr, float('inf')):
+                    dist[nbr] = nd
+                    heapq.heappush(heap, (nd, nbr))
+        return sorted([c for c, d in dist.items() if c != start])
+
+city = CityMap()
+roads = [
+    ('Home', 'School', 3), ('Home', 'Park', 5), ('Home', 'Store', 8),
+    ('School', 'Library', 2), ('School', 'Park', 4),
+    ('Park', 'Gym', 3), ('Library', 'Store', 6),
+    ('Gym', 'Store', 2), ('Gym', 'Restaurant', 4),
+    ('Store', 'Restaurant', 1),
+]
+for c1, c2, d in roads:
+    city.add_road(c1, c2, d)
+
+dist, path = city.shortest_path('Home', 'Restaurant')
+print(f"Home -> Restaurant: {dist} km via {' -> '.join(path)}")
+
+dist, path = city.shortest_path('Library', 'Gym')
+print(f"Library -> Gym: {dist} km via {' -> '.join(path)}")
+
+print(f"\\nPlaces within 6 km of Home: {city.all_reachable('Home', 6)}")`,
+    expectedOutput: "",
+    tags: ["algorithms", "graphs", "dijkstra", "shortest-path"],
+    fromLesson: "alg-5-2",
+    language: "python",
+    category: "Algorithms",
+    categoryZh: "算法",
+  },
+  {
+    id: "alg-proj-15",
+    title: "🏗️ Task Scheduler (Topological Sort)",
+    titleZh: "🏗️ 任务调度器（拓扑排序）",
+    description: "Build a task scheduler that determines the correct execution order based on dependencies.",
+    descriptionZh: "构建任务调度器，根据依赖关系确定正确的执行顺序。",
+    difficulty: 3,
+    gradeRange: [9, 12] as [number, number],
+    skillLevel: "advanced" as const,
+    starterCode: `# Task Scheduler using Topological Sort
+from collections import deque
+
+# TODO: Schedule tasks respecting dependencies
+
+class TaskScheduler:
+    def __init__(self):
+        self.tasks = {}  # task -> set of dependencies
+    
+    def add_task(self, task, depends_on=None):
+        # TODO
+        pass
+    
+    def get_schedule(self):
+        """Return ordered list of tasks (topological sort)"""
+        # TODO: Kahn's algorithm
+        pass
+    
+    def detect_cycle(self):
+        """Check for circular dependencies"""
+        # TODO
+        pass
+    
+    def parallel_schedule(self):
+        """Group tasks that can run in parallel (same level in topo sort)"""
+        # TODO
+        pass
+
+# Build project tasks
+scheduler = TaskScheduler()
+scheduler.add_task("Design")
+scheduler.add_task("Frontend", ["Design"])
+scheduler.add_task("Backend", ["Design"])
+scheduler.add_task("Database", ["Design"])
+scheduler.add_task("API", ["Backend", "Database"])
+scheduler.add_task("UI", ["Frontend"])
+scheduler.add_task("Integration", ["API", "UI"])
+scheduler.add_task("Testing", ["Integration"])
+scheduler.add_task("Deploy", ["Testing"])
+
+print("Task Schedule:")
+schedule = scheduler.get_schedule()
+if schedule:
+    for i, task in enumerate(schedule, 1):
+        print(f"  {i}. {task}")
+
+print("\\nParallel Schedule:")
+for wave_num, wave in enumerate(scheduler.parallel_schedule(), 1):
+    print(f"  Wave {wave_num}: {wave}")
+
+print(f"\\nHas cycle: {scheduler.detect_cycle()}")`,
+    hint: "Kahn's: build in-degree map. Start with 0 in-degree tasks. For parallel: group by BFS level.\nKahn：建入度表。从入度 0 开始。并行：按 BFS 层分组。",
+    solution: `from collections import deque
+
+class TaskScheduler:
+    def __init__(self):
+        self.tasks = {}
+    
+    def add_task(self, task, depends_on=None):
+        if task not in self.tasks:
+            self.tasks[task] = set()
+        if depends_on:
+            for dep in depends_on:
+                self.tasks[task].add(dep)
+                if dep not in self.tasks:
+                    self.tasks[dep] = set()
+    
+    def get_schedule(self):
+        indeg = {t: len(deps) for t, deps in self.tasks.items()}
+        adj = {t: [] for t in self.tasks}
+        for t, deps in self.tasks.items():
+            for d in deps:
+                adj[d].append(t)
+        q = deque(sorted([t for t, d in indeg.items() if d == 0]))
+        order = []
+        while q:
+            task = q.popleft()
+            order.append(task)
+            for nbr in sorted(adj[task]):
+                indeg[nbr] -= 1
+                if indeg[nbr] == 0:
+                    q.append(nbr)
+        return order if len(order) == len(self.tasks) else None
+    
+    def detect_cycle(self):
+        schedule = self.get_schedule()
+        return schedule is None or len(schedule) != len(self.tasks)
+    
+    def parallel_schedule(self):
+        indeg = {t: len(deps) for t, deps in self.tasks.items()}
+        adj = {t: [] for t in self.tasks}
+        for t, deps in self.tasks.items():
+            for d in deps:
+                adj[d].append(t)
+        waves = []
+        current = sorted([t for t, d in indeg.items() if d == 0])
+        while current:
+            waves.append(current)
+            next_wave = []
+            for task in current:
+                for nbr in adj[task]:
+                    indeg[nbr] -= 1
+                    if indeg[nbr] == 0:
+                        next_wave.append(nbr)
+            current = sorted(next_wave)
+        return waves
+
+scheduler = TaskScheduler()
+scheduler.add_task("Design")
+scheduler.add_task("Frontend", ["Design"])
+scheduler.add_task("Backend", ["Design"])
+scheduler.add_task("Database", ["Design"])
+scheduler.add_task("API", ["Backend", "Database"])
+scheduler.add_task("UI", ["Frontend"])
+scheduler.add_task("Integration", ["API", "UI"])
+scheduler.add_task("Testing", ["Integration"])
+scheduler.add_task("Deploy", ["Testing"])
+
+print("Task Schedule:")
+schedule = scheduler.get_schedule()
+if schedule:
+    for i, task in enumerate(schedule, 1):
+        print(f"  {i}. {task}")
+
+print("\\nParallel Schedule:")
+for wave_num, wave in enumerate(scheduler.parallel_schedule(), 1):
+    print(f"  Wave {wave_num}: {wave}")
+
+print(f"\\nHas cycle: {scheduler.detect_cycle()}")`,
+    expectedOutput: "",
+    tags: ["algorithms", "graphs", "topological-sort", "scheduling"],
+    fromLesson: "alg-5-3",
+    language: "python",
+    category: "Algorithms",
+    categoryZh: "算法",
+  },
 ];

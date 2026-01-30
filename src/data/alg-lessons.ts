@@ -242,7 +242,10 @@ print(f"\\nMinimum value: {val} at index {idx}")`,
 | Worst case | O(n) | Target is last or missing |
 
 🔑 **Key takeaway:** Linear search is simple and universal, but slow for big data!
-线性搜索简单通用，但对大数据来说太慢！`,
+线性搜索简单通用，但对大数据来说太慢！
+
+> 💡 **This lesson's project is available in Code Lab!** You can build it there with full IDE features.
+> 💡 **这节课的项目可以在代码实验室中完成！** 那里有完整的 IDE 功能。`,
     },
     {
       type: "challenge",
@@ -540,7 +543,10 @@ print(f"  Binary is ~{int(linear_time/max(binary_time,0.000001))}x faster!")`,
 | 1,000,000 | 1,000,000 | 20 |
 
 🔑 **Binary search is one of the most important algorithms in CS!**
-二分搜索是计算机科学中最重要的算法之一！`,
+二分搜索是计算机科学中最重要的算法之一！
+
+> 💡 **This lesson's project is available in Code Lab!** You can build it there with full IDE features.
+> 💡 **这节课的项目可以在代码实验室中完成！** 那里有完整的 IDE 功能。`,
     },
     {
       type: "challenge",
@@ -810,7 +816,10 @@ print(f"  For 1000×1000: brute=1,000,000 vs staircase=2,000!")`,
 | Flatten + Binary | O(log(m·n)) | Fully sorted (row-major) |
 
 🔑 **The more structure (sorting), the faster we can search!**
-结构越多（排序），搜索越快！`,
+结构越多（排序），搜索越快！
+
+> 💡 **This lesson's project is available in Code Lab!** You can build it there with full IDE features.
+> 💡 **这节课的项目可以在代码实验室中完成！** 那里有完整的 IDE 功能。`,
     },
     {
       type: "challenge",
@@ -1115,7 +1124,10 @@ print(f"Random guessing average: 50 guesses")`,
 🧬 **DNA analysis** — Pattern matching in gene sequences
 
 🔑 **Key takeaway:** Mastering search = mastering efficiency. The right search algorithm can turn hours into milliseconds!
-掌握搜索 = 掌握效率。正确的搜索算法能把几小时变成几毫秒！`,
+掌握搜索 = 掌握效率。正确的搜索算法能把几小时变成几毫秒！
+
+> 💡 **This lesson's project is available in Code Lab!** You can build it there with full IDE features.
+> 💡 **这节课的项目可以在代码实验室中完成！** 那里有完整的 IDE 功能。`,
     },
     {
       type: "challenge",
@@ -1239,7 +1251,10 @@ Hey! I'm **Flash** ⚡, your sorting speedster! Sorting is one of the MOST funda
 > - 选择排序：找最小的牌放第一，再找次小的放第二
 > - 插入排序：一张张拿牌，每张插入手中正确的位置
 
-All three are O(n²) — simple but slow for big data!`,
+All three are O(n²) — simple but slow for big data!
+
+> 💡 **This lesson's project is available in Code Lab!** You can build it there with full IDE features.
+> 💡 **这节课的项目可以在代码实验室中完成！** 那里有完整的 IDE 功能。`,
     },
     {
       type: "code",
@@ -1689,7 +1704,10 @@ for n in [100, 1000, 10000, 100000]:
 | In-place | No ❌ |
 
 🔑 **Merge sort is the go-to when you need guaranteed O(n log n) and stability!**
-归并排序是需要保证 O(n log n) 和稳定性时的首选！`,
+归并排序是需要保证 O(n log n) 和稳定性时的首选！
+
+> 💡 **This lesson's project is available in Code Lab!** You can build it there with full IDE features.
+> 💡 **这节课的项目可以在代码实验室中完成！** 那里有完整的 IDE 功能。`,
     },
     {
       type: "challenge",
@@ -1968,7 +1986,10 @@ print(f"Pivot at index {p}: everything left ≤ 70, everything right > 70")`,
 | Stable | No ❌ | Yes ✅ |
 | In practice | Usually faster | More predictable |
 
-🔑 **Quick sort is the default choice when space matters and average case is good enough!**`,
+🔑 **Quick sort is the default choice when space matters and average case is good enough!**
+
+> 💡 **This lesson's project is available in Code Lab!** You can build it there with full IDE features.
+> 💡 **这节课的项目可以在代码实验室中完成！** 那里有完整的 IDE 功能。`,
     },
     {
       type: "challenge",
@@ -2245,7 +2266,10 @@ For **comparison-based** sorting (comparing elements with <, >, ==), the answer 
 
 These work by exploiting the STRUCTURE of the data, not just comparing!
 
-🔑 **Key takeaway:** O(n log n) is optimal for general sorting. Special data → special algorithms can go faster!`,
+🔑 **Key takeaway:** O(n log n) is optimal for general sorting. Special data → special algorithms can go faster!
+
+> 💡 **This lesson's project is available in Code Lab!** You can build it there with full IDE features.
+> 💡 **这节课的项目可以在代码实验室中完成！** 那里有完整的 IDE 功能。`,
     },
     {
       type: "interactive",
@@ -2379,7 +2403,10 @@ I'm **Spiral** 🌀, your recursion guide! Recursion is when a function **calls 
 
 🔑 **Two rules of recursion:**
 1. **Base case** — when to STOP (the smallest doll)
-2. **Recursive case** — how to make the problem SMALLER`,
+2. **Recursive case** — how to make the problem SMALLER
+
+> 💡 **This lesson's project is available in Code Lab!** You can build it there with full IDE features.
+> 💡 **这节课的项目可以在代码实验室中完成！** 那里有完整的 IDE 功能。`,
     },
     {
       type: "code",
@@ -2841,7 +2868,10 @@ print(f"  → {flatten(nested)}")`,
 1. Define the base case FIRST
 2. Trust the recursion — assume smaller calls work
 3. Make sure each call gets CLOSER to the base case
-4. Draw the recursion tree if confused`,
+4. Draw the recursion tree if confused
+
+> 💡 **This lesson's project is available in Code Lab!** You can build it there with full IDE features.
+> 💡 **这节课的项目可以在代码实验室中完成！** 那里有完整的 IDE 功能。`,
     },
     {
       type: "challenge",
@@ -2955,7 +2985,10 @@ const alg_3_3: Lesson = {
 >
 > 现实类比：想象尝试密码锁的每种组合。如果你知道第一位不对，跳过所有以那个数字开头的组合！这就是回溯——早早剪掉坏分支！
 
-🔑 **Backtracking = DFS + pruning = try all possibilities smartly**`,
+🔑 **Backtracking = DFS + pruning = try all possibilities smartly**
+
+> 💡 **This lesson's project is available in Code Lab!** You can build it there with full IDE features.
+> 💡 **这节课的项目可以在代码实验室中完成！** 那里有完整的 IDE 功能。`,
     },
     {
       type: "code",
@@ -3484,7 +3517,10 @@ for n in [8, 16, 32, 64, 1000]:
 - Problem can be split into same-type subproblems
 - Combining solutions is efficient
 - Subproblems are independent (no overlap)
-- If subproblems overlap → use Dynamic Programming instead!`,
+- If subproblems overlap → use Dynamic Programming instead!
+
+> 💡 **This lesson's project is available in Code Lab!** You can build it there with full IDE features.
+> 💡 **这节课的项目可以在代码实验室中完成！** 那里有完整的 IDE 功能。`,
     },
     {
       type: "challenge",
@@ -3602,7 +3638,10 @@ I'm **Puzzle** 🧩, your DP strategist! Dynamic Programming is all about **not 
 >
 > 现实类比：想象老师每节课都问"7×8等于多少？"第一次你要算：56。之后你直接记住答案！这就是记忆化——解决一次，永远记住！
 
-🔑 **DP = recursion + memoization (top-down) OR iteration + table (bottom-up)**`,
+🔑 **DP = recursion + memoization (top-down) OR iteration + table (bottom-up)**
+
+> 💡 **This lesson's project is available in Code Lab!** You can build it there with full IDE features.
+> 💡 **这节课的项目可以在代码实验室中完成！** 那里有完整的 IDE 功能。`,
     },
     {
       type: "code",
@@ -4045,7 +4084,10 @@ print(f"\\nAnswer: {dp[6]} coins for amount 6 with coins {coins2}")`,
 🔑 **Rule of thumb:**
 - Start with memoization (easier to think about)
 - Convert to tabulation if you need performance or space optimization
-- In competitions, memoization + @lru_cache is often fastest to code!`,
+- In competitions, memoization + @lru_cache is often fastest to code!
+
+> 💡 **This lesson's project is available in Code Lab!** You can build it there with full IDE features.
+> 💡 **这节课的项目可以在代码实验室中完成！** 那里有完整的 IDE 功能。`,
     },
     {
       type: "challenge",
@@ -4163,7 +4205,10 @@ Time for the classics! These problems appear in interviews, competitions, and re
 🔑 **DP patterns to recognize:**
 - "Maximize/minimize something with constraints" → likely DP
 - "Count the number of ways" → likely DP
-- "Can this be done?" → likely DP`,
+- "Can this be done?" → likely DP
+
+> 💡 **This lesson's project is available in Code Lab!** You can build it there with full IDE features.
+> 💡 **这节课的项目可以在代码实验室中完成！** 那里有完整的 IDE 功能。`,
     },
     {
       type: "code",
@@ -4703,7 +4748,10 @@ min_path_sum(grid)`,
 2. ✅ Write the recurrence (how to compute dp[i][j]?)
 3. ✅ Set base cases
 4. ✅ Fill in the correct order
-5. ✅ Extract the answer`,
+5. ✅ Extract the answer
+
+> 💡 **This lesson's project is available in Code Lab!** You can build it there with full IDE features.
+> 💡 **这节课的项目可以在代码实验室中完成！** 那里有完整的 IDE 功能。`,
     },
     {
       type: "challenge",
@@ -5082,7 +5130,10 @@ for start, end in pairs:
 🔑 **Rule of thumb:**
 - Need shortest path? → **BFS**
 - Need to explore all paths? → **DFS**
-- Need topological order? → **DFS**`,
+- Need topological order? → **DFS**
+
+> 💡 **This lesson's project is available in Code Lab!** You can build it there with full IDE features.
+> 💡 **这节课的项目可以在代码实验室中完成！** 那里有完整的 IDE 功能。`,
     },
     {
       type: "challenge",
@@ -5389,7 +5440,10 @@ For negative weights, use **Bellman-Ford** algorithm instead.
 | Bellman-Ford | Yes ✅ | O(VE) | Graphs with negative edges |
 | Floyd-Warshall | Yes ✅ | O(V³) | All-pairs shortest path |
 
-🔑 **Dijkstra = BFS with a priority queue, always expanding the closest node first!**`,
+🔑 **Dijkstra = BFS with a priority queue, always expanding the closest node first!**
+
+> 💡 **This lesson's project is available in Code Lab!** You can build it there with full IDE features.
+> 💡 **这节课的项目可以在代码实验室中完成！** 那里有完整的 IDE 功能。`,
     },
     {
       type: "challenge",
@@ -5509,7 +5563,10 @@ Some things must come BEFORE others. Topological sort figures out the right orde
 > - 必须先修微积分 I 才能修微积分 II
 > - 拓扑排序找到修完所有课程的有效顺序！
 
-🔑 **Only works on DAGs** (Directed Acyclic Graphs — no cycles!)`,
+🔑 **Only works on DAGs** (Directed Acyclic Graphs — no cycles!)
+
+> 💡 **This lesson's project is available in Code Lab!** You can build it there with full IDE features.
+> 💡 **这节课的项目可以在代码实验室中完成！** 那里有完整的 IDE 功能。`,
     },
     {
       type: "code",
@@ -6086,7 +6143,10 @@ Congratulations! You've learned the most important algorithms in computer scienc
 - Build projects that use these algorithms
 - The more you practice, the more natural they become!
 
-🎓 **Remember:** Algorithms are tools for solving problems. The best algorithm is the one you understand and can implement correctly!`,
+🎓 **Remember:** Algorithms are tools for solving problems. The best algorithm is the one you understand and can implement correctly!
+
+> 💡 **This lesson's project is available in Code Lab!** You can build it there with full IDE features.
+> 💡 **这节课的项目可以在代码实验室中完成！** 那里有完整的 IDE 功能。`,
     },
     {
       type: "challenge",
