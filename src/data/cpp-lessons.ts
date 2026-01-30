@@ -412,29 +412,19 @@ int main() {
       quiz: [
         {
           question: "What does `#include <iostream>` do in C++?\n`#include <iostream>` 在C++中做什么？",
-          options: [
-            "Runs the program 运行程序",
-            "Imports the input/output library 导入输入输出库",
-            "Creates a variable 创建变量",
-            "Ends the program 结束程序",
-          ],
+          options: ["Creates a variable 创建变量", "Imports the input/output library 导入输入输出库", "Ends the program 结束程序", "Runs the program 运行程序"],
           correctIndex: 1,
           explanation: "#include <iostream> imports the I/O library so we can use cout and cin. It's like Python's 'import' statement! · 它导入I/O库，这样我们才能使用cout和cin。",
         },
         {
           question: "Which symbol ends every C++ statement?\n哪个符号结束每个C++语句？",
-          options: [":", ".", ";", "!"],
-          correctIndex: 2,
+          options: ["!", ";", ":", "."],
+          correctIndex: 1,
           explanation: "Every C++ statement ends with a semicolon (;). This is one of the biggest differences from Python! · 每个C++语句以分号(;)结尾。这是与Python最大的区别之一！",
         },
         {
           question: "What does `return 0;` mean in main()?\n在main()中 `return 0;` 是什么意思？",
-          options: [
-            "The program has an error 程序有错误",
-            "Print the number 0 打印数字0",
-            "The program finished successfully 程序成功结束",
-            "Restart the program 重启程序",
-          ],
+          options: ["Print the number 0 打印数字0", "Restart the program 重启程序", "The program finished successfully 程序成功结束", "The program has an error 程序有错误"],
           correctIndex: 2,
           explanation: "return 0 tells the operating system that the program completed without errors. Non-zero values indicate errors. · return 0 告诉操作系统程序无错误完成。",
         },
@@ -825,19 +815,14 @@ int main() {
       quiz: [
         {
           question: "What happens when you write `int x = 3.99;` in C++?\n当你写 `int x = 3.99;` 时会发生什么？",
-          options: [
-            "x becomes 4 (rounds up) · x变成4（向上取整）",
-            "x becomes 3 (truncates) · x变成3（截断）",
-            "Compilation error · 编译错误",
-            "x becomes 3.99 · x变成3.99",
-          ],
-          correctIndex: 1,
+          options: ["x becomes 3 (truncates) · x变成3（截断）", "Compilation error · 编译错误", "x becomes 4 (rounds up) · x变成4（向上取整）", "x becomes 3.99 · x变成3.99"],
+          correctIndex: 0,
           explanation: "C++ truncates (cuts off) the decimal part. 3.99 becomes 3, not 4! This is called narrowing conversion. · C++截断小数部分，3.99变成3，不是4！",
         },
         {
           question: "Which type should you use for very large numbers in competitive programming?\n竞赛编程中处理很大的数应该用什么类型？",
-          options: ["int", "double", "long long", "char"],
-          correctIndex: 2,
+          options: ["double", "long long", "char", "int"],
+          correctIndex: 1,
           explanation: "long long can hold numbers up to about 9.2 × 10¹⁸, while int maxes out at about 2.1 billion. · long long可以存储约9.2×10¹⁸的数字。",
         },
         {
@@ -1182,23 +1167,13 @@ int main() {
       quiz: [
         {
           question: "What does `cin >> name` do if you type 'John Smith'?\n如果你输入'John Smith'，`cin >> name`会怎样？",
-          options: [
-            "Reads 'John Smith' · 读取'John Smith'",
-            "Reads 'John' only · 只读取'John'",
-            "Error · 报错",
-            "Reads 'Smith' only · 只读取'Smith'",
-          ],
-          correctIndex: 1,
+          options: ["Reads 'John' only · 只读取'John'", "Reads 'Smith' only · 只读取'Smith'", "Error · 报错", "Reads 'John Smith' · 读取'John Smith'"],
+          correctIndex: 0,
           explanation: "cin >> stops at whitespace (spaces, tabs, newlines). To read a full line, use getline(cin, name). · cin >>在空白处停止，要读整行请用getline。",
         },
         {
           question: "When do you need `cin.ignore()`?\n什么时候需要`cin.ignore()`？",
-          options: [
-            "Before every cin · 每次cin之前",
-            "After cin >> before getline() · 在cin >>之后getline()之前",
-            "After getline() · 在getline()之后",
-            "Never · 从不需要",
-          ],
+          options: ["After getline() · 在getline()之后", "After cin >> before getline() · 在cin >>之后getline()之前", "Before every cin · 每次cin之前", "Never · 从不需要"],
           correctIndex: 1,
           explanation: "cin.ignore() clears the leftover newline after cin >> so that getline() works correctly. · cin.ignore()清除cin >>后残留的换行符。",
         },
@@ -1510,19 +1485,14 @@ Same as Python (and math class!):
       quiz: [
         {
           question: "What does `7 / 2` give in C++ (both are int)?\n在C++中 `7 / 2`（都是int）的结果是？",
-          options: ["3.5", "3", "4", "3.0"],
-          correctIndex: 1,
+          options: ["3", "3.0", "3.5", "4"],
+          correctIndex: 0,
           explanation: "Integer division in C++ truncates the decimal. 7/2 = 3, not 3.5! To get 3.5, use 7.0/2. · C++整数除法截断小数部分。",
         },
         {
           question: "What does `x++` do?\n`x++`做了什么？",
-          options: [
-            "Adds 2 to x · 给x加2",
-            "Doubles x · x翻倍",
-            "Adds 1 to x · 给x加1",
-            "Error · 报错",
-          ],
-          correctIndex: 2,
+          options: ["Adds 2 to x · 给x加2", "Adds 1 to x · 给x加1", "Doubles x · x翻倍", "Error · 报错"],
+          correctIndex: 1,
           explanation: "x++ increments x by 1. It's equivalent to x = x + 1 or x += 1. · x++相当于x = x + 1。",
         },
       ],
@@ -1886,13 +1856,8 @@ int main() {
         },
         {
           question: "Can you do `s[0] = 'X'` in C++?\n在C++中可以写 `s[0] = 'X'` 吗？",
-          options: [
-            "No, strings are immutable · 不行，字符串不可变",
-            "Yes, C++ strings are mutable! · 可以，C++字符串可变！",
-            "Only for char arrays · 只对字符数组可以",
-            "Only with const · 只能用const",
-          ],
-          correctIndex: 1,
+          options: ["Only for char arrays · 只对字符数组可以", "Only with const · 只能用const", "No, strings are immutable · 不行，字符串不可变", "Yes, C++ strings are mutable! · 可以，C++字符串可变！"],
+          correctIndex: 3,
           explanation: "Unlike Python, C++ strings ARE mutable! You can change individual characters. · 与Python不同，C++字符串是可变的！",
         },
       ],
@@ -2204,19 +2169,14 @@ int main() {
       quiz: [
         {
           question: "Which line correctly reads a full name with spaces?\n哪行代码能正确读取带空格的全名？",
-          options: [
-            "`cin >> name;`",
-            "`getline(cin, name);`",
-            "`scanf(name);`",
-            "`read(name);`",
-          ],
+          options: ["`scanf(name);`", "`getline(cin, name);`", "`read(name);`", "`cin >> name;`"],
           correctIndex: 1,
           explanation: "getline(cin, name) reads the entire line including spaces. cin >> only reads one word! · getline读取整行包括空格。",
         },
         {
           question: "What's the output of: `cout << 10 / 3;`?\n`cout << 10 / 3;` 输出什么？",
-          options: ["3.33", "3", "3.0", "4"],
-          correctIndex: 1,
+          options: ["4", "3.0", "3", "3.33"],
+          correctIndex: 2,
           explanation: "Both 10 and 3 are integers, so integer division gives 3 (truncated). · 两个都是整数，整数除法得3。",
         },
       ],
@@ -2503,14 +2463,14 @@ int main() {
       quiz: [
         {
           question: "What's the C++ equivalent of Python's `elif`?\nPython的`elif`在C++中是什么？",
-          options: ["elif", "else if", "elseif", "elsif"],
+          options: ["elsif", "else if", "elif", "elseif"],
           correctIndex: 1,
           explanation: "C++ uses `else if` (two words). Python shortened it to `elif`. · C++使用`else if`（两个词）。",
         },
         {
           question: "What's the C++ equivalent of Python's `and`?\nPython的`and`在C++中是什么？",
-          options: ["and", "AND", "&&", "&"],
-          correctIndex: 2,
+          options: ["&&", "&", "AND", "and"],
+          correctIndex: 0,
           explanation: "Python uses `and`, C++ uses `&&`. Similarly: `or` → `||`, `not` → `!`. · Python用and，C++用&&。",
         },
       ],
@@ -2778,13 +2738,8 @@ int main() {
       quiz: [
         {
           question: "What happens if you forget `break` in a switch case?\n如果在switch的case中忘了break会怎样？",
-          options: [
-            "Compilation error · 编译错误",
-            "Only that case runs · 只运行那个case",
-            "Falls through to next case(s) · 继续执行下一个case",
-            "Program crashes · 程序崩溃",
-          ],
-          correctIndex: 2,
+          options: ["Compilation error · 编译错误", "Only that case runs · 只运行那个case", "Program crashes · 程序崩溃", "Falls through to next case(s) · 继续执行下一个case"],
+          correctIndex: 3,
           explanation: "Without break, execution 'falls through' and continues into the next case(s). This is a common source of bugs! · 没有break会继续执行下一个case。",
         },
       ],
@@ -3034,24 +2989,14 @@ int main() {
       quiz: [
         {
           question: "What's the C++ equivalent of `for i in range(5):`?\n`for i in range(5):`的C++等价是？",
-          options: [
-            "`for (int i = 0; i < 5; i++)`",
-            "`for (int i = 1; i <= 5; i++)`",
-            "`for i in range(5)`",
-            "`for (int i = 0; i <= 5; i++)`",
-          ],
-          correctIndex: 0,
+          options: ["`for (int i = 0; i <= 5; i++)`", "`for (int i = 0; i < 5; i++)`", "`for i in range(5)`", "`for (int i = 1; i <= 5; i++)`"],
+          correctIndex: 1,
           explanation: "range(5) gives 0,1,2,3,4. In C++: start at 0, go while < 5, increment by 1. · range(5)产生0到4，C++中从0开始，条件<5。",
         },
         {
           question: "What's special about do-while?\ndo-while有什么特别的？",
-          options: [
-            "It's faster · 更快",
-            "It runs at least once · 至少执行一次",
-            "It runs backwards · 反向执行",
-            "It's the same as while · 和while一样",
-          ],
-          correctIndex: 1,
+          options: ["It runs at least once · 至少执行一次", "It's the same as while · 和while一样", "It runs backwards · 反向执行", "It's faster · 更快"],
+          correctIndex: 0,
           explanation: "do-while checks the condition AFTER running the body, so it always runs at least once. · do-while先执行再检查条件，所以至少执行一次。",
         },
       ],
@@ -3298,13 +3243,8 @@ int main() {
       quiz: [
         {
           question: "In nested loops, which loop does `break` exit?\n在嵌套循环中，`break`退出哪个循环？",
-          options: [
-            "All loops · 所有循环",
-            "The outermost loop · 最外层循环",
-            "The innermost loop · 最内层循环",
-            "Random · 随机",
-          ],
-          correctIndex: 2,
+          options: ["The outermost loop · 最外层循环", "Random · 随机", "All loops · 所有循环", "The innermost loop · 最内层循环"],
+          correctIndex: 3,
           explanation: "break only exits the innermost loop that contains it. To exit outer loops, you need flags or goto (avoid goto!). · break只退出包含它的最内层循环。",
         },
       ],
@@ -3564,13 +3504,8 @@ int main() {
       quiz: [
         {
           question: "What does `void` mean as a return type?\n`void`作为返回类型是什么意思？",
-          options: [
-            "Returns zero · 返回零",
-            "Returns nothing · 不返回任何值",
-            "Returns null · 返回null",
-            "Error · 错误",
-          ],
-          correctIndex: 1,
+          options: ["Error · 错误", "Returns null · 返回null", "Returns nothing · 不返回任何值", "Returns zero · 返回零"],
+          correctIndex: 2,
           explanation: "void means the function doesn't return any value. Like a Python function that doesn't have a return statement. · void表示函数不返回任何值。",
         },
       ],
@@ -3807,12 +3742,7 @@ int main() {
       quiz: [
         {
           question: "What does `&` do in a function parameter `void f(int &x)`?\n`void f(int &x)`中的`&`有什么作用？",
-          options: [
-            "Gets the address of x · 获取x的地址",
-            "Makes x a reference (alias) to the original · 使x成为原始变量的引用",
-            "Makes x constant · 使x为常量",
-            "Creates a pointer · 创建指针",
-          ],
+          options: ["Gets the address of x · 获取x的地址", "Makes x a reference (alias) to the original · 使x成为原始变量的引用", "Makes x constant · 使x为常量", "Creates a pointer · 创建指针"],
           correctIndex: 1,
           explanation: "& in a parameter makes it a reference — an alias for the original variable. Changes to x change the original! · &使参数成为原始变量的别名。",
         },
@@ -4057,13 +3987,8 @@ int main() {
       quiz: [
         {
           question: "What's the C++ equivalent of Python's `list.append(x)`?\nPython的`list.append(x)`在C++中是什么？",
-          options: [
-            "`vec.add(x)`",
-            "`vec.push_back(x)`",
-            "`vec.append(x)`",
-            "`vec.insert(x)`",
-          ],
-          correctIndex: 1,
+          options: ["`vec.add(x)`", "`vec.append(x)`", "`vec.insert(x)`", "`vec.push_back(x)`"],
+          correctIndex: 3,
           explanation: "push_back() adds an element to the end of a vector, just like Python's append(). · push_back()向向量末尾添加元素，类似Python的append()。",
         },
       ],
@@ -4309,13 +4234,8 @@ int main() {
       quiz: [
         {
           question: "What does `s.substr(3, 5)` return?\n`s.substr(3, 5)`返回什么？",
-          options: [
-            "Characters from index 3 to 5 · 索引3到5的字符",
-            "5 characters starting from index 3 · 从索引3开始的5个字符",
-            "3 characters starting from index 5 · 从索引5开始的3个字符",
-            "The first 5 characters · 前5个字符",
-          ],
-          correctIndex: 1,
+          options: ["Characters from index 3 to 5 · 索引3到5的字符", "The first 5 characters · 前5个字符", "3 characters starting from index 5 · 从索引5开始的3个字符", "5 characters starting from index 3 · 从索引3开始的5个字符"],
+          correctIndex: 3,
           explanation: "substr(pos, len) returns `len` characters starting at position `pos`. Different from Python's [start:end] slicing! · substr(pos, len)返回从位置pos开始的len个字符。",
         },
       ],
@@ -4815,35 +4735,20 @@ int main() {
         },
         {
           question: "What problem do header guards (#ifndef) solve?",
-          options: [
-            "They make code run faster · 让代码运行更快",
-            "They prevent a header from being included twice · 防止头文件被重复包含",
-            "They protect against hackers · 防止黑客攻击",
-            "They hide private variables · 隐藏私有变量",
-          ],
-          correctIndex: 1,
+          options: ["They prevent a header from being included twice · 防止头文件被重复包含", "They hide private variables · 隐藏私有变量", "They protect against hackers · 防止黑客攻击", "They make code run faster · 让代码运行更快"],
+          correctIndex: 0,
           explanation: "Without header guards, including the same header twice causes redefinition errors. Guards ensure the contents are only processed once. · 没有头文件保护，重复包含会导致重定义错误。保护确保内容只被处理一次。",
         },
         {
           question: "In a multi-file project, where does `int add(int a, int b);` (no body) go?",
-          options: [
-            "In the .cpp file · 在.cpp文件中",
-            "In the main() function · 在main()函数中",
-            "In the .h header file · 在.h头文件中",
-            "Nowhere — it's not valid C++ · 这不是有效的C++",
-          ],
-          correctIndex: 2,
+          options: ["In the .h header file · 在.h头文件中", "Nowhere — it's not valid C++ · 这不是有效的C++", "In the .cpp file · 在.cpp文件中", "In the main() function · 在main()函数中"],
+          correctIndex: 0,
           explanation: "A function declaration (prototype) without a body goes in the header file (.h). The definition (with body) goes in the .cpp file. · 没有函数体的函数声明放在头文件(.h)中，定义放在.cpp文件中。",
         },
         {
           question: "What does `Player::takeDamage` mean?",
-          options: [
-            "A function called Player that takes Damage · 一个叫Player的函数接受Damage",
-            "takeDamage is a member function of the Player class · takeDamage是Player类的成员函数",
-            "Player inherits from takeDamage · Player继承自takeDamage",
-            "A pointer from Player to takeDamage · 从Player到takeDamage的指针",
-          ],
-          correctIndex: 1,
+          options: ["Player inherits from takeDamage · Player继承自takeDamage", "A function called Player that takes Damage · 一个叫Player的函数接受Damage", "takeDamage is a member function of the Player class · takeDamage是Player类的成员函数", "A pointer from Player to takeDamage · 从Player到takeDamage的指针"],
+          correctIndex: 2,
           explanation: "The :: scope resolution operator means 'belongs to'. Player::takeDamage defines the takeDamage method that was declared inside the Player class. · ::作用域运算符表示'属于'。Player::takeDamage定义了在Player类中声明的方法。",
         },
       ],
@@ -5328,14 +5233,14 @@ ref = 100;       // x is now 100
       quiz: [
         {
           question: "If int* p = arr; and arr = {10,20,30}, what is *(p+2)?\n如果 int* p = arr; 且 arr = {10,20,30}，*(p+2)是什么？",
-          options: ["10", "20", "30", "Undefined"],
-          correctIndex: 2,
+          options: ["20", "Undefined", "10", "30"],
+          correctIndex: 3,
           explanation: "p+2 moves the pointer 2 int positions forward, pointing to arr[2] which is 30. · p+2将指针向前移动2个int位置。",
         },
         {
           question: "Which CANNOT be null?\n哪个不能为null？",
-          options: ["int* ptr", "int& ref", "int** pptr", "int* arr"],
-          correctIndex: 1,
+          options: ["int* arr", "int** pptr", "int& ref", "int* ptr"],
+          correctIndex: 2,
           explanation: "References must always refer to a valid object. Pointers can be nullptr. · 引用必须始终引用有效对象。",
         },
       ],
@@ -5348,13 +5253,8 @@ ref = 100;       // x is now 100
       quiz: [
         {
           question: "What does `int* ptr = &x;` do?\n`int* ptr = &x;`做了什么？",
-          options: [
-            "Multiplies ptr by x · 将ptr乘以x",
-            "Creates a pointer storing x's address · 创建一个存储x地址的指针",
-            "Creates a copy of x · 创建x的副本",
-            "Declares an array · 声明一个数组",
-          ],
-          correctIndex: 1,
+          options: ["Creates a pointer storing x's address · 创建一个存储x地址的指针", "Declares an array · 声明一个数组", "Multiplies ptr by x · 将ptr乘以x", "Creates a copy of x · 创建x的副本"],
+          correctIndex: 0,
           explanation: "The * in a declaration makes ptr a pointer, and &x gets the address of x. So ptr now points to x. · 声明中的*使ptr成为指针，&x获取x的地址。",
         },
       ],
@@ -5792,23 +5692,13 @@ int main() {
       quiz: [
         {
           question: "What does static int count; in a class mean?\n类中的static int count;是什么意思？",
-          options: [
-            "Each object has its own count · 每个对象有自己的count",
-            "count is shared across all objects of the class · count被该类所有对象共享",
-            "count cannot be changed · count不能修改",
-            "count is only accessible in main() · count只能在main()中访问",
-          ],
+          options: ["count is only accessible in main() · count只能在main()中访问", "count is shared across all objects of the class · count被该类所有对象共享", "Each object has its own count · 每个对象有自己的count", "count cannot be changed · count不能修改"],
           correctIndex: 1,
           explanation: "Static members belong to the class itself, not individual objects. All instances share the same static variable. · 静态成员属于类本身。",
         },
         {
           question: "What does operator+ let you do?\noperator+让你能做什么？",
-          options: [
-            "Add integers faster · 更快地加整数",
-            "Use + with your custom class objects · 对自定义类对象使用+",
-            "Override the = operator · 重载=运算符",
-            "Create a new class · 创建新类",
-          ],
+          options: ["Add integers faster · 更快地加整数", "Use + with your custom class objects · 对自定义类对象使用+", "Override the = operator · 重载=运算符", "Create a new class · 创建新类"],
           correctIndex: 1,
           explanation: "Operator overloading lets you define how operators like +, -, == work with your custom types. · 运算符重载定义自定义类型的运算符行为。",
         },
@@ -5822,13 +5712,8 @@ int main() {
       quiz: [
         {
           question: "What's the difference between `struct` and `class` in C++?\n`struct`和`class`在C++中有什么区别？",
-          options: [
-            "struct can't have methods · struct不能有方法",
-            "class can't have data · class不能有数据",
-            "struct members are public by default, class members are private · struct默认公有，class默认私有",
-            "There's no difference · 没有区别",
-          ],
-          correctIndex: 2,
+          options: ["struct members are public by default, class members are private · struct默认公有，class默认私有", "struct can't have methods · struct不能有方法", "There's no difference · 没有区别", "class can't have data · class不能有数据"],
+          correctIndex: 0,
           explanation: "The only difference is default access: struct = public by default, class = private by default. Both can have methods, constructors, etc. · 唯一区别是默认访问权限。",
         },
       ],
@@ -6201,13 +6086,8 @@ Use vector, string, unique_ptr — they handle memory FOR you. Then you don't ne
       quiz: [
         {
           question: "What happens if you `new` memory but never `delete` it?\n如果`new`了内存但从不`delete`会怎样？",
-          options: [
-            "The compiler catches the error · 编译器会捕获错误",
-            "Memory leak — the memory is wasted · 内存泄漏——内存被浪费",
-            "The program crashes immediately · 程序立即崩溃",
-            "Nothing — it's automatically freed · 没事——会自动释放",
-          ],
-          correctIndex: 1,
+          options: ["The compiler catches the error · 编译器会捕获错误", "Nothing — it's automatically freed · 没事——会自动释放", "The program crashes immediately · 程序立即崩溃", "Memory leak — the memory is wasted · 内存泄漏——内存被浪费"],
+          correctIndex: 3,
           explanation: "Memory leaks mean allocated memory is never freed. The program keeps running but wastes memory. The OS reclaims it when the program exits. · 内存泄漏意味着分配的内存永远不会被释放。",
         },
       ],
@@ -6694,19 +6574,14 @@ obj.A::hello();   // Must specify
       quiz: [
         {
           question: "What happens if a base class destructor is NOT virtual and you delete through a base pointer?\n基类析构函数不是virtual通过基类指针delete会怎样？",
-          options: [
-            "Works fine · 正常运行",
-            "Compilation error · 编译错误",
-            "Only base destructor runs — derived resources leak! · 只运行基类析构函数！",
-            "Program crashes · 程序崩溃",
-          ],
+          options: ["Works fine · 正常运行", "Compilation error · 编译错误", "Only base destructor runs — derived resources leak! · 只运行基类析构函数！", "Program crashes · 程序崩溃"],
           correctIndex: 2,
           explanation: "Without virtual destructor, only ~Base() is called. ~Derived() is skipped, causing resource leaks. · 没有虚析构函数只调用~Base()。",
         },
         {
           question: "Which keyword prevents overriding a virtual function? (C++11)\n哪个关键字阻止重写虚函数？",
-          options: ["const", "static", "final", "private"],
-          correctIndex: 2,
+          options: ["static", "private", "const", "final"],
+          correctIndex: 3,
           explanation: "The 'final' keyword prevents further overriding. · 'final'阻止进一步重写。",
         },
       ],
@@ -6719,13 +6594,8 @@ obj.A::hello();   // Must specify
       quiz: [
         {
           question: "What does `= 0` mean in `virtual void speak() = 0;`?\n`virtual void speak() = 0;`中的`= 0`是什么意思？",
-          options: [
-            "The function returns 0 · 函数返回0",
-            "The function does nothing · 函数什么都不做",
-            "It's a pure virtual function — subclasses MUST implement it · 纯虚函数——子类必须实现",
-            "The function is deleted · 函数被删除",
-          ],
-          correctIndex: 2,
+          options: ["The function does nothing · 函数什么都不做", "It's a pure virtual function — subclasses MUST implement it · 纯虚函数——子类必须实现", "The function returns 0 · 函数返回0", "The function is deleted · 函数被删除"],
+          correctIndex: 1,
           explanation: "= 0 makes it a pure virtual function (abstract). The class becomes abstract and can't be instantiated directly. · = 0使之成为纯虚函数，类变为抽象类。",
         },
       ],
@@ -7172,13 +7042,8 @@ int main() {
       quiz: [
         {
           question: "What's the time complexity of `map` lookup vs `unordered_map`?\n`map`和`unordered_map`查找的时间复杂度？",
-          options: [
-            "Both O(1) · 都是O(1)",
-            "map: O(log n), unordered_map: O(1) average",
-            "Both O(log n) · 都是O(log n)",
-            "map: O(n), unordered_map: O(log n)",
-          ],
-          correctIndex: 1,
+          options: ["map: O(log n), unordered_map: O(1) average", "Both O(log n) · 都是O(log n)", "map: O(n), unordered_map: O(log n)", "Both O(1) · 都是O(1)"],
+          correctIndex: 0,
           explanation: "map uses a balanced BST (O(log n)), while unordered_map uses a hash table (O(1) average, O(n) worst case). · map用平衡BST，unordered_map用哈希表。",
         },
       ],
@@ -7602,24 +7467,14 @@ int main() {
       quiz: [
         {
           question: "What does [&] mean in a lambda capture?\nlambda中[&]是什么意思？",
-          options: [
-            "Capture nothing · 不捕获",
-            "All by value · 按值捕获全部",
-            "All by reference · 按引用捕获全部",
-            "Syntax error · 语法错误",
-          ],
+          options: ["All by value · 按值捕获全部", "Capture nothing · 不捕获", "All by reference · 按引用捕获全部", "Syntax error · 语法错误"],
           correctIndex: 2,
           explanation: "[&] captures all variables by reference. Changes inside the lambda affect originals. · [&]按引用捕获所有外部变量。",
         },
         {
           question: "What's the erase-remove idiom for?\nerase-remove惯用法做什么？",
-          options: [
-            "Sorting · 排序",
-            "Actually removing elements from a container · 真正删除元素",
-            "Finding elements · 查找",
-            "Copying · 复制",
-          ],
-          correctIndex: 1,
+          options: ["Sorting · 排序", "Finding elements · 查找", "Actually removing elements from a container · 真正删除元素", "Copying · 复制"],
+          correctIndex: 2,
           explanation: "remove_if moves unwanted elements to the end. erase actually removes them. · remove_if移到末尾，erase真正删除。",
         },
       ],
@@ -7632,13 +7487,8 @@ int main() {
       quiz: [
         {
           question: "What does `lower_bound(v.begin(), v.end(), 5)` return?\n`lower_bound`返回什么？",
-          options: [
-            "Iterator to the largest element < 5 · 指向最大的<5的元素的迭代器",
-            "Iterator to the first element >= 5 · 指向第一个>=5的元素的迭代器",
-            "Iterator to element equal to 5 · 指向等于5的元素的迭代器",
-            "The value 5 · 值5",
-          ],
-          correctIndex: 1,
+          options: ["Iterator to the first element >= 5 · 指向第一个>=5的元素的迭代器", "Iterator to the largest element < 5 · 指向最大的<5的元素的迭代器", "The value 5 · 值5", "Iterator to element equal to 5 · 指向等于5的元素的迭代器"],
+          correctIndex: 0,
           explanation: "lower_bound returns an iterator to the first element that is NOT less than the given value (i.e., >= value). · lower_bound返回第一个不小于给定值的元素的迭代器。",
         },
       ],
@@ -8089,12 +7939,7 @@ int main() {
       quiz: [
         {
           question: "Which STL container gives you the largest element first?\n哪个STL容器首先给你最大的元素？",
-          options: [
-            "stack",
-            "queue",
-            "priority_queue",
-            "set",
-          ],
+          options: ["set", "queue", "priority_queue", "stack"],
           correctIndex: 2,
           explanation: "priority_queue is a max-heap by default — top() always returns the largest element. Use greater<int> for a min-heap. · priority_queue默认是最大堆。",
         },
@@ -8402,12 +8247,7 @@ int main() {
       quiz: [
         {
           question: "Why do we use `\\n` instead of `endl` in competitions?\n为什么竞赛中用`\\n`而不是`endl`？",
-          options: [
-            "`\\n` looks cleaner · `\\n`看起来更整洁",
-            "`endl` flushes the buffer which is slow · `endl`刷新缓冲区，很慢",
-            "`endl` is not valid C++ · `endl`不是有效的C++",
-            "No difference · 没有区别",
-          ],
+          options: ["No difference · 没有区别", "`endl` flushes the buffer which is slow · `endl`刷新缓冲区，很慢", "`\\n` looks cleaner · `\\n`看起来更整洁", "`endl` is not valid C++ · `endl`不是有效的C++"],
           correctIndex: 1,
           explanation: "endl outputs a newline AND flushes the output buffer. In competitions with lots of output, this flush is wasteful. · endl输出换行并刷新缓冲区，竞赛中这很浪费时间。",
         },
@@ -8707,13 +8547,8 @@ int main() {
       quiz: [
         {
           question: "When can you use a greedy algorithm?\n什么时候可以使用贪心算法？",
-          options: [
-            "Always — it's the fastest · 总是——它最快",
-            "Only for sorting problems · 只用于排序问题",
-            "When the locally optimal choice leads to the global optimum · 当局部最优能导致全局最优时",
-            "Never — dynamic programming is always better · 从不——动态规划总是更好",
-          ],
-          correctIndex: 2,
+          options: ["When the locally optimal choice leads to the global optimum · 当局部最优能导致全局最优时", "Only for sorting problems · 只用于排序问题", "Always — it's the fastest · 总是——它最快", "Never — dynamic programming is always better · 从不——动态规划总是更好"],
+          correctIndex: 0,
           explanation: "Greedy works when you can prove that making the best local choice at each step gives the best overall solution. · 贪心在可以证明局部最优等于全局最优时有效。",
         },
       ],
@@ -9023,12 +8858,7 @@ int main() {
       quiz: [
         {
           question: "What's the key difference between greedy and DP?\n贪心和DP的关键区别是什么？",
-          options: [
-            "DP is always faster · DP总是更快",
-            "Greedy makes irrevocable choices; DP considers all subproblems · 贪心做不可撤销的选择；DP考虑所有子问题",
-            "DP can't use recursion · DP不能用递归",
-            "Greedy uses more memory · 贪心用更多内存",
-          ],
+          options: ["Greedy uses more memory · 贪心用更多内存", "Greedy makes irrevocable choices; DP considers all subproblems · 贪心做不可撤销的选择；DP考虑所有子问题", "DP can't use recursion · DP不能用递归", "DP is always faster · DP总是更快"],
           correctIndex: 1,
           explanation: "Greedy commits to the locally best choice. DP explores all possibilities via subproblems and picks the overall best. DP is more general but usually slower. · 贪心选择局部最优，DP探索所有子问题选全局最优。",
         },
