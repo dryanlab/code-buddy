@@ -66,6 +66,8 @@ export interface InlineExercise {
   expectedOutput: string;
   hint: string;
   hintZh: string;
+  hints?: string[];
+  hintsZh?: string[];
   solution: string;
 }
 
