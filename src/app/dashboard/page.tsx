@@ -170,11 +170,11 @@ function SkillRadar({ progress }: { progress: UserProgress }) {
   const speed = Math.min(100, Math.round(speedFromRuns * 0.7 + streakBonus));
 
   const dimensions = [
-    { label: "🧠 Logic", labelCn: "逻辑", value: logic },
-    { label: "🔧 Engineering", labelCn: "工程", value: engineering },
-    { label: "🎨 Creativity", labelCn: "创造力", value: creativity },
-    { label: "🐛 Debugging", labelCn: "调试", value: debugging },
-    { label: "⚡ Speed", labelCn: "速度", value: speed },
+    { label: "🧠 Logic", labelCn: "逻辑", value: logic, color: "#22d3ee" },
+    { label: "🔧 Engineer", labelCn: "工程", value: engineering, color: "#a78bfa" },
+    { label: "🎨 Creative", labelCn: "创造力", value: creativity, color: "#fb923c" },
+    { label: "🐛 Debug", labelCn: "调试", value: debugging, color: "#4ade80" },
+    { label: "⚡ Speed", labelCn: "速度", value: speed, color: "#facc15" },
   ];
 
   // SVG radar chart
@@ -211,10 +211,10 @@ function SkillRadar({ progress }: { progress: UserProgress }) {
     return polarToXY(a, r);
   });
 
-  // Label positions (slightly outside)
+  // Label positions (further outside for more room)
   const labelPositions = Array.from({ length: n }, (_, i) => {
     const a = startAngle + i * angleStep;
-    return polarToXY(a, r + 30);
+    return polarToXY(a, r + 38);
   });
 
   return (
@@ -224,21 +224,30 @@ function SkillRadar({ progress }: { progress: UserProgress }) {
         <p className="text-xs" style={{ color: "var(--theme-text-muted)" }}>技能雷达</p>
       </div>
       <div className="rounded-xl p-4" style={{ backgroundColor: "var(--theme-card-bg)", border: "1px solid var(--theme-border)" }}>
-        <svg viewBox="0 0 300 300" className="w-full max-w-[280px] mx-auto">
+        <svg viewBox="-10 -10 320 320" className="w-full max-w-[320px] mx-auto">
+          <defs>
+            <linearGradient id="radarGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#22d3ee" />
+              <stop offset="25%" stopColor="#a78bfa" />
+              <stop offset="50%" stopColor="#fb923c" />
+              <stop offset="75%" stopColor="#4ade80" />
+              <stop offset="100%" stopColor="#facc15" />
+            </linearGradient>
+          </defs>
           {/* Grid */}
           {gridPaths.map((d, i) => (
-            <path key={i} d={d} fill="none" stroke="var(--theme-border)" strokeWidth={i === gridLevels.length - 1 ? 1.5 : 0.5} opacity={0.6} />
+            <path key={i} d={d} fill="none" stroke="var(--theme-border)" strokeWidth={i === gridLevels.length - 1 ? 2.5 : 1} opacity={i === gridLevels.length - 1 ? 0.8 : 0.4} />
           ))}
           {/* Axes */}
           {axisEnds.map((p, i) => (
-            <line key={i} x1={cx} y1={cy} x2={p.x} y2={p.y} stroke="var(--theme-border)" strokeWidth={0.5} opacity={0.4} />
+            <line key={i} x1={cx} y1={cy} x2={p.x} y2={p.y} stroke="var(--theme-border)" strokeWidth={0.8} opacity={0.3} />
           ))}
           {/* Data polygon */}
           <motion.path
             d={dataPath}
-            fill="rgba(99, 102, 241, 0.2)"
-            stroke="rgb(99, 102, 241)"
-            strokeWidth={2}
+            fill="rgba(99, 102, 241, 0.25)"
+            stroke="url(#radarGradient)"
+            strokeWidth={2.5}
             initial={{ opacity: 0, scale: 0.3 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
@@ -250,10 +259,10 @@ function SkillRadar({ progress }: { progress: UserProgress }) {
               key={i}
               cx={p.x}
               cy={p.y}
-              r={4}
-              fill="rgb(99, 102, 241)"
+              r={5}
+              fill={dimensions[i].color}
               stroke="white"
-              strokeWidth={1.5}
+              strokeWidth={2}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.5 + i * 0.1 }}
@@ -267,12 +276,11 @@ function SkillRadar({ progress }: { progress: UserProgress }) {
               y={p.y}
               textAnchor="middle"
               dominantBaseline="middle"
-              fill="var(--theme-text-secondary)"
-              fontSize={11}
-              fontWeight={600}
+              fontSize={12}
+              fontWeight={700}
             >
-              <tspan x={p.x} dy="-0.4em">{dimensions[i].label}</tspan>
-              <tspan x={p.x} dy="1.2em" fontSize={10} fill="var(--theme-text-muted)">{dimensions[i].value}</tspan>
+              <tspan x={p.x} dy="-0.5em" fill={dimensions[i].color}>{dimensions[i].label}</tspan>
+              <tspan x={p.x} dy="1.3em" fontSize={11} fontWeight={800} fill={dimensions[i].color}>{dimensions[i].value}</tspan>
             </text>
           ))}
         </svg>
