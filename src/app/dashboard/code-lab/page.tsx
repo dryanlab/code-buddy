@@ -6,6 +6,7 @@ import { useSearchParams } from "next/navigation";
 import dynamic from "next/dynamic";
 import { loadPyodideEngine, runPython, isPyodideLoaded, traceExecution } from "@/lib/pyodide-engine";
 import type { VariableDetail, TraceStep } from "@/lib/pyodide-engine";
+import { runCpp } from "@/lib/cpp-engine";
 import { incrementCodeRun, addXP } from "@/lib/progress-store";
 import { CODE_EXERCISES, type CodeExercise } from "@/data/code-challenges";
 import { useUserProfile } from "@/lib/useUserProfile";
@@ -19,13 +20,14 @@ import {
   createProject,
   duplicateProject,
   type Project,
+  type ProjectLanguage,
 } from "@/lib/project-store";
 
 const MonacoEditor = dynamic(() => import("@monaco-editor/react"), { ssr: false });
 
 // ─── Templates ──────────────────────────────────────────────
 
-const TEMPLATES = [
+const PYTHON_TEMPLATES = [
   { name: "Empty", icon: "📄", code: "# Start coding!\n" },
   {
     name: "Hello World",
@@ -113,6 +115,152 @@ sorted_data = sorted(data)
 print(f"Sorted: {sorted_data}")`,
   },
 ];
+
+const CPP_TEMPLATES = [
+  { name: "Empty", icon: "📄", code: '#include <iostream>\nusing namespace std;\n\nint main() {\n    // Start coding!\n    return 0;\n}\n' },
+  {
+    name: "Hello World",
+    icon: "👋",
+    code: `#include <iostream>
+#include <string>
+using namespace std;
+
+int main() {
+    cout << "Hello, World!" << endl;
+
+    string name;
+    cout << "What is your name? ";
+    cin >> name;
+    cout << "Nice to meet you, " << name << "!" << endl;
+
+    return 0;
+}`,
+  },
+  {
+    name: "Calculator",
+    icon: "🔢",
+    code: `// Simple Calculator · 简单计算器
+#include <iostream>
+using namespace std;
+
+int main() {
+    double num1, num2;
+    char op;
+
+    cout << "First number: ";
+    cin >> num1;
+    cout << "Operator (+, -, *, /): ";
+    cin >> op;
+    cout << "Second number: ";
+    cin >> num2;
+
+    switch (op) {
+        case '+': cout << num1 << " + " << num2 << " = " << num1 + num2 << endl; break;
+        case '-': cout << num1 << " - " << num2 << " = " << num1 - num2 << endl; break;
+        case '*': cout << num1 << " * " << num2 << " = " << num1 * num2 << endl; break;
+        case '/': cout << num1 << " / " << num2 << " = " << num1 / num2 << endl; break;
+        default: cout << "Unknown operator!" << endl;
+    }
+    return 0;
+}`,
+  },
+  {
+    name: "Array Ops",
+    icon: "📊",
+    code: `// Array Operations · 数组操作
+#include <iostream>
+#include <algorithm>
+using namespace std;
+
+int main() {
+    int data[] = {23, 45, 12, 67, 34, 89, 56, 78, 11, 90};
+    int n = sizeof(data) / sizeof(data[0]);
+
+    int total = 0;
+    for (int i = 0; i < n; i++) total += data[i];
+    double average = (double)total / n;
+    int mx = *max_element(data, data + n);
+    int mn = *min_element(data, data + n);
+
+    cout << "Sum: " << total << endl;
+    cout << "Average: " << average << endl;
+    cout << "Max: " << mx << ", Min: " << mn << endl;
+    cout << "Range: " << mx - mn << endl;
+
+    sort(data, data + n);
+    cout << "Sorted: ";
+    for (int i = 0; i < n; i++) cout << data[i] << " ";
+    cout << endl;
+
+    return 0;
+}`,
+  },
+  {
+    name: "Class",
+    icon: "🏗️",
+    code: `// Class Example · 类示例
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Pet {
+    string name;
+    int age;
+public:
+    Pet(string n, int a) : name(n), age(a) {}
+    void greet() const {
+        cout << "Hi! I'm " << name << ", age " << age << endl;
+    }
+    void birthday() {
+        age++;
+        cout << name << " is now " << age << "! 🎂" << endl;
+    }
+};
+
+int main() {
+    Pet dog("Buddy", 3);
+    dog.greet();
+    dog.birthday();
+    return 0;
+}`,
+  },
+  {
+    name: "STL",
+    icon: "📦",
+    code: `// STL Example · 标准库示例
+#include <iostream>
+#include <vector>
+#include <map>
+#include <algorithm>
+using namespace std;
+
+int main() {
+    // Vector
+    vector<int> nums = {5, 2, 8, 1, 9, 3};
+    sort(nums.begin(), nums.end());
+    cout << "Sorted: ";
+    for (int n : nums) cout << n << " ";
+    cout << endl;
+
+    // Map
+    map<string, int> scores;
+    scores["Alice"] = 95;
+    scores["Bob"] = 87;
+    scores["Charlie"] = 92;
+
+    for (auto& [name, score] : scores) {
+        cout << name << ": " << score << endl;
+    }
+
+    return 0;
+}`,
+  },
+];
+
+const TEMPLATES_BY_LANG: Record<ProjectLanguage, typeof PYTHON_TEMPLATES> = {
+  python: PYTHON_TEMPLATES,
+  cpp: CPP_TEMPLATES,
+};
 
 // ─── Sidebar Components ────────────────────────────────────
 
@@ -209,7 +357,7 @@ function ProjectCard({
       }}
     >
       <div className="flex items-center justify-between">
-        <span className="font-bold text-xs truncate">📄 {project.name}</span>
+        <span className="font-bold text-xs truncate">{project.language === "cpp" ? "⚡" : "🐍"} {project.name}</span>
         <button
           onClick={(e) => {
             e.stopPropagation();
@@ -251,9 +399,12 @@ function ProjectCard({
 
 // ─── New Project Dialog ─────────────────────────────────────
 
-function NewProjectDialog({ onClose, onCreate }: { onClose: () => void; onCreate: (name: string, code: string) => void }) {
+function NewProjectDialog({ onClose, onCreate }: { onClose: () => void; onCreate: (name: string, code: string, language: ProjectLanguage) => void }) {
   const [name, setName] = useState("");
   const [selectedTemplate, setSelectedTemplate] = useState(0);
+  const [language, setLanguage] = useState<ProjectLanguage>("python");
+
+  const templates = TEMPLATES_BY_LANG[language];
 
   return (
     <motion.div
@@ -272,6 +423,27 @@ function NewProjectDialog({ onClose, onCreate }: { onClose: () => void; onCreate
         onClick={(e) => e.stopPropagation()}
       >
         <h3 className="text-lg font-bold mb-4">✨ New Project · 新建项目</h3>
+
+        {/* Language selector */}
+        <div className="flex items-center gap-2 mb-4">
+          <span className="text-xs" style={{ color: "var(--theme-text-muted)" }}>Language · 语言</span>
+          <div className="flex rounded-full border overflow-hidden" style={{ borderColor: "var(--theme-border)" }}>
+            {(["python", "cpp"] as const).map((lang) => (
+              <button
+                key={lang}
+                onClick={() => { setLanguage(lang); setSelectedTemplate(0); }}
+                className="px-3 py-1 text-xs font-bold transition-colors"
+                style={{
+                  backgroundColor: language === lang ? "var(--color-primary)" : "transparent",
+                  color: language === lang ? "white" : "var(--theme-text-secondary)",
+                }}
+              >
+                {lang === "python" ? "🐍 Python" : "⚡ C++"}
+              </button>
+            ))}
+          </div>
+        </div>
+
         <input
           type="text"
           value={name}
@@ -289,7 +461,7 @@ function NewProjectDialog({ onClose, onCreate }: { onClose: () => void; onCreate
           Choose a template · 选择模板
         </div>
         <div className="grid grid-cols-3 gap-2 mb-4">
-          {TEMPLATES.map((t, i) => (
+          {templates.map((t, i) => (
             <button
               key={t.name}
               onClick={() => setSelectedTemplate(i)}
@@ -314,8 +486,8 @@ function NewProjectDialog({ onClose, onCreate }: { onClose: () => void; onCreate
           </button>
           <button
             onClick={() => {
-              const finalName = name.trim() || TEMPLATES[selectedTemplate].name;
-              onCreate(finalName, TEMPLATES[selectedTemplate].code);
+              const finalName = name.trim() || templates[selectedTemplate].name;
+              onCreate(finalName, templates[selectedTemplate].code, language);
             }}
             className="px-4 py-2 text-sm rounded-lg font-bold text-white"
             style={{ backgroundColor: "var(--color-primary)" }}
@@ -373,6 +545,10 @@ export default function CodeLabPage() {
   const [selectedExercise, setSelectedExercise] = useState<CodeExercise | null>(null);
   const [showHint, setShowHint] = useState(false);
   const [showSolution, setShowSolution] = useState(false);
+
+  // Language
+  const [activeLanguage, setActiveLanguage] = useState<ProjectLanguage>("python");
+  const isPython = activeLanguage === "python";
 
   // Editor
   const [code, setCode] = useState('# Write your Python code here!\nprint("Hello, World!")');
@@ -435,7 +611,7 @@ export default function CodeLabPage() {
     if (!currentProject) return;
     if (saveTimerRef.current) clearTimeout(saveTimerRef.current);
     saveTimerRef.current = setTimeout(() => {
-      const updated = { ...currentProject, code, updatedAt: new Date().toISOString() };
+      const updated = { ...currentProject, code, language: activeLanguage, updatedAt: new Date().toISOString() };
       saveProject(updated).then(() => {
         setProjects((prev) => prev.map((p) => (p.id === updated.id ? updated : p)));
       });
@@ -506,28 +682,49 @@ export default function CodeLabPage() {
       setHasError(false);
       setShowSuccess(false);
 
-      const ready = await ensurePyodide();
-      if (!ready) {
-        setIsRunning(false);
-        return;
+      if (isPython) {
+        const ready = await ensurePyodide();
+        if (!ready) {
+          setIsRunning(false);
+          return;
+        }
+
+        const result = await runPython(code, inputs);
+        if (result.error) {
+          setOutput(result.error);
+          setHasError(true);
+        } else {
+          setOutput(result.output || "(No output · 没有输出)");
+          setShowSuccess(true);
+          setTimeout(() => setShowSuccess(false), 2000);
+        }
+        setVariables(result.variables);
+        setVariableDetails(result.variableDetails || []);
+      } else {
+        // C++ execution
+        try {
+          const result = await runCpp(code);
+          if (result.error) {
+            setOutput(result.error);
+            setHasError(true);
+          } else {
+            setOutput(result.output || "(No output · 没有输出)");
+            setShowSuccess(true);
+            setTimeout(() => setShowSuccess(false), 2000);
+          }
+        } catch (e) {
+          setOutput(`❌ Failed to run C++: ${e instanceof Error ? e.message : "unknown"}`);
+          setHasError(true);
+        }
+        setVariables({});
+        setVariableDetails([]);
       }
 
-      const result = await runPython(code, inputs);
-      if (result.error) {
-        setOutput(result.error);
-        setHasError(true);
-      } else {
-        setOutput(result.output || "(No output · 没有输出)");
-        setShowSuccess(true);
-        setTimeout(() => setShowSuccess(false), 2000);
-      }
-      setVariables(result.variables);
-      setVariableDetails(result.variableDetails || []);
       setIsRunning(false);
       incrementCodeRun();
       addXP(5);
     },
-    [code, ensurePyodide]
+    [code, ensurePyodide, isPython]
   );
 
   const runCode = useCallback(async () => {
@@ -620,6 +817,7 @@ export default function CodeLabPage() {
   const openProject = useCallback(
     (project: Project) => {
       setCode(project.code);
+      setActiveLanguage(project.language || "python");
       setSelectedExercise(null);
       setShowHint(false);
       setShowSolution(false);
@@ -636,6 +834,7 @@ export default function CodeLabPage() {
     (ex: CodeExercise) => {
       setSelectedExercise(ex);
       setCode(ex.starterCode);
+      setActiveLanguage("python");
       setShowHint(false);
       setShowSolution(false);
       const tabId = `ex_${ex.id}`;
@@ -689,11 +888,12 @@ export default function CodeLabPage() {
       if (!tab) return;
       if (tab.type === "free") {
         setSelectedExercise(null);
-        setCode('# Write your Python code here!\nprint("Hello, World!")');
+        // keep current free-mode language
       } else if (tab.type === "project") {
         const p = projects.find((pp) => pp.id === tab.id);
         if (p) {
           setCode(p.code);
+          setActiveLanguage(p.language || "python");
           setSelectedExercise(null);
         }
       } else if (tab.type === "exercise") {
@@ -702,6 +902,7 @@ export default function CodeLabPage() {
         if (ex) {
           setSelectedExercise(ex);
           setCode(ex.starterCode);
+          setActiveLanguage("python");
         }
       }
       setStepMode(false);
@@ -714,8 +915,8 @@ export default function CodeLabPage() {
   );
 
   const handleNewProject = useCallback(
-    async (name: string, templateCode: string) => {
-      const p = await createProject(name, templateCode);
+    async (name: string, templateCode: string, language: ProjectLanguage = "python") => {
+      const p = await createProject(name, templateCode, language);
       setProjects((prev) => [p, ...prev]);
       openProject(p);
       setShowNewProject(false);
@@ -799,8 +1000,34 @@ export default function CodeLabPage() {
         <div className="flex items-center gap-3">
           <h1 className="text-lg font-bold">💻 Code Lab</h1>
           <span className="text-xs" style={{ color: "var(--theme-text-muted)" }}>
-            Python IDE · 代码实验室
+            {isPython ? "Python" : "C++"} IDE · 代码实验室
           </span>
+          {/* Language pill — only in free/project mode (not exercises) */}
+          {activeTab?.type !== "exercise" && (
+            <div className="flex rounded-full border overflow-hidden" style={{ borderColor: "var(--theme-border)" }}>
+              {(["python", "cpp"] as const).map((lang) => (
+                <button
+                  key={lang}
+                  onClick={() => {
+                    if (lang === activeLanguage) return;
+                    setActiveLanguage(lang);
+                    if (activeTab?.type === "free") {
+                      setCode(lang === "python"
+                        ? '# Write your Python code here!\nprint("Hello, World!")'
+                        : '#include <iostream>\nusing namespace std;\n\nint main() {\n    cout << "Hello, World!" << endl;\n    return 0;\n}\n');
+                    }
+                  }}
+                  className="px-2.5 py-0.5 text-[11px] font-bold transition-colors"
+                  style={{
+                    backgroundColor: activeLanguage === lang ? "var(--color-primary)" : "transparent",
+                    color: activeLanguage === lang ? "white" : "var(--theme-text-muted)",
+                  }}
+                >
+                  {lang === "python" ? "🐍 Python" : "⚡ C++"}
+                </button>
+              ))}
+            </div>
+          )}
         </div>
       </motion.div>
 
@@ -957,13 +1184,15 @@ export default function CodeLabPage() {
               {isLoading && <span className="text-[10px] text-cyan-400 animate-pulse">{loadingMsg}</span>}
               {!stepMode ? (
                 <>
-                  <button
-                    onClick={startStepMode}
-                    disabled={isRunning || isLoading}
-                    className="flex items-center gap-1 px-2 py-1 bg-cyan-500 text-black text-xs font-bold rounded-md hover:bg-cyan-400 disabled:opacity-50 transition-colors"
-                  >
-                    ⏭ Step
-                  </button>
+                  {isPython && (
+                    <button
+                      onClick={startStepMode}
+                      disabled={isRunning || isLoading}
+                      className="flex items-center gap-1 px-2 py-1 bg-cyan-500 text-black text-xs font-bold rounded-md hover:bg-cyan-400 disabled:opacity-50 transition-colors"
+                    >
+                      ⏭ Step
+                    </button>
+                  )}
                   <button
                     onClick={runCode}
                     disabled={isRunning || isLoading}
@@ -1034,7 +1263,7 @@ export default function CodeLabPage() {
           <div className="flex-1 min-h-0 relative">
             <MonacoEditor
               height="100%"
-              language="python"
+              language={isPython ? "python" : "cpp"}
               theme="vs-dark"
               value={code}
               onChange={(v) => setCode(v || "")}
@@ -1121,45 +1350,47 @@ export default function CodeLabPage() {
                       </pre>
                     </div>
 
-                    {/* Variables */}
-                    <div
-                      className="md:w-64 lg:w-80 p-3 border-t md:border-t-0 md:border-l overflow-auto"
-                      style={{ borderColor: "var(--theme-border)", maxHeight: "250px" }}
-                    >
-                      <div className="text-[10px] text-[var(--theme-text-muted)] terminal-text mb-2">VARIABLES · 变量</div>
-                      <MemoryModel variables={variableDetails} />
-                      {variableDetails.length === 0 && Object.keys(variables).length > 0 && (
-                        <div className="flex flex-wrap gap-1.5">
-                          {Object.entries(variables).map(([name, value]) => (
-                            <motion.div
-                              key={name}
-                              initial={{ opacity: 0, scale: 0.8 }}
-                              animate={{ opacity: 1, scale: 1 }}
-                              className="px-2 py-0.5 bg-purple-500/10 border border-purple-500/20 rounded text-[10px] terminal-text"
-                            >
-                              <span className="text-purple-400">{name}</span>
-                              <span className="text-[var(--theme-text-muted)]"> = </span>
-                              <span className="text-cyan-400">{value}</span>
-                            </motion.div>
-                          ))}
-                        </div>
-                      )}
-                      {variableDetails.length === 0 && Object.keys(variables).length === 0 && (
-                        <p className="text-[10px]" style={{ color: "var(--theme-text-muted)" }}>
-                          Run code to see variables · 运行代码查看变量
-                        </p>
-                      )}
-
-                      {/* Call stack (during step mode) */}
-                      {stepMode && traceSteps[stepIndex] && (
-                        <div className="mt-3 pt-2 border-t" style={{ borderColor: "var(--theme-border)" }}>
-                          <div className="text-[10px] text-[var(--theme-text-muted)] terminal-text mb-1">CALL STACK · 调用栈</div>
-                          <div className="text-[10px] text-cyan-400 terminal-text">
-                            → Line {traceSteps[stepIndex].line + 1}: {code.split("\n")[traceSteps[stepIndex].line]?.trim() || ""}
+                    {/* Variables (Python only) */}
+                    {isPython && (
+                      <div
+                        className="md:w-64 lg:w-80 p-3 border-t md:border-t-0 md:border-l overflow-auto"
+                        style={{ borderColor: "var(--theme-border)", maxHeight: "250px" }}
+                      >
+                        <div className="text-[10px] text-[var(--theme-text-muted)] terminal-text mb-2">VARIABLES · 变量</div>
+                        <MemoryModel variables={variableDetails} />
+                        {variableDetails.length === 0 && Object.keys(variables).length > 0 && (
+                          <div className="flex flex-wrap gap-1.5">
+                            {Object.entries(variables).map(([name, value]) => (
+                              <motion.div
+                                key={name}
+                                initial={{ opacity: 0, scale: 0.8 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                className="px-2 py-0.5 bg-purple-500/10 border border-purple-500/20 rounded text-[10px] terminal-text"
+                              >
+                                <span className="text-purple-400">{name}</span>
+                                <span className="text-[var(--theme-text-muted)]"> = </span>
+                                <span className="text-cyan-400">{value}</span>
+                              </motion.div>
+                            ))}
                           </div>
-                        </div>
-                      )}
-                    </div>
+                        )}
+                        {variableDetails.length === 0 && Object.keys(variables).length === 0 && (
+                          <p className="text-[10px]" style={{ color: "var(--theme-text-muted)" }}>
+                            Run code to see variables · 运行代码查看变量
+                          </p>
+                        )}
+
+                        {/* Call stack (during step mode) */}
+                        {stepMode && traceSteps[stepIndex] && (
+                          <div className="mt-3 pt-2 border-t" style={{ borderColor: "var(--theme-border)" }}>
+                            <div className="text-[10px] text-[var(--theme-text-muted)] terminal-text mb-1">CALL STACK · 调用栈</div>
+                            <div className="text-[10px] text-cyan-400 terminal-text">
+                              → Line {traceSteps[stepIndex].line + 1}: {code.split("\n")[traceSteps[stepIndex].line]?.trim() || ""}
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    )}
                   </div>
                 </motion.div>
               )}

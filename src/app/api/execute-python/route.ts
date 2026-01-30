@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 
 const PISTON_API_URL = 'https://emkc.org/api/v2/piston/execute';
 
-// Simple in-memory rate limiter: sessionId -> timestamps
+// Simple in-memory rate limiter
 const rateLimitMap = new Map<string, number[]>();
 const RATE_LIMIT = 10;
 const RATE_WINDOW_MS = 60_000;
@@ -18,26 +18,15 @@ function checkRateLimit(sessionId: string): boolean {
   return true;
 }
 
-interface CppExecutionResult {
+interface PythonExecutionResult {
   output: string;
   error: string | null;
-  status: 'success' | 'error' | 'timeout' | 'compile_error';
-  compileError?: string;
+  status: 'success' | 'error' | 'timeout';
   time?: string;
-  memory?: number;
 }
 
 interface PistonResponse {
-  language?: string;
-  version?: string;
   run?: {
-    stdout: string;
-    stderr: string;
-    code: number;
-    signal: string | null;
-    output: string;
-  };
-  compile?: {
     stdout: string;
     stderr: string;
     code: number;
@@ -48,7 +37,6 @@ interface PistonResponse {
 }
 
 export async function POST(req: NextRequest) {
-  // Rate limit by IP or forwarded header
   const sessionId = req.headers.get('x-forwarded-for') || 'anonymous';
   if (!checkRateLimit(sessionId)) {
     return NextResponse.json(
@@ -82,11 +70,10 @@ export async function POST(req: NextRequest) {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        language: 'c++',
-        version: '10.2.0',
-        files: [{ name: 'main.cpp', content: code }],
+        language: 'python3',
+        version: '3.10.0',
+        files: [{ name: 'main.py', content: code }],
         stdin: input || '',
-        compile_timeout: 10000,
         run_timeout: 5000,
       }),
     });
@@ -94,11 +81,7 @@ export async function POST(req: NextRequest) {
     if (!res.ok) {
       const errText = await res.text();
       return NextResponse.json(
-        {
-          output: '',
-          error: `Piston API error (${res.status}): ${errText}`,
-          status: 'error',
-        },
+        { output: '', error: `Piston API error (${res.status}): ${errText}`, status: 'error' },
         { status: 502 }
       );
     }
@@ -107,36 +90,14 @@ export async function POST(req: NextRequest) {
     const elapsed = ((Date.now() - startTime) / 1000).toFixed(3);
 
     if (result.message) {
-      return NextResponse.json({
-        output: '',
-        error: result.message,
-        status: 'error',
-      });
-    }
-
-    // Check compilation errors
-    if (result.compile && result.compile.code !== 0) {
-      const compileErr = result.compile.stderr || result.compile.output || 'Compilation failed';
-      const response: CppExecutionResult = {
-        output: '',
-        error: compileErr,
-        status: 'compile_error',
-        compileError: compileErr,
-        time: elapsed,
-      };
-      return NextResponse.json(response);
+      return NextResponse.json({ output: '', error: result.message, status: 'error' });
     }
 
     const run = result.run;
     if (!run) {
-      return NextResponse.json({
-        output: '',
-        error: 'No run result from Piston',
-        status: 'error',
-      });
+      return NextResponse.json({ output: '', error: 'No run result from Piston', status: 'error' });
     }
 
-    // Check for signals (timeout, killed, etc.)
     if (run.signal === 'SIGKILL') {
       return NextResponse.json({
         output: run.stdout || '',
@@ -146,29 +107,17 @@ export async function POST(req: NextRequest) {
       });
     }
 
-    const response: CppExecutionResult = {
+    const response: PythonExecutionResult = {
       output: run.stdout || '',
       error: run.stderr || null,
-      status: run.code === 0 && !run.stderr ? 'success' : 'error',
+      status: run.code === 0 ? 'success' : 'error',
       time: elapsed,
     };
-
-    // If there's stderr but also stdout, still mark as success if exit code is 0
-    if (run.code === 0) {
-      response.status = 'success';
-      if (run.stderr) {
-        response.error = run.stderr;
-      }
-    }
 
     return NextResponse.json(response);
   } catch (e) {
     return NextResponse.json(
-      {
-        output: '',
-        error: `Server error: ${e instanceof Error ? e.message : 'unknown'}`,
-        status: 'error',
-      },
+      { output: '', error: `Server error: ${e instanceof Error ? e.message : 'unknown'}`, status: 'error' },
       { status: 500 }
     );
   }

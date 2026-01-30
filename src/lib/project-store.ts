@@ -1,12 +1,18 @@
 // Project storage — Supabase for logged-in users, localStorage fallback
 // 项目存储 — 登录用户用 Supabase，未登录用 localStorage
+//
+// ⚠️ MIGRATION REQUIRED — Run this SQL in Supabase:
+// ALTER TABLE user_projects ADD COLUMN language text DEFAULT 'python';
 
 import { getSupabase } from "./supabase";
+
+export type ProjectLanguage = "python" | "cpp";
 
 export interface Project {
   id: string;
   name: string;
   code: string;
+  language: ProjectLanguage;
   createdAt: string;
   updatedAt: string;
 }
@@ -66,6 +72,7 @@ export async function loadProjects(): Promise<Project[]> {
           id: r.id as string,
           name: r.name as string,
           code: r.code as string,
+          language: (r.language as ProjectLanguage) || "python",
           createdAt: r.created_at as string,
           updatedAt: r.updated_at as string,
         }));
@@ -89,6 +96,7 @@ export async function saveProject(project: Project): Promise<void> {
         user_id: userId,
         name: project.name,
         code: project.code,
+        language: project.language || "python",
         updated_at: new Date().toISOString(),
       });
       return;
@@ -123,12 +131,13 @@ export async function deleteProject(id: string): Promise<void> {
   setLocalProjects(projects);
 }
 
-export async function createProject(name: string, code: string): Promise<Project> {
+export async function createProject(name: string, code: string, language: ProjectLanguage = "python"): Promise<Project> {
   const now = new Date().toISOString();
   const project: Project = {
     id: genId(),
     name,
     code,
+    language,
     createdAt: now,
     updatedAt: now,
   };
@@ -137,5 +146,5 @@ export async function createProject(name: string, code: string): Promise<Project
 }
 
 export async function duplicateProject(source: Project): Promise<Project> {
-  return createProject(`${source.name} (copy)`, source.code);
+  return createProject(`${source.name} (copy)`, source.code, source.language);
 }
