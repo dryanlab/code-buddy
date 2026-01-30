@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { getProgress } from "@/lib/progress-store";
 import { MODULES, LESSONS } from "@/data/lessons";
 import { CPP_MODULES, CPP_LESSONS } from "@/data/cpp-lessons";
@@ -17,7 +18,11 @@ export default function LessonsPage() {
   const [completedLessons, setCompletedLessons] = useState<string[]>([]);
   const [preview, setPreview] = useState(false);
   const [showSignUpModal, setShowSignUpModal] = useState(false);
-  const [track, setTrack] = useState<"python" | "cpp" | "ds" | "alg">("python");
+  const searchParams = useSearchParams();
+  const initialTrack = (["python", "cpp", "ds", "alg"] as const).includes(searchParams.get("track") as never)
+    ? (searchParams.get("track") as "python" | "cpp" | "ds" | "alg")
+    : "python";
+  const [track, setTrack] = useState<"python" | "cpp" | "ds" | "alg">(initialTrack);
   const { profile } = useUserProfile();
   const skillLevel: SkillLevel = profile?.skillLevel || "beginner";
   const startIdx = getStartingIndex(skillLevel);
