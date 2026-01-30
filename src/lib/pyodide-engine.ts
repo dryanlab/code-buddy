@@ -200,23 +200,27 @@ export async function runPython(
     py.runPython(`
 import sys, io
 
-class _CaptureOut(io.StringIO):
-    def __init__(self, callback):
-        super().__init__()
-        self._cb = callback
-    def write(self, s):
-        if s and s != '\\n':
-            self._cb(s)
-        elif s == '\\n':
-            self._cb('\\n')
-        return len(s)
-
+_output_buf = io.StringIO()
+sys.stdout = _output_buf
+sys.stderr = _output_buf
 _output_lines = []
-def _capture(s):
-    _output_lines.append(s)
+`);
+    // Also keep _output_lines for input() echo
+    py.runPython(`
+class _DualOut:
+    def __init__(self, buf, lines):
+        self._buf = buf
+        self._lines = lines
+    def write(self, s):
+        self._buf.write(s)
+        self._lines.append(s)
+        return len(s)
+    def flush(self):
+        self._buf.flush()
 
-sys.stdout = _CaptureOut(_capture)
-sys.stderr = _CaptureOut(_capture)
+_dual = _DualOut(_output_buf, _output_lines)
+sys.stdout = _dual
+sys.stderr = _dual
 `);
 
     // Mock input() - use provided values or prompt via JS
@@ -259,7 +263,7 @@ def input(prompt=""):
     await py.runPythonAsync(code);
 
     // Collect output
-    const rawOutput = py.runPython(`"".join(_output_lines)`) as string;
+    const rawOutput = py.runPython(`_output_buf.getvalue()`) as string;
     let output = rawOutput.replace(/\n$/, "");
 
     // Prepend module warning if any
