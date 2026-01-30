@@ -3,7 +3,9 @@
 export interface CodeExercise {
   id: string;
   title: string;
+  titleZh?: string;
   description: string;
+  descriptionZh?: string;
   difficulty: 1 | 2 | 3;
   gradeRange: [number, number]; // kept for reference
   skillLevel: "beginner" | "intermediate" | "advanced";
