@@ -166,10 +166,15 @@ export default function LessonPage() {
   const [isCompleted, setIsCompleted] = useState(false);
   const [showCelebration, setShowCelebration] = useState(false);
   const [quizPassed, setQuizPassed] = useState(false);
+  const [superuser, setSuperuser] = useState(false);
 
   useEffect(() => {
     const p = getProgress();
     setIsCompleted(p.completedLessons.includes(lessonId));
+    // Check superuser
+    import("@/lib/auth-store").then(m => m.isSuperuser()).then(su => {
+      if (su) { setSuperuser(true); setIsCompleted(true); }
+    });
   }, [lessonId]);
 
   // Save position whenever section changes
@@ -334,7 +339,7 @@ export default function LessonPage() {
       </div>
 
       {/* Lesson Navigation (Next/Previous Lesson) */}
-      <LessonNavigation lessonId={lessonId} isCompleted={isCompleted} />
+      <LessonNavigation lessonId={lessonId} isCompleted={isCompleted || superuser} />
     </div>
   );
 }

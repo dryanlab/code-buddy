@@ -259,3 +259,17 @@ export async function logout(): Promise<void> {
 export function isLoggedIn(): boolean {
   return getLocalUser() !== null;
 }
+
+const SUPERUSER_EMAILS = ["suyanuiuc@gmail.com"];
+
+export async function isSuperuser(): Promise<boolean> {
+  const supabase = getSupabase();
+  if (!supabase) return false;
+  try {
+    const { data: { session } } = await supabase.auth.getSession();
+    if (!session?.user?.email) return false;
+    return SUPERUSER_EMAILS.includes(session.user.email);
+  } catch {
+    return false;
+  }
+}
