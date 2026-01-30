@@ -2,8 +2,8 @@
 
 import { useState, useCallback, useEffect, useRef } from "react";
 import dynamic from "next/dynamic";
-import { loadPyodideEngine, runPython, isPyodideLoaded, parseCodeIntoSteps } from "@/lib/pyodide-engine";
-import type { VariableDetail } from "@/lib/pyodide-engine";
+import { loadPyodideEngine, runPython, isPyodideLoaded, traceExecution } from "@/lib/pyodide-engine";
+import type { VariableDetail, TraceStep } from "@/lib/pyodide-engine";
 import { incrementCodeRun, addXP } from "@/lib/progress-store";
 import { motion, AnimatePresence } from "framer-motion";
 import MemoryModel from "./MemoryModel";
@@ -38,7 +38,7 @@ export default function CodeEditor({
   // Step mode state
   const [stepMode, setStepMode] = useState(false);
   const [stepIndex, setStepIndex] = useState(0);
-  const [steps, setSteps] = useState<{ startLine: number; endLine: number; code: string }[]>([]);
+  // steps state removed — using traceSteps instead
   const [highlightLines, setHighlightLines] = useState<{ start: number; end: number } | null>(null);
   const editorRef = useRef<unknown>(null);
   const decorationsRef = useRef<string[]>([]);
@@ -122,71 +122,66 @@ export default function CodeEditor({
     await executeCode(inputValues.length > 0 ? inputValues : undefined);
   }, [executeCode, inputValues]);
 
-  // Cached inputs for step mode replay
-  const [stepInputCache, setStepInputCache] = useState<string[]>([]);
+  const [traceSteps, setTraceSteps] = useState<TraceStep[]>([]);
 
-  // Step mode: start
+  // Step mode: start — run entire code with trace, then step through results
   const startStepMode = useCallback(async () => {
     const ready = await ensurePyodide();
     if (!ready) return;
 
-    const parsed = parseCodeIntoSteps(code);
-    if (parsed.length === 0) return;
+    setIsRunning(true);
+    setOutput("⏳ Tracing execution... · 正在追踪执行...");
 
-    setSteps(parsed);
-    setStepIndex(0);
-    setStepMode(true);
-    setOutput("");
-    setHasError(false);
-    setVariables({});
-    setVariableDetails([]);
-    setStepInputCache([]);
-    setHighlightLines({ start: parsed[0].startLine, end: parsed[0].endLine });
+    const result = await traceExecution(code);
 
-    // Execute first step (no cached inputs yet)
-    const result = await runPython(parsed[0].code);
     if (result.error) {
       setOutput(result.error);
       setHasError(true);
-    } else {
-      setOutput(result.output || "");
+      setIsRunning(false);
+      return;
     }
-    setVariables(result.variables);
-    setVariableDetails(result.variableDetails || []);
-    // Cache any inputs collected
-    if (result.collectedInputs && result.collectedInputs.length > 0) {
-      setStepInputCache(result.collectedInputs);
+
+    if (result.steps.length === 0) {
+      setOutput("(No executable lines · 没有可执行的行)");
+      setIsRunning(false);
+      return;
     }
+
+    setTraceSteps(result.steps);
+    setStepIndex(0);
+    setStepMode(true);
+    setIsRunning(false);
+    setHasError(false);
+
+    // Show first step
+    const first = result.steps[0];
+    setHighlightLines({ start: first.line, end: first.line });
+    setOutput("");
+    setVariables(first.variables);
+    setVariableDetails(first.variableDetails);
   }, [code, ensurePyodide]);
 
-  // Step mode: next
-  const nextStep = useCallback(async () => {
+  // Step mode: next — just advance through pre-recorded trace
+  const nextStep = useCallback(() => {
     const nextIdx = stepIndex + 1;
-    if (nextIdx >= steps.length) {
+    if (nextIdx >= traceSteps.length) {
+      // Done — show final output
       setStepMode(false);
       setHighlightLines(null);
+      const last = traceSteps[traceSteps.length - 1];
+      setOutput(last.output || "(No output · 没有输出)");
+      setVariables(last.variables);
+      setVariableDetails(last.variableDetails);
       return;
     }
 
     setStepIndex(nextIdx);
-    setHighlightLines({ start: steps[nextIdx].startLine, end: steps[nextIdx].endLine });
-
-    // Replay cached inputs so user doesn't have to re-enter them
-    const result = await runPython(steps[nextIdx].code, stepInputCache.length > 0 ? stepInputCache : undefined);
-    if (result.error) {
-      setOutput(result.error);
-      setHasError(true);
-    } else {
-      setOutput(result.output || "");
-      setHasError(false);
-    }
-    setVariables(result.variables);
-    setVariableDetails(result.variableDetails || []);
-    // Update cache with any new inputs
-    if (result.collectedInputs && result.collectedInputs.length > stepInputCache.length) {
-      setStepInputCache(result.collectedInputs);
-    }
-  }, [stepIndex, steps, stepInputCache]);
+    const step = traceSteps[nextIdx];
+    setHighlightLines({ start: step.line, end: step.line });
+    setVariables(step.variables);
+    setVariableDetails(step.variableDetails);
+    // Don't show output until the end (or show incrementally if we have it)
+  }, [stepIndex, traceSteps]);
 
   // Step mode: run all remaining
   const runAllRemaining = useCallback(async () => {
@@ -249,7 +244,7 @@ export default function CodeEditor({
           ) : (
             <>
               <span className="text-xs text-yellow-300 font-mono">
-                Line {highlightLines ? highlightLines.start + 1 : "?"} of {totalLines} · 第{highlightLines ? highlightLines.start + 1 : "?"}行/共{totalLines}行
+                Step {stepIndex + 1}/{traceSteps.length} · Line {highlightLines ? highlightLines.start + 1 : "?"} · 第{stepIndex + 1}步/共{traceSteps.length}步
               </span>
               <button
                 onClick={nextStep}
@@ -314,7 +309,7 @@ export default function CodeEditor({
               </motion.span>
             )}
           </AnimatePresence>
-          {stepMode && stepIndex >= steps.length - 1 && !hasError && (
+          {stepMode && stepIndex >= traceSteps.length - 1 && !hasError && (
             <span className="text-xs text-green-400 font-bold">✅ Complete! · 执行完毕！</span>
           )}
         </div>

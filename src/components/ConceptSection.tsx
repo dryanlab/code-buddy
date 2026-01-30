@@ -4,8 +4,8 @@ import { motion } from "framer-motion";
 import { useState, useCallback } from "react";
 import dynamic from "next/dynamic";
 import type { LessonSection, SyntaxCard, CodeAnatomy } from "@/data/lessons";
-import { loadPyodideEngine, runPython, isPyodideLoaded, parseCodeIntoSteps } from "@/lib/pyodide-engine";
-import type { VariableDetail } from "@/lib/pyodide-engine";
+import { loadPyodideEngine, runPython, isPyodideLoaded, traceExecution } from "@/lib/pyodide-engine";
+import type { VariableDetail, TraceStep } from "@/lib/pyodide-engine";
 import MemoryModel from "./MemoryModel";
 
 const MonacoEditor = dynamic(() => import("@monaco-editor/react"), { ssr: false });
@@ -78,7 +78,7 @@ function CodeAnatomyComponent({ anatomy }: { anatomy: CodeAnatomy }) {
   // Step mode state
   const [stepMode, setStepMode] = useState(false);
   const [stepIndex, setStepIndex] = useState(0);
-  const [steps, setSteps] = useState<{ startLine: number; endLine: number; code: string }[]>([]);
+  // old steps removed — using traceSteps
   const [highlightLineIdx, setHighlightLineIdx] = useState<number | null>(null);
 
   const runnableCode = anatomy.lines.map(l => l.code).join("\n");
@@ -122,51 +122,54 @@ function CodeAnatomyComponent({ anatomy }: { anatomy: CodeAnatomy }) {
     setIsRunning(false);
   }, [runnableCode, ensurePyodide]);
 
-  const [stepInputCache, setStepInputCache] = useState<string[]>([]);
+  const [traceSteps, setTraceSteps] = useState<TraceStep[]>([]);
 
   const startStepMode = useCallback(async () => {
     const ready = await ensurePyodide();
     if (!ready) return;
 
-    const parsed = parseCodeIntoSteps(runnableCode);
-    if (parsed.length === 0) return;
+    setIsRunning(true);
+    setOutput("⏳ Tracing... · 正在追踪...");
 
-    setSteps(parsed);
+    const result = await traceExecution(runnableCode);
+    setIsRunning(false);
+
+    if (result.error) {
+      setOutput(result.error);
+      setHasError(true);
+      return;
+    }
+    if (result.steps.length === 0) {
+      setOutput("(No executable lines · 没有可执行的行)");
+      return;
+    }
+
+    setTraceSteps(result.steps);
     setStepIndex(0);
     setStepMode(true);
-    setOutput("");
     setHasError(false);
-    setVariableDetails([]);
-    setStepInputCache([]);
-    setHighlightLineIdx(parsed[0].startLine);
+    setOutput("");
 
-    const result = await runPython(parsed[0].code);
-    if (result.error) { setOutput(result.error); setHasError(true); }
-    else { setOutput(result.output || ""); }
-    setVariableDetails(result.variableDetails || []);
-    if (result.collectedInputs && result.collectedInputs.length > 0) {
-      setStepInputCache(result.collectedInputs);
-    }
+    const first = result.steps[0];
+    setHighlightLineIdx(first.line);
+    setVariableDetails(first.variableDetails);
   }, [runnableCode, ensurePyodide]);
 
-  const nextStep = useCallback(async () => {
+  const nextStep = useCallback(() => {
     const nextIdx = stepIndex + 1;
-    if (nextIdx >= steps.length) {
+    if (nextIdx >= traceSteps.length) {
       setStepMode(false);
       setHighlightLineIdx(null);
+      const last = traceSteps[traceSteps.length - 1];
+      setOutput(last.output || "(No output · 没有输出)");
+      setVariableDetails(last.variableDetails);
       return;
     }
     setStepIndex(nextIdx);
-    setHighlightLineIdx(steps[nextIdx].startLine);
-
-    const result = await runPython(steps[nextIdx].code, stepInputCache.length > 0 ? stepInputCache : undefined);
-    if (result.error) { setOutput(result.error); setHasError(true); }
-    else { setOutput(result.output || ""); setHasError(false); }
-    setVariableDetails(result.variableDetails || []);
-    if (result.collectedInputs && result.collectedInputs.length > stepInputCache.length) {
-      setStepInputCache(result.collectedInputs);
-    }
-  }, [stepIndex, steps, stepInputCache]);
+    const step = traceSteps[nextIdx];
+    setHighlightLineIdx(step.line);
+    setVariableDetails(step.variableDetails);
+  }, [stepIndex, traceSteps]);
 
   const stopStepMode = useCallback(() => {
     setStepMode(false);
@@ -176,9 +179,7 @@ function CodeAnatomyComponent({ anatomy }: { anatomy: CodeAnatomy }) {
   // Map anatomy line index to highlight
   const getLineHighlight = (lineIdx: number): boolean => {
     if (!stepMode || highlightLineIdx === null) return false;
-    if (steps.length === 0) return false;
-    const currentStep = steps[stepIndex];
-    return lineIdx >= currentStep.startLine && lineIdx <= currentStep.endLine;
+    return lineIdx === highlightLineIdx;
   };
 
   return (
@@ -212,7 +213,7 @@ function CodeAnatomyComponent({ anatomy }: { anatomy: CodeAnatomy }) {
           ) : (
             <>
               <span className="text-[10px] text-yellow-300 font-mono">
-                Step {stepIndex + 1}/{steps.length}
+                Step {stepIndex + 1}/{traceSteps.length}
               </span>
               <button onClick={nextStep} className="px-2 py-1 bg-cyan-500 text-black text-[10px] font-bold rounded-lg hover:bg-cyan-400">
                 ⏭ Next · 下一步
