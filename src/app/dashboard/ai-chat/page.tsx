@@ -107,10 +107,10 @@ export default function AIChatPage() {
   };
 
   return (
-    <div className="flex flex-col h-screen">
+    <div className="flex flex-col" style={{ height: "calc(100dvh - 3.5rem)" }}>
       {/* Header */}
       <div className="p-4" style={{ borderBottom: "1px solid var(--theme-border)" }}>
-        <h1 className="text-xl font-bold pt-10 md:pt-0">🤖 AI Buddy</h1>
+        <h1 className="text-xl font-bold">🤖 AI Buddy</h1>
         <p className="text-xs" style={{ color: "var(--theme-text-secondary)" }}>Your CS & STEM learning companion — I help you think, not just give answers!</p>
         <p className="text-xs" style={{ color: "var(--theme-text-muted)" }}>你的 CS & STEM 学习伙伴 — 引导你思考，而不只是给答案！</p>
       </div>
