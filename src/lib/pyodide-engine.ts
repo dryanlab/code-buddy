@@ -199,28 +199,9 @@ export async function runPython(
     // Set up stdout/stderr capture and input mock
     py.runPython(`
 import sys, io
-
 _output_buf = io.StringIO()
 sys.stdout = _output_buf
 sys.stderr = _output_buf
-_output_lines = []
-`);
-    // Also keep _output_lines for input() echo
-    py.runPython(`
-class _DualOut:
-    def __init__(self, buf, lines):
-        self._buf = buf
-        self._lines = lines
-    def write(self, s):
-        self._buf.write(s)
-        self._lines.append(s)
-        return len(s)
-    def flush(self):
-        self._buf.flush()
-
-_dual = _DualOut(_output_buf, _output_lines)
-sys.stdout = _dual
-sys.stderr = _dual
 `);
 
     // Mock input() - use provided values or prompt via JS
@@ -229,15 +210,14 @@ sys.stderr = _dual
       py.runPython(`
 _input_values = ${inputJson}
 _input_idx = 0
-_orig_input = input
 def input(prompt=""):
     global _input_idx
     if prompt:
-        _output_lines.append(prompt)
+        _output_buf.write(prompt)
     if _input_idx < len(_input_values):
         val = _input_values[_input_idx]
         _input_idx += 1
-        _output_lines.append(val + "\\n")
+        _output_buf.write(val + "\\n")
         return val
     return ""
 `);
@@ -248,13 +228,13 @@ import js
 
 def input(prompt=""):
     if prompt:
-        _output_lines.append(prompt)
+        _output_buf.write(prompt)
     result = js.prompt(prompt or "请输入 (Enter a value):")
     if result is None:
         result = ""
     else:
         result = str(result)
-    _output_lines.append(result + "\\n")
+    _output_buf.write(result + "\\n")
     return result
 `);
     }
