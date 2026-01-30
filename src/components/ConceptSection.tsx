@@ -144,6 +144,11 @@ function CodeAnatomyComponent({ anatomy, language = "python" }: { anatomy: CodeA
   const [traceSteps, setTraceSteps] = useState<TraceStep[]>([]);
 
   const startStepMode = useCallback(async () => {
+    if (isCpp) {
+      setOutput("⚠️ Step mode is not yet available for C++. Use Run instead! · C++暂不支持分步模式，请使用运行按钮！");
+      return;
+    }
+
     const ready = await ensurePyodide();
     if (!ready) return;
 
@@ -214,6 +219,7 @@ function CodeAnatomyComponent({ anatomy, language = "python" }: { anatomy: CodeA
           {isLoading && <span className="text-xs text-cyan-400 animate-pulse">{loadingMsg}</span>}
           {!stepMode ? (
             <>
+              {!isCpp && (
               <button
                 onClick={startStepMode}
                 disabled={isRunning || isLoading}
@@ -221,6 +227,7 @@ function CodeAnatomyComponent({ anatomy, language = "python" }: { anatomy: CodeA
               >
                 ⏭ Step · 分步
               </button>
+              )}
               <button
                 onClick={handleRun}
                 disabled={isRunning || isLoading}
