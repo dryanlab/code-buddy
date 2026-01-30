@@ -2303,7 +2303,20 @@ for person, mutuals in net.suggest_friends("Alice"):
     {
       type: "code",
       emoji: "🏰",
-      content: `## 🏰 Maze Solver with BFS · 用BFS解迷宫`,
+      content: `## 🏰 Maze Solver with BFS · 用BFS解迷宫
+
+🎯 **What you'll learn:** How to use BFS on a 2D grid to find the shortest path through a maze — like video game pathfinding!
+学习目标：如何在二维网格上使用 BFS 找到迷宫最短路径——就像游戏中的寻路！
+
+A maze is just a graph where each cell connects to its neighbors (up/down/left/right) 🎮. BFS guarantees the shortest path because it explores all cells at distance 1, then distance 2, etc. This is exactly how game NPCs navigate around obstacles!
+
+🔑 **Key things to notice · 注意要点:**
+- The maze is a 2D grid: 0 = open path, 1 = wall
+- 4 directions: right, left, down, up — each is a (dr, dc) offset
+- BFS tracks the full path by carrying it along with each position
+- Bounds checking + wall checking + visited checking prevent invalid moves
+
+👀 Try modifying the maze walls and see how the path changes!`,
       code: `from collections import deque
 
 def solve_maze(maze, start, end):
@@ -2422,7 +2435,20 @@ Sorting is one of the most fundamental operations in CS. Let's race the algorith
     {
       type: "code",
       emoji: "🫧",
-      content: `## 🫧 Bubble Sort & Selection Sort · 冒泡排序与选择排序`,
+      content: `## 🫧 Bubble Sort & Selection Sort · 冒泡排序与选择排序
+
+🎯 **What you'll learn:** How bubble sort and selection sort work — two O(n²) algorithms that are simple but slow.
+学习目标：冒泡排序和选择排序如何工作——两种简单但较慢的 O(n²) 算法。
+
+Bubble sort is like bubbles rising in a soda 🫧 — bigger values "bubble up" to the end through repeated swaps. Selection sort is like picking the shortest person in a group photo 📸 — find the minimum, put it first, then find the next minimum. Both compare every pair, making them O(n²).
+
+🔑 **Key things to notice · 注意要点:**
+- Bubble sort: compare adjacent pairs, swap if out of order, repeat
+- Selection sort: find minimum in unsorted portion, swap to front
+- Both are O(n²) — the nested loops give it away!
+- We count comparisons to see the cost — both make ~190 for 20 elements
+
+👀 Run the race and compare the comparison counts!`,
       code: `# 📦 Box: "Start with the simple ones!"
 
 def bubble_sort(arr):
@@ -2467,7 +2493,20 @@ print(f"  Comparisons: {c2}")`,
     {
       type: "code",
       emoji: "🚀",
-      content: `## 🚀 Merge Sort — The Fast One · 归并排序——快速选手`,
+      content: `## 🚀 Merge Sort — The Fast One · 归并排序——快速选手
+
+🎯 **What you'll learn:** How merge sort uses divide-and-conquer to achieve O(n log n) — dramatically faster than O(n²)!
+学习目标：归并排序如何使用分治法达到 O(n log n)——比 O(n²) 快得多！
+
+Merge sort is like sorting a deck of cards with a friend 🃏 — split the deck in half, each person sorts their half, then merge the two sorted halves together. The merge step is the magic: comparing the tops of two sorted piles is easy!
+
+🔑 **Key things to notice · 注意要点:**
+- Divide: split array in half until each piece has 1 element (already sorted!)
+- Conquer: merge two sorted halves using two pointers
+- O(n log n): log n levels of splitting × n work per level to merge
+- The speed comparison at the bottom shows merge sort is ~100x faster on 1000 elements!
+
+👀 Watch the timing comparison — feel the difference between O(n²) and O(n log n)!`,
       code: `# 📦 Box: "Divide and conquer — split, sort, merge!"
 
 def merge_sort(arr):
@@ -2585,7 +2624,20 @@ How do you find something in a collection?
     {
       type: "code",
       emoji: "💻",
-      content: `## 💻 Linear vs Binary Search · 线性 vs 二分搜索`,
+      content: `## 💻 Linear vs Binary Search · 线性 vs 二分搜索
+
+🎯 **What you'll learn:** The dramatic difference between O(n) linear search and O(log n) binary search — with step counts to prove it!
+学习目标：O(n) 线性搜索与 O(log n) 二分搜索的巨大差异——用步数来证明！
+
+Linear search is like reading every page of a book to find a word 📖🐢. Binary search is like using a dictionary — open to the middle, decide which half, repeat. On 1000 elements, linear takes ~778 steps while binary takes only ~10!
+
+🔑 **Key things to notice · 注意要点:**
+- Linear: check every element one by one — works on ANY list, but O(n)
+- Binary: requires SORTED data, but eliminates half each step — O(log n)
+- \\\`mid = (left + right) // 2\\\` finds the middle index
+- Compare: if target > mid value, search right half; otherwise, left half
+
+👀 Compare the step counts — binary search is ~78x fewer steps on 1000 elements!`,
       code: `# 📦 Box: "Feel the difference!"
 
 def linear_search(arr, target):
@@ -2632,7 +2684,20 @@ print(f"\\nWorst case: Linear={worst_linear}, Binary={worst_binary}")`,
     {
       type: "code",
       emoji: "🔍",
-      content: `## 🔍 Interpolation Search · 插值搜索`,
+      content: `## 🔍 Interpolation Search · 插值搜索
+
+🎯 **What you'll learn:** How interpolation search estimates position based on value — even faster than binary for uniform data!
+学习目标：插值搜索如何根据值估算位置——对均匀数据比二分搜索还快！
+
+Interpolation search is like looking up a name in a phone book 📞 — if you're looking for "Wang," you don't open to the middle, you open near the END because W is near the end of the alphabet. It estimates WHERE the target should be based on its value!
+
+🔑 **Key things to notice · 注意要点:**
+- Formula estimates position proportionally: pos = low + ((target - arr[low]) * (high - low)) / (arr[high] - arr[low])
+- For uniformly distributed data: O(log log n) — even faster than binary!
+- Falls back to O(n) for non-uniform data — binary search is safer in general
+- The three-way comparison at the end shows linear > binary > interpolation (fewer steps)
+
+👀 Compare all three search methods on the same data — see the step counts!`,
       code: `# 📦 Box: "An even smarter search for uniform data!"
 
 def interpolation_search(arr, target):
@@ -2740,7 +2805,20 @@ Now it's time to build your own **Data Structures Library** — a reusable Pytho
     {
       type: "code",
       emoji: "📚",
-      content: `## 📚 Your Data Structures Library · 你的数据结构库`,
+      content: `## 📚 Your Data Structures Library · 你的数据结构库
+
+🎯 **What you'll learn:** How to combine ALL data structures into one reusable Python library — your CS portfolio piece!
+学习目标：如何将所有数据结构组合成一个可复用的 Python 库——你的 CS 作品集项目！
+
+This is like building your own Swiss Army knife 🔪 — Stack, Queue, LinkedList, BST, and Graph all in one module! Real software engineers build libraries exactly like this. Each class is self-contained with clean methods. This is code you can actually use in future projects!
+
+🔑 **Key things to notice · 注意要点:**
+- Each class is independent and reusable — clean OOP design
+- Private attributes (\_items) follow Python convention for encapsulation
+- \_\_repr\_\_ and \_\_len\_\_ make classes work with print() and len()
+- The test section at the bottom verifies everything works — always test your code!
+
+👀 Run the test suite and make sure all 5 data structures pass!`,
       code: `# ═══════════════════════════════════════════
 # 📚 MY DATA STRUCTURES LIBRARY
 # Author: [Your Name]
