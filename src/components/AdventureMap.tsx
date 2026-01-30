@@ -56,11 +56,13 @@ function HotspotOverlay({
   track,
   progress,
   onClick,
+  isActive,
 }: {
   spot: MapHotspot;
   track: Track;
   progress: UserProgress | null;
   onClick: () => void;
+  isActive?: boolean;
 }) {
   let pct = 0;
   if (track.id === "python" && progress) {
@@ -92,29 +94,34 @@ function HotspotOverlay({
               <filter id={`cloud-blur-${spot.trackId}`} x="-80%" y="-80%" width="260%" height="260%">
                 <feGaussianBlur in="SourceGraphic" stdDeviation="10" />
               </filter>
-              <radialGradient id={`cloud-fade-${spot.trackId}`} cx="50%" cy="50%" r="50%">
-                <stop offset="0%" stopColor="#8a9bb0" stopOpacity="1" />
-                <stop offset="40%" stopColor="#96a7b8" stopOpacity="0.95" />
-                <stop offset="70%" stopColor="#a8b6c4" stopOpacity="0.7" />
-                <stop offset="100%" stopColor="#b8c5d2" stopOpacity="0" />
-              </radialGradient>
             </defs>
-            <g filter={`url(#cloud-blur-${spot.trackId})`}>
-              {/* Dense opaque core — covers the building */}
-              <ellipse cx="100" cy="100" rx="70" ry="55" fill="#8a9ab0" opacity="0.95" />
-              <ellipse cx="85" cy="95" rx="60" ry="48" fill="#95a5b8" opacity="0.92" />
-              <ellipse cx="115" cy="98" rx="62" ry="50" fill="#90a2b5" opacity="0.92" />
-              <ellipse cx="100" cy="88" rx="55" ry="42" fill="#a0afc0" opacity="0.9" />
-              {/* Mid volume */}
-              <ellipse cx="75" cy="105" rx="50" ry="40" fill="#9dadb8" opacity="0.85" />
-              <ellipse cx="125" cy="102" rx="52" ry="42" fill="#9baabb" opacity="0.85" />
-              <ellipse cx="100" cy="112" rx="55" ry="38" fill="#a5b3c2" opacity="0.8" />
-              {/* Outer soft edges — fade into map naturally */}
-              <ellipse cx="100" cy="75" rx="65" ry="30" fill="#b0bcc8" opacity="0.5" />
-              <ellipse cx="100" cy="130" rx="60" ry="28" fill="#adb9c5" opacity="0.45" />
-              <ellipse cx="55" cy="100" rx="35" ry="40" fill="#b5c0cc" opacity="0.4" />
-              <ellipse cx="145" cy="100" rx="38" ry="38" fill="#b2bfca" opacity="0.4" />
-            </g>
+            {isFuture ? (
+              <g filter={`url(#cloud-blur-${spot.trackId})`}>
+                {/* Future: denser clouds, still semi-transparent */}
+                <ellipse cx="100" cy="100" rx="68" ry="52" fill="#8a9ab0" opacity="0.7" />
+                <ellipse cx="85" cy="95" rx="58" ry="45" fill="#95a5b8" opacity="0.65" />
+                <ellipse cx="115" cy="98" rx="60" ry="48" fill="#90a2b5" opacity="0.65" />
+                <ellipse cx="100" cy="88" rx="50" ry="38" fill="#a0afc0" opacity="0.6" />
+                <ellipse cx="75" cy="105" rx="45" ry="36" fill="#9dadb8" opacity="0.55" />
+                <ellipse cx="125" cy="102" rx="48" ry="38" fill="#9baabb" opacity="0.55" />
+                {/* Outer wisps */}
+                <ellipse cx="100" cy="72" rx="55" ry="25" fill="#b0bcc8" opacity="0.35" />
+                <ellipse cx="100" cy="128" rx="52" ry="22" fill="#adb9c5" opacity="0.3" />
+                <ellipse cx="50" cy="100" rx="30" ry="35" fill="#b5c0cc" opacity="0.25" />
+                <ellipse cx="150" cy="100" rx="32" ry="32" fill="#b2bfca" opacity="0.25" />
+              </g>
+            ) : (
+              <g filter={`url(#cloud-blur-${spot.trackId})`}>
+                {/* Coming soon: lighter clouds, building clearly visible */}
+                <ellipse cx="100" cy="100" rx="60" ry="45" fill="#a0b0c0" opacity="0.45" />
+                <ellipse cx="85" cy="95" rx="50" ry="38" fill="#aab8c8" opacity="0.4" />
+                <ellipse cx="115" cy="98" rx="52" ry="40" fill="#a5b5c5" opacity="0.4" />
+                <ellipse cx="100" cy="88" rx="42" ry="32" fill="#b0bece" opacity="0.35" />
+                {/* Outer wisps */}
+                <ellipse cx="100" cy="72" rx="48" ry="20" fill="#bcc8d4" opacity="0.2" />
+                <ellipse cx="100" cy="125" rx="45" ry="18" fill="#b8c4d0" opacity="0.18" />
+              </g>
+            )}
           </svg>
         </div>
       )}
@@ -133,36 +140,21 @@ function HotspotOverlay({
           }}
         />
 
-        {isAvailable && (
-          <>
-            {/* Neon glow — bright center fading to edges, no ring */}
-            <motion.div
-              className="absolute inset-[-60%] rounded-full pointer-events-none"
-              style={{
-                background: `radial-gradient(circle, ${track.colorHex}cc 0%, ${track.colorHex}80 20%, ${track.colorHex}40 40%, ${track.colorHex}15 60%, transparent 80%)`,
-              }}
-              animate={{ scale: [1, 1.1, 1], opacity: [0.9, 0.6, 0.9] }}
-              transition={{ duration: 3, repeat: Infinity }}
-            />
-            {/* Second pulse layer for breathing effect */}
-            <motion.div
-              className="absolute inset-[-45%] rounded-full pointer-events-none"
-              style={{
-                background: `radial-gradient(circle, ${track.colorHex}90 0%, ${track.colorHex}30 35%, transparent 65%)`,
-              }}
-              animate={{ scale: [1, 1.25, 1], opacity: [0.6, 0.2, 0.6] }}
-              transition={{ duration: 2.5, repeat: Infinity, delay: 0.5 }}
-            />
-          </>
-        )}
-
-        {isAvailable && pct > 0 && pct < 100 && (
+        {/* "You are here" spinning arrow for active track */}
+        {isActive && (
           <motion.div
-            className="absolute -top-6 left-1/2 -translate-x-1/2 text-lg pointer-events-none"
-            animate={{ y: [0, -4, 0] }}
-            transition={{ duration: 1.5, repeat: Infinity }}
+            className="absolute -top-10 left-1/2 -translate-x-1/2 pointer-events-none"
+            animate={{ y: [0, -6, 0] }}
+            transition={{ duration: 1.2, repeat: Infinity, ease: "easeInOut" }}
           >
-            📍
+            <motion.div
+              animate={{ rotate: [0, 10, -10, 0] }}
+              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+              className="text-2xl drop-shadow-lg"
+              style={{ filter: `drop-shadow(0 0 6px ${track.colorHex})` }}
+            >
+              ⬇️
+            </motion.div>
           </motion.div>
         )}
 
@@ -326,6 +318,15 @@ export default function AdventureMap({ progress }: { progress: UserProgress | nu
 
   const selectedTrack = selectedTrackId ? TRACKS.find((t) => t.id === selectedTrackId) ?? null : null;
 
+  // Determine active track from lastLessonId
+  const activeTrackId = (() => {
+    const lastId = progress?.lastLessonId;
+    if (!lastId) return "python"; // default
+    if (lastId.startsWith("cpp-")) return "cpp";
+    if (lastId.startsWith("ds-")) return "data-structures";
+    return "python";
+  })();
+
   return (
     <>
       <motion.div
@@ -367,6 +368,7 @@ export default function AdventureMap({ progress }: { progress: UserProgress | nu
                   track={track}
                   progress={progress}
                   onClick={() => setSelectedTrackId(spot.trackId)}
+                  isActive={spot.trackId === activeTrackId}
                 />
               );
             })}
