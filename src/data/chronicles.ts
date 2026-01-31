@@ -1352,6 +1352,8 @@ That's a 12-million-fold increase in 53 years!`,
     readMinutes: 4,
     tags: ["bardeen", "uiuc", "transistor", "nobel", "superconductivity"],
     emoji: "🏅",
+    image: "https://upload.wikimedia.org/wikipedia/commons/4/4a/Bardeen.jpg",
+    imageCaption: "John Bardeen, 1956",
     content: `## The Quiet Genius Who Changed the World — Twice
 
 Ask most people to name the greatest physicist of the 20th century, and they'll say Einstein. But **John Bardeen** (1908–1991) did something Einstein never did: he won the **Nobel Prize in Physics twice**.
