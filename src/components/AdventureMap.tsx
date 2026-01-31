@@ -285,6 +285,7 @@ function TrackPopup({
     "cpp": "cpp",
     "data-structures": "ds",
     "algorithms": "alg",
+    "ai-ml": "ai",
   };
   const href = track.status === "available"
     ? `/dashboard/lessons?track=${trackTabMap[track.id] || "python"}`
