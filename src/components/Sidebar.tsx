@@ -75,7 +75,7 @@ export default function Sidebar({ open, setOpen, onStartTutorial }: SidebarProps
       >
         {/* Logo */}
         <Link href="/" className="flex items-center gap-3 pl-14 pr-6 py-5" style={{ borderBottom: `1px solid ${theme.colors.sidebarBorder}` }}>
-          <span className="text-3xl">🐍</span>
+          <img src="/logo.png" alt="Code Buddy" className="h-8 w-8 rounded" />
           <span className="text-xl font-bold" style={{ color: theme.colors.primary }}>
             Code Buddy
           </span>
