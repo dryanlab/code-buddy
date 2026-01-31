@@ -3,6 +3,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useCallback, useEffect, useRef } from "react";
 import type { LessonSection, QuizQuestion } from "@/data/lessons";
+import { nl2br } from "@/lib/nl2br";
 
 // ═══ Turtle Progress Bar ═══
 function TurtleProgressBar({ position, total }: { position: number; total: number }) {
@@ -85,7 +86,7 @@ function CodingChallenge({
 
   return (
     <div className="space-y-3">
-      <p className="text-base font-medium">{question.prompt || question.question}</p>
+      <p className="text-base font-medium">{nl2br(question.prompt || question.question || "")}</p>
 
       <div className="relative">
         <textarea
@@ -123,7 +124,7 @@ function CodingChallenge({
 
       {showHint && (
         <div className="p-3 bg-yellow-500/10 border border-yellow-500/20 rounded-lg text-sm text-yellow-200">
-          💡 {question.hint}
+          💡 {nl2br(question.hint || "")}
         </div>
       )}
 
@@ -560,7 +561,7 @@ export default function TurtleQuiz({
           ) : (
             // Multiple choice (default)
             <div>
-              <p className="text-base mb-4 font-medium">{q.question}</p>
+              <p className="text-base mb-4 font-medium">{nl2br(q.question || "")}</p>
               <div className="space-y-2 mb-4">
                 {(q.options || []).map((opt, i) => (
                   <button

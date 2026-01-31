@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { loadPyodideEngine, runPython, isPyodideLoaded } from "@/lib/pyodide-engine";
+import { nl2br } from "@/lib/nl2br";
 import { runCpp } from "@/lib/cpp-engine";
 
 export interface ExerciseData {
@@ -185,9 +186,9 @@ export default function InlineCodeExercise({ exercise, onComplete }: Props) {
         {/* Prompt */}
         <div className="space-y-1">
           <p className="text-sm font-medium" style={{ color: "var(--theme-text)" }}>
-            {exercise.prompt}
+            {nl2br(exercise.prompt)}
           </p>
-          <p className="text-xs text-[var(--theme-text-secondary)]">{exercise.promptZh}</p>
+          <p className="text-xs text-[var(--theme-text-secondary)]">{nl2br(exercise.promptZh)}</p>
         </div>
 
         {/* Code Editor */}
@@ -262,7 +263,7 @@ export default function InlineCodeExercise({ exercise, onComplete }: Props) {
               exit={{ opacity: 0, height: 0 }}
               className="bg-yellow-500/10 border border-yellow-500/20 rounded-lg p-3 text-sm"
             >
-              <p className="text-yellow-200">💡 {exercise.hint}</p>
+              <p className="text-yellow-200">💡 {nl2br(exercise.hint)}</p>
               <p className="text-yellow-200/70 text-xs mt-1">💡 {exercise.hintZh}</p>
             </motion.div>
           )}

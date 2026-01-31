@@ -8,6 +8,7 @@ import InlineCodeExercise from "@/components/InlineCodeExercise";
 import { CODE_EXERCISES } from "@/data/code-challenges";
 import { completeLesson, getProgress, saveLessonPosition, getLessonPosition } from "@/lib/progress-store";
 import { isPreviewMode, isLessonUnlocked } from "@/lib/preview-mode";
+import { nl2br } from "@/lib/nl2br";
 import CodeEditor from "@/components/CodeEditor";
 import {
   ParsonsExercise,
@@ -116,7 +117,7 @@ function ChallengeSection({ section, lessonId, language = "python" }: { section:
       className="bg-gradient-to-br from-yellow-500/10 to-orange-500/10 border border-yellow-500/30 rounded-xl p-6 space-y-4"
     >
       <h3 className="text-xl font-bold text-yellow-400">{challenge.title}</h3>
-      <p className="text-[var(--theme-text-secondary)]">{challenge.description}</p>
+      <p className="text-[var(--theme-text-secondary)]">{nl2br(challenge.description)}</p>
 
       {linkedProject && (
         <a
@@ -156,7 +157,7 @@ function ChallengeSection({ section, lessonId, language = "python" }: { section:
             exit={{ opacity: 0, height: 0 }}
             className="bg-yellow-500/10 border border-yellow-500/20 rounded-lg p-4 text-sm text-yellow-200"
           >
-            💡 {challenge.hint}
+            💡 {nl2br(challenge.hint)}
           </motion.div>
         )}
         {showSolution && (
