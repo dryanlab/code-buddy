@@ -1071,8 +1071,8 @@ RAM：4或8 GB
     readMinutes: 3,
     tags: ["nasa", "apollo", "space", "miniaturization"],
     emoji: "🚀",
-    image: "https://upload.wikimedia.org/wikipedia/commons/d/db/Margaret_Hamilton_-_restoration.jpg",
-    imageCaption: "Margaret Hamilton with Apollo guidance code printout",
+    image: "https://upload.wikimedia.org/wikipedia/commons/7/79/Agc_view.jpg",
+    imageCaption: "Apollo Guidance Computer and DSKY interface",
     content: `## Less Power Than a USB Charger
 
 The **Apollo Guidance Computer (AGC)** that guided astronauts to the Moon had:
