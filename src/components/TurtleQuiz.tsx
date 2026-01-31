@@ -181,7 +181,19 @@ function simulateCppOutput(code: string): string {
       const [, name, val] = varMatch;
       const strMatch = val.match(/^"(.*)"$/);
       if (strMatch) vars[name] = strMatch[1];
-      else vars[name] = Number(val) || val;
+      else {
+        // Handle casts: (int)var, (double)var, static_cast<int>(var)
+        const castMatch = val.match(/^\(int\)\s*(\w+)$/);
+        const staticCast = val.match(/^static_cast<int>\((\w+)\)$/);
+        const srcVar = castMatch?.[1] || staticCast?.[1];
+        if (srcVar && vars[srcVar] !== undefined) {
+          vars[name] = Math.floor(Number(vars[srcVar]));
+        } else if (vars[val] !== undefined) {
+          vars[name] = vars[val];
+        } else {
+          vars[name] = Number(val) || val;
+        }
+      }
       continue;
     }
 
@@ -200,7 +212,13 @@ function simulateCppOutput(code: string): string {
         } else if (!isNaN(Number(part))) {
           currentLine += part;
         } else {
-          currentLine += part;
+          // Handle inline casts: (int)var
+          const inlineCast = part.match(/^\(int\)\s*(\w+)$/);
+          if (inlineCast && vars[inlineCast[1]] !== undefined) {
+            currentLine += String(Math.floor(Number(vars[inlineCast[1]])));
+          } else {
+            currentLine += part;
+          }
         }
       }
       continue;
