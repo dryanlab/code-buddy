@@ -2182,7 +2182,7 @@ ARPANET最初只有4个节点：
     readMinutes: 3,
     tags: ["google", "search", "startup"],
     emoji: "🔍",
-    image: "https://upload.wikimedia.org/wikipedia/commons/c/c7/Google_Garage_in_Menlo_Park.jpg",
+    image: "https://upload.wikimedia.org/wikipedia/commons/a/a4/Google_garage.JPG",
     imageCaption: "The garage where Google was born",
     content: `## The Algorithm That Changed Everything
 
