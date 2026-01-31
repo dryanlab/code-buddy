@@ -239,6 +239,7 @@ export default function LessonPage() {
   const [superuser, setSuperuser] = useState(false);
   const [codeLang, setCodeLang] = useState<"python" | "cpp">(() => {
     if (lessonId.startsWith("cpp-")) return "cpp";
+    if (lessonId.startsWith("ai-")) return "python";
     if (typeof window !== "undefined") {
       const saved = localStorage.getItem("codeBuddy-codeLang");
       if (saved === "cpp") return "cpp";
