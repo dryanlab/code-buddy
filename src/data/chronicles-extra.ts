@@ -100,7 +100,7 @@ Java更啰嗦，但它严格的结构在大项目中能帮你抓住更多bug。`
     readMinutes: 3,
     tags: ["email", "history", "symbol"],
     emoji: "📧",
-    image: "https://upload.wikimedia.org/wikipedia/commons/0/0f/At_char.svg",
+    image: "https://upload.wikimedia.org/wikipedia/commons/b/b6/At_char.svg",
     imageCaption: "The @ symbol",
     content: `## The Most Important Symbol on Your Keyboard
 
@@ -168,7 +168,7 @@ Different countries have adorable names for @:
     readMinutes: 3,
     tags: ["fun", "secrets", "gaming"],
     emoji: "🥚",
-    image: "https://upload.wikimedia.org/wikipedia/en/5/51/Atari-2600-Adventure-Easter-Egg.png",
+    image: "https://upload.wikimedia.org/wikipedia/commons/b/b9/Atari-2600-Wood-4Sw-Set.jpg",
     imageCaption: "The first Easter egg in the Atari game Adventure",
     content: `## Hidden Treasures in Code
 
@@ -834,7 +834,7 @@ Carmack以每周编程60-80小时、在办公室睡觉、靠披萨和无糖可�
     readMinutes: 3,
     tags: ["ai", "imagenet", "women-in-tech", "data"],
     emoji: "🖼️",
-    image: "https://upload.wikimedia.org/wikipedia/commons/e/e1/Fei-Fei_Li_at_AI_for_Good_2017.jpg",
+    image: "https://upload.wikimedia.org/wikipedia/commons/c/c7/Fei-Fei_Li_at_AI_for_Good_2017.jpg",
     imageCaption: "Fei-Fei Li at AI for Good, 2017",
     content: `## The Woman Who Taught AI to See
 
@@ -1973,7 +1973,7 @@ History rhymed with the 2021–2022 crypto/NFT crash. Bubbles happen when hype o
     readMinutes: 4,
     tags: ["ai", "history", "hype-cycle"],
     emoji: "❄️",
-    image: "https://upload.wikimedia.org/wikipedia/commons/2/20/Gartner_Hype_Cycle.svg",
+    image: "https://upload.wikimedia.org/wikipedia/commons/9/94/Gartner_Hype_Cycle.svg",
     imageCaption: "The Gartner Hype Cycle",
     content: `## The Hype Cycle of AI
 
@@ -2124,7 +2124,7 @@ AlexNet之后，深度学习爆发了：
     readMinutes: 3,
     tags: ["autonomous", "tesla", "ai", "robotics"],
     emoji: "🚗",
-    image: "https://upload.wikimedia.org/wikipedia/commons/1/1e/Waymo_Chrysler_Pacifica_in_Los_Altos%2C_2017.jpg",
+    image: "https://upload.wikimedia.org/wikipedia/commons/d/d3/Waymo_Chrysler_Pacifica_in_Los_Altos%2C_2017.jpg",
     imageCaption: "A Waymo self-driving car",
     content: `## Always 5 Years Away
 
