@@ -313,16 +313,17 @@ int main() {
       emoji: "🎮",
       content: `# Try It! · 动手试试！
 
-Write a C++ program that prints your name and your favorite food on separate lines.
+Write a C++ program that prints **exactly** the following two lines:
 
-Example output:
 \`\`\`
 My name is Alex
 My favorite food is pizza
-\`\`\``,
+\`\`\`
+
+⚠️ Your output must match exactly!`,
       exercise: {
-        prompt: "Print your name and favorite food on separate lines",
-        promptZh: "在两行分别打印你的名字和你最喜欢的食物",
+        prompt: "Print exactly: \"My name is Alex\" and \"My favorite food is pizza\" on separate lines",
+        promptZh: "打印两行：\"My name is Alex\" 和 \"My favorite food is pizza\"（必须完全匹配）",
         starterCode: `#include <iostream>
 using namespace std;
 
@@ -868,18 +869,23 @@ int main() {
       emoji: "🎮",
       content: `# Try It! · 动手试试！
 
-Declare variables of different types and print them. Create:
+Declare variables of different types and print them. Use these **exact values**:
 
-- An int for your age
+- \`string name = "Alex"\`
+- \`int age = 16\`
+- \`double height = 1.75\`
+- \`bool likesCpp = true\`
 
-- A double for your height in meters
-
-- A string for your name
-
-- A bool for whether you like C++`,
+Your output should look **exactly** like this:
+\`\`\`
+Name: Alex
+Age: 16
+Height: 1.75
+Likes C++: 1
+\`\`\``,
       exercise: {
-        prompt: "Declare and print variables of different types",
-        promptZh: "声明并打印不同类型的变量",
+        prompt: "Declare and print 4 variables (use: name=\"Alex\", age=16, height=1.75, likesCpp=true). Output must match exactly!",
+        promptZh: "声明并打印4个变量（使用：name=\"Alex\", age=16, height=1.75, likesCpp=true）。输出必须完全匹配！",
         starterCode: `#include <iostream>
 #include <string>
 using namespace std;
