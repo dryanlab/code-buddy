@@ -420,8 +420,10 @@ function CourseTrackCards({ progress }: { progress: UserProgress }) {
     : { text: "🔮 Future", bg: "rgba(126,34,206,0.15)", color: "#7e22ce" };
 
   const getHref = (id: string) =>
-    id === "python" ? "/dashboard/lessons"
-    : id === "data-structures" ? "/dashboard/data-structures"
+    id === "python" ? "/dashboard/lessons?track=python"
+    : id === "cpp" ? "/dashboard/lessons?track=cpp"
+    : id === "data-structures" ? "/dashboard/lessons?track=ds"
+    : id === "algorithms" ? "/dashboard/lessons?track=alg"
     : "/dashboard/courses";
 
   const pythonTotal = LESSONS.length;

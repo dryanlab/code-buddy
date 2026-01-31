@@ -1,7 +1,9 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, Suspense } from "react";
+import { useSearchParams } from "next/navigation";
+import Link from "next/link";
 import { incrementChatCount, getProgress } from "@/lib/progress-store";
 import { useUserProfile } from "@/lib/useUserProfile";
 
@@ -19,7 +21,18 @@ const SUGGESTIONS = [
   "🖥️ How does CPU work?",
 ];
 
-export default function AIChatPage() {
+export default function AIChatPageWrapper() {
+  return (
+    <Suspense fallback={<div className="flex items-center justify-center h-full">Loading...</div>}>
+      <AIChatPage />
+    </Suspense>
+  );
+}
+
+function AIChatPage() {
+  const searchParams = useSearchParams();
+  const fromLesson = searchParams.get("from");
+
   const [messages, setMessages] = useState<Message[]>([
     {
       role: "assistant",
@@ -110,9 +123,25 @@ export default function AIChatPage() {
     <div className="flex flex-col" style={{ height: "calc(100dvh - 3.5rem)" }}>
       {/* Header */}
       <div className="p-4" style={{ borderBottom: "1px solid var(--theme-border)" }}>
-        <h1 className="text-xl font-bold">🤖 AI Buddy</h1>
-        <p className="text-xs" style={{ color: "var(--theme-text-secondary)" }}>Your CS & STEM learning companion — I help you think, not just give answers!</p>
-        <p className="text-xs" style={{ color: "var(--theme-text-muted)" }}>你的 CS & STEM 学习伙伴 — 引导你思考，而不只是给答案！</p>
+        <div className="flex items-center justify-between">
+          <div>
+            <h1 className="text-xl font-bold">🤖 AI Buddy</h1>
+            <p className="text-xs" style={{ color: "var(--theme-text-secondary)" }}>Your CS & STEM learning companion — I help you think, not just give answers!</p>
+            <p className="text-xs" style={{ color: "var(--theme-text-muted)" }}>你的 CS & STEM 学习伙伴 — 引导你思考，而不只是给答案！</p>
+          </div>
+          {fromLesson && (
+            <Link
+              href={`/dashboard/lessons/${fromLesson}`}
+              className="flex items-center gap-2 px-4 py-2 rounded-full font-bold text-sm transition-colors hover:scale-105"
+              style={{
+                background: "linear-gradient(135deg, #22c55e, #06b6d4)",
+                color: "#fff",
+              }}
+            >
+              ← Back to Lesson
+            </Link>
+          )}
+        </div>
       </div>
 
       {/* Messages */}

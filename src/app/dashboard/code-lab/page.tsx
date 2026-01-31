@@ -27,6 +27,13 @@ import {
   type Project,
   type ProjectLanguage,
 } from "@/lib/project-store";
+import {
+  getExerciseDraft,
+  saveExerciseDraft,
+  clearExerciseDraft,
+  getFreeCode,
+  saveFreeCode,
+} from "@/lib/exercise-draft-store";
 
 const MonacoEditor = dynamic(() => import("@monaco-editor/react"), { ssr: false });
 
@@ -620,10 +627,16 @@ export default function CodeLabPage() {
   const [highlightLines, setHighlightLines] = useState<{ start: number; end: number } | null>(null);
   const [breakpoints, setBreakpoints] = useState<Set<number>>(new Set());
 
+  // Save as Project dialog
+  const [showSaveAsProject, setShowSaveAsProject] = useState(false);
+  const [saveAsProjectName, setSaveAsProjectName] = useState("");
+
   // Refs
   const editorRef = useRef<unknown>(null);
   const decorationsRef = useRef<string[]>([]);
   const saveTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const freeCodeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const exerciseDraftTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // User
   const { profile } = useUserProfile();
@@ -674,6 +687,32 @@ export default function CodeLabPage() {
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [code, currentProject?.id]);
+
+  // ─── Free code auto-save (debounce 2s) ─────────────────────
+  useEffect(() => {
+    if (activeTab?.type !== "free") return;
+    if (freeCodeTimerRef.current) clearTimeout(freeCodeTimerRef.current);
+    freeCodeTimerRef.current = setTimeout(() => {
+      saveFreeCode(activeLanguage, code);
+    }, 2000);
+    return () => {
+      if (freeCodeTimerRef.current) clearTimeout(freeCodeTimerRef.current);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [code, activeTab?.type, activeLanguage]);
+
+  // ─── Exercise draft auto-save (debounce 2s) ───────────────
+  useEffect(() => {
+    if (activeTab?.type !== "exercise" || !selectedExercise) return;
+    if (exerciseDraftTimerRef.current) clearTimeout(exerciseDraftTimerRef.current);
+    exerciseDraftTimerRef.current = setTimeout(() => {
+      saveExerciseDraft(selectedExercise.id, code);
+    }, 2000);
+    return () => {
+      if (exerciseDraftTimerRef.current) clearTimeout(exerciseDraftTimerRef.current);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [code, activeTab?.type, selectedExercise?.id]);
 
   // ─── Decorations (highlight + breakpoints) ────────────────
   useEffect(() => {
@@ -921,7 +960,8 @@ export default function CodeLabPage() {
   const openUnifiedExercise = useCallback(
     (ex: UnifiedExercise) => {
       setSelectedExercise(ex);
-      setCode(ex.starterCode);
+      const draft = getExerciseDraft(ex.id);
+      setCode(draft || ex.starterCode);
       setActiveLanguage(ex.language);
       setShowHint(false);
       setShowSolution(false);
@@ -939,7 +979,10 @@ export default function CodeLabPage() {
 
   const openFreeMode = useCallback(() => {
     setSelectedExercise(null);
-    setCode('# Write your Python code here!\nprint("Hello, World!")');
+    const saved = getFreeCode(activeLanguage);
+    setCode(saved || (activeLanguage === "python"
+      ? '# Write your Python code here!\nprint("Hello, World!")'
+      : '#include <iostream>\nusing namespace std;\n\nint main() {\n    cout << "Hello, World!" << endl;\n    return 0;\n}\n'));
     const existing = openTabs.find((t) => t.id === "__free__");
     if (!existing) {
       setOpenTabs((prev) => [{ type: "free", id: "__free__", name: "Free Code" }, ...prev]);
@@ -978,7 +1021,8 @@ export default function CodeLabPage() {
       if (!tab) return;
       if (tab.type === "free") {
         setSelectedExercise(null);
-        // keep current free-mode language
+        const saved = getFreeCode(activeLanguage);
+        if (saved) setCode(saved);
       } else if (tab.type === "project") {
         const p = projects.find((pp) => pp.id === tab.id);
         if (p) {
@@ -991,7 +1035,8 @@ export default function CodeLabPage() {
         const ex = ALL_EXERCISES.find((e) => e.id === exId);
         if (ex) {
           setSelectedExercise(ex);
-          setCode(ex.starterCode);
+          const draft = getExerciseDraft(ex.id);
+          setCode(draft || ex.starterCode);
           setActiveLanguage(ex.language);
         }
       }
@@ -1619,9 +1664,10 @@ export default function CodeLabPage() {
                     if (lang === activeLanguage) return;
                     setActiveLanguage(lang);
                     if (activeTab?.type === "free") {
-                      setCode(lang === "python"
+                      const saved = getFreeCode(lang);
+                      setCode(saved || (lang === "python"
                         ? '# Write your Python code here!\nprint("Hello, World!")'
-                        : '#include <iostream>\nusing namespace std;\n\nint main() {\n    cout << "Hello, World!" << endl;\n    return 0;\n}\n');
+                        : '#include <iostream>\nusing namespace std;\n\nint main() {\n    cout << "Hello, World!" << endl;\n    return 0;\n}\n'));
                     }
                   }}
                   className="px-2.5 py-0.5 text-[11px] font-bold transition-colors"
@@ -1746,6 +1792,15 @@ export default function CodeLabPage() {
                   {isLoading && <span className="text-[10px] text-cyan-400 animate-pulse">{loadingMsg}</span>}
                   {!stepMode ? (
                     <>
+                      {activeTab?.type === "free" && (
+                        <button
+                          onClick={() => { setSaveAsProjectName(""); setShowSaveAsProject(true); }}
+                          className="flex items-center gap-1 px-2 py-1 text-xs font-bold rounded-md transition-colors border"
+                          style={{ borderColor: "var(--color-secondary)", color: "var(--color-secondary)" }}
+                        >
+                          💾 Save as Project
+                        </button>
+                      )}
                       {isPython && (
                         <button
                           onClick={startStepMode}
@@ -1802,6 +1857,18 @@ export default function CodeLabPage() {
                     style={{ borderColor: "var(--theme-border)", color: "var(--theme-text-secondary)" }}
                   >
                     👀 {showSolution ? "Hide" : "Solution"}
+                  </button>
+                  <button
+                    onClick={() => {
+                      if (selectedExercise) {
+                        clearExerciseDraft(selectedExercise.id);
+                        setCode(selectedExercise.starterCode);
+                      }
+                    }}
+                    className="px-2 py-0.5 rounded text-[10px] flex-shrink-0"
+                    style={{ backgroundColor: "color-mix(in srgb, var(--color-error, #ef4444) 15%, transparent)", color: "var(--color-error, #ef4444)" }}
+                  >
+                    🔄 Reset
                   </button>
                 </div>
               )}
@@ -1965,6 +2032,7 @@ export default function CodeLabPage() {
                 <span className="truncate" style={{ color: "var(--theme-text-secondary)" }}>{selectedExercise.description}</span>
                 <button onClick={() => setShowHint(!showHint)} className="px-2 py-0.5 rounded text-[10px] flex-shrink-0" style={{ backgroundColor: "color-mix(in srgb, var(--color-warning) 20%, transparent)", color: "var(--color-warning)" }}>💡</button>
                 <button onClick={() => setShowSolution(!showSolution)} className="px-2 py-0.5 rounded text-[10px] border flex-shrink-0" style={{ borderColor: "var(--theme-border)", color: "var(--theme-text-secondary)" }}>👀</button>
+                <button onClick={() => { if (selectedExercise) { clearExerciseDraft(selectedExercise.id); setCode(selectedExercise.starterCode); } }} className="px-2 py-0.5 rounded text-[10px] flex-shrink-0" style={{ color: "var(--color-error, #ef4444)" }}>🔄</button>
               </div>
             )}
 
@@ -2006,6 +2074,66 @@ export default function CodeLabPage() {
         {showNewProject && <NewProjectDialog onClose={() => setShowNewProject(false)} onCreate={handleNewProject} />}
       </AnimatePresence>
       <SignUpModal open={showSignUpModal} onClose={() => setShowSignUpModal(false)} />
+
+      {/* Save as Project Dialog */}
+      <AnimatePresence>
+        {showSaveAsProject && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4"
+            onClick={() => setShowSaveAsProject(false)}
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              className="rounded-2xl border p-6 max-w-sm w-full"
+              style={{ backgroundColor: "var(--theme-card-bg)", borderColor: "var(--theme-border)" }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <h3 className="text-lg font-bold mb-4">💾 Save as Project · 保存为项目</h3>
+              <input
+                type="text"
+                value={saveAsProjectName}
+                onChange={(e) => setSaveAsProjectName(e.target.value)}
+                placeholder="Project name · 项目名称"
+                className="w-full px-3 py-2 rounded-lg border text-sm mb-4"
+                style={{
+                  backgroundColor: "var(--theme-bg)",
+                  borderColor: "var(--theme-border)",
+                  color: "var(--theme-text-primary)",
+                }}
+                autoFocus
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    const name = saveAsProjectName.trim() || "Untitled";
+                    handleNewProject(name, code, activeLanguage);
+                    setShowSaveAsProject(false);
+                  }
+                }}
+              />
+              <div className="flex gap-2 justify-end">
+                <button onClick={() => setShowSaveAsProject(false)} className="px-4 py-2 text-sm rounded-lg" style={{ color: "var(--theme-text-secondary)" }}>
+                  Cancel · 取消
+                </button>
+                <button
+                  onClick={() => {
+                    const name = saveAsProjectName.trim() || "Untitled";
+                    handleNewProject(name, code, activeLanguage);
+                    setShowSaveAsProject(false);
+                  }}
+                  className="px-4 py-2 text-sm rounded-lg font-bold text-white"
+                  style={{ backgroundColor: "var(--color-primary)" }}
+                >
+                  Save · 保存
+                </button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Celebration overlay */}
       <AnimatePresence>

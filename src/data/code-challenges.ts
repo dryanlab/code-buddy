@@ -13682,4 +13682,1083 @@ print(f"\\nHas cycle: {scheduler.detect_cycle()}")`,
     category: "Algorithms",
     categoryZh: "算法",
   },
+
+  // ═══ 🤖 AI & MACHINE LEARNING PROJECTS ═══
+  {
+    id: "ai-proj-1",
+    title: "🚫 Spam Detector",
+    titleZh: "垃圾邮件检测器",
+    description: "Build a spam classifier using word frequency analysis! Count suspicious words and flag emails as spam or not spam.",
+    descriptionZh: "用词频分析构建垃圾邮件分类器！",
+    difficulty: 2,
+    gradeRange: [7, 12],
+    skillLevel: "intermediate",
+    starterCode: `# 🚫 Spam Detector
+# Classify emails as spam or not spam using keyword matching
+
+positive_words = {"free", "win", "prize", "click", "offer", "deal", 
+                  "limited", "urgent", "act now", "buy", "cash", "money"}
+
+def spam_score(email):
+    """Calculate spam probability based on keywords"""
+    words = email.lower().split()
+    spam_count = sum(1 for w in words if w in positive_words)
+    total = len(words)
+    return spam_count / total if total > 0 else 0
+
+# TODO: Test with these emails
+emails = [
+    "FREE PRIZE! Click now to WIN cash money!",
+    "Hey, are we still meeting for lunch tomorrow?",
+    "LIMITED offer: Buy now and save! Act urgent!",
+    "Can you review the project report by Friday?",
+]
+
+for email in emails:
+    score = spam_score(email)
+    # TODO: Classify as spam if score > 0.2
+    print(f"Score: {score:.2f} - {email[:40]}...")`,
+    hint: "Add an if/else after calculating the score to print SPAM or NOT SPAM",
+    solution: `positive_words = {"free", "win", "prize", "click", "offer", "deal",
+                  "limited", "urgent", "buy", "cash", "money"}
+
+def spam_score(email):
+    words = email.lower().split()
+    spam_count = sum(1 for w in words if w in positive_words)
+    return spam_count / len(words) if words else 0
+
+emails = [
+    "FREE PRIZE! Click now to WIN cash money!",
+    "Hey, are we still meeting for lunch tomorrow?",
+    "LIMITED offer: Buy now and save! Act urgent!",
+    "Can you review the project report by Friday?",
+]
+
+for email in emails:
+    score = spam_score(email)
+    label = "🚫 SPAM" if score > 0.2 else "✅ OK"
+    print(f"{label} (score: {score:.2f}) - {email[:40]}...")`,
+    tags: ["ai", "nlp", "classification"],
+    language: "python",
+    category: "AI & ML",
+    categoryZh: "AI 与机器学习",
+  },
+  {
+    id: "ai-proj-2",
+    title: "📋 Survey Analyzer",
+    titleZh: "调查分析器",
+    description: "Analyze survey data! Calculate statistics (mean, median, mode) and find patterns in responses.",
+    descriptionZh: "分析调查数据！计算统计数据并发现模式。",
+    difficulty: 1,
+    gradeRange: [7, 12],
+    skillLevel: "intermediate",
+    starterCode: `# 📋 Survey Analyzer
+import math
+
+responses = {
+    "How many hours do you study?": [2, 3, 1, 4, 2, 3, 5, 2, 3, 1, 4, 2],
+    "Rate your happiness (1-10):":  [7, 8, 5, 9, 6, 8, 7, 8, 9, 4, 7, 8],
+    "Hours of sleep per night:":    [7, 8, 6, 8, 7, 9, 6, 7, 8, 5, 7, 8],
+}
+
+def mean(data):
+    return sum(data) / len(data)
+
+def median(data):
+    s = sorted(data)
+    n = len(s)
+    if n % 2 == 1: return s[n // 2]
+    return (s[n//2 - 1] + s[n//2]) / 2
+
+# TODO: Analyze each question
+for question, answers in responses.items():
+    print(f"\\n📊 {question}")
+    print(f"  Mean: {mean(answers):.1f}")
+    # TODO: Print median
+    # TODO: Print min and max
+    # TODO: Print a bar chart`,
+    hint: "Use sorted() for median, min()/max() for range, and '█' * count for bars",
+    solution: `import math
+
+responses = {
+    "How many hours do you study?": [2, 3, 1, 4, 2, 3, 5, 2, 3, 1, 4, 2],
+    "Rate your happiness (1-10):":  [7, 8, 5, 9, 6, 8, 7, 8, 9, 4, 7, 8],
+    "Hours of sleep per night:":    [7, 8, 6, 8, 7, 9, 6, 7, 8, 5, 7, 8],
+}
+
+def mean(data): return sum(data) / len(data)
+def median(data):
+    s = sorted(data)
+    n = len(s)
+    return s[n//2] if n % 2 else (s[n//2-1]+s[n//2])/2
+
+for question, answers in responses.items():
+    print(f"\\n📊 {question}")
+    print(f"  Mean: {mean(answers):.1f}")
+    print(f"  Median: {median(answers)}")
+    print(f"  Range: {min(answers)} - {max(answers)}")
+    counts = {}
+    for a in answers: counts[a] = counts.get(a, 0) + 1
+    for val in sorted(counts):
+        print(f"  {val}: {'█' * counts[val]} ({counts[val]})")`,
+    tags: ["ai", "data-science", "statistics"],
+    language: "python",
+    category: "AI & ML",
+    categoryZh: "AI 与机器学习",
+  },
+  {
+    id: "ai-proj-3",
+    title: "🌤️ Weather Predictor",
+    titleZh: "天气预测器",
+    description: "Use linear regression to predict tomorrow's temperature based on historical data!",
+    descriptionZh: "用线性回归根据历史数据预测明天的温度！",
+    difficulty: 2,
+    gradeRange: [7, 12],
+    skillLevel: "intermediate",
+    starterCode: `# 🌤️ Weather Predictor (Linear Regression)
+# Predict temperature from day number
+
+days = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+temps = [32, 35, 33, 37, 39, 38, 41, 40, 43, 42]
+
+# TODO: Implement linear regression
+# 1. Calculate mean of days and temps
+# 2. Calculate slope: m = Σ(xi-x̄)(yi-ȳ) / Σ(xi-x̄)²
+# 3. Calculate intercept: b = ȳ - m*x̄
+# 4. Predict day 11, 12, 13
+
+print("=== 🌤️ Weather Predictor ===")
+# print(f"Formula: temp = {m:.2f} × day + {b:.1f}")
+# for d in [11, 12, 13]:
+#     print(f"  Day {d}: {m*d+b:.1f}°F")`,
+    hint: "Follow the linear regression formula step by step!",
+    solution: `days = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+temps = [32, 35, 33, 37, 39, 38, 41, 40, 43, 42]
+
+n = len(days)
+dm = sum(days) / n
+tm = sum(temps) / n
+m = sum((d-dm)*(t-tm) for d,t in zip(days,temps)) / sum((d-dm)**2 for d in days)
+b = tm - m * dm
+
+print(f"Formula: temp = {m:.2f} × day + {b:.1f}")
+for d in [11, 12, 13]:
+    print(f"  Day {d}: {m*d+b:.1f}°F")`,
+    tags: ["ai", "regression", "prediction"],
+    language: "python",
+    category: "AI & ML",
+    categoryZh: "AI 与机器学习",
+  },
+  {
+    id: "ai-proj-4",
+    title: "🎵 Music Mood Classifier",
+    titleZh: "音乐情绪分类器",
+    description: "Classify songs as happy, sad, or energetic based on tempo and energy features!",
+    descriptionZh: "根据节奏和能量特征将歌曲分类为快乐、悲伤或充满活力！",
+    difficulty: 2,
+    gradeRange: [7, 12],
+    skillLevel: "intermediate",
+    starterCode: `# 🎵 Music Mood Classifier (KNN)
+import math
+
+def distance(p1, p2):
+    return math.sqrt(sum((a-b)**2 for a,b in zip(p1,p2)))
+
+def knn(data, point, k=3):
+    dists = [(distance(f, point), l) for f, l in data]
+    dists.sort(key=lambda x: x[0])
+    votes = {}
+    for d, l in dists[:k]:
+        votes[l] = votes.get(l, 0) + 1
+    return max(votes, key=votes.get)
+
+# (tempo_bpm, energy_0to1) → mood
+songs = [
+    ((120, 0.8), "happy"), ((130, 0.9), "happy"), ((110, 0.7), "happy"),
+    ((60, 0.2), "sad"), ((70, 0.3), "sad"), ((55, 0.1), "sad"),
+    ((150, 0.95), "energetic"), ((160, 0.9), "energetic"), ((140, 0.85), "energetic"),
+]
+
+# TODO: Classify these mystery songs
+mystery = [(100, 0.6), (65, 0.25), (155, 0.92), (90, 0.5)]
+for song in mystery:
+    mood = knn(songs, song, k=3)
+    print(f"  Tempo={song[0]}, Energy={song[1]} → {mood}")`,
+    hint: "The KNN function is already built! Just call it for each mystery song.",
+    solution: `import math
+
+def distance(p1, p2):
+    return math.sqrt(sum((a-b)**2 for a,b in zip(p1,p2)))
+
+def knn(data, point, k=3):
+    dists = [(distance(f, point), l) for f, l in data]
+    dists.sort(key=lambda x: x[0])
+    votes = {}
+    for d, l in dists[:k]:
+        votes[l] = votes.get(l, 0) + 1
+    return max(votes, key=votes.get)
+
+songs = [
+    ((120, 0.8), "happy"), ((130, 0.9), "happy"), ((110, 0.7), "happy"),
+    ((60, 0.2), "sad"), ((70, 0.3), "sad"), ((55, 0.1), "sad"),
+    ((150, 0.95), "energetic"), ((160, 0.9), "energetic"), ((140, 0.85), "energetic"),
+]
+
+emojis = {"happy": "😊", "sad": "😢", "energetic": "⚡"}
+for song in [(100, 0.6), (65, 0.25), (155, 0.92), (90, 0.5)]:
+    mood = knn(songs, song, k=3)
+    print(f"  {emojis.get(mood,'')} Tempo={song[0]}, Energy={song[1]} → {mood}")`,
+    tags: ["ai", "knn", "classification"],
+    language: "python",
+    category: "AI & ML",
+    categoryZh: "AI 与机器学习",
+  },
+  {
+    id: "ai-proj-5",
+    title: "🏠 House Price Estimator",
+    titleZh: "房价估算器",
+    description: "Predict house prices using multiple features with linear regression!",
+    descriptionZh: "用线性回归通过多个特征预测房价！",
+    difficulty: 2,
+    gradeRange: [7, 12],
+    skillLevel: "intermediate",
+    starterCode: `# 🏠 House Price Estimator
+houses = [
+    {"sqft": 1200, "beds": 2, "price": 250},
+    {"sqft": 1800, "beds": 3, "price": 380},
+    {"sqft": 900, "beds": 1, "price": 180},
+    {"sqft": 2200, "beds": 4, "price": 450},
+    {"sqft": 1500, "beds": 3, "price": 300},
+    {"sqft": 2500, "beds": 4, "price": 520},
+]
+
+# TODO: Build a simple linear model: price = a * sqft + b
+# Use the formula from lesson 9!
+sqft = [h["sqft"] for h in houses]
+prices = [h["price"] for h in houses]
+
+# Calculate slope and intercept
+# Predict for: 1000, 1600, 2000, 3000 sqft`,
+    hint: "Use the linear regression formula: m = Σ(xi-x̄)(yi-ȳ) / Σ(xi-x̄)²",
+    solution: `houses = [
+    {"sqft": 1200, "beds": 2, "price": 250},
+    {"sqft": 1800, "beds": 3, "price": 380},
+    {"sqft": 900, "beds": 1, "price": 180},
+    {"sqft": 2200, "beds": 4, "price": 450},
+    {"sqft": 1500, "beds": 3, "price": 300},
+    {"sqft": 2500, "beds": 4, "price": 520},
+]
+
+sqft = [h["sqft"] for h in houses]
+prices = [h["price"] for h in houses]
+n = len(sqft)
+xm = sum(sqft)/n
+ym = sum(prices)/n
+m = sum((x-xm)*(y-ym) for x,y in zip(sqft,prices))/sum((x-xm)**2 for x in sqft)
+b = ym - m * xm
+print(f"Price = {m:.2f} × sqft + {b:.1f}")
+for s in [1000, 1600, 2000, 3000]:
+    print(f"  {s} sqft → \${m*s+b:.0f}k")`,
+    tags: ["ai", "regression", "prediction"],
+    language: "python",
+    category: "AI & ML",
+    categoryZh: "AI 与机器学习",
+  },
+  {
+    id: "ai-proj-6",
+    title: "🌸 Flower Identifier (Iris)",
+    titleZh: "花卉识别器",
+    description: "Classify iris flowers using KNN based on petal and sepal measurements!",
+    descriptionZh: "用 KNN 根据花瓣和花萼测量分类鸢尾花！",
+    difficulty: 2,
+    gradeRange: [7, 12],
+    skillLevel: "intermediate",
+    starterCode: `# 🌸 Iris Flower Classifier (KNN)
+import math
+
+def distance(p1, p2):
+    return math.sqrt(sum((a-b)**2 for a,b in zip(p1,p2)))
+
+def knn(data, point, k=3):
+    dists = [(distance(f, point), l) for f, l in data]
+    dists.sort(key=lambda x: x[0])
+    votes = {}
+    for d, l in dists[:k]:
+        votes[l] = votes.get(l, 0) + 1
+    return max(votes, key=votes.get)
+
+# (sepal_len, sepal_wid, petal_len, petal_wid) → species
+iris_data = [
+    ((5.1, 3.5, 1.4, 0.2), "setosa"),
+    ((4.9, 3.0, 1.4, 0.2), "setosa"),
+    ((7.0, 3.2, 4.7, 1.4), "versicolor"),
+    ((6.4, 3.2, 4.5, 1.5), "versicolor"),
+    ((6.3, 3.3, 6.0, 2.5), "virginica"),
+    ((5.8, 2.7, 5.1, 1.9), "virginica"),
+]
+
+# TODO: Classify these unknown flowers
+unknowns = [(5.0, 3.4, 1.5, 0.2), (6.5, 3.0, 4.6, 1.5), (6.0, 3.0, 5.5, 2.0)]
+for flower in unknowns:
+    species = knn(iris_data, flower, k=3)
+    print(f"  {flower} → {species}")`,
+    hint: "The KNN function handles everything — just call it for each unknown!",
+    solution: `import math
+def distance(p1, p2):
+    return math.sqrt(sum((a-b)**2 for a,b in zip(p1,p2)))
+def knn(data, point, k=3):
+    dists = [(distance(f, point), l) for f, l in data]
+    dists.sort(key=lambda x: x[0])
+    votes = {}
+    for d, l in dists[:k]:
+        votes[l] = votes.get(l, 0) + 1
+    return max(votes, key=votes.get)
+
+iris_data = [
+    ((5.1,3.5,1.4,0.2),"setosa"),((4.9,3.0,1.4,0.2),"setosa"),
+    ((7.0,3.2,4.7,1.4),"versicolor"),((6.4,3.2,4.5,1.5),"versicolor"),
+    ((6.3,3.3,6.0,2.5),"virginica"),((5.8,2.7,5.1,1.9),"virginica"),
+]
+emojis = {"setosa":"🌸","versicolor":"🌺","virginica":"🌻"}
+for f in [(5.0,3.4,1.5,0.2),(6.5,3.0,4.6,1.5),(6.0,3.0,5.5,2.0)]:
+    s = knn(iris_data, f, k=3)
+    print(f"  {emojis[s]} {f} → {s}")`,
+    tags: ["ai", "knn", "classification"],
+    language: "python",
+    category: "AI & ML",
+    categoryZh: "AI 与机器学习",
+  },
+  {
+    id: "ai-proj-7",
+    title: "🎨 Color Palette Generator",
+    titleZh: "配色方案生成器",
+    description: "Use K-Means clustering to extract dominant colors from a set of RGB values!",
+    descriptionZh: "用 K-Means 聚类从 RGB 值中提取主色调！",
+    difficulty: 2,
+    gradeRange: [7, 12],
+    skillLevel: "intermediate",
+    starterCode: `# 🎨 Color Palette Generator (K-Means)
+import math, random
+random.seed(42)
+
+def distance(p1, p2):
+    return math.sqrt(sum((a-b)**2 for a,b in zip(p1,p2)))
+
+# Sample pixel colors (R, G, B)
+pixels = [
+    (200, 50, 50), (210, 40, 60), (190, 55, 45),  # Reds
+    (50, 50, 200), (40, 60, 210), (55, 45, 190),   # Blues
+    (50, 200, 50), (60, 210, 40), (45, 190, 55),   # Greens
+    (200, 200, 50), (210, 190, 60),                  # Yellows
+]
+
+# TODO: Implement K-Means to find 4 dominant colors
+# 1. Pick 4 random starting centers
+# 2. Assign each pixel to nearest center
+# 3. Update centers to average of assigned pixels
+# 4. Repeat until stable`,
+    hint: "Initialize centroids randomly, then loop: assign → update → check convergence",
+    solution: `import math, random
+random.seed(42)
+
+def distance(p1, p2):
+    return math.sqrt(sum((a-b)**2 for a,b in zip(p1,p2)))
+
+pixels = [
+    (200,50,50),(210,40,60),(190,55,45),
+    (50,50,200),(40,60,210),(55,45,190),
+    (50,200,50),(60,210,40),(45,190,55),
+    (200,200,50),(210,190,60),
+]
+
+k = 4
+centroids = random.sample(pixels, k)
+for _ in range(20):
+    clusters = [[] for _ in range(k)]
+    for p in pixels:
+        dists = [distance(p, c) for c in centroids]
+        clusters[dists.index(min(dists))].append(p)
+    new_c = []
+    for cl in clusters:
+        if cl:
+            new_c.append(tuple(sum(d)/len(cl) for d in zip(*cl)))
+        else:
+            new_c.append(centroids[len(new_c)])
+    centroids = new_c
+
+print("🎨 Dominant Colors:")
+for i, c in enumerate(centroids):
+    r, g, b = int(c[0]), int(c[1]), int(c[2])
+    print(f"  Color {i+1}: RGB({r}, {g}, {b})")`,
+    tags: ["ai", "kmeans", "clustering", "creative"],
+    language: "python",
+    category: "AI & ML",
+    categoryZh: "AI 与机器学习",
+  },
+  {
+    id: "ai-proj-8",
+    title: "🔢 Digit Recognizer",
+    titleZh: "数字识别器",
+    description: "Build a handwritten digit recognizer using pattern matching on 5x5 pixel grids!",
+    descriptionZh: "用5x5像素网格的模式匹配构建手写数字识别器！",
+    difficulty: 3,
+    gradeRange: [7, 12],
+    skillLevel: "advanced",
+    starterCode: `# 🔢 Digit Recognizer
+import random
+random.seed(42)
+
+DIGITS = {
+    0: [[0,1,1,1,0],[1,0,0,0,1],[1,0,0,0,1],[1,0,0,0,1],[0,1,1,1,0]],
+    1: [[0,0,1,0,0],[0,1,1,0,0],[0,0,1,0,0],[0,0,1,0,0],[0,1,1,1,0]],
+    7: [[1,1,1,1,1],[0,0,0,1,0],[0,0,1,0,0],[0,1,0,0,0],[1,0,0,0,0]],
+}
+
+def flatten(grid):
+    return [x for row in grid for x in row]
+
+def add_noise(grid, level=0.15):
+    return [[1-x if random.random()<level else x for x in row] for row in grid]
+
+# TODO: Build centroids from training data
+# TODO: Classify noisy digits by finding nearest centroid`,
+    hint: "Average all training samples of each digit to create a centroid. Compare using sum of squared differences.",
+    solution: `import random
+random.seed(42)
+
+DIGITS = {
+    0: [[0,1,1,1,0],[1,0,0,0,1],[1,0,0,0,1],[1,0,0,0,1],[0,1,1,1,0]],
+    1: [[0,0,1,0,0],[0,1,1,0,0],[0,0,1,0,0],[0,0,1,0,0],[0,1,1,1,0]],
+    7: [[1,1,1,1,1],[0,0,0,1,0],[0,0,1,0,0],[0,1,0,0,0],[1,0,0,0,0]],
+}
+def flatten(g): return [x for row in g for x in row]
+def add_noise(g, lev=0.15):
+    return [[1-x if random.random()<lev else x for x in row] for row in g]
+
+# Build centroids
+centroids = {}
+for d, grid in DIGITS.items():
+    samples = [flatten(add_noise(grid)) for _ in range(20)]
+    centroids[d] = [sum(s[i] for s in samples)/len(samples) for i in range(25)]
+
+def classify(pixels):
+    best_d, best_dist = None, float('inf')
+    for d, c in centroids.items():
+        dist = sum((a-b)**2 for a,b in zip(pixels, c))
+        if dist < best_dist: best_dist, best_d = dist, d
+    return best_d
+
+for d in DIGITS:
+    noisy = add_noise(DIGITS[d], 0.2)
+    pred = classify(flatten(noisy))
+    print(f"  Actual: {d}, Predicted: {pred} {'✅' if pred==d else '❌'}") `,
+    tags: ["ai", "neural-network", "image"],
+    language: "python",
+    category: "AI & ML",
+    categoryZh: "AI 与机器学习",
+  },
+  {
+    id: "ai-proj-9",
+    title: "🏥 Health Risk Calculator",
+    titleZh: "健康风险计算器",
+    description: "Use logistic regression to predict health risk based on BMI, exercise, and sleep!",
+    descriptionZh: "用逻辑回归根据 BMI、运动和睡眠预测健康风险！",
+    difficulty: 2,
+    gradeRange: [7, 12],
+    skillLevel: "intermediate",
+    starterCode: `# 🏥 Health Risk Calculator (Logistic Regression)
+import math
+
+def sigmoid(z):
+    if z > 500: return 1.0
+    if z < -500: return 0.0
+    return 1 / (1 + math.exp(-z))
+
+# Features: [bmi, exercise_hrs_per_week, sleep_hrs]
+# Label: 1=high risk, 0=low risk
+train_X = [
+    [30, 1, 5], [35, 0, 4], [28, 2, 6],  # high risk
+    [22, 5, 8], [20, 4, 7], [24, 3, 8],  # low risk
+]
+train_y = [1, 1, 1, 0, 0, 0]
+
+# TODO: Train logistic regression
+# TODO: Predict risk for new patients`,
+    hint: "Initialize weights to 0, then for each sample: predict, compute error, update weights",
+    solution: `import math
+def sigmoid(z):
+    if z > 500: return 1.0
+    if z < -500: return 0.0
+    return 1 / (1 + math.exp(-z))
+
+train_X = [
+    [30,1,5],[35,0,4],[28,2,6],
+    [22,5,8],[20,4,7],[24,3,8],
+]
+train_y = [1, 1, 1, 0, 0, 0]
+
+w = [0.0, 0.0, 0.0]
+b = 0.0
+for _ in range(500):
+    for xi, yi in zip(train_X, train_y):
+        z = sum(wj*xj for wj,xj in zip(w,xi)) + b
+        pred = sigmoid(z)
+        err = pred - yi
+        for j in range(3): w[j] -= 0.01 * err * xi[j]
+        b -= 0.01 * err
+
+print("🏥 Health Risk Predictions:")
+for patient in [[32,1,5],[21,4,8],[27,2,6]]:
+    z = sum(wj*xj for wj,xj in zip(w,patient)) + b
+    risk = sigmoid(z)
+    print(f"  BMI={patient[0]}, Exercise={patient[1]}h, Sleep={patient[2]}h → Risk: {risk:.1%}")`,
+    tags: ["ai", "logistic-regression", "health"],
+    language: "python",
+    category: "AI & ML",
+    categoryZh: "AI 与机器学习",
+  },
+  {
+    id: "ai-proj-10",
+    title: "📈 Stock Trend Analyzer",
+    titleZh: "股票趋势分析器",
+    description: "Analyze stock price trends using moving averages and predict direction!",
+    descriptionZh: "用移动平均线分析股票价格趋势并预测方向！",
+    difficulty: 2,
+    gradeRange: [7, 12],
+    skillLevel: "intermediate",
+    starterCode: `# 📈 Stock Trend Analyzer
+prices = [100, 102, 101, 105, 107, 106, 110, 112, 109, 115, 
+          118, 116, 120, 119, 122, 125, 123, 128, 130, 127]
+
+def moving_average(data, window):
+    """Calculate moving average with given window size"""
+    result = []
+    for i in range(len(data) - window + 1):
+        avg = sum(data[i:i+window]) / window
+        result.append(round(avg, 1))
+    return result
+
+# TODO: Calculate 3-day and 5-day moving averages
+# TODO: Determine trend (up/down) based on recent movement
+# TODO: Print a text chart`,
+    hint: "Compare the latest short-term MA vs long-term MA: if short > long, trend is UP",
+    solution: `prices = [100, 102, 101, 105, 107, 106, 110, 112, 109, 115,
+          118, 116, 120, 119, 122, 125, 123, 128, 130, 127]
+
+def moving_average(data, window):
+    return [round(sum(data[i:i+window])/window, 1) for i in range(len(data)-window+1)]
+
+ma3 = moving_average(prices, 3)
+ma5 = moving_average(prices, 5)
+
+print("📈 Stock Analysis")
+print(f"  Latest price: \${prices[-1]}")
+print(f"  3-day MA: \${ma3[-1]}")
+print(f"  5-day MA: \${ma5[-1]}")
+
+trend = "📈 UP" if ma3[-1] > ma5[-1] else "📉 DOWN"
+print(f"  Trend: {trend}")
+
+print("\\n  Price Chart:")
+mn, mx = min(prices), max(prices)
+for p in prices:
+    bar = "█" * int((p - mn) / (mx - mn) * 30)
+    print(f"  \${p:3d} |{bar}")`,
+    tags: ["ai", "time-series", "prediction"],
+    language: "python",
+    category: "AI & ML",
+    categoryZh: "AI 与机器学习",
+  },
+  {
+    id: "ai-proj-11",
+    title: "🐾 Pet vs Wild (CNN Concept)",
+    titleZh: "宠物 vs 野生动物",
+    description: "Build a simple image classifier that distinguishes pets from wild animals using feature patterns!",
+    descriptionZh: "用特征模式构建简单图像分类器区分宠物和野生动物！",
+    difficulty: 3,
+    gradeRange: [7, 12],
+    skillLevel: "advanced",
+    starterCode: `# 🐾 Pet vs Wild Classifier
+# Using simple feature extraction (CNN concept)
+
+animals = [
+    {"name": "dog", "size": 50, "domesticated": 1, "teeth": 0.3, "cute": 0.9},
+    {"name": "cat", "size": 10, "domesticated": 1, "teeth": 0.2, "cute": 0.95},
+    {"name": "hamster", "size": 0.3, "domesticated": 1, "teeth": 0.1, "cute": 0.85},
+    {"name": "lion", "size": 200, "domesticated": 0, "teeth": 0.95, "cute": 0.3},
+    {"name": "wolf", "size": 60, "domesticated": 0, "teeth": 0.8, "cute": 0.4},
+    {"name": "bear", "size": 300, "domesticated": 0, "teeth": 0.9, "cute": 0.2},
+]
+
+# TODO: Use features to classify as "pet" or "wild"
+# Which features are most predictive?`,
+    hint: "The 'domesticated' feature is the strongest signal! But try building a rule that works without it.",
+    solution: `animals = [
+    {"name": "dog", "size": 50, "domesticated": 1, "teeth": 0.3, "cute": 0.9},
+    {"name": "cat", "size": 10, "domesticated": 1, "teeth": 0.2, "cute": 0.95},
+    {"name": "hamster", "size": 0.3, "domesticated": 1, "teeth": 0.1, "cute": 0.85},
+    {"name": "lion", "size": 200, "domesticated": 0, "teeth": 0.95, "cute": 0.3},
+    {"name": "wolf", "size": 60, "domesticated": 0, "teeth": 0.8, "cute": 0.4},
+    {"name": "bear", "size": 300, "domesticated": 0, "teeth": 0.9, "cute": 0.2},
+]
+
+def classify(animal):
+    score = animal["cute"] * 2 - animal["teeth"] * 2 - animal["size"] / 200
+    return "🐾 Pet" if score > 0 else "🦁 Wild"
+
+for a in animals:
+    label = classify(a)
+    print(f"  {a['name']:8s} → {label}")
+
+# Test unknowns
+unknowns = [
+    {"name": "rabbit", "size": 3, "domesticated": 1, "teeth": 0.1, "cute": 0.9},
+    {"name": "tiger", "size": 250, "domesticated": 0, "teeth": 0.95, "cute": 0.25},
+]
+print("\\nUnknowns:")
+for a in unknowns:
+    print(f"  {a['name']:8s} → {classify(a)}")`,
+    tags: ["ai", "cnn", "classification"],
+    language: "python",
+    category: "AI & ML",
+    categoryZh: "AI 与机器学习",
+  },
+  {
+    id: "ai-proj-12",
+    title: "😊 Sentiment Dashboard",
+    titleZh: "情感分析仪表板",
+    description: "Analyze the sentiment of product reviews and create a summary dashboard!",
+    descriptionZh: "分析产品评论的情感并创建摘要仪表板！",
+    difficulty: 2,
+    gradeRange: [7, 12],
+    skillLevel: "intermediate",
+    starterCode: `# 😊 Sentiment Dashboard
+positive = {"good","great","love","amazing","excellent","wonderful","best","happy","enjoy","fun","perfect"}
+negative = {"bad","terrible","hate","awful","worst","horrible","boring","poor","waste","useless","disappointing"}
+
+reviews = [
+    "This product is amazing! Best purchase ever!",
+    "Terrible quality. Waste of money.",
+    "Pretty good but could be better.",
+    "I love it! Perfect for my needs!",
+    "Horrible experience. Would not recommend.",
+    "Great value, excellent quality!",
+    "Not bad, but not great either.",
+    "Absolutely wonderful! So happy!",
+]
+
+# TODO: Analyze each review
+# TODO: Create a dashboard showing:
+# - Overall sentiment distribution
+# - Average sentiment score
+# - Most positive and most negative review`,
+    hint: "Count positive and negative words in each review, calculate a score from 0 to 1",
+    solution: `positive = {"good","great","love","amazing","excellent","wonderful","best","happy","enjoy","fun","perfect"}
+negative = {"bad","terrible","hate","awful","worst","horrible","boring","poor","waste","useless","disappointing"}
+
+reviews = [
+    "This product is amazing! Best purchase ever!",
+    "Terrible quality. Waste of money.",
+    "Pretty good but could be better.",
+    "I love it! Perfect for my needs!",
+    "Horrible experience. Would not recommend.",
+    "Great value, excellent quality!",
+    "Not bad, but not great either.",
+    "Absolutely wonderful! So happy!",
+]
+
+results = []
+for r in reviews:
+    words = [w.strip(".,!?").lower() for w in r.split()]
+    pos = sum(1 for w in words if w in positive)
+    neg = sum(1 for w in words if w in negative)
+    total = pos + neg
+    score = pos / total if total > 0 else 0.5
+    label = "😊" if score > 0.6 else "😞" if score < 0.4 else "😐"
+    results.append((score, label, r))
+    print(f"  {label} {score:.0%} | {r[:45]}...")
+
+print(f"\\n📊 Dashboard:")
+avg = sum(r[0] for r in results) / len(results)
+pos_count = sum(1 for r in results if r[0] > 0.6)
+neg_count = sum(1 for r in results if r[0] < 0.4)
+print(f"  Average: {avg:.0%}")
+print(f"  😊 Positive: {pos_count} | 😞 Negative: {neg_count} | 😐 Neutral: {len(results)-pos_count-neg_count}")`,
+    tags: ["ai", "nlp", "sentiment"],
+    language: "python",
+    category: "AI & ML",
+    categoryZh: "AI 与机器学习",
+  },
+  {
+    id: "ai-proj-13",
+    title: "💬 Mini ChatBot",
+    titleZh: "迷你聊天机器人",
+    description: "Build a chatbot that can respond to greetings, questions, and remember your name!",
+    descriptionZh: "构建一个可以回应问候、问题并记住你名字的聊天机器人！",
+    difficulty: 2,
+    gradeRange: [7, 12],
+    skillLevel: "intermediate",
+    starterCode: `# 💬 Mini ChatBot
+import random
+
+class ChatBot:
+    def __init__(self):
+        self.name = "Buddy"
+        self.user_name = None
+        # TODO: Add more response patterns
+        self.patterns = [
+            (["hello", "hi"], ["Hey!", "Hello!"]),
+            (["bye"], ["Goodbye!", "See ya!"]),
+        ]
+    
+    def respond(self, message):
+        msg = message.lower()
+        # TODO: Check for name introduction
+        # TODO: Match patterns
+        # TODO: Handle unknown messages
+        return "I don't understand yet!"
+
+bot = ChatBot()
+for msg in ["Hello!", "My name is Alex", "What's your name?", "Tell me a joke", "Bye!"]:
+    print(f"You: {msg}")
+    print(f"🤖: {bot.respond(msg)}")
+    print()`,
+    hint: "Check for 'my name is' to extract and save the user's name. Add more pattern tuples!",
+    solution: `import random
+
+class ChatBot:
+    def __init__(self):
+        self.name = "Buddy"
+        self.user_name = None
+        self.patterns = [
+            (["hello","hi","hey"], ["Hey! 👋","Hello!","Hi there!"]),
+            (["bye","goodbye"], ["Bye! 👋","See ya!"]),
+            (["your name"], [f"I'm Buddy! 🤖"]),
+            (["joke"], ["Why did AI go to school? To improve its neural network! 😂"]),
+            (["help"], ["I can chat, remember names, and tell jokes!"]),
+        ]
+    
+    def respond(self, message):
+        msg = message.lower()
+        if "my name is" in msg:
+            self.user_name = message.split("is")[-1].strip().split()[0]
+            return f"Nice to meet you, {self.user_name}! 🎉"
+        for keywords, responses in self.patterns:
+            if any(k in msg for k in keywords):
+                r = random.choice(responses)
+                if self.user_name: r = r.replace("there", self.user_name)
+                return r
+        return random.choice(["Tell me more!","Interesting!","What else?"])
+
+bot = ChatBot()
+for msg in ["Hello!","My name is Alex","What's your name?","Tell me a joke","Bye!"]:
+    print(f"You: {msg}")
+    print(f"🤖: {bot.respond(msg)}\\n")`,
+    tags: ["ai", "nlp", "chatbot"],
+    language: "python",
+    category: "AI & ML",
+    categoryZh: "AI 与机器学习",
+  },
+  {
+    id: "ai-proj-14",
+    title: "🐍 AI Snake (RL Concept)",
+    titleZh: "AI 贪吃蛇",
+    description: "Train a simple AI agent using Q-learning to navigate a grid and collect food!",
+    descriptionZh: "用 Q-learning 训练简单 AI 智能体在网格中导航并收集食物！",
+    difficulty: 3,
+    gradeRange: [7, 12],
+    skillLevel: "advanced",
+    starterCode: `# 🐍 AI Snake — Q-Learning Grid Agent
+import random
+random.seed(42)
+
+SIZE = 4
+GOAL = (3, 3)
+TRAPS = [(1, 1), (2, 2)]
+
+def reset():
+    return (0, 0)
+
+def step(pos, action):
+    r, c = pos
+    if action == 0 and r > 0: r -= 1
+    elif action == 1 and c < SIZE-1: c += 1
+    elif action == 2 and r < SIZE-1: r += 1
+    elif action == 3 and c > 0: c -= 1
+    pos = (r, c)
+    if pos == GOAL: return pos, 10, True
+    if pos in TRAPS: return pos, -5, True
+    return pos, -0.1, False
+
+# TODO: Implement Q-learning
+# Q-table: dict of {state: {action: value}}
+# For each episode: choose action, take step, update Q-value`,
+    hint: "Q(s,a) = Q(s,a) + lr * (reward + discount * max(Q(s',a')) - Q(s,a))",
+    solution: `import random
+random.seed(42)
+
+SIZE = 4
+GOAL = (3, 3)
+TRAPS = [(1, 1), (2, 2)]
+
+def step(pos, action):
+    r, c = pos
+    if action == 0 and r > 0: r -= 1
+    elif action == 1 and c < SIZE-1: c += 1
+    elif action == 2 and r < SIZE-1: r += 1
+    elif action == 3 and c > 0: c -= 1
+    pos = (r, c)
+    if pos == GOAL: return pos, 10, True
+    if pos in TRAPS: return pos, -5, True
+    return pos, -0.1, False
+
+Q = {}
+def get_q(s, a): return Q.get(s, {}).get(a, 0)
+
+lr, discount, eps = 0.2, 0.9, 0.3
+wins = 0
+for ep in range(300):
+    s = (0, 0)
+    for _ in range(30):
+        if random.random() < eps:
+            a = random.randint(0, 3)
+        else:
+            a = max(range(4), key=lambda a: get_q(s, a))
+        ns, r, done = step(s, a)
+        best_next = max(get_q(ns, a2) for a2 in range(4))
+        if s not in Q: Q[s] = {}
+        Q[s][a] = get_q(s,a) + lr * (r + (0 if done else discount*best_next) - get_q(s,a))
+        s = ns
+        if done:
+            if r > 0: wins += 1
+            break
+    if ep % 50 == 49: eps *= 0.5
+
+print(f"🐍 Win rate: {wins}/300 = {wins/300:.1%}")
+arrows = {0:"↑",1:"→",2:"↓",3:"←"}
+for r in range(SIZE):
+    row = ""
+    for c in range(SIZE):
+        p = (r,c)
+        if p == GOAL: row += "🏆 "
+        elif p in TRAPS: row += "💀 "
+        elif p in Q: row += arrows[max(range(4),key=lambda a:get_q(p,a))] + "  "
+        else: row += ".  "
+    print(f"  {row}")`,
+    tags: ["ai", "reinforcement-learning", "game"],
+    language: "python",
+    category: "AI & ML",
+    categoryZh: "AI 与机器学习",
+  },
+  {
+    id: "ai-proj-15",
+    title: "🖼️ Style Transfer Lite",
+    titleZh: "风格迁移简化版",
+    description: "Apply text-based style transfer — transform content with different writing styles!",
+    descriptionZh: "应用文本风格迁移——用不同的写作风格转换内容！",
+    difficulty: 1,
+    gradeRange: [7, 12],
+    skillLevel: "intermediate",
+    starterCode: `# 🖼️ Text Style Transfer
+content = "The quick brown fox jumps over the lazy dog."
+
+styles = {
+    "Pirate": {"the": "th'", "jumps": "leaps, arrr,", "over": "o'er"},
+    "Shakespeare": {"the": "ye", "quick": "fleet-footed", "lazy": "slothful"},
+    "Emoji": {"fox": "🦊 fox", "dog": "🐕 dog", "jumps": "jumps 🦘"},
+}
+
+# TODO: Apply each style to the content
+# TODO: Add your own custom style!`,
+    hint: "Loop through each style's replacements and apply them to the content string",
+    solution: `content = "The quick brown fox jumps over the lazy dog."
+
+styles = {
+    "Pirate": {"the": "th'", "jumps": "leaps, arrr,", "over": "o'er", "lazy": "scurvy"},
+    "Shakespeare": {"the": "ye", "quick": "fleet-footed", "lazy": "slothful", "brown": "tawny"},
+    "Emoji": {"fox": "🦊 fox", "dog": "🐕 dog", "jumps": "jumps 🦘", "quick": "quick ⚡"},
+    "Robot": {"the": "THE", "fox": "FOX-UNIT", "dog": "DOG-UNIT", "jumps": "EXECUTES-JUMP"},
+}
+
+for name, reps in styles.items():
+    result = content.lower()
+    for old, new in reps.items():
+        result = result.replace(old, new)
+    print(f"  {name:12s}: {result}")`,
+    tags: ["ai", "generative", "creative"],
+    language: "python",
+    category: "AI & ML",
+    categoryZh: "AI 与机器学习",
+  },
+  {
+    id: "ai-proj-16",
+    title: "📰 Fake News Detector",
+    titleZh: "假新闻检测器",
+    description: "Build a simple fake news detector using keyword analysis and credibility scoring!",
+    descriptionZh: "用关键词分析和可信度评分构建简单假新闻检测器！",
+    difficulty: 2,
+    gradeRange: [7, 12],
+    skillLevel: "intermediate",
+    starterCode: `# 📰 Fake News Detector
+suspicious_words = {"shocking", "unbelievable", "secret", "they don't want you to know",
+                    "miracle", "conspiracy", "exposed", "banned", "hoax"}
+credible_words = {"study", "research", "according to", "scientists", "data", "evidence",
+                  "peer-reviewed", "university", "published"}
+
+headlines = [
+    "Scientists publish peer-reviewed study on climate data",
+    "SHOCKING secret miracle cure they don't want you to know!",
+    "University research finds new evidence for vaccine safety",
+    "Unbelievable conspiracy exposed! Government hoax banned!",
+    "New study data shows positive results according to researchers",
+]
+
+# TODO: Score each headline
+# TODO: Flag as "likely fake" or "likely credible"`,
+    hint: "Count suspicious and credible words, compute a ratio to determine credibility",
+    solution: `suspicious = {"shocking","unbelievable","secret","miracle","conspiracy","exposed","banned","hoax"}
+credible = {"study","research","scientists","data","evidence","peer-reviewed","university","published"}
+
+headlines = [
+    "Scientists publish peer-reviewed study on climate data",
+    "SHOCKING secret miracle cure they don't want you to know!",
+    "University research finds new evidence for vaccine safety",
+    "Unbelievable conspiracy exposed! Government hoax banned!",
+    "New study data shows positive results according to researchers",
+]
+
+print("📰 Fake News Detector\\n")
+for h in headlines:
+    words = set(h.lower().split())
+    sus = len(words & suspicious)
+    cred = len(words & credible)
+    total = sus + cred
+    score = cred / total if total > 0 else 0.5
+    label = "✅ Credible" if score > 0.5 else "🚩 Suspicious" if score < 0.5 else "🤔 Unclear"
+    print(f"  {label} ({score:.0%}) - {h[:50]}...")`,
+    tags: ["ai", "nlp", "classification"],
+    language: "python",
+    category: "AI & ML",
+    categoryZh: "AI 与机器学习",
+  },
+  {
+    id: "ai-proj-17",
+    title: "🎵 Music Generator",
+    titleZh: "音乐生成器",
+    description: "Generate simple melodies using pattern-based note sequences and probability!",
+    descriptionZh: "用基于模式的音符序列和概率生成简单旋律！",
+    difficulty: 2,
+    gradeRange: [7, 12],
+    skillLevel: "intermediate",
+    starterCode: `# 🎵 Music Generator (Markov Chain)
+import random
+random.seed(42)
+
+# Musical notes and transition probabilities
+notes = ["C", "D", "E", "F", "G", "A", "B"]
+
+# Which note tends to follow which?
+transitions = {
+    "C": ["D", "E", "G"],
+    "D": ["C", "E", "F"],
+    "E": ["D", "F", "G"],
+    "F": ["E", "G", "A"],
+    "G": ["A", "C", "E"],
+    "A": ["G", "B", "F"],
+    "B": ["A", "C", "G"],
+}
+
+# TODO: Generate a melody of 16 notes
+# Start from "C", pick random next note from transitions
+# TODO: Display as text music notation`,
+    hint: "Start with 'C', then for each step pick a random note from transitions[current_note]",
+    solution: `import random
+random.seed(42)
+
+transitions = {
+    "C": ["D","E","G"], "D": ["C","E","F"],
+    "E": ["D","F","G"], "F": ["E","G","A"],
+    "G": ["A","C","E"], "A": ["G","B","F"],
+    "B": ["A","C","G"],
+}
+
+note_symbols = {"C":"♩","D":"♪","E":"♫","F":"♬","G":"♩","A":"♪","B":"♫"}
+
+melody = ["C"]
+for _ in range(15):
+    next_note = random.choice(transitions[melody[-1]])
+    melody.append(next_note)
+
+print("🎵 Generated Melody:")
+print("  " + " ".join(melody))
+print("  " + " ".join(note_symbols.get(n,"♩") for n in melody))
+
+# Show as simple sheet
+height = {"C":0,"D":1,"E":2,"F":3,"G":4,"A":5,"B":6}
+for level in range(6, -1, -1):
+    line = "  "
+    for n in melody:
+        line += "●─" if height[n] == level else "──"
+    note_at = [n for n in ["C","D","E","F","G","A","B"] if height[n]==level][0]
+    print(f"{note_at} {line}")`,
+    tags: ["ai", "generative", "creative"],
+    language: "python",
+    category: "AI & ML",
+    categoryZh: "AI 与机器学习",
+  },
+  {
+    id: "ai-proj-18",
+    title: "👤 Face Landmark Detector",
+    titleZh: "面部特征检测器",
+    description: "Simulate face landmark detection by identifying feature positions in a grid representation!",
+    descriptionZh: "通过在网格表示中识别特征位置来模拟面部特征检测！",
+    difficulty: 2,
+    gradeRange: [7, 12],
+    skillLevel: "intermediate",
+    starterCode: `# 👤 Face Landmark Detector (Simplified)
+# Detect eyes, nose, mouth in a 7x7 pixel face
+
+face = [
+    [0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 1, 0, 1, 0, 0],  # eyes
+    [0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 1, 0, 0, 0],  # nose
+    [0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 1, 1, 1, 0, 0],  # mouth
+    [0, 0, 0, 0, 0, 0, 0],
+]
+
+# TODO: Detect landmarks by scanning for pixel patterns
+# Eyes: two 1s in the same row with a gap
+# Nose: single 1 in center
+# Mouth: three or more 1s in a row`,
+    hint: "Loop through each row. Count 1s and check their positions to identify each feature.",
+    solution: `face = [
+    [0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 1, 0, 1, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 1, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 1, 1, 1, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0],
+]
+
+print("👤 Face:")
+for row in face:
+    print("  " + "".join("██" if x else "  " for x in row))
+
+print("\\n🔍 Landmarks Found:")
+for r, row in enumerate(face):
+    ones = [c for c, v in enumerate(row) if v == 1]
+    if len(ones) == 2 and abs(ones[1] - ones[0]) > 1:
+        print(f"  👁️ Eyes at row {r}, cols {ones}")
+    elif len(ones) == 1 and ones[0] == 3:
+        print(f"  👃 Nose at row {r}, col {ones[0]}")
+    elif len(ones) >= 3:
+        print(f"  👄 Mouth at row {r}, cols {ones}")`,
+    tags: ["ai", "computer-vision", "detection"],
+    language: "python",
+    category: "AI & ML",
+    categoryZh: "AI 与机器学习",
+  },
 ];

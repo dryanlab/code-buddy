@@ -10,6 +10,7 @@ import { getUser, getSessionUser, ensureProfile } from "@/lib/auth-store";
 import { isSupabaseConfigured } from "@/lib/supabase";
 import { loadSkillLevelFromProfile } from "@/lib/skill-store";
 import { isPreviewMode } from "@/lib/preview-mode";
+import Tutorial from "@/components/Tutorial";
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   const router = useRouter();
@@ -18,6 +19,14 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 
   const [preview, setPreview] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [tutorialVisible, setTutorialVisible] = useState(false);
+
+  // Auto-start tutorial on first visit
+  useEffect(() => {
+    if (ready && !localStorage.getItem("code-buddy-tutorial-done")) {
+      setTimeout(() => setTutorialVisible(true), 600);
+    }
+  }, [ready]);
 
   useEffect(() => {
     async function check() {
@@ -79,8 +88,13 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
     <div className="min-h-[100dvh]" style={{ backgroundColor: "var(--theme-bg)", color: "var(--theme-text-primary)" }}>
       {preview && <PreviewBanner />}
       <Header onToggleSidebar={() => setSidebarOpen(o => !o)} sidebarOpen={sidebarOpen} />
-      <Sidebar open={sidebarOpen} setOpen={setSidebarOpen} />
+      <Sidebar open={sidebarOpen} setOpen={setSidebarOpen} onStartTutorial={() => setTutorialVisible(true)} />
       <main className={`overflow-y-auto ${preview ? "pt-24" : "pt-14"}`}>{children}</main>
+      <Tutorial
+        visible={tutorialVisible}
+        onClose={() => setTutorialVisible(false)}
+        forceSidebarOpen={setSidebarOpen}
+      />
     </div>
   );
 }

@@ -7,7 +7,13 @@ export const metadata: Metadata = {
   title: "Code Buddy — Learn to Code Like a Pro 🐍",
   description: "Interactive Python programming for young coders. Learn coding, computer science, and AI!",
   manifest: "/manifest.json",
-  icons: { icon: "/favicon.ico" },
+  icons: {
+    icon: [
+      { url: "/favicon-32.png", sizes: "32x32", type: "image/png" },
+      { url: "/favicon-16.png", sizes: "16x16", type: "image/png" },
+    ],
+    apple: "/apple-touch-icon.png",
+  },
 };
 
 export const viewport: Viewport = {

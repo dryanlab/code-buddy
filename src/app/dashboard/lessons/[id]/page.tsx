@@ -293,11 +293,23 @@ export default function LessonPage() {
     <div className="p-6 md:p-8 max-w-7xl mx-auto">
       {showCelebration && <Celebration />}
 
+      {/* Floating AI Buddy button */}
+      <Link
+        href={`/dashboard/ai-chat?from=${lessonId}`}
+        className="fixed bottom-6 right-6 z-50 flex items-center gap-2 px-4 py-3 rounded-full font-bold text-sm shadow-lg hover:scale-105 transition-transform"
+        style={{
+          background: "linear-gradient(135deg, #f59e0b, #ef4444)",
+          color: "#fff",
+        }}
+      >
+        🤖 Ask AI
+      </Link>
+
       {/* Floating DS Playground button */}
       {DS_PLAYGROUND_TAB[lessonId] && (
         <Link
           href={`/dashboard/data-structures#${DS_PLAYGROUND_TAB[lessonId]}`}
-          className="fixed bottom-6 right-6 z-50 flex items-center gap-2 px-4 py-3 rounded-full font-bold text-sm shadow-lg hover:scale-105 transition-transform"
+          className="fixed bottom-20 right-6 z-50 flex items-center gap-2 px-4 py-3 rounded-full font-bold text-sm shadow-lg hover:scale-105 transition-transform"
           style={{
             background: "linear-gradient(135deg, #8b5cf6, #06b6d4)",
             color: "#fff",

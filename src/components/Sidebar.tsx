@@ -1,5 +1,6 @@
 "use client";
 
+import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -10,24 +11,26 @@ import { isPreviewMode, PREVIEW_LOCKED_PATHS, exitPreviewMode } from "@/lib/prev
 import SignUpModal from "@/components/SignUpModal";
 
 const NAV_ITEMS = [
-  { href: "/dashboard", icon: "🏠", label: "Dashboard", labelCn: "主页" },
-  { href: "/dashboard/courses", icon: "🗺️", label: "Course Map", labelCn: "课程地图" },
-  { href: "/dashboard/lessons", icon: "📚", label: "Lessons", labelCn: "课程" },
-  { href: "/dashboard/code-lab", icon: "💻", label: "Code Lab", labelCn: "代码实验室" },
-  { href: "/dashboard/ai-chat", icon: "🤖", label: "AI Buddy", labelCn: "AI 助手" },
-  { href: "/dashboard/explore", icon: "🔬", label: "Explore CS", labelCn: "计算机探秘" },
-  { href: "/dashboard/data-structures", icon: "🎮", label: "DS Playground", labelCn: "数据结构实验室" },
-  { href: "/dashboard/progress", icon: "📊", label: "My Progress", labelCn: "我的进度" },
-  { href: "/dashboard/shop", icon: "🏪", label: "Reward Shop", labelCn: "奖励商店" },
-  { href: "/dashboard/settings", icon: "⚙️", label: "Settings", labelCn: "设置" },
+  { href: "/dashboard", icon: "🏠", label: "Dashboard", labelCn: "主页", tutorialId: "" },
+  { href: "/dashboard/courses", icon: "🗺️", label: "Course Map", labelCn: "课程地图", tutorialId: "course-map" },
+  { href: "/dashboard/lessons", icon: "📚", label: "Lessons", labelCn: "课程", tutorialId: "lessons" },
+  { href: "/dashboard/code-lab", icon: "💻", label: "Code Lab", labelCn: "代码实验室", tutorialId: "code-lab" },
+  { href: "/dashboard/ai-chat", icon: "🤖", label: "AI Buddy", labelCn: "AI 助手", tutorialId: "ai-buddy" },
+  { href: "/dashboard/explore", icon: "🔬", label: "Explore CS", labelCn: "计算机探秘", tutorialId: "explore-cs" },
+  { href: "/dashboard/legendaries", icon: "📜", label: "Legendaries", labelCn: "传奇", tutorialId: "" },
+  { href: "/dashboard/data-structures", icon: "🎮", label: "DS Playground", labelCn: "数据结构实验室", tutorialId: "ds-playground" },
+  { href: "/dashboard/progress", icon: "📊", label: "My Progress", labelCn: "我的进度", tutorialId: "" },
+  { href: "/dashboard/shop", icon: "🏪", label: "Reward Shop", labelCn: "奖励商店", tutorialId: "" },
+  { href: "/dashboard/settings", icon: "⚙️", label: "Settings", labelCn: "设置", tutorialId: "" },
 ];
 
 interface SidebarProps {
   open: boolean;
   setOpen: (open: boolean) => void;
+  onStartTutorial?: () => void;
 }
 
-export default function Sidebar({ open, setOpen }: SidebarProps) {
+export default function Sidebar({ open, setOpen, onStartTutorial }: SidebarProps) {
   const pathname = usePathname();
   const [user, setUser] = useState<UserProfile | null>(null);
   const [preview, setPreview] = useState(false);
@@ -80,7 +83,30 @@ export default function Sidebar({ open, setOpen }: SidebarProps) {
 
         {/* Nav */}
         <nav className="flex-1 px-3 py-4 space-y-1 overflow-y-auto">
-          {NAV_ITEMS.map((item) => {
+          {NAV_ITEMS.map((item, idx) => {
+            // Insert Tutorial button before Settings (last item)
+            const tutorialButton = idx === NAV_ITEMS.length - 1 ? (
+              <button
+                key="tutorial-btn"
+                onClick={() => {
+                  setOpen(false);
+                  onStartTutorial?.();
+                }}
+                className="w-full text-left"
+              >
+                <motion.div
+                  whileHover={{ x: 4 }}
+                  className="flex items-center gap-3 px-4 py-3 rounded-lg transition-colors"
+                  style={{ color: theme.colors.textSecondary }}
+                >
+                  <span className="text-xl">📖</span>
+                  <div className="flex flex-col">
+                    <span className="text-sm font-medium">Tutorial</span>
+                    <span className="text-[10px]" style={{ color: theme.colors.textMuted }}>教程</span>
+                  </div>
+                </motion.div>
+              </button>
+            ) : null;
             const isActive = pathname === item.href || 
               (item.href !== "/dashboard" && pathname.startsWith(item.href));
             const isLocked = preview && PREVIEW_LOCKED_PATHS.includes(item.href);
@@ -88,6 +114,7 @@ export default function Sidebar({ open, setOpen }: SidebarProps) {
             const content = (
               <motion.div
                 whileHover={isLocked ? {} : { x: 4 }}
+                {...(item.tutorialId ? { "data-tutorial": item.tutorialId } : {})}
                 className="flex items-center gap-3 px-4 py-3 rounded-lg transition-colors"
                 style={{
                   backgroundColor: isActive ? `${theme.colors.primary}18` : "transparent",
@@ -106,16 +133,22 @@ export default function Sidebar({ open, setOpen }: SidebarProps) {
 
             if (isLocked) {
               return (
-                <button key={item.href} onClick={() => setShowSignUpModal(true)} className="w-full text-left">
-                  {content}
-                </button>
+                <React.Fragment key={item.href}>
+                  {tutorialButton}
+                  <button onClick={() => setShowSignUpModal(true)} className="w-full text-left">
+                    {content}
+                  </button>
+                </React.Fragment>
               );
             }
 
             return (
-              <Link key={item.href} href={item.href}>
-                {content}
-              </Link>
+              <React.Fragment key={item.href}>
+                {tutorialButton}
+                <Link href={item.href}>
+                  {content}
+                </Link>
+              </React.Fragment>
             );
           })}
         </nav>
