@@ -424,6 +424,7 @@ function CourseTrackCards({ progress }: { progress: UserProgress }) {
     : id === "cpp" ? "/dashboard/lessons?track=cpp"
     : id === "data-structures" ? "/dashboard/lessons?track=ds"
     : id === "algorithms" ? "/dashboard/lessons?track=alg"
+    : id === "ai-ml" ? "/dashboard/lessons?track=ai"
     : "/dashboard/courses";
 
   const pythonTotal = LESSONS.length;
