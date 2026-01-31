@@ -17,7 +17,7 @@ const NAV_ITEMS = [
   { href: "/dashboard/code-lab", icon: "💻", label: "Code Lab", labelCn: "代码实验室", tutorialId: "code-lab" },
   { href: "/dashboard/ai-chat", icon: "🤖", label: "AI Buddy", labelCn: "AI 助手", tutorialId: "ai-buddy" },
   { href: "/dashboard/explore", icon: "🔬", label: "Explore CS", labelCn: "计算机探秘", tutorialId: "explore-cs" },
-  { href: "/dashboard/legendaries", icon: "📜", label: "Legendaries", labelCn: "传奇", tutorialId: "" },
+  { href: "/dashboard/legends", icon: "📜", label: "Legends", labelCn: "传奇", tutorialId: "" },
   { href: "/dashboard/data-structures", icon: "🎮", label: "DS Playground", labelCn: "数据结构实验室", tutorialId: "ds-playground" },
   { href: "/dashboard/progress", icon: "📊", label: "My Progress", labelCn: "我的进度", tutorialId: "" },
   { href: "/dashboard/shop", icon: "🏪", label: "Reward Shop", labelCn: "奖励商店", tutorialId: "" },

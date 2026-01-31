@@ -1,4 +1,4 @@
-// CS/CE Legendaries — 传奇：计算机科学与工程的传奇故事
+// CS/CE Legends — 传奇：计算机科学与工程的传奇故事
 // Fun stories about the history, people, and milestones of computing
 
 export interface Chronicle {

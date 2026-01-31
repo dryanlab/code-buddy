@@ -345,7 +345,7 @@ function TimelineBar({ stories, onSelect }: { stories: Chronicle[]; onSelect: (s
   );
 }
 
-export default function LegendariesPage() {
+export default function LegendsPage() {
   const [selected, setSelected] = useState<Chronicle | null>(null);
   const [filter, setFilter] = useState<string>("all");
   const [search, setSearch] = useState("");
@@ -374,7 +374,7 @@ export default function LegendariesPage() {
       <div className="mb-4 flex items-start justify-between">
         <div>
           <h1 className="text-2xl font-bold flex items-center gap-2">
-            📜 <span>Legendaries</span>
+            📜 <span>Legends</span>
           </h1>
           <p className="text-xs mt-1" style={{ color: "var(--theme-text-secondary)" }}>
             Computer Science & Engineering 传奇 — Epic stories of computing history, legends, and the future
