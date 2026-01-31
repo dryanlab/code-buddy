@@ -79,7 +79,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   if (!ready) {
     return (
       <div className="min-h-screen flex items-center justify-center" style={{ backgroundColor: "var(--theme-bg)" }}>
-        <div className="text-4xl animate-pulse">🐍</div>
+        <img src="/logo.png" alt="Loading..." className="w-12 h-12 animate-pulse" />
       </div>
     );
   }

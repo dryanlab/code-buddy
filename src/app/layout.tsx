@@ -4,7 +4,7 @@ import { ThemeProvider } from "@/lib/theme-context";
 import ThemeChooserModal from "@/components/ThemeChooserModal";
 
 export const metadata: Metadata = {
-  title: "Code Buddy — Learn to Code Like a Pro 🐍",
+  title: "Code Buddy — Learn to Code Like a Pro 🛡️",
   description: "Interactive Python programming for young coders. Learn coding, computer science, and AI!",
   manifest: "/manifest.json",
   icons: {

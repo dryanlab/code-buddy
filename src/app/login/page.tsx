@@ -54,7 +54,7 @@ export default function LoginPage() {
       >
         {/* Logo */}
         <div className="text-center mb-8">
-          <div className="text-6xl mb-4">🐍</div>
+          <img src="/logo.png" alt="Code Buddy" className="w-20 h-20 mx-auto mb-4" />
           <h1 className="text-3xl font-bold" style={{ color: "var(--color-primary)" }}>
             Code Buddy
           </h1>

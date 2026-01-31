@@ -126,9 +126,9 @@ export default function LandingPage() {
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
           transition={{ type: "spring", duration: 0.8 }}
-          className="text-7xl mb-6"
+          className="mb-6"
         >
-          🐍
+          <img src="/logo.png" alt="Code Buddy" className="w-24 h-24 mx-auto" />
         </motion.div>
 
         <motion.h1

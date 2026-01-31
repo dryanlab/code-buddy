@@ -49,7 +49,7 @@ export async function loadPyodideEngine(
   }
 
   loadingPromise = (async () => {
-    onProgress?.("正在加载 Python 引擎... 🐍");
+    onProgress?.("正在加载 Python 引擎... ⚙️");
     // dynamically load pyodide from CDN
     const script = document.createElement("script");
     script.src = "https://cdn.jsdelivr.net/pyodide/v0.27.7/full/pyodide.js";
