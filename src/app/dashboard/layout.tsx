@@ -21,11 +21,27 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [tutorialVisible, setTutorialVisible] = useState(false);
 
-  // Auto-start tutorial on first visit
+  // Auto-start tutorial on first visit (check Supabase first, localStorage fallback)
   useEffect(() => {
-    if (ready && !localStorage.getItem("code-buddy-tutorial-done")) {
+    if (!ready) return;
+    if (localStorage.getItem("code-buddy-tutorial-done")) return;
+    // Check Supabase profile
+    (async () => {
+      try {
+        const supabase = (await import("@/lib/supabase")).getSupabase();
+        if (supabase) {
+          const { data: { session } } = await supabase.auth.getSession();
+          if (session?.user?.id) {
+            const { data } = await supabase.from("profiles").select("tutorial_done").eq("id", session.user.id).single();
+            if (data?.tutorial_done) {
+              localStorage.setItem("code-buddy-tutorial-done", "true");
+              return; // Already done, don't show
+            }
+          }
+        }
+      } catch { /* ignore */ }
       setTimeout(() => setTutorialVisible(true), 600);
-    }
+    })();
   }, [ready]);
 
   useEffect(() => {

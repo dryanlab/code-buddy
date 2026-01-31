@@ -93,8 +93,18 @@ export default function Tutorial({ visible, onClose, forceSidebarOpen }: Tutoria
   const isModal = !currentStep.target;
   const isSidebarStep = !!currentStep.target;
 
-  const finish = useCallback(() => {
+  const finish = useCallback(async () => {
     localStorage.setItem("code-buddy-tutorial-done", "true");
+    // Also persist to Supabase so it doesn't re-trigger on other devices
+    try {
+      const supabase = (await import("@/lib/supabase")).getSupabase();
+      if (supabase) {
+        const { data: { session } } = await supabase.auth.getSession();
+        if (session?.user?.id) {
+          await supabase.from("profiles").update({ tutorial_done: true }).eq("id", session.user.id);
+        }
+      }
+    } catch { /* ignore - localStorage is fallback */ }
     forceSidebarOpen(false);
     onClose();
   }, [onClose, forceSidebarOpen]);
