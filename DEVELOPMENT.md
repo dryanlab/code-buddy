@@ -546,6 +546,49 @@ DS 和 Algorithms 课程的 **所有练习和项目** 必须提供 Python 和 C+
 
 ---
 
+## ⚠️ 新增 Track/课程 Checklist (MANDATORY)
+
+> 🚨 **2026-01-30 深夜教训**: 加 AI-ML 课程时漏更新了 4 处硬编码映射，导致链接跳错页面、Python 代码被当 C++ 编译。
+> **这类 bug 反复出现是不可原谅的。** 以下 checklist 必须逐项执行。
+
+### 每次新增 Track 必须更新的文件（全部！）
+
+| # | 文件 | 要改什么 | 漏改后果 |
+|---|------|----------|----------|
+| 1 | `src/data/tracks.ts` | 添加 track 定义 | 课程不显示 |
+| 2 | `src/components/AdventureMap.tsx` | `trackTabMap` 添加映射 | 地图岛屿点击跳到 Python |
+| 3 | `src/app/dashboard/page.tsx` | `getHref()` 添加映射 | Dashboard 课程卡片跳到世界地图 |
+| 4 | `src/app/dashboard/lessons/page.tsx` | tab 数组 + `initialTrack` 类型 + `activeModules`/`activeLessons` | 课程列表无法切换到新 tab |
+| 5 | `src/app/dashboard/lessons/[id]/page.tsx` | `codeLang` 初始化逻辑 | 新课程可能继承错误的语言设置 |
+| 6 | `src/components/Sidebar.tsx` | 如有独立页面需添加导航项 | 侧边栏找不到入口 |
+
+### codeLang 初始化规则
+```
+cpp- 开头 → 强制 "cpp"
+ai- 开头  → 强制 "python"（AI课程只用Python）
+其他      → 读 localStorage，默认 "python"
+```
+> **规则**: 任何纯 Python 课程（无 C++ 版本）的 lessonId 前缀必须加入强制 Python 的判断，避免 localStorage 残留的 C++ 设置污染。
+
+### Wikimedia 图片 URL 验证规则
+
+> 🚨 **教训**: Wikimedia Commons 的 URL hash 路径（如 `/a/a4/`）经常猜错导致 404。
+
+1. **永远不要猜 Wikimedia URL 的 hash 路径**
+2. **必须从 Commons 文件页面获取真实 URL**（页面中显示 `upload.wikimedia.org/wikipedia/commons/X/XX/Filename`）
+3. **每张图片 `curl -sI` 验证 HTTP 200 后才能写入代码**
+4. **批量验证脚本**（部署前运行）：
+```bash
+grep -oh 'https://upload.wikimedia.org/[^"]*' src/data/chronicles*.ts | \
+while read url; do
+  code=$(curl -sI -o /dev/null -w "%{http_code}" "$url")
+  [ "$code" != "200" ] && echo "❌ $code $url"
+done
+```
+5. **`onError` handler 已有**（隐藏坏图），但不能依赖它——用户看不到图是 bug，不是 feature
+
+---
+
 ## 已知问题
 
 ### 🔴 严重
@@ -627,6 +670,18 @@ DS 和 Algorithms 课程的 **所有练习和项目** 必须提供 Python 和 C+
 #### 8. UI/路由要实际点击测试
 > 地图跳转链接指向了不存在的页面（`/dashboard/cpp-lessons` → 404）。
 > **教训**: 每个链接/按钮都要实际点击验证目标页面存在。
+
+#### 9. 新增 Track 必须全局搜索所有硬编码映射
+> 🚨 加 AI-ML track 时漏更新了 `trackTabMap`（地图）、`getHref`（Dashboard卡片）、`codeLang` 初始化（课程页）。
+> **教训**: 新增 track 必须按"新增 Track Checklist"逐项更新 6 个文件。用 `grep -rn` 搜索所有 track id 硬编码点。
+
+#### 10. Wikimedia 图片 URL 不能猜 hash
+> 50+ 张 Wikimedia 图片中有 6+ 张 URL hash 路径错误（如 `/5/53/` 应为 `/b/bb/`），直接 404。
+> **教训**: 必须从 Commons 文件页面获取真实 URL，`curl` 验证 200 后才写入。部署前跑批量验证脚本。
+
+#### 11. localStorage 状态泄漏到新课程
+> 用户在 DS/ALG 课切换到 C++ 后，localStorage 保存了 `codeLang=cpp`。打开 AI 课时继承了这个设置，Python 代码被当 C++ 编译。
+> **教训**: 每个 track 的语言设置必须显式初始化，不能盲目读取全局 localStorage。纯 Python track 必须强制覆盖。
 
 ### 今日架构改动
 
