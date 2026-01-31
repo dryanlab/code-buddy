@@ -337,6 +337,7 @@ Create your own hacker-style message! Try changing the text above to make it you
           hint: "Use characters like [ ] | _ / \\ - to build your robot body. Each print() is one line.\n用 [ ] | _ / \\ - 等字符画机器人。每个 print() 是一行。",
           solution: "print(\"  [o_o]  \")\nprint(\"  /| |\\\\  \")\nprint(\"   | |   \")\nprint(\"  _| |_  \")\nprint(\" |_____|  \")",
           expectedOutput: "  [o_o]  \n  /| |\\  \n   | |   \n  _| |_  \n |_____|  ",
+          expectedPattern: ".+\n.+\n.+\n.+\n.+",
         },
       },
       {
@@ -349,6 +350,7 @@ Create your own hacker-style message! Try changing the text above to make it you
           hint: "Use print(\"| Name: YourName      |\") to add lines inside the border.\n用 print(\"| Name: YourName      |\") 添加边框内的行。",
           solution: "print(\"+\" + \"-\"*20 + \"+\")\nprint(\"| Name: Python Coder |\")\nprint(\"| Title: Hacker      |\")\nprint(\"| Fun: I love code!  |\")\nprint(\"+\" + \"-\"*20 + \"+\")",
           expectedOutput: "+--------------------+\n| Name: Python Coder |\n| Title: Hacker      |\n| Fun: I love code!  |\n+--------------------+",
+          expectedPattern: "\\+[-]+\\+\n\\|.+\\|\n\\|.+\\|\n\\|.+\\|\n\\+[-]+\\+",
         },
       },
       {
@@ -482,6 +484,7 @@ print("Then they flew to Mars at " + adjective + " speed!")
           promptZh: "创建一个叫 'name' 的变量存你的名字，然后打印：Hello, [名字]!（用 + 拼接字符串）",
           starterCode: '# Store your name in a variable\nname = "Coder"\n# Print a greeting\n',
           expectedOutput: "Hello, Coder!",
+          expectedPattern: "Hello, .+!",
           hint: "Use + to join strings: print(\"Hello, \" + name + \"!\")",
           hintZh: "用 + 拼接字符串：print(\"Hello, \" + name + \"!\")",
           solution: 'name = "Coder"\nprint("Hello, " + name + "!")',
@@ -539,6 +542,7 @@ print("🎉 THE END! Hope you laughed! 🎉")
           hint: "Fill in the variables, then use: print(f\"Hi! I'm {name}, {age} years old. I love {hobby}!\")\n填好变量，然后用 f-string 打印",
           solution: "name = \"Alex\"\nage = 12\nhobby = \"coding\"\nprint(f\"Hi! I'm {name}, {age} years old. I love {hobby}!\")",
           expectedOutput: "Hi! I'm Alex, 12 years old. I love coding!",
+          expectedPattern: "Hi! I'm .+, \\d+ years old\\. I love .+!",
         },
       },
       {
