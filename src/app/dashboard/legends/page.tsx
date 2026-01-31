@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { CHRONICLES as BASE_CHRONICLES, CATEGORIES, type Chronicle } from "@/data/chronicles";
 import { EXTRA_CHRONICLES } from "@/data/chronicles-extra";
@@ -202,7 +202,7 @@ function StoryDetail({ story, onClose, lang }: { story: Chronicle; onClose: () =
         initial={{ scale: 0.9, y: 40 }}
         animate={{ scale: 1, y: 0 }}
         exit={{ scale: 0.9, y: 40 }}
-        className="relative w-full max-w-2xl max-h-[85vh] overflow-y-auto rounded-2xl p-6"
+        className="relative w-full max-w-2xl max-h-[85vh] overflow-y-auto overscroll-contain rounded-2xl p-6"
         style={{ backgroundColor: "var(--theme-bg)", border: "1px solid var(--theme-border)" }}
       >
         {/* Close button */}
@@ -348,6 +348,15 @@ function TimelineBar({ stories, onSelect }: { stories: Chronicle[]; onSelect: (s
 export default function LegendsPage() {
   const [selected, setSelected] = useState<Chronicle | null>(null);
   const [filter, setFilter] = useState<string>("all");
+
+  useEffect(() => {
+    if (selected) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => { document.body.style.overflow = ""; };
+  }, [selected]);
   const [search, setSearch] = useState("");
   const [lang, setLang] = useState<Lang>("both");
 
