@@ -67,7 +67,7 @@ function CodingChallenge({
     const result = simulateOutput(code);
     setOutput(result);
     const expected = (question.expectedOutput || "").trim();
-    const pattern = (question as Record<string,unknown>).expectedPattern as string | undefined;
+    const pattern = (question as unknown as Record<string,unknown>).expectedPattern as string | undefined;
     let correct: boolean;
     if (pattern) {
       // Flexible matching: each line in pattern is a regex

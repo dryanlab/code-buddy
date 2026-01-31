@@ -16,6 +16,7 @@ export interface QuizQuestion {
   prompt?: string;
   starterCode?: string;
   expectedOutput?: string;
+  expectedPattern?: string;
   hint?: string;
   // Common:
   explanation: string;
@@ -28,6 +29,7 @@ export interface CodeChallenge {
   hint: string;
   solution: string;
   expectedOutput?: string;
+  expectedPattern?: string;
 }
 
 export interface ParsonsBlock {
@@ -64,6 +66,7 @@ export interface InlineExercise {
   promptZh: string;
   starterCode: string;
   expectedOutput: string;
+  expectedPattern?: string;
   hint: string;
   hintZh: string;
   hints?: string[];
