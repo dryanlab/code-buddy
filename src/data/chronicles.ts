@@ -483,6 +483,8 @@ Brainfuck:  ++++++++++[>+++++++>++++++++++...
     readMinutes: 3,
     tags: ["web", "http", "fun"],
     emoji: "🔍",
+    image: "https://upload.wikimedia.org/wikipedia/commons/d/d1/First_Web_Server.jpg",
+    imageCaption: "The first web server at CERN — where HTTP (and 404) was born",
     content: `## The Most Famous Error on the Internet
 
 You've seen it: **404 Not Found**. But why "404"?
