@@ -624,7 +624,7 @@ C的后代包括：C++、Java、C#、JavaScript、Python、Go、Rust、Swift…�
     readMinutes: 3,
     tags: ["internet", "tcp-ip", "protocol"],
     emoji: "🌐",
-    image: "https://upload.wikimedia.org/wikipedia/commons/5/53/Vint_Cerf_-_2010.jpg",
+    image: "https://upload.wikimedia.org/wikipedia/commons/b/bb/Vint_Cerf_-_2010.jpg",
     imageCaption: "Vint Cerf, Father of the Internet",
     content: `## The Rules of the Internet
 
