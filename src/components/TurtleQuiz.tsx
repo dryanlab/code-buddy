@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useState, useCallback, useEffect, useRef } from "react";
 import type { LessonSection, QuizQuestion } from "@/data/lessons";
 import { nl2br } from "@/lib/nl2br";
+import { runCpp } from "@/lib/cpp-engine";
 
 // ═══ Turtle Progress Bar ═══
 function TurtleProgressBar({ position, total }: { position: number; total: number }) {
@@ -61,17 +62,17 @@ function CodingChallenge({
   const [showHint, setShowHint] = useState(false);
   const [checked, setChecked] = useState(false);
   const [isCorrect, setIsCorrect] = useState(false);
+  const [running, setRunning] = useState(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
-  const runCode = useCallback(() => {
-    // Simulate output for Python or C++ code
-    const result = simulateOutput(code);
+  const isCpp = code.includes("#include") || code.includes("cout") || code.includes("int main");
+
+  const checkResult = useCallback((result: string) => {
     setOutput(result);
     const expected = (question.expectedOutput || "").trim();
     const pattern = (question as unknown as Record<string,unknown>).expectedPattern as string | undefined;
     let correct: boolean;
     if (pattern) {
-      // Flexible matching: each line in pattern is a regex
       const patternLines = pattern.split("\n");
       const resultLines = result.trim().split("\n");
       correct = patternLines.length === resultLines.length &&
@@ -82,7 +83,31 @@ function CodingChallenge({
     setIsCorrect(correct);
     setChecked(true);
     onResult(correct);
-  }, [code, question.expectedOutput, onResult]);
+  }, [question.expectedOutput, onResult]);
+
+  const runCode = useCallback(async () => {
+    if (isCpp) {
+      setRunning(true);
+      try {
+        const res = await runCpp(code);
+        if (res.error || res.compileError) {
+          setOutput(`❌ ${res.compileError || res.error}`);
+          setChecked(true);
+          setIsCorrect(false);
+          onResult(false);
+        } else {
+          checkResult(res.output);
+        }
+      } catch {
+        // Fallback to simple simulator if API unavailable
+        checkResult(simulateOutput(code));
+      } finally {
+        setRunning(false);
+      }
+    } else {
+      checkResult(simulateOutput(code));
+    }
+  }, [code, isCpp, checkResult, onResult]);
 
   return (
     <div className="space-y-3">
@@ -107,10 +132,10 @@ function CodingChallenge({
       <div className="flex gap-2 flex-wrap">
         <button
           onClick={runCode}
-          disabled={!code.trim()}
+          disabled={!code.trim() || running}
           className="px-4 py-2 text-sm bg-green-500 text-black font-bold rounded-lg hover:bg-green-400 disabled:opacity-40 transition-colors"
         >
-          ▶️ Run Code · 运行代码
+          {running ? "⏳ Running..." : "▶️ Run Code · 运行代码"}
         </button>
         {question.hint && (
           <button
