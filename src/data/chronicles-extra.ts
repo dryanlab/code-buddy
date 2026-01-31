@@ -692,8 +692,8 @@ TCP/IP现在连接着50多亿人和300多亿台设备。你用过的每条消息
     readMinutes: 3,
     tags: ["algorithms", "tex", "legend"],
     emoji: "📖",
-    image: "https://upload.wikimedia.org/wikipedia/commons/4/4f/KnsuthAtOpenContentAlliance.jpg",
-    imageCaption: "Donald Knuth",
+    image: "https://upload.wikimedia.org/wikipedia/commons/8/8a/ArtOfComputerProgramming.svg",
+    imageCaption: "The Art of Computer Programming, Volume 1",
     content: `## The Professor Who Sends Checks for $2.56
 
 **Donald Knuth** (born 1938) is perhaps the most respected computer scientist alive. His magnum opus, *The Art of Computer Programming* (TAOCP), has been in progress since **1962** — and he's still writing it.
