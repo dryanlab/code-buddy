@@ -63,8 +63,8 @@ function CodingChallenge({
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const runCode = useCallback(() => {
-    // Simple Python output simulation for common patterns
-    const result = simulatePythonOutput(code);
+    // Simulate output for Python or C++ code
+    const result = simulateOutput(code);
     setOutput(result);
     const expected = (question.expectedOutput || "").trim();
     const correct = result.trim() === expected;
@@ -141,6 +141,62 @@ function CodingChallenge({
       )}
     </div>
   );
+}
+
+// Detect if code is C++ and route to appropriate simulator
+function simulateOutput(code: string): string {
+  if (code.includes("#include") || code.includes("cout") || code.includes("int main")) {
+    return simulateCppOutput(code);
+  }
+  return simulatePythonOutput(code);
+}
+
+// Simple C++ output simulator for quiz coding questions
+function simulateCppOutput(code: string): string {
+  const lines: string[] = [];
+  let currentLine = "";
+  const vars: Record<string, string | number> = {};
+
+  const codeLines = code.split("\n");
+  for (const line of codeLines) {
+    const trimmed = line.trim();
+    if (!trimmed || trimmed.startsWith("//") || trimmed.startsWith("#include") ||
+        trimmed === "using namespace std;" || trimmed === "int main() {" ||
+        trimmed === "return 0;" || trimmed === "}") continue;
+
+    // Variable assignment: int x = 5; or string s = "hello";
+    const varMatch = trimmed.match(/^(?:int|double|float|string|char|bool|auto|std::string)\s+(\w+)\s*=\s*(.+?)\s*;/);
+    if (varMatch) {
+      const [, name, val] = varMatch;
+      const strMatch = val.match(/^"(.*)"$/);
+      if (strMatch) vars[name] = strMatch[1];
+      else vars[name] = Number(val) || val;
+      continue;
+    }
+
+    // cout statement
+    const coutMatch = trimmed.match(/^(?:std::)?cout\s*<<\s*(.+?)\s*;/);
+    if (coutMatch) {
+      const parts = coutMatch[1].split("<<").map(p => p.trim());
+      for (const part of parts) {
+        if (part === "endl" || part === "\"\\n\"" || part === "'\\n'") {
+          lines.push(currentLine);
+          currentLine = "";
+        } else if (part.startsWith("\"") && part.endsWith("\"")) {
+          currentLine += part.slice(1, -1);
+        } else if (vars[part] !== undefined) {
+          currentLine += String(vars[part]);
+        } else if (!isNaN(Number(part))) {
+          currentLine += part;
+        } else {
+          currentLine += part;
+        }
+      }
+      continue;
+    }
+  }
+  if (currentLine) lines.push(currentLine);
+  return lines.join("\n");
 }
 
 // Simple Python output simulator
