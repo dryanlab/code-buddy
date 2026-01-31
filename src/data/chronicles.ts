@@ -1449,6 +1449,8 @@ Bardeen在UIUC度过了40年。**Bardeen Quad** 和多栋建筑以他的名字�
     readMinutes: 4,
     tags: ["uiuc", "illiac", "supercomputer", "plato", "mosaic", "ncsa"],
     emoji: "🖥️",
+    image: "https://upload.wikimedia.org/wikipedia/commons/f/f3/Donald_Betsy_Gillies_Illiac_I.jpg",
+    imageCaption: "Betsy and Donald Gillies with the ILLIAC I at UIUC, circa 1957",
     content: `## The Machines That Shaped Computing History
 
 While most people know Stanford and MIT for their computing contributions, the **University of Illinois at Urbana-Champaign (UIUC)** quietly built some of the most important computers in history — and launched the internet revolution along the way.
