@@ -1715,7 +1715,7 @@ for year in range(0, 60, 2):  # 1958 to 2018
     readMinutes: 3,
     tags: ["storage", "ibm", "comparison"],
     emoji: "💾",
-    image: "https://upload.wikimedia.org/wikipedia/commons/9/9a/IBM_350_RAMAC.jpg",
+    image: "https://upload.wikimedia.org/wikipedia/commons/b/b4/IBM_350_RAMAC.jpg",
     imageCaption: "IBM 305 RAMAC hard disk, 1956",
     content: `## Storage: Then and Now
 
