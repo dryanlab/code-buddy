@@ -394,7 +394,7 @@ for i in range(10)
     readMinutes: 3,
     tags: ["programming", "tradition", "fun"],
     emoji: "👋",
-    image: "https://upload.wikimedia.org/wikipedia/en/3/34/The_C_Programming_Language_cover.svg",
+    image: "https://upload.wikimedia.org/wikipedia/commons/0/0e/The_C_Programming_Language%2C_First_Edition_Cover.svg",
     imageCaption: "The C Programming Language by Kernighan & Ritchie",
     content: `## The Two Words Every Programmer Knows
 
@@ -632,7 +632,7 @@ import this
     readMinutes: 4,
     tags: ["bug", "history", "fun"],
     emoji: "💥",
-    image: "https://upload.wikimedia.org/wikipedia/commons/c/c7/Year_2000_bug.jpg",
+    image: "https://upload.wikimedia.org/wikipedia/commons/f/fb/Bug_de_l%27an_2000.jpg",
     imageCaption: "Y2K bug illustration",
     content: `## When Saving Memory Almost Ended Civilization
 

@@ -758,7 +758,7 @@ Knuth给任何在他书中发现错误的人**2.56美元**（一个"十六进制
     readMinutes: 3,
     tags: ["gaming", "graphics", "3d", "vr"],
     emoji: "🎮",
-    image: "https://upload.wikimedia.org/wikipedia/commons/d/dc/John_Carmack_at_GDCA_2017_--_cropped.jpg",
+    image: "https://upload.wikimedia.org/wikipedia/commons/2/2d/John_Carmack_2025.jpg",
     imageCaption: "John Carmack",
     content: `## The Programmer's Programmer
 
