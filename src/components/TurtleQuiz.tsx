@@ -67,7 +67,17 @@ function CodingChallenge({
     const result = simulateOutput(code);
     setOutput(result);
     const expected = (question.expectedOutput || "").trim();
-    const correct = result.trim() === expected;
+    const pattern = (question as Record<string,unknown>).expectedPattern as string | undefined;
+    let correct: boolean;
+    if (pattern) {
+      // Flexible matching: each line in pattern is a regex
+      const patternLines = pattern.split("\n");
+      const resultLines = result.trim().split("\n");
+      correct = patternLines.length === resultLines.length &&
+        patternLines.every((p, i) => new RegExp(`^${p}$`).test(resultLines[i]?.trim() || ""));
+    } else {
+      correct = result.trim() === expected;
+    }
     setIsCorrect(correct);
     setChecked(true);
     onResult(correct);

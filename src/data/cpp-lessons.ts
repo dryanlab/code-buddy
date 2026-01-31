@@ -313,17 +313,18 @@ int main() {
       emoji: "🎮",
       content: `# Try It! · 动手试试！
 
-Write a C++ program that prints **exactly** the following two lines:
+Write a C++ program that prints your name and your favorite food on separate lines.
 
+Your output should follow this format:
 \`\`\`
-My name is Alex
-My favorite food is pizza
+My name is [your name]
+My favorite food is [your food]
 \`\`\`
 
-⚠️ Your output must match exactly!`,
+For example: \`My name is Alice\` / \`My favorite food is ramen\``,
       exercise: {
-        prompt: "Print exactly: \"My name is Alex\" and \"My favorite food is pizza\" on separate lines",
-        promptZh: "打印两行：\"My name is Alex\" 和 \"My favorite food is pizza\"（必须完全匹配）",
+        prompt: "Print your name and favorite food! Format: \"My name is ___\" and \"My favorite food is ___\"",
+        promptZh: "打印你的名字和最爱的食物！格式：\"My name is ___\" 和 \"My favorite food is ___\"",
         starterCode: `#include <iostream>
 using namespace std;
 
@@ -335,6 +336,7 @@ int main() {
     return 0;
 }`,
         expectedOutput: "My name is Alex\nMy favorite food is pizza",
+        expectedPattern: "My name is .+\nMy favorite food is .+",
         hint: "Use cout << \"text\" << endl; for each line",
         hintZh: "每行使用 cout << \"文字\" << endl;",
         solution: `#include <iostream>
@@ -869,23 +871,23 @@ int main() {
       emoji: "🎮",
       content: `# Try It! · 动手试试！
 
-Declare variables of different types and print them. Use these **exact values**:
+Declare variables of different types and print them using **your own info**:
 
-- \`string name = "Alex"\`
-- \`int age = 16\`
-- \`double height = 1.75\`
-- \`bool likesCpp = true\`
+- A \`string\` for your name
+- An \`int\` for your age
+- A \`double\` for your height in meters
+- A \`bool\` for whether you like C++
 
-Your output should look **exactly** like this:
+Your output should follow this format:
 \`\`\`
-Name: Alex
-Age: 16
-Height: 1.75
-Likes C++: 1
+Name: [your name]
+Age: [your age]
+Height: [your height]
+Likes C++: [0 or 1]
 \`\`\``,
       exercise: {
-        prompt: "Declare and print 4 variables (use: name=\"Alex\", age=16, height=1.75, likesCpp=true). Output must match exactly!",
-        promptZh: "声明并打印4个变量（使用：name=\"Alex\", age=16, height=1.75, likesCpp=true）。输出必须完全匹配！",
+        prompt: "Declare and print 4 variables about yourself! Format: Name/Age/Height/Likes C++",
+        promptZh: "声明并打印4个关于你自己的变量！格式：Name/Age/Height/Likes C++",
         starterCode: `#include <iostream>
 #include <string>
 using namespace std;
@@ -900,6 +902,7 @@ int main() {
     return 0;
 }`,
         expectedOutput: "Name: Alex\nAge: 16\nHeight: 1.75\nLikes C++: 1",
+        expectedPattern: "Name: .+\nAge: \\d+\nHeight: [\\d.]+\nLikes C\\+\\+: [01]",
         hint: "Use int, double, string, and bool. Print with cout <<",
         hintZh: "使用 int, double, string 和 bool。用 cout << 打印",
         solution: `#include <iostream>
