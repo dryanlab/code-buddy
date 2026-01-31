@@ -53,8 +53,19 @@ export default function Header({ onToggleSidebar, sidebarOpen }: HeaderProps) {
         </span>
       </Link>
 
-      {/* Right: spacer for balance */}
-      <div className="w-20" />
+      {/* Right: Ask AI button */}
+      <div className="flex items-center">
+        <Link
+          href="/dashboard/ai-chat"
+          className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-bold transition-transform hover:scale-105"
+          style={{
+            background: "linear-gradient(135deg, #f59e0b, #ef4444)",
+            color: "#fff",
+          }}
+        >
+          🤖 Ask AI
+        </Link>
+      </div>
     </header>
   );
 }
